@@ -1,4 +1,4 @@
-name: Upload Python Package
+name: Upload paddle-billing-python-sdk Package to PyPi
 
 on:
   release:
@@ -20,6 +20,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install -e .
+          python -m pip install build
       - name: Build
         run: |
           python -m build
