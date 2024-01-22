@@ -1,8 +1,11 @@
 name: Upload paddle-billing-python-sdk Package to PyPi
 
 on:
-  release:
-    types: [created]
+#  release:
+#    types: [created]
+  push:
+    branches: [ main ]
+
 
 jobs:
   deploy:
