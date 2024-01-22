@@ -27,5 +27,18 @@ jobs:
       - name: Build
         run: |
           python -m build
-      - name: Publish
+      - name: Check if version has changed
+        id: check_version
+        run: |
+          LOCAL_VERSION=$(python setup.py --version)
+          PYPI_VERSION=$(pip index versions your-package-name | grep -oP "Latest version: \K.*")
+          if [ "$LOCAL_VERSION" != "$PYPI_VERSION" ]; then
+              echo "Version has changed. Current version: $LOCAL_VERSION"
+              echo "##[set-output name=should_publish;]true"
+          else
+              echo "Version has not changed. Skipping publish."
+              echo "##[set-output name=should_publish;]false"
+          fi
+      - name: Publish to PyPi
+        if: steps.check_version.outputs.should_publish == 'true'
         uses: pypa/gh-action-pypi-publish@release/v1
