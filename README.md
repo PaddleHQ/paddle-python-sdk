@@ -6,7 +6,7 @@
 
 
 # paddle-billing-python-sdk
-A limited Python wrapper for the new Paddle Billing SDK
+A *limited* Python wrapper for the new Paddle Billing SDK
 
 This project only contains the Paddle Billing components needed to satisfy another project of mine. Please feel free to contribute missing components. I may or may not add additional components myself over time, no promises. I am always open to PRs for bug fixes or new features.
 
@@ -17,23 +17,31 @@ This project only contains the Paddle Billing components needed to satisfy anoth
 
 
 ## Table of contents
+- [Requirements](#Requirements)
 - [Install](#Install)
 - [Usage](#Usage)
+- [Examples](#Examples)
 
+## Requirements
+Python 3.11 and later.
+
+**Project dependencies** (automatically installed by pip):
+- requests>=2.31
 
 
 ## Install
-`paddle-billing-python-sdk` is available on pypi.org. Simply run `pip install paddle-billing-python-sdk` to install it.
+Because `paddle-billing-python-sdk` is [available on PyPi](https://pypi.org/project/paddle-billing-python-sdk/), installation is as simple as running the following `pip` command: 
 
-Requirements: >= Python 3.11
-
-Project dependencies installed by pip:
-- requests>=2.31
+`pip install paddle-billing-python-sdk`
 
 
 
 ## Usage
 tbd
 
+
+
+## Examples
+There are examples included in the [examples folder]()
 
 
