@@ -24,12 +24,8 @@ setup(
     python_requires='>=3.11',  # Minimum version requirement of the package
     extras_require={
         'dev': [
-            'click>=8.0.0',
             'pytest>=7.0.0',
-            'requests>=2.31',
             'setuptools>=69.0.3',
-            'twine>=4.0.2',
-            'wheel>=0.42.0',
         ],
     },
 )
