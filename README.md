@@ -1,4 +1,3 @@
-[![Downloads](https://pepy.tech/badge/paddle-billing-python-sdk)](https://pepy.tech/project/paddle-billing-python-sdk)
 [![PyPI](https://img.shields.io/pypi/v/paddle-billing-python-sdk.svg)](https://pypi.python.org/pypi/paddle-billing-python-sdk)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/paddle-billing-python-sdk.svg)](https://pypi.python.org/pypi/paddle-billing-python-sdk/)
 
