@@ -1,0 +1,8 @@
+# Only needed by paddle-billing-python-sdk developers
+
+click>=8.1.7
+pytest>=7.4.4
+requests>=2.31
+setuptools>=69.0.3
+twine>=4.0.2
+wheel>=0.42.0
