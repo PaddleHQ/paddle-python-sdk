@@ -1,5 +1,8 @@
+[![Build Status](https://github.com/Invincibear/paddle-billing-python-sdk/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Invincibear/paddle-billing-python-sdk/actions/?query=branch%3Amain)
 [![PyPI](https://img.shields.io/pypi/v/paddle-billing-python-sdk.svg)](https://pypi.python.org/pypi/paddle-billing-python-sdk)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/paddle-billing-python-sdk.svg)](https://pypi.python.org/pypi/paddle-billing-python-sdk/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 
 
 # paddle-billing-python-sdk
