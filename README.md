@@ -25,7 +25,7 @@ This project only contains the Paddle Billing components needed to satisfy anoth
 Requirements: >= Python 3.11
 
 Project dependencies installed by pip:
-- requests
+- requests>=2.31
 
 
 

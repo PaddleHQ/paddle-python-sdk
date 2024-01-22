@@ -1,13 +1,17 @@
 from setuptools import setup, find_packages
 
+
+VERSION = '0.0.1'
+
+
 setup(
     name='paddle-billing-python-sdk',
-    version='0.0.1',  # Update this for new versions
+    version=VERSION,
     author='Corey Regan',
     author_email='regan.corey@gmail.com',
     description='A Python wrapper for the Paddle Billing API',
     long_description=open('README.md').read(),
-    long_description_content_type='text/markdown',  # If your README is in markdown
+    long_description_content_type='text/markdown',
     url='https://github.com/invincibear/paddle-billing-python-sdk',
     packages=find_packages(),
     install_requires=[
@@ -21,7 +25,7 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.11',
     ],
-    python_requires='>=3.11',  # Minimum version requirement of the package
+    python_requires='>=3.11',
     extras_require={
         'dev': [
             'pytest>=7.0.0',
