@@ -12,9 +12,7 @@ class ChargebackFee:
 
     @staticmethod
     def from_dict(data: dict) -> ChargebackFee:
-        original = Original.from_dict(data['original']) if 'original' in data else None
-
         return ChargebackFee(
             amount   = data['amount'],
-            original = original,
+            original = Original.from_dict(data['original']) if 'original' in data else None,
         )
