@@ -31,7 +31,7 @@ class Verifier:
 
         timestamp, signature = PaddleSignature.parse(signature_header)
         if self.maximum_variance > 0 and time() > int(timestamp + self.maximum_variance):
-            log.critical(f"Too much time has elapse between the request and this process")
+            log.critical(f"Too much time has elapsed between the request and this process")
             return False
 
         raw_body = request.body.decode('utf-8')
