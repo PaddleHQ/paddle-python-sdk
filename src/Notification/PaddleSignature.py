@@ -11,7 +11,7 @@ class PaddleSignature:
         """
 
 
-    @staticmethod
+    @property
     def HEADER(self):  # noqa N802
         return 'Paddle-Signature'
 
