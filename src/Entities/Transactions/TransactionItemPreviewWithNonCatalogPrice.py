@@ -12,8 +12,8 @@ class TransactionItemPreviewWithNonCatalogPrice:
     includeInTotals: bool | None
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> TransactionItemPreviewWithNonCatalogPrice:
+    @staticmethod
+    def from_dict(data: dict) -> TransactionItemPreviewWithNonCatalogPrice:
         return TransactionItemPreviewWithNonCatalogPrice(
             price           = data['price'],
             quantity        = data['quantity'],

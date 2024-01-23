@@ -21,8 +21,8 @@ class TransactionLineItem:
     product:    ProductWithIncludes
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> TransactionLineItem:
+    @staticmethod
+    def from_dict(data: dict) -> TransactionLineItem:
         return TransactionLineItem(
             id         = data['id'],
             priceId    = data['price_id'],

@@ -17,8 +17,8 @@ class TransactionAdjustmentsTotals:
     currencyCode: CurrencyCode
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> TransactionAdjustmentsTotals:
+    @staticmethod
+    def from_dict(data: dict) -> TransactionAdjustmentsTotals:
         return TransactionAdjustmentsTotals(
             subtotal     = data['subtotal'],
             tax          = data['tax'],

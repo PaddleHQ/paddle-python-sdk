@@ -9,8 +9,8 @@ class TransactionBreakdown:
     chargeback: str
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> TransactionBreakdown:
+    @staticmethod
+    def from_dict(data: dict) -> TransactionBreakdown:
         return TransactionBreakdown(
             credit     = data['credit'],
             refund     = data['refund'],

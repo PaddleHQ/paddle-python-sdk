@@ -14,8 +14,8 @@ class TransactionItem:
     proration: TransactionProration | None
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> TransactionItem:
+    @staticmethod
+    def from_dict(data: dict) -> TransactionItem:
         return TransactionItem(
             priceId   = data.get('price_id'),
             price     = Price.from_dict(data['price']),

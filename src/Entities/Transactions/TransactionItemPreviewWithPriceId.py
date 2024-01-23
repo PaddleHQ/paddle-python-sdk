@@ -9,8 +9,8 @@ class TransactionItemPreviewWithPriceId:
     includeInTotals: bool | None
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> TransactionItemPreviewWithPriceId:
+    @staticmethod
+    def from_dict(data: dict) -> TransactionItemPreviewWithPriceId:
         return TransactionItemPreviewWithPriceId(
             priceId         = data['price_id'],
             quantity        = data['quantity'],

@@ -20,8 +20,8 @@ class TransactionDetails:
     lineItems:            list[TransactionLineItem]
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> TransactionDetails:
+    @staticmethod
+    def from_dict(data: dict) -> TransactionDetails:
         return TransactionDetails(
             taxRatesUsed         = [TaxRatesUsed.from_dict(tax_rate_used) for tax_rate_used in data['tax_rates_used']],
             totals               = TransactionTotals.from_dict(data['totals']),
