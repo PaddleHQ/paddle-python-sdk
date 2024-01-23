@@ -8,9 +8,11 @@ from src.Entities.Shared.TaxMode           import TaxMode
 from src.Entities.Shared.TimePeriod        import TimePeriod
 from src.Entities.Shared.UnitPriceOverride import UnitPriceOverride
 
+from src.Entities.Transactions.TransactionNonCatalogProduct import TransactionNonCatalogProduct
+
 
 @dataclass
-class TransactionNonCatalogPrice:
+class TransactionNonCatalogPriceWithProduct:
     description:        str
     name:               str | None
     billingCycle:       TimePeriod | None
@@ -20,4 +22,4 @@ class TransactionNonCatalogPrice:
     unitPriceOverrides: list[UnitPriceOverride]
     quantity:           PriceQuantity
     customData:         CustomData | None
-    productId:          str
+    product:            TransactionNonCatalogProduct
