@@ -31,8 +31,7 @@ jobs:
         id: check_version
         run: |
           LOCAL_VERSION=$(python setup.py --version)
-          response = requests.get('https://pypi.org/pypi/paddle-billing-python-sdk/json')
-          PYPI_VERSION = response.json()['info']['version']
+          PYPI_VERSION=$(curl -s https://pypi.org/pypi/paddle-billing-python-sdk/json | jq -r '.info.version')
           if [ "$LOCAL_VERSION" != "$PYPI_VERSION" ]; then
               echo "Version has changed. Current version: $LOCAL_VERSION"
               echo "##[set-output name=should_publish;]true"
