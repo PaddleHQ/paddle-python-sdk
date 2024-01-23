@@ -1,6 +1,5 @@
 from __future__  import annotations
 from dataclasses import dataclass
-from typing      import Optional
 
 from src.Entities.Transactions.TransactionTimePeriod import TransactionTimePeriod
 
@@ -8,7 +7,7 @@ from src.Entities.Transactions.TransactionTimePeriod import TransactionTimePerio
 @dataclass
 class TransactionProration:
     rate:          str
-    billingPeriod: Optional[TransactionTimePeriod]
+    billingPeriod: TransactionTimePeriod | None
 
 
     @staticmethod

@@ -1,7 +1,6 @@
 from __future__  import annotations
 from dataclasses import dataclass
 from datetime    import datetime
-from typing      import Optional
 
 from src.Entities.Entity import Entity
 
@@ -13,14 +12,14 @@ from src.Entities.Shared.Status      import Status
 @dataclass
 class Address(Entity):
     id:           str
-    description:  Optional[str]
-    first_line:   Optional[str]
-    second_line:  Optional[str]
-    city:         Optional[str]
-    postal_code:  Optional[str]
-    region:       Optional[str]
+    description:  str | None
+    first_line:   str | None
+    second_line:  str | None
+    city:         str | None
+    postal_code:  str | None
+    region:       str | None
     country_code: CountryCode
-    custom_data:  Optional[CustomData]
+    custom_data:  CustomData | None
     status:       Status
     created_at:   datetime
     updated_at:   datetime

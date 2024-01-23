@@ -1,6 +1,5 @@
 from __future__  import annotations
 from dataclasses import dataclass
-from typing      import Optional
 
 from src.Entities.Price import Price
 
@@ -12,7 +11,7 @@ class TransactionItemPreviewWithPrice:
     price:           Price
     quantity:        int
     includeInTotals: bool
-    proration:       Optional[TransactionProration]
+    proration:       TransactionProration | None
 
 
     @staticmethod

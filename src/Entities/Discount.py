@@ -2,7 +2,6 @@ from __future__  import annotations
 from .Entity     import Entity
 from dataclasses import dataclass
 from datetime    import datetime
-from typing      import Optional, List
 
 from src.Entities.Discounts.DiscountStatus import DiscountStatus
 from src.Entities.Discounts.DiscountType   import DiscountType
@@ -16,15 +15,15 @@ class Discount(Entity):
     status:                    DiscountStatus
     description:               str
     enabledForCheckout:        bool
-    code:                      Optional[str]
+    code:                      str | None
     type:                      DiscountType
     amount:                    str
-    currencyCode:              Optional[CurrencyCode]
+    currencyCode:              CurrencyCode | None
     recur:                     bool
-    maximumRecurringIntervals: Optional[int]
-    usageLimit:                Optional[int]
-    restrictTo:                Optional[List[str]]
-    expiresAt:                 Optional[datetime]
+    maximumRecurringIntervals: int | None
+    usageLimit:                int | None
+    restrictTo:                list[str] | None
+    expiresAt:                 datetime | None
     timesUsed:                 int
     createdAt:                 datetime
     updatedAt:                 datetime

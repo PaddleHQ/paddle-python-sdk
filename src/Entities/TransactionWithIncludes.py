@@ -1,7 +1,6 @@
 from __future__  import annotations
 from dataclasses import dataclass
 from datetime    import datetime
-from typing      import Optional, List
 
 from src.Entities.Address  import Address
 from src.Entities.Business import Business
@@ -29,32 +28,32 @@ from src.Entities.Transactions.TransactionTimePeriod        import TransactionTi
 class TransactionWithIncludes(Entity):
     id:                str
     status:            StatusTransaction
-    customerId:        Optional[str]
-    addressId:         Optional[str]
-    businessId:        Optional[str]
-    customData:        Optional[CustomData]
+    customerId:        str | None
+    addressId:         str | None
+    businessId:        str | None
+    customData:        CustomData | None
     currencyCode:      CurrencyCode
     origin:            TransactionOrigin
-    subscriptionId:    Optional[str]
-    invoiceId:         Optional[str]
-    invoiceNumber:     Optional[str]
+    subscriptionId:    str | None
+    invoiceId:         str | None
+    invoiceNumber:     str | None
     collectionMode:    CollectionMode
-    discountId:        Optional[str]
-    billingDetails:    Optional[BillingDetails]
-    billingPeriod:     Optional[TransactionTimePeriod]
-    items:             List[TransactionItem]
+    discountId:        str | None
+    billingDetails:    BillingDetails | None
+    billingPeriod:     TransactionTimePeriod | None
+    items:             list[TransactionItem]
     details:           TransactionDetails
-    payments:          List[TransactionPaymentAttempt]
-    checkout:          Optional[Checkout]
+    payments:          list[TransactionPaymentAttempt]
+    checkout:          Checkout | None
     createdAt:         datetime
     updatedAt:         datetime
-    billedAt:          Optional[datetime]
-    address:           Optional[Address]
-    adjustments:       List[TransactionAdjustment]
-    adjustmentsTotals: Optional[TransactionAdjustmentsTotals]
-    business:          Optional[Business]
-    customer:          Optional[Customer]
-    discount:          Optional[Discount]
+    billedAt:          datetime | None
+    address:           Address | None
+    adjustments:       list[TransactionAdjustment]
+    adjustmentsTotals: TransactionAdjustmentsTotals | None
+    business:          Business | None
+    customer:          Customer | None
+    discount:          Discount | None
 
 
     @classmethod

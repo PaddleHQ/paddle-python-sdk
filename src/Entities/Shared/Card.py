@@ -1,6 +1,5 @@
 from __future__  import annotations
 from dataclasses import dataclass
-from typing      import Optional
 
 from src.Entities.Transactions.TransactionCardType import TransactionCardType
 
@@ -11,7 +10,7 @@ class Card:
     last4:           str
     expiry_month:    int
     expiry_year:     int
-    cardholder_name: Optional[str]
+    cardholder_name: str | None
 
 
     @staticmethod

@@ -1,6 +1,5 @@
 from __future__  import annotations
 from dataclasses import dataclass
-from typing      import Optional
 
 from src.Entities.Shared.ChargebackFee       import ChargebackFee
 from src.Entities.Shared.CurrencyCodePayouts import CurrencyCodePayouts
@@ -12,7 +11,7 @@ class PayoutTotalsAdjustment:
     tax:           str
     total:         str
     fee:           str
-    chargebackFee: Optional[ChargebackFee]
+    chargebackFee: ChargebackFee | None
     earnings:      str
     currencyCode:  CurrencyCodePayouts
 

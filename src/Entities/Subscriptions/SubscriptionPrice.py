@@ -1,6 +1,5 @@
 from __future__  import annotations
 from dataclasses import dataclass
-from typing      import Optional
 
 from src.Entities.Shared.Money      import Money
 from src.Entities.Shared.TaxMode    import TaxMode
@@ -12,8 +11,8 @@ class SubscriptionPrice:
     id:           str
     description:  str
     productId:    str
-    billingCycle: Optional[TimePeriod]
-    trialPeriod:  Optional[TimePeriod]
+    billingCycle: TimePeriod | None
+    trialPeriod:  TimePeriod | None
     taxMode:      TaxMode
     unitPrice:    Money
 

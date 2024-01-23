@@ -1,6 +1,5 @@
 from __future__  import annotations
 from dataclasses import dataclass
-from typing      import Optional
 
 from src.Entities.Shared.Card import Card
 from src.Entities.Shared.Type import Type
@@ -9,7 +8,7 @@ from src.Entities.Shared.Type import Type
 @dataclass
 class MethodDetails:
     type: Type
-    card: Optional[Card]
+    card: Card | None
 
 
     @classmethod

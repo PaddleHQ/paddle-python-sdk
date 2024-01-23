@@ -1,7 +1,6 @@
 from __future__  import annotations
 from dataclasses import dataclass
 from datetime    import datetime
-from typing      import Optional
 
 from src.Entities.Subscriptions.SubscriptionScheduledChangeAction import SubscriptionScheduledChangeAction
 
@@ -10,7 +9,7 @@ from src.Entities.Subscriptions.SubscriptionScheduledChangeAction import Subscri
 class SubscriptionScheduledChange:
     action:      SubscriptionScheduledChangeAction
     effectiveAt: datetime
-    resumeAt:    Optional[datetime]
+    resumeAt:    datetime | None
 
 
     @staticmethod

@@ -1,6 +1,7 @@
-from __future__              import annotations
-from .SubscriptionTimePeriod import SubscriptionTimePeriod
-from dataclasses             import dataclass
+from __future__  import annotations
+from dataclasses import dataclass
+
+from src.Entities.Subscriptions.SubscriptionTimePeriod import SubscriptionTimePeriod
 
 
 @dataclass

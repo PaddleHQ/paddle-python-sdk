@@ -1,6 +1,5 @@
 from __future__  import annotations
 from dataclasses import dataclass
-from typing      import Optional
 
 from src.Entities.Shared.TimePeriod import TimePeriod
 
@@ -9,8 +8,8 @@ from src.Entities.Shared.TimePeriod import TimePeriod
 class BillingDetails:
     enable_checkout:        bool
     payment_terms:          TimePeriod
-    purchase_order_number:  Optional[str] = None
-    additional_information: Optional[str] = None
+    purchase_order_number:  str | None = None
+    additional_information: str | None = None
 
 
     @staticmethod

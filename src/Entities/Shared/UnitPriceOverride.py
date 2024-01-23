@@ -1,6 +1,5 @@
 from __future__  import annotations
 from dataclasses import dataclass
-from typing      import List
 
 from src.Entities.Shared.CountryCode import CountryCode
 from src.Entities.Shared.Money       import Money
@@ -8,7 +7,7 @@ from src.Entities.Shared.Money       import Money
 
 @dataclass
 class UnitPriceOverride:
-    countryCodes: List[CountryCode]
+    countryCodes: list[CountryCode]
     unitPrice:    Money
 
 

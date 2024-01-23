@@ -1,14 +1,13 @@
 from __future__  import annotations
 from dataclasses import dataclass
-from typing      import Optional
 
 from src.Entities.Shared.CurrencyCode import CurrencyCode
 
 
 @dataclass
 class Money:
-    amount: str
-    currencyCode: Optional[CurrencyCode]
+    amount:       str
+    currencyCode: CurrencyCode | None
 
 
     @staticmethod

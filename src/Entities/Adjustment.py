@@ -1,7 +1,6 @@
 from __future__  import annotations
 from dataclasses import dataclass
 from datetime    import datetime
-from typing      import Optional, List
 
 from src.Entities.Entity import Entity
 
@@ -18,17 +17,17 @@ class Adjustment(Entity):
     id:                     str
     action:                 Action
     transactionId:          str
-    subscriptionId:         Optional[str]
+    subscriptionId:         str | None
     customerId:             str
     reason:                 str
-    creditAppliedToBalance: Optional[bool]
+    creditAppliedToBalance: bool | None
     currencyCode:           CurrencyCode
     status:                 StatusAdjustment
-    items:                  List[AdjustmentItemTotals]
+    items:                  list[AdjustmentItemTotals]
     totals:                 TotalAdjustments
-    payoutTotals:           Optional[PayoutTotalsAdjustment]
+    payoutTotals:           PayoutTotalsAdjustment | None
     createdAt:              datetime
-    updatedAt:              Optional[datetime]
+    updatedAt:              datetime | None
 
 
     @classmethod

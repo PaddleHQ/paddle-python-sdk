@@ -1,11 +1,10 @@
 from __future__  import annotations
 from dataclasses import dataclass
-from typing      import Optional
 
 
 @dataclass
 class SubscriptionManagementUrls:
-    updatePaymentMethod: Optional[str]
+    updatePaymentMethod: str | None
     cancel:              str
 
 

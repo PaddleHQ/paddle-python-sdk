@@ -1,6 +1,5 @@
 from __future__  import annotations
 from dataclasses import dataclass
-from typing      import Optional, List
 
 from src.Entities.Entity import Entity
 
@@ -14,17 +13,17 @@ from src.Entities.Transactions.TransactionItemPreviewWithPrice import Transactio
 
 @dataclass
 class TransactionPreview(Entity):
-    customerId:              Optional[str]
-    addressId:               Optional[str]
-    businessId:              Optional[str]
+    customerId:              str | None
+    addressId:               str | None
+    businessId:              str | None
     currencyCode:            CurrencyCode
-    discountId:              Optional[str]
-    customerIpAddress:       Optional[str]
-    address:                 Optional[AddressPreview]
+    discountId:              str | None
+    customerIpAddress:       str | None
+    address:                 AddressPreview | None
     ignoreTrials:            bool
-    items:                   List[TransactionItemPreviewWithPrice]
+    items:                   list[TransactionItemPreviewWithPrice]
     details:                 TransactionDetailsPreview
-    availablePaymentMethods: List[AvailablePaymentMethods]
+    availablePaymentMethods: list[AvailablePaymentMethods]
 
 
     @classmethod

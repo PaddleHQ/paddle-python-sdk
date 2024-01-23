@@ -1,13 +1,12 @@
 from __future__  import annotations
 from dataclasses import dataclass
-from typing      import Optional
 
 from src.Entities.Shared.CountryCode import CountryCode
 
 
 @dataclass
 class AddressPreview:
-    postal_code:  Optional[str]
+    postal_code:  str | None
     country_code: CountryCode
 
 

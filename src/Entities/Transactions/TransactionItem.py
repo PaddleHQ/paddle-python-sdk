@@ -1,6 +1,5 @@
 from __future__  import annotations
 from dataclasses import dataclass
-from typing      import Optional
 
 from src.Entities.Price import Price
 
@@ -9,10 +8,10 @@ from src.Entities.Transactions.TransactionProration import TransactionProration
 
 @dataclass
 class TransactionItem:
-    priceId:   Optional[str]
+    priceId:   str | None
     price:     Price
     quantity:  int
-    proration: Optional[TransactionProration]
+    proration: TransactionProration | None
 
 
     @classmethod

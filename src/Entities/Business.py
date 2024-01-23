@@ -1,7 +1,6 @@
 from __future__  import annotations
 from dataclasses import dataclass
 from datetime    import datetime
-from typing      import Optional, List
 
 from src.Entities.Entity import Entity
 
@@ -14,18 +13,18 @@ from src.Entities.Shared.Status     import Status
 class Business(Entity):
     id:            str
     name:          str
-    companyNumber: Optional[str]
-    taxIdentifier: Optional[str]
+    companyNumber: str | None
+    taxIdentifier: str | None
     status:        Status
-    contacts:      List[Contacts]
+    contacts:      list[Contacts]
     createdAt:     datetime
     updatedAt:     datetime
-    customData:    Optional[CustomData]
+    customData:    CustomData | None
 
 
     @classmethod
     def from_dict(cls, data: dict) -> Business:
-        return cls(
+        return Business(
             id            = data['id'],
             name          = data['name'],
             companyNumber = data.get('company_number'),

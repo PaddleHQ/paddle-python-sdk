@@ -1,6 +1,5 @@
 from __future__  import annotations
 from dataclasses import dataclass
-from typing      import Optional
 
 from src.Entities.Shared.AdjustmentItemTotals import AdjustmentItemTotals
 from src.Entities.Shared.Type                 import Type
@@ -13,6 +12,6 @@ class TransactionAdjustmentItem:
     id:        str
     itemId:    str
     type:      Type
-    amount:    Optional[str]
+    amount:    str | None
     proration: TransactionProration
     totals:    AdjustmentItemTotals

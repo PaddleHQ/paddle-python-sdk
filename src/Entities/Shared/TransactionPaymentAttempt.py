@@ -1,7 +1,6 @@
 from __future__  import annotations
 from dataclasses import dataclass
 from datetime    import datetime
-from typing      import Optional
 
 from src.Entities.Shared.ErrorCode            import ErrorCode
 from src.Entities.Shared.MethodDetails        import MethodDetails
@@ -14,10 +13,10 @@ class TransactionPaymentAttempt:
     storedPaymentMethodId: str
     amount:                str
     status:                StatusPaymentAttempt
-    errorCode:             Optional[ErrorCode]
+    errorCode:             ErrorCode | None
     methodDetails:         MethodDetails
     createdAt:             datetime
-    capturedAt:            Optional[datetime]
+    capturedAt:            datetime | None
 
 
     @staticmethod

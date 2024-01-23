@@ -1,7 +1,6 @@
 from __future__  import annotations
 from dataclasses import dataclass
 from datetime    import datetime
-from typing      import Optional
 
 from src.Entities.Subscriptions.SubscriptionItemStatus import SubscriptionItemStatus
 from src.Entities.Subscriptions.SubscriptionPrice      import SubscriptionPrice
@@ -15,9 +14,9 @@ class SubscriptionItem:
     recurring:          bool
     createdAt:          datetime
     updatedAt:          datetime
-    previouslyBilledAt: Optional[datetime]
-    nextBilledAt:       Optional[datetime]
-    trialDates:         Optional[SubscriptionTimePeriod]
+    previouslyBilledAt: datetime | None
+    nextBilledAt:       datetime | None
+    trialDates:         SubscriptionTimePeriod | None
     price:              SubscriptionPrice
 
 

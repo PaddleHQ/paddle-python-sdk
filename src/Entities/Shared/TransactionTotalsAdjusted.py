@@ -1,6 +1,5 @@
 from __future__  import annotations
 from dataclasses import dataclass
-from typing      import Optional
 
 from src.Entities.Shared.CurrencyCode import CurrencyCode
 
@@ -11,8 +10,8 @@ class TransactionTotalsAdjusted:
     tax:           str
     total:         str
     grand_total:   str
-    fee:           Optional[str]
-    earnings:      Optional[str]
+    fee:           str | None
+    earnings:      str | None
     currency_code: CurrencyCode
 
 

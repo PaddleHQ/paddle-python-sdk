@@ -1,7 +1,7 @@
 from __future__  import annotations
 from dataclasses import dataclass
 from datetime    import datetime
-from typing      import Optional, Union
+from typing      import Optional
 
 from src.Entities.Entity import Entity
 
@@ -18,12 +18,12 @@ class ProductWithIncludes(Entity):
     id:          str
     name:        str
     description: Optional[str]
-    type:        Union[CatalogType, None]
+    type:        CatalogType | None
     taxCategory: TaxCategory
     imageUrl:    Optional[str]
-    customData:  Union[CustomData, None]
+    customData:  CustomData | None
     status:      Status
-    createdAt:   Union[datetime, None]
+    createdAt:   datetime | None
     prices:      PriceWithIncludesCollection
 
 

@@ -1,10 +1,9 @@
-from __future__  import annotations
 from dataclasses import dataclass
-from typing      import Union, Any
+from typing      import Any
 
 
 @dataclass
 class Data:
-    data: Union[dict, list, Any]  # JSON serializable Python types
+    data: dict | list | Any  # TODO Any? Should be JSON serializable Python types though
 
     # from_dict method isn't needed, unless specific processing of 'data' is required.

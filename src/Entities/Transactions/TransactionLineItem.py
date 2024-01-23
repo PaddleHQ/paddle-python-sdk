@@ -1,6 +1,5 @@
 from __future__  import annotations
 from dataclasses import dataclass
-from typing      import Optional
 
 from src.Entities.ProductWithIncludes import ProductWithIncludes
 
@@ -15,7 +14,7 @@ class TransactionLineItem:
     id:         str
     priceId:    str
     quantity:   int
-    proration:  Optional[TransactionProration]
+    proration:  TransactionProration | None
     taxRate:    str
     unitTotals: UnitTotals
     totals:     Totals

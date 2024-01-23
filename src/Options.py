@@ -1,6 +1,7 @@
 from __future__   import annotations
-from .Environment import Environment
 from dataclasses  import dataclass
+
+from src.Environment import Environment
 
 
 @dataclass

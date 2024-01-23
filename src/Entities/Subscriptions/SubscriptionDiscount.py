@@ -1,14 +1,13 @@
 from __future__  import annotations
 from dataclasses import dataclass
 from datetime    import datetime
-from typing      import Optional
 
 
 @dataclass
 class SubscriptionDiscount:
     id:       str
     startsAt: datetime
-    endsAt:   Optional[datetime]
+    endsAt:   datetime | None
 
 
     @staticmethod

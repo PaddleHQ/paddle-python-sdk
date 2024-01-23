@@ -1,6 +1,5 @@
 from __future__  import annotations
 from dataclasses import dataclass
-from typing      import List
 
 from src.Entities.Shared.TaxRatesUsed                    import TaxRatesUsed
 from src.Entities.Shared.TransactionPayoutTotals         import TransactionPayoutTotals
@@ -13,12 +12,12 @@ from src.Entities.Subscriptions.SubscriptionTransactionLineItem import Subscript
 
 @dataclass
 class SubscriptionDetails:
-    tax_rates_used:         List[TaxRatesUsed]
+    tax_rates_used:         list[TaxRatesUsed]
     totals:                 TransactionTotals
     adjusted_totals:        TransactionTotalsAdjusted
     payout_totals:          TransactionPayoutTotals
     adjusted_payout_totals: TransactionPayoutTotalsAdjusted
-    line_items:             List[SubscriptionTransactionLineItem]
+    line_items:             list[SubscriptionTransactionLineItem]
 
 
     @staticmethod

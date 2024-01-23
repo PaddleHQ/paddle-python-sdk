@@ -1,6 +1,5 @@
 from __future__  import annotations
 from dataclasses import dataclass
-from typing      import Optional
 
 from src.Entities.Shared.Original import Original
 
@@ -8,7 +7,7 @@ from src.Entities.Shared.Original import Original
 @dataclass
 class ChargebackFee:
     amount:   str
-    original: Optional[Original]
+    original: Original | None
 
 
     @staticmethod

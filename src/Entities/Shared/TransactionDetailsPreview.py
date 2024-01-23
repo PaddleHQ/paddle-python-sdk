@@ -1,6 +1,5 @@
 from __future__  import annotations
 from dataclasses import dataclass
-from typing      import List
 
 from src.Entities.Shared.TaxRatesUsed               import TaxRatesUsed
 from src.Entities.Shared.TransactionLineItemPreview import TransactionLineItemPreview
@@ -9,9 +8,9 @@ from src.Entities.Shared.TransactionTotals          import TransactionTotals
 
 @dataclass
 class TransactionDetailsPreview:
-    tax_rates_used: List[TaxRatesUsed]
+    tax_rates_used: list[TaxRatesUsed]
     totals:         TransactionTotals
-    line_items:     List[TransactionLineItemPreview]
+    line_items:     list[TransactionLineItemPreview]
 
 
     @staticmethod

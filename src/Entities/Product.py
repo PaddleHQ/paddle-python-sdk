@@ -1,7 +1,6 @@
 from __future__  import annotations
 from dataclasses import dataclass
 from datetime    import datetime
-from typing      import Optional
 
 from src.Entities.Entity import Entity
 
@@ -15,18 +14,18 @@ from src.Entities.Shared.TaxCategory import TaxCategory
 class Product(Entity):
     id:          str
     name:        str
-    description: Optional[str]
-    type:        Optional[CatalogType]
+    description: str | None
+    type:        CatalogType | None
     taxCategory: TaxCategory
-    imageUrl:    Optional[str]
-    customData:  Optional[CustomData]
+    imageUrl:    str | None
+    customData:  CustomData | None
     status:      Status
-    createdAt:   Optional[datetime]
+    createdAt:   datetime | None
 
 
     @classmethod
     def from_dict(cls, data: dict) -> Product:
-        return cls(
+        return Product(
             id          = data['id'],
             name        = data['name'],
             description = data.get('description'),

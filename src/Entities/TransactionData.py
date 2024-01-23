@@ -1,6 +1,7 @@
 from __future__  import annotations
-from .Entity     import Entity
 from dataclasses import dataclass
+
+from src.Entities.Entity import Entity
 
 
 @dataclass

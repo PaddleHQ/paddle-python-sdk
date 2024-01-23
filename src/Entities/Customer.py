@@ -1,7 +1,6 @@
 from __future__  import annotations
 from dataclasses import dataclass
 from datetime    import datetime
-from typing      import Optional
 
 from src.Entities.Entity import Entity
 
@@ -12,11 +11,11 @@ from src.Entities.Shared.CustomData import CustomData
 @dataclass
 class Customer(Entity):
     id:               str
-    name:             Optional[str]
+    name:             str | None
     email:            str
     marketingConsent: bool
     status:           Status
-    customData:       Optional[CustomData]
+    customData:       CustomData | None
     locale:           str
     createdAt:        datetime
     updatedAt:        datetime
@@ -24,7 +23,7 @@ class Customer(Entity):
 
     @classmethod
     def from_dict(cls, data: dict) -> Customer:
-        return cls(
+        return Customer(
             id               = data['id'],
             name             = data.get('name'),
             email            = data['email'],

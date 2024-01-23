@@ -1,6 +1,5 @@
 from __future__  import annotations
 from dataclasses import dataclass
-from typing      import Optional, List
 
 from src.Entities.Entity import Entity
 
@@ -18,22 +17,22 @@ from src.Entities.Shared.CustomData        import CustomData
 class Price(Entity):
     id:                 str
     productId:          str
-    name:               Optional[str]
+    name:               str | None
     description:        str
-    type:               Optional[CatalogType]
-    billingCycle:       Optional[TimePeriod]
-    trialPeriod:        Optional[TimePeriod]
+    type:               CatalogType | None
+    billingCycle:       TimePeriod | None
+    trialPeriod:        TimePeriod | None
     taxMode:            TaxMode
     unitPrice:          Money
-    unitPriceOverrides: List[UnitPriceOverride]
+    unitPriceOverrides: list[UnitPriceOverride]
     quantity:           PriceQuantity
     status:             Status
-    customData:         Optional[CustomData]
+    customData:         CustomData | None
 
 
     @classmethod
     def from_dict(cls, data: dict) -> Price:
-        return cls(
+        return Price(
             id                 = data['id'],
             productId          = data['product_id'],
             name               = data.get('name'),

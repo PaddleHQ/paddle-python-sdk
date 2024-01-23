@@ -1,7 +1,6 @@
 from __future__  import annotations
 from dataclasses import dataclass
 from datetime    import datetime
-from typing      import Optional, List
 
 from src.Entities.Entity                             import Entity
 from src.Entities.Shared.BillingDetails              import BillingDetails
@@ -21,26 +20,26 @@ from src.Entities.Transactions.TransactionTimePeriod import TransactionTimePerio
 class Transaction(Entity):
     id:             str
     status:         StatusTransaction
-    customerId:     Optional[str]
-    addressId:      Optional[str]
-    businessId:     Optional[str]
-    customData:     Optional[CustomData]
+    customerId:     str | None
+    addressId:      str | None
+    businessId:     str | None
+    customData:     CustomData | None
     currencyCode:   CurrencyCode
     origin:         TransactionOrigin
-    subscriptionId: Optional[str]
-    invoiceId:      Optional[str]
-    invoiceNumber:  Optional[str]
+    subscriptionId: str | None
+    invoiceId:      str | None
+    invoiceNumber:  str | None
     collectionMode: CollectionMode
-    discountId:     Optional[str]
-    billingDetails: Optional[BillingDetails]
-    billingPeriod:  Optional[TransactionTimePeriod]
-    items:          List[TransactionItem]
+    discountId:     str | None
+    billingDetails: BillingDetails | None
+    billingPeriod:  TransactionTimePeriod | None
+    items:          list[TransactionItem]
     details:        TransactionDetails
-    payments:       List[TransactionPaymentAttempt]
+    payments:       list[TransactionPaymentAttempt]
     checkout:       Checkout
     createdAt:      datetime
     updatedAt:      datetime
-    billedAt:       Optional[datetime]
+    billedAt:       datetime | None
 
 
     @classmethod

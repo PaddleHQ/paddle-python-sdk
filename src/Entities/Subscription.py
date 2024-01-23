@@ -2,7 +2,6 @@ from __future__  import annotations
 from .Entity     import Entity
 from dataclasses import dataclass
 from datetime    import datetime
-from typing      import List, Optional
 
 from src.Entities.Shared.BillingDetails import BillingDetails
 from src.Entities.Shared.CollectionMode import CollectionMode
@@ -24,24 +23,24 @@ class Subscription(Entity):
     status:               SubscriptionStatus
     customerId:           str
     addressId:            str
-    businessId:           Optional[str]
+    businessId:           str | None
     currencyCode:         CurrencyCode
     createdAt:            datetime
     updatedAt:            datetime
-    startedAt:            Optional[datetime]
-    firstBilledAt:        Optional[datetime]
-    nextBilledAt:         Optional[datetime]
-    pausedAt:             Optional[datetime]
-    canceledAt:           Optional[datetime]
-    discount:             Optional[SubscriptionDiscount]
+    startedAt:            datetime | None
+    firstBilledAt:        datetime | None
+    nextBilledAt:         datetime | None
+    pausedAt:             datetime | None
+    canceledAt:           datetime | None
+    discount:             SubscriptionDiscount | None
     collectionMode:       CollectionMode
-    billingDetails:       Optional[BillingDetails]
+    billingDetails:       BillingDetails | None
     currentBillingPeriod: SubscriptionTimePeriod
     billingCycle:         TimePeriod
-    scheduledChange:      Optional[SubscriptionScheduledChange]
+    scheduledChange:      SubscriptionScheduledChange | None
     managementUrls:       SubscriptionManagementUrls
-    items:                List[SubscriptionItem]
-    customData:           Optional[CustomData]
+    items:                list[SubscriptionItem]
+    customData:           CustomData | None
 
 
     @classmethod
