@@ -1,6 +1,7 @@
 from __future__  import annotations
-from .Interval   import Interval
 from dataclasses import dataclass
+
+from src.Entities.Shared.Interval import Interval
 
 
 @dataclass

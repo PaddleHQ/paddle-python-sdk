@@ -1,12 +1,14 @@
-from __future__                                          import annotations
-from .SubscriptionTransactionLineItem                    import SubscriptionTransactionLineItem
-from dataclasses                                         import dataclass
+from __future__  import annotations
+from dataclasses import dataclass
+from typing      import List
+
 from src.Entities.Shared.TaxRatesUsed                    import TaxRatesUsed
-from src.Entities.Shared.TransactionTotals               import TransactionTotals
-from src.Entities.Shared.TransactionTotalsAdjusted       import TransactionTotalsAdjusted
 from src.Entities.Shared.TransactionPayoutTotals         import TransactionPayoutTotals
 from src.Entities.Shared.TransactionPayoutTotalsAdjusted import TransactionPayoutTotalsAdjusted
-from typing                                              import List
+from src.Entities.Shared.TransactionTotals               import TransactionTotals
+from src.Entities.Shared.TransactionTotalsAdjusted       import TransactionTotalsAdjusted
+
+from src.Entities.Subscriptions.SubscriptionTransactionLineItem import SubscriptionTransactionLineItem
 
 
 @dataclass

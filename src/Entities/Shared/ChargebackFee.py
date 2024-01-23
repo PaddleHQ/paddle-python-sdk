@@ -1,7 +1,8 @@
 from __future__  import annotations
-from .Original   import Original
 from dataclasses import dataclass
 from typing      import Optional
+
+from src.Entities.Shared.Original import Original
 
 
 @dataclass

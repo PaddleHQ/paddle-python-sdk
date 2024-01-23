@@ -1,8 +1,9 @@
-from __future__      import annotations
-from dataclasses     import dataclass
-from .ReportName     import ReportName
-from .ReportOperator import ReportOperator
-from typing          import Union, Optional
+from __future__  import annotations
+from dataclasses import dataclass
+from typing      import Union, Optional
+
+from src.Entities.Reports.ReportName     import ReportName
+from src.Entities.Reports.ReportOperator import ReportOperator
 
 
 @dataclass

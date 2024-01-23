@@ -1,9 +1,10 @@
-from __future__                  import annotations
-from .TaxRatesUsed               import TaxRatesUsed
-from .TransactionTotals          import TransactionTotals
-from .TransactionLineItemPreview import TransactionLineItemPreview
-from dataclasses                 import dataclass
-from typing                      import List
+from __future__  import annotations
+from dataclasses import dataclass
+from typing      import List
+
+from src.Entities.Shared.TaxRatesUsed               import TaxRatesUsed
+from src.Entities.Shared.TransactionLineItemPreview import TransactionLineItemPreview
+from src.Entities.Shared.TransactionTotals          import TransactionTotals
 
 
 @dataclass

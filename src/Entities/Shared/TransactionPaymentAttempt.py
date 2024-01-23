@@ -1,10 +1,11 @@
-from __future__            import annotations
-from .ErrorCode            import ErrorCode
-from .MethodDetails        import MethodDetails
-from .StatusPaymentAttempt import StatusPaymentAttempt
-from dataclasses           import dataclass
-from datetime              import datetime
-from typing                import Optional
+from __future__  import annotations
+from dataclasses import dataclass
+from datetime    import datetime
+from typing      import Optional
+
+from src.Entities.Shared.ErrorCode            import ErrorCode
+from src.Entities.Shared.MethodDetails        import MethodDetails
+from src.Entities.Shared.StatusPaymentAttempt import StatusPaymentAttempt
 
 
 @dataclass

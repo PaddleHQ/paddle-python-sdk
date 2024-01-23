@@ -1,8 +1,9 @@
-from __future__   import annotations
-from .CountryCode import CountryCode
-from .Money       import Money
-from dataclasses  import dataclass
-from typing       import List
+from __future__  import annotations
+from dataclasses import dataclass
+from typing      import List
+
+from src.Entities.Shared.CountryCode import CountryCode
+from src.Entities.Shared.Money       import Money
 
 
 @dataclass

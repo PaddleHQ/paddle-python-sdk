@@ -1,8 +1,9 @@
-from __future__                         import annotations
-from .SubscriptionScheduledChangeAction import SubscriptionScheduledChangeAction
-from dataclasses                        import dataclass
-from datetime                           import datetime
-from typing                             import Optional
+from __future__  import annotations
+from dataclasses import dataclass
+from datetime    import datetime
+from typing      import Optional
+
+from src.Entities.Subscriptions.SubscriptionScheduledChangeAction import SubscriptionScheduledChangeAction
 
 
 @dataclass

@@ -1,7 +1,8 @@
-from __future__                                   import annotations
+from __future__  import annotations
+from dataclasses import dataclass
+from typing      import Optional
+
 from src.Entities.Transactions.TransactionCardType import TransactionCardType
-from dataclasses                                  import dataclass
-from typing                                       import Optional
 
 
 @dataclass

@@ -1,8 +1,9 @@
 from __future__  import annotations
-from .Card       import Card
-from .Type       import Type
 from dataclasses import dataclass
 from typing      import Optional
+
+from src.Entities.Shared.Card import Card
+from src.Entities.Shared.Type import Type
 
 
 @dataclass

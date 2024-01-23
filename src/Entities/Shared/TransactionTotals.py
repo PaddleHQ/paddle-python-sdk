@@ -1,7 +1,8 @@
-from __future__    import annotations
-from .CurrencyCode import CurrencyCode
-from dataclasses   import dataclass
-from typing        import Optional
+from __future__  import annotations
+from dataclasses import dataclass
+from typing      import Optional
+
+from src.Entities.Shared.CurrencyCode import CurrencyCode
 
 
 @dataclass

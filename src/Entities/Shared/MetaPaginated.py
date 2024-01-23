@@ -1,6 +1,7 @@
 from __future__  import annotations
-from .Pagination import Pagination
 from dataclasses import dataclass
+
+from src.Entities.Shared.Pagination import Pagination
 
 
 @dataclass

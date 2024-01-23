@@ -1,7 +1,8 @@
-from __future__             import annotations
-from .TransactionTimePeriod import TransactionTimePeriod
-from dataclasses            import dataclass
-from typing                 import Optional
+from __future__  import annotations
+from dataclasses import dataclass
+from typing      import Optional
+
+from src.Entities.Transactions.TransactionTimePeriod import TransactionTimePeriod
 
 
 @dataclass

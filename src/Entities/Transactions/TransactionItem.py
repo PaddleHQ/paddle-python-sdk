@@ -1,8 +1,10 @@
-from __future__            import annotations
-from dataclasses           import dataclass
-from typing                import Optional
-from src.Entities.Price    import Price
-from .TransactionProration import TransactionProration
+from __future__  import annotations
+from dataclasses import dataclass
+from typing      import Optional
+
+from src.Entities.Price import Price
+
+from src.Entities.Transactions.TransactionProration import TransactionProration
 
 
 @dataclass

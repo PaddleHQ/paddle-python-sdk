@@ -1,7 +1,8 @@
 from __future__  import annotations
-from .TimePeriod import TimePeriod
 from dataclasses import dataclass
 from typing      import Optional
+
+from src.Entities.Shared.TimePeriod import TimePeriod
 
 
 @dataclass

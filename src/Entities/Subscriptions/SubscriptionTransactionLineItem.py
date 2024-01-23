@@ -1,9 +1,12 @@
-from __future__                     import annotations
-from .SubscriptionProration         import SubscriptionProration
-from dataclasses                    import dataclass
-from src.Entities.Product           import Product
+from __future__  import annotations
+from dataclasses import dataclass
+
+from src.Entities.Product import Product
+
 from src.Entities.Shared.Totals     import Totals
 from src.Entities.Shared.UnitTotals import UnitTotals
+
+from src.Entities.Subscriptions.SubscriptionProration import SubscriptionProration
 
 
 @dataclass

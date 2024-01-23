@@ -1,6 +1,7 @@
 from __future__  import annotations
-from .Totals     import Totals
 from dataclasses import dataclass
+
+from src.Entities.Shared.Totals import Totals
 
 
 @dataclass

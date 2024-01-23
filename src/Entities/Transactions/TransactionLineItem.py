@@ -1,10 +1,13 @@
-from __future__                       import annotations
-from .TransactionProration            import TransactionProration
-from src.Entities.Shared.UnitTotals   import UnitTotals
-from src.Entities.Shared.Totals       import Totals
-from dataclasses                      import dataclass
+from __future__  import annotations
+from dataclasses import dataclass
+from typing      import Optional
+
 from src.Entities.ProductWithIncludes import ProductWithIncludes
-from typing                           import Optional
+
+from src.Entities.Transactions.TransactionProration import TransactionProration
+
+from src.Entities.Shared.Totals     import Totals
+from src.Entities.Shared.UnitTotals import UnitTotals
 
 
 @dataclass

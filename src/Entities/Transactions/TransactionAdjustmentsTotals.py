@@ -1,7 +1,9 @@
-from __future__                       import annotations
-from .TransactionBreakdown            import TransactionBreakdown
-from dataclasses                      import dataclass
+from __future__  import annotations
+from dataclasses import dataclass
+
 from src.Entities.Shared.CurrencyCode import CurrencyCode
+
+from src.Entities.Transactions.TransactionBreakdown import TransactionBreakdown
 
 
 @dataclass

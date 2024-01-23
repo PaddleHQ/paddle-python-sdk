@@ -1,9 +1,11 @@
-from __future__                               import annotations
-from dataclasses                              import dataclass
-from .TransactionProration                    import TransactionProration
+from __future__  import annotations
+from dataclasses import dataclass
+from typing      import Optional
+
 from src.Entities.Shared.AdjustmentItemTotals import AdjustmentItemTotals
 from src.Entities.Shared.Type                 import Type
-from typing                                   import Optional
+
+from src.Entities.Transactions.TransactionProration import TransactionProration
 
 
 @dataclass

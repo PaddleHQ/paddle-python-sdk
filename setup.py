@@ -26,6 +26,7 @@ setup(
     extras_require={
         'dev': [
             'pytest>=7.0.0',
+            'pylint>=3.0.3',
             'setuptools>=69.0.3',
         ],
     },

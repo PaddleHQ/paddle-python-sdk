@@ -1,7 +1,8 @@
-from __future__           import annotations
-from .ChargebackFee       import ChargebackFee
-from .CurrencyCodePayouts import CurrencyCodePayouts
-from dataclasses          import dataclass
+from __future__  import annotations
+from dataclasses import dataclass
+
+from src.Entities.Shared.ChargebackFee       import ChargebackFee
+from src.Entities.Shared.CurrencyCodePayouts import CurrencyCodePayouts
 
 
 @dataclass

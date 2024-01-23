@@ -1,10 +1,11 @@
-from __future__              import annotations
-from dataclasses             import dataclass
-from datetime                import datetime
-from typing                  import Optional
-from .SubscriptionItemStatus import SubscriptionItemStatus
-from .SubscriptionPrice      import SubscriptionPrice
-from .SubscriptionTimePeriod import SubscriptionTimePeriod
+from __future__  import annotations
+from dataclasses import dataclass
+from datetime    import datetime
+from typing      import Optional
+
+from src.Entities.Subscriptions.SubscriptionItemStatus import SubscriptionItemStatus
+from src.Entities.Subscriptions.SubscriptionPrice      import SubscriptionPrice
+from src.Entities.Subscriptions.SubscriptionTimePeriod import SubscriptionTimePeriod
 
 
 @dataclass
