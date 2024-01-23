@@ -1,13 +1,16 @@
 # TODO this is not done
+from __future__  import annotations
+from abc         import ABC, abstractmethod
+from dataclasses import dataclass
+from datetime    import datetime
 
-from src.Entities.Adjustment                            import Adjustment
-from src.Entities.Entity                                import Entity
-from src.Entities.Event.EventTypeName                   import EventTypeName
-from src.Entities.Notification.NotificationDiscount     import NotificationDiscount
-from src.Entities.Notification.NotificationSubscription import NotificationSubscription
-from dataclasses                                        import dataclass
-from datetime                                           import datetime
-from abc                                                import ABC, abstractmethod
+from src.Entities.Adjustment import Adjustment
+from src.Entities.Entity     import Entity
+
+from src.Entities.Events.EventTypeName import EventTypeName
+
+from src.Entities.Notifications.NotificationDiscount     import NotificationDiscount
+from src.Entities.Notifications.NotificationSubscription import NotificationSubscription
 
 
 @dataclass

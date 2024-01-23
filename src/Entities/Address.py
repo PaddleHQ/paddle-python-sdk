@@ -1,11 +1,13 @@
-from __future__          import annotations
-from .Entity             import Entity
-from .Shared.CountryCode import CountryCode
-from .Shared.CustomData  import CustomData
-from .Shared.Status      import Status
-from dataclasses         import dataclass
-from datetime            import datetime
-from typing              import Optional
+from __future__  import annotations
+from dataclasses import dataclass
+from datetime    import datetime
+from typing      import Optional
+
+from src.Entities.Entity import Entity
+
+from src.Entities.Shared.CountryCode import CountryCode
+from src.Entities.Shared.CustomData  import CustomData
+from src.Entities.Shared.Status      import Status
 
 
 @dataclass

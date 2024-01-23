@@ -4,17 +4,18 @@ from dataclasses import dataclass
 from datetime    import datetime
 from typing      import List, Optional
 
-from src.Entities.Shared.BillingDetails                    import BillingDetails
-from src.Entities.Shared.CollectionMode                    import CollectionMode
-from src.Entities.Shared.CurrencyCode                      import CurrencyCode
-from src.Entities.Shared.CustomData                        import CustomData
-from src.Entities.Shared.TimePeriod                        import TimePeriod
-from src.Entities.Subscription.SubscriptionDiscount        import SubscriptionDiscount
-from src.Entities.Subscription.SubscriptionItem            import SubscriptionItem
-from src.Entities.Subscription.SubscriptionManagementUrls  import SubscriptionManagementUrls
-from src.Entities.Subscription.SubscriptionStatus          import SubscriptionStatus
-from src.Entities.Subscription.SubscriptionScheduledChange import SubscriptionScheduledChange
-from src.Entities.Subscription.SubscriptionTimePeriod      import SubscriptionTimePeriod
+from src.Entities.Shared.BillingDetails import BillingDetails
+from src.Entities.Shared.CollectionMode import CollectionMode
+from src.Entities.Shared.CurrencyCode   import CurrencyCode
+from src.Entities.Shared.CustomData     import CustomData
+from src.Entities.Shared.TimePeriod     import TimePeriod
+
+from src.Entities.Subscriptions.SubscriptionDiscount        import SubscriptionDiscount
+from src.Entities.Subscriptions.SubscriptionItem            import SubscriptionItem
+from src.Entities.Subscriptions.SubscriptionManagementUrls  import SubscriptionManagementUrls
+from src.Entities.Subscriptions.SubscriptionStatus          import SubscriptionStatus
+from src.Entities.Subscriptions.SubscriptionScheduledChange import SubscriptionScheduledChange
+from src.Entities.Subscriptions.SubscriptionTimePeriod      import SubscriptionTimePeriod
 
 
 @dataclass

@@ -1,5 +1,5 @@
 from __future__                                   import annotations
-from src.Entities.Transaction.TransactionCardType import TransactionCardType
+from src.Entities.Transactions.TransactionCardType import TransactionCardType
 from dataclasses                                  import dataclass
 from typing                                       import Optional
 

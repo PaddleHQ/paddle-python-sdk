@@ -1,12 +1,14 @@
-from __future__                      import annotations
-from .Entity                         import Entity
-from dataclasses                     import dataclass
-from datetime                        import datetime
+from __future__  import annotations
+from dataclasses import dataclass
+from datetime    import datetime
+from typing      import Optional
+
+from src.Entities.Entity import Entity
+
 from src.Entities.Shared.CustomData  import CustomData
 from src.Entities.Shared.CatalogType import CatalogType
 from src.Entities.Shared.Status      import Status
 from src.Entities.Shared.TaxCategory import TaxCategory
-from typing                          import Optional
 
 
 @dataclass

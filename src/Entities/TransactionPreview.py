@@ -1,12 +1,15 @@
-from __future__                                               import annotations
-from dataclasses                                              import dataclass
-from .Entity                                                  import Entity
-from src.Entities.Shared.AddressPreview                       import AddressPreview
-from src.Entities.Shared.AvailablePaymentMethods              import AvailablePaymentMethods
-from src.Entities.Shared.CurrencyCode                         import CurrencyCode
-from src.Entities.Shared.TransactionDetailsPreview            import TransactionDetailsPreview
-from src.Entities.Transaction.TransactionItemPreviewWithPrice import TransactionItemPreviewWithPrice
-from typing                                                   import Optional, List
+from __future__  import annotations
+from dataclasses import dataclass
+from typing      import Optional, List
+
+from src.Entities.Entity import Entity
+
+from src.Entities.Shared.AddressPreview            import AddressPreview
+from src.Entities.Shared.AvailablePaymentMethods   import AvailablePaymentMethods
+from src.Entities.Shared.CurrencyCode              import CurrencyCode
+from src.Entities.Shared.TransactionDetailsPreview import TransactionDetailsPreview
+
+from src.Entities.Transactions.TransactionItemPreviewWithPrice import TransactionItemPreviewWithPrice
 
 
 @dataclass
@@ -26,7 +29,7 @@ class TransactionPreview(Entity):
 
     @classmethod
     def from_dict(cls, data: dict) -> TransactionPreview:
-        return cls(
+        return TransactionPreview(
             customerId              = data.get('customer_id'),
             addressId               = data.get('address_id'),
             businessId              = data.get('business_id'),

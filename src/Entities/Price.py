@@ -1,6 +1,9 @@
-from __future__                            import annotations
-from dataclasses                           import dataclass
-from src.Entities.Entity                   import Entity
+from __future__  import annotations
+from dataclasses import dataclass
+from typing      import Optional, List
+
+from src.Entities.Entity import Entity
+
 from src.Entities.Shared.CatalogType       import CatalogType
 from src.Entities.Shared.TimePeriod        import TimePeriod
 from src.Entities.Shared.TaxMode           import TaxMode
@@ -9,7 +12,6 @@ from src.Entities.Shared.UnitPriceOverride import UnitPriceOverride
 from src.Entities.Shared.PriceQuantity     import PriceQuantity
 from src.Entities.Shared.Status            import Status
 from src.Entities.Shared.CustomData        import CustomData
-from typing                                import Optional, List
 
 
 @dataclass
