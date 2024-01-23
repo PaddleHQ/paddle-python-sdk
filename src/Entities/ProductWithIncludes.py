@@ -30,11 +30,11 @@ class ProductWithIncludes(Entity):
             id          = data['id'],
             name        = data['name'],
             description = data.get('description'),
-            type        = CustomData(data['type']) if data.get('type') else None,
+            type        = CatalogType(data['type']) if 'type' in data else None,
             taxCategory = TaxCategory(data['tax_category']),
             imageUrl    = data.get('image_url'),
-            customData  = CustomData(data['custom_data']) if data.get('custom_data') else None,
+            customData  = CustomData(data['custom_data']) if 'custom_data' in data else None,
             status      = Status(data['status']),
-            createdAt   = datetime.fromisoformat(data['created_at']) if data.get('created_at') else None,
+            createdAt   = datetime.fromisoformat(data['created_at']) if 'created_at' in data else None,
             prices      = PriceWithIncludesCollection.from_dict(data.get('prices', [])),  # TODO
         )

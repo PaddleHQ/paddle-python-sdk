@@ -1,7 +1,7 @@
 from enum import StrEnum
 
 
-class ReportName(StrEnum):
+class AvailablePaymentMethods(StrEnum):
     Alipay     = 'alipay'
     ApplePay   = 'apple_pay'
     Bancontact = 'bancontact'

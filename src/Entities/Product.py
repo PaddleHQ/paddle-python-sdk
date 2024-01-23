@@ -1,4 +1,5 @@
 from __future__                      import annotations
+from .Entity                         import Entity
 from dataclasses                     import dataclass
 from datetime                        import datetime
 from src.Entities.Shared.CustomData  import CustomData
@@ -9,7 +10,7 @@ from typing                          import Optional
 
 
 @dataclass
-class Product:
+class Product(Entity):
     id:          str
     name:        str
     description: Optional[str]
