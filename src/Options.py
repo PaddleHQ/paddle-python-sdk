@@ -1,7 +1,9 @@
-from src.Environment import Environment
+from __future__   import annotations
+from .Environment import Environment
+from dataclasses  import dataclass
 
 
+@dataclass
 class Options:
-    def __init__(self, environment=Environment.PRODUCTION, retries=1):
-        self.environment = environment
-        self.retries     = retries
+    environment: Environment = Environment.PRODUCTION
+    retries:     int         = 1

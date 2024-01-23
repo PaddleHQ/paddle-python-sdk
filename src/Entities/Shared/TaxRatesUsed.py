@@ -1,6 +1,6 @@
 from __future__  import annotations
-from dataclasses import dataclass
 from .Totals     import Totals
+from dataclasses import dataclass
 
 
 @dataclass
