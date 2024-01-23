@@ -1,9 +1,9 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class ReportName(Enum):
-    CollectionMode  = 'collection_mode'
-    CurrencyCode    = 'currency_code'
-    Origin          = 'origin'
-    Status          = 'status'
-    UpdatedAt       = 'updated_at'
+class ReportName(StrEnum):
+    CollectionMode = 'collection_mode'
+    CurrencyCode   = 'currency_code'
+    Origin         = 'origin'
+    Status         = 'status'
+    UpdatedAt      = 'updated_at'

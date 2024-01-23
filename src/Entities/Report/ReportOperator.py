@@ -1,6 +1,6 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class ReportOperator(Enum):
+class ReportOperator(StrEnum):
     Lt  = 'lt'
     Gte = 'gte'
