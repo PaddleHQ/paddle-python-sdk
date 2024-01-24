@@ -4,5 +4,5 @@ from dataclasses import dataclass
 
 @dataclass
 class TransactionUpdateTransactionItem:
-    priceId:  str
+    price_id: str
     quantity: int

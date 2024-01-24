@@ -12,8 +12,8 @@ class SubscriptionItem:
     status:             SubscriptionItemStatus
     quantity:           int
     recurring:          bool
-    createdAt:          datetime
-    updatedAt:          datetime
+    created_at:          datetime
+    updated_at:          datetime
     previouslyBilledAt: datetime | None
     nextBilledAt:       datetime | None
     trialDates:         SubscriptionTimePeriod | None
@@ -26,8 +26,8 @@ class SubscriptionItem:
             status             = SubscriptionItemStatus(data['status']),
             quantity           = data['quantity'],
             recurring          = data['recurring'],
-            createdAt          = datetime.fromisoformat(data['created_at']),
-            updatedAt          = datetime.fromisoformat(data['updated_at']),
+            created_at          = datetime.fromisoformat(data['created_at']),
+            updated_at          = datetime.fromisoformat(data['updated_at']),
             previouslyBilledAt = datetime.fromisoformat(data['previously_billed_at'])  if 'previously_billed_at' in data else None,
             nextBilledAt       = datetime.fromisoformat(data['next_billed_at'])        if 'next_billed_at'       in data else None,
             trialDates         = SubscriptionTimePeriod.from_dict(data['trial_dates']) if 'trial_dates'          in data else None,

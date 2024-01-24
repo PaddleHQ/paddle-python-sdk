@@ -17,8 +17,8 @@ from src.Entities.PricingPreviews.PricePreviewDiscounts           import PricePr
 class PricePreviewLineItem(Entity):
     price:               Price
     quantity:            int
-    taxRate:             str
-    unitTotals:          UnitTotals
+    tax_rate:             str
+    unit_totals:          UnitTotals
     formattedUnitTotals: PricePreviewUnitTotalsFormatted
     totals:              Totals
     formattedTotals:     PricePreviewTotalsFormatted
@@ -31,8 +31,8 @@ class PricePreviewLineItem(Entity):
         return PricePreviewLineItem(
             price               = Price.from_dict(data['price']),
             quantity            = data['quantity'],
-            taxRate             = data['tax_rate'],
-            unitTotals          = UnitTotals.from_dict(data['unit_totals']),
+            tax_rate             = data['tax_rate'],
+            unit_totals          = UnitTotals.from_dict(data['unit_totals']),
             formattedUnitTotals = PricePreviewUnitTotalsFormatted.from_dict(data['formatted_unit_totals']),
             totals              = Totals.from_dict(data['totals']),
             formattedTotals     = PricePreviewTotalsFormatted.from_dict(data['formatted_totals']),

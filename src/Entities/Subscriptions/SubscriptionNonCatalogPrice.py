@@ -12,12 +12,12 @@ from src.Entities.Shared.UnitPriceOverride import UnitPriceOverride
 class SubscriptionNonCatalogPrice:
     description:        str
     name:               str | None
-    productId:          str
-    taxMode:            TaxMode
-    unitPrice:          Money
-    unitPriceOverrides: list[UnitPriceOverride]
+    product_id:          str
+    tax_mode:            TaxMode
+    unit_price:          Money
+    unit_price_overrides: list[UnitPriceOverride]
     quantity:           PriceQuantity
-    customData:         CustomData | None
+    custom_data:         CustomData | None
 
 
     @staticmethod
@@ -25,10 +25,10 @@ class SubscriptionNonCatalogPrice:
         return SubscriptionNonCatalogPrice(
             description        = data['description'],
             name               = data.get('name'),
-            productId          = data['productId'],
-            taxMode            = TaxMode(data['tax_mode']),
-            unitPrice          = Money.from_dict(data['unit_price']),
-            unitPriceOverrides = [UnitPriceOverride.from_dict(override) for override in data['unit_price_overrides']],
+            product_id          = data['product_id'],
+            tax_mode            = TaxMode(data['tax_mode']),
+            unit_price          = Money.from_dict(data['unit_price']),
+            unit_price_overrides = [UnitPriceOverride.from_dict(override) for override in data['unit_price_overrides']],
             quantity           = PriceQuantity.from_dict(data['quantity']),
-            customData         = CustomData(data['custom_data']) if 'custom_data' in data else None,
+            custom_data         = CustomData(data['custom_data']) if 'custom_data' in data else None,
         )

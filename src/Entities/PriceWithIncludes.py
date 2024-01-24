@@ -23,7 +23,7 @@ class PriceWithIncludes(Entity):
     type:                 CatalogType | None
     billing_cycle:        TimePeriod | None
     trial_period:         TimePeriod | None
-    taxMode:              TaxMode | None
+    tax_mode:              TaxMode | None
     unit_price:           Money
     unit_price_overrides: list[UnitPriceOverride]
     quantity:             PriceQuantity
@@ -42,7 +42,7 @@ class PriceWithIncludes(Entity):
             type                 = CatalogType(data['type'])                   if 'type'          in data else None,
             billing_cycle        = TimePeriod.from_dict(data['billing_cycle']) if 'billing_cycle' in data else None,
             trial_period         = TimePeriod.from_dict(data['trial_period'])  if 'trial_period'  in data else None,
-            taxMode              = TaxMode(data['tax_mode'])                   if 'tax_mode'      in data else None,
+            tax_mode              = TaxMode(data['tax_mode'])                   if 'tax_mode'      in data else None,
             unit_price           = Money.from_dict(data['unit_price']),
             unit_price_overrides = [UnitPriceOverride.from_dict(override) for override in data.get('unit_price_overrides', [])],
             quantity             = PriceQuantity.from_dict(data['quantity']),

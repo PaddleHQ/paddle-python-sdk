@@ -7,12 +7,12 @@ from src.Entities.Shared.CurrencyCode import CurrencyCode
 @dataclass
 class SubscriptionCredit:
     amount:       str
-    currencyCode: CurrencyCode
+    currency_code: CurrencyCode
 
 
     @staticmethod
     def from_dict(data: dict) -> SubscriptionCredit:
         return SubscriptionCredit(
             amount       = data['amount'],
-            currencyCode = CurrencyCode(data['currency_code']),
+            currency_code = CurrencyCode(data['currency_code']),
         )

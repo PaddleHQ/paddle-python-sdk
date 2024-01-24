@@ -10,7 +10,7 @@ from src.Entities.Subscriptions.SubscriptionResultAction import SubscriptionResu
 class SubscriptionResult:
     action:       SubscriptionResultAction
     amount:       str
-    currencyCode: CurrencyCode
+    currency_code: CurrencyCode
 
 
     @staticmethod
@@ -18,5 +18,5 @@ class SubscriptionResult:
         return SubscriptionResult(
             action       = SubscriptionResultAction(data['action']),
             amount       = data['amount'],
-            currencyCode = CurrencyCode(data['currency_code']),
+            currency_code = CurrencyCode(data['currency_code']),
         )

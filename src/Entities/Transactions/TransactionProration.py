@@ -6,13 +6,13 @@ from src.Entities.Transactions.TransactionTimePeriod import TransactionTimePerio
 
 @dataclass
 class TransactionProration:
-    rate:          str
-    billingPeriod: TransactionTimePeriod | None
+    rate:           str
+    billing_period: TransactionTimePeriod | None
 
 
     @staticmethod
     def from_dict(data: dict) -> TransactionProration:
         return TransactionProration(
-            rate          = data['rate'],
-            billingPeriod = TransactionTimePeriod.from_dict(data['billing_period']) if 'billing_period' in data else None,
+            rate           = data['rate'],
+            billing_period = TransactionTimePeriod.from_dict(data['billing_period']) if 'billing_period' in data else None,
         )

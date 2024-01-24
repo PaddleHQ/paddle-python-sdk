@@ -8,7 +8,7 @@ from src.Entities.Subscriptions.SubscriptionProration import SubscriptionProrati
 
 @dataclass
 class SubscriptionTransactionItem:
-    priceId:   str
+    price_id:   str
     price:     Price
     quantity:  int
     proration: SubscriptionProration
@@ -17,7 +17,7 @@ class SubscriptionTransactionItem:
     @staticmethod
     def from_dict(data: dict) -> SubscriptionTransactionItem:
         return SubscriptionTransactionItem(
-            priceId   = data['price_id'],
+            price_id   = data['price_id'],
             price     = Price.from_dict(data['price']),
             quantity  = data['quantity'],
             proration = SubscriptionProration.from_dict(data['proration']),

@@ -8,7 +8,7 @@ from src.Entities.Subscriptions.SubscriptionAdjustmentItem import SubscriptionAd
 
 @dataclass
 class SubscriptionAdjustmentPreview:
-    transactionId: str
+    transaction_id: str
     items:         list[SubscriptionAdjustmentItem]
     totals:        TotalAdjustments
 
@@ -16,7 +16,7 @@ class SubscriptionAdjustmentPreview:
     @staticmethod
     def from_dict(data: dict) -> SubscriptionAdjustmentPreview:
         return SubscriptionAdjustmentPreview(
-            transactionId = data['transaction_id'],
+            transaction_id = data['transaction_id'],
             items         = [SubscriptionAdjustmentItem.from_dict(item) for item in data['items']],
             totals        = TotalAdjustments.from_dict(data['totals']),
         )

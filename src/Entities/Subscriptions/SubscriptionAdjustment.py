@@ -15,18 +15,18 @@ from src.Entities.Subscriptions.SubscriptionAdjustmentItem import SubscriptionAd
 class SubscriptionAdjustment:
     id:                     str
     action:                 Action
-    transactionId:          str
-    subscriptionId:         str | None
-    customerId:             str
+    transaction_id:          str
+    subscription_id:         str | None
+    customer_id:             str
     reason:                 str
-    creditAppliedToBalance: bool
-    currencyCode:           CurrencyCode
+    credit_applied_to_balance: bool
+    currency_code:           CurrencyCode
     status:                 StatusAdjustment
     items:                  list[SubscriptionAdjustmentItem]
     totals:                 TotalAdjustments
-    payoutTotals:           PayoutTotalsAdjustment
-    createdAt:              datetime
-    updatedAt:              datetime
+    payout_totals:           PayoutTotalsAdjustment
+    created_at:              datetime
+    updated_at:              datetime
 
 
     @staticmethod
@@ -34,16 +34,16 @@ class SubscriptionAdjustment:
         return SubscriptionAdjustment(
             id                     = data['id'],
             action                 = Action(data['action']),
-            transactionId          = data['transaction_id'],
-            subscriptionId         = data.get('subscription_id'),
-            customerId             = data['customer_id'],
+            transaction_id          = data['transaction_id'],
+            subscription_id         = data.get('subscription_id'),
+            customer_id             = data['customer_id'],
             reason                 = data['reason'],
-            creditAppliedToBalance = data['credit_applied_to_balance'],
-            currencyCode           = CurrencyCode(data['currency_code']),
+            credit_applied_to_balance = data['credit_applied_to_balance'],
+            currency_code           = CurrencyCode(data['currency_code']),
             status                 = StatusAdjustment(data['status']),
             items                  = [SubscriptionAdjustmentItem.from_dict(item) for item in data['items']],
             totals                 = TotalAdjustments.from_dict(data['totals']),
-            payoutTotals           = PayoutTotalsAdjustment.from_dict(data['payout_totals']),
-            createdAt              = datetime.fromisoformat(data['created_at']),
-            updatedAt              = datetime.fromisoformat(data['updated_at']),
+            payout_totals           = PayoutTotalsAdjustment.from_dict(data['payout_totals']),
+            created_at              = datetime.fromisoformat(data['created_at']),
+            updated_at              = datetime.fromisoformat(data['updated_at']),
         )

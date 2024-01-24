@@ -21,12 +21,12 @@ from src.Entities.Subscriptions.SubscriptionTimePeriod      import SubscriptionT
 class NotificationSubscription(Entity):
     id:                   str
     status:               SubscriptionStatus
-    customerId:           str
+    customer_id:           str
     addressId:            str
     businessId:           str | None
-    currencyCode:         CurrencyCode
-    createdAt:            datetime
-    updatedAt:            datetime
+    currency_code:         CurrencyCode
+    created_at:            datetime
+    updated_at:            datetime
     startedAt:            datetime | None
     firstBilledAt:        datetime | None
     nextBilledAt:         datetime | None
@@ -36,10 +36,10 @@ class NotificationSubscription(Entity):
     collectionMode:       CollectionMode
     billingDetails:       BillingDetails | None
     currentBillingPeriod: SubscriptionTimePeriod
-    billingCycle:         TimePeriod
+    billing_cycle:         TimePeriod
     scheduledChange:      SubscriptionScheduledChange | None
     items:                list[SubscriptionItem]
-    customData:           CustomData | None
+    custom_data:           CustomData | None
 
 
     @classmethod
@@ -47,12 +47,12 @@ class NotificationSubscription(Entity):
         return NotificationSubscription(
             id                   = data['id'],
             status               = SubscriptionStatus(data['status']),
-            customerId           = data['customer_id'],
+            customer_id           = data['customer_id'],
             addressId            = data['address_id'],
             businessId           = data.get('business_id'),
-            currencyCode         = CurrencyCode(data['currency_code']),
-            createdAt            = datetime.fromisoformat(data['created_at']),
-            updatedAt            = datetime.fromisoformat(data['updated_at']),
+            currency_code         = CurrencyCode(data['currency_code']),
+            created_at            = datetime.fromisoformat(data['created_at']),
+            updated_at            = datetime.fromisoformat(data['updated_at']),
             startedAt            = datetime.fromisoformat(data['started_at']) if data.get('started_at') else None,
             firstBilledAt        = datetime.fromisoformat(data['first_billed_at']) if data.get('first_billed_at') else None,
             nextBilledAt         = datetime.fromisoformat(data['next_billed_at']) if data.get('next_billed_at') else None,
@@ -62,8 +62,8 @@ class NotificationSubscription(Entity):
             collectionMode       = CollectionMode(data['collection_mode']),
             billingDetails       = BillingDetails.from_dict(data['billing_details']) if data.get('billing_details') else None,
             currentBillingPeriod = SubscriptionTimePeriod.from_dict(data['current_billing_period']),
-            billingCycle         = TimePeriod.from_dict(data['billing_cycle']),
+            billing_cycle         = TimePeriod.from_dict(data['billing_cycle']),
             scheduledChange      = SubscriptionScheduledChange.from_dict(data['scheduled_change']) if data.get('scheduled_change') else None,
             items                = [SubscriptionItem.from_dict(item) for item in data['items']],
-            customData           = CustomData(data['custom_data']) if data.get('custom_data') else None,
+            custom_data           = CustomData(data['custom_data']) if data.get('custom_data') else None,
         )

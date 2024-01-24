@@ -4,13 +4,13 @@ from dataclasses import dataclass
 
 @dataclass
 class SubscriptionItems:
-    priceId:  str
+    price_id:  str
     quantity: int
 
 
     @staticmethod
     def from_dict(data: dict) -> SubscriptionItems:
         return SubscriptionItems(
-            priceId  = data['price_id'],
+            price_id  = data['price_id'],
             quantity = data['quantity'],
         )

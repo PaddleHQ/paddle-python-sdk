@@ -5,13 +5,13 @@ from datetime    import datetime
 
 @dataclass
 class TransactionTimePeriod:
-    startsAt: datetime
-    endsAt:   datetime
+    starts_at: datetime
+    ends_at:   datetime
 
 
     @staticmethod
     def from_dict(data: dict) -> TransactionTimePeriod:
         return TransactionTimePeriod(
-            startsAt = datetime.fromisoformat(data['starts_at']),
-            endsAt   = datetime.fromisoformat(data['ends_at']),
+            starts_at = datetime.fromisoformat(data['starts_at']),
+            ends_at   = datetime.fromisoformat(data['ends_at']),
         )

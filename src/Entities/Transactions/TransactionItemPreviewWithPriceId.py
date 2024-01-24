@@ -4,15 +4,15 @@ from dataclasses import dataclass
 
 @dataclass
 class TransactionItemPreviewWithPriceId:
-    priceId:         str
-    quantity:        int
-    includeInTotals: bool | None
+    price_id:          str
+    quantity:          int
+    include_in_totals: bool | None
 
 
     @staticmethod
     def from_dict(data: dict) -> TransactionItemPreviewWithPriceId:
         return TransactionItemPreviewWithPriceId(
-            priceId         = data['price_id'],
-            quantity        = data['quantity'],
-            includeInTotals = data.get('include_in_totals'),
+            price_id          = data['price_id'],
+            quantity          = data['quantity'],
+            include_in_totals = data.get('include_in_totals'),
         )

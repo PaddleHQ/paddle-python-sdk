@@ -19,14 +19,14 @@ class NotificationDiscount(Entity):
     code:                      str | None
     type:                      DiscountType
     amount:                    str
-    currencyCode:              CurrencyCode | None
+    currency_code:              CurrencyCode | None
     recur:                     bool
     maximumRecurringIntervals: int | None
     usageLimit:                int | None
     restrictTo:                list | None
     expiresAt:                 datetime | None
-    createdAt:                 datetime
-    updatedAt:                 datetime
+    created_at:                 datetime
+    updated_at:                 datetime
 
 
     @classmethod
@@ -39,12 +39,12 @@ class NotificationDiscount(Entity):
             code                      = data.get('code'),
             type                      = DiscountType(data['type']),
             amount                    = data['amount'],
-            currencyCode              = CurrencyCode(data['currency_code']) if data.get('currency_code') else None,
+            currency_code              = CurrencyCode(data['currency_code']) if data.get('currency_code') else None,
             recur                     = data['recur'],
             maximumRecurringIntervals = data.get('maximum_recurring_intervals'),
             usageLimit                = data.get('usage_limit'),
             restrictTo                = data.get('restrict_to'),
             expiresAt                 = datetime.fromisoformat(data['expires_at']) if data.get('expires_at') else None,
-            createdAt                 = datetime.fromisoformat(data['created_at']),
-            updatedAt                 = datetime.fromisoformat(data['updated_at']),
+            created_at                 = datetime.fromisoformat(data['created_at']),
+            updated_at                 = datetime.fromisoformat(data['updated_at']),
         )

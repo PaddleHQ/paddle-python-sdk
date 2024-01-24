@@ -7,15 +7,15 @@ from src.Entities.Transactions.TransactionNonCatalogPriceWithProduct import Tran
 
 @dataclass
 class TransactionItemPreviewWithNonCatalogPrice:
-    price:           TransactionNonCatalogPrice | TransactionNonCatalogPriceWithProduct
-    quantity:        int
-    includeInTotals: bool | None
+    price:             TransactionNonCatalogPrice | TransactionNonCatalogPriceWithProduct
+    quantity:          int
+    include_in_totals: bool | None
 
 
     @staticmethod
     def from_dict(data: dict) -> TransactionItemPreviewWithNonCatalogPrice:
         return TransactionItemPreviewWithNonCatalogPrice(
-            price           = data['price'],
-            quantity        = data['quantity'],
-            includeInTotals = data.get('include_in_totals'),
+            price             = data['price'],
+            quantity          = data['quantity'],
+            include_in_totals = data.get('include_in_totals'),
         )

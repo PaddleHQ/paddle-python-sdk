@@ -13,7 +13,7 @@ class NotificationPayout(Entity):
     id:           str
     status:       NotificationPayoutStatus
     amount:       str
-    currencyCode: CurrencyCodePayouts
+    currency_code: CurrencyCodePayouts
 
 
     @classmethod
@@ -22,5 +22,5 @@ class NotificationPayout(Entity):
             id           = data['id'],
             status       = NotificationPayoutStatus(data['status']),
             amount       = data['amount'],
-            currencyCode = CurrencyCodePayouts(data['currency_code']),
+            currency_code = CurrencyCodePayouts(data['currency_code']),
         )
