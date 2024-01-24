@@ -1,7 +1,8 @@
 from __future__  import annotations
-from .Entity     import Entity
 from dataclasses import dataclass
 from datetime    import datetime
+
+from src.Entities.Entity import Entity
 
 from src.Entities.Shared.BillingDetails import BillingDetails
 from src.Entities.Shared.CollectionMode import CollectionMode
@@ -12,8 +13,8 @@ from src.Entities.Shared.TimePeriod     import TimePeriod
 from src.Entities.Subscriptions.SubscriptionDiscount        import SubscriptionDiscount
 from src.Entities.Subscriptions.SubscriptionItem            import SubscriptionItem
 from src.Entities.Subscriptions.SubscriptionManagementUrls  import SubscriptionManagementUrls
-from src.Entities.Subscriptions.SubscriptionStatus          import SubscriptionStatus
 from src.Entities.Subscriptions.SubscriptionScheduledChange import SubscriptionScheduledChange
+from src.Entities.Subscriptions.SubscriptionStatus          import SubscriptionStatus
 from src.Entities.Subscriptions.SubscriptionTimePeriod      import SubscriptionTimePeriod
 
 

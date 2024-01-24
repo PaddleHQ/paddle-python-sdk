@@ -2,24 +2,29 @@ from __future__  import annotations
 from dataclasses import dataclass
 from datetime    import datetime
 
-from src.Entities.Entity import Entity
+from src.Entities.Address  import Address
+from src.Entities.Business import Business
+from src.Entities.Customer import Customer
+from src.Entities.Discount import Discount
+from src.Entities.Entity   import Entity
 
 from src.Entities.Shared.BillingDetails            import BillingDetails
 from src.Entities.Shared.Checkout                  import Checkout
 from src.Entities.Shared.CollectionMode            import CollectionMode
-from src.Entities.Shared.CustomData                import CustomData
 from src.Entities.Shared.CurrencyCode              import CurrencyCode
+from src.Entities.Shared.CustomData                import CustomData
 from src.Entities.Shared.StatusTransaction         import StatusTransaction
 from src.Entities.Shared.TransactionOrigin         import TransactionOrigin
 from src.Entities.Shared.TransactionPaymentAttempt import TransactionPaymentAttempt
 
-from src.Entities.Transactions.TransactionDetails    import TransactionDetails
-from src.Entities.Transactions.TransactionItem       import TransactionItem
-from src.Entities.Transactions.TransactionTimePeriod import TransactionTimePeriod
+from src.Entities.Subscriptions.SubscriptionAdjustment      import SubscriptionAdjustment
+from src.Entities.Subscriptions.SubscriptionDetails         import SubscriptionDetails
+from src.Entities.Subscriptions.SubscriptionTimePeriod      import SubscriptionTimePeriod
+from src.Entities.Subscriptions.SubscriptionTransactionItem import SubscriptionTransactionItem
 
 
 @dataclass
-class Transaction(Entity):
+class SubscriptionTransaction(Entity):
     id:             str
     status:         StatusTransaction
     customerId:     str | None
@@ -34,19 +39,24 @@ class Transaction(Entity):
     collectionMode: CollectionMode
     discountId:     str | None
     billingDetails: BillingDetails | None
-    billingPeriod:  TransactionTimePeriod | None
-    items:          list[TransactionItem]
-    details:        TransactionDetails
+    billingPeriod:  SubscriptionTimePeriod
+    items:          list[SubscriptionTransactionItem]
+    details:        SubscriptionDetails
     payments:       list[TransactionPaymentAttempt]
     checkout:       Checkout
     createdAt:      datetime
     updatedAt:      datetime
     billedAt:       datetime | None
+    customer:       Customer
+    address:        Address
+    business:       Business
+    discount:       Discount
+    adjustments:    list[SubscriptionAdjustment]
 
 
     @classmethod
-    def from_dict(cls, data: dict) -> Transaction:
-        return Transaction(
+    def from_dict(cls, data: dict) -> SubscriptionTransaction:
+        return SubscriptionTransaction(
             id             = data['id'],
             status         = StatusTransaction(data['status']),
             customerId     = data.get('customer_id'),
@@ -61,12 +71,17 @@ class Transaction(Entity):
             collectionMode = CollectionMode(data['collection_mode']),
             discountId     = data.get('discount_id'),
             billingDetails = BillingDetails.from_dict(data['billing_details']) if 'billing_details' in data else None,
-            billingPeriod  = TransactionTimePeriod.from_dict(data['billing_period']) if 'billing_period' in data else None,
-            items          = [TransactionItem.from_dict(item) for item in data.get('items', [])],
-            details        = TransactionDetails.from_dict(data['details']),
-            payments       = [TransactionPaymentAttempt.from_dict(payment) for payment in data.get('payments', [])],
-            checkout       = Checkout.from_dict(data['checkout']) if 'checkout' in data else None,
+            billingPeriod  = SubscriptionTimePeriod.from_dict(data['billing_period']),
+            items          = [SubscriptionTransactionItem.from_dict(item) for item in data['items']],
+            details        = SubscriptionDetails.from_dict(data['details']),
+            payments       = [TransactionPaymentAttempt.from_dict(payment) for payment in data['payments']],
+            checkout       = Checkout.from_dict(data['checkout']),
             createdAt      = datetime.fromisoformat(data['created_at']),
             updatedAt      = datetime.fromisoformat(data['updated_at']),
             billedAt       = datetime.fromisoformat(data['billed_at']) if 'billed_at' in data else None,
+            customer       = Customer.from_dict(data['customer']),
+            address        = Address.from_dict(data['address']),
+            business       = Business.from_dict(data['business']),
+            discount       = Discount.from_dict(data['discount']),
+            adjustments    = [SubscriptionAdjustment.from_dict(adjustment) for adjustment in data['adjustments']],
         )

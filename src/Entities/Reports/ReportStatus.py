@@ -1,7 +1,7 @@
 from enum import StrEnum
 
 
-class ReportType(StrEnum):
+class ReportStatus(StrEnum):
     Pending = 'pending'
     Ready   = 'ready'
     Failed  = 'failed'
