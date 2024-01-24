@@ -5,7 +5,7 @@ from src.Entities.Collections.Collection import Collection
 
 class ProductCollection(Collection):
     @classmethod
-    def from_array(cls, items_data, paginator=None):
+    def from_list(cls, items_data, paginator=None):
         items = [Product.from_dict(item) for item in items_data]
         return cls(items, paginator)
 

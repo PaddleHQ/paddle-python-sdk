@@ -25,63 +25,63 @@ from src.Entities.Subscriptions.SubscriptionTransactionItem import SubscriptionT
 
 @dataclass
 class SubscriptionTransaction(Entity):
-    id:             str
-    status:         StatusTransaction
-    customerId:     str | None
-    addressId:      str | None
-    businessId:     str | None
-    customData:     CustomData | None
-    currencyCode:   CurrencyCode
-    origin:         TransactionOrigin
-    subscriptionId: str | None
-    invoiceId:      str | None
-    invoiceNumber:  str | None
-    collectionMode: CollectionMode
-    discountId:     str | None
-    billingDetails: BillingDetails | None
-    billingPeriod:  SubscriptionTimePeriod
-    items:          list[SubscriptionTransactionItem]
-    details:        SubscriptionDetails
-    payments:       list[TransactionPaymentAttempt]
-    checkout:       Checkout
-    createdAt:      datetime
-    updatedAt:      datetime
-    billedAt:       datetime | None
-    customer:       Customer
-    address:        Address
-    business:       Business
-    discount:       Discount
-    adjustments:    list[SubscriptionAdjustment]
+    id:              str
+    status:          StatusTransaction
+    customer_id:     str | None
+    address_id:      str | None
+    business_id:     str | None
+    custom_data:     CustomData | None
+    currency_code:   CurrencyCode
+    origin:          TransactionOrigin
+    subscription_id: str | None
+    invoice_id:      str | None
+    invoice_number:  str | None
+    collection_mode: CollectionMode
+    discount_id:     str | None
+    billing_details: BillingDetails | None
+    billing_period:  SubscriptionTimePeriod
+    items:           list[SubscriptionTransactionItem]
+    details:         SubscriptionDetails
+    payments:        list[TransactionPaymentAttempt]
+    checkout:        Checkout
+    created_at:      datetime
+    updated_at:      datetime
+    billed_at:       datetime | None
+    customer:        Customer
+    address:         Address
+    business:        Business
+    discount:        Discount
+    adjustments:     list[SubscriptionAdjustment]
 
 
     @classmethod
     def from_dict(cls, data: dict) -> SubscriptionTransaction:
         return SubscriptionTransaction(
-            id             = data['id'],
-            status         = StatusTransaction(data['status']),
-            customerId     = data.get('customer_id'),
-            addressId      = data.get('address_id'),
-            businessId     = data.get('business_id'),
-            customData     = CustomData(data['custom_data']) if 'custom_data' in data else None,
-            currencyCode   = CurrencyCode(data['currency_code']),
-            origin         = TransactionOrigin(data['origin']),
-            subscriptionId = data.get('subscription_id'),
-            invoiceId      = data.get('invoice_id'),
-            invoiceNumber  = data.get('invoice_number'),
-            collectionMode = CollectionMode(data['collection_mode']),
-            discountId     = data.get('discount_id'),
-            billingDetails = BillingDetails.from_dict(data['billing_details']) if 'billing_details' in data else None,
-            billingPeriod  = SubscriptionTimePeriod.from_dict(data['billing_period']),
-            items          = [SubscriptionTransactionItem.from_dict(item) for item in data['items']],
-            details        = SubscriptionDetails.from_dict(data['details']),
-            payments       = [TransactionPaymentAttempt.from_dict(payment) for payment in data['payments']],
-            checkout       = Checkout.from_dict(data['checkout']),
-            createdAt      = datetime.fromisoformat(data['created_at']),
-            updatedAt      = datetime.fromisoformat(data['updated_at']),
-            billedAt       = datetime.fromisoformat(data['billed_at']) if 'billed_at' in data else None,
-            customer       = Customer.from_dict(data['customer']),
-            address        = Address.from_dict(data['address']),
-            business       = Business.from_dict(data['business']),
-            discount       = Discount.from_dict(data['discount']),
-            adjustments    = [SubscriptionAdjustment.from_dict(adjustment) for adjustment in data['adjustments']],
+            id              = data['id'],
+            status          = StatusTransaction(data['status']),
+            customer_id     = data.get('customer_id'),
+            address_id      = data.get('address_id'),
+            business_id     = data.get('business_id'),
+            custom_data     = CustomData(data['custom_data']) if 'custom_data' in data else None,
+            currency_code   = CurrencyCode(data['currency_code']),
+            origin          = TransactionOrigin(data['origin']),
+            subscription_id = data.get('subscription_id'),
+            invoice_id      = data.get('invoice_id'),
+            invoice_number  = data.get('invoice_number'),
+            collection_mode = CollectionMode(data['collection_mode']),
+            discount_id     = data.get('discount_id'),
+            billing_details = BillingDetails.from_dict(data['billing_details']) if 'billing_details' in data else None,
+            billing_period  = SubscriptionTimePeriod.from_dict(data['billing_period']),
+            items           = [SubscriptionTransactionItem.from_dict(item) for item in data['items']],
+            details         = SubscriptionDetails.from_dict(data['details']),
+            payments        = [TransactionPaymentAttempt.from_dict(payment) for payment in data['payments']],
+            checkout        = Checkout.from_dict(data['checkout']),
+            created_at      = datetime.fromisoformat(data['created_at']),
+            updated_at      = datetime.fromisoformat(data['updated_at']),
+            billed_at       = datetime.fromisoformat(data['billed_at']) if 'billed_at' in data else None,
+            customer        = Customer.from_dict(data['customer']),
+            address         = Address.from_dict(data['address']),
+            business        = Business.from_dict(data['business']),
+            discount        = Discount.from_dict(data['discount']),
+            adjustments     = [SubscriptionAdjustment.from_dict(adjustment) for adjustment in data['adjustments']],
         )

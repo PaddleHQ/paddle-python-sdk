@@ -16,37 +16,37 @@ from src.Entities.Shared.UnitPriceOverride import UnitPriceOverride
 
 @dataclass
 class PriceWithIncludes(Entity):
-    id:                 str
-    productId:          str
-    name:               str | None
-    description:        str
-    type:               CatalogType | None
-    billingCycle:       TimePeriod | None
-    trialPeriod:        TimePeriod | None
-    taxMode:            TaxMode | None
-    unitPrice:          Money
-    unitPriceOverrides: list[UnitPriceOverride]
-    quantity:           PriceQuantity
-    status:             Status
-    customData:         CustomData | None
-    product:            ProductWithIncludes | None
+    id:                   str
+    product_id:           str
+    name:                 str | None
+    description:          str
+    type:                 CatalogType | None
+    billing_cycle:        TimePeriod | None
+    trial_period:         TimePeriod | None
+    taxMode:              TaxMode | None
+    unit_price:           Money
+    unit_price_overrides: list[UnitPriceOverride]
+    quantity:             PriceQuantity
+    status:               Status
+    custom_data:          CustomData | None
+    product:              ProductWithIncludes | None
 
 
     @classmethod
     def from_dict(cls, data: dict) -> PriceWithIncludes:
         return PriceWithIncludes(
-            id                 = data['id'],
-            productId          = data['product_id'],
-            name               = data.get('name'),
-            description        = data['description'],
-            type               = CatalogType(data['type']) if 'type' in data else None,
-            billingCycle       = TimePeriod.from_dict(data['billing_cycle']) if 'billing_cycle' in data else None,
-            trialPeriod        = TimePeriod.from_dict(data['trial_period']) if 'trial_period' in data else None,
-            taxMode            = TaxMode(data['tax_mode']) if 'tax_mode' in data else None,
-            unitPrice          = Money.from_dict(data['unit_price']),
-            unitPriceOverrides = [UnitPriceOverride.from_dict(override) for override in data.get('unit_price_overrides', [])],
-            quantity           = PriceQuantity.from_dict(data['quantity']),
-            status             = Status(data['status']),
-            customData         = CustomData(data['custom_data']) if 'custom_data' in data else None,
-            product            = ProductWithIncludes.from_dict(data['product']) if 'product' in data else None,
+            id                   = data['id'],
+            product_id           = data['product_id'],
+            name                 = data.get('name'),
+            description          = data['description'],
+            type                 = CatalogType(data['type'])                   if 'type'          in data else None,
+            billing_cycle        = TimePeriod.from_dict(data['billing_cycle']) if 'billing_cycle' in data else None,
+            trial_period         = TimePeriod.from_dict(data['trial_period'])  if 'trial_period'  in data else None,
+            taxMode              = TaxMode(data['tax_mode'])                   if 'tax_mode'      in data else None,
+            unit_price           = Money.from_dict(data['unit_price']),
+            unit_price_overrides = [UnitPriceOverride.from_dict(override) for override in data.get('unit_price_overrides', [])],
+            quantity             = PriceQuantity.from_dict(data['quantity']),
+            status               = Status(data['status']),
+            custom_data          = CustomData(data['custom_data'])                if 'custom_data' in data else None,
+            product              = ProductWithIncludes.from_dict(data['product']) if 'product'     in data else None,
         )

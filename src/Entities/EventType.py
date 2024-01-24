@@ -8,17 +8,17 @@ from src.Entities.Events.EventTypeName import EventTypeName
 
 @dataclass
 class EventType(Entity):
-    name:              EventTypeName
-    description:       str
-    group:             str
-    availableVersions: list
+    name:               EventTypeName
+    description:        str
+    group:              str
+    available_versions: list
 
 
     @classmethod
     def from_dict(cls, data: dict) -> EventType:
         return EventType(
-            name             = EventTypeName(data['name']),
-            description      = data['description'],
-            group            = data['group'],
-            availableVersions= data['available_versions'],
+            name               = EventTypeName(data['name']),
+            description        = data['description'],
+            group              = data['group'],
+            available_versions = data['available_versions'],
         )

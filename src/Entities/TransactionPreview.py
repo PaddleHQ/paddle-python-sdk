@@ -13,31 +13,31 @@ from src.Entities.Transactions.TransactionItemPreviewWithPrice import Transactio
 
 @dataclass
 class TransactionPreview(Entity):
-    customerId:              str | None
-    addressId:               str | None
-    businessId:              str | None
-    currencyCode:            CurrencyCode
-    discountId:              str | None
-    customerIpAddress:       str | None
-    address:                 AddressPreview | None
-    ignoreTrials:            bool
-    items:                   list[TransactionItemPreviewWithPrice]
-    details:                 TransactionDetailsPreview
-    availablePaymentMethods: list[AvailablePaymentMethods]
+    customer_id:               str | None
+    address_id:                str | None
+    business_id:               str | None
+    currency_code:             CurrencyCode
+    discount_id:               str | None
+    customer_ip_address:       str | None
+    address:                   AddressPreview | None
+    ignore_trials:             bool
+    items:                     list[TransactionItemPreviewWithPrice]
+    details:                   TransactionDetailsPreview
+    available_payment_methods: list[AvailablePaymentMethods]
 
 
     @classmethod
     def from_dict(cls, data: dict) -> TransactionPreview:
         return TransactionPreview(
-            customerId              = data.get('customer_id'),
-            addressId               = data.get('address_id'),
-            businessId              = data.get('business_id'),
-            currencyCode            = CurrencyCode(data['currency_code']),
-            discountId              = data.get('discount_id'),
-            customerIpAddress       = data.get('customer_ip_address'),
-            address                 = AddressPreview.from_dict(data['address']) if 'address' in data else None,
-            ignoreTrials            = data['ignore_trials'],
-            items                   = [TransactionItemPreviewWithPrice.from_dict(item) for item in data['items']],
-            details                 = TransactionDetailsPreview.from_dict(data['details']),
-            availablePaymentMethods = [AvailablePaymentMethods(method) for method in data['available_payment_methods']],
+            customer_id               = data.get('customer_id'),
+            address_id                = data.get('address_id'),
+            business_id               = data.get('business_id'),
+            currency_code             = CurrencyCode(data['currency_code']),
+            discount_id               = data.get('discount_id'),
+            customer_ip_address       = data.get('customer_ip_address'),
+            address                   = AddressPreview.from_dict(data['address']) if 'address' in data else None,
+            ignore_trials             = data['ignore_trials'],
+            items                     = [TransactionItemPreviewWithPrice.from_dict(item) for item in data['items']],
+            details                   = TransactionDetailsPreview.from_dict(data['details']),
+            available_payment_methods = [AvailablePaymentMethods(method) for method in data['available_payment_methods']],
         )

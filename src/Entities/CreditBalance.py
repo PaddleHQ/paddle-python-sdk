@@ -10,15 +10,15 @@ from src.Entities.Adjustments.AdjustmentCustomerBalance import AdjustmentCustome
 
 @dataclass
 class CreditBalance(Entity):
-    customerId:   str
-    currencyCode: CurrencyCode
-    balance:      AdjustmentCustomerBalance
+    customer_id:   str
+    currency_code: CurrencyCode
+    balance:       AdjustmentCustomerBalance
 
 
     @classmethod
     def from_dict(cls, data: dict) -> CreditBalance:
         return CreditBalance(
-            customerId   = data['customer_id'],
-            currencyCode = CurrencyCode(data['currency_code']),
-            balance      = AdjustmentCustomerBalance.from_dict(data['balance']),
+            customer_id   = data['customer_id'],
+            currency_code = CurrencyCode(data['currency_code']),
+            balance       = AdjustmentCustomerBalance.from_dict(data['balance']),
         )

@@ -12,27 +12,27 @@ from src.Entities.PricingPreviews.PricePreviewDetails import PricePreviewDetails
 
 @dataclass
 class PricePreview(Entity):
-    customerId:              str | None
-    addressId:               str | None
-    businessId:              str | None
-    currencyCode:            CurrencyCode
-    discountId:              str | None
-    address:                 AddressPreview | None
-    customerIpAddress:       str | None
-    details:                 PricePreviewDetails
-    availablePaymentMethods: list[AvailablePaymentMethods]
+    customer_id:               str | None
+    address_id:                str | None
+    business_id:               str | None
+    currency_code:             CurrencyCode
+    discount_id:               str | None
+    address:                   AddressPreview | None
+    customer_ip_address:       str | None
+    details:                   PricePreviewDetails
+    available_payment_methods: list[AvailablePaymentMethods]
 
 
     @classmethod
     def from_dict(cls, data: dict) -> PricePreview:
         return PricePreview(
-            customerId              = data.get('customer_id'),
-            addressId               = data.get('address_id'),
-            businessId              = data.get('business_id'),
-            currencyCode            = CurrencyCode(data['currency_code']),
-            discountId              = data.get('discount_id'),
-            address                 = AddressPreview.from_dict(data['address']) if 'address' in data else None,
-            customerIpAddress       = data.get('customer_ip_address'),
-            details                 = PricePreviewDetails.from_dict(data['details']),
-            availablePaymentMethods = [AvailablePaymentMethods(item) for item in data['available_payment_methods']],
+            customer_id               = data.get('customer_id'),
+            address_id                = data.get('address_id'),
+            business_id               = data.get('business_id'),
+            currency_code             = CurrencyCode(data['currency_code']),
+            discount_id               = data.get('discount_id'),
+            address                   = AddressPreview.from_dict(data['address']) if 'address' in data else None,
+            customer_ip_address       = data.get('customer_ip_address'),
+            details                   = PricePreviewDetails.from_dict(data['details']),
+            available_payment_methods = [AvailablePaymentMethods(item) for item in data['available_payment_methods']],
         )

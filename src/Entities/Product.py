@@ -4,36 +4,39 @@ from datetime    import datetime
 
 from src.Entities.Entity import Entity
 
-from src.Entities.Shared.CustomData  import CustomData
 from src.Entities.Shared.CatalogType import CatalogType
+from src.Entities.Shared.CustomData  import CustomData
+from src.Entities.Shared.ImportMeta  import ImportMeta
 from src.Entities.Shared.Status      import Status
 from src.Entities.Shared.TaxCategory import TaxCategory
 
 
 @dataclass
 class Product(Entity):
-    id:          str
-    name:        str
-    description: str | None
-    type:        CatalogType | None
-    taxCategory: TaxCategory
-    imageUrl:    str | None
-    customData:  CustomData | None
-    status:      Status
-    createdAt:   datetime | None
+    id:           str
+    name:         str
+    description:  str | None
+    type:         CatalogType | None
+    tax_category: TaxCategory
+    image_url:    str | None
+    custom_data:  CustomData | None
+    status:       Status
+    created_at:   datetime | None
+    import_meta:  ImportMeta | None
 
 
     @classmethod
     def from_dict(cls, data: dict) -> Product:
         return Product(
-            id          = data['id'],
-            name        = data['name'],
-            description = data.get('description'),
-            type        = CatalogType(data['type']) if data.get('type') else None,
-            taxCategory = TaxCategory(data['tax_category']),
-            imageUrl    = data.get('image_url'),
-            customData  = CustomData(data['custom_data']) if data.get('custom_data') else None,
-            status      = Status(data['status']),
-            createdAt   = datetime.fromisoformat(data['created_at']) if data.get('created_at') else None,
+            id           = data['id'],
+            name         = data['name'],
+            description  = data.get('description'),
+            type         = CatalogType(data['type']) if 'type' in data else None,
+            tax_category = TaxCategory(data['tax_category']),
+            image_url    = data.get('image_url'),
+            custom_data  = CustomData(data['custom_data']) if 'custom_data' in data else None,
+            status       = Status(data['status']),
+            created_at   = datetime.fromisoformat(data['created_at']) if 'created_at'  in data else None,
+            import_meta  = ImportMeta.from_dict(data['import_meta']) if 'import_meta' in data else None,
         )
 

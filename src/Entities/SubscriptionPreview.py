@@ -23,59 +23,59 @@ from src.Entities.Subscriptions.SubscriptionTimePeriod                       imp
 
 @dataclass
 class SubscriptionPreview(Entity):
-    status:                      SubscriptionStatus
-    customerId:                  str
-    addressId:                   str
-    businessId:                  str | None
-    currencyCode:                CurrencyCode
-    createdAt:                   datetime
-    updatedAt:                   datetime
-    startedAt:                   datetime | None
-    firstBilledAt:               datetime | None
-    nextBilledAt:                datetime | None
-    pausedAt:                    datetime | None
-    canceledAt:                  datetime | None
-    discount:                    SubscriptionDiscount | None
-    collectionMode:              CollectionMode
-    billingDetails:              BillingDetails | None
-    currentBillingPeriod:        SubscriptionTimePeriod | None
-    billingCycle:                TimePeriod
-    scheduledChange:             SubscriptionScheduledChange | None
-    managementUrls:              SubscriptionManagementUrls
-    items:                       list[SubscriptionItem]
-    customData:                  CustomData | None
-    immediateTransaction:        SubscriptionNextTransaction | None
-    nextTransaction:             SubscriptionNextTransaction | None
-    recurringTransactionDetails: TransactionDetailsPreview | None
-    updateSummary:               SubscriptionPreviewSubscriptionUpdateSummary | None
+    status:                        SubscriptionStatus
+    customer_id:                   str
+    address_id:                    str
+    business_id:                   str | None
+    currency_code:                 CurrencyCode
+    created_at:                    datetime
+    updated_at:                    datetime
+    started_at:                    datetime | None
+    first_billed_at:               datetime | None
+    next_billed_at:                datetime | None
+    paused_at:                     datetime | None
+    canceled_at:                   datetime | None
+    discount:                      SubscriptionDiscount | None
+    collection_mode:               CollectionMode
+    billing_details:               BillingDetails | None
+    current_billing_period:        SubscriptionTimePeriod | None
+    billing_cycle:                 TimePeriod
+    scheduled_change:              SubscriptionScheduledChange | None
+    management_urls:               SubscriptionManagementUrls
+    items:                         list[SubscriptionItem]
+    custom_data:                   CustomData | None
+    immediate_transaction:         SubscriptionNextTransaction | None
+    next_transaction:              SubscriptionNextTransaction | None
+    recurring_transaction_details: TransactionDetailsPreview | None
+    update_summary:                SubscriptionPreviewSubscriptionUpdateSummary | None
 
 
     @classmethod
     def from_dict(cls, data: dict) -> SubscriptionPreview:
         return SubscriptionPreview(
-            status                      = SubscriptionStatus(data['status']),
-            customerId                  = data['customer_id'],
-            addressId                   = data['address_id'],
-            businessId                  = data.get('business_id'),
-            currencyCode                = CurrencyCode(data['currency_code']),
-            createdAt                   = datetime.fromisoformat(data['created_at']),
-            updatedAt                   = datetime.fromisoformat(data['updated_at']),
-            startedAt                   = datetime.fromisoformat(data['started_at']) if 'started_at' in data else None,
-            firstBilledAt               = datetime.fromisoformat(data['first_billed_at']) if 'first_billed_at' in data else None,
-            nextBilledAt                = datetime.fromisoformat(data['next_billed_at']) if 'next_billed_at' in data else None,
-            pausedAt                    = datetime.fromisoformat(data['paused_at']) if 'paused_at' in data else None,
-            canceledAt                  = datetime.fromisoformat(data['canceled_at']) if 'canceled_at' in data else None,
-            discount                    = SubscriptionDiscount.from_dict(data['discount']) if 'discount' in data else None,
-            collectionMode              = CollectionMode(data['collection_mode']),
-            billingDetails              = BillingDetails.from_dict(data['billing_details']) if 'billing_details' in data else None,
-            currentBillingPeriod        = SubscriptionTimePeriod.from_dict(data['current_billing_period']) if 'current_billing_period' in data else None,
-            billingCycle                = TimePeriod.from_dict(data['billing_cycle']),
-            scheduledChange             = SubscriptionScheduledChange.from_dict(data['scheduled_change']) if 'scheduled_change' in data else None,
-            managementUrls              = SubscriptionManagementUrls.from_dict(data['management_urls']) if 'management_urls' in data else None,
-            items                       = [SubscriptionItem.from_dict(item) for item in data['items']],
-            customData                  = CustomData(data['custom_data']) if 'custom_data' in data else None,
-            immediateTransaction        = SubscriptionNextTransaction.from_dict(data['immediate_transaction']) if 'immediate_transaction' in data else None,
-            nextTransaction             = SubscriptionNextTransaction.from_dict(data['next_transaction']) if 'next_transaction' in data else None,
-            recurringTransactionDetails = TransactionDetailsPreview.from_dict(data['recurring_transaction_details']) if 'recurring_transaction_details' in data else None,
-            updateSummary               = SubscriptionPreviewSubscriptionUpdateSummary.from_dict(data['update_summary']) if 'update_summary' in data else None,
+            status                        = SubscriptionStatus(data['status']),
+            customer_id                   = data['customer_id'],
+            address_id                    = data['address_id'],
+            business_id                   = data.get('business_id'),
+            currency_code                 = CurrencyCode(data['currency_code']),
+            created_at                    = datetime.fromisoformat(data['created_at']),
+            updated_at                    = datetime.fromisoformat(data['updated_at']),
+            started_at                    = datetime.fromisoformat(data['started_at']) if 'started_at' in data else None,
+            first_billed_at               = datetime.fromisoformat(data['first_billed_at']) if 'first_billed_at' in data else None,
+            next_billed_at                = datetime.fromisoformat(data['next_billed_at']) if 'next_billed_at' in data else None,
+            paused_at                     = datetime.fromisoformat(data['paused_at']) if 'paused_at' in data else None,
+            canceled_at                   = datetime.fromisoformat(data['canceled_at']) if 'canceled_at' in data else None,
+            discount                      = SubscriptionDiscount.from_dict(data['discount']) if 'discount' in data else None,
+            collection_mode               = CollectionMode(data['collection_mode']),
+            billing_details               = BillingDetails.from_dict(data['billing_details']) if 'billing_details' in data else None,
+            current_billing_period        = SubscriptionTimePeriod.from_dict(data['current_billing_period']) if 'current_billing_period' in data else None,
+            billing_cycle                 = TimePeriod.from_dict(data['billing_cycle']),
+            scheduled_change              = SubscriptionScheduledChange.from_dict(data['scheduled_change']) if 'scheduled_change' in data else None,
+            management_urls               = SubscriptionManagementUrls.from_dict(data['management_urls']) if 'management_urls' in data else None,
+            items                         = [SubscriptionItem.from_dict(item) for item in data['items']],
+            custom_data                   = CustomData(data['custom_data']) if 'custom_data' in data else None,
+            immediate_transaction         = SubscriptionNextTransaction.from_dict(data['immediate_transaction']) if 'immediate_transaction' in data else None,
+            next_transaction              = SubscriptionNextTransaction.from_dict(data['next_transaction']) if 'next_transaction' in data else None,
+            recurring_transaction_details = TransactionDetailsPreview.from_dict(data['recurring_transaction_details']) if 'recurring_transaction_details' in data else None,
+            update_summary                = SubscriptionPreviewSubscriptionUpdateSummary.from_dict(data['update_summary']) if 'update_summary' in data else None,
         )

@@ -10,7 +10,7 @@ class Collection(ABC, Iterator):
 
 
     @abstractmethod
-    def from_array(cls, data, paginator=None):
+    def from_list(cls, data, paginator=None):
         pass
 
 

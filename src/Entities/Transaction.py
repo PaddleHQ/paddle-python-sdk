@@ -20,53 +20,53 @@ from src.Entities.Transactions.TransactionTimePeriod import TransactionTimePerio
 
 @dataclass
 class Transaction(Entity):
-    id:             str
-    status:         StatusTransaction
-    customerId:     str | None
-    addressId:      str | None
-    businessId:     str | None
-    customData:     CustomData | None
-    currencyCode:   CurrencyCode
-    origin:         TransactionOrigin
-    subscriptionId: str | None
-    invoiceId:      str | None
-    invoiceNumber:  str | None
-    collectionMode: CollectionMode
-    discountId:     str | None
-    billingDetails: BillingDetails | None
-    billingPeriod:  TransactionTimePeriod | None
-    items:          list[TransactionItem]
-    details:        TransactionDetails
-    payments:       list[TransactionPaymentAttempt]
-    checkout:       Checkout
-    createdAt:      datetime
-    updatedAt:      datetime
-    billedAt:       datetime | None
+    id:              str
+    status:          StatusTransaction
+    customer_id:     str | None
+    address_id:      str | None
+    business_id:     str | None
+    custom_data:     CustomData | None
+    currency_code:   CurrencyCode
+    origin:          TransactionOrigin
+    subscription_id: str | None
+    invoice_id:      str | None
+    invoice_number:  str | None
+    collection_mode: CollectionMode
+    discount_id:     str | None
+    billing_details: BillingDetails | None
+    billing_period:  TransactionTimePeriod | None
+    items:           list[TransactionItem]
+    details:         TransactionDetails
+    payments:        list[TransactionPaymentAttempt]
+    checkout:        Checkout
+    created_at:      datetime
+    updated_at:      datetime
+    billed_at:       datetime | None
 
 
     @classmethod
     def from_dict(cls, data: dict) -> Transaction:
         return Transaction(
-            id             = data['id'],
-            status         = StatusTransaction(data['status']),
-            customerId     = data.get('customer_id'),
-            addressId      = data.get('address_id'),
-            businessId     = data.get('business_id'),
-            customData     = CustomData(data['custom_data']) if 'custom_data' in data else None,
-            currencyCode   = CurrencyCode(data['currency_code']),
-            origin         = TransactionOrigin(data['origin']),
-            subscriptionId = data.get('subscription_id'),
-            invoiceId      = data.get('invoice_id'),
-            invoiceNumber  = data.get('invoice_number'),
-            collectionMode = CollectionMode(data['collection_mode']),
-            discountId     = data.get('discount_id'),
-            billingDetails = BillingDetails.from_dict(data['billing_details']) if 'billing_details' in data else None,
-            billingPeriod  = TransactionTimePeriod.from_dict(data['billing_period']) if 'billing_period' in data else None,
-            items          = [TransactionItem.from_dict(item) for item in data.get('items', [])],
-            details        = TransactionDetails.from_dict(data['details']),
-            payments       = [TransactionPaymentAttempt.from_dict(payment) for payment in data.get('payments', [])],
-            checkout       = Checkout.from_dict(data['checkout']) if 'checkout' in data else None,
-            createdAt      = datetime.fromisoformat(data['created_at']),
-            updatedAt      = datetime.fromisoformat(data['updated_at']),
-            billedAt       = datetime.fromisoformat(data['billed_at']) if 'billed_at' in data else None,
+            id              = data['id'],
+            status          = StatusTransaction(data['status']),
+            customer_id     = data.get('customer_id'),
+            address_id      = data.get('address_id'),
+            business_id     = data.get('business_id'),
+            custom_data     = CustomData(data['custom_data']) if 'custom_data' in data else None,
+            currency_code   = CurrencyCode(data['currency_code']),
+            origin          = TransactionOrigin(data['origin']),
+            subscription_id = data.get('subscription_id'),
+            invoice_id      = data.get('invoice_id'),
+            invoice_number  = data.get('invoice_number'),
+            collection_mode = CollectionMode(data['collection_mode']),
+            discount_id     = data.get('discount_id'),
+            billing_details = BillingDetails.from_dict(data['billing_details'])       if 'billing_details' in data else None,
+            billing_period  = TransactionTimePeriod.from_dict(data['billing_period']) if 'billing_period'  in data else None,
+            items           = [TransactionItem.from_dict(item) for item in data.get('items', [])],
+            details         = TransactionDetails.from_dict(data['details']),
+            payments        = [TransactionPaymentAttempt.from_dict(payment) for payment in data.get('payments', [])],
+            checkout        = Checkout.from_dict(data['checkout']) if 'checkout' in data else None,
+            created_at      = datetime.fromisoformat(data['created_at']),
+            updated_at      = datetime.fromisoformat(data['updated_at']),
+            billed_at       = datetime.fromisoformat(data['billed_at']) if 'billed_at' in data else None,
         )

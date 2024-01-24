@@ -7,19 +7,19 @@ from src.Entities.Entity import Entity
 
 @dataclass
 class NotificationLog(Entity):
-    id:                  str
-    responseCode:        int
-    responseContentType: str | None
-    responseBody:        str
-    attempted_at:        datetime
+    id:                    str
+    response_code:         int
+    response_content_type: str | None
+    response_body:         str
+    attempted_at:          datetime
 
 
     @classmethod
     def from_dict(cls, data: dict) -> NotificationLog:
         return NotificationLog(
-            id                  = data['id'],
-            responseCode        = data['response_code'],
-            responseContentType = data.get('response_content_type'),
-            responseBody        = data['response_body'],
-            attempted_at        = datetime.fromisoformat(data['attempted_at']),
+            id                    = data['id'],
+            response_code         = data['response_code'],
+            response_content_type = data.get('response_content_type'),
+            response_body         = data['response_body'],
+            attempted_at          = datetime.fromisoformat(data['attempted_at']),
         )

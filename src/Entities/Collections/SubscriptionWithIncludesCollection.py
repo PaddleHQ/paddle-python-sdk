@@ -5,7 +5,7 @@ from src.Entities.Collections.Collection import Collection
 
 class SubscriptionWithIncludesCollection(Collection):
     @classmethod
-    def from_array(cls, items_data, paginator=None):
+    def from_list(cls, items_data, paginator=None):
         items = [SubscriptionWithIncludes.from_dict(item) for item in items_data]
         return cls(items, paginator)
 
