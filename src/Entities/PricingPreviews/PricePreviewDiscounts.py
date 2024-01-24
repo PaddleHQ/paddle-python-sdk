@@ -9,13 +9,13 @@ from src.Entities.Discount import Discount
 class PricePreviewDiscounts(Entity):
     discount:       Discount
     total:          str
-    formattedTotal: str
+    formatted_total: str
 
 
     @classmethod
     def from_dict(cls, data: dict) -> PricePreviewDiscounts:
         return PricePreviewDiscounts(
-            discount       = Discount.from_dict(data['discount']),
-            total          = data['total'],
-            formattedTotal = data['formatted_total'],
+            discount        = Discount.from_dict(data['discount']),
+            total           = data['total'],
+            formatted_total = data['formatted_total'],
         )

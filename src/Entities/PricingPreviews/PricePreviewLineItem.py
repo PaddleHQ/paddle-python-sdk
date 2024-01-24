@@ -15,27 +15,27 @@ from src.Entities.PricingPreviews.PricePreviewDiscounts           import PricePr
 
 @dataclass
 class PricePreviewLineItem(Entity):
-    price:               Price
-    quantity:            int
-    tax_rate:             str
-    unit_totals:          UnitTotals
-    formattedUnitTotals: PricePreviewUnitTotalsFormatted
-    totals:              Totals
-    formattedTotals:     PricePreviewTotalsFormatted
-    product:             Product
-    discounts:           list[PricePreviewDiscounts]
+    price:                 Price
+    quantity:              int
+    tax_rate:              str
+    unit_totals:           UnitTotals
+    formatted_unit_totals: PricePreviewUnitTotalsFormatted
+    totals:                Totals
+    formatted_totals:      PricePreviewTotalsFormatted
+    product:               Product
+    discounts:             list[PricePreviewDiscounts]
 
 
     @classmethod
     def from_dict(cls, data: dict) -> PricePreviewLineItem:
         return PricePreviewLineItem(
-            price               = Price.from_dict(data['price']),
-            quantity            = data['quantity'],
-            tax_rate             = data['tax_rate'],
-            unit_totals          = UnitTotals.from_dict(data['unit_totals']),
-            formattedUnitTotals = PricePreviewUnitTotalsFormatted.from_dict(data['formatted_unit_totals']),
-            totals              = Totals.from_dict(data['totals']),
-            formattedTotals     = PricePreviewTotalsFormatted.from_dict(data['formatted_totals']),
-            product             = Product.from_dict(data['product']),
-            discounts           = [PricePreviewDiscounts.from_dict(item) for item in data['discounts']],
+            price                 = Price.from_dict(data['price']),
+            quantity              = data['quantity'],
+            tax_rate              = data['tax_rate'],
+            unit_totals           = UnitTotals.from_dict(data['unit_totals']),
+            formatted_unit_totals = PricePreviewUnitTotalsFormatted.from_dict(data['formatted_unit_totals']),
+            totals                = Totals.from_dict(data['totals']),
+            formatted_totals      = PricePreviewTotalsFormatted.from_dict(data['formatted_totals']),
+            product               = Product.from_dict(data['product']),
+            discounts             = [PricePreviewDiscounts.from_dict(item) for item in data['discounts']],
         )
