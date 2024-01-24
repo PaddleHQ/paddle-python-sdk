@@ -7,27 +7,23 @@ from src.Entities.Shared.CurrencyCodePayouts import CurrencyCodePayouts
 
 @dataclass
 class PayoutTotalsAdjustment:
-    subtotal:      str
-    tax:           str
-    total:         str
-    fee:           str
-    chargebackFee: ChargebackFee | None
-    earnings:      str
-    currencyCode:  CurrencyCodePayouts
+    subtotal:       str
+    tax:            str
+    total:          str
+    fee:            str
+    chargeback_fee: ChargebackFee | None
+    earnings:       str
+    currency_code:  CurrencyCodePayouts
 
 
     @staticmethod
     def from_dict(data: dict) -> PayoutTotalsAdjustment:
-        chargeback_fee = ChargebackFee.from_dict(data['chargeback_fee']) \
-            if 'chargeback_fee' in data and data['chargeback_fee'] != '' \
-            else None
-
         return PayoutTotalsAdjustment(
-            subtotal      = data['subtotal'],
-            tax           = data['tax'],
-            total         = data['total'],
-            fee           = data['fee'],
-            chargebackFee = chargeback_fee,
-            earnings      = data['earnings'],
-            currencyCode  = CurrencyCodePayouts(data['currency_code']),
+            subtotal       = data['subtotal'],
+            tax            = data['tax'],
+            total          = data['total'],
+            fee            = data['fee'],
+            chargeback_fee = ChargebackFee.from_dict(data['chargeback_fee']) if 'chargeback_fee' in data else None,
+            earnings       = data['earnings'],
+            currency_code  = CurrencyCodePayouts(data['currency_code']),
         )

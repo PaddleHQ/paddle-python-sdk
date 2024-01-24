@@ -6,13 +6,13 @@ from src.Entities.Shared.Pagination import Pagination
 
 @dataclass
 class MetaPaginated:
-    requestId:  str
+    request_id: str
     pagination: Pagination
 
 
     @staticmethod
     def from_dict(data: dict) -> MetaPaginated:
         return MetaPaginated(
-            requestId  = data['requestId'],
+            request_id = data['request_id'],
             pagination = Pagination.from_dict(data['pagination']),
         )

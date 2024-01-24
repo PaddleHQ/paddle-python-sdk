@@ -4,17 +4,17 @@ from dataclasses import dataclass
 
 @dataclass
 class Pagination:
-    perPage:        int
-    next:           str
-    hasMore:        bool
-    estimatedTotal: int
+    per_page:        int
+    next:            str
+    has_more:        bool
+    estimated_total: int
 
 
     @staticmethod
     def from_dict(data: dict) -> Pagination:
         return Pagination(
-            perPage        = data['perPage'],
-            next           = data['next'],
-            hasMore        = data['hasMore'],
-            estimatedTotal = data['estimatedTotal'],
+            per_page        = data['per_page'],
+            next            = data['next'],
+            has_more        = data['has_more'],
+            estimated_total = data['estimated_total'],
         )

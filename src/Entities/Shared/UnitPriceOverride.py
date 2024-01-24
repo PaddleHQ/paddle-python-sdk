@@ -7,13 +7,13 @@ from src.Entities.Shared.Money       import Money
 
 @dataclass
 class UnitPriceOverride:
-    countryCodes: list[CountryCode]
-    unitPrice:    Money
+    country_codes: list[CountryCode]
+    unit_price:    Money
 
 
     @staticmethod
     def from_dict(data: dict) -> UnitPriceOverride:
         return UnitPriceOverride(
-            countryCodes = [CountryCode(code) for code in data['country_codes']],
-            unitPrice    = Money.from_dict(data['unit_price'])
+            country_codes = [CountryCode(code) for code in data['country_codes']],
+            unit_price    = Money.from_dict(data['unit_price'])
         )

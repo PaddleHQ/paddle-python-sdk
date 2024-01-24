@@ -4,13 +4,13 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class ImportMeta:
-    externalId:   str | None
-    importedFrom: str
+    external_id:   str | None
+    imported_from: str
 
 
     @classmethod
     def from_dict(cls, data: dict) -> ImportMeta:
         return ImportMeta(
-            externalId   = data.get('external_id'),
-            importedFrom = data['imported_from']
+            external_id   = data.get('external_id'),
+            imported_from = data['imported_from']
         )

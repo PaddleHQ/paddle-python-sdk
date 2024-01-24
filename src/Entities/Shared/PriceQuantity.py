@@ -10,4 +10,7 @@ class PriceQuantity:
 
     @staticmethod
     def from_dict(data: dict) -> PriceQuantity:
-        return PriceQuantity(minimum=data['minimum'], maximum=data['maximum'])
+        return PriceQuantity(
+            minimum = data['minimum'],
+            maximum = data['maximum'],
+        )
