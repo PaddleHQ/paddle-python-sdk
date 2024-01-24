@@ -8,6 +8,7 @@ from src.Entities.Shared.BillingDetails import BillingDetails
 from src.Entities.Shared.CollectionMode import CollectionMode
 from src.Entities.Shared.CurrencyCode   import CurrencyCode
 from src.Entities.Shared.CustomData     import CustomData
+from src.Entities.Shared.ImportMeta     import ImportMeta
 from src.Entities.Shared.TimePeriod     import TimePeriod
 
 from src.Entities.Subscriptions.SubscriptionDiscount        import SubscriptionDiscount
@@ -42,6 +43,7 @@ class Subscription(Entity):
     management_urls:        SubscriptionManagementUrls
     items:                  list[SubscriptionItem]
     custom_data:            CustomData | None
+    import_meta:            ImportMeta | None
 
 
     @classmethod
@@ -69,4 +71,5 @@ class Subscription(Entity):
             management_urls        = SubscriptionManagementUrls.from_dict(data['management_urls']),
             items                  = [SubscriptionItem.from_dict(item) for item in data['items']],
             custom_data            = CustomData(data['custom_data']) if data.get('custom_data') else None,
+            import_meta            = ImportMeta.from_dict(data['import_meta']) if 'import_meta' in data else None,
         )
