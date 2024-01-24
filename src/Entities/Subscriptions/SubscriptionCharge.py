@@ -6,13 +6,13 @@ from src.Entities.Shared.CurrencyCode import CurrencyCode
 
 @dataclass
 class SubscriptionCharge:
-    amount:       str
+    amount:        str
     currency_code: CurrencyCode
 
 
     @staticmethod
     def from_dict(data: dict) -> SubscriptionCharge:
         return SubscriptionCharge(
-            amount       = data['amount'],
+            amount        = data['amount'],
             currency_code = CurrencyCode(data['currency_code']),
         )

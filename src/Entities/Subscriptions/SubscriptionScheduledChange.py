@@ -7,15 +7,15 @@ from src.Entities.Subscriptions.SubscriptionScheduledChangeAction import Subscri
 
 @dataclass
 class SubscriptionScheduledChange:
-    action:      SubscriptionScheduledChangeAction
-    effectiveAt: datetime
-    resumeAt:    datetime | None
+    action:       SubscriptionScheduledChangeAction
+    effective_at: datetime
+    resume_at:    datetime | None
 
 
     @staticmethod
     def from_dict(data: dict) -> SubscriptionScheduledChange:
         return SubscriptionScheduledChange(
-            action      = SubscriptionScheduledChangeAction(data['action']),
-            effectiveAt = datetime.fromisoformat(data['effective_at']),
-            resumeAt    = datetime.fromisoformat(data['resume_at']) if 'resume_at' in data else None,
+            action       = SubscriptionScheduledChangeAction(data['action']),
+            effective_at = datetime.fromisoformat(data['effective_at']),
+            resume_at    = datetime.fromisoformat(data['resume_at']) if 'resume_at' in data else None,
         )

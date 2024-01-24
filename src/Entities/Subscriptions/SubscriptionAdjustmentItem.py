@@ -10,7 +10,7 @@ from src.Entities.Subscriptions.SubscriptionProration import SubscriptionProrati
 
 @dataclass
 class SubscriptionAdjustmentItem:
-    itemId:    str
+    item_id:   str
     type:      AdjustmentType
     amount:    str | None
     proration: SubscriptionProration
@@ -20,7 +20,7 @@ class SubscriptionAdjustmentItem:
     @staticmethod
     def from_dict(data: dict) -> SubscriptionAdjustmentItem:
         return SubscriptionAdjustmentItem(
-            itemId    = data['itemId'],
+            item_id   = data['item_id'],
             type      = AdjustmentType(data['type']),
             amount    = data.get('amount'),
             proration = SubscriptionProration.from_dict(data['proration']),

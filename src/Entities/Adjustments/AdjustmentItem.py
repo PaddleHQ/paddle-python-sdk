@@ -6,7 +6,7 @@ from src.Entities.Adjustments.AdjustmentType import AdjustmentType
 
 @dataclass
 class AdjustmentItem:
-    itemId: str
+    item_id: str
     type:   AdjustmentType
     amount: str | None
 
@@ -14,7 +14,7 @@ class AdjustmentItem:
     @staticmethod
     def from_dict(data: dict) -> AdjustmentItem:
         return AdjustmentItem(
-            itemId = data['itemId'],
+            item_id = data['item_id'],
             type   = AdjustmentType(data['type']),
             amount = data.get('amount'),
         )

@@ -29,7 +29,7 @@ class NotificationSubscription(Entity):
     updated_at:            datetime
     startedAt:            datetime | None
     firstBilledAt:        datetime | None
-    nextBilledAt:         datetime | None
+    next_billed_at:         datetime | None
     pausedAt:             datetime | None
     canceledAt:           datetime | None
     discount:             SubscriptionDiscount | None
@@ -55,7 +55,7 @@ class NotificationSubscription(Entity):
             updated_at            = datetime.fromisoformat(data['updated_at']),
             startedAt            = datetime.fromisoformat(data['started_at']) if data.get('started_at') else None,
             firstBilledAt        = datetime.fromisoformat(data['first_billed_at']) if data.get('first_billed_at') else None,
-            nextBilledAt         = datetime.fromisoformat(data['next_billed_at']) if data.get('next_billed_at') else None,
+            next_billed_at         = datetime.fromisoformat(data['next_billed_at']) if data.get('next_billed_at') else None,
             pausedAt             = datetime.fromisoformat(data['paused_at']) if data.get('paused_at') else None,
             canceledAt           = datetime.fromisoformat(data['canceled_at']) if data.get('canceled_at') else None,
             discount             = SubscriptionDiscount.from_dict(data['discount']) if data.get('discount') else None,

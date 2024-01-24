@@ -5,13 +5,13 @@ from datetime    import datetime
 
 @dataclass
 class AdjustmentTimePeriod:
-    startsAt: datetime
-    endsAt:   datetime
+    starts_at: datetime
+    ends_at:   datetime
 
 
     @staticmethod
     def from_dict(data: dict) -> AdjustmentTimePeriod:
         return AdjustmentTimePeriod(
-            startsAt = datetime.fromisoformat(data['startsAt']),
-            endsAt   = datetime.fromisoformat(data['endsAt']),
+            starts_at = datetime.fromisoformat(data['starts_at']),
+            ends_at   = datetime.fromisoformat(data['ends_at']),
         )

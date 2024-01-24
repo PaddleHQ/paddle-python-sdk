@@ -10,7 +10,7 @@ from src.Entities.Shared.Type                 import Type
 @dataclass
 class AdjustmentItemTotals:
     id:        str
-    itemId:    str
+    item_id:    str
     type:      Type
     amount:    str | None
     proration: AdjustmentProration
@@ -21,7 +21,7 @@ class AdjustmentItemTotals:
     def from_dict(data: dict) -> AdjustmentItemTotals:
         return AdjustmentItemTotals(
             id        = data['id'],
-            itemId    = data['itemId'],
+            item_id    = data['item_id'],
             type      = Type(data['type']),
             amount    = data.get('amount'),
             proration = AdjustmentProration.from_dict(data['proration']),

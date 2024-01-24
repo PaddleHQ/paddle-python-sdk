@@ -9,14 +9,14 @@ from src.Entities.Subscriptions.SubscriptionAdjustmentItem import SubscriptionAd
 @dataclass
 class SubscriptionAdjustmentPreview:
     transaction_id: str
-    items:         list[SubscriptionAdjustmentItem]
-    totals:        TotalAdjustments
+    items:          list[SubscriptionAdjustmentItem]
+    totals:         TotalAdjustments
 
 
     @staticmethod
     def from_dict(data: dict) -> SubscriptionAdjustmentPreview:
         return SubscriptionAdjustmentPreview(
             transaction_id = data['transaction_id'],
-            items         = [SubscriptionAdjustmentItem.from_dict(item) for item in data['items']],
-            totals        = TotalAdjustments.from_dict(data['totals']),
+            items          = [SubscriptionAdjustmentItem.from_dict(item) for item in data['items']],
+            totals         = TotalAdjustments.from_dict(data['totals']),
         )

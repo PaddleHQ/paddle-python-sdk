@@ -7,12 +7,12 @@ from src.Entities.Adjustments.AdjustmentTimePeriod import AdjustmentTimePeriod
 @dataclass
 class AdjustmentProration:
     rate:          str
-    billingPeriod: AdjustmentTimePeriod
+    billing_period: AdjustmentTimePeriod
 
 
     @staticmethod
     def from_dict(data: dict) -> AdjustmentProration:
         return AdjustmentProration(
             rate          = data['rate'],
-            billingPeriod = AdjustmentTimePeriod.from_dict(data['billing_period']),
+            billing_period = AdjustmentTimePeriod.from_dict(data['billing_period']),
         )

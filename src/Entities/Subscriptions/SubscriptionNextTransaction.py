@@ -9,15 +9,15 @@ from src.Entities.Subscriptions.SubscriptionAdjustmentPreview import Subscriptio
 
 @dataclass
 class SubscriptionNextTransaction:
-    billingPeriod: SubscriptionTimePeriod
-    details:       TransactionDetailsPreview
-    adjustments:   list[SubscriptionAdjustmentPreview]
+    billing_period: SubscriptionTimePeriod
+    details:        TransactionDetailsPreview
+    adjustments:    list[SubscriptionAdjustmentPreview]
 
 
     @staticmethod
     def from_dict(data: dict) -> SubscriptionNextTransaction:
         return SubscriptionNextTransaction(
-            billingPeriod = SubscriptionTimePeriod.from_dict(data['billing_period']),
-            details       = TransactionDetailsPreview.from_dict(data['details']),
-            adjustments   = [SubscriptionAdjustmentPreview.from_dict(adj) for adj in data.get('adjustments', [])],
+            billing_period = SubscriptionTimePeriod.from_dict(data['billing_period']),
+            details        = TransactionDetailsPreview.from_dict(data['details']),
+            adjustments    = [SubscriptionAdjustmentPreview.from_dict(adj) for adj in data.get('adjustments', [])],
         )
