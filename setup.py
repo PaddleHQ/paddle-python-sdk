@@ -3,7 +3,7 @@ from setuptools  import setup, find_packages
 
 setup(
     name='paddle-billing-python-sdk',
-    version='0.0.1a19',
+    version='0.0.1a20',
     author='Corey Regan',
     author_email='regan.corey@gmail.com',
     description='A Python wrapper for the Paddle Billing API',
