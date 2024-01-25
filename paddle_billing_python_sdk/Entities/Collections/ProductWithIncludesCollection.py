@@ -1,13 +1,17 @@
-from paddle_billing_python_sdk.Entities.ProductWithIncludes import ProductWithIncludes
+from __future__ import annotations
 
 from paddle_billing_python_sdk.Entities.Collections.Collection import Collection
+from paddle_billing_python_sdk.Entities.Collections.Paginator  import Paginator
 
 
 class ProductWithIncludesCollection(Collection):
     @classmethod
-    def from_list(cls, items_data, paginator=None):
+    def from_list(cls, items_data: list, paginator: Paginator = None) -> ProductWithIncludesCollection:
+        from paddle_billing_python_sdk.Entities.ProductWithIncludes import ProductWithIncludes
+
         items = [ProductWithIncludes.from_dict(item) for item in items_data]
-        return cls(items, paginator)
+
+        return ProductWithIncludesCollection(items, paginator)
 
 
     def __next__(self):

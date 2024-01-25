@@ -1,14 +1,21 @@
+from typing import TYPE_CHECKING
+
 from paddle_billing_python_sdk.ResponseParser import ResponseParser
+
+if TYPE_CHECKING:
+    from paddle_billing_python_sdk.Client                     import Client
+    from paddle_billing_python_sdk.Entities.Collections       import Collection
+    from paddle_billing_python_sdk.Entities.Shared.Pagination import Pagination
 
 
 class Paginator:
-    def __init__(self, client, pagination, mapper):
+    def __init__(self, client: Client, pagination: Pagination, mapper: Collection):
         self._client     = client
         self._pagination = pagination
         self._mapper     = mapper
 
 
-    def has_more(self):
+    def has_more(self) -> bool:
         return self._pagination.has_more
 
 
