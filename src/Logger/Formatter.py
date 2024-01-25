@@ -6,12 +6,7 @@ class CustomLogger(logging.Filter):
     def filter(self, record):
         # Define multiple regex patterns for different sensitive data types
         search_patterns = {
-            r"'password': '\s*([^']+)'":      "'password': '<redacted>'",
-            r"'id_token': '\s*([^']+)'":      "'id_token': '<redacted>'",
-            r"'access_token': '\s*([^']+)'":  "'access_token': '<redacted>'",
-            r"'refresh_token': '\s*([^']+)'": "'refresh_token': '<redacted>'",
-            r"'Authorization': '\s*([^']+)'": "'Authorization': '<redacted>'",
-            r"'password_hash': '\s*([^']+)'": "'password_hash': '<redacted>'",
+            r"'X-Transaction-ID': '\s*([^']+)'": "'X-Transaction-ID': '<redacted>'",
         }
 
         # If the log record's message is a string, apply each regex substitution
