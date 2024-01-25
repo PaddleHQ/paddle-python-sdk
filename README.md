@@ -6,9 +6,7 @@
 
 
 # paddle-billing-python-sdk
-A *limited* Python wrapper for the new Paddle Billing SDK
-
-This project only contains the Paddle Billing components needed to satisfy another project of mine. Please feel free to contribute missing components. I may or may not add additional components myself over time, no promises. I am always open to PRs for bug fixes or new features.
+An unofficial Python wrapper for the new Paddle Billing SDK, based on Paddle's official [paddle-php-sdk](https://github.com/PaddleHQ/paddle-php-sdk/)
 
 
 ### Core developers

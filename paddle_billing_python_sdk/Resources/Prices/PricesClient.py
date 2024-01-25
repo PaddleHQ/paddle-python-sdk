@@ -1,3 +1,5 @@
+from typing import TYPE_CHECKING
+
 from paddle_billing_python_sdk.ResponseParser import ResponseParser
 
 from paddle_billing_python_sdk.Entities.PriceWithIncludes import PriceWithIncludes
@@ -7,17 +9,21 @@ from paddle_billing_python_sdk.Entities.Collections.PriceWithIncludesCollection 
 
 from paddle_billing_python_sdk.Entities.Shared.Status import Status
 
-# from paddle_billing_python_sdk.Resources.Prices.Operations.CreatePrice import CreatePrice
+from paddle_billing_python_sdk.Resources.Prices.Operations.CreatePrice import CreatePrice
 from paddle_billing_python_sdk.Resources.Prices.Operations.ListPrices  import ListPrices
 # from paddle_billing_python_sdk.Resources.Prices.Operations.UpdatePrice import UpdatePrice
 
 
+if TYPE_CHECKING:
+    from paddle_billing_python_sdk.Client import Client
+
+
 class PricesClient:
-    def __init__(self, client):
+    def __init__(self, client: 'Client'):
         self.client = client
 
 
-    def list(self, list_operation: ListPrices = None):
+    def list(self, list_operation: ListPrices = None) -> PriceWithIncludesCollection:
         if list_operation is None:
             list_operation = ListPrices()
 
@@ -26,7 +32,7 @@ class PricesClient:
         return PriceWithIncludesCollection.from_list(parser.get_data(), Paginator(self.client, parser.get_pagination(), PriceWithIncludesCollection))
 
 
-    def get(self, price_id: str, includes = None):
+    def get(self, price_id: str, includes = None) -> PriceWithIncludes:
         if includes is None:
             includes = []
 
@@ -38,21 +44,21 @@ class PricesClient:
         return PriceWithIncludes.from_dict(parser.get_data())
 
 
-    # def create(self, create_operation: CreatePrice):
-    #     response = self.client.post_raw('/prices', create_operation.get_parameters())
-    #     parser   = ResponseParser(response)
-    #
-    #     return PriceWithIncludes.from_dict(parser.get_data())
-    #
-    #
-    # def update(self, price_id: str, operation: UpdatePrice):
+    def create(self, create_operation: CreatePrice) -> PriceWithIncludes:
+        response = self.client.post_raw('/prices', create_operation.get_parameters())
+        parser   = ResponseParser(response)
+
+        return PriceWithIncludes.from_dict(parser.get_data())
+
+
+    # def update(self, price_id: str, operation: UpdatePrice) -> PriceWithIncludes:
     #     response = self.client.patch_raw(f"/prices/{price_id}", operation.get_parameters())
     #     parser   = ResponseParser(response)
     #
     #     return PriceWithIncludes.from_dict(parser.get_data())
     #
     #
-    # def archive(self, price_id: str):
+    # def archive(self, price_id: str) -> PriceWithIncludes:
     #     operation = UpdatePrice(status=Status.Archived)
     #
     #     return self.update(price_id, operation)
