@@ -1,7 +1,8 @@
 class FiltersNone:
-    def filter_none(self, values):  # noqa PEP-484
+    @staticmethod
+    def filter_none_values(input_dict) -> dict:
         """
         This method filters out values that are None from the given list
         """
-        return [value for value in values if value is not None]
+        return {key: value for key, value in input_dict.items() if value is not None}
 

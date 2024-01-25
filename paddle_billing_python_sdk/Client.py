@@ -7,6 +7,7 @@ from urllib.parse       import urljoin, urlencode
 from uuid               import uuid4
 
 from paddle_billing_python_sdk.__VERSION__   import __VERSION__
+from paddle_billing_python_sdk.FiltersNone   import FiltersNone
 from paddle_billing_python_sdk.HasParameters import HasParameters
 from paddle_billing_python_sdk.Options       import Options
 
@@ -103,12 +104,13 @@ class Client:
         # Serialize payload to JSON
         final_json = None
         if payload:
-            json_payload = json_dumps(payload)
-            final_json   = json_payload if json_payload == '[]' else '{}'
+            json_payload  = json_dumps(payload)
+            final_json    = json_payload if json_payload != '[]' else '{}'
+        # self.logger.debug(f"final_json: {final_json}")
 
-        # We're only ever passing JSON data, should be pretty safe to use json= instead of body=
+        # We use data= instead of json= because we manually serialize data into JSON
         try:
-            response = self.client.request(method.upper(), uri, json=final_json)
+            response = self.client.request(method.upper(), uri, data=final_json)
             response.raise_for_status()
 
             return response
@@ -119,7 +121,7 @@ class Client:
 
 
     @staticmethod
-    def _format_uri_parameters(uri, parameters: HasParameters):
+    def _format_uri_parameters(uri: str, parameters: HasParameters):
         if isinstance(parameters, HasParameters):
             parameters = parameters.get_parameters()
 
@@ -130,23 +132,29 @@ class Client:
         return uri
 
 
-    def get_raw(self, uri, parameters=None):
+    def get_raw(self, uri: str, parameters = None):
         uri = Client._format_uri_parameters(uri, parameters) if parameters else uri
 
         return self._make_request('GET', uri, None)
 
 
-    def post_raw(self, uri, payload=None, parameters=None):
+    def post_raw(self, uri: str, payload: dict | None = None, parameters = None):
+        # def post_raw(self, uri: str, payload: list | dict | None = None, parameters: HasParameters | None = None):
+        if payload:
+            payload = FiltersNone.filter_none_values(payload)  # Strip items with None values from the dict
         uri = Client._format_uri_parameters(uri, parameters) if parameters else uri
 
         return self._make_request('POST', uri, payload)
 
 
-    def patch_raw(self, uri, payload):
+    def patch_raw(self, uri: str, payload: dict | None):
+        if payload:
+            payload = FiltersNone.filter_none_values(payload)  # Strip items with None values from the dict
+
         return self._make_request('PATCH', uri, payload)
 
 
-    def delete_raw(self, uri):
+    def delete_raw(self, uri: str):
         return self._make_request('DELETE', uri)
 
 

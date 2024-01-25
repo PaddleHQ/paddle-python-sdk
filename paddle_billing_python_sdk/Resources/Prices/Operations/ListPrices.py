@@ -7,7 +7,16 @@ from paddle_billing_python_sdk.Resources.Prices.Operations.List.Includes import 
 
 
 class ListPrices:
-    def __init__(self, pager=None, includes=None, ids=None, types=None, product_ids=None, statuses=None, recurring=None):
+    def __init__(
+        self, 
+        pager             = None,
+        includes:    dict = None,
+        ids:         dict = None,
+        types:       dict = None,
+        product_ids: dict = None,
+        statuses:    dict = None,
+        recurring:   dict = None
+    ):
         self.pager       = pager
         self.includes    = includes    if includes    is not None else []
         self.ids         = ids         if ids         is not None else []
@@ -29,7 +38,7 @@ class ListPrices:
             raise InvalidArgumentException('statuses', Status.__name__)
 
 
-    def get_parameters(self):
+    def get_parameters(self) -> dict:
         enum_stringify = lambda enum: enum.value  # noqa E731
 
         parameters = {}
