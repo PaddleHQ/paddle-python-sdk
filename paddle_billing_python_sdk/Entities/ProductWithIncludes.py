@@ -5,7 +5,7 @@ from typing      import Optional
 
 from paddle_billing_python_sdk.Entities.Entity import Entity
 
-from paddle_billing_python_sdk.Entities.Collections.PriceWithIncludesCollection import PriceWithIncludesCollection  # TODO
+from paddle_billing_python_sdk.Entities.Collections.PriceWithIncludesCollection import PriceWithIncludesCollection
 
 from paddle_billing_python_sdk.Entities.Shared.CatalogType import CatalogType
 from paddle_billing_python_sdk.Entities.Shared.CustomData  import CustomData

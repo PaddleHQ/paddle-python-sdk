@@ -1,6 +1,6 @@
-from paddle_billing_python_sdk.Entities.PriceWithIncludes import PriceWithIncludes
-
 from paddle_billing_python_sdk.Entities.Collections.Collection import Collection
+
+from paddle_billing_python_sdk.Entities.PriceWithIncludes import PriceWithIncludes
 
 
 class PriceWithIncludesCollection(Collection):
