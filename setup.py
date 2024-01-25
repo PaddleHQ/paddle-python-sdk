@@ -13,6 +13,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         'requests>=2.31',
+        'urllib3>=2.1.0',
     ],
     classifiers=[
         # Full list: https://pypi.org/classifiers/

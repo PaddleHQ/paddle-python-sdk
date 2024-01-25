@@ -27,6 +27,7 @@ Python 3.11 and later.
 
 **Project dependencies** (automatically installed by pip):
 - requests>=2.31
+- urllib3>=2.1.0
 
 
 ## Install
