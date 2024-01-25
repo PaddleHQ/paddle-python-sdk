@@ -9,7 +9,7 @@ class Paginator:
 
 
     def has_more(self):
-        return self._pagination.hasMore
+        return self._pagination.has_more
 
 
     def next_page(self):
