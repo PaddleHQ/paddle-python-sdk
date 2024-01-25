@@ -42,7 +42,7 @@ class Client:
     def __init__(
         self,
         api_key:     str,             # handle our api key class
-        options:     dict     = None,
+        options:     Options  = None,
         http_client: Session  = None,
         logger                = None,
         retry_count: int      = 3,
