@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
 
 class Paginator:
-    def __init__(self, client: Client, pagination: Pagination, mapper: Collection):
+    def __init__(self, client: 'Client', pagination: 'Pagination', mapper: 'Collection'):
         self._client     = client
         self._pagination = pagination
         self._mapper     = mapper
