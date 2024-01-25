@@ -12,5 +12,5 @@ class Contacts:
     def from_dict(data: dict) -> Contacts:
         return Contacts(
             name  = data['name'],
-            email = data['email']
+            email = data['email'],
         )

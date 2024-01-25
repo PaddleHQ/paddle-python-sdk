@@ -28,8 +28,8 @@ class SubscriptionItem:
             recurring            = data['recurring'],
             created_at           = datetime.fromisoformat(data['created_at']),
             updated_at           = datetime.fromisoformat(data['updated_at']),
-            previously_billed_at = datetime.fromisoformat(data['previously_billed_at'])  if data.get('previously_billed_at') else None,
-            next_billed_at       = datetime.fromisoformat(data['next_billed_at'])        if data.get('next_billed_at') else None,
-            trial_dates          = SubscriptionTimePeriod.from_dict(data['trial_dates']) if data.get('trial_dates') else None,
             price                = SubscriptionPrice.from_dict(data['price']),
+            previously_billed_at = datetime.fromisoformat(data['previously_billed_at'])  if data.get('previously_billed_at') else None,
+            next_billed_at       = datetime.fromisoformat(data['next_billed_at'])        if data.get('next_billed_at')       else None,
+            trial_dates          = SubscriptionTimePeriod.from_dict(data['trial_dates']) if data.get('trial_dates')          else None,
         )

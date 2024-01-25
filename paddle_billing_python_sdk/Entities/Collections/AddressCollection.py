@@ -11,4 +11,4 @@ class AddressCollection(Collection):
 
 
     def __next__(self):
-        return super().__next__()  # Calls __next__ from Collection and ensures it returns EventType
+        return super().__next__()

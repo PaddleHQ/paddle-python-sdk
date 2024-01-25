@@ -23,10 +23,10 @@ class SubscriptionDetails:
     @staticmethod
     def from_dict(data: dict) -> SubscriptionDetails:
         return SubscriptionDetails(
-            tax_rates_used         = [TaxRatesUsed.from_dict(tax_rate) for tax_rate in data.get('tax_rates_used', [])],
             totals                 = TransactionTotals.from_dict(data['totals']),
             adjusted_totals        = TransactionTotalsAdjusted.from_dict(data['adjusted_totals']),
             payout_totals          = TransactionPayoutTotals.from_dict(data['payout_totals']),
             adjusted_payout_totals = TransactionPayoutTotalsAdjusted.from_dict(data['adjusted_payout_totals']),
-            line_items             = [SubscriptionTransactionLineItem.from_dict(item) for item in data.get('line_items', [])]
+            tax_rates_used         = [TaxRatesUsed.from_dict(tax_rate)                for tax_rate in data.get('tax_rates_used', [])],
+            line_items             = [SubscriptionTransactionLineItem.from_dict(item) for item     in data.get('line_items',     [])],
         )

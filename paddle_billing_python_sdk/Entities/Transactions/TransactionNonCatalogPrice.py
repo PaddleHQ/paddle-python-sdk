@@ -28,12 +28,12 @@ class TransactionNonCatalogPrice:
         return TransactionNonCatalogPrice(
             description          = data['description'],
             name                 = data.get('name'),
-            billing_cycle        = TimePeriod.from_dict(data['billing_cycle']) if data.get('billing_cycle') else None,
-            trial_period         = TimePeriod.from_dict(data['trial_period'])  if data.get('trial_period') else None,
             tax_mode             = data['tax_mode'],
             unit_price           = Money.from_dict(data['unit_price']),
-            unit_price_overrides = [UnitPriceOverride.from_dict(item) for item in data['unit_price_overrides']],
             quantity             = PriceQuantity.from_dict(data['quantity']),
-            custom_data          = CustomData(data['custom_data']) if data.get('custom_data') else None,
             product_id           = data['product_id'],
+            unit_price_overrides = [UnitPriceOverride.from_dict(item) for item in data['unit_price_overrides']],
+            billing_cycle        = TimePeriod.from_dict(data['billing_cycle']) if data.get('billing_cycle') else None,
+            trial_period         = TimePeriod.from_dict(data['trial_period'])  if data.get('trial_period')  else None,
+            custom_data          = CustomData(data['custom_data'])             if data.get('custom_data')   else None,
         )

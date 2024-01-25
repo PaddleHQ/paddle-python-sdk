@@ -16,7 +16,7 @@ class TransactionDetailsPreview:
     @staticmethod
     def from_dict(data: dict) -> TransactionDetailsPreview:
         return TransactionDetailsPreview(
-            tax_rates_used = [TaxRatesUsed.from_dict(rate) for rate in data['tax_rates_used']],
             totals         = TransactionTotals.from_dict(data['totals']),
+            tax_rates_used = [TaxRatesUsed.from_dict(rate)               for rate in data['tax_rates_used']],
             line_items     = [TransactionLineItemPreview.from_dict(item) for item in data['line_items']],
         )

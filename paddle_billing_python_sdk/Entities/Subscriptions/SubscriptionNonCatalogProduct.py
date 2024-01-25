@@ -21,8 +21,8 @@ class SubscriptionNonCatalogProduct:
         return SubscriptionNonCatalogProduct(
             name         = data['name'],
             description  = data.get('description'),
-            type         = CatalogType(data['type']) if data.get('type') is not None else None,
             tax_category = TaxCategory(data['tax_category']),
             image_url    = data.get('image_url'),
+            type         = CatalogType(data['type'])       if data.get('type')        else None,
             custom_data  = CustomData(data['custom_data']) if data.get('custom_data') else None,
         )

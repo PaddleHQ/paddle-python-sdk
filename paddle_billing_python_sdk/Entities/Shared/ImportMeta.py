@@ -12,5 +12,5 @@ class ImportMeta:
     def from_dict(cls, data: dict) -> ImportMeta:
         return ImportMeta(
             external_id   = data.get('external_id'),
-            imported_from = data['imported_from']
+            imported_from = data['imported_from'],
         )

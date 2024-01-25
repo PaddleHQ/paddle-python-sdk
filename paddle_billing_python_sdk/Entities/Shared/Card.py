@@ -20,5 +20,5 @@ class Card:
             last4           = data['last4'],
             expiry_month    = data['expiry_month'],
             expiry_year     = data['expiry_year'],
-            cardholder_name = data.get('cardholder_name')
+            cardholder_name = data.get('cardholder_name'),
         )
