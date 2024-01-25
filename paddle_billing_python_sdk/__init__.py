@@ -17,7 +17,3 @@ logger.basicConfig(
 )
 log = logger.getLogger(__pkg__)
 log.addFilter(CustomLogger())
-
-
-
-from paddle_billing_python_sdk.Client import Client  # noqa E402
