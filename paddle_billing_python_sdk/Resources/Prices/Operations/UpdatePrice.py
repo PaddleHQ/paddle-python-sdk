@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 
 from paddle_billing_python_sdk.Entities.Shared.CatalogType       import CatalogType
 from paddle_billing_python_sdk.Entities.Shared.CustomData        import CustomData
@@ -22,3 +22,7 @@ class UpdatePrice:
     quantity:             PriceQuantity | None           = None
     status:               Status | None                  = None
     custom_data:          CustomData | None              = None
+
+
+    def get_parameters(self) -> dict:
+        return asdict(self)

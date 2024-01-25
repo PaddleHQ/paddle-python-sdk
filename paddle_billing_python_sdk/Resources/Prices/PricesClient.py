@@ -46,14 +46,14 @@ class PricesClient:
 
 
     def create(self, operation: CreatePrice) -> PriceWithIncludes:
-        response = self.client.post_raw('/prices', asdict(operation))
+        response = self.client.post_raw('/prices', operation.get_parameters())
         parser   = ResponseParser(response)
 
         return PriceWithIncludes.from_dict(parser.get_data())
 
 
     def update(self, price_id: str, operation: UpdatePrice) -> PriceWithIncludes:
-        response = self.client.patch_raw(f"/prices/{price_id}", asdict(operation))
+        response = self.client.patch_raw(f"/prices/{price_id}", operation.get_parameters())
         parser   = ResponseParser(response)
 
         return PriceWithIncludes.from_dict(parser.get_data())
