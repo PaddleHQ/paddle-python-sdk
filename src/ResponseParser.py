@@ -3,7 +3,7 @@ from urllib.parse import urlparse, parse_qs
 
 from src.Entities.Shared.Pagination import Pagination
 
-from src.Exceptions.ApiErrors import ApiError
+from src.Exceptions.ApiError import ApiError
 
 
 # TODO
@@ -67,4 +67,4 @@ class ResponseParser:
             module = __import__(class_name, fromlist=[''])
             return getattr(module, f'{resource}ApiError')
         except (ImportError, AttributeError):
-            return ApiError  # TODO
+            return ApiError
