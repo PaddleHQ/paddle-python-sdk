@@ -29,7 +29,7 @@ class Report(Entity):
             rows       = data.get('rows'),
             type       = ReportType(data['type']),
             filters    = [ReportFilters.from_dict(a_filter) for a_filter in data.get('filters', [])],
-            expires_at = datetime.fromisoformat(data['expires_at']) if 'expires_at' in data else None,
+            expires_at = datetime.fromisoformat(data['expires_at']) if 'expires_at' in data and data['expires_at'] != '' else None,
             created_at = datetime.fromisoformat(data['created_at']),
             updated_at = datetime.fromisoformat(data['updated_at']),
         )

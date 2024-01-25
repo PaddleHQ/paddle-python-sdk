@@ -15,5 +15,5 @@ class MethodDetails:
     def from_dict(cls, data: dict) -> MethodDetails:
         return MethodDetails(
             Type(data['type']),
-            Card.from_dict(data['card']) if 'card' in data else None,
+            Card.from_dict(data['card']) if 'card' in data and data['card'] != '' else None,
         )

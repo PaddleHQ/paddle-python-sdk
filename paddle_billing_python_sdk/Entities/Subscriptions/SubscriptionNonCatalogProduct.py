@@ -24,5 +24,5 @@ class SubscriptionNonCatalogProduct:
             type         = CatalogType(data['type']) if data.get('type') is not None else None,
             tax_category = TaxCategory(data['tax_category']),
             image_url    = data.get('image_url'),
-            custom_data  = CustomData(data['custom_data']) if 'custom_data' in data else None,
+            custom_data  = CustomData(data['custom_data']) if 'custom_data' in data and data['custom_data'] != '' else None,
         )

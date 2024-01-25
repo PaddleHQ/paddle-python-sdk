@@ -23,7 +23,7 @@ class PriceWithIncludes(Entity):
     type:                 CatalogType | None
     billing_cycle:        TimePeriod | None
     trial_period:         TimePeriod | None
-    tax_mode:              TaxMode | None
+    tax_mode:             TaxMode | None
     unit_price:           Money
     unit_price_overrides: list[UnitPriceOverride]
     quantity:             PriceQuantity
@@ -39,14 +39,14 @@ class PriceWithIncludes(Entity):
             product_id           = data['product_id'],
             name                 = data.get('name'),
             description          = data['description'],
-            type                 = CatalogType(data['type'])                   if 'type'          in data else None,
-            billing_cycle        = TimePeriod.from_dict(data['billing_cycle']) if 'billing_cycle' in data else None,
-            trial_period         = TimePeriod.from_dict(data['trial_period'])  if 'trial_period'  in data else None,
-            tax_mode              = TaxMode(data['tax_mode'])                   if 'tax_mode'      in data else None,
+            type                 = CatalogType(data['type'])                   if 'type'          in data and data['type']          != '' else None,
+            billing_cycle        = TimePeriod.from_dict(data['billing_cycle']) if 'billing_cycle' in data and data['billing_cycle'] != '' else None,
+            trial_period         = TimePeriod.from_dict(data['trial_period'])  if 'trial_period'  in data and data['trial_period']  != '' else None,
+            tax_mode             = TaxMode(data['tax_mode'])                   if 'tax_mode'      in data and data['tax_mode']      != '' else None,
             unit_price           = Money.from_dict(data['unit_price']),
             unit_price_overrides = [UnitPriceOverride.from_dict(override) for override in data.get('unit_price_overrides', [])],
             quantity             = PriceQuantity.from_dict(data['quantity']),
             status               = Status(data['status']),
-            custom_data          = CustomData(data['custom_data'])                if 'custom_data' in data else None,
-            product              = ProductWithIncludes.from_dict(data['product']) if 'product'     in data else None,
+            custom_data          = CustomData(data['custom_data'])                if 'custom_data' in data and data['custom_data'] != '' else None,
+            product              = ProductWithIncludes.from_dict(data['product']) if 'product'     in data and data['product']     != '' else None,
         )

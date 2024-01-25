@@ -26,8 +26,8 @@ class TransactionPaymentAttempt:
             stored_payment_method_id = data['stored_payment_method_id'],
             amount                   = data['amount'],
             status                   = StatusPaymentAttempt(data['status']),
-            error_code               = ErrorCode(data['error_code']) if 'error_code' in data else None,
+            error_code               = ErrorCode(data['error_code']) if 'error_code' in data and data['error_code'] != '' else None,
             method_details           = MethodDetails.from_dict(data['method_details']),
             created_at               = datetime.fromisoformat(data['created_at']),
-            captured_at              = datetime.fromisoformat(data['captured_at']) if 'captured_at' in data else None,
+            captured_at              = datetime.fromisoformat(data['captured_at']) if 'captured_at' in data and data['captured_at'] != '' else None,
         )

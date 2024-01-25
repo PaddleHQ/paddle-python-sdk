@@ -6,7 +6,8 @@ class Environment(StrEnum):
     SANDBOX    = 'sandbox'
 
 
-    def base_url(self):
+    @property
+    def base_url(self) -> str:
         return {
             'production': 'https://api.paddle.com',
             'sandbox':    'https://sandbox-api.paddle.com',

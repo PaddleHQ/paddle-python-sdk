@@ -35,6 +35,6 @@ class Business(Entity):
             contacts       = [Contacts.from_dict(contact) for contact in data['contacts']],
             created_at     = datetime.fromisoformat(data['created_at']),
             updated_at     = datetime.fromisoformat(data['updated_at']),
-            custom_data    = CustomData(data['custom_data'])           if 'custom_data' in data else None,
-            import_meta    = ImportMeta.from_dict(data['import_meta']) if 'import_meta' in data else None,
+            custom_data    = CustomData(data['custom_data'])           if 'custom_data' in data and data['custom_data'] != '' else None,
+            import_meta    = ImportMeta.from_dict(data['import_meta']) if 'import_meta' in data and data['import_meta'] != '' else None,
         )

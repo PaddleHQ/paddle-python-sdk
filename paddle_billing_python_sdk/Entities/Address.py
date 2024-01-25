@@ -38,9 +38,9 @@ class Address(Entity):
             postal_code  = data.get('postal_code'),
             region       = data.get('region'),
             country_code = CountryCode(data['country_code']),
-            custom_data  = CustomData(data['custom_data']) if 'custom_data' in data else None,
+            custom_data  = CustomData(data['custom_data']) if 'custom_data' in data and data['custom_data'] != '' else None,
             status       = Status(data['status']),
             created_at   = datetime.fromisoformat(data['created_at']),
             updated_at   = datetime.fromisoformat(data['updated_at']),
-            import_meta  = ImportMeta.from_dict(data['import_meta']) if 'import_meta' in data else None,
+            import_meta  = ImportMeta.from_dict(data['import_meta']) if 'import_meta' in data and data['import_meta'] != '' else None,
         )

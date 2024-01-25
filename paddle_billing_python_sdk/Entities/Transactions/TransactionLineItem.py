@@ -27,7 +27,7 @@ class TransactionLineItem:
             id          = data['id'],
             price_id    = data['price_id'],
             quantity    = data['quantity'],
-            proration   = TransactionProration.from_dict(data['proration']) if 'proration' in data else None,
+            proration   = TransactionProration.from_dict(data['proration']) if 'proration' in data and data['proration'] != '' else None,
             tax_rate    = data['tax_rate'],
             unit_totals = UnitTotals.from_dict(data['unit_totals']),
             totals      = Totals.from_dict(data['totals']),

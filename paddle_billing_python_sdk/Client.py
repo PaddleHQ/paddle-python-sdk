@@ -94,7 +94,7 @@ class Client:
 
         # Parse and update URI with base URL components if necessary
         if isinstance(uri, str):
-            uri = urljoin(self.options['environment'].base_url, uri)
+            uri = urljoin(self.options.environment.base_url, uri)
 
         self.client.headers.update({
             'X-Transaction-ID': str(self.transaction_id) if self.transaction_id else str(uuid4())

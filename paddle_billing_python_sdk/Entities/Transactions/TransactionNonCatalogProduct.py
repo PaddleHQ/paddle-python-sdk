@@ -19,7 +19,7 @@ class TransactionNonCatalogProduct:
         return TransactionNonCatalogProduct(
             name         = data['name'],
             description  = data.get('description'),
-            tax_category = TaxCategory(data['tax_category']) if 'tax_category' in data else None,
+            tax_category = TaxCategory(data['tax_category']) if 'tax_category' in data and data['tax_category'] != '' else None,
             image_url    = data.get('image_url'),
-            custom_data  = CustomData(data['custom_data']) if 'custom_data' in data else None,
+            custom_data  = CustomData(data['custom_data']) if 'custom_data' in data and data['custom_data'] != '' else None,
         )

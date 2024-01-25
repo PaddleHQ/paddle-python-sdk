@@ -43,7 +43,7 @@ class TransactionAdjustment:
             status                    = StatusAdjustment(data['status']),
             items                     = [TransactionAdjustmentItem(item) for item in data['items']],
             totals                    = TotalAdjustments.from_dict(data['totals']),
-            payout_totals             = PayoutTotalsAdjustment.from_dict(data['payout_totals']) if 'payout_totals' in data else None,
+            payout_totals             = PayoutTotalsAdjustment.from_dict(data['payout_totals']) if 'payout_totals' in data and data['payout_totals'] != '' else None,
             created_at                = datetime.fromisoformat(data['created_at']),
             updated_at                = datetime.fromisoformat(data['updated_at']),
         )

@@ -14,5 +14,5 @@ class Money:
     def from_dict(data: dict) -> Money:
         return Money(
             amount        = data['amount'],
-            currency_code = CurrencyCode(data['currency_code']) if 'currency_code' in data else None,
+            currency_code = CurrencyCode(data['currency_code']) if 'currency_code' in data and data['currency_code'] != '' else None,
         )
