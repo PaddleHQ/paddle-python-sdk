@@ -3,5 +3,5 @@ class FiltersNone:
         """
         This method filters out values that are None from the given list
         """
-        return [value for value in values if not None]
+        return [value for value in values if value is not None]
 
