@@ -1,4 +1,3 @@
-from dataclasses import asdict
 from typing      import TYPE_CHECKING
 
 from paddle_billing_python_sdk.ResponseParser import ResponseParser
