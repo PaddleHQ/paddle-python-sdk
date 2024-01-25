@@ -32,9 +32,9 @@ class Business(Entity):
             company_number = data.get('company_number'),
             tax_identifier = data.get('tax_identifier'),
             status         = Status(data['status']),
-            contacts       = [Contacts.from_dict(contact) for contact in data['contacts']],
             created_at     = datetime.fromisoformat(data['created_at']),
             updated_at     = datetime.fromisoformat(data['updated_at']),
+            contacts       = [Contacts.from_dict(contact) for contact in data['contacts']],
             custom_data    = CustomData(data['custom_data'])           if data.get('custom_data') else None,
             import_meta    = ImportMeta.from_dict(data['import_meta']) if data.get('import_meta') else None,
         )

@@ -31,12 +31,12 @@ class Product(Entity):
             id           = data['id'],
             name         = data['name'],
             description  = data.get('description'),
-            type         = CatalogType(data['type']) if data.get('type') else None,
             tax_category = TaxCategory(data['tax_category']),
             image_url    = data.get('image_url'),
-            custom_data  = CustomData(data['custom_data']) if data.get('custom_data') else None,
             status       = Status(data['status']),
-            created_at   = datetime.fromisoformat(data['created_at']) if data.get('created_at') else None,
-            import_meta  = ImportMeta.from_dict(data['import_meta']) if data.get('import_meta') else None,
+            type         = CatalogType(data['type'])                  if data.get('type')        else None,
+            custom_data  = CustomData(data['custom_data'])            if data.get('custom_data') else None,
+            created_at   = datetime.fromisoformat(data['created_at']) if data.get('created_at')  else None,
+            import_meta  = ImportMeta.from_dict(data['import_meta'])  if data.get('import_meta') else None,
         )
 

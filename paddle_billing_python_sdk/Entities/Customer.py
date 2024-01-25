@@ -31,9 +31,9 @@ class Customer(Entity):
             email             = data['email'],
             marketing_consent = data['marketing_consent'],
             status            = Status(data['status']),
-            custom_data       = CustomData(data['custom_data']) if data.get('custom_data') else None,
             locale            = data['locale'],
             created_at        = datetime.fromisoformat(data['created_at']),
             updated_at        = datetime.fromisoformat(data['updated_at']),
+            custom_data       = CustomData(data['custom_data'])           if data.get('custom_data') else None,
             import_meta       = ImportMeta.from_dict(data['import_meta']) if data.get('import_meta') else None,
         )

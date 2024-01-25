@@ -35,9 +35,9 @@ class TransactionPreview(Entity):
             currency_code             = CurrencyCode(data['currency_code']),
             discount_id               = data.get('discount_id'),
             customer_ip_address       = data.get('customer_ip_address'),
-            address                   = AddressPreview.from_dict(data['address']) if data.get('address') else None,
             ignore_trials             = data['ignore_trials'],
-            items                     = [TransactionItemPreviewWithPrice.from_dict(item) for item in data['items']],
             details                   = TransactionDetailsPreview.from_dict(data['details']),
-            available_payment_methods = [AvailablePaymentMethods(method) for method in data['available_payment_methods']],
+            items                     = [TransactionItemPreviewWithPrice.from_dict(item) for item   in data['items']],
+            available_payment_methods = [AvailablePaymentMethods(method)                 for method in data['available_payment_methods']],
+            address                   = AddressPreview.from_dict(data['address']) if data.get('address') else None,
         )
