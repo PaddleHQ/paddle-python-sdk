@@ -40,7 +40,7 @@ To authenticate, you'll need an API key. You can create and manage API keys in *
 
 Pass your API key while initializing a new Paddle client:
 ``` python
-from paddle-billing-python-sdk.Client import Client
+from paddle_billing_python_sdk.Client import Client
 
 paddle = Client('PADDLE_API_SECRET_KEY')
 ```
@@ -48,16 +48,16 @@ paddle = Client('PADDLE_API_SECRET_KEY')
 You can pass your Paddle API secret key into the SDK from an environment variable:
 ``` python
 from os import environ
-from paddle-billing-python-sdk.Client import Client
+from paddle_billing_python_sdk.Client import Client
 
 paddle = Client(environ.get('PADDLE_API_SECRET_KEY'))
 ```
 
 You can also pass an environment to work with Paddle's sandbox:
 ``` python
-from paddle-billing-python-sdk.Client      import Client
-from paddle-billing-python-sdk.Options     import Options
-from paddle-billing-python-sdk.Environment import Environment
+from paddle_billing_python_sdk.Client      import Client
+from paddle_billing_python_sdk.Options     import Options
+from paddle_billing_python_sdk.Environment import Environment
 
 paddle = Client(
     api_key = 'PADDLE_API_SECRET_KEY',
@@ -70,12 +70,12 @@ Keep in mind that API keys are separate for your sandbox and live accounts, so y
 
 
 ## Examples
-There are examples included in the [examples folder]()
+There are examples included in the [examples folder](). To prevent leaking errors to your clients we recommend encapsulating Paddle operations inside Try/Except blocks. For brevity, the below examples do not do this.
 
 ### List entities
 You can list supported entities with the `list` function in the resource. It returns an iterator to help when working with multiple pages.
 ``` python
-from paddle-billing-python-sdk.Client import Client
+from paddle_billing_python_sdk.Client import Client
 
 paddle = Client('PADDLE_API_SECRET_KEY')
 
@@ -89,7 +89,7 @@ for product in products:
 ### Get an entity
 You can get an entity with the `get` function in the resource. It accepts the `id` of the entity to get. The entity is returned.
 ``` python
-from paddle-billing-python-sdk.Client import Client
+from paddle_billing_python_sdk.Client import Client
 
 paddle = Client('PADDLE_API_SECRET_KEY')
 
@@ -100,30 +100,28 @@ product = paddle.products.get('PRODUCT_ID')
 You can create a supported entity with the `create` function in the resource. It accepts the resource's corresponding `CreateOperation`. The created entity is returned.
 
 ``` python
-from paddle-billing-python-sdk.Client                                      import Client
-from paddle-billing-python-sdk.Entities.Shared.TaxCategory                 import TaxCategory
-from paddle-billing-python-sdk.Resources.Products.Operations.CreateProduct import CreateProduct
+from paddle_billing_python_sdk.Client                                      import Client
+from paddle_billing_python_sdk.Entities.Shared.TaxCategory                 import TaxCategory
+from paddle_billing_python_sdk.Resources.Products.Operations.CreateProduct import CreateProduct
 
 paddle = Client('PADDLE_API_SECRET_KEY')
 
-product = paddle.products.create(
-    CreateProduct(
-        name         = 'My Product,
-        tax_category = TaxCategory.Standard,
-    )
-)
+created_product = paddle.products.create(CreateProduct(
+    name         = 'My Product',
+    tax_category = TaxCategory.Standard,
+))
 ```
 
 ### Update an entity
 You can update a supported entity with the `update` function in the resource. It accepts the `id` of the entity to update and the corresponding `UpdateOperation`. The updated entity is returned.
 ``` python
-from paddle-billing-python-sdk.Client                                      import Client
-from paddle-billing-python-sdk.Resources.Products.Operations.UpdateProduct import UpdateProduct
+from paddle_billing_python_sdk.Client                                      import Client
+from paddle_billing_python_sdk.Resources.Products.Operations.UpdateProduct import UpdateProduct
 
 paddle = Client('PADDLE_API_SECRET_KEY')
 
 # Update the name of the product
-product = paddle.products.update('PRODUCT_ID', UpdateProduct(
+updated_product = paddle.products.update('PRODUCT_ID', UpdateProduct(
     name = 'My Improved Product'
 ))
 ```
@@ -133,10 +131,10 @@ Where operations require more than one `id`, the `update` function accepts multi
 # TODO
 # TODO
 ``` python
-address = paddle.products.update(
+updated_address = paddle.products.update(
     'CUSTOMER_ID',
     'ADDRESS_ID',
-    $update_operation,
+    update_operation,
 )
 ```
 
@@ -144,11 +142,11 @@ address = paddle.products.update(
 # TODO
 # TODO
 ### Delete an entity
-You can delete an entity with the `delete` function in the resource. It accepts the `id` of the entity to delete. ??? is returned.
+You can delete an entity with the `delete` function in the resource. It accepts the `id` of the entity to delete. The deleted entity is returned.
 ``` python
-from paddle-billing-python-sdk.Client import Client
+from paddle_billing_python_sdk.Client import Client
 
 paddle = Client('PADDLE_API_SECRET_KEY')
 
-product = paddle.products.delete('PRODUCT_ID')
+deleted_product = paddle.products.delete('PRODUCT_ID')
 ```
