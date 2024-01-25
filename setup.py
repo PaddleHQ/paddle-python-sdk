@@ -1,11 +1,11 @@
 from setuptools  import setup, find_packages
 
-from paddle_billing_python_sdk.Client import Client
+from paddle_billing_python_sdk.__VERSION__ import __VERSION__
 
 
 setup(
     name='paddle-billing-python-sdk',
-    version=Client('').version,
+    version=__VERSION__,
     author='Corey Regan',
     author_email='regan.corey@gmail.com',
     description='A Python wrapper for the Paddle Billing API',

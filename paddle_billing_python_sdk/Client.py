@@ -1,11 +1,12 @@
 from logging            import getLogger
 from json               import dumps as json_dumps
-from requests           import request, RequestException, Session
+from requests           import RequestException, Session
 from requests.adapters  import HTTPAdapter
 from urllib3.util.retry import Retry
 from urllib.parse       import urljoin, urlencode
 from uuid               import uuid4
 
+from paddle_billing_python_sdk.__VERSION__   import __VERSION__
 from paddle_billing_python_sdk.HasParameters import HasParameters
 from paddle_billing_python_sdk.Options       import Options
 
@@ -35,7 +36,7 @@ class Client:
     Client for making API requests using Python's requests library.
     """
 
-    SDK_VERSION = '0.0.1a22'
+    SDK_VERSION = __VERSION__
 
 
     def __init__(
@@ -58,11 +59,6 @@ class Client:
         # self.products = ProductsClient(self)
         self.prices = PricesClient(self)
         # ... Initialize other resource clients here ...
-
-
-    @property
-    def version(self) -> str:
-        return self.SDK_VERSION
 
 
     @staticmethod
@@ -171,8 +167,3 @@ class Client:
             session.hooks['response'] = self.logging_hook
 
         return session
-
-
-# Example usage
-# client = Client(api_key="your_api_key", logger=your_logger_instance)
-# response = client.make_request('GET', 'https://api.example.com/data')
