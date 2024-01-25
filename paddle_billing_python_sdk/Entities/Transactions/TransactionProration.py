@@ -14,5 +14,5 @@ class TransactionProration:
     def from_dict(data: dict) -> TransactionProration:
         return TransactionProration(
             rate           = data['rate'],
-            billing_period = TransactionTimePeriod.from_dict(data['billing_period']) if 'billing_period' in data and data['billing_period'] != '' else None,
+            billing_period = TransactionTimePeriod.from_dict(data['billing_period']) if data.get('billing_period') else None,
         )

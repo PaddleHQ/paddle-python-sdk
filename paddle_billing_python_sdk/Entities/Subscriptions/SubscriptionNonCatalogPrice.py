@@ -30,5 +30,5 @@ class SubscriptionNonCatalogPrice:
             unit_price           = Money.from_dict(data['unit_price']),
             unit_price_overrides = [UnitPriceOverride.from_dict(override) for override in data['unit_price_overrides']],
             quantity             = PriceQuantity.from_dict(data['quantity']),
-            custom_data          = CustomData(data['custom_data']) if 'custom_data' in data and data['custom_data'] != '' else None,
+            custom_data          = CustomData(data['custom_data']) if data.get('custom_data') else None,
         )

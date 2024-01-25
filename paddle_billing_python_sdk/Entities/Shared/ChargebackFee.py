@@ -14,5 +14,5 @@ class ChargebackFee:
     def from_dict(data: dict) -> ChargebackFee:
         return ChargebackFee(
             amount   = data['amount'],
-            original = Original.from_dict(data['original']) if 'original' in data and data['original'] != '' else None,
+            original = Original.from_dict(data['original']) if data.get('original') else None,
         )

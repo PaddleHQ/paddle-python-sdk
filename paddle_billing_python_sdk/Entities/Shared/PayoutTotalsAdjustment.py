@@ -23,7 +23,7 @@ class PayoutTotalsAdjustment:
             tax            = data['tax'],
             total          = data['total'],
             fee            = data['fee'],
-            chargeback_fee = ChargebackFee.from_dict(data['chargeback_fee']) if 'chargeback_fee' in data and data['chargeback_fee'] != '' else None,
+            chargeback_fee = ChargebackFee.from_dict(data['chargeback_fee']) if data.get('chargeback_fee') else None,
             earnings       = data['earnings'],
             currency_code  = CurrencyCodePayouts(data['currency_code']),
         )

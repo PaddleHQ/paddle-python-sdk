@@ -31,7 +31,7 @@ class PricePreview(Entity):
             business_id               = data.get('business_id'),
             currency_code             = CurrencyCode(data['currency_code']),
             discount_id               = data.get('discount_id'),
-            address                   = AddressPreview.from_dict(data['address']) if 'address' in data and data['address'] != '' else None,
+            address                   = AddressPreview.from_dict(data['address']) if data.get('address') else None,
             customer_ip_address       = data.get('customer_ip_address'),
             details                   = PricePreviewDetails.from_dict(data['details']),
             available_payment_methods = [AvailablePaymentMethods(item) for item in data['available_payment_methods']],

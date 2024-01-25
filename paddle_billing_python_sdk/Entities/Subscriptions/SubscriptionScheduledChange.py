@@ -17,5 +17,5 @@ class SubscriptionScheduledChange:
         return SubscriptionScheduledChange(
             action       = SubscriptionScheduledChangeAction(data['action']),
             effective_at = datetime.fromisoformat(data['effective_at']),
-            resume_at    = datetime.fromisoformat(data['resume_at']) if 'resume_at' in data and data['resume_at'] != '' else None,
+            resume_at    = datetime.fromisoformat(data['resume_at']) if data.get('resume_at') else None,
         )

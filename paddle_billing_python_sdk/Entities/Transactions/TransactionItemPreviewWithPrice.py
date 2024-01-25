@@ -20,5 +20,5 @@ class TransactionItemPreviewWithPrice:
             price             = Price.from_dict(data['price']),
             quantity          = data['quantity'],
             include_in_totals = data['include_in_totals'],
-            proration         = TransactionProration.from_dict(data['proration']) if 'proration' in data and data['proration'] != '' else None,
+            proration         = TransactionProration.from_dict(data['proration']) if data.get('proration') else None,
         )

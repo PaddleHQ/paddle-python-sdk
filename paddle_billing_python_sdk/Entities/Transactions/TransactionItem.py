@@ -20,5 +20,5 @@ class TransactionItem:
             price_id  = data.get('price_id'),
             price     = Price.from_dict(data['price']),
             quantity  = data['quantity'],
-            proration = TransactionProration.from_dict(data['proration']) if 'proration' in data and data['proration'] != '' else None,
+            proration = TransactionProration.from_dict(data['proration']) if data.get('proration') else None,
         )
