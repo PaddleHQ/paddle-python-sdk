@@ -6,9 +6,9 @@ from paddle_billing_python_sdk.Entities.Shared.Status      import Status
 
 from paddle_billing_python_sdk.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 
+from paddle_billing_python_sdk.Resources.Shared.Operations.List.Pager    import Pager
 from paddle_billing_python_sdk.Resources.Prices.Operations.List.Includes import Includes
 
-from paddle_billing_python_sdk.Resources.Shared.Operations.List.Pager import Pager
 
 
 class ListPrices(HasParameters):
