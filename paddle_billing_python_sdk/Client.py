@@ -17,7 +17,7 @@ from paddle_billing_python_sdk.Logger.NullHandler                               
 
 from paddle_billing_python_sdk.Resources.Addresses.AddressesClient                        import AddressesClient
 from paddle_billing_python_sdk.Resources.Adjustments.AdjustmentsClient                    import AdjustmentsClient
-# from paddle_billing_python_sdk.Resources.Businesses.BusinessesClient                      import BusinessesClient
+from paddle_billing_python_sdk.Resources.Businesses.BusinessesClient                      import BusinessesClient
 # from paddle_billing_python_sdk.Resources.Customers.CustomersClient                        import CustomersClient
 # from paddle_billing_python_sdk.Resources.Discounts.DiscountsClient                        import DiscountsClient
 from paddle_billing_python_sdk.Resources.Events.EventsClient                              import EventsClient
@@ -59,6 +59,7 @@ class Client:
         # TODO
         self.addresses          = AddressesClient(self)
         self.adjustments        = AdjustmentsClient(self)
+        self.businesses         = BusinessesClient(self)
         self.events             = EventsClient(self)
         self.event_types        = EventTypesClient(self)
         self.prices             = PricesClient(self)
