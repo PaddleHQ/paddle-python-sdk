@@ -33,7 +33,10 @@ class PricesClient:
         response = self.client.get_raw('/prices', operation.get_parameters())
         parser   = ResponseParser(response)
 
-        return PriceWithIncludesCollection.from_list(parser.get_data(), Paginator(self.client, parser.get_pagination(), PriceWithIncludesCollection))
+        return PriceWithIncludesCollection.from_list(
+            parser.get_data(),
+            Paginator(self.client, parser.get_pagination(), PriceWithIncludesCollection)
+        )
 
 
     def get(self, price_id: str, includes = None) -> PriceWithIncludes:

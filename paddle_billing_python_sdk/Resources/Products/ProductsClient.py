@@ -33,7 +33,10 @@ class ProductsClient:
         response = self.client.get_raw('/products', operation.get_parameters())
         parser   = ResponseParser(response)
 
-        return ProductWithIncludesCollection.from_list(parser.get_data(), Paginator(self.client, parser.get_pagination(), ProductWithIncludesCollection))
+        return ProductWithIncludesCollection.from_list(
+            parser.get_data(),
+            Paginator(self.client, parser.get_pagination(), ProductWithIncludesCollection)
+        )
 
 
     def get(self, product_id: str, includes = None) -> ProductWithIncludes:
