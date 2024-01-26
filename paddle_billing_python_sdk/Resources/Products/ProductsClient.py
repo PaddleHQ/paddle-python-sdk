@@ -1,10 +1,10 @@
-from typing      import TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from paddle_billing_python_sdk.ResponseParser import ResponseParser
 
 from paddle_billing_python_sdk.Entities.ProductWithIncludes import ProductWithIncludes
 
-from paddle_billing_python_sdk.Entities.Collections.Paginator                   import Paginator
+from paddle_billing_python_sdk.Entities.Collections.Paginator                     import Paginator
 from paddle_billing_python_sdk.Entities.Collections.ProductWithIncludesCollection import ProductWithIncludesCollection
 
 from paddle_billing_python_sdk.Entities.Shared.Status import Status
