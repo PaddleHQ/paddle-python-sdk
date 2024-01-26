@@ -1,4 +1,6 @@
-from paddle_billing_python_sdk.Entities.Shared.Status      import Status
+from paddle_billing_python_sdk.EnumStringify import enum_stringify
+
+from paddle_billing_python_sdk.Entities.Shared.Status import Status
 
 from paddle_billing_python_sdk.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 
@@ -14,9 +16,9 @@ class ListBusinesses:
         search:   str          = None,
     ):
         self.pager    = pager
+        self.search   = search
         self.ids      = ids      if ids      is not None else []
         self.statuses = statuses if statuses is not None else []
-        self.search   = search
 
         # Validation
         for field_name, field_value, field_type in [
@@ -29,8 +31,6 @@ class ListBusinesses:
 
 
     def get_parameters(self) -> dict:
-        enum_stringify = lambda enum: enum.value  # noqa E731
-
         parameters = {}
         if self.pager:
             parameters.update(self.pager.get_parameters())

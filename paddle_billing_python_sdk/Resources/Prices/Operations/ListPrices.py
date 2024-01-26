@@ -20,12 +20,12 @@ class ListPrices:
         recurring:   bool              = None,
     ):
         self.pager       = pager
+        self.recurring   = recurring
         self.includes    = includes    if includes    is not None else []
         self.ids         = ids         if ids         is not None else []
         self.types       = types       if types       is not None else []
         self.product_ids = product_ids if product_ids is not None else []
         self.statuses    = statuses    if statuses    is not None else []
-        self.recurring   = recurring
 
         # Validation
         for field_name, field_value, field_type in [

@@ -1,3 +1,5 @@
+from paddle_billing_python_sdk.EnumStringify import enum_stringify
+
 from paddle_billing_python_sdk.Entities.Shared.Action           import Action
 from paddle_billing_python_sdk.Entities.Shared.StatusAdjustment import StatusAdjustment
 
@@ -18,12 +20,12 @@ class ListAdjustments:
         action:           Action | None                          = None,
     ):
         self.pager            = pager
+        self.action           = action
         self.ids              = ids              if ids              is not None else []
         self.statuses         = statuses         if statuses         is not None else []
         self.customer_ids     = customer_ids     if customer_ids     is not None else []
         self.transaction_ids  = transaction_ids  if transaction_ids  is not None else []
         self.subscription_ids = subscription_ids if subscription_ids is not None else []
-        self.action           = action
 
         # Validation
         for field_name, field_value, field_type in [
@@ -39,8 +41,6 @@ class ListAdjustments:
 
 
     def get_parameters(self) -> dict:
-        enum_stringify = lambda enum: enum.value  # noqa E731
-
         parameters = {}
         if self.pager:
             parameters.update(self.pager.get_parameters())

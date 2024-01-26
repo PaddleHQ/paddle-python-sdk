@@ -1,3 +1,5 @@
+from paddle_billing_python_sdk.EnumStringify import enum_stringify
+
 from paddle_billing_python_sdk.Entities.Shared.CatalogType import CatalogType
 from paddle_billing_python_sdk.Entities.Shared.Status      import Status
 from paddle_billing_python_sdk.Entities.Shared.TaxCategory import TaxCategory
@@ -42,8 +44,6 @@ class ListProducts:
 
 
     def get_parameters(self) -> dict:
-        enum_stringify = lambda enum: enum.value  # noqa E731
-
         parameters = {}
         if self.pager:
             parameters.update(self.pager.get_parameters())
