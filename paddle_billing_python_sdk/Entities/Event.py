@@ -3,8 +3,6 @@ from dataclasses import dataclass
 from datetime    import datetime
 from importlib   import import_module
 
-from src import log
-
 from paddle_billing_python_sdk.Entities.Entity import Entity
 
 from paddle_billing_python_sdk.Entities.Events.EventTypeName import EventTypeName
@@ -39,9 +37,9 @@ class Event(Entity):
 
         try:  # TODO this is probably broken
             entity_class = getattr(import_module('src.Entities'), entity_class_name)()
-            log.debug(f"entity_class={entity_class}")
+            print(f"entity_class={entity_class}")
         except Exception as error:
-            log.error(f"Error dynamically instantiating an object: {error}")
+            print(f"Error dynamically instantiating an object: {error}")
 
         if not entity_class:
             raise ValueError(f"Event type '{event_type_str}' cannot be mapped to an object")
