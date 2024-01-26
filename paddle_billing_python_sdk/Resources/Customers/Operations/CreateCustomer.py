@@ -6,7 +6,7 @@ from paddle_billing_python_sdk.Entities.Shared.CustomData import CustomData
 
 
 @dataclass
-class CreatePrice:
+class CreateCustomer:
     email:       str
     name:        str | None | Undefined        = Undefined()
     custom_data: CustomData | None | Undefined = Undefined()

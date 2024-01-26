@@ -7,7 +7,7 @@ from paddle_billing_python_sdk.Entities.Shared.Status     import Status
 
 
 @dataclass
-class CreatePrice:
+class UpdateCustomer:
     email:       str | None | Undefined        = Undefined()
     name:        str | None | Undefined        = Undefined()
     custom_data: CustomData | None | Undefined = Undefined()
