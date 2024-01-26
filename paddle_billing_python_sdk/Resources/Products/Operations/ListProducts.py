@@ -5,17 +5,19 @@ from paddle_billing_python_sdk.Exceptions.SdkExceptions.InvalidArgumentException
 
 from paddle_billing_python_sdk.Resources.Products.Operations.List.Includes import Includes
 
+from paddle_billing_python_sdk.Resources.Shared.Operations.List.Pager import Pager
+
 
 class ListProducts:
     def __init__(
             self,
-            pager                = None,
-            includes:       dict = None,
-            ids:            dict = None,
-            types:          dict = None,
-            product_ids:    dict = None,
-            statuses:       dict = None,
-            tax_categories: dict = None,
+            pager:          Pager = None,
+            includes:       dict  = None,
+            ids:            dict  = None,
+            types:          dict  = None,
+            product_ids:    dict  = None,
+            statuses:       dict  = None,
+            tax_categories: dict  = None,
     ):
         self.pager          = pager
         self.includes       = includes       if includes       is not None else []
