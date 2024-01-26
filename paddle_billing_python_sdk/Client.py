@@ -50,11 +50,11 @@ class Client:
         retry_count: int      = 3,
     ):
         self.__api_key      = api_key
-        self.options        = options if options else Options()
-        self.logger         = logger  if logger  else Client.null_logger()
         self.retry_count    = retry_count
         self.transaction_id = None
-        self.client         = self.build_request_session() if not http_client else http_client
+        self.options        = options     if options     else Options()
+        self.logger         = logger      if logger      else Client.null_logger()
+        self.client         = http_client if http_client else self.build_request_session()
 
         # Initialize the various clients
         self.addresses             = AddressesClient(self)
