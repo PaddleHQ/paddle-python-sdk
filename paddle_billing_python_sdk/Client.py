@@ -26,7 +26,7 @@ from paddle_billing_python_sdk.Logger.NullHandler                               
 # from paddle_billing_python_sdk.Resources.NotificationSettings.NotificationSettingsClient  import NotificationSettingsClient
 from paddle_billing_python_sdk.Resources.Prices.PricesClient                              import PricesClient
 # from paddle_billing_python_sdk.Resources.PricingPreviews.PricingPreviewsClient            import PricingPreviewsClient
-# from paddle_billing_python_sdk.Resources.Products.ProductsClient                          import ProductsClient
+from paddle_billing_python_sdk.Resources.Products.ProductsClient                          import ProductsClient
 # from paddle_billing_python_sdk.Resources.Reports.ReportsClient                            import ReportsClient
 # from paddle_billing_python_sdk.Resources.Subscriptions.SubscriptionsClient                import SubscriptionsClient
 # from paddle_billing_python_sdk.Resources.Transactions.TransactionsClient                  import TransactionsClient
@@ -58,7 +58,8 @@ class Client:
         # TODO
         # Initialize other clients as needed
         # self.products = ProductsClient(self)
-        self.prices = PricesClient(self)
+        self.prices             = PricesClient(self)
+        self.products           = ProductsClient(self)
         # ... Initialize other resource clients here ...
 
 
