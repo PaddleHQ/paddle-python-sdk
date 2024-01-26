@@ -1,4 +1,4 @@
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
 
 from paddle_billing_python_sdk.Undefined import Undefined
 
