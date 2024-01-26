@@ -22,9 +22,9 @@ from paddle_billing_python_sdk.Resources.Customers.CustomersClient              
 from paddle_billing_python_sdk.Resources.Discounts.DiscountsClient                        import DiscountsClient
 from paddle_billing_python_sdk.Resources.Events.EventsClient                              import EventsClient
 from paddle_billing_python_sdk.Resources.EventTypes.EventTypesClient                      import EventTypesClient
-from paddle_billing_python_sdk.Resources.NotificationLogs.NotificationLogsClient          import NotificationLogsClient
 # from paddle_billing_python_sdk.Resources.Notifications.NotificationsClient                import NotificationsClient
-# from paddle_billing_python_sdk.Resources.NotificationSettings.NotificationSettingsClient  import NotificationSettingsClient
+from paddle_billing_python_sdk.Resources.NotificationLogs.NotificationLogsClient          import NotificationLogsClient
+from paddle_billing_python_sdk.Resources.NotificationSettings.NotificationSettingsClient  import NotificationSettingsClient
 from paddle_billing_python_sdk.Resources.Prices.PricesClient                              import PricesClient
 # from paddle_billing_python_sdk.Resources.PricingPreviews.PricingPreviewsClient            import PricingPreviewsClient
 from paddle_billing_python_sdk.Resources.Products.ProductsClient                          import ProductsClient
@@ -56,17 +56,23 @@ class Client:
         self.transaction_id = None
         self.client         = self.build_request_session() if not http_client else http_client
 
-        # TODO
-        self.addresses          = AddressesClient(self)
-        self.adjustments        = AdjustmentsClient(self)
-        self.businesses         = BusinessesClient(self)
-        self.customers          = CustomersClient(self)
-        self.discounts          = DiscountsClient(self)
-        self.events             = EventsClient(self)
-        self.event_types        = EventTypesClient(self)
-        self.notification_logs  = NotificationLogsClient(self)
-        self.prices             = PricesClient(self)
-        self.products           = ProductsClient(self)
+        # Initialize the various clients
+        self.addresses             = AddressesClient(self)
+        self.adjustments           = AdjustmentsClient(self)
+        self.businesses            = BusinessesClient(self)
+        self.customers             = CustomersClient(self)
+        self.discounts             = DiscountsClient(self)
+        self.events                = EventsClient(self)
+        self.event_types           = EventTypesClient(self)
+        # self.notifications         = NotificationsClient(self)
+        self.notification_logs     = NotificationLogsClient(self)
+        self.notification_settings = NotificationSettingsClient(self)
+        self.prices                = PricesClient(self)
+        # self.pricing_previews      = PricingPreviewsClient(self)
+        self.products              = ProductsClient(self)
+        # self.reports               = ReportsClient(self)
+        # self.subscriptions         = SubscriptionsClient(self)
+        # self.transactions          = TransactionsClient(self)
 
 
     @staticmethod
