@@ -97,7 +97,7 @@ product = paddle.products.get('PRODUCT_ID')
 ```
 
 ### Create an entity
-You can create a supported entity with the `create` function in the resource. It accepts the resource's corresponding `CreateOperation`. The created entity is returned.
+You can create a supported entity with the `create` function in the resource. It accepts the resource's corresponding `CreateOperation` e.g. `CreateProduct`. The created entity is returned.
 
 ``` python
 from paddle_billing_python_sdk.Client                                      import Client
@@ -113,7 +113,7 @@ created_product = paddle.products.create(CreateProduct(
 ```
 
 ### Update an entity
-You can update a supported entity with the `update` function in the resource. It accepts the `id` of the entity to update and the corresponding `UpdateOperation`. The updated entity is returned.
+You can update a supported entity with the `update` function in the resource. It accepts the `id` of the entity to update and the corresponding `UpdateOperation` e.g. `UpdateProduct`. The updated entity is returned.
 ``` python
 from paddle_billing_python_sdk.Client                                      import Client
 from paddle_billing_python_sdk.Resources.Products.Operations.UpdateProduct import UpdateProduct
@@ -127,20 +127,14 @@ updated_product = paddle.products.update('PRODUCT_ID', UpdateProduct(
 ```
 
 Where operations require more than one `id`, the `update` function accepts multiple arguments. For example, to update an address for a customer, pass the `customerId` and the `addressId`:
-# TODO
-# TODO
-# TODO
 ``` python
-updated_address = paddle.products.update(
+updated_address = paddle.addresses.update(
     'CUSTOMER_ID',
     'ADDRESS_ID',
-    update_operation,
+    operation,
 )
 ```
 
-# TODO
-# TODO
-# TODO
 ### Delete an entity
 You can delete an entity with the `delete` function in the resource. It accepts the `id` of the entity to delete. The deleted entity is returned.
 ``` python
