@@ -45,9 +45,9 @@ class ProductsClient:
         if invalid_items:
             raise InvalidArgumentException('includes', Includes.__name__, invalid_items)
 
-        parameters = {'include': ','.join(include.value for include in includes)} if includes else {}
-        response   = self.client.get_raw(f"/products/{product_id}", parameters)
-        parser     = ResponseParser(response)
+        params   = {'include': ','.join(include.value for include in includes)} if includes else {}
+        response = self.client.get_raw(f"/products/{product_id}", params)
+        parser   = ResponseParser(response)
 
         return ProductWithIncludes.from_dict(parser.get_data())
 

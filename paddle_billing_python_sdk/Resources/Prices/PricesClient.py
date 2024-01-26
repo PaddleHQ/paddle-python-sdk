@@ -45,9 +45,9 @@ class PricesClient:
         if invalid_items:
             raise InvalidArgumentException('includes', Includes.__name__, invalid_items)
 
-        parameters = {'include': ','.join(include.value for include in includes)} if includes else {}
-        response   = self.client.get_raw(f"/prices/{price_id}", parameters)
-        parser     = ResponseParser(response)
+        params   = {'include': ','.join(include.value for include in includes)} if includes else {}
+        response = self.client.get_raw(f"/prices/{price_id}", params)
+        parser   = ResponseParser(response)
 
         return PriceWithIncludes.from_dict(parser.get_data())
 
