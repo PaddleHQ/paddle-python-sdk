@@ -11,13 +11,13 @@ from paddle_billing_python_sdk.Resources.Shared.Operations.List.Pager import Pag
 class ListPrices:
     def __init__(
         self, 
-        pager:       Pager = None,
-        includes:    dict  = None,
-        ids:         dict  = None,
-        types:       dict  = None,
-        product_ids: dict  = None,
-        statuses:    dict  = None,
-        recurring:   dict  = None,
+        pager:       Pager             = None,
+        includes:    list[Includes]    = None,
+        ids:         list[str]         = None,
+        types:       list[CatalogType] = None,
+        product_ids: list[str]         = None,
+        statuses:    list[Status]      = None,
+        recurring:   bool              = None,
     ):
         self.pager       = pager
         self.includes    = includes    if includes    is not None else []
@@ -28,16 +28,16 @@ class ListPrices:
         self.recurring   = recurring
 
         # Validation
-        if any(not isinstance(pid, str) for pid in self.ids):
-            raise InvalidArgumentException('ids', 'string')
-        if any(not isinstance(include, Includes) for include in self.includes):
-            raise InvalidArgumentException('includes', Includes.__name__)
-        if any(not isinstance(pid, str) for pid in self.product_ids):
-            raise InvalidArgumentException('product_ids', 'string')
-        if any(not isinstance(status, Status) for status in self.statuses):
-            raise InvalidArgumentException('statuses', Status.__name__)
-        if any(not isinstance(ctype, CatalogType) for ctype in self.types):
-            raise InvalidArgumentException('types', CatalogType.__name__)
+        for field_name, field_value, field_type in [
+            ('ids',         self.ids,         str),
+            ('includes',    self.includes,    Includes),
+            ('product_ids', self.product_ids, str),
+            ('statuses',    self.statuses,    Status),
+            ('types',       self.types,       CatalogType),
+        ]:
+            invalid_items = [item for item in field_value if not isinstance(item, field_type)]
+            if invalid_items:
+                raise InvalidArgumentException(field_name, field_type.__name__, invalid_items)
 
 
     def get_parameters(self) -> dict:
