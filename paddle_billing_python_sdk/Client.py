@@ -15,7 +15,7 @@ from paddle_billing_python_sdk.Options          import Options
 # from paddle_billing_python_sdk.Logger.Formatter                                          import CustomLogger
 from paddle_billing_python_sdk.Logger.NullHandler                                        import NullHandler
 
-# from paddle_billing_python_sdk.Resources.Addresses.AddressesClient                        import AddressesClient
+from paddle_billing_python_sdk.Resources.Addresses.AddressesClient                        import AddressesClient
 # from paddle_billing_python_sdk.Resources.Adjustment.AdjustmentsClient                     import AdjustmentsClient
 # from paddle_billing_python_sdk.Resources.Businesses.BusinessesClient                      import BusinessesClient
 # from paddle_billing_python_sdk.Resources.Customers.CustomersClient                        import CustomersClient
@@ -57,6 +57,7 @@ class Client:
         self.client         = self.build_request_session() if not http_client else http_client
 
         # TODO
+        self.addresses          = AddressesClient(self)
         self.events             = EventsClient(self)
         self.event_types        = EventTypesClient(self)
         self.prices             = PricesClient(self)
