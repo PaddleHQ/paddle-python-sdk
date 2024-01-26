@@ -22,7 +22,7 @@ from paddle_billing_python_sdk.Resources.Customers.CustomersClient              
 from paddle_billing_python_sdk.Resources.Discounts.DiscountsClient                        import DiscountsClient
 from paddle_billing_python_sdk.Resources.Events.EventsClient                              import EventsClient
 from paddle_billing_python_sdk.Resources.EventTypes.EventTypesClient                      import EventTypesClient
-# from paddle_billing_python_sdk.Resources.NotificationLogs.NotificationLogsClient          import NotificationLogsClient
+from paddle_billing_python_sdk.Resources.NotificationLogs.NotificationLogsClient          import NotificationLogsClient
 # from paddle_billing_python_sdk.Resources.Notifications.NotificationsClient                import NotificationsClient
 # from paddle_billing_python_sdk.Resources.NotificationSettings.NotificationSettingsClient  import NotificationSettingsClient
 from paddle_billing_python_sdk.Resources.Prices.PricesClient                              import PricesClient
@@ -61,9 +61,10 @@ class Client:
         self.adjustments        = AdjustmentsClient(self)
         self.businesses         = BusinessesClient(self)
         self.customers          = CustomersClient(self)
-        self.DiscountsClient    = DiscountsClient(self)
+        self.discounts          = DiscountsClient(self)
         self.events             = EventsClient(self)
         self.event_types        = EventTypesClient(self)
+        self.notification_logs  = NotificationLogsClient(self)
         self.prices             = PricesClient(self)
         self.products           = ProductsClient(self)
 

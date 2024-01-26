@@ -4,7 +4,7 @@ from paddle_billing_python_sdk.Entities.Collections.Collection import Collection
 from paddle_billing_python_sdk.Entities.Collections.Paginator  import Paginator
 
 
-class NotificationCollection(Collection):
+class NotificationLogCollection(Collection):
     @classmethod
     def from_list(cls, items_data: list, paginator: Paginator = None) -> NotificationCollection:
         from paddle_billing_python_sdk.Entities.Notification import Notification
