@@ -1,5 +1,7 @@
 from dataclasses import dataclass, asdict
 
+from paddle_billing_python_sdk.Undefined import Undefined
+
 from paddle_billing_python_sdk.Entities.Shared.CatalogType       import CatalogType
 from paddle_billing_python_sdk.Entities.Shared.CustomData        import CustomData
 from paddle_billing_python_sdk.Entities.Shared.Money             import Money
@@ -12,16 +14,16 @@ from paddle_billing_python_sdk.Entities.Shared.UnitPriceOverride import UnitPric
 
 @dataclass
 class UpdatePrice:
-    description:          str | None                     = None
-    name:                 str | None                     = None
-    type:                 CatalogType | None             = None
-    billing_cycle:        TimePeriod | None              = None
-    tax_mode:             TaxMode | None                 = None
-    unit_price:           Money | None                   = None
-    unit_price_overrides: list[UnitPriceOverride] | None = None
-    quantity:             PriceQuantity | None           = None
-    status:               Status | None                  = None
-    custom_data:          CustomData | None              = None
+    description:          str | None                     = Undefined()
+    name:                 str | None                     = Undefined()
+    type:                 CatalogType | None             = Undefined()
+    billing_cycle:        TimePeriod | None              = Undefined()
+    tax_mode:             TaxMode | None                 = Undefined()
+    unit_price:           Money | None                   = Undefined()
+    unit_price_overrides: list[UnitPriceOverride] | None = Undefined()
+    quantity:             PriceQuantity | None           = Undefined()
+    status:               Status | None                  = Undefined()
+    custom_data:          CustomData | None              = Undefined()
 
 
     def get_parameters(self) -> dict:

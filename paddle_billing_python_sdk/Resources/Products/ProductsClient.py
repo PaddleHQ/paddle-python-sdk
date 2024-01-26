@@ -2,12 +2,10 @@ from typing import TYPE_CHECKING
 
 from paddle_billing_python_sdk.ResponseParser import ResponseParser
 
-from paddle_billing_python_sdk.Entities.ProductWithIncludes import ProductWithIncludes
-
+from paddle_billing_python_sdk.Entities.ProductWithIncludes                       import ProductWithIncludes
 from paddle_billing_python_sdk.Entities.Collections.Paginator                     import Paginator
 from paddle_billing_python_sdk.Entities.Collections.ProductWithIncludesCollection import ProductWithIncludesCollection
-
-from paddle_billing_python_sdk.Entities.Shared.Status import Status
+from paddle_billing_python_sdk.Entities.Shared.Status                             import Status
 
 from paddle_billing_python_sdk.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 
@@ -69,6 +67,4 @@ class ProductsClient:
 
 
     def archive(self, product_id: str) -> ProductWithIncludes:
-        operation = UpdateProduct(status=Status.Archived)
-
-        return self.update(product_id, operation)
+        return self.update(product_id, UpdateProduct(status=Status.Archived))
