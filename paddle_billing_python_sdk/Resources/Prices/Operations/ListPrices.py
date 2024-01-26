@@ -1,3 +1,5 @@
+from paddle_billing_python_sdk.HasParameters import HasParameters
+
 from paddle_billing_python_sdk.Entities.Shared.CatalogType import CatalogType
 from paddle_billing_python_sdk.Entities.Shared.Status      import Status
 
