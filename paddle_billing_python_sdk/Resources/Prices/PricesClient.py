@@ -9,9 +9,12 @@ from paddle_billing_python_sdk.Entities.Collections.PriceWithIncludesCollection 
 
 from paddle_billing_python_sdk.Entities.Shared.Status import Status
 
-from paddle_billing_python_sdk.Resources.Prices.Operations.CreatePrice import CreatePrice
-from paddle_billing_python_sdk.Resources.Prices.Operations.ListPrices  import ListPrices
-from paddle_billing_python_sdk.Resources.Prices.Operations.UpdatePrice import UpdatePrice
+from paddle_billing_python_sdk.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
+
+from paddle_billing_python_sdk.Resources.Prices.Operations.CreatePrice   import CreatePrice
+from paddle_billing_python_sdk.Resources.Prices.Operations.ListPrices    import ListPrices
+from paddle_billing_python_sdk.Resources.Prices.Operations.UpdatePrice   import UpdatePrice
+from paddle_billing_python_sdk.Resources.Prices.Operations.List.Includes import Includes
 
 
 if TYPE_CHECKING:
@@ -29,6 +32,7 @@ class PricesClient:
 
         response = self.client.get_raw('/prices', operation.get_parameters())
         parser   = ResponseParser(response)
+
         return PriceWithIncludesCollection.from_list(parser.get_data(), Paginator(self.client, parser.get_pagination(), PriceWithIncludesCollection))
 
 
@@ -36,7 +40,10 @@ class PricesClient:
         if includes is None:
             includes = []
 
-        # Validate 'includes' items and build parameters
+        invalid_items = [item for item in includes if not isinstance(item, Includes)]
+        if invalid_items:
+            raise InvalidArgumentException('includes', Includes.__name__, invalid_items)
+
         parameters = {'include': ','.join(include.value for include in includes)} if includes else {}
         response   = self.client.get_raw(f"/prices/{price_id}", parameters)
         parser     = ResponseParser(response)

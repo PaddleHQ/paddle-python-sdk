@@ -1,7 +1,5 @@
 from dataclasses import dataclass, asdict
 
-from paddle_billing_python_sdk.FiltersNone import FiltersNone
-
 from paddle_billing_python_sdk.Entities.Shared.CatalogType       import CatalogType
 from paddle_billing_python_sdk.Entities.Shared.CustomData        import CustomData
 from paddle_billing_python_sdk.Entities.Shared.Money             import Money
