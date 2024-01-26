@@ -8,7 +8,7 @@ from paddle_billing_python_sdk.Resources.Prices.Operations.List.Includes import 
 from paddle_billing_python_sdk.Resources.Shared.Operations.List.Pager import Pager
 
 
-class ListPrices:
+class ListPrices(HasParameters):
     def __init__(
         self, 
         pager:       Pager             = None,

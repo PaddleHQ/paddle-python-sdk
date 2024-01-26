@@ -1,7 +1,9 @@
+from paddle_billing_python_sdk.HasParameters import HasParameters
+
 from paddle_billing_python_sdk.Resources.Shared.Operations.List.Pager import Pager
 
 
-class ListNotificationLogs:
+class ListNotificationLogs(HasParameters):
     def __init__(self, pager: Pager = None):
         self.pager = pager
 

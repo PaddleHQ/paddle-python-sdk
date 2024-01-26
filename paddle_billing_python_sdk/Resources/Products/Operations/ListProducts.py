@@ -1,4 +1,5 @@
 from paddle_billing_python_sdk.EnumStringify import enum_stringify
+from paddle_billing_python_sdk.HasParameters import HasParameters
 
 from paddle_billing_python_sdk.Entities.Shared.CatalogType import CatalogType
 from paddle_billing_python_sdk.Entities.Shared.Status      import Status
@@ -11,7 +12,7 @@ from paddle_billing_python_sdk.Resources.Products.Operations.List.Includes impor
 from paddle_billing_python_sdk.Resources.Shared.Operations.List.Pager import Pager
 
 
-class ListProducts:
+class ListProducts(HasParameters):
     def __init__(
         self,
         pager:          Pager             = None,

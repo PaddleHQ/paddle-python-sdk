@@ -1,4 +1,5 @@
 from paddle_billing_python_sdk.EnumStringify import enum_stringify
+from paddle_billing_python_sdk.HasParameters import HasParameters
 
 from paddle_billing_python_sdk.Entities.Shared.Action           import Action
 from paddle_billing_python_sdk.Entities.Shared.StatusAdjustment import StatusAdjustment
@@ -8,7 +9,7 @@ from paddle_billing_python_sdk.Exceptions.SdkExceptions.InvalidArgumentException
 from paddle_billing_python_sdk.Resources.Shared.Operations.List.Pager import Pager
 
 
-class ListAdjustments:
+class ListAdjustments(HasParameters):
     def __init__(
         self,
         pager:            Pager | None                           = None,
