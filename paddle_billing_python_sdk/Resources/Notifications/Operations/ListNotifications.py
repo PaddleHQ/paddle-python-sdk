@@ -12,13 +12,13 @@ from paddle_billing_python_sdk.Resources.Shared.Operations.List.Pager import Pag
 class ListNotifications(HasParameters):
     def __init__(
         self,
-        pager:                   Pager | None             = None,
-        notification_setting_id: list[str]                = None,
-        search:                  str | None               = None,
-        statuses:                list[NotificationStatus] = None,
-        filter:                  str | None               = None,
-        end:                     DateTime | None          = None,
-        start:                   DateTime | None          = None
+        pager:                   Pager                    | None = None,
+        notification_setting_id: list[str]                       = None,
+        search:                  str                      | None = None,
+        statuses:                list[NotificationStatus]        = None,
+        filter:                  str                      | None = None,
+        end:                     DateTime                 | None = None,
+        start:                   DateTime                 | None = None,
     ):
         self.pager                   = pager
         self.search                  = search

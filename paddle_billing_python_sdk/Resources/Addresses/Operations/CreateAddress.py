@@ -9,12 +9,12 @@ from paddle_billing_python_sdk.Entities.Shared.CustomData  import CustomData
 @dataclass
 class CreateAddress:
     country_code: CountryCode
-    description:  str | None        = Undefined()
-    first_line:   str | None        = Undefined()
-    second_line:  str | None        = Undefined()
-    city:         str | None        = Undefined()
-    postal_code:  str | None        = Undefined()
-    region:       str | None        = Undefined()
+    description:  str        | None = Undefined()
+    first_line:   str        | None = Undefined()
+    second_line:  str        | None = Undefined()
+    city:         str        | None = Undefined()
+    postal_code:  str        | None = Undefined()
+    region:       str        | None = Undefined()
     custom_data:  CustomData | None = Undefined()
 
 

@@ -14,16 +14,16 @@ from paddle_billing_python_sdk.Entities.Shared.UnitPriceOverride import UnitPric
 
 @dataclass
 class UpdatePrice:
-    description:          str | None | Undefined                     = Undefined()
-    name:                 str | None | Undefined                     = Undefined()
-    type:                 CatalogType | None | Undefined             = Undefined()
-    billing_cycle:        TimePeriod | None | Undefined              = Undefined()
-    tax_mode:             TaxMode | None | Undefined                 = Undefined()
-    unit_price:           Money | None | Undefined                   = Undefined()
+    description:          str                     | None | Undefined = Undefined()
+    name:                 str                     | None | Undefined = Undefined()
+    type:                 CatalogType             | None | Undefined = Undefined()
+    billing_cycle:        TimePeriod              | None | Undefined = Undefined()
+    tax_mode:             TaxMode                 | None | Undefined = Undefined()
+    unit_price:           Money                   | None | Undefined = Undefined()
     unit_price_overrides: list[UnitPriceOverride] | None | Undefined = Undefined()
-    quantity:             PriceQuantity | None | Undefined           = Undefined()
-    status:               Status | None | Undefined                  = Undefined()
-    custom_data:          CustomData | None | Undefined              = Undefined()
+    quantity:             PriceQuantity           | None | Undefined = Undefined()
+    status:               Status                  | None | Undefined = Undefined()
+    custom_data:          CustomData              | None | Undefined = Undefined()
 
 
     def get_parameters(self) -> dict:

@@ -10,13 +10,13 @@ from paddle_billing_python_sdk.Entities.Shared.AddressPreview            import 
 @dataclass
 class PreviewPrice:
     items:               list[PricePreviewItem]
-    customer_id:         str | None | Undefined            = Undefined()
-    address_id:          str | None | Undefined            = Undefined()
-    business_id:         str | None | Undefined            = Undefined()
-    currency_code:       CurrencyCode | Undefined          = Undefined()
-    discount_id:         str | None | Undefined            = Undefined()
-    address:             AddressPreview | None | Undefined = Undefined()
-    customer_ip_address: str | None | Undefined            = Undefined()
+    customer_id:         str                    | None | Undefined = Undefined()
+    address_id:          str                    | None | Undefined = Undefined()
+    business_id:         str                    | None | Undefined = Undefined()
+    currency_code:       CurrencyCode                  | Undefined = Undefined()
+    discount_id:         str                    | None | Undefined = Undefined()
+    address:             AddressPreview         | None | Undefined = Undefined()
+    customer_ip_address: str                    | None | Undefined = Undefined()
 
     def get_parameters(self) -> dict:
         return asdict(self)

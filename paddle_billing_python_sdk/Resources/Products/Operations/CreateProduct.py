@@ -12,9 +12,9 @@ class CreateProduct:
     name:         str
     tax_category: TaxCategory
     type:         CatalogType | None | Undefined = Undefined()
-    description:  str | None | Undefined         = Undefined()
-    image_url:    str | None | Undefined         = Undefined()
-    custom_data:  CustomData | None | Undefined  = Undefined()
+    description:  str         | None | Undefined = Undefined()
+    image_url:    str         | None | Undefined = Undefined()
+    custom_data:  CustomData  | None | Undefined = Undefined()
 
 
     def get_parameters(self) -> dict:

@@ -9,17 +9,17 @@ from paddle_billing_python_sdk.Entities.Shared.CurrencyCode      import Currency
 
 @dataclass
 class UpdateDiscount:
-    amount:                      str | Undefined                   = Undefined()
-    description:                 str | Undefined                   = Undefined()
-    type:                        DiscountType | Undefined          = Undefined()
-    enabled_for_checkout:        bool | Undefined                  = Undefined()
-    recur:                       bool | Undefined                  = Undefined()
-    currency_code:               CurrencyCode | Undefined          = Undefined()
-    code:                        str | None | Undefined            = Undefined()
-    maximum_recurring_intervals: int | None | Undefined            = Undefined()
-    usage_limit:                 int | None | Undefined            = Undefined()
-    restrict_to:                 list[str] | None | Undefined      = Undefined()
-    expires_at:                  str | None | Undefined            = Undefined()
+    amount:                      str                   | Undefined = Undefined()
+    description:                 str                   | Undefined = Undefined()
+    type:                        DiscountType          | Undefined = Undefined()
+    enabled_for_checkout:        bool                  | Undefined = Undefined()
+    recur:                       bool                  | Undefined = Undefined()
+    currency_code:               CurrencyCode          | Undefined = Undefined()
+    code:                        str            | None | Undefined = Undefined()
+    maximum_recurring_intervals: int            | None | Undefined = Undefined()
+    usage_limit:                 int            | None | Undefined = Undefined()
+    restrict_to:                 list[str]      | None | Undefined = Undefined()
+    expires_at:                  str            | None | Undefined = Undefined()
     status:                      DiscountStatus | None | Undefined = Undefined()
 
 
