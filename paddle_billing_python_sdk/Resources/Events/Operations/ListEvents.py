@@ -1,4 +1,4 @@
-from HasParameters import HasParameters
+from paddle_billing_python_sdk.HasParameters import HasParameters
 
 from paddle_billing_python_sdk.Resources.Shared.Operations.List.Pager import Pager
 
