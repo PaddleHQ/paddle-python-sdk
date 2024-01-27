@@ -1,5 +1,5 @@
-from logging            import Logger, getLogger
 from json               import dumps as json_dumps
+from logging            import Logger, getLogger
 from requests           import Response, RequestException, Session
 from requests.adapters  import HTTPAdapter
 from urllib3.util.retry import Retry
