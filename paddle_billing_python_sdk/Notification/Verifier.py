@@ -1,7 +1,9 @@
-from time               import time
-from src                import log
-from paddle_billing_python_sdk.Notification   import PaddleSignature, Secret
 import requests
+
+from time import time
+
+from paddle_billing_python_sdk              import log
+from paddle_billing_python_sdk.Notification import PaddleSignature, Secret
 
 
 class Verifier:
@@ -15,18 +17,17 @@ class Verifier:
         return self.__maximum_variance
 
 
-    def verify(self, request: requests, secret_key: Secret):
+    def verify(self, request: requests, secrets: list[Secret] | Secret):
         """
-
-        :param request:
-        :param secret_key:
-        :return:            True on verification success, False on verification failure
+        @param request: The request object to verify
+        @param secrets: One or more Secrets to use for verifying the request
+        @return:        True on verification success, False on verification failure
         """
         log.info(f"Attempting to verify the authenticity of a request")
 
-        signature_header = request.headers.get(PaddleSignature.HEADER, None)
+        signature_header = request.headers.get(PaddleSignature().HEADER, None)
         if not signature_header:
-            log.critical(f"Unable to extract the '{PaddleSignature.HEADER}' header from the request")
+            log.critical(f"Unable to extract the '{PaddleSignature().HEADER}' header from the request")
             return False
 
         timestamp, signature = PaddleSignature.parse(signature_header)
@@ -34,6 +35,6 @@ class Verifier:
             log.critical(f"Too much time has elapsed between the request and this process")
             return False
 
-        raw_body = request.body.decode('utf-8')
+        raw_body = request.body.decode('utf-8') if hasattr(request, 'body') else request.content.decode('utf-8')
 
-        return PaddleSignature.verify(signature_header, raw_body, secret_key)
+        return PaddleSignature.verify(signature_header, raw_body, secrets)
