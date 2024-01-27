@@ -28,7 +28,8 @@ setup(
     python_requires='>=3.11',
     extras_require={
         'dev': [
-            'pytest>=7.0.0',
+            'pytest~=7.4.4',
+            'pytest-cov~=4.1.0'
             'pylint>=3.0.3',
             'setuptools>=69.0.3',
         ],
