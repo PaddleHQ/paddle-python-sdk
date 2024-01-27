@@ -1,6 +1,6 @@
-from logging            import getLogger
+from logging            import Logger, getLogger
 from json               import dumps as json_dumps
-from requests           import RequestException, Session
+from requests           import Response, RequestException, Session
 from requests.adapters  import HTTPAdapter
 from urllib3.util.retry import Retry
 from urllib.parse       import urljoin, urlencode
@@ -76,7 +76,7 @@ class Client:
 
 
     @staticmethod
-    def null_logger():
+    def null_logger() -> Logger:
         """
         Create a logger instance that logs everything to nowhere
         """
@@ -101,7 +101,7 @@ class Client:
         method:     str,
         uri:        str,
         payload:    dict | None = None,
-    ):
+    ) -> Response:
         """
         Makes an actual API call to Paddle
         """
@@ -134,7 +134,7 @@ class Client:
 
 
     @staticmethod
-    def _format_uri_parameters(uri: str, parameters: HasParameters):
+    def _format_uri_parameters(uri: str, parameters: HasParameters) -> str:
         if isinstance(parameters, HasParameters):
             parameters = parameters.get_parameters()
 
@@ -145,13 +145,13 @@ class Client:
         return uri
 
 
-    def get_raw(self, uri: str, parameters = None):
+    def get_raw(self, uri: str, parameters = None) -> Response:
         uri = Client._format_uri_parameters(uri, parameters) if parameters else uri
 
         return self._make_request('GET', uri, None)
 
 
-    def post_raw(self, uri: str, payload: dict | None = None, parameters = None):
+    def post_raw(self, uri: str, payload: dict | None = None, parameters = None) -> Response:
         # def post_raw(self, uri: str, payload: list | dict | None = None, parameters: HasParameters | None = None):
         if payload:
             payload = FiltersUndefined.filter_undefined_values(payload)  # Strip Undefined items from the dict
@@ -160,18 +160,18 @@ class Client:
         return self._make_request('POST', uri, payload)
 
 
-    def patch_raw(self, uri: str, payload: dict | None):
+    def patch_raw(self, uri: str, payload: dict | None) -> Response:
         if payload:
             payload = FiltersUndefined.filter_undefined_values(payload)  # Strip Undefined items from the dict
 
         return self._make_request('PATCH', uri, payload)
 
 
-    def delete_raw(self, uri: str):
+    def delete_raw(self, uri: str) -> Response:
         return self._make_request('DELETE', uri)
 
 
-    def build_request_session(self):
+    def build_request_session(self) -> Session:
         session = Session()
         session.headers.update({
             'Authorization': f"Bearer {self.__api_key}",
