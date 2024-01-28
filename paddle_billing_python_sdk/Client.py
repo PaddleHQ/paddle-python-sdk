@@ -147,7 +147,6 @@ class Client:
 
     def get_raw(self, uri: str, parameters: HasParameters | dict = None) -> Response:
         uri = Client.format_uri_parameters(uri, parameters) if parameters else uri
-        print(f"ppparameters={parameters}, uri={uri}")
 
         return self._make_request('GET', uri, None)
 
