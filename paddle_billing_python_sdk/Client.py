@@ -12,25 +12,25 @@ from paddle_billing_python_sdk.FiltersUndefined import FiltersUndefined
 from paddle_billing_python_sdk.HasParameters    import HasParameters
 from paddle_billing_python_sdk.Options          import Options
 
-# from paddle_billing_python_sdk.Logger.Formatter                                          import CustomLogger
-from paddle_billing_python_sdk.Logger.NullHandler                                        import NullHandler
+# from paddle_billing_python_sdk.Logger.Formatter   import CustomLogger
+from paddle_billing_python_sdk.Logger.NullHandler import NullHandler
 
-from paddle_billing_python_sdk.Resources.Addresses.AddressesClient                        import AddressesClient
-from paddle_billing_python_sdk.Resources.Adjustments.AdjustmentsClient                    import AdjustmentsClient
-from paddle_billing_python_sdk.Resources.Businesses.BusinessesClient                      import BusinessesClient
-from paddle_billing_python_sdk.Resources.Customers.CustomersClient                        import CustomersClient
-from paddle_billing_python_sdk.Resources.Discounts.DiscountsClient                        import DiscountsClient
-from paddle_billing_python_sdk.Resources.Events.EventsClient                              import EventsClient
-from paddle_billing_python_sdk.Resources.EventTypes.EventTypesClient                      import EventTypesClient
-from paddle_billing_python_sdk.Resources.Notifications.NotificationsClient                import NotificationsClient
-from paddle_billing_python_sdk.Resources.NotificationLogs.NotificationLogsClient          import NotificationLogsClient
-from paddle_billing_python_sdk.Resources.NotificationSettings.NotificationSettingsClient  import NotificationSettingsClient
-from paddle_billing_python_sdk.Resources.Prices.PricesClient                              import PricesClient
-from paddle_billing_python_sdk.Resources.PricingPreviews.PricingPreviewsClient            import PricingPreviewsClient
-from paddle_billing_python_sdk.Resources.Products.ProductsClient                          import ProductsClient
-from paddle_billing_python_sdk.Resources.Reports.ReportsClient                            import ReportsClient
-from paddle_billing_python_sdk.Resources.Subscriptions.SubscriptionsClient                import SubscriptionsClient
-from paddle_billing_python_sdk.Resources.Transactions.TransactionsClient                  import TransactionsClient
+from paddle_billing_python_sdk.Resources.Addresses.AddressesClient                       import AddressesClient
+from paddle_billing_python_sdk.Resources.Adjustments.AdjustmentsClient                   import AdjustmentsClient
+from paddle_billing_python_sdk.Resources.Businesses.BusinessesClient                     import BusinessesClient
+from paddle_billing_python_sdk.Resources.Customers.CustomersClient                       import CustomersClient
+from paddle_billing_python_sdk.Resources.Discounts.DiscountsClient                       import DiscountsClient
+from paddle_billing_python_sdk.Resources.Events.EventsClient                             import EventsClient
+from paddle_billing_python_sdk.Resources.EventTypes.EventTypesClient                     import EventTypesClient
+from paddle_billing_python_sdk.Resources.Notifications.NotificationsClient               import NotificationsClient
+from paddle_billing_python_sdk.Resources.NotificationLogs.NotificationLogsClient         import NotificationLogsClient
+from paddle_billing_python_sdk.Resources.NotificationSettings.NotificationSettingsClient import NotificationSettingsClient
+from paddle_billing_python_sdk.Resources.Prices.PricesClient                             import PricesClient
+from paddle_billing_python_sdk.Resources.PricingPreviews.PricingPreviewsClient           import PricingPreviewsClient
+from paddle_billing_python_sdk.Resources.Products.ProductsClient                         import ProductsClient
+from paddle_billing_python_sdk.Resources.Reports.ReportsClient                           import ReportsClient
+from paddle_billing_python_sdk.Resources.Subscriptions.SubscriptionsClient               import SubscriptionsClient
+from paddle_billing_python_sdk.Resources.Transactions.TransactionsClient                 import TransactionsClient
 
 
 class Client:
@@ -134,28 +134,29 @@ class Client:
 
 
     @staticmethod
-    def _format_uri_parameters(uri: str, parameters: HasParameters) -> str:
+    def format_uri_parameters(uri: str, parameters: HasParameters | dict) -> str:
         if isinstance(parameters, HasParameters):
             parameters = parameters.get_parameters()
 
-            query = urlencode(parameters)
-            uri  += '&' if '?' in uri else '?'
-            uri  += query
+        query = urlencode(parameters)
+        uri  += '&' if '?' in uri else '?'
+        uri  += query
 
         return uri
 
 
-    def get_raw(self, uri: str, parameters = None) -> Response:
-        uri = Client._format_uri_parameters(uri, parameters) if parameters else uri
+    def get_raw(self, uri: str, parameters: HasParameters | dict = None) -> Response:
+        uri = Client.format_uri_parameters(uri, parameters) if parameters else uri
+        print(f"ppparameters={parameters}, uri={uri}")
 
         return self._make_request('GET', uri, None)
 
 
-    def post_raw(self, uri: str, payload: dict | None = None, parameters = None) -> Response:
+    def post_raw(self, uri: str, payload: dict | None = None, parameters: HasParameters | dict = None) -> Response:
         # def post_raw(self, uri: str, payload: list | dict | None = None, parameters: HasParameters | None = None):
         if payload:
             payload = FiltersUndefined.filter_undefined_values(payload)  # Strip Undefined items from the dict
-        uri = Client._format_uri_parameters(uri, parameters) if parameters else uri
+        uri = Client.format_uri_parameters(uri, parameters) if parameters else uri
 
         return self._make_request('POST', uri, payload)
 
