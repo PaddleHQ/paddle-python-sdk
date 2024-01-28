@@ -60,12 +60,12 @@ class ProductsClient:
         return Product.from_dict(parser.get_data())
 
 
-    def update(self, product_id: str, operation: UpdateProduct) -> ProductWithIncludes:
+    def update(self, product_id: str, operation: UpdateProduct) -> Product:
         response = self.client.patch_raw(f"/products/{product_id}", operation.get_parameters())
         parser   = ResponseParser(response)
 
-        return ProductWithIncludes.from_dict(parser.get_data())
+        return Product.from_dict(parser.get_data())
 
 
-    def archive(self, product_id: str) -> ProductWithIncludes:
+    def archive(self, product_id: str) -> Product:
         return self.update(product_id, UpdateProduct(status=Status.Archived))

@@ -55,4 +55,5 @@ class TestEventsClient:
         assert isinstance(response, EventCollection)
         assert last_request is not None
         assert last_request.method       == 'GET'
-        assert unquote(last_request.url) == expected_url
+        assert unquote(last_request.url) == expected_url, \
+            "The URL does not match the expected URL, verify the Pagination query string is correct"
