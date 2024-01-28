@@ -11,6 +11,9 @@ class ResponseParser:
     def __init__(self, response):
         self.body = None
 
+        if not hasattr(response, 'text'):
+            return
+
         try:
             self.body = json.loads(response.text)
         except json.JSONDecodeError:
