@@ -36,7 +36,7 @@ class TestClient:
 
 
 @fixture(autouse=True)
-def setup_test_client():
+def test_client():
     return TestClient()
 
 

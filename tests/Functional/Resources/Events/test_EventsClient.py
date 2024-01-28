@@ -7,13 +7,13 @@ from paddle_billing_python_sdk.Entities.Collections.EventCollection   import Eve
 from paddle_billing_python_sdk.Resources.Events.Operations.ListEvents import ListEvents
 from paddle_billing_python_sdk.Resources.Shared.Operations.List.Pager import Pager
 
-from tests.Utils.TestClient   import setup_test_client, mock_requests
+from tests.Utils.TestClient   import mock_requests, test_client
 from tests.Utils.ReadsFixture import ReadsFixtures
 
 
 class TestEventsClient:
     @mark.parametrize(
-        'operation, expected_status, expected_body, expected_uri',
+        'operation, expected_response_status, expected_response_body, expected_url',
         [
             (
                 ListEvents(),
@@ -38,23 +38,21 @@ class TestEventsClient:
             "List paginated events after specified event id",
         ],
     )
-    def test_list_hits_expected_uri(self, setup_test_client, mock_requests, operation, expected_status, expected_body, expected_uri):
-        # Set up mock response
-        mock_requests.get(expected_uri, status_code=expected_status, text=expected_body)
+    def test_list_hits_expected_url(
+        self,
+        test_client,
+        mock_requests,
+        operation,
+        expected_response_status,
+        expected_response_body,
+        expected_url
+    ):
+        mock_requests.get(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        print(f"operation={operation}")
-        print(f"operation.get_parameters()={operation.get_parameters()}")
-        print(f"dir(operation)={dir(operation)}")
-
-        response = None
-        try:
-            response = setup_test_client.client.events.list(operation)
-        except Exception as error:
-            print(f"response error: {error}")
-
+        response     = test_client.client.events.list(operation)
         last_request = mock_requests.last_request
 
         assert isinstance(response, EventCollection)
         assert last_request is not None
         assert last_request.method       == 'GET'
-        assert unquote(last_request.url) == expected_uri
+        assert unquote(last_request.url) == expected_url

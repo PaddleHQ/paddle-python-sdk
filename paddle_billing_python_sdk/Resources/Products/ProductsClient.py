@@ -2,6 +2,7 @@ from typing import TYPE_CHECKING
 
 from paddle_billing_python_sdk.ResponseParser import ResponseParser
 
+from paddle_billing_python_sdk.Entities.Product                                   import Product
 from paddle_billing_python_sdk.Entities.ProductWithIncludes                       import ProductWithIncludes
 from paddle_billing_python_sdk.Entities.Collections.Paginator                     import Paginator
 from paddle_billing_python_sdk.Entities.Collections.ProductWithIncludesCollection import ProductWithIncludesCollection
@@ -52,11 +53,11 @@ class ProductsClient:
         return ProductWithIncludes.from_dict(parser.get_data())
 
 
-    def create(self, operation: CreateProduct) -> ProductWithIncludes:
+    def create(self, operation: CreateProduct) -> Product:
         response = self.client.post_raw('/products', operation.get_parameters())
         parser   = ResponseParser(response)
 
-        return ProductWithIncludes.from_dict(parser.get_data())
+        return Product.from_dict(parser.get_data())
 
 
     def update(self, product_id: str, operation: UpdateProduct) -> ProductWithIncludes:
