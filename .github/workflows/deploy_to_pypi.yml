@@ -1,15 +1,17 @@
-name: Upload paddle-billing-python-sdk Package to PyPi
+name: Deploy to PyPi
 
 on:
-#  release:
-#    types: [created]
-  push:
-    branches: [ main ]
+  workflow_run:
+    workflows: ["Run Tests"]
+    branches: [main]
+    types:
+      - completed
 
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success'
     environment: release
     permissions:
       id-token: write
