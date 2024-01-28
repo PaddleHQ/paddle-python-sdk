@@ -16,16 +16,17 @@ class ResponseParser:
         except json.JSONDecodeError:
             self.body = None
 
-        self.parse_errors()
+        if self.body and 'error' in self.body:
+            self.parse_errors()
 
 
     def get_data(self):
-        return self.body.get('data', [])
+        return self.body.get('data', []) if self.body else []
 
 
     def get_pagination(self):
-        meta       = self.body.get('meta', {})
-        pagination = meta.get('pagination', {})
+        meta       = self.body.get('meta', {})  if self.body else {}
+        pagination = meta.get('pagination', {}) if self.body else {}
 
         next_page        = pagination.get('next')
         next_page_number = None
@@ -44,7 +45,7 @@ class ResponseParser:
 
 
     def parse_errors(self):
-        if 'error' not in self.body:
+        if not self.body or 'error' not in self.body:
             return
 
         error           = self.body['error']
