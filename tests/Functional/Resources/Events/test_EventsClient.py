@@ -1,3 +1,4 @@
+from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
@@ -45,15 +46,24 @@ class TestEventsClient:
         operation,
         expected_response_status,
         expected_response_body,
-        expected_url
+        expected_url,
     ):
         mock_requests.get(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        response     = test_client.client.events.list(operation)
-        last_request = mock_requests.last_request
+        # response = test_client.client.get_raw(f"/events", operation.get_parameters())
+        # parser   = ResponseParser(response)
+        # assert parser.body == loads(expected_response_body), \
+        #     "The response JSON doesn't match the expected fixture JSON"
+
+        response      = test_client.client.events.list(operation)
+        response_json = test_client.client.events.response.json()
+        last_request  = mock_requests.last_request
 
         assert isinstance(response, EventCollection)
         assert last_request is not None
-        assert last_request.method       == 'GET'
-        assert unquote(last_request.url) == expected_url, \
-            "The URL does not match the expected URL, verify the Pagination query string is correct"
+        assert last_request.method            == 'GET'
+        assert test_client.client.status_code == expected_response_status
+        assert unquote(last_request.url)      == expected_url, \
+            "The URL does not match the expected URL, verify the query string is correct"
+        assert response_json == loads(expected_response_body), \
+            "The response JSON doesn't match the expected fixture JSON"
