@@ -241,7 +241,7 @@ class TestPricesClient:
         ids = [
             "List prices without pagination",
             "List prices with default pagination",
-            "List prices with after pagination",
+            "List paginated prices after specified product id",
             "List prices filtered by status",
             "List prices filtered by id",
             "List prices filtered by multiple ids",

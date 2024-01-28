@@ -207,7 +207,7 @@ class TestProductsClient:
         ids = [
             "List products without pagination",
             "List products with default pagination",
-            "List products with after pagination",
+            "List paginated products after specified product id",
             "List products filtered by status",
             "List products filtered by id",
             "List products filtered by multiple ids",
