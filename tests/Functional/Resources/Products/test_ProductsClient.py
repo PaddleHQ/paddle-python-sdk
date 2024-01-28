@@ -5,6 +5,8 @@ from urllib.parse import unquote
 from paddle_billing_python_sdk.Environment    import Environment
 from paddle_billing_python_sdk.ResponseParser import ResponseParser
 
+from paddle_billing_python_sdk.Entities.Collections.ProductWithIncludesCollection import ProductWithIncludesCollection
+
 from paddle_billing_python_sdk.Entities.Product             import Product
 from paddle_billing_python_sdk.Entities.ProductWithIncludes import ProductWithIncludes
 from paddle_billing_python_sdk.Entities.Shared.CustomData   import CustomData
@@ -59,7 +61,7 @@ class TestProductsClient:
             "Create product with full data",
         ],
     )
-    def test_create_product_uses_expected_payload(
+    def test_create_product(
         self,
         test_client,
         mock_requests,
@@ -129,7 +131,7 @@ class TestProductsClient:
             "Update product with completely new values",
         ],
     )
-    def test_update_product_uses_expected_payload(
+    def test_update_product(
         self,
         test_client,
         mock_requests,
@@ -213,7 +215,7 @@ class TestProductsClient:
             "List products with includes",
         ],
     )
-    def test_list_products_hits_expected_url(
+    def test_list_products(
         self,
         test_client,
         mock_requests,
@@ -232,7 +234,7 @@ class TestProductsClient:
         print(f"response={response}")
         print(f"type(response)={type(response)}")
 
-        # assert isinstance(response, ProductCollection)
+        assert isinstance(response, ProductWithIncludesCollection)
         assert last_request is not None
         assert last_request.method            == 'GET'
         assert test_client.client.status_code == expected_response_status
@@ -263,7 +265,7 @@ class TestProductsClient:
             "Get product with includes",
         ],
     )
-    def test_get_products_hits_expected_url(
+    def test_get_products(
         self,
         test_client,
         mock_requests,
@@ -285,10 +287,6 @@ class TestProductsClient:
         parser       = ResponseParser(response)
         response     = test_client.client.products.get(product_id=product_id, includes=includes)
         last_request = mock_requests.last_request
-
-        print(f"isinstance(response, ProductWithIncludes) = {isinstance(response, ProductWithIncludes)}")
-        print(f"isinstance(response, Product)             = {isinstance(response, Product)}")
-        print(f"True if includes else False               = {True if includes else False}")
 
         assert isinstance(response, ProductWithIncludes) if includes else isinstance(response, Product)
         assert last_request is not None

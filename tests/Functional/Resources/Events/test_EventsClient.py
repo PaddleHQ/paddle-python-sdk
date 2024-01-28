@@ -39,7 +39,7 @@ class TestEventsClient:
             "List paginated events after specified event id",
         ],
     )
-    def test_list_events_hits_expected_url(
+    def test_list_events(
         self,
         test_client,
         mock_requests,
@@ -49,11 +49,6 @@ class TestEventsClient:
         expected_url,
     ):
         mock_requests.get(expected_url, status_code=expected_response_status, text=expected_response_body)
-
-        # response = test_client.client.get_raw(f"/events", operation.get_parameters())
-        # parser   = ResponseParser(response)
-        # assert parser.body == loads(expected_response_body), \
-        #     "The response JSON doesn't match the expected fixture JSON"
 
         response      = test_client.client.events.list(operation)
         response_json = test_client.client.events.response.json()

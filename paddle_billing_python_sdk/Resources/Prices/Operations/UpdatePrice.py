@@ -18,6 +18,7 @@ class UpdatePrice:
     name:                 str                     | None | Undefined = Undefined()
     type:                 CatalogType             | None | Undefined = Undefined()
     billing_cycle:        TimePeriod              | None | Undefined = Undefined()
+    trial_period:         TimePeriod              | None | Undefined = Undefined()
     tax_mode:             TaxMode                 | None | Undefined = Undefined()
     unit_price:           Money                   | None | Undefined = Undefined()
     unit_price_overrides: list[UnitPriceOverride] | None | Undefined = Undefined()
