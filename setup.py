@@ -30,7 +30,7 @@ setup(
         'dev': [
             'pytest~=7.4.4',
             'pytest-cov~=4.1.0'
-            'pylint>=3.0.3',
+            'requests-mock~=1.11.0',
             'setuptools>=69.0.3',
         ],
     },
