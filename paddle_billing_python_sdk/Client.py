@@ -98,7 +98,7 @@ class Client:
 
     @staticmethod
     def serialize_json_payload(payload: dict) -> str:
-        # Handle CustomData special case
+        # Removes unneeded level of nested CustomData data
         if payload.get('custom_data') and 'data' in payload['custom_data']:
             payload['custom_data'] = payload['custom_data']['data']
 

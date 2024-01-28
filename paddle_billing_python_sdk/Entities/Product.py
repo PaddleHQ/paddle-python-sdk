@@ -15,14 +15,14 @@ from paddle_billing_python_sdk.Entities.Shared.TaxCategory import TaxCategory
 class Product(Entity):
     id:           str
     name:         str
-    description:  str | None
-    type:         CatalogType | None
-    tax_category: TaxCategory
-    image_url:    str | None
-    custom_data:  CustomData | None
     status:       Status
-    created_at:   datetime | None
-    import_meta:  ImportMeta | None
+    tax_category: TaxCategory
+    created_at:   datetime    | None
+    custom_data:  CustomData  | None
+    description:  str         | None
+    image_url:    str         | None
+    import_meta:  ImportMeta  | None
+    type:         CatalogType | None
 
 
     @classmethod

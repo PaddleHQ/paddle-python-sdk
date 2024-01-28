@@ -38,7 +38,7 @@ class TestEventsClient:
             "List paginated events after specified event id",
         ],
     )
-    def test_list_hits_expected_url(
+    def test_list_events_hits_expected_url(
         self,
         test_client,
         mock_requests,
