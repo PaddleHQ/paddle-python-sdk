@@ -17,15 +17,16 @@ if TYPE_CHECKING:
 
 class ReportsClient:
     def __init__(self, client: 'Client'):
-        self.client = client
+        self.client   = client
+        self.response = None
 
 
     def list(self, operation: ListReports = None) -> ReportCollection:
         if operation is None:
             operation = ListReports()
 
-        response = self.client.get_raw('/reports', operation.get_parameters())
-        parser   = ResponseParser(response)
+        self.response = self.client.get_raw('/reports', operation.get_parameters())
+        parser        = ResponseParser(self.response)
 
         return ReportCollection.from_list(
             parser.get_data(),
@@ -34,21 +35,21 @@ class ReportsClient:
 
 
     def get(self, report_id: str) -> Report:
-        response   = self.client.get_raw(f"/reports/{report_id}")
-        parser     = ResponseParser(response)
+        self.response   = self.client.get_raw(f"/reports/{report_id}")
+        parser          = ResponseParser(self.response)
 
         return Report.from_dict(parser.get_data())
 
 
     def get_report_csv(self, report_id: str) -> ReportCSV:
-        response = self.client.get_raw(f"/reports/{report_id}/download-url")
-        parser   = ResponseParser(response)
+        self.response = self.client.get_raw(f"/reports/{report_id}/download-url")
+        parser        = ResponseParser(self.response)
 
         return ReportCSV.from_dict(parser.get_data())
 
 
     def create(self, operation: CreateReport) -> Report:
-        response = self.client.post_raw('/reports', operation.get_parameters())
-        parser   = ResponseParser(response)
+        self.response = self.client.post_raw('/reports', operation.get_parameters())
+        parser        = ResponseParser(self.response)
 
         return Report.from_dict(parser.get_data())

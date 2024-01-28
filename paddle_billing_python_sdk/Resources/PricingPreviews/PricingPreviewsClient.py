@@ -13,11 +13,12 @@ if TYPE_CHECKING:
 
 class PricingPreviewsClient:
     def __init__(self, client: 'Client'):
-        self.client = client
+        self.client   = client
+        self.response = None
 
 
     def preview_prices(self, operation: PreviewPrice) -> PricePreview:
-        response = self.client.post_raw('/pricing-preview', operation.get_parameters())
-        parser   = ResponseParser(response)
+        self.response = self.client.post_raw('/pricing-preview', operation.get_parameters())
+        parser        = ResponseParser(self.response)
 
         return PricePreview.from_dict(parser.get_data())

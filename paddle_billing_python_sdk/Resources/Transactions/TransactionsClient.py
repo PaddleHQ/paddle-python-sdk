@@ -23,15 +23,16 @@ if TYPE_CHECKING:
 
 class TransactionsClient:
     def __init__(self, client: 'Client'):
-        self.client = client
+        self.client   = client
+        self.response = None
 
 
     def list(self, operation: ListTransactions = None) -> TransactionWithIncludesCollection:
         if operation is None:
             operation = ListTransactions()
 
-        response = self.client.get_raw('/transactions', operation.get_parameters())
-        parser   = ResponseParser(response)
+        self.response = self.client.get_raw('/transactions', operation.get_parameters())
+        parser        = ResponseParser(self.response)
 
         return TransactionWithIncludesCollection.from_list(
             parser.get_data(),
@@ -47,9 +48,9 @@ class TransactionsClient:
         if invalid_items:
             raise InvalidArgumentException('includes', Includes.__name__, invalid_items)
 
-        params   = {'include': ','.join(include.value for include in includes)} if includes else {}
-        response = self.client.get_raw(f"/transactions/{transaction_id}", params)
-        parser   = ResponseParser(response)
+        params        = {'include': ','.join(include.value for include in includes)} if includes else {}
+        self.response = self.client.get_raw(f"/transactions/{transaction_id}", params)
+        parser        = ResponseParser(self.response)
 
         return TransactionWithIncludes.from_dict(parser.get_data())
 
@@ -62,29 +63,29 @@ class TransactionsClient:
         if invalid_items:
             raise InvalidArgumentException('includes', Includes.__name__, invalid_items)
 
-        params   = {'include': ','.join(include.value for include in includes)} if includes else {}
-        response = self.client.post_raw('/transactions', operation.get_parameters(), params)
-        parser   = ResponseParser(response)
+        params        = {'include': ','.join(include.value for include in includes)} if includes else {}
+        self.response = self.client.post_raw('/transactions', operation.get_parameters(), params)
+        parser        = ResponseParser(self.response)
 
         return TransactionWithIncludes.from_dict(parser.get_data())
 
 
     def update(self, transaction_id: str, operation: UpdateTransaction) -> TransactionWithIncludes:
-        response = self.client.patch_raw(f"/transactions/{transaction_id}", operation.get_parameters())
-        parser   = ResponseParser(response)
+        self.response = self.client.patch_raw(f"/transactions/{transaction_id}", operation.get_parameters())
+        parser        = ResponseParser(self.response)
 
         return TransactionWithIncludes.from_dict(parser.get_data())
 
 
     def preview(self, operation: PreviewTransaction) -> TransactionPreview:
-        response = self.client.post_raw('/transactions/preview', operation.get_parameters())
-        parser   = ResponseParser(response)
+        self.response = self.client.post_raw('/transactions/preview', operation.get_parameters())
+        parser        = ResponseParser(self.response)
 
         return TransactionPreview.from_dict(parser.get_data())
 
 
     def get_invoice_pdf(self, transaction_id: str) -> TransactionData:
-        response = self.client.get_raw(f"/transactions/{transaction_id}/invoice")
-        parser   = ResponseParser(response)
+        self.response = self.client.get_raw(f"/transactions/{transaction_id}/invoice")
+        parser        = ResponseParser(self.response)
 
         return TransactionData.from_dict(parser.get_data())

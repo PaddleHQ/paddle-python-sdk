@@ -19,15 +19,16 @@ if TYPE_CHECKING:
 
 class CustomersClient:
     def __init__(self, client: 'Client'):
-        self.client = client
+        self.client   = client
+        self.response = None
 
 
     def list(self, operation: ListCustomers = None) -> CustomerCollection:
         if operation is None:
             operation = ListCustomers()
 
-        response = self.client.get_raw('/customers', operation.get_parameters())
-        parser   = ResponseParser(response)
+        self.response = self.client.get_raw('/customers', operation.get_parameters())
+        parser        = ResponseParser(self.response)
 
         return CustomerCollection.from_list(
             parser.get_data(),
@@ -36,22 +37,22 @@ class CustomersClient:
 
 
     def get(self, customer_id: str) -> Customer:
-        response = self.client.get_raw(f"/customers/{customer_id}")
-        parser   = ResponseParser(response)
+        self.response = self.client.get_raw(f"/customers/{customer_id}")
+        parser        = ResponseParser(self.response)
 
         return Customer.from_dict(parser.get_data())
 
 
     def create(self, operation: CreateCustomer) -> Customer:
-        response = self.client.post_raw('/customers', operation.get_parameters())
-        parser   = ResponseParser(response)
+        self.response = self.client.post_raw('/customers', operation.get_parameters())
+        parser        = ResponseParser(self.response)
 
         return Customer.from_dict(parser.get_data())
 
 
     def update(self, customer_id: str, operation: UpdateCustomer) -> Customer:
-        response = self.client.patch_raw(f"/customers/{customer_id}", operation.get_parameters())
-        parser   = ResponseParser(response)
+        self.response = self.client.patch_raw(f"/customers/{customer_id}", operation.get_parameters())
+        parser        = ResponseParser(self.response)
 
         return Customer.from_dict(parser.get_data())
 
@@ -61,7 +62,7 @@ class CustomersClient:
 
 
     def credit_balances(self, customer_id: str) -> CreditBalanceCollection:
-        response = self.client.get_raw(f"/customers/{customer_id}/credit-balance")
-        parser   = ResponseParser(response)
+        self.response = self.client.get_raw(f"/customers/{customer_id}/credit-balance")
+        parser        = ResponseParser(self.response)
 
         return CreditBalanceCollection.from_list(parser.get_data())

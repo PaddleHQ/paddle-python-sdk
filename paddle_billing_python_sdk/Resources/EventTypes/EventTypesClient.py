@@ -12,12 +12,13 @@ if TYPE_CHECKING:
 
 class EventTypesClient:
     def __init__(self, client: 'Client'):
-        self.client = client
+        self.client   = client
+        self.response = None
 
 
     def list(self) -> EventTypeCollection:
-        response = self.client.get_raw('/event-types')
-        parser   = ResponseParser(response)
+        self.response = self.client.get_raw('/event-types')
+        parser        = ResponseParser(self.response)
 
         return EventTypeCollection.from_list(
             parser.get_data(),

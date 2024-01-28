@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Union
 
 from paddle_billing_python_sdk.ResponseParser import ResponseParser
 
@@ -22,15 +22,16 @@ if TYPE_CHECKING:
 
 class ProductsClient:
     def __init__(self, client: 'Client'):
-        self.client = client
+        self.client   = client
+        self.response = None
 
 
     def list(self, operation: ListProducts = None) -> ProductWithIncludesCollection:
         if operation is None:
             operation = ListProducts()
 
-        response = self.client.get_raw('/products', operation.get_parameters())
-        parser   = ResponseParser(response)
+        self.response = self.client.get_raw('/products', operation.get_parameters())
+        parser        = ResponseParser(self.response)
 
         return ProductWithIncludesCollection.from_list(
             parser.get_data(),
@@ -38,31 +39,42 @@ class ProductsClient:
         )
 
 
-    def get(self, product_id: str, includes = None) -> ProductWithIncludes:
+    def get(self, product_id: str, includes = None) -> Product | ProductWithIncludes:
+        if product_id is None:
+            raise ValueError('product_id is required')
+        if not isinstance(product_id, str):
+            raise ValueError('product_id must be a string')
+
         if includes is None:
             includes = []
+
+        print(f"type(includes): {type(includes)}")
+        print(f"includes: {includes}")
+        print(f"False if not includes else True: {False if not includes else True}")
 
         invalid_items = [item for item in includes if not isinstance(item, Includes)]
         if invalid_items:
             raise InvalidArgumentException('includes', Includes.__name__, invalid_items)
 
-        params   = {'include': ','.join(include.value for include in includes)} if includes else {}
-        response = self.client.get_raw(f"/products/{product_id}", params)
-        parser   = ResponseParser(response)
+        params         = {'include': ','.join(include.value for include in includes)} if includes else {}
+        self.response = self.client.get_raw(f"/products/{product_id}", params)
+        parser         = ResponseParser(self.response)
 
-        return ProductWithIncludes.from_dict(parser.get_data())
+        return ProductWithIncludes.from_dict(parser.get_data()) \
+            if includes \
+            else Product.from_dict(parser.get_data())
 
 
     def create(self, operation: CreateProduct) -> Product:
-        response = self.client.post_raw('/products', operation.get_parameters())
-        parser   = ResponseParser(response)
+        self.response = self.client.post_raw('/products', operation.get_parameters())
+        parser         = ResponseParser(self.response)
 
         return Product.from_dict(parser.get_data())
 
 
     def update(self, product_id: str, operation: UpdateProduct) -> Product:
-        response = self.client.patch_raw(f"/products/{product_id}", operation.get_parameters())
-        parser   = ResponseParser(response)
+        self.response = self.client.patch_raw(f"/products/{product_id}", operation.get_parameters())
+        parser         = ResponseParser(self.response)
 
         return Product.from_dict(parser.get_data())
 

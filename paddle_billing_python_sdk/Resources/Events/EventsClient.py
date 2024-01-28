@@ -14,15 +14,16 @@ if TYPE_CHECKING:
 
 class EventsClient:
     def __init__(self, client: 'Client'):
-        self.client = client
+        self.client   = client
+        self.response = None
 
 
     def list(self, operation: ListEvents = None) -> EventCollection:
         if operation is None:
             operation = ListEvents()
 
-        response = self.client.get_raw('/events', operation.get_parameters())
-        parser   = ResponseParser(response)
+        self.response = self.client.get_raw('/events', operation.get_parameters())
+        parser        = ResponseParser(self.response)
 
         return EventCollection.from_list(
             parser.get_data(),

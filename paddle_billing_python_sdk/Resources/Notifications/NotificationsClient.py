@@ -15,15 +15,16 @@ if TYPE_CHECKING:
 
 class NotificationsClient:
     def __init__(self, client: 'Client'):
-        self.client = client
+        self.client   = client
+        self.response = None
 
 
     def list(self, operation: ListNotifications = None) -> NotificationCollection:
         if operation is None:
             operation = ListNotifications()
 
-        response = self.client.get_raw('/notifications', operation.get_parameters())
-        parser   = ResponseParser(response)
+        self.response = self.client.get_raw('/notifications', operation.get_parameters())
+        parser        = ResponseParser(self.response)
 
         return NotificationCollection.from_list(
             parser.get_data(),
@@ -32,15 +33,15 @@ class NotificationsClient:
 
 
     def get(self, notification_setting_id: str) -> Notification:
-        response = self.client.get_raw(f"/notifications/{notification_setting_id}")
-        parser   = ResponseParser(response)
+        self.response = self.client.get_raw(f"/notifications/{notification_setting_id}")
+        parser        = ResponseParser(self.response)
 
         return Notification.from_dict(parser.get_data())
 
 
     def replay(self, notification_setting_id: str) -> str:
-        response = self.client.post_raw(f"/notifications/{notification_setting_id}")
-        parser   = ResponseParser(response)
-        data     = parser.get_data()
+        self.response = self.client.post_raw(f"/notifications/{notification_setting_id}")
+        parser        = ResponseParser(self.response)
+        data          = parser.get_data()
 
         return data.get('notification_id', '')

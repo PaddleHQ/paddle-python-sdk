@@ -18,15 +18,16 @@ if TYPE_CHECKING:
 
 class DiscountsClient:
     def __init__(self, client: 'Client'):
-        self.client = client
+        self.client   = client
+        self.response = None
 
 
     def list(self, operation: ListDiscounts = None) -> DiscountCollection:
         if operation is None:
             operation = ListDiscounts()
 
-        response = self.client.get_raw('/discounts', operation.get_parameters())
-        parser   = ResponseParser(response)
+        self.response = self.client.get_raw('/discounts', operation.get_parameters())
+        parser        = ResponseParser(self.response)
 
         return DiscountCollection.from_list(
             parser.get_data(),
@@ -35,22 +36,22 @@ class DiscountsClient:
 
 
     def get(self, discount_id: str) -> Discount:
-        response = self.client.get_raw(f"/discounts/{discount_id}")
-        parser   = ResponseParser(response)
+        self.response = self.client.get_raw(f"/discounts/{discount_id}")
+        parser        = ResponseParser(self.response)
 
         return Discount.from_dict(parser.get_data())
 
 
     def create(self, operation: CreateDiscount) -> Discount:
-        response = self.client.post_raw('/discounts', operation.get_parameters())
-        parser   = ResponseParser(response)
+        self.response = self.client.post_raw('/discounts', operation.get_parameters())
+        parser        = ResponseParser(self.response)
 
         return Discount.from_dict(parser.get_data())
 
 
     def update(self, discount_id: str, operation: UpdateDiscount) -> Discount:
-        response = self.client.patch_raw(f"/discounts/{discount_id}", operation.get_parameters())
-        parser   = ResponseParser(response)
+        self.response = self.client.patch_raw(f"/discounts/{discount_id}", operation.get_parameters())
+        parser        = ResponseParser(self.response)
 
         return Discount.from_dict(parser.get_data())
 

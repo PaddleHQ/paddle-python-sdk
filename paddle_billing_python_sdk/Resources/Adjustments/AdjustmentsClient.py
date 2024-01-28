@@ -16,15 +16,16 @@ if TYPE_CHECKING:
 
 class AdjustmentsClient:
     def __init__(self, client: 'Client'):
-        self.client = client
+        self.client   = client
+        self.response = None
 
 
     def list(self, operation: ListAdjustments = None) -> AdjustmentsAdjustmentCollection:
         if operation is None:
             operation = ListAdjustments()
 
-        response = self.client.get_raw('/adjustments', operation.get_parameters())
-        parser   = ResponseParser(response)
+        self.response = self.client.get_raw('/adjustments', operation.get_parameters())
+        parser        = ResponseParser(self.response)
 
         return AdjustmentsAdjustmentCollection.from_list(
             parser.get_data(),
@@ -33,7 +34,7 @@ class AdjustmentsClient:
 
 
     def create(self, operation: CreateAdjustment) -> Adjustment:
-        response = self.client.post_raw('/adjustments', operation.get_parameters())
-        parser   = ResponseParser(response)
+        self.response = self.client.post_raw('/adjustments', operation.get_parameters())
+        parser        = ResponseParser(self.response)
 
         return Adjustment.from_dict(parser.get_data())
