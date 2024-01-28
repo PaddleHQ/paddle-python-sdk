@@ -9,13 +9,11 @@ class ReadsFixtures:
         """
         Reads a raw JSON fixture file and returns its contents as a string.
         """
-        print(Path(__file__).parent.parent)
         # if base_path is None:
         #     base_path = Path(__file__).parent
 
         caller_file = stack()[1].filename  # Get the file path of the calling file, e.g. test_EventsClient.py
         base_path   = Path(caller_file).parent
-        print(f"base_path={base_path}")
 
         while base_path != Path(__file__).parent.parent:
             file_path = base_path / '_fixtures' / f"{fixture}.json"

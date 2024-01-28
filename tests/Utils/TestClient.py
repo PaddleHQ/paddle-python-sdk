@@ -1,6 +1,6 @@
-import pytest
-import requests_mock
-from os import environ
+from os            import environ
+from pytest        import fixture
+from requests_mock import Mocker
 
 from paddle_billing_python_sdk.Client      import Client
 from paddle_billing_python_sdk.Environment import Environment
@@ -35,12 +35,12 @@ class TestClient:
         )
 
 
-@pytest.fixture(autouse=True)
+@fixture(autouse=True)
 def setup_test_client():
     return TestClient()
 
 
-@pytest.fixture
+@fixture
 def mock_requests():
-    with requests_mock.Mocker() as m:
+    with Mocker() as m:
         yield m
