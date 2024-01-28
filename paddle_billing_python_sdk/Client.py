@@ -55,6 +55,8 @@ class Client:
         self.options        = options     if options     else Options()
         self.logger         = logger      if logger      else Client.null_logger()
         self.client         = http_client if http_client else self.build_request_session()
+        self.payload        = None  # Used by pytest
+        self.status_code    = None  # Used by pytest
 
         # Initialize the various clients
         self.addresses             = AddressesClient(self)
@@ -111,7 +113,7 @@ class Client:
     def _make_request(
         self,
         method:     str,
-        uri:        str,
+        url:        str,
         payload:    dict | None = None,
     ) -> Response:
         """
@@ -119,21 +121,24 @@ class Client:
         """
 
         # Parse and update URI with base URL components if necessary
-        if isinstance(uri, str):
-            uri = urljoin(self.options.environment.base_url, uri)
+        if isinstance(url, str):
+            url = urljoin(self.options.environment.base_url, url)
 
         self.client.headers.update({
             'X-Transaction-ID': str(self.transaction_id) if self.transaction_id else str(uuid4())
         })
 
-        final_json = self.serialize_json_payload(payload) if payload else None
+        self.payload = self.serialize_json_payload(payload) if payload else None
         try:
             # We use data= instead of json= because we manually serialize data into JSON
-            response = self.client.request(method.upper(), uri, data=final_json)
+            response = self.client.request(method.upper(), url, data=self.payload)
+            self.status_code = response.status_code
             response.raise_for_status()
 
             return response
         except RequestException as e:
+            self.status_code = e.response.status_code
+
             if self.logger:
                 self.logger.error(f"Request failed: {e}")
             raise
@@ -151,34 +156,35 @@ class Client:
         return uri
 
 
-    def get_raw(self, uri: str, parameters: HasParameters | dict = None) -> Response:
-        uri = Client.format_uri_parameters(uri, parameters) if parameters else uri
+    def get_raw(self, url: str, parameters: HasParameters | dict = None) -> Response:
+        url = Client.format_uri_parameters(url, parameters) if parameters else url
 
-        return self._make_request('GET', uri, None)
+        return self._make_request('GET', url, None)
 
 
     def post_raw(
         self,
-        uri:        str,
+        url:        str,
         payload:    dict                 | None = None,
         parameters: HasParameters | dict | None = None
     ) -> Response:
         if payload:
             payload = FiltersUndefined.filter_undefined_values(payload)  # Strip Undefined items from the dict
-        uri = Client.format_uri_parameters(uri, parameters) if parameters else uri
 
-        return self._make_request('POST', uri, payload)
+        url = Client.format_uri_parameters(url, parameters) if parameters else url
+
+        return self._make_request('POST', url, payload)
 
 
-    def patch_raw(self, uri: str, payload: dict | None) -> Response:
+    def patch_raw(self, url: str, payload: dict | None) -> Response:
         if payload:
             payload = FiltersUndefined.filter_undefined_values(payload)  # Strip Undefined items from the dict
 
-        return self._make_request('PATCH', uri, payload)
+        return self._make_request('PATCH', url, payload)
 
 
-    def delete_raw(self, uri: str) -> Response:
-        return self._make_request('DELETE', uri)
+    def delete_raw(self, url: str) -> Response:
+        return self._make_request('DELETE', url)
 
 
     def build_request_session(self) -> Session:
