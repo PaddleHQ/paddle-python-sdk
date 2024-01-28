@@ -96,6 +96,18 @@ class Client:
         self.logger.debug(f"Response: {response.status_code} {response.text}")
 
 
+    @staticmethod
+    def serialize_json_payload(payload: dict) -> str:
+        # Handle CustomData special case
+        if payload.get('custom_data') and 'data' in payload['custom_data']:
+            payload['custom_data'] = payload['custom_data']['data']
+
+        json_payload = json_dumps(payload)
+        final_json   = json_payload if json_payload != '[]' else '{}'
+
+        return final_json
+
+
     def _make_request(
         self,
         method:     str,
@@ -114,15 +126,9 @@ class Client:
             'X-Transaction-ID': str(self.transaction_id) if self.transaction_id else str(uuid4())
         })
 
-        # Serialize payload to JSON
-        final_json = None
-        if payload:
-            json_payload  = json_dumps(payload)
-            final_json    = json_payload if json_payload != '[]' else '{}'
-        # self.logger.debug(f"final_json: {final_json}")
-
-        # We use data= instead of json= because we manually serialize data into JSON
+        final_json = self.serialize_json_payload(payload) if payload else None
         try:
+            # We use data= instead of json= because we manually serialize data into JSON
             response = self.client.request(method.upper(), uri, data=final_json)
             response.raise_for_status()
 
@@ -151,8 +157,12 @@ class Client:
         return self._make_request('GET', uri, None)
 
 
-    def post_raw(self, uri: str, payload: dict | None = None, parameters: HasParameters | dict = None) -> Response:
-        # def post_raw(self, uri: str, payload: list | dict | None = None, parameters: HasParameters | None = None):
+    def post_raw(
+        self,
+        uri:        str,
+        payload:    dict                 | None = None,
+        parameters: HasParameters | dict | None = None
+    ) -> Response:
         if payload:
             payload = FiltersUndefined.filter_undefined_values(payload)  # Strip Undefined items from the dict
         uri = Client.format_uri_parameters(uri, parameters) if parameters else uri
