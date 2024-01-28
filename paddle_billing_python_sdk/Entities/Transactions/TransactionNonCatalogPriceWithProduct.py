@@ -14,14 +14,14 @@ from paddle_billing_python_sdk.Entities.Transactions.TransactionNonCatalogProduc
 @dataclass
 class TransactionNonCatalogPriceWithProduct:
     description:          str
-    name:                 str | None
+    name:                 str        | None
     billing_cycle:        TimePeriod | None
     trial_period:         TimePeriod | None
+    custom_data:          CustomData | None
     tax_mode:             TaxMode
     unit_price:           Money
     unit_price_overrides: list[UnitPriceOverride]
     quantity:             PriceQuantity
-    custom_data:          CustomData | None
     product:              TransactionNonCatalogProduct
 
 

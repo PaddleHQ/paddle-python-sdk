@@ -14,8 +14,8 @@ from paddle_billing_python_sdk.Entities.Transactions.TransactionLineItem import 
 class TransactionDetails:
     tax_rates_used:         list[TaxRatesUsed]
     totals:                 TransactionTotals
-    adjusted_totals:        TransactionTotalsAdjusted | None
-    payout_totals:          TransactionPayoutTotals | None
+    adjusted_totals:        TransactionTotalsAdjusted       | None
+    payout_totals:          TransactionPayoutTotals         | None
     adjusted_payout_totals: TransactionPayoutTotalsAdjusted | None
     lineItems:              list[TransactionLineItem]
 

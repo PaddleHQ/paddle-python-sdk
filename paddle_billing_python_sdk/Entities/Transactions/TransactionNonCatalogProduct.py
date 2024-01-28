@@ -8,9 +8,9 @@ from paddle_billing_python_sdk.Entities.Shared.TaxCategory import TaxCategory
 @dataclass
 class TransactionNonCatalogProduct:
     name:         str
-    description:  str | None
     tax_category: TaxCategory
-    image_url:    str | None
+    description:  str        | None
+    image_url:    str        | None
     custom_data:  CustomData | None
 
 
