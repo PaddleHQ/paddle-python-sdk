@@ -44,19 +44,3 @@ def setup_test_client():
 def mock_requests():
     with requests_mock.Mocker() as m:
         yield m
-
-
-# def test_client_method(self, mock_requests):
-#     # Load fixture data (assuming the fixture file is named 'example_fixture.json')
-#     fixture_data = ReadsFixtures.read_json_fixture('example_fixture')
-#
-#     # Mock the request
-#     endpoint = '/test-endpoint'
-#     mock_requests.get(f"{self.BASE_URL}{endpoint}", json=fixture_data)
-#
-#     # Call the method under test
-#     response = self.client.some_method()  # Replace with the actual method call
-#
-#     # Assertions
-#     assert response.status_code == 200
-#     assert response.json() == fixture_data

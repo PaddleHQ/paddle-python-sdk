@@ -1,8 +1,9 @@
 from __future__  import annotations
-from dataclasses import dataclass
+from dataclasses import dataclass, fields
 from datetime    import datetime
 from importlib   import import_module
 
+from paddle_billing_python_sdk.ConditionallyRemoveImportMeta import conditionally_remove_import_meta
 from paddle_billing_python_sdk.Entities.Entity import Entity
 
 from paddle_billing_python_sdk.Entities.Events.EventTypeName import EventTypeName
@@ -20,9 +21,9 @@ class Event(Entity):
     def entity_mapping(event_type: str) -> tuple:
         match event_type:
             case 'discount':
-                return 'Notifications.NotificationDiscount', 'NotificationDiscount'
+                return 'Notifications', 'NotificationDiscount'
             case 'subscription':
-                return 'Notifications.NotificationSubscription', 'NotificationSubscription'
+                return 'Notifications', 'NotificationSubscription'
             case _:
                 return None, str(event_type).title()
 
@@ -31,18 +32,22 @@ class Event(Entity):
     def from_dict(cls, data: dict) -> Event:
         _type = data['event_type'].split('.')[0] or ''
 
-        event_type_str = data['event_type'].split('.')[0].lower()
-        entity_class   = None
+        event_type_str     = data['event_type'].split('.')[0].lower()
+        entity_class       = None
+        instantiated_class = None
 
-        entity_class_path_extra, entity_class_name = Event.entity_mapping(event_type_str)
+        entity_module_path, entity_class_name = Event.entity_mapping(event_type_str)
 
-        entity_class_path = 'paddle_billing_python_sdk.Entities' \
-            if entity_class_path_extra is None \
-            else f"paddle_billing_python_sdk.Entities.{entity_class_path_extra}"
-        print(f"entity_class_path='{entity_class_path}', entity_class_name='{entity_class_name}'")
+        entity_module_path = 'paddle_billing_python_sdk.Entities' \
+            if entity_module_path is None \
+            else f"paddle_billing_python_sdk.Entities.{entity_module_path}"
 
         try:
-            entity_class = getattr(import_module(entity_class_path), entity_class_name)(**data)
+            imported_module = import_module(f"{entity_module_path}.{entity_class_name}")
+            entity_class    = getattr(imported_module, entity_class_name)
+
+            conditionally_remove_import_meta(entity_class, data)
+            instantiated_class = entity_class(**data['data'])
         except Exception as error:
             print(f"Error dynamically instantiating an object: {error}")
 
@@ -55,5 +60,5 @@ class Event(Entity):
             data['event_id'],
             EventTypeName(data['event_type']),
             datetime.fromisoformat(data['occurred_at']),
-            entity_class.from_dict(data['data']),
+            instantiated_class.from_dict(data['data']),
         )

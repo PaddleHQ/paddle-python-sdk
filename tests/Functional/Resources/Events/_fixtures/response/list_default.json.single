@@ -1,0 +1,99 @@
+{
+  "data": [
+    {
+      "event_id": "evt_01hg0trvbgjfp0avfam8a2yzq1",
+      "event_type": "subscription.updated",
+      "occurred_at": "2023-11-24T14:12:06.640975Z",
+      "data": {
+        "id": "sub_01gyssnczp81czs49zcprm6hfv",
+        "status": "past_due",
+        "customer_id": "ctm_01gyssmfx5rnmk4dt8qx88v0ee",
+        "address_id": "add_01gyssmfzbaxg9e6tkazmt02ba",
+        "business_id": null,
+        "currency_code": "GBP",
+        "created_at": "2023-04-24T14:11:13.014122Z",
+        "updated_at": "2023-11-24T14:12:05.533Z",
+        "started_at": "2023-04-24T14:11:11.447004Z",
+        "first_billed_at": "2023-04-24T14:11:11.447004Z",
+        "next_billed_at": "2023-12-24T14:11:11.447004Z",
+        "paused_at": null,
+        "canceled_at": null,
+        "discount": null,
+        "collection_mode": "automatic",
+        "billing_details": null,
+        "current_billing_period": {
+          "ends_at": "2023-12-24T14:11:11.447004Z",
+          "starts_at": "2023-11-24T14:11:11.447004Z"
+        },
+        "billing_cycle": {
+          "interval": "month",
+          "frequency": 1
+        },
+        "scheduled_change": null,
+        "items": [
+          {
+            "price": {
+              "id": "pri_01gsz8x8sawmvhz1pv30nge1ke",
+              "tax_mode": "account_setting",
+              "product_id": "pro_01gsz4t5hdjse780zja8vvr7jg",
+              "unit_price": {
+                "amount": "3600",
+                "currency_code": null
+              },
+              "description": "Monthly (per seat)",
+              "trial_period": null,
+              "billing_cycle": {
+                "interval": "month",
+                "frequency": 1
+              }
+            },
+            "status": "active",
+            "quantity": 10,
+            "recurring": true,
+            "created_at": "2023-04-24T14:11:13.014124Z",
+            "updated_at": "2023-11-24T14:12:05.528Z",
+            "trial_dates": null,
+            "next_billed_at": "2023-12-24T14:11:11.447004Z",
+            "previously_billed_at": "2023-11-24T14:11:11.447004Z"
+          },
+          {
+            "price": {
+              "id": "pri_01gsz95g2zrkagg294kpstx54r",
+              "tax_mode": "account_setting",
+              "product_id": "pro_01gsz92krfzy3hcx5h5rtgnfwz",
+              "unit_price": {
+                "amount": "30000",
+                "currency_code": null
+              },
+              "description": "Monthly (recurring addon)",
+              "trial_period": null,
+              "billing_cycle": {
+                "interval": "month",
+                "frequency": 1
+              }
+            },
+            "status": "active",
+            "quantity": 1,
+            "recurring": true,
+            "created_at": "2023-04-24T14:11:13.014128Z",
+            "updated_at": "2023-11-24T14:12:05.53Z",
+            "trial_dates": null,
+            "next_billed_at": "2023-12-24T14:11:11.447004Z",
+            "previously_billed_at": "2023-11-24T14:11:11.447004Z"
+          }
+        ],
+        "custom_data": null,
+        "import_meta": null
+      }
+    }
+  ],
+  "meta": {
+    "pagination": {
+      "per_page": 10,
+      "estimated_total": 5574,
+      "next": "http://sandbox-api.paddle.com/events?per_page=10&after=evt_01hfyd0v4xppkwmjaca5xyzh5d",
+      "has_more": true
+    },
+    "request_id": "acca7502-1eaf-4a9e-9635-c6ab9844c8a5"
+  }
+}
