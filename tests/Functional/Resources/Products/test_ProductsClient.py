@@ -55,8 +55,8 @@ class TestProductsClient:
             ),
         ],
         ids = [
-            "Create product with basic data using CreateProduct()",
-            "Create product with full data using CreateProduct()",
+            "Create product with basic data",
+            "Create product with full data",
         ],
     )
     def test_it_uses_expected_payload_on_create(
