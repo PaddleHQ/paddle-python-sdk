@@ -10,45 +10,50 @@ from paddle_billing_python_sdk.Entities.Events.EventTypeName import EventTypeNam
 
 @dataclass
 class Event(Entity):
-    eventId:    str
-    eventType:  EventTypeName
-    occurredAt: datetime
-    data:       Entity
+    event_id:     str
+    event_type:  EventTypeName
+    occurred_at: datetime
+    data:        Entity
 
 
     @staticmethod
-    def entity_mapping(event_type: str) -> str:
+    def entity_mapping(event_type: str) -> tuple:
         match event_type:
             case 'discount':
-                return 'NotificationDiscount'
+                return 'Notifications.NotificationDiscount', 'NotificationDiscount'
             case 'subscription':
-                return 'NotificationSubscription'
+                return 'Notifications.NotificationSubscription', 'NotificationSubscription'
             case _:
-                return str(event_type).title()
+                return None, str(event_type).title()
 
 
     @classmethod
-    def from_dict(cls, data: dict):
+    def from_dict(cls, data: dict) -> Event:
         _type = data['event_type'].split('.')[0] or ''
 
-        event_type_str    = data['event_type'].split('.')[0].lower()
-        entity_class_name = Event.entity_mapping(event_type_str)
-        entity_class      = None
+        event_type_str = data['event_type'].split('.')[0].lower()
+        entity_class   = None
 
-        try:  # TODO this is probably broken
-            entity_class = getattr(import_module('src.Entities'), entity_class_name)()
-            print(f"entity_class={entity_class}")
+        entity_class_path_extra, entity_class_name = Event.entity_mapping(event_type_str)
+
+        entity_class_path = 'paddle_billing_python_sdk.Entities' \
+            if entity_class_path_extra is None \
+            else f"paddle_billing_python_sdk.Entities.{entity_class_path_extra}"
+        print(f"entity_class_path='{entity_class_path}', entity_class_name='{entity_class_name}'")
+
+        try:
+            entity_class = getattr(import_module(entity_class_path), entity_class_name)(**data)
         except Exception as error:
             print(f"Error dynamically instantiating an object: {error}")
 
         if not entity_class:
-            raise ValueError(f"Event type '{event_type_str}' cannot be mapped to an object")
+            raise ValueError(f"Event type '{entity_class_name}' cannot be mapped to an object")
         if not issubclass(entity_class, Entity):
             raise ValueError(f"Event type '{_type}' cannot be mapped to an object")
 
-        return cls(
+        return Event(
             data['event_id'],
-            EventTypeName(data['event_type']),  # Assuming EventTypeName has a similar factory method
+            EventTypeName(data['event_type']),
             datetime.fromisoformat(data['occurred_at']),
-            entity_class.from_dict(data['data']),  # Assuming each entity class has a similar factory method
+            entity_class.from_dict(data['data']),
         )
