@@ -70,7 +70,7 @@ class TestProductsClient:
         expected_response_body,
         expected_url,
     ):
-        expected_url = f"{Environment.SANDBOX.base_url}{expected_url}"
+        expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         product       = test_client.client.products.create(operation)
@@ -141,7 +141,7 @@ class TestProductsClient:
         expected_response_body,
         expected_url,
     ):
-        expected_url = f"{Environment.SANDBOX.base_url}{expected_url}"
+        expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.patch(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         product       = test_client.client.products.update('pro_01h7zcgmdc6tmwtjehp3sh7azf', operation)
@@ -217,7 +217,7 @@ class TestProductsClient:
         expected_response_status,
         expected_url,
     ):
-        expected_url = f"{Environment.SANDBOX.base_url}{expected_url}"
+        expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.get(
             url         = expected_url,
             status_code = expected_response_status,
@@ -266,7 +266,7 @@ class TestProductsClient:
         expected_response_body,
         expected_url,
     ):
-        expected_url = f"{Environment.SANDBOX.base_url}{expected_url}"
+        expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.get(
             url         = expected_url,
             status_code = expected_response_status,

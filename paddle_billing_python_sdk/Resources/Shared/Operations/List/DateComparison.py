@@ -8,16 +8,24 @@ from paddle_billing_python_sdk.Resources.Shared.Operations.List.Comparator impor
 class DateComparison:
     def __init__(
         self,
-        date:       datetime | str,
+        date:       datetime,
         comparator: Comparator = None,
     ):
-        self.date       = DateTime.from_datetime(date)
-        self.comparator = comparator
+        self.date       = date
+        self._comparator = comparator
 
 
+    @property
     def comparator(self) -> str:
-        return f"[{self.comparator.value}]" if self.comparator else ''
+        return f"[{self._comparator.value}]" if self._comparator else ''
 
 
     def formatted(self) -> str:
-        return self.date.format() if self.date else ''
+        if isinstance(self.date, datetime):
+            date_obj = DateTime.from_datetime(self.date)
+        elif isinstance(self.date, DateTime):
+            date_obj = self.date
+        else:
+            raise TypeError(f"Invalid '{type(self.date)}' type for date")
+
+        return date_obj.format() if date_obj else ''

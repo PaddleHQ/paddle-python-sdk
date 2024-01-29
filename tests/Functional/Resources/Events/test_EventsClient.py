@@ -48,7 +48,7 @@ class TestEventsClient:
         expected_response_body,
         expected_url,
     ):
-        expected_url = f"{Environment.SANDBOX.base_url}{expected_url}"
+        expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.get(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         events        = test_client.client.events.list(operation)

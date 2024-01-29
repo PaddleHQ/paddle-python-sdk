@@ -84,7 +84,7 @@ class TestPricesClient:
         expected_response_body,
         expected_url,
     ):
-        expected_url = f"{Environment.SANDBOX.base_url}{expected_url}"
+        expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         price         = test_client.client.prices.create(operation)
@@ -153,7 +153,7 @@ class TestPricesClient:
         expected_response_body,
         expected_url,
     ):
-        expected_url = f"{Environment.SANDBOX.base_url}{expected_url}"
+        expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.patch(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         price         = test_client.client.prices.update('pro_01h7zcgmdc6tmwtjehp3sh7azf', operation)
@@ -250,7 +250,7 @@ class TestPricesClient:
         expected_response_body,
         expected_url,
     ):
-        expected_url = f"{Environment.SANDBOX.base_url}{expected_url}"
+        expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.get(
             url         = expected_url,
             status_code = expected_response_status,
@@ -299,7 +299,7 @@ class TestPricesClient:
         expected_response_body,
         expected_url,
     ):
-        expected_url = f"{Environment.SANDBOX.base_url}{expected_url}"
+        expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.get(
             url         = expected_url,
             status_code = expected_response_status,

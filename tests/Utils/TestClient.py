@@ -12,10 +12,11 @@ class TestClient:
         self,
         client:         Client | None = None,
         api_secret_key: str    | None = None,
-        base_url:       str           = Environment.SANDBOX.base_url,
+        environment:    Environment   = Environment.SANDBOX
      ):
-        self._client   = client or self.create_client(api_secret_key)
-        self._base_url = base_url
+        self._environment = environment
+        self._base_url    = self._environment.base_url
+        self._client      = client or self.create_client(api_secret_key)
 
 
     @property
@@ -26,12 +27,15 @@ class TestClient:
     def base_url(self):
         return self._base_url
 
+    @property
+    def environment(self):
+        return self._environment
 
-    @staticmethod
-    def create_client(api_secret_key: str | None = None):
+
+    def create_client(self, api_secret_key: str | None = None):
         return Client(
             api_key = environ.get('PADDLE_API_SECRET_KEY') if api_secret_key is None else api_secret_key,
-            options = Options(Environment.SANDBOX),
+            options = Options(self._environment),
         )
 
 
