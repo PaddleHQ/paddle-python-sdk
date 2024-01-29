@@ -43,7 +43,7 @@ class TestNotificationLogsClient:
             "List paginated events after specified product id",
         ],
     )
-    def test_list_notification_logs(
+    def test_list_notification_logs_returns_expected_response(
         self,
         test_client,
         mock_requests,
@@ -54,11 +54,11 @@ class TestNotificationLogsClient:
     ):
         mock_requests.get(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        response      = test_client.client.notification_logs.list(TEST_ID, operation)
-        response_json = test_client.client.notification_logs.response.json()
-        last_request  = mock_requests.last_request
+        notification_logs = test_client.client.notification_logs.list(TEST_ID, operation)
+        response_json     = test_client.client.notification_logs.response.json()
+        last_request      = mock_requests.last_request
 
-        assert isinstance(response, NotificationLogCollection)
+        assert isinstance(notification_logs, NotificationLogCollection)
         assert last_request is not None
         assert last_request.method            == 'GET'
         assert test_client.client.status_code == expected_response_status

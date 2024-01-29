@@ -39,7 +39,7 @@ class TestEventsClient:
             "List paginated events after specified event id",
         ],
     )
-    def test_list_events(
+    def test_list_events_returns_expected_response(
         self,
         test_client,
         mock_requests,
@@ -50,11 +50,11 @@ class TestEventsClient:
     ):
         mock_requests.get(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        response      = test_client.client.events.list(operation)
+        events        = test_client.client.events.list(operation)
         response_json = test_client.client.events.response.json()
         last_request  = mock_requests.last_request
 
-        assert isinstance(response, EventCollection)
+        assert isinstance(events, EventCollection)
         assert last_request is not None
         assert last_request.method            == 'GET'
         assert test_client.client.status_code == expected_response_status

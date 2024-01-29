@@ -28,32 +28,32 @@ class TestProductsClient:
         'operation, expected_request_body, expected_response_status, expected_response_body, expected_url',
         [
             (
-                    CreateProduct(
-                        name         = 'ChatApp Basic',
-                        tax_category = TaxCategory.Standard,
-                    ),
-                    ReadsFixtures.read_raw_json_fixture('request/create_basic'),
-                    200,
-                    ReadsFixtures.read_raw_json_fixture('response/minimal_entity'),
-                    f"{Environment.SANDBOX.base_url}/products",
+                CreateProduct(
+                    name         = 'ChatApp Basic',
+                    tax_category = TaxCategory.Standard,
+                ),
+                ReadsFixtures.read_raw_json_fixture('request/create_basic'),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/minimal_entity'),
+                f"{Environment.SANDBOX.base_url}/products",
             ), (
-                    CreateProduct(
-                        name         = 'ChatApp Full',
-                        tax_category = TaxCategory.Standard,
-                        description  = 'Spend more time engaging with students with ChataApp Education.',
-                        image_url    = 'https://paddle-sandbox.s3.amazonaws.com/user/10889/2nmP8MQSret0aWeDemRw_icon1.png',
-                        custom_data  = CustomData({
-                            'features': {
-                                'reports':        True,
-                                'crm':            False,
-                                'data_retention': True,
-                            },
-                        }),
-                    ),
-                    ReadsFixtures.read_raw_json_fixture('request/create_full'),
-                    200,
-                    ReadsFixtures.read_raw_json_fixture('response/full_entity'),
-                    f"{Environment.SANDBOX.base_url}/products"
+                CreateProduct(
+                    name         = 'ChatApp Full',
+                    tax_category = TaxCategory.Standard,
+                    description  = 'Spend more time engaging with students with ChataApp Education.',
+                    image_url    = 'https://paddle-sandbox.s3.amazonaws.com/user/10889/2nmP8MQSret0aWeDemRw_icon1.png',
+                    custom_data  = CustomData({
+                        'features': {
+                            'reports':        True,
+                            'crm':            False,
+                            'data_retention': True,
+                        },
+                    }),
+                ),
+                ReadsFixtures.read_raw_json_fixture('request/create_full'),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/full_entity'),
+                f"{Environment.SANDBOX.base_url}/products"
             ),
         ],
         ids = [
@@ -61,7 +61,7 @@ class TestProductsClient:
             "Create product with full data",
         ],
     )
-    def test_create_product(
+    def test_create_product_uses_expected_payload(
         self,
         test_client,
         mock_requests,
@@ -73,12 +73,12 @@ class TestProductsClient:
     ):
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        response      = test_client.client.products.create(operation)
+        product       = test_client.client.products.create(operation)
         request_json  = test_client.client.payload
         response_json = test_client.client.products.response.json()
         last_request  = mock_requests.last_request
 
-        assert isinstance(response, Product)
+        assert isinstance(product, Product)
         assert last_request is not None
         assert last_request.method            == 'POST'
         assert test_client.client.status_code == expected_response_status
@@ -131,7 +131,7 @@ class TestProductsClient:
             "Update product with completely new values",
         ],
     )
-    def test_update_product(
+    def test_update_product_uses_expected_payload(
         self,
         test_client,
         mock_requests,
@@ -143,12 +143,12 @@ class TestProductsClient:
     ):
         mock_requests.patch(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        response      = test_client.client.products.update('pro_01h7zcgmdc6tmwtjehp3sh7azf', operation)
+        product       = test_client.client.products.update('pro_01h7zcgmdc6tmwtjehp3sh7azf', operation)
         request_json  = test_client.client.payload
         response_json = test_client.client.products.response.json()
         last_request  = mock_requests.last_request
 
-        assert isinstance(response, Product)
+        assert isinstance(product, Product)
         assert last_request is not None
         assert last_request.method            == 'PATCH'
         assert test_client.client.status_code == expected_response_status
@@ -215,7 +215,7 @@ class TestProductsClient:
             "List products with includes",
         ],
     )
-    def test_list_products(
+    def test_list_products_returns_expected_response(
         self,
         test_client,
         mock_requests,
@@ -228,13 +228,10 @@ class TestProductsClient:
             status_code = expected_response_status,
         )
 
-        response     = test_client.client.products.list(operation)
+        products     = test_client.client.products.list(operation)
         last_request = mock_requests.last_request
 
-        print(f"response={response}")
-        print(f"type(response)={type(response)}")
-
-        assert isinstance(response, ProductWithIncludesCollection)
+        assert isinstance(products, ProductWithIncludesCollection)
         assert last_request is not None
         assert last_request.method            == 'GET'
         assert test_client.client.status_code == expected_response_status
@@ -265,7 +262,7 @@ class TestProductsClient:
             "Get product with includes",
         ],
     )
-    def test_get_products(
+    def test_get_products_returns_expected_response(
         self,
         test_client,
         mock_requests,
@@ -281,18 +278,15 @@ class TestProductsClient:
             text        = expected_response_body
         )
 
-        includes     = includes if includes is not None else []
-        params       = {'include': ','.join(include.value for include in includes)} if includes else {}
-        response     = test_client.client.get_raw(f"/products/{product_id}", params)
-        parser       = ResponseParser(response)
-        response     = test_client.client.products.get(product_id=product_id, includes=includes)
-        last_request = mock_requests.last_request
+        product       = test_client.client.products.get(product_id=product_id, includes=includes)
+        response_json = test_client.client.products.response.json()
+        last_request  = mock_requests.last_request
 
-        assert isinstance(response, ProductWithIncludes) if includes else isinstance(response, Product)
+        assert isinstance(product, ProductWithIncludes) if includes else isinstance(product, Product)
         assert last_request is not None
         assert last_request.method            == 'GET'
         assert test_client.client.status_code == expected_response_status
         assert unquote(last_request.url)      == expected_url, \
             "The URL does not match the expected URL, verify the query string is correct"
-        assert parser.body == loads(expected_response_body), \
+        assert response_json == loads(expected_response_body), \
             "The response JSON generated by ResponseParser() doesn't match the expected fixture JSON"

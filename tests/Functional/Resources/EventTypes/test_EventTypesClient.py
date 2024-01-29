@@ -20,7 +20,7 @@ class TestEventTypesClient:
         )],
         ids = ["List event types"],
     )
-    def test_list_event_types(
+    def test_list_event_types_returns_expected_response(
         self,
         test_client,
         mock_requests,
@@ -30,11 +30,11 @@ class TestEventTypesClient:
     ):
         mock_requests.get(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        response      = test_client.client.event_types.list()
+        event_types   = test_client.client.event_types.list()
         response_json = test_client.client.event_types.response.json()
         last_request  = mock_requests.last_request
 
-        assert isinstance(response, EventTypeCollection)
+        assert isinstance(event_types, EventTypeCollection)
         assert last_request is not None
         assert last_request.method            == 'GET'
         assert test_client.client.status_code == expected_response_status
