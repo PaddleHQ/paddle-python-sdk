@@ -16,31 +16,31 @@ from paddle_billing_python_sdk.Resources.Transactions.Operations.List.Origin   i
 class ListTransactions(HasParameters):
     def __init__(
         self,
-        pager:              Pager                   = None,
-        billed_at:          DateComparison          = None,
-        collection_mode:    CollectionMode          = None,
-        created_at:         DateComparison          = None,
+        pager:              Pager          | None   = None,
+        billed_at:          DateComparison | None   = None,
+        collection_mode:    CollectionMode | None   = None,
+        created_at:         DateComparison | None   = None,
+        updated_at:         DateComparison | None   = None,
         customer_ids:       list[str]               = None,
         ids:                list[str]               = None,
         includes:           list[Includes]          = None,
         invoice_numbers:    list[str]               = None,
         statuses:           list[StatusTransaction] = None,
         subscription_ids:   list[str]               = None,
-        updated_at:         DateComparison          = None,
         origins:            list[Origin]            = None,
     ):
         self.pager            = pager
         self.collection_mode  = collection_mode
-        self.billed_at        = DateTime.from_datetime(billed_at)
-        self.created_at       = DateTime.from_datetime(created_at)
-        self.updated_at       = DateTime.from_datetime(updated_at)
-        self.includes         = includes         if includes         is not None else []
-        self.ids              = ids              if ids              is not None else []
-        self.customer_ids     = customer_ids     if customer_ids     is not None else []
-        self.subscription_ids = subscription_ids if subscription_ids is not None else []
-        self.invoice_numbers  = invoice_numbers  if invoice_numbers  is not None else []
-        self.statuses         = statuses         if statuses         is not None else []
-        self.origins          = origins          if origins          is not None else []
+        self.billed_at        = DateTime.from_datetime(billed_at)  if billed_at        is not None else None
+        self.created_at       = DateTime.from_datetime(created_at) if created_at       is not None else None
+        self.updated_at       = DateTime.from_datetime(updated_at) if updated_at       is not None else None
+        self.includes         = includes                           if includes         is not None else []
+        self.ids              = ids                                if ids              is not None else []
+        self.customer_ids     = customer_ids                       if customer_ids     is not None else []
+        self.subscription_ids = subscription_ids                   if subscription_ids is not None else []
+        self.invoice_numbers  = invoice_numbers                    if invoice_numbers  is not None else []
+        self.statuses         = statuses                           if statuses         is not None else []
+        self.origins          = origins                            if origins          is not None else []
 
         # Validation
         for field_name, field_value, field_type in [
