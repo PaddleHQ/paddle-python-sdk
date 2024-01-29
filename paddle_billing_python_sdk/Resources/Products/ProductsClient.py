@@ -48,10 +48,6 @@ class ProductsClient:
         if includes is None:
             includes = []
 
-        print(f"type(includes): {type(includes)}")
-        print(f"includes: {includes}")
-        print(f"False if not includes else True: {False if not includes else True}")
-
         invalid_items = [item for item in includes if not isinstance(item, Includes)]
         if invalid_items:
             raise InvalidArgumentException('includes', Includes.__name__, invalid_items)
