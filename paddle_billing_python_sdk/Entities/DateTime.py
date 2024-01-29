@@ -17,7 +17,7 @@ class DateTime:
 
 
     @classmethod
-    def from_datetime(cls, date):
+    def from_datetime(cls, date: datetime | str):
         if isinstance(date, str) and date == '0001-01-01T00:00:00Z':
             return None
 

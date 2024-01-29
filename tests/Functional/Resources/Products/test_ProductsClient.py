@@ -3,7 +3,6 @@ from pytest       import mark
 from urllib.parse import unquote
 
 from paddle_billing_python_sdk.Environment    import Environment
-from paddle_billing_python_sdk.ResponseParser import ResponseParser
 
 from paddle_billing_python_sdk.Entities.Collections.ProductWithIncludesCollection import ProductWithIncludesCollection
 
@@ -35,7 +34,7 @@ class TestProductsClient:
                 ReadsFixtures.read_raw_json_fixture('request/create_basic'),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/minimal_entity'),
-                f"{Environment.SANDBOX.base_url}/products",
+                '/products',
             ), (
                 CreateProduct(
                     name         = 'ChatApp Full',
@@ -53,7 +52,7 @@ class TestProductsClient:
                 ReadsFixtures.read_raw_json_fixture('request/create_full'),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/full_entity'),
-                f"{Environment.SANDBOX.base_url}/products"
+                '/products',
             ),
         ],
         ids = [
@@ -71,6 +70,7 @@ class TestProductsClient:
         expected_response_body,
         expected_url,
     ):
+        expected_url = f"{Environment.SANDBOX.base_url}{expected_url}"
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         product       = test_client.client.products.create(operation)
@@ -98,13 +98,13 @@ class TestProductsClient:
                     ReadsFixtures.read_raw_json_fixture('request/update_single'),
                     200,
                     ReadsFixtures.read_raw_json_fixture('response/full_entity'),
-                    f"{Environment.SANDBOX.base_url}/products/pro_01h7zcgmdc6tmwtjehp3sh7azf",
+                    '/products/pro_01h7zcgmdc6tmwtjehp3sh7azf',
             ), (
                     UpdateProduct(name='ChatApp Pro', tax_category=TaxCategory.Saas),
                     ReadsFixtures.read_raw_json_fixture('request/update_partial'),
                     200,
                     ReadsFixtures.read_raw_json_fixture('response/full_entity'),
-                    f"{Environment.SANDBOX.base_url}/products/pro_01h7zcgmdc6tmwtjehp3sh7azf",
+                    '/products/pro_01h7zcgmdc6tmwtjehp3sh7azf',
             ), (
                     UpdateProduct(
                         name         = 'ChatApp Pro',
@@ -122,7 +122,7 @@ class TestProductsClient:
                     ReadsFixtures.read_raw_json_fixture('request/update_full'),
                     200,
                     ReadsFixtures.read_raw_json_fixture('response/full_entity'),
-                    f"{Environment.SANDBOX.base_url}/products/pro_01h7zcgmdc6tmwtjehp3sh7azf",
+                    '/products/pro_01h7zcgmdc6tmwtjehp3sh7azf',
             ),
         ],
         ids = [
@@ -141,6 +141,7 @@ class TestProductsClient:
         expected_response_body,
         expected_url,
     ):
+        expected_url = f"{Environment.SANDBOX.base_url}{expected_url}"
         mock_requests.patch(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         product       = test_client.client.products.update('pro_01h7zcgmdc6tmwtjehp3sh7azf', operation)
@@ -166,42 +167,35 @@ class TestProductsClient:
             (
                     ListProducts(),
                     200,
-                    f"{Environment.SANDBOX.base_url}/products",
-            ),
-            (
+                    '/products'
+            ), (
                     ListProducts(Pager()),
                     200,
-                    f"{Environment.SANDBOX.base_url}/products?order_by=id[asc]&per_page=50",
-            ),
-            (
+                    '/products?order_by=id[asc]&per_page=50'
+            ), (
                     ListProducts(Pager(after='pro_01gsz4s0w61y0pp88528f1wvvb')),
                     200,
-                    f"{Environment.SANDBOX.base_url}/products?after=pro_01gsz4s0w61y0pp88528f1wvvb&order_by=id[asc]&per_page=50",
-            ),
-            (
+                    '/products?after=pro_01gsz4s0w61y0pp88528f1wvvb&order_by=id[asc]&per_page=50'
+            ), (
                     ListProducts(statuses=[Status.Archived]),
                     200,
-                    f"{Environment.SANDBOX.base_url}/products?status=archived",
-            ),
-            (
+                    '/products?status=archived'
+            ), (
                     ListProducts(ids=['pro_01gsz4s0w61y0pp88528f1wvvb']),
                     200,
-                    f"{Environment.SANDBOX.base_url}/products?id=pro_01gsz4s0w61y0pp88528f1wvvb",
-            ),
-            (
+                    '/products?id=pro_01gsz4s0w61y0pp88528f1wvvb'
+            ), (
                     ListProducts(ids=['pro_01gsz4s0w61y0pp88528f1wvvb', 'pro_01h1vjes1y163xfj1rh1tkfb65']),
                     200,
-                    f"{Environment.SANDBOX.base_url}/products?id=pro_01gsz4s0w61y0pp88528f1wvvb,pro_01h1vjes1y163xfj1rh1tkfb65",
-            ),
-            (
+                    '/products?id=pro_01gsz4s0w61y0pp88528f1wvvb,pro_01h1vjes1y163xfj1rh1tkfb65'
+            ), (
                     ListProducts(tax_categories=[TaxCategory.DigitalGoods, TaxCategory.Standard]),
                     200,
-                    f"{Environment.SANDBOX.base_url}/products?tax_category=digital-goods,standard",
-            ),
-            (
+                    '/products?tax_category=digital-goods,standard'
+            ), (
                     ListProducts(includes=[Includes.Prices]),
                     200,
-                    f"{Environment.SANDBOX.base_url}/products?include=prices",
+                    '/products?include=prices'
             ),
         ],
         ids = [
@@ -223,6 +217,7 @@ class TestProductsClient:
         expected_response_status,
         expected_url,
     ):
+        expected_url = f"{Environment.SANDBOX.base_url}{expected_url}"
         mock_requests.get(
             url         = expected_url,
             status_code = expected_response_status,
@@ -247,14 +242,13 @@ class TestProductsClient:
                 None,
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/full_entity'),
-                f"{Environment.SANDBOX.base_url}/products/pro_01h7zcgmdc6tmwtjehp3sh7azf",
-            ),
-            (
+                '/products/pro_01h7zcgmdc6tmwtjehp3sh7azf'
+            ), (
                 'pro_01h7zcgmdc6tmwtjehp3sh7azf',
                 [Includes.Prices],
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/full_entity_with_includes'),
-                f"{Environment.SANDBOX.base_url}/products/pro_01h7zcgmdc6tmwtjehp3sh7azf?include=prices",
+                '/products/pro_01h7zcgmdc6tmwtjehp3sh7azf?include=prices'
             ),
         ],
         ids = [
@@ -272,6 +266,7 @@ class TestProductsClient:
         expected_response_body,
         expected_url,
     ):
+        expected_url = f"{Environment.SANDBOX.base_url}{expected_url}"
         mock_requests.get(
             url         = expected_url,
             status_code = expected_response_status,

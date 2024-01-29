@@ -8,7 +8,7 @@ from paddle_billing_python_sdk.Resources.Shared.Operations.List.Comparator impor
 class DateComparison:
     def __init__(
         self,
-        date:       datetime,
+        date:       datetime | str,
         comparator: Comparator = None,
     ):
         self.date       = DateTime.from_datetime(date)

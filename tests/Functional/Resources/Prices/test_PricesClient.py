@@ -3,8 +3,6 @@ from pytest       import mark
 from urllib.parse import unquote
 
 from paddle_billing_python_sdk.Environment    import Environment
-from paddle_billing_python_sdk.Options        import Options
-from paddle_billing_python_sdk.ResponseParser import ResponseParser
 
 from paddle_billing_python_sdk.Entities.Price             import Price
 from paddle_billing_python_sdk.Entities.PriceWithIncludes import PriceWithIncludes
@@ -45,7 +43,7 @@ class TestPricesClient:
                 ReadsFixtures.read_raw_json_fixture('request/create_basic'),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/minimal_entity'),
-                f"{Environment.SANDBOX.base_url}/prices",
+                '/prices',
             ), (
                 CreatePrice(
                     description   = "Weekly (per seat)",
@@ -68,7 +66,7 @@ class TestPricesClient:
                 ReadsFixtures.read_raw_json_fixture('request/create_full'),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/full_entity'),
-                f"{Environment.SANDBOX.base_url}/prices"
+                '/prices',
             ),
         ],
         ids = [
@@ -86,6 +84,7 @@ class TestPricesClient:
         expected_response_body,
         expected_url,
     ):
+        expected_url = f"{Environment.SANDBOX.base_url}{expected_url}"
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         price         = test_client.client.prices.create(operation)
@@ -113,15 +112,14 @@ class TestPricesClient:
                 ReadsFixtures.read_raw_json_fixture('request/update_single'),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/full_entity'),
-                f"{Environment.SANDBOX.base_url}/prices/pro_01h7zcgmdc6tmwtjehp3sh7azf",
+                '/prices/pro_01h7zcgmdc6tmwtjehp3sh7azf',
             ), (
                 UpdatePrice(name='Annually', unit_price=Money('100000', CurrencyCode.GBP)),
                 ReadsFixtures.read_raw_json_fixture('request/update_partial'),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/full_entity'),
-                f"{Environment.SANDBOX.base_url}/prices/pro_01h7zcgmdc6tmwtjehp3sh7azf",
-            ),
-            (
+                '/prices/pro_01h7zcgmdc6tmwtjehp3sh7azf',
+            ), (
                 UpdatePrice(
                     name                 = 'Annually',
                     description          = 'Annually (per seat)',
@@ -136,7 +134,7 @@ class TestPricesClient:
                 ReadsFixtures.read_raw_json_fixture('request/update_full'),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/full_entity'),
-                f"{Environment.SANDBOX.base_url}/prices/pro_01h7zcgmdc6tmwtjehp3sh7azf",
+                '/prices/pro_01h7zcgmdc6tmwtjehp3sh7azf'
             ),
         ],
         ids = [
@@ -155,6 +153,7 @@ class TestPricesClient:
         expected_response_body,
         expected_url,
     ):
+        expected_url = f"{Environment.SANDBOX.base_url}{expected_url}"
         mock_requests.patch(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         price         = test_client.client.prices.update('pro_01h7zcgmdc6tmwtjehp3sh7azf', operation)
@@ -181,61 +180,52 @@ class TestPricesClient:
                     ListPrices(),
                     200,
                     ReadsFixtures.read_raw_json_fixture('response/list_default'),
-                    f"{Environment.SANDBOX.base_url}/prices",
-            ),
-            (
+                    '/prices',
+            ), (
                     ListPrices(Pager()),
                     200,
                     ReadsFixtures.read_raw_json_fixture('response/list_default'),
-                    f"{Environment.SANDBOX.base_url}/prices?order_by=id[asc]&per_page=50",
-            ),
-            (
+                    '/prices?order_by=id[asc]&per_page=50',
+            ), (
                     ListPrices(Pager(after='pro_01gsz4s0w61y0pp88528f1wvvb')),
                     200,
                     ReadsFixtures.read_raw_json_fixture('response/list_default'),
-                    f"{Environment.SANDBOX.base_url}/prices?after=pro_01gsz4s0w61y0pp88528f1wvvb&order_by=id[asc]&per_page=50",
-            ),
-            (
+                    '/prices?after=pro_01gsz4s0w61y0pp88528f1wvvb&order_by=id[asc]&per_page=50',
+            ), (
                     ListPrices(statuses=[Status.Archived]),
                     200,
                     ReadsFixtures.read_raw_json_fixture('response/list_default'),
-                    f"{Environment.SANDBOX.base_url}/prices?status=archived",
-            ),
-            (
+                    '/prices?status=archived',
+            ), (
                     ListPrices(ids=['pri_01gsz4s0w61y0pp88528f1wvvb']),
                     200,
                     ReadsFixtures.read_raw_json_fixture('response/list_default'),
-                    f"{Environment.SANDBOX.base_url}/prices?id=pri_01gsz4s0w61y0pp88528f1wvvb",
-            ),
-            (
+                    '/prices?id=pri_01gsz4s0w61y0pp88528f1wvvb',
+            ), (
                     ListPrices(ids=['pri_01gsz4s0w61y0pp88528f1wvvb', 'pri_01h1vjes1y163xfj1rh1tkfb65']),
                     200,
                     ReadsFixtures.read_raw_json_fixture('response/list_default'),
-                    f"{Environment.SANDBOX.base_url}/prices?id=pri_01gsz4s0w61y0pp88528f1wvvb,pri_01h1vjes1y163xfj1rh1tkfb65",
-            ),
-            (
+                    '/prices?id=pri_01gsz4s0w61y0pp88528f1wvvb,pri_01h1vjes1y163xfj1rh1tkfb65',
+            ), (
                     ListPrices(product_ids=['pro_01gsz4s0w61y0pp88528f1wvvb']),
                     200,
                     ReadsFixtures.read_raw_json_fixture('response/list_default'),
-                    f"{Environment.SANDBOX.base_url}/prices?product_id=pro_01gsz4s0w61y0pp88528f1wvvb",
-            ),
-            (
+                    '/prices?product_id=pro_01gsz4s0w61y0pp88528f1wvvb',
+            ), (
                     ListPrices(product_ids=['pro_01gsz4s0w61y0pp88528f1wvvb', 'pro_01h1vjes1y163xfj1rh1tkfb65']),
                     200,
                     ReadsFixtures.read_raw_json_fixture('response/list_default'),
-                    f"{Environment.SANDBOX.base_url}/prices?product_id=pro_01gsz4s0w61y0pp88528f1wvvb,pro_01h1vjes1y163xfj1rh1tkfb65",
-            ),
-            (
+                    '/prices?product_id=pro_01gsz4s0w61y0pp88528f1wvvb,pro_01h1vjes1y163xfj1rh1tkfb65',
+            ), (
                     ListPrices(recurring=True),
                     200,
                     ReadsFixtures.read_raw_json_fixture('response/list_default'),
-                    f"{Environment.SANDBOX.base_url}/prices?recurring=true",
-            ),
-            (
+                    '/prices?recurring=true',
+            ), (
                     ListPrices(includes=[Includes.Product]),
                     200,
                     ReadsFixtures.read_raw_json_fixture('response/list_default'),
-                    f"{Environment.SANDBOX.base_url}/prices?include=product",
+                    '/prices?include=product',
             ),
         ],
         ids = [
@@ -260,6 +250,7 @@ class TestPricesClient:
         expected_response_body,
         expected_url,
     ):
+        expected_url = f"{Environment.SANDBOX.base_url}{expected_url}"
         mock_requests.get(
             url         = expected_url,
             status_code = expected_response_status,
@@ -284,14 +275,13 @@ class TestPricesClient:
                     None,
                     200,
                     ReadsFixtures.read_raw_json_fixture('response/full_entity'),
-                    f"{Environment.SANDBOX.base_url}/prices/pri_01h7zcgmdc6tmwtjehp3sh7azf",
-            ),
-            (
+                    '/prices/pri_01h7zcgmdc6tmwtjehp3sh7azf',
+            ), (
                     'pri_01h7zcgmdc6tmwtjehp3sh7azf',
                     [Includes.Product],
                     200,
                     ReadsFixtures.read_raw_json_fixture('response/full_entity_with_includes'),
-                    f"{Environment.SANDBOX.base_url}/prices/pri_01h7zcgmdc6tmwtjehp3sh7azf?include=product",
+                    '/prices/pri_01h7zcgmdc6tmwtjehp3sh7azf?include=product',
             ),
         ],
         ids = [
@@ -309,12 +299,12 @@ class TestPricesClient:
         expected_response_body,
         expected_url,
     ):
+        expected_url = f"{Environment.SANDBOX.base_url}{expected_url}"
         mock_requests.get(
             url         = expected_url,
             status_code = expected_response_status,
             text        = expected_response_body
         )
-
 
         price         = test_client.client.prices.get(price_id=price_id, includes=includes)
         response_json = test_client.client.prices.response.json()

@@ -24,17 +24,17 @@ class TestNotificationLogsClient:
                 ListNotificationLogs(),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/list_default'),
-                f"{Environment.SANDBOX.base_url}/notifications/{TEST_ID}/logs",
+                f"/notifications/{TEST_ID}/logs"
             ), (
                 ListNotificationLogs(Pager()),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/list_default'),
-                f"{Environment.SANDBOX.base_url}/notifications/{TEST_ID}/logs?order_by=id[asc]&per_page=50",
+                f"/notifications/{TEST_ID}/logs?order_by=id[asc]&per_page=50"
             ), (
                 ListNotificationLogs(Pager(after='pro_01gsz4s0w61y0pp88528f1wvvb')),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/list_default'),
-                f"{Environment.SANDBOX.base_url}/notifications/{TEST_ID}/logs?after=pro_01gsz4s0w61y0pp88528f1wvvb&order_by=id[asc]&per_page=50",
+                f"/notifications/{TEST_ID}/logs?after=pro_01gsz4s0w61y0pp88528f1wvvb&order_by=id[asc]&per_page=50"
             ),
         ],
         ids = [
@@ -52,6 +52,7 @@ class TestNotificationLogsClient:
         expected_response_body,
         expected_url,
     ):
+        expected_url = f"{Environment.SANDBOX.base_url}{expected_url}"
         mock_requests.get(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         notification_logs = test_client.client.notification_logs.list(TEST_ID, operation)

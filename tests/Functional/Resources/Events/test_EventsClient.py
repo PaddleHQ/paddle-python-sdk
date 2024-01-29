@@ -20,17 +20,17 @@ class TestEventsClient:
                 ListEvents(),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/list_default'),
-                f"{Environment.SANDBOX.base_url}/events",
+                '/events',
             ), (
                 ListEvents(Pager()),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/list_default'),
-                f"{Environment.SANDBOX.base_url}/events?order_by=id[asc]&per_page=50",
+                '/events?order_by=id[asc]&per_page=50',
             ), (
                 ListEvents(Pager(after='evt_01h83xenpcfjyhkqr4x214m02x')),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/list_default'),
-                f"{Environment.SANDBOX.base_url}/events?after=evt_01h83xenpcfjyhkqr4x214m02x&order_by=id[asc]&per_page=50",
+                '/events?after=evt_01h83xenpcfjyhkqr4x214m02x&order_by=id[asc]&per_page=50',
             ),
         ],
         ids = [
@@ -48,6 +48,7 @@ class TestEventsClient:
         expected_response_body,
         expected_url,
     ):
+        expected_url = f"{Environment.SANDBOX.base_url}{expected_url}"
         mock_requests.get(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         events        = test_client.client.events.list(operation)
