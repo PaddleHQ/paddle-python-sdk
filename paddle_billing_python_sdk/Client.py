@@ -3,7 +3,7 @@ from logging            import Logger, getLogger
 from requests           import Response, RequestException, Session
 from requests.adapters  import HTTPAdapter
 from urllib3.util.retry import Retry
-from urllib.parse       import urljoin, urlencode
+from urllib.parse       import unquote, urljoin, urlencode
 from uuid               import uuid4
 
 from paddle_billing_python_sdk.__VERSION__      import __VERSION__
@@ -119,7 +119,8 @@ class Client:
         """
         Makes an actual API call to Paddle
         """
-
+        # print(f"Request: {method} {url}")
+        print(f"Request: {method} {unquote(url)}")
         # Parse and update URI with base URL components if necessary
         if isinstance(url, str):
             url = urljoin(self.options.environment.base_url, url)
