@@ -119,7 +119,7 @@ class Client:
         """
         Makes an actual API call to Paddle
         """
-        print(f"url={url}")
+
         # Parse and update URI with base URL components if necessary
         if isinstance(url, str):
             url = urljoin(self.options.environment.base_url, url)
