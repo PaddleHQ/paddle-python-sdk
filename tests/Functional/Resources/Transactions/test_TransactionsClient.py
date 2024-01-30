@@ -4,17 +4,10 @@ from urllib.parse import unquote
 
 from paddle_billing_python_sdk.Entities.Collections.TransactionWithIncludesCollection import TransactionWithIncludesCollection
 
-from paddle_billing_python_sdk.Entities.DateTime                                    import DateTime
-from paddle_billing_python_sdk.Entities.TransactionData                             import TransactionData
-from paddle_billing_python_sdk.Entities.TransactionPreview                          import TransactionPreview
-from paddle_billing_python_sdk.Entities.TransactionWithIncludes                     import TransactionWithIncludes
-from paddle_billing_python_sdk.Entities.Transactions.TransactionCreateItem          import TransactionCreateItem
-from paddle_billing_python_sdk.Entities.Transactions.TransactionCreateItemWithPrice import TransactionCreateItemWithPrice
-from paddle_billing_python_sdk.Entities.Transactions.TransactionNonCatalogPrice     import TransactionNonCatalogPrice
-from paddle_billing_python_sdk.Entities.Transactions.TransactionItemPreviewWithNonCatalogPrice \
-    import TransactionItemPreviewWithNonCatalogPrice
-from paddle_billing_python_sdk.Entities.Transactions.TransactionItemPreviewWithPriceId \
-    import TransactionItemPreviewWithPriceId
+from paddle_billing_python_sdk.Entities.DateTime                import DateTime
+from paddle_billing_python_sdk.Entities.TransactionData         import TransactionData
+from paddle_billing_python_sdk.Entities.TransactionPreview      import TransactionPreview
+from paddle_billing_python_sdk.Entities.TransactionWithIncludes import TransactionWithIncludes
 
 from paddle_billing_python_sdk.Entities.Shared.BillingDetails    import BillingDetails
 from paddle_billing_python_sdk.Entities.Shared.CollectionMode    import CollectionMode
@@ -27,15 +20,24 @@ from paddle_billing_python_sdk.Entities.Shared.StatusTransaction import StatusTr
 from paddle_billing_python_sdk.Entities.Shared.TaxMode           import TaxMode
 from paddle_billing_python_sdk.Entities.Shared.TimePeriod        import TimePeriod
 
+from paddle_billing_python_sdk.Entities.Transactions.TransactionCreateItem          import TransactionCreateItem
+from paddle_billing_python_sdk.Entities.Transactions.TransactionCreateItemWithPrice import TransactionCreateItemWithPrice
+from paddle_billing_python_sdk.Entities.Transactions.TransactionNonCatalogPrice     import TransactionNonCatalogPrice
+from paddle_billing_python_sdk.Entities.Transactions.TransactionItemPreviewWithNonCatalogPrice \
+    import TransactionItemPreviewWithNonCatalogPrice
+from paddle_billing_python_sdk.Entities.Transactions.TransactionItemPreviewWithPriceId \
+    import TransactionItemPreviewWithPriceId
+
+from paddle_billing_python_sdk.Resources.Shared.Operations.List.Comparator     import Comparator
+from paddle_billing_python_sdk.Resources.Shared.Operations.List.DateComparison import DateComparison
+from paddle_billing_python_sdk.Resources.Shared.Operations.List.Pager          import Pager
+
 from paddle_billing_python_sdk.Resources.Transactions.Operations.CreateTransaction  import CreateTransaction
 from paddle_billing_python_sdk.Resources.Transactions.Operations.ListTransactions   import ListTransactions
 from paddle_billing_python_sdk.Resources.Transactions.Operations.List.Includes      import Includes
 from paddle_billing_python_sdk.Resources.Transactions.Operations.List.Origin        import Origin
 from paddle_billing_python_sdk.Resources.Transactions.Operations.PreviewTransaction import PreviewTransaction
 from paddle_billing_python_sdk.Resources.Transactions.Operations.UpdateTransaction  import UpdateTransaction
-from paddle_billing_python_sdk.Resources.Shared.Operations.List.Comparator          import Comparator
-from paddle_billing_python_sdk.Resources.Shared.Operations.List.DateComparison      import DateComparison
-from paddle_billing_python_sdk.Resources.Shared.Operations.List.Pager               import Pager
 
 from tests.Utils.TestClient   import mock_requests, test_client
 from tests.Utils.ReadsFixture import ReadsFixtures
@@ -106,49 +108,49 @@ class TestTransactionsClient:
                 ReadsFixtures.read_raw_json_fixture('response/minimal_entity'),
                 '/transactions',
             ), (
-                    CreateTransaction(
-                        items = [
-                            TransactionCreateItemWithPrice(
-                                price = TransactionNonCatalogPrice(
-                                    description          = 'Annual (per seat)',
-                                    name                 = 'Annual (per seat)',
-                                    billing_cycle        = TimePeriod(Interval.Year, 1),
-                                    trial_period         = None,
-                                    tax_mode             = TaxMode.AccountSetting,
-                                    unit_price           = Money('30000', CurrencyCode.USD),
-                                    unit_price_overrides = [],
-                                    quantity             = PriceQuantity(10, 999),
-                                    custom_data          = None,
-                                    product_id           = 'pro_01gsz4t5hdjse780zja8vvr7jg',
-                                ),
-                                quantity = 20,
+                CreateTransaction(
+                    items = [
+                        TransactionCreateItemWithPrice(
+                            price = TransactionNonCatalogPrice(
+                                description          = 'Annual (per seat)',
+                                name                 = 'Annual (per seat)',
+                                billing_cycle        = TimePeriod(Interval.Year, 1),
+                                trial_period         = None,
+                                tax_mode             = TaxMode.AccountSetting,
+                                unit_price           = Money('30000', CurrencyCode.USD),
+                                unit_price_overrides = [],
+                                quantity             = PriceQuantity(10, 999),
+                                custom_data          = None,
+                                product_id           = 'pro_01gsz4t5hdjse780zja8vvr7jg',
                             ),
-                        ],
-                    ),
-                    ReadsFixtures.read_raw_json_fixture('request/create_with_non_catalog_price'),
-                    200,
-                    ReadsFixtures.read_raw_json_fixture('response/minimal_entity'),
-                    '/transactions',
-            ), (
-                    CreateTransaction(
-                        items           = [TransactionCreateItem(price_id='pri_01gsz8x8sawmvhz1pv30nge1ke', quantity=1)],
-                        status          = StatusTransaction.Billed,
-                        customer_id     = 'ctm_01he849dseyj0zgrc589eeb1c7',
-                        address_id      = 'add_01hen28ebw1ew99y295jhd4n3n',
-                        business_id     = 'biz_01hen2ng2290g84twtefdn5s00',
-                        currency_code   = CurrencyCode.GBP,
-                        collection_mode = CollectionMode.Manual,
-                        discount_id     = 'dsc_01hen7bjzh12m0v2peer15d9qt',
-                        billing_details = BillingDetails(
-                            enable_checkout       = True,
-                            payment_terms         = TimePeriod(interval=Interval.Month, frequency=1),
-                            purchase_order_number = '10009',
+                            quantity = 20,
                         ),
+                    ],
+                ),
+                ReadsFixtures.read_raw_json_fixture('request/create_with_non_catalog_price'),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/minimal_entity'),
+                '/transactions',
+            ), (
+                CreateTransaction(
+                    items           = [TransactionCreateItem(price_id='pri_01gsz8x8sawmvhz1pv30nge1ke', quantity=1)],
+                    status          = StatusTransaction.Billed,
+                    customer_id     = 'ctm_01he849dseyj0zgrc589eeb1c7',
+                    address_id      = 'add_01hen28ebw1ew99y295jhd4n3n',
+                    business_id     = 'biz_01hen2ng2290g84twtefdn5s00',
+                    currency_code   = CurrencyCode.GBP,
+                    collection_mode = CollectionMode.Manual,
+                    discount_id     = 'dsc_01hen7bjzh12m0v2peer15d9qt',
+                    billing_details = BillingDetails(
+                        enable_checkout       = True,
+                        payment_terms         = TimePeriod(interval=Interval.Month, frequency=1),
+                        purchase_order_number = '10009',
                     ),
-                    ReadsFixtures.read_raw_json_fixture('request/create_manual'),
-                    200,
-                    ReadsFixtures.read_raw_json_fixture('response/full_entity'),
-                    '/transactions',
+                ),
+                ReadsFixtures.read_raw_json_fixture('request/create_manual'),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/full_entity'),
+                '/transactions',
             ),
         ],
         ids = [
@@ -170,12 +172,12 @@ class TestTransactionsClient:
         expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        transaction   = test_client.client.transactions.create(operation)
+        response      = test_client.client.transactions.create(operation)
         request_json  = test_client.client.payload
         response_json = test_client.client.transactions.response.json()
         last_request  = mock_requests.last_request
 
-        assert isinstance(transaction, TransactionWithIncludes)
+        assert isinstance(response, TransactionWithIncludes)
         assert last_request is not None
         assert last_request.method            == 'POST'
         assert test_client.client.status_code == expected_response_status
@@ -215,11 +217,11 @@ class TestTransactionsClient:
         expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        transaction   = test_client.client.transactions.create(operation, includes=[Includes.Customer, Includes.Business])
+        response      = test_client.client.transactions.create(operation, includes=[Includes.Customer, Includes.Business])
         response_json = test_client.client.transactions.response.json()
         last_request  = mock_requests.last_request
 
-        assert isinstance(transaction, TransactionWithIncludes)
+        assert isinstance(response, TransactionWithIncludes)
         assert last_request is not None
         assert last_request.method            == 'POST'
         assert test_client.client.status_code == expected_response_status
@@ -264,12 +266,12 @@ class TestTransactionsClient:
         expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.patch(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        transaction   = test_client.client.transactions.update('txn_01h7zcgmdc6tmwtjehp3sh7azf', operation)
+        response      = test_client.client.transactions.update('txn_01h7zcgmdc6tmwtjehp3sh7azf', operation)
         request_json  = test_client.client.payload
         response_json = test_client.client.transactions.response.json()
         last_request  = mock_requests.last_request
 
-        assert isinstance(transaction, TransactionWithIncludes)
+        assert isinstance(response, TransactionWithIncludes)
         assert last_request is not None
         assert last_request.method            == 'PATCH'
         assert test_client.client.status_code == expected_response_status
@@ -442,18 +444,18 @@ class TestTransactionsClient:
         'transaction_id, includes, expected_response_status, expected_response_body, expected_url',
         [
             (
-                    'txn_01hen7bxc1p8ep4yk7n5jbzk9r',
-                    None,
-                    200,
-                    ReadsFixtures.read_raw_json_fixture('response/full_entity'),
-                    '/transactions/txn_01hen7bxc1p8ep4yk7n5jbzk9r',
+                'txn_01hen7bxc1p8ep4yk7n5jbzk9r',
+                None,
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/full_entity'),
+                '/transactions/txn_01hen7bxc1p8ep4yk7n5jbzk9r',
             ),
             (
-                    'txn_01hen7bxc1p8ep4yk7n5jbzk9r',
-                    [Includes.Customer, Includes.Address, Includes.Business, Includes.Discount, Includes.AvailablePaymentMethods],
-                    200,
-                    ReadsFixtures.read_raw_json_fixture('response/full_entity'),
-                    '/transactions/txn_01hen7bxc1p8ep4yk7n5jbzk9r?include=customer,address,business,discount,available_payment_methods',
+                'txn_01hen7bxc1p8ep4yk7n5jbzk9r',
+                [Includes.Customer, Includes.Address, Includes.Business, Includes.Discount, Includes.AvailablePaymentMethods],
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/full_entity'),
+                '/transactions/txn_01hen7bxc1p8ep4yk7n5jbzk9r?include=customer,address,business,discount,available_payment_methods',
             ),
         ],
         ids = [
@@ -474,11 +476,11 @@ class TestTransactionsClient:
         expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.get(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        transaction   = test_client.client.transactions.get(transaction_id=transaction_id, includes=includes)
+        response      = test_client.client.transactions.get(transaction_id=transaction_id, includes=includes)
         response_json = test_client.client.transactions.response.json()
         last_request  = mock_requests.last_request
 
-        assert isinstance(transaction, TransactionWithIncludes)
+        assert isinstance(response, TransactionWithIncludes)
         assert last_request is not None
         assert last_request.method            == 'GET'
         assert test_client.client.status_code == expected_response_status
@@ -547,12 +549,12 @@ class TestTransactionsClient:
         expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        product       = test_client.client.transactions.preview(operation)
+        response      = test_client.client.transactions.preview(operation)
         request_json  = test_client.client.payload
         response_json = test_client.client.transactions.response.json()
         last_request  = mock_requests.last_request
 
-        assert isinstance(product, TransactionPreview)
+        assert isinstance(response, TransactionPreview)
         assert last_request is not None
         assert last_request.method            == 'POST'
         assert test_client.client.status_code == expected_response_status
@@ -576,11 +578,11 @@ class TestTransactionsClient:
             text        = expected_response_body,
         )
 
-        product       = test_client.client.transactions.get_invoice_pdf(transaction_id)
+        response      = test_client.client.transactions.get_invoice_pdf(transaction_id)
         response_json = test_client.client.transactions.response.json()
         last_request  = mock_requests.last_request
 
-        assert isinstance(product, TransactionData)
+        assert isinstance(response, TransactionData)
         assert last_request is not None
         assert last_request.method            == 'GET'
         assert test_client.client.status_code == expected_response_status

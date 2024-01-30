@@ -2,8 +2,6 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing_python_sdk.Environment    import Environment
-
 from paddle_billing_python_sdk.Entities.Collections.ProductWithIncludesCollection import ProductWithIncludesCollection
 
 from paddle_billing_python_sdk.Entities.Product             import Product
@@ -73,12 +71,12 @@ class TestProductsClient:
         expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        product       = test_client.client.products.create(operation)
+        response      = test_client.client.products.create(operation)
         request_json  = test_client.client.payload
         response_json = test_client.client.products.response.json()
         last_request  = mock_requests.last_request
 
-        assert isinstance(product, Product)
+        assert isinstance(response, Product)
         assert last_request is not None
         assert last_request.method            == 'POST'
         assert test_client.client.status_code == expected_response_status
@@ -94,35 +92,35 @@ class TestProductsClient:
         'operation, expected_request_body, expected_response_status, expected_response_body, expected_url',
         [
             (
-                    UpdateProduct(name='ChatApp Pro'),
-                    ReadsFixtures.read_raw_json_fixture('request/update_single'),
-                    200,
-                    ReadsFixtures.read_raw_json_fixture('response/full_entity'),
-                    '/products/pro_01h7zcgmdc6tmwtjehp3sh7azf',
+                UpdateProduct(name='ChatApp Pro'),
+                ReadsFixtures.read_raw_json_fixture('request/update_single'),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/full_entity'),
+                '/products/pro_01h7zcgmdc6tmwtjehp3sh7azf',
             ), (
-                    UpdateProduct(name='ChatApp Pro', tax_category=TaxCategory.Saas),
-                    ReadsFixtures.read_raw_json_fixture('request/update_partial'),
-                    200,
-                    ReadsFixtures.read_raw_json_fixture('response/full_entity'),
-                    '/products/pro_01h7zcgmdc6tmwtjehp3sh7azf',
+                UpdateProduct(name='ChatApp Pro', tax_category=TaxCategory.Saas),
+                ReadsFixtures.read_raw_json_fixture('request/update_partial'),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/full_entity'),
+                '/products/pro_01h7zcgmdc6tmwtjehp3sh7azf',
             ), (
-                    UpdateProduct(
-                        name         = 'ChatApp Pro',
-                        tax_category = TaxCategory.Saas,
-                        description  = 'Spend more time engaging with students with ChatApp Pro.',
-                        image_url    = 'https://paddle-sandbox.s3.amazonaws.com/pro.png',
-                        custom_data  = CustomData({
-                            'features': {
-                                'reports':        True,
-                                'crm':            True,
-                                'data_retention': True,
-                            },
-                        }),
-                    ),
-                    ReadsFixtures.read_raw_json_fixture('request/update_full'),
-                    200,
-                    ReadsFixtures.read_raw_json_fixture('response/full_entity'),
-                    '/products/pro_01h7zcgmdc6tmwtjehp3sh7azf',
+                UpdateProduct(
+                    name         = 'ChatApp Pro',
+                    tax_category = TaxCategory.Saas,
+                    description  = 'Spend more time engaging with students with ChatApp Pro.',
+                    image_url    = 'https://paddle-sandbox.s3.amazonaws.com/pro.png',
+                    custom_data  = CustomData({
+                        'features': {
+                            'reports':        True,
+                            'crm':            True,
+                            'data_retention': True,
+                        },
+                    }),
+                ),
+                ReadsFixtures.read_raw_json_fixture('request/update_full'),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/full_entity'),
+                '/products/pro_01h7zcgmdc6tmwtjehp3sh7azf',
             ),
         ],
         ids = [
@@ -144,12 +142,12 @@ class TestProductsClient:
         expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.patch(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        product       = test_client.client.products.update('pro_01h7zcgmdc6tmwtjehp3sh7azf', operation)
+        response      = test_client.client.products.update('pro_01h7zcgmdc6tmwtjehp3sh7azf', operation)
         request_json  = test_client.client.payload
         response_json = test_client.client.products.response.json()
         last_request  = mock_requests.last_request
 
-        assert isinstance(product, Product)
+        assert isinstance(response, Product)
         assert last_request is not None
         assert last_request.method            == 'PATCH'
         assert test_client.client.status_code == expected_response_status
@@ -165,37 +163,37 @@ class TestProductsClient:
         'operation, expected_response_status, expected_url',
         [
             (
-                    ListProducts(),
-                    200,
-                    '/products'
+                ListProducts(),
+                200,
+                '/products'
             ), (
-                    ListProducts(Pager()),
-                    200,
-                    '/products?order_by=id[asc]&per_page=50'
+                ListProducts(Pager()),
+                200,
+                '/products?order_by=id[asc]&per_page=50'
             ), (
-                    ListProducts(Pager(after='pro_01gsz4s0w61y0pp88528f1wvvb')),
-                    200,
-                    '/products?after=pro_01gsz4s0w61y0pp88528f1wvvb&order_by=id[asc]&per_page=50'
+                ListProducts(Pager(after='pro_01gsz4s0w61y0pp88528f1wvvb')),
+                200,
+                '/products?after=pro_01gsz4s0w61y0pp88528f1wvvb&order_by=id[asc]&per_page=50'
             ), (
-                    ListProducts(statuses=[Status.Archived]),
-                    200,
-                    '/products?status=archived'
+                ListProducts(statuses=[Status.Archived]),
+                200,
+                '/products?status=archived'
             ), (
-                    ListProducts(ids=['pro_01gsz4s0w61y0pp88528f1wvvb']),
-                    200,
-                    '/products?id=pro_01gsz4s0w61y0pp88528f1wvvb'
+                ListProducts(ids=['pro_01gsz4s0w61y0pp88528f1wvvb']),
+                200,
+                '/products?id=pro_01gsz4s0w61y0pp88528f1wvvb'
             ), (
-                    ListProducts(ids=['pro_01gsz4s0w61y0pp88528f1wvvb', 'pro_01h1vjes1y163xfj1rh1tkfb65']),
-                    200,
-                    '/products?id=pro_01gsz4s0w61y0pp88528f1wvvb,pro_01h1vjes1y163xfj1rh1tkfb65'
+                ListProducts(ids=['pro_01gsz4s0w61y0pp88528f1wvvb', 'pro_01h1vjes1y163xfj1rh1tkfb65']),
+                200,
+                '/products?id=pro_01gsz4s0w61y0pp88528f1wvvb,pro_01h1vjes1y163xfj1rh1tkfb65'
             ), (
-                    ListProducts(tax_categories=[TaxCategory.DigitalGoods, TaxCategory.Standard]),
-                    200,
-                    '/products?tax_category=digital-goods,standard'
+                ListProducts(tax_categories=[TaxCategory.DigitalGoods, TaxCategory.Standard]),
+                200,
+                '/products?tax_category=digital-goods,standard'
             ), (
-                    ListProducts(includes=[Includes.Prices]),
-                    200,
-                    '/products?include=prices'
+                ListProducts(includes=[Includes.Prices]),
+                200,
+                '/products?include=prices'
             ),
         ],
         ids = [
@@ -223,10 +221,10 @@ class TestProductsClient:
             status_code = expected_response_status,
         )
 
-        products     = test_client.client.products.list(operation)
+        response     = test_client.client.products.list(operation)
         last_request = mock_requests.last_request
 
-        assert isinstance(products, ProductWithIncludesCollection)
+        assert isinstance(response, ProductWithIncludesCollection)
         assert last_request is not None
         assert last_request.method            == 'GET'
         assert test_client.client.status_code == expected_response_status
@@ -273,11 +271,11 @@ class TestProductsClient:
             text        = expected_response_body
         )
 
-        product       = test_client.client.products.get(product_id=product_id, includes=includes)
+        response      = test_client.client.products.get(product_id=product_id, includes=includes)
         response_json = test_client.client.products.response.json()
         last_request  = mock_requests.last_request
 
-        assert isinstance(product, ProductWithIncludes) if includes else isinstance(product, Product)
+        assert isinstance(response, ProductWithIncludes) if includes else isinstance(response, Product)
         assert last_request is not None
         assert last_request.method            == 'GET'
         assert test_client.client.status_code == expected_response_status

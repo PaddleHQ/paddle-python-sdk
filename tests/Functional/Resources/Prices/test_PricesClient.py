@@ -87,12 +87,12 @@ class TestPricesClient:
         expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        price         = test_client.client.prices.create(operation)
+        response      = test_client.client.prices.create(operation)
         request_json  = test_client.client.payload
         response_json = test_client.client.prices.response.json()
         last_request  = mock_requests.last_request
 
-        assert isinstance(price, Price)
+        assert isinstance(response, Price)
         assert last_request is not None
         assert last_request.method            == 'POST'
         assert test_client.client.status_code == expected_response_status
@@ -156,12 +156,12 @@ class TestPricesClient:
         expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.patch(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        price         = test_client.client.prices.update('pro_01h7zcgmdc6tmwtjehp3sh7azf', operation)
+        response      = test_client.client.prices.update('pro_01h7zcgmdc6tmwtjehp3sh7azf', operation)
         request_json  = test_client.client.payload
         response_json = test_client.client.prices.response.json()
         last_request  = mock_requests.last_request
 
-        assert isinstance(price, Price)
+        assert isinstance(response, Price)
         assert last_request is not None
         assert last_request.method            == 'PATCH'
         assert test_client.client.status_code == expected_response_status
@@ -177,55 +177,55 @@ class TestPricesClient:
         'operation, expected_response_status, expected_response_body, expected_url',
         [
             (
-                    ListPrices(),
-                    200,
-                    ReadsFixtures.read_raw_json_fixture('response/list_default'),
-                    '/prices',
+                ListPrices(),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_default'),
+                '/prices',
             ), (
-                    ListPrices(Pager()),
-                    200,
-                    ReadsFixtures.read_raw_json_fixture('response/list_default'),
-                    '/prices?order_by=id[asc]&per_page=50',
+                ListPrices(Pager()),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_default'),
+                '/prices?order_by=id[asc]&per_page=50',
             ), (
-                    ListPrices(Pager(after='pro_01gsz4s0w61y0pp88528f1wvvb')),
-                    200,
-                    ReadsFixtures.read_raw_json_fixture('response/list_default'),
-                    '/prices?after=pro_01gsz4s0w61y0pp88528f1wvvb&order_by=id[asc]&per_page=50',
+                ListPrices(Pager(after='pro_01gsz4s0w61y0pp88528f1wvvb')),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_default'),
+                '/prices?after=pro_01gsz4s0w61y0pp88528f1wvvb&order_by=id[asc]&per_page=50',
             ), (
-                    ListPrices(statuses=[Status.Archived]),
-                    200,
-                    ReadsFixtures.read_raw_json_fixture('response/list_default'),
-                    '/prices?status=archived',
+                ListPrices(statuses=[Status.Archived]),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_default'),
+                '/prices?status=archived',
             ), (
-                    ListPrices(ids=['pri_01gsz4s0w61y0pp88528f1wvvb']),
-                    200,
-                    ReadsFixtures.read_raw_json_fixture('response/list_default'),
-                    '/prices?id=pri_01gsz4s0w61y0pp88528f1wvvb',
+                ListPrices(ids=['pri_01gsz4s0w61y0pp88528f1wvvb']),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_default'),
+                '/prices?id=pri_01gsz4s0w61y0pp88528f1wvvb',
             ), (
-                    ListPrices(ids=['pri_01gsz4s0w61y0pp88528f1wvvb', 'pri_01h1vjes1y163xfj1rh1tkfb65']),
-                    200,
-                    ReadsFixtures.read_raw_json_fixture('response/list_default'),
-                    '/prices?id=pri_01gsz4s0w61y0pp88528f1wvvb,pri_01h1vjes1y163xfj1rh1tkfb65',
+                ListPrices(ids=['pri_01gsz4s0w61y0pp88528f1wvvb', 'pri_01h1vjes1y163xfj1rh1tkfb65']),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_default'),
+                '/prices?id=pri_01gsz4s0w61y0pp88528f1wvvb,pri_01h1vjes1y163xfj1rh1tkfb65',
             ), (
-                    ListPrices(product_ids=['pro_01gsz4s0w61y0pp88528f1wvvb']),
-                    200,
-                    ReadsFixtures.read_raw_json_fixture('response/list_default'),
-                    '/prices?product_id=pro_01gsz4s0w61y0pp88528f1wvvb',
+                ListPrices(product_ids=['pro_01gsz4s0w61y0pp88528f1wvvb']),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_default'),
+                '/prices?product_id=pro_01gsz4s0w61y0pp88528f1wvvb',
             ), (
-                    ListPrices(product_ids=['pro_01gsz4s0w61y0pp88528f1wvvb', 'pro_01h1vjes1y163xfj1rh1tkfb65']),
-                    200,
-                    ReadsFixtures.read_raw_json_fixture('response/list_default'),
-                    '/prices?product_id=pro_01gsz4s0w61y0pp88528f1wvvb,pro_01h1vjes1y163xfj1rh1tkfb65',
+                ListPrices(product_ids=['pro_01gsz4s0w61y0pp88528f1wvvb', 'pro_01h1vjes1y163xfj1rh1tkfb65']),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_default'),
+                '/prices?product_id=pro_01gsz4s0w61y0pp88528f1wvvb,pro_01h1vjes1y163xfj1rh1tkfb65',
             ), (
-                    ListPrices(recurring=True),
-                    200,
-                    ReadsFixtures.read_raw_json_fixture('response/list_default'),
-                    '/prices?recurring=true',
+                ListPrices(recurring=True),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_default'),
+                '/prices?recurring=true',
             ), (
-                    ListPrices(includes=[Includes.Product]),
-                    200,
-                    ReadsFixtures.read_raw_json_fixture('response/list_default'),
-                    '/prices?include=product',
+                ListPrices(includes=[Includes.Product]),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_default'),
+                '/prices?include=product',
             ),
         ],
         ids = [
@@ -256,10 +256,10 @@ class TestPricesClient:
             status_code = expected_response_status,
         )
 
-        prices       = test_client.client.prices.list(operation)
+        response    = test_client.client.prices.list(operation)
         last_request = mock_requests.last_request
 
-        assert isinstance(prices, PriceWithIncludesCollection)
+        assert isinstance(response, PriceWithIncludesCollection)
         assert last_request is not None
         assert last_request.method            == 'GET'
         assert test_client.client.status_code == expected_response_status
@@ -271,17 +271,17 @@ class TestPricesClient:
         'price_id, includes, expected_response_status, expected_response_body, expected_url',
         [
             (
-                    'pri_01h7zcgmdc6tmwtjehp3sh7azf',
-                    None,
-                    200,
-                    ReadsFixtures.read_raw_json_fixture('response/full_entity'),
-                    '/prices/pri_01h7zcgmdc6tmwtjehp3sh7azf',
+                'pri_01h7zcgmdc6tmwtjehp3sh7azf',
+                None,
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/full_entity'),
+                '/prices/pri_01h7zcgmdc6tmwtjehp3sh7azf',
             ), (
-                    'pri_01h7zcgmdc6tmwtjehp3sh7azf',
-                    [Includes.Product],
-                    200,
-                    ReadsFixtures.read_raw_json_fixture('response/full_entity_with_includes'),
-                    '/prices/pri_01h7zcgmdc6tmwtjehp3sh7azf?include=product',
+                'pri_01h7zcgmdc6tmwtjehp3sh7azf',
+                [Includes.Product],
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/full_entity_with_includes'),
+                '/prices/pri_01h7zcgmdc6tmwtjehp3sh7azf?include=product',
             ),
         ],
         ids = [
@@ -306,11 +306,11 @@ class TestPricesClient:
             text        = expected_response_body
         )
 
-        price         = test_client.client.prices.get(price_id=price_id, includes=includes)
+        response      = test_client.client.prices.get(price_id=price_id, includes=includes)
         response_json = test_client.client.prices.response.json()
         last_request  = mock_requests.last_request
 
-        assert isinstance(price, PriceWithIncludes)
+        assert isinstance(response, PriceWithIncludes)
         assert last_request is not None
         assert last_request.method            == 'GET'
         assert test_client.client.status_code == expected_response_status

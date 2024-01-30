@@ -7,7 +7,7 @@ from datetime    import datetime
 class SubscriptionDiscount:
     id:        str
     starts_at: datetime
-    ends_at:   datetime | None
+    ends_at:   datetime
 
 
     @staticmethod
