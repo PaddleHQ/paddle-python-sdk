@@ -36,14 +36,6 @@ class UpdateSubscription:
     def get_parameters(self) -> dict:
         parameters = asdict(self)
 
-        # if not isinstance(self.currency_code, Undefined):
-        #     parameters['currency_code'] = self.currency_code.value
-        # if not isinstance(self.collection_mode, Undefined):
-        #     parameters['collection_mode'] = self.collection_mode.value
-        # if not isinstance(self.proration_billing_mode, Undefined):
-        #     parameters['proration_billing_mode'] = self.proration_billing_mode.value
-        # if not isinstance(self.on_payment_failure, Undefined):
-        #     parameters['on_payment_failure'] = self.on_payment_failure.value
         if isinstance(self.next_billed_at, DateTime):
             parameters['next_billed_at'] = self.next_billed_at.format()
         if not isinstance(self.items, Undefined):

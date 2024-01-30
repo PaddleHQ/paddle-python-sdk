@@ -3,7 +3,7 @@ from paddle_billing_python_sdk.Notification import PaddleSignature, Verifier, Se
 from tests.Utils import FakeResponse
 
 
-def test_it_verifies_a_signature():
+def test_validate_paddle_signature_header_integrity():
     test_headers = {
         PaddleSignature().HEADER:
             'ts=1696195954;h1=dummy;h1=d96299976a6eb066f484d7fde011ac56fc32b38fc9940bc419d6e537fdc6ef02',

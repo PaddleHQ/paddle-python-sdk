@@ -11,4 +11,9 @@ class PauseSubscription:
 
 
     def get_parameters(self) -> dict:
-        return asdict(self)
+        parameters = asdict(self)
+        parameters['resume_at'] = self.resume_at.format() \
+            if isinstance(self.resume_at, DateTime) \
+            else self.resume_at
+
+        return parameters

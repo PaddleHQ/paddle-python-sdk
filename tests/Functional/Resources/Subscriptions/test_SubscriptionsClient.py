@@ -8,6 +8,7 @@ from paddle_billing_python_sdk.Entities.DateTime                 import DateTime
 from paddle_billing_python_sdk.Entities.Subscription             import Subscription
 from paddle_billing_python_sdk.Entities.SubscriptionPreview      import SubscriptionPreview
 from paddle_billing_python_sdk.Entities.SubscriptionWithIncludes import SubscriptionWithIncludes
+from paddle_billing_python_sdk.Entities.TransactionWithIncludes  import TransactionWithIncludes
 
 from paddle_billing_python_sdk.Entities.Shared.CollectionMode    import CollectionMode
 from paddle_billing_python_sdk.Entities.Shared.CurrencyCode      import CurrencyCode
@@ -176,6 +177,65 @@ class TestSubscriptionsClient:
         'operation, expected_request_body, expected_response_status, expected_response_body, expected_url',
         [
             (
+                PauseSubscription(),
+                ReadsFixtures.read_raw_json_fixture('request/pause_none'),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/full_entity'),
+                '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/pause',
+            ), (
+                PauseSubscription(SubscriptionEffectiveFrom.NextBillingPeriod),
+                ReadsFixtures.read_raw_json_fixture('request/pause_single'),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/full_entity'),
+                '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/pause',
+            ), (
+                PauseSubscription(SubscriptionEffectiveFrom.NextBillingPeriod, DateTime('2023-10-09T16:30:00Z')),
+                ReadsFixtures.read_raw_json_fixture('request/pause_full'),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/full_entity'),
+                '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/pause',
+            ),
+        ],
+        ids = [
+            "Pause subscription",
+            "Pause subscription as of next billing period",
+            "Pause subscription as of next billing period and resume at date",
+        ],
+    )
+    def test_pause_subscription_uses_expected_payload(
+        self,
+        test_client,
+        mock_requests,
+        operation,
+        expected_request_body,
+        expected_response_status,
+        expected_response_body,
+        expected_url,
+    ):
+        expected_url = f"{test_client.base_url}{expected_url}"
+        mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
+
+        response      = test_client.client.subscriptions.pause('sub_01h8bx8fmywym11t6swgzba704', operation)
+        request_json  = test_client.client.payload
+        response_json = test_client.client.subscriptions.response.json()
+        last_request  = mock_requests.last_request
+
+        assert isinstance(response, Subscription)
+        assert last_request is not None
+        assert last_request.method            == 'POST'
+        assert test_client.client.status_code == expected_response_status
+        assert unquote(last_request.url)      == expected_url, \
+            "The URL does not match the expected URL, verify the query string is correct"
+        assert loads(request_json) == loads(expected_request_body), \
+            "The request JSON doesn't match the expected fixture JSON"
+        assert response_json == loads(expected_response_body), \
+            "The response JSON doesn't match the expected fixture JSON"
+
+
+    @mark.parametrize(
+        'operation, expected_request_body, expected_response_status, expected_response_body, expected_url',
+        [
+            (
                     ResumeSubscription(),
                     ReadsFixtures.read_raw_json_fixture('request/resume_none'),
                     200,
@@ -235,18 +295,18 @@ class TestSubscriptionsClient:
         'operation, expected_request_body, expected_response_status, expected_response_body, expected_url',
         [
             (
-                CancelSubscription(),
-                ReadsFixtures.read_raw_json_fixture('request/cancel_none'),
-                200,
-                ReadsFixtures.read_raw_json_fixture('response/full_entity'),
-                '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/cancel',
+                    CancelSubscription(),
+                    ReadsFixtures.read_raw_json_fixture('request/cancel_none'),
+                    200,
+                    ReadsFixtures.read_raw_json_fixture('response/full_entity'),
+                    '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/cancel',
             ), (
                 CancelSubscription(SubscriptionEffectiveFrom.NextBillingPeriod),
                 ReadsFixtures.read_raw_json_fixture('request/cancel_single'),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/full_entity'),
                 '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/cancel',
-            )
+        )
         ],
         ids = [
             "Cancel subscription",
@@ -281,3 +341,148 @@ class TestSubscriptionsClient:
             "The request JSON doesn't match the expected fixture JSON"
         assert response_json == loads(expected_response_body), \
             "The response JSON doesn't match the expected fixture JSON"
+
+
+    @mark.parametrize(
+        'operation, expected_response_status, expected_response_body, expected_url',
+        [
+            (
+                CancelSubscription(),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/get_payment_method_change_transaction_entity'),
+                '/subscriptions/sub_01h7zcgmdc6tmwtjehp3sh7azf/update-payment-method-transaction',
+            ),
+        ],
+        ids = ["Cancel subscription"],
+    )
+    def test_get_payment_method_change_transaction_uses_expected_payload(
+        self,
+        test_client,
+        mock_requests,
+        operation,
+        expected_response_status,
+        expected_response_body,
+        expected_url,
+    ):
+        expected_url = f"{test_client.base_url}{expected_url}"
+        mock_requests.get(expected_url, status_code=expected_response_status, text=expected_response_body)
+
+        response = test_client.client.subscriptions.get_payment_method_change_transaction(
+            'sub_01h7zcgmdc6tmwtjehp3sh7azf'
+        )
+        response_json = test_client.client.subscriptions.response.json()
+        last_request  = mock_requests.last_request
+
+        assert isinstance(response, TransactionWithIncludes)
+        assert last_request is not None
+        assert last_request.method            == 'GET'
+        assert test_client.client.status_code == expected_response_status
+        assert unquote(last_request.url)      == expected_url, \
+            "The URL does not match the expected URL, verify the query string is correct"
+        assert response_json == loads(expected_response_body), \
+            "The response JSON doesn't match the expected fixture JSON"
+
+
+    @mark.parametrize(
+        'subscription_id, expected_response_status, expected_response_body, expected_url',
+        [
+            (
+                'sub_01h8bx8fmywym11t6swgzba704',
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/full_entity'),
+                '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/activate',
+            ),
+        ],
+        ids = ["Activate trialing subscription"],
+    )
+    def test_update_subscription_returns_expected_response(
+        self,
+        test_client,
+        mock_requests,
+        subscription_id,
+        expected_response_status,
+        expected_response_body,
+        expected_url,
+    ):
+        expected_url = f"{test_client.base_url}{expected_url}"
+        mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
+
+        response      = test_client.client.subscriptions.activate(subscription_id)
+        response_json = test_client.client.subscriptions.response.json()
+        last_request  = mock_requests.last_request
+
+        assert isinstance(response, Subscription)
+        assert last_request is not None
+        assert last_request.method            == 'POST'
+        assert test_client.client.status_code == expected_response_status
+        assert unquote(last_request.url)      == expected_url, \
+            "The URL does not match the expected URL, verify the query string is correct"
+        assert response_json == loads(expected_response_body), \
+            "The response JSON doesn't match the expected fixture JSON"
+
+
+    @mark.parametrize(
+        'operation, expected_request_body, expected_response_status, expected_response_body, expected_url',
+        [
+            (
+                CreateOneTimeCharge(
+                    SubscriptionEffectiveFrom.NextBillingPeriod,
+                    [SubscriptionItems('pri_01gsz98e27ak2tyhexptwc58yk', 1)]
+                ),
+                ReadsFixtures.read_raw_json_fixture('request/create_one_time_charge_minimal'),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/full_entity'),
+                '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/charge',
+            ), (
+                CreateOneTimeCharge(
+                    SubscriptionEffectiveFrom.Immediately,
+                    [
+                        SubscriptionItems('pri_01gsz98e27ak2tyhexptwc58yk', 1),
+                        SubscriptionItems('pri_01h7zdqstxe6djaefkqbkjy4k2', 10),
+                        SubscriptionItems('pri_01h7zd9mzfq79850w4ryc39v38', 845),
+                    ],
+                    SubscriptionOnPaymentFailure.ApplyChange,
+                ),
+                ReadsFixtures.read_raw_json_fixture('request/create_one_time_charge_full'),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/full_entity'),
+                '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/charge',
+            )
+        ],
+        ids = [
+            "Create subscription one-time payment for one item effective next billing period",
+            "Create subscription one-time payment for multiple items effective immediately",
+        ],
+    )
+    def test_create_subscription_one_time_charge_uses_expected_payload(
+        self,
+        test_client,
+        mock_requests,
+        operation,
+        expected_request_body,
+        expected_response_status,
+        expected_response_body,
+        expected_url,
+    ):
+        expected_url = f"{test_client.base_url}{expected_url}"
+        mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
+
+        response      = test_client.client.subscriptions.create_one_time_charge('sub_01h8bx8fmywym11t6swgzba704', operation)
+        request_json  = test_client.client.payload
+        response_json = test_client.client.subscriptions.response.json()
+        last_request  = mock_requests.last_request
+
+        assert isinstance(response, Subscription)
+        assert last_request is not None
+        assert last_request.method            == 'POST'
+        assert test_client.client.status_code == expected_response_status
+        assert unquote(last_request.url)      == expected_url, \
+            "The URL does not match the expected URL, verify the query string is correct"
+        assert loads(request_json) == loads(expected_request_body), \
+            "The request JSON doesn't match the expected fixture JSON"
+        assert response_json == loads(expected_response_body), \
+            "The response JSON doesn't match the expected fixture JSON"
+
+
+
+
