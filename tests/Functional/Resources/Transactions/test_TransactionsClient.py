@@ -44,9 +44,7 @@ from tests.Utils.ReadsFixture import ReadsFixtures
 
 
 class TestTransactionsClient:
-    @mark.parametrize("operation", [
-        ListTransactions()
-    ])
+    @mark.parametrize("operation", [ListTransactions()])
     def test_list_transaction_can_paginate(self, test_client, mock_requests, operation):
         expected_response_status        = 200
         expected_page_one_url           = f"{test_client.base_url}/transactions"
@@ -153,7 +151,7 @@ class TestTransactionsClient:
                 '/transactions',
             ),
         ],
-        ids = [
+        ids=[
             "Create transaction with basic data",
             "Create transaction with non-catalog price",
             "Create transaction with manual collection mode",
@@ -173,8 +171,8 @@ class TestTransactionsClient:
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         response      = test_client.client.transactions.create(operation)
-        request_json  = test_client.client.payload
         response_json = test_client.client.transactions.response.json()
+        request_json  = test_client.client.payload
         last_request  = mock_requests.last_request
 
         assert isinstance(response, TransactionWithIncludes)
@@ -191,18 +189,16 @@ class TestTransactionsClient:
 
     @mark.parametrize(
         'operation, includes, expected_response_status, expected_response_body, expected_url',
-        [
-            (
-                CreateTransaction(items=[
-                    TransactionCreateItem(price_id='pri_01he5kxqey1k8ankgef29cj4bv', quantity=1)
-                ]),
-                [Includes.Customer, Includes.Business],
-                200,
-                ReadsFixtures.read_raw_json_fixture('response/minimal_entity'),
-                '/transactions?include=customer,business',
-            )
-        ],
-        ids = ["Create transaction with multiple includes"],
+        [(
+            CreateTransaction(items=[
+                TransactionCreateItem(price_id='pri_01he5kxqey1k8ankgef29cj4bv', quantity=1)
+            ]),
+            [Includes.Customer, Includes.Business],
+            200,
+            ReadsFixtures.read_raw_json_fixture('response/minimal_entity'),
+            '/transactions?include=customer,business',
+        )],
+        ids=["Create transaction with multiple includes"],
     )
     def test_create_transaction_with_includes_returns_expected_payload(
         self,
@@ -250,7 +246,7 @@ class TestTransactionsClient:
                 '/transactions/txn_01h7zcgmdc6tmwtjehp3sh7azf',
             ),
         ],
-        ids = [
+        ids=[
             "Update transaction with single new value",
             "Update transaction with partial new values",
         ],
@@ -270,8 +266,8 @@ class TestTransactionsClient:
         mock_requests.patch(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         response      = test_client.client.transactions.update(transaction_id, operation)
-        request_json  = test_client.client.payload
         response_json = test_client.client.transactions.response.json()
+        request_json  = test_client.client.payload
         last_request  = mock_requests.last_request
 
         assert isinstance(response, TransactionWithIncludes)
@@ -396,7 +392,7 @@ class TestTransactionsClient:
                 '/transactions?origin=web,api,subscription_recurring',
             ),
         ],
-        ids = [
+        ids=[
             "List transactions without pagination",
             "List transactions with default pagination",
             "List paginated transactions after specified transaction_id",
@@ -452,8 +448,7 @@ class TestTransactionsClient:
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/full_entity'),
                 '/transactions/txn_01hen7bxc1p8ep4yk7n5jbzk9r',
-            ),
-            (
+            ), (
                 'txn_01hen7bxc1p8ep4yk7n5jbzk9r',
                 [Includes.Customer, Includes.Address, Includes.Business, Includes.Discount, Includes.AvailablePaymentMethods],
                 200,
@@ -461,7 +456,7 @@ class TestTransactionsClient:
                 '/transactions/txn_01hen7bxc1p8ep4yk7n5jbzk9r?include=customer,address,business,discount,available_payment_methods',
             ),
         ],
-        ids = [
+        ids=[
             "Get transaction",
             "Get transaction with includes",
         ],
@@ -508,8 +503,7 @@ class TestTransactionsClient:
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/preview_entity'),
                 '/transactions/preview',
-            ),
-            (
+            ), (
                 PreviewTransaction(items=[
                     TransactionItemPreviewWithNonCatalogPrice(
                         quantity          = 20,
@@ -534,7 +528,7 @@ class TestTransactionsClient:
                 '/transactions/preview',
             ),
         ],
-        ids = [
+        ids=[
             "Basic transaction preview",
             "Preview transaction with non-catalog price",
         ],
@@ -553,8 +547,8 @@ class TestTransactionsClient:
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         response      = test_client.client.transactions.preview(operation)
-        request_json  = test_client.client.payload
         response_json = test_client.client.transactions.response.json()
+        request_json  = test_client.client.payload
         last_request  = mock_requests.last_request
 
         assert isinstance(response, TransactionPreview)
@@ -575,11 +569,7 @@ class TestTransactionsClient:
         expected_response_body   = ReadsFixtures.read_raw_json_fixture('response/get_invoice_pdf_default')
         expected_url             = f"{test_client.base_url}/transactions/{transaction_id}/invoice"
 
-        mock_requests.get(
-            url         = expected_url,
-            status_code = expected_response_status,
-            text        = expected_response_body,
-        )
+        mock_requests.get(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         response      = test_client.client.transactions.get_invoice_pdf(transaction_id)
         response_json = test_client.client.transactions.response.json()

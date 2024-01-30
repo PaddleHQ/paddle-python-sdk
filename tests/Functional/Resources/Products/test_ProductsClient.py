@@ -53,7 +53,7 @@ class TestProductsClient:
                 '/products',
             ),
         ],
-        ids = [
+        ids=[
             "Create product with basic data",
             "Create product with full data",
         ],
@@ -72,8 +72,8 @@ class TestProductsClient:
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         response      = test_client.client.products.create(operation)
-        request_json  = test_client.client.payload
         response_json = test_client.client.products.response.json()
+        request_json  = test_client.client.payload
         last_request  = mock_requests.last_request
 
         assert isinstance(response, Product)
@@ -123,7 +123,7 @@ class TestProductsClient:
                 '/products/pro_01h7zcgmdc6tmwtjehp3sh7azf',
             ),
         ],
-        ids = [
+        ids=[
             "Update product with single new value",
             "Update product with partial new values",
             "Update product with completely new values",
@@ -143,8 +143,8 @@ class TestProductsClient:
         mock_requests.patch(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         response      = test_client.client.products.update('pro_01h7zcgmdc6tmwtjehp3sh7azf', operation)
-        request_json  = test_client.client.payload
         response_json = test_client.client.products.response.json()
+        request_json  = test_client.client.payload
         last_request  = mock_requests.last_request
 
         assert isinstance(response, Product)
@@ -196,7 +196,7 @@ class TestProductsClient:
                 '/products?include=prices'
             ),
         ],
-        ids = [
+        ids=[
             "List products without pagination",
             "List products with default pagination",
             "List paginated products after specified product id",
@@ -216,10 +216,7 @@ class TestProductsClient:
         expected_url,
     ):
         expected_url = f"{test_client.base_url}{expected_url}"
-        mock_requests.get(
-            url         = expected_url,
-            status_code = expected_response_status,
-        )
+        mock_requests.get(expected_url, status_code=expected_response_status)
 
         response     = test_client.client.products.list(operation)
         last_request = mock_requests.last_request
@@ -249,7 +246,7 @@ class TestProductsClient:
                 '/products/pro_01h7zcgmdc6tmwtjehp3sh7azf?include=prices'
             ),
         ],
-        ids = [
+        ids=[
             "Get product",
             "Get product with includes",
         ],

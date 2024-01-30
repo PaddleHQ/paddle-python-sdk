@@ -37,7 +37,7 @@ class TestNotificationLogsClient:
                 f"/notifications/{TEST_ID}/logs?after=pro_01gsz4s0w61y0pp88528f1wvvb&order_by=id[asc]&per_page=50"
             ),
         ],
-        ids = [
+        ids=[
             "List events",
             "List paginated events",
             "List paginated events after specified product id",

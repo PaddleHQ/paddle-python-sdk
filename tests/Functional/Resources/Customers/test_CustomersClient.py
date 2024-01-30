@@ -40,7 +40,7 @@ class TestCustomersClient:
                 '/customers',
             ),
         ],
-        ids = [
+        ids=[
             "Create customer with just an email address",
             "Create customer with basic information",
         ],
@@ -59,8 +59,8 @@ class TestCustomersClient:
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         response      = test_client.client.customers.create(operation)
-        request_json  = test_client.client.payload
         response_json = test_client.client.customers.response.json()
+        request_json  = test_client.client.payload
         last_request  = mock_requests.last_request
 
         assert isinstance(response, Customer)
@@ -107,7 +107,7 @@ class TestCustomersClient:
                 '/customers/ctm_01h844p3h41s12zs5mn4axja51',
             ),
         ],
-        ids = [
+        ids=[
             "Update customer with single new value",
             "Update customer with partial new values",
             "Update customer with all new values",
@@ -128,8 +128,8 @@ class TestCustomersClient:
         mock_requests.patch(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         response      = test_client.client.customers.update(customer_id, operation)
-        request_json  = test_client.client.payload
         response_json = test_client.client.customers.response.json()
+        request_json  = test_client.client.payload
         last_request  = mock_requests.last_request
 
         assert isinstance(response, Customer)
@@ -189,7 +189,7 @@ class TestCustomersClient:
                 '/customers?email=dx@paddle.com',
             ),
         ],
-        ids = [
+        ids=[
             "List customers without pagination",
             "List customers with default pagination",
             "List paginated customers after specified transaction_id",
@@ -231,7 +231,7 @@ class TestCustomersClient:
             ReadsFixtures.read_raw_json_fixture('response/full_entity'),
             '/customers/ctm_01h8441jn5pcwrfhwh78jqt8hk',
         )],
-        ids = ["Get customer by its id"],
+        ids=["Get customer by its id"],
     )
     def test_get_customers_returns_expected_response(
         self,
@@ -267,7 +267,7 @@ class TestCustomersClient:
             ReadsFixtures.read_raw_json_fixture('response/list_credit_balances'),
             '/customers/ctm_01h8441jn5pcwrfhwh78jqt8hk/credit-balances',
         )],
-        ids = ["List a customer's credit balances"],
+        ids=["List a customer's credit balances"],
     )
     def test_list_credit_balance_customers_returns_expected_response(
         self,

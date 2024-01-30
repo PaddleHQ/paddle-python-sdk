@@ -88,7 +88,7 @@ class TestSubscriptionsClient:
                 '/subscriptions/sub_01h8bx8fmywym11t6swgzba704',
             ),
         ],
-        ids = [
+        ids=[
             "Update subscription with a single new value",
             "Update subscription with partial new values",
             "Update subscription with all new values",
@@ -109,8 +109,8 @@ class TestSubscriptionsClient:
         mock_requests.patch(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         response      = test_client.client.subscriptions.update(subscription_id, operation=operation)
-        request_json  = test_client.client.payload
         response_json = test_client.client.subscriptions.response.json()
+        request_json  = test_client.client.payload
         last_request  = mock_requests.last_request
 
         assert isinstance(response, Subscription)
@@ -198,7 +198,7 @@ class TestSubscriptionsClient:
                 '/subscriptions?scheduled_change_action=pause,cancel',
             ),
         ],
-        ids = [
+        ids=[
             "List subscriptions without pagination",
             "List subscriptions with default pagination",
             "List paginated subscriptions after specified subscription_id",
@@ -257,7 +257,7 @@ class TestSubscriptionsClient:
                 '/subscriptions/sub_01h7zcgmdc6tmwtjehp3sh7azf?include=next_transaction',
             ),
         ],
-        ids = [
+        ids=[
             "Get subscriptions",
             "Get subscriptions with includes",
         ],
@@ -315,7 +315,7 @@ class TestSubscriptionsClient:
                 '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/pause',
             ),
         ],
-        ids = [
+        ids=[
             "Pause subscription",
             "Pause subscription as of next billing period",
             "Pause subscription as of next billing period and resume at date",
@@ -336,8 +336,8 @@ class TestSubscriptionsClient:
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         response      = test_client.client.subscriptions.pause(subscription_id, operation=operation)
-        request_json  = test_client.client.payload
         response_json = test_client.client.subscriptions.response.json()
+        request_json  = test_client.client.payload
         last_request  = mock_requests.last_request
 
         assert isinstance(response, Subscription)
@@ -378,7 +378,7 @@ class TestSubscriptionsClient:
                 '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/resume',
             ),
         ],
-        ids = [
+        ids=[
             "Resume subscription",
             "Resume subscription with a billing period",
             "Resume subscription with a new date",
@@ -399,8 +399,8 @@ class TestSubscriptionsClient:
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         response      = test_client.client.subscriptions.resume(subscription_id, operation)
-        request_json  = test_client.client.payload
         response_json = test_client.client.subscriptions.response.json()
+        request_json  = test_client.client.payload
         last_request  = mock_requests.last_request
 
         assert isinstance(response, Subscription)
@@ -432,9 +432,9 @@ class TestSubscriptionsClient:
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/full_entity'),
                 '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/cancel',
-            )
+            ),
         ],
-        ids = [
+        ids=[
             "Cancel subscription",
             "Cancel subscription with a billing period",
         ],
@@ -454,8 +454,8 @@ class TestSubscriptionsClient:
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         response      = test_client.client.subscriptions.cancel(subscription_id, operation)
-        request_json  = test_client.client.payload
         response_json = test_client.client.subscriptions.response.json()
+        request_json  = test_client.client.payload
         last_request  = mock_requests.last_request
 
         assert isinstance(response, Subscription)
@@ -472,16 +472,14 @@ class TestSubscriptionsClient:
 
     @mark.parametrize(
         'subscription_id, operation, expected_response_status, expected_response_body, expected_url',
-        [
-            (
-                'sub_01h7zcgmdc6tmwtjehp3sh7azf',
-                CancelSubscription(),
-                200,
-                ReadsFixtures.read_raw_json_fixture('response/get_payment_method_change_transaction_entity'),
-                '/subscriptions/sub_01h7zcgmdc6tmwtjehp3sh7azf/update-payment-method-transaction',
-            ),
-        ],
-        ids = ["Cancel subscription"],
+        [(
+            'sub_01h7zcgmdc6tmwtjehp3sh7azf',
+            CancelSubscription(),
+            200,
+            ReadsFixtures.read_raw_json_fixture('response/get_payment_method_change_transaction_entity'),
+            '/subscriptions/sub_01h7zcgmdc6tmwtjehp3sh7azf/update-payment-method-transaction',
+        )],
+        ids=["Cancel subscription"],
     )
     def test_get_payment_method_change_transaction_returns_expected_response(
         self,
@@ -496,7 +494,7 @@ class TestSubscriptionsClient:
         expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.get(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        response = test_client.client.subscriptions.get_payment_method_change_transaction(subscription_id)
+        response      = test_client.client.subscriptions.get_payment_method_change_transaction(subscription_id)
         response_json = test_client.client.subscriptions.response.json()
         last_request  = mock_requests.last_request
 
@@ -512,15 +510,13 @@ class TestSubscriptionsClient:
 
     @mark.parametrize(
         'subscription_id, expected_response_status, expected_response_body, expected_url',
-        [
-            (
-                'sub_01h8bx8fmywym11t6swgzba704',
-                200,
-                ReadsFixtures.read_raw_json_fixture('response/full_entity'),
-                '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/activate',
-            ),
-        ],
-        ids = ["Activate trialing subscription"],
+        [(
+            'sub_01h8bx8fmywym11t6swgzba704',
+            200,
+            ReadsFixtures.read_raw_json_fixture('response/full_entity'),
+            '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/activate',
+        )],
+        ids=["Activate trialing subscription"],
     )
     def test_activate_subscription_returns_expected_response(
         self,
@@ -578,7 +574,7 @@ class TestSubscriptionsClient:
                 '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/charge',
             ),
         ],
-        ids = [
+        ids=[
             "Create subscription one-time payment for one item effective next billing period",
             "Create subscription one-time payment for multiple items effective immediately",
         ],
@@ -598,8 +594,8 @@ class TestSubscriptionsClient:
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         response      = test_client.client.subscriptions.create_one_time_charge(subscription_id, operation)
-        request_json  = test_client.client.payload
         response_json = test_client.client.subscriptions.response.json()
+        request_json  = test_client.client.payload
         last_request  = mock_requests.last_request
 
         assert isinstance(response, Subscription)
@@ -662,7 +658,7 @@ class TestSubscriptionsClient:
                 '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/preview',
             ),
         ],
-        ids = [
+        ids=[
             "Preview updating a subscription with a single new value",
             "Preview updating a subscription with partial new values",
             "Preview updating a subscription with all new values",
@@ -683,8 +679,8 @@ class TestSubscriptionsClient:
         mock_requests.patch(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         response      = test_client.client.subscriptions.preview_update(subscription_id, operation)
-        request_json  = test_client.client.payload
         response_json = test_client.client.subscriptions.response.json()
+        request_json  = test_client.client.payload
         last_request  = mock_requests.last_request
 
         assert isinstance(response, SubscriptionPreview)
@@ -726,9 +722,9 @@ class TestSubscriptionsClient:
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/preview_update_full_entity'),
                 '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/charge/preview',
-            )
+            ),
         ],
-        ids = [
+        ids=[
             "Preview creating a subscription one-time payment for one item effective next billing period",
             "Preview creating a subscription one-time payment for multiple items effective immediately",
         ],
@@ -748,8 +744,8 @@ class TestSubscriptionsClient:
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         response      = test_client.client.subscriptions.preview_one_time_charge(subscription_id, operation)
-        request_json  = test_client.client.payload
         response_json = test_client.client.subscriptions.response.json()
+        request_json  = test_client.client.payload
         last_request  = mock_requests.last_request
 
         assert isinstance(response, SubscriptionPreview)

@@ -16,7 +16,7 @@ class TestEventTypesClient:
             ReadsFixtures.read_raw_json_fixture('response/list_default'),
             '/event-types',
         )],
-        ids = ["List event types"],
+        ids=["List event types"],
     )
     def test_list_event_types_returns_expected_response(
         self,

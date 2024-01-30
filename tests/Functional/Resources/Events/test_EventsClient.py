@@ -31,7 +31,7 @@ class TestEventsClient:
                 '/events?after=evt_01h83xenpcfjyhkqr4x214m02x&order_by=id[asc]&per_page=50',
             ),
         ],
-        ids = [
+        ids=[
             "List events",
             "List paginated events",
             "List paginated events after specified event id",

@@ -67,7 +67,7 @@ class TestPricesClient:
                 '/prices',
             ),
         ],
-        ids = [
+        ids=[
             "Create price with basic data",
             "Create price with full data",
         ],
@@ -86,8 +86,8 @@ class TestPricesClient:
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         response      = test_client.client.prices.create(operation)
-        request_json  = test_client.client.payload
         response_json = test_client.client.prices.response.json()
+        request_json  = test_client.client.payload
         last_request  = mock_requests.last_request
 
         assert isinstance(response, Price)
@@ -135,7 +135,7 @@ class TestPricesClient:
                 '/prices/pro_01h7zcgmdc6tmwtjehp3sh7azf'
             ),
         ],
-        ids = [
+        ids=[
             "Update price with single new value",
             "Update price with partial new values",
             "Update price with completely new values",
@@ -155,8 +155,8 @@ class TestPricesClient:
         mock_requests.patch(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         response      = test_client.client.prices.update('pro_01h7zcgmdc6tmwtjehp3sh7azf', operation)
-        request_json  = test_client.client.payload
         response_json = test_client.client.prices.response.json()
+        request_json  = test_client.client.payload
         last_request  = mock_requests.last_request
 
         assert isinstance(response, Price)
@@ -226,7 +226,7 @@ class TestPricesClient:
                 '/prices?include=product',
             ),
         ],
-        ids = [
+        ids=[
             "List prices without pagination",
             "List prices with default pagination",
             "List paginated prices after specified product id",
@@ -279,7 +279,7 @@ class TestPricesClient:
                 '/prices/pri_01h7zcgmdc6tmwtjehp3sh7azf?include=product',
             ),
         ],
-        ids = [
+        ids=[
             "Get price",
             "Get price with includes",
         ],

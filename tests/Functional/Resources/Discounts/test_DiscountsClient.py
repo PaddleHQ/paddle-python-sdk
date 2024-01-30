@@ -63,7 +63,7 @@ class TestDiscountsClient:
                 '/discounts',
             ),
         ],
-        ids = [
+        ids=[
             "Create discount with basic data",
             "Create discount with full data",
         ],
@@ -82,8 +82,8 @@ class TestDiscountsClient:
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         response      = test_client.client.discounts.create(operation)
-        request_json  = test_client.client.payload
         response_json = test_client.client.discounts.response.json()
+        request_json  = test_client.client.payload
         last_request  = mock_requests.last_request
 
         assert isinstance(response, Discount)
@@ -140,7 +140,7 @@ class TestDiscountsClient:
                 '/discounts/dsc_01h83xenpcfjyhkqr4x214m02x'
             ),
         ],
-        ids = [
+        ids=[
             "Update discount with single new value",
             "Update discount with partial new values",
             "Update discount with completely new values",
@@ -161,8 +161,8 @@ class TestDiscountsClient:
         mock_requests.patch(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         response      = test_client.client.discounts.update(discount_id, operation)
-        request_json  = test_client.client.payload
         response_json = test_client.client.discounts.response.json()
+        request_json  = test_client.client.payload
         last_request  = mock_requests.last_request
 
         assert isinstance(response, Discount)
@@ -222,7 +222,7 @@ class TestDiscountsClient:
                 '/discounts?code=ABCDE12345,54321EDCBA',
             ),
         ],
-        ids = [
+        ids=[
             "List discounts without pagination",
             "List discounts with default pagination",
             "List paginated discounts after specified discount id",
@@ -264,7 +264,7 @@ class TestDiscountsClient:
             ReadsFixtures.read_raw_json_fixture('response/full_entity'),
             '/discounts/dsc_01h83xenpcfjyhkqr4x214m02x',
         )],
-        ids = ["Get discount"],
+        ids=["Get discount"],
     )
     def test_get_discounts_returns_expected_response(
         self,
