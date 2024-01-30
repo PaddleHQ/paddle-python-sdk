@@ -124,6 +124,121 @@ class TestSubscriptionsClient:
 
 
     @mark.parametrize(
+        'operation, expected_response_status, expected_response_body, expected_url',
+        [
+            (
+                ListSubscriptions(),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_default'),
+                '/subscriptions',
+            ), (
+                ListSubscriptions(Pager()),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_default'),
+                '/subscriptions?order_by=id[asc]&per_page=50',
+            ), (
+                ListSubscriptions(Pager(after='sub_01h848pep46enq8y372x7maj0p')),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_default'),
+                '/subscriptions?after=sub_01h848pep46enq8y372x7maj0p&order_by=id[asc]&per_page=50',
+            ), (
+                ListSubscriptions(statuses=[SubscriptionStatus.Paused]),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_default'),
+                '/subscriptions?status=paused',
+            ), (
+                ListSubscriptions(ids=['sub_01h848pep46enq8y372x7maj0p']),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_default'),
+                '/subscriptions?id=sub_01h848pep46enq8y372x7maj0p',
+            ), (
+                ListSubscriptions(ids=['sub_01h8494f4w5rwfp8b12yqh8fp1', 'sub_01h848pep46enq8y372x7maj0p']),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_default'),
+                '/subscriptions?id=sub_01h8494f4w5rwfp8b12yqh8fp1,sub_01h848pep46enq8y372x7maj0p',
+            ), (
+                ListSubscriptions(collection_mode=CollectionMode.Automatic),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_default'),
+                '/subscriptions?collection_mode=automatic',
+            ), (
+                ListSubscriptions(address_ids=['add_01h8494f4w5rwfp8b12yqh8fp1']),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_default'),
+                '/subscriptions?address_id=add_01h8494f4w5rwfp8b12yqh8fp1',
+            ), (
+                ListSubscriptions(address_ids=['add_01h8494f4w5rwfp8b12yqh8fp1', 'add_01h848pep46enq8y372x7maj0p']),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_default'),
+                '/subscriptions?address_id=add_01h8494f4w5rwfp8b12yqh8fp1,add_01h848pep46enq8y372x7maj0p',
+            ), (
+                ListSubscriptions(price_ids=['pri_01h8494f4w5rwfp8b12yqh8fp1']),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_default'),
+                '/subscriptions?price_id=pri_01h8494f4w5rwfp8b12yqh8fp1',
+            ), (
+                ListSubscriptions(price_ids=['pri_01h8494f4w5rwfp8b12yqh8fp1', 'pri_01h848pep46enq8y372x7maj0p']),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_default'),
+                '/subscriptions?price_id=pri_01h8494f4w5rwfp8b12yqh8fp1,pri_01h848pep46enq8y372x7maj0p',
+            ), (
+                ListSubscriptions(scheduled_change_actions=[SubscriptionScheduledChangeAction.Pause]),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_default'),
+                "/subscriptions?scheduled_change_action=pause",
+            ), (
+                ListSubscriptions(scheduled_change_actions=[
+                    SubscriptionScheduledChangeAction.Pause,
+                    SubscriptionScheduledChangeAction.Cancel
+                ]),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_default'),
+                '/subscriptions?scheduled_change_action=pause,cancel',
+            ),
+        ],
+        ids = [
+            "List subscriptions without pagination",
+            "List subscriptions with default pagination",
+            "List paginated subscriptions after specified subscription_id",
+            "List subscriptions filtered by status",
+            "List subscriptions filtered by id",
+            "List subscriptions filtered by multiple ids",
+            "List subscriptions filtered by automatic collection_mode",
+            "List subscriptions filtered by address_id",
+            "List subscriptions filtered by multiple address_ids",
+            "List subscriptions filtered by price_id",
+            "List subscriptions filtered by multiple price_ids",
+            "List subscriptions with scheduled_change_actions",
+            "List subscriptions with multiple scheduled_change_actions",
+        ]
+    )
+    def test_list_subscriptions_returns_expected_response(
+        self,
+        test_client,
+        mock_requests,
+        operation,
+        expected_response_status,
+        expected_response_body,
+        expected_url,
+    ):
+        expected_url = f"{test_client.base_url}{expected_url}"
+        mock_requests.get(expected_url, status_code=expected_response_status, text=expected_response_body)
+
+        response      = test_client.client.subscriptions.list(operation)
+        response_json = test_client.client.subscriptions.response.json()
+        last_request  = mock_requests.last_request
+
+        assert isinstance(response, SubscriptionWithIncludesCollection)
+        assert last_request is not None
+        assert last_request.method            == 'GET'
+        assert test_client.client.status_code == expected_response_status
+        assert unquote(last_request.url)      == expected_url, \
+            "The URL does not match the expected URL, verify the query string is correct"
+        assert response_json == loads(expected_response_body), \
+            "The response JSON generated by ResponseParser() doesn't match the expected fixture JSON"
+
+
+    @mark.parametrize(
         'subscription_id, includes, expected_response_status, expected_response_body, expected_url',
         [
             (
@@ -146,7 +261,7 @@ class TestSubscriptionsClient:
             "Get subscriptions with includes",
         ],
     )
-    def test_get_transactions_returns_expected_response(
+    def test_get_subscriptions_returns_expected_response(
         self,
         test_client,
         mock_requests,
@@ -635,7 +750,3 @@ class TestSubscriptionsClient:
             "The request JSON doesn't match the expected fixture JSON"
         assert response_json == loads(expected_response_body), \
             "The response JSON doesn't match the expected fixture JSON"
-
-
-
-

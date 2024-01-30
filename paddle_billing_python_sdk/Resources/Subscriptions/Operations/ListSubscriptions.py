@@ -58,4 +58,4 @@ class ListSubscriptions(HasParameters):
             'status':                  ','.join(map(enum_stringify, self.statuses)),
         })
 
-        return {k: v for k, v in parameters.items() if v is not None}
+        return {key: value for key, value in parameters.items() if value}
