@@ -22,11 +22,11 @@ class AddressesClient:
         self.response = None
 
 
-    def list(self, operation: ListAddresses = None) -> AddressCollection:
+    def list(self, customer_id: str, operation: ListAddresses = None) -> AddressCollection:
         if operation is None:
             operation = ListAddresses()
 
-        self.response = self.client.get_raw('/addresses', operation.get_parameters())
+        self.response = self.client.get_raw(f"/customers/{customer_id}/addresses", operation.get_parameters())
         parser        = ResponseParser(self.response)
 
         return AddressCollection.from_list(
@@ -36,8 +36,8 @@ class AddressesClient:
 
 
     def get(self, customer_id: str, address_id: str) -> Address:
-        response = self.client.get_raw(f"/customers/{customer_id}/addresses/{address_id}")
-        parser   = ResponseParser(response)
+        self.response = self.client.get_raw(f"/customers/{customer_id}/addresses/{address_id}")
+        parser        = ResponseParser(self.response)
 
         return Address.from_dict(parser.get_data())
 

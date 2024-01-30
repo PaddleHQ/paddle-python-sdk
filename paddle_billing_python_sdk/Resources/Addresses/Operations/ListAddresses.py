@@ -11,10 +11,10 @@ from paddle_billing_python_sdk.Resources.Shared.Operations.List.Pager import Pag
 class ListAddresses(HasParameters):
     def __init__(
             self,
-            pager:    Pager = None,
-            ids:      dict  = None,
-            statuses: dict  = None,
-            search:   str   = None,
+            pager:    Pager        = None,
+            ids:      list[str]    = None,
+            statuses: list[Status] = None,
+            search:   str          = None,
     ):
         self.pager    = pager
         self.search   = search
@@ -22,7 +22,7 @@ class ListAddresses(HasParameters):
         self.statuses = statuses if statuses is not None else []
 
         # Validation
-        if any(not isinstance(pid, str) for pid in self.ids):
+        if any(not isinstance(aid, str) for aid in self.ids):
             raise InvalidArgumentException('ids', 'string')
         if any(not isinstance(status, Status) for status in self.statuses):
             raise InvalidArgumentException('statuses', Status.__name__)
