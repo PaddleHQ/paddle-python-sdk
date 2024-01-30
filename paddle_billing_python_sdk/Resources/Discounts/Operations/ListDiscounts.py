@@ -41,6 +41,6 @@ class ListDiscounts(HasParameters):
         if self.statuses:
             parameters['status'] = ','.join(map(enum_stringify, self.statuses))
         if self.codes:
-            parameters['search'] = ','.join(self.codes)
+            parameters['code'] = ','.join(self.codes)
 
         return parameters
