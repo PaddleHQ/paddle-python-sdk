@@ -232,15 +232,17 @@ class TestTransactionsClient:
 
 
     @mark.parametrize(
-        'operation, expected_request_body, expected_response_status, expected_response_body, expected_url',
+        'transaction_id, operation, expected_request_body, expected_response_status, expected_response_body, expected_url',
         [
             (
+                'txn_01h7zcgmdc6tmwtjehp3sh7azf',
                 UpdateTransaction(status=StatusTransaction.Billed),
                 ReadsFixtures.read_raw_json_fixture('request/update_single'),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/full_entity'),
                 '/transactions/txn_01h7zcgmdc6tmwtjehp3sh7azf',
             ), (
+                'txn_01h7zcgmdc6tmwtjehp3sh7azf',
                 UpdateTransaction(status=StatusTransaction.Billed, custom_data=CustomData({'completed_by': 'Frank T'})),
                 ReadsFixtures.read_raw_json_fixture('request/update_partial'),
                 200,
@@ -257,6 +259,7 @@ class TestTransactionsClient:
         self,
         test_client,
         mock_requests,
+        transaction_id,
         operation,
         expected_request_body,
         expected_response_status,
@@ -266,7 +269,7 @@ class TestTransactionsClient:
         expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.patch(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        response      = test_client.client.transactions.update('txn_01h7zcgmdc6tmwtjehp3sh7azf', operation)
+        response      = test_client.client.transactions.update(transaction_id, operation)
         request_json  = test_client.client.payload
         response_json = test_client.client.transactions.response.json()
         last_request  = mock_requests.last_request

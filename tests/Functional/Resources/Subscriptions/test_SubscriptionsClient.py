@@ -41,15 +41,17 @@ from tests.Utils.ReadsFixture import ReadsFixtures
 
 class TestSubscriptionsClient:
     @mark.parametrize(
-        'operation, expected_request_body, expected_response_status, expected_response_body, expected_url',
+        'subscription_id, operation, expected_request_body, expected_response_status, expected_response_body, expected_url',
         [
             (
+                'sub_01h8bx8fmywym11t6swgzba704',
                 UpdateSubscription(proration_billing_mode=SubscriptionProrationBillingMode.ProratedNextBillingPeriod),
                 ReadsFixtures.read_raw_json_fixture('request/update_single'),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/full_entity'),
                 '/subscriptions/sub_01h8bx8fmywym11t6swgzba704',
             ), (
+                'sub_01h8bx8fmywym11t6swgzba704',
                 UpdateSubscription(
                     proration_billing_mode = SubscriptionProrationBillingMode.FullImmediately,
                     scheduled_change       = None,
@@ -59,6 +61,7 @@ class TestSubscriptionsClient:
                 ReadsFixtures.read_raw_json_fixture('response/full_entity'),
                 '/subscriptions/sub_01h8bx8fmywym11t6swgzba704',
             ), (
+                'sub_01h8bx8fmywym11t6swgzba704',
                 UpdateSubscription(
                     customer_id            = 'ctm_01h8441jn5pcwrfhwh78jqt8hk',
                     address_id             = 'add_01h848pep46enq8y372x7maj0p',
@@ -95,6 +98,7 @@ class TestSubscriptionsClient:
         self,
         test_client,
         mock_requests,
+        subscription_id,
         operation,
         expected_request_body,
         expected_response_status,
@@ -104,7 +108,7 @@ class TestSubscriptionsClient:
         expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.patch(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        response      = test_client.client.subscriptions.update('sub_01h8bx8fmywym11t6swgzba704', operation)
+        response      = test_client.client.subscriptions.update(subscription_id, operation)
         request_json  = test_client.client.payload
         response_json = test_client.client.subscriptions.response.json()
         last_request  = mock_requests.last_request
@@ -271,7 +275,7 @@ class TestSubscriptionsClient:
         expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.get(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        response      = test_client.client.subscriptions.get(subscription_id=subscription_id, includes=includes)
+        response      = test_client.client.subscriptions.get(subscription_id, includes=includes)
         response_json = test_client.client.subscriptions.response.json()
         last_request  = mock_requests.last_request
 
@@ -286,21 +290,24 @@ class TestSubscriptionsClient:
 
 
     @mark.parametrize(
-        'operation, expected_request_body, expected_response_status, expected_response_body, expected_url',
+        'subscription_id, operation, expected_request_body, expected_response_status, expected_response_body, expected_url',
         [
             (
+                'sub_01h8bx8fmywym11t6swgzba704',
                 PauseSubscription(),
                 ReadsFixtures.read_raw_json_fixture('request/pause_none'),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/full_entity'),
                 '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/pause',
             ), (
+                'sub_01h8bx8fmywym11t6swgzba704',
                 PauseSubscription(SubscriptionEffectiveFrom.NextBillingPeriod),
                 ReadsFixtures.read_raw_json_fixture('request/pause_single'),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/full_entity'),
                 '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/pause',
             ), (
+                'sub_01h8bx8fmywym11t6swgzba704',
                 PauseSubscription(SubscriptionEffectiveFrom.NextBillingPeriod, DateTime('2023-10-09T16:30:00Z')),
                 ReadsFixtures.read_raw_json_fixture('request/pause_full'),
                 200,
@@ -318,6 +325,7 @@ class TestSubscriptionsClient:
         self,
         test_client,
         mock_requests,
+        subscription_id,
         operation,
         expected_request_body,
         expected_response_status,
@@ -327,7 +335,7 @@ class TestSubscriptionsClient:
         expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        response      = test_client.client.subscriptions.pause('sub_01h8bx8fmywym11t6swgzba704', operation)
+        response      = test_client.client.subscriptions.pause(subscription_id, operation)
         request_json  = test_client.client.payload
         response_json = test_client.client.subscriptions.response.json()
         last_request  = mock_requests.last_request
@@ -345,21 +353,24 @@ class TestSubscriptionsClient:
 
 
     @mark.parametrize(
-        'operation, expected_request_body, expected_response_status, expected_response_body, expected_url',
+        'subscription_id, operation, expected_request_body, expected_response_status, expected_response_body, expected_url',
         [
             (
+                'sub_01h8bx8fmywym11t6swgzba704',
                 ResumeSubscription(),
                 ReadsFixtures.read_raw_json_fixture('request/resume_none'),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/full_entity'),
                 '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/resume',
             ), (
+                'sub_01h8bx8fmywym11t6swgzba704',
                 ResumeSubscription(SubscriptionEffectiveFrom.NextBillingPeriod),
                 ReadsFixtures.read_raw_json_fixture('request/resume_single_as_enum'),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/full_entity'),
                 '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/resume',
             ), (
+                'sub_01h8bx8fmywym11t6swgzba704',
                 ResumeSubscription(DateTime('2023-10-09T16:30:00Z')),
                 ReadsFixtures.read_raw_json_fixture('request/resume_single_as_date'),
                 200,
@@ -377,6 +388,7 @@ class TestSubscriptionsClient:
         self,
         test_client,
         mock_requests,
+        subscription_id,
         operation,
         expected_request_body,
         expected_response_status,
@@ -386,7 +398,7 @@ class TestSubscriptionsClient:
         expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        response      = test_client.client.subscriptions.resume('sub_01h8bx8fmywym11t6swgzba704', operation)
+        response      = test_client.client.subscriptions.resume(subscription_id, operation)
         request_json  = test_client.client.payload
         response_json = test_client.client.subscriptions.response.json()
         last_request  = mock_requests.last_request
@@ -404,15 +416,17 @@ class TestSubscriptionsClient:
 
 
     @mark.parametrize(
-        'operation, expected_request_body, expected_response_status, expected_response_body, expected_url',
+        'subscription_id, operation, expected_request_body, expected_response_status, expected_response_body, expected_url',
         [
             (
+                'sub_01h8bx8fmywym11t6swgzba704',
                 CancelSubscription(),
                 ReadsFixtures.read_raw_json_fixture('request/cancel_none'),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/full_entity'),
                 '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/cancel',
             ), (
+                'sub_01h8bx8fmywym11t6swgzba704',
                 CancelSubscription(SubscriptionEffectiveFrom.NextBillingPeriod),
                 ReadsFixtures.read_raw_json_fixture('request/cancel_single'),
                 200,
@@ -429,6 +443,7 @@ class TestSubscriptionsClient:
         self,
         test_client,
         mock_requests,
+        subscription_id,
         operation,
         expected_request_body,
         expected_response_status,
@@ -438,7 +453,7 @@ class TestSubscriptionsClient:
         expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        response      = test_client.client.subscriptions.cancel('sub_01h8bx8fmywym11t6swgzba704', operation)
+        response      = test_client.client.subscriptions.cancel(subscription_id, operation)
         request_json  = test_client.client.payload
         response_json = test_client.client.subscriptions.response.json()
         last_request  = mock_requests.last_request
@@ -456,9 +471,10 @@ class TestSubscriptionsClient:
 
 
     @mark.parametrize(
-        'operation, expected_response_status, expected_response_body, expected_url',
+        'subscription_id, operation, expected_response_status, expected_response_body, expected_url',
         [
             (
+                'sub_01h7zcgmdc6tmwtjehp3sh7azf',
                 CancelSubscription(),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/get_payment_method_change_transaction_entity'),
@@ -471,6 +487,7 @@ class TestSubscriptionsClient:
         self,
         test_client,
         mock_requests,
+        subscription_id,
         operation,
         expected_response_status,
         expected_response_body,
@@ -479,9 +496,7 @@ class TestSubscriptionsClient:
         expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.get(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        response = test_client.client.subscriptions.get_payment_method_change_transaction(
-            'sub_01h7zcgmdc6tmwtjehp3sh7azf'
-        )
+        response = test_client.client.subscriptions.get_payment_method_change_transaction(subscription_id)
         response_json = test_client.client.subscriptions.response.json()
         last_request  = mock_requests.last_request
 
@@ -667,7 +682,7 @@ class TestSubscriptionsClient:
         expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.patch(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        response      = test_client.client.subscriptions.preview_update('sub_01h8bx8fmywym11t6swgzba704', operation)
+        response      = test_client.client.subscriptions.preview_update(subscription_id, operation)
         request_json  = test_client.client.payload
         response_json = test_client.client.subscriptions.response.json()
         last_request  = mock_requests.last_request
