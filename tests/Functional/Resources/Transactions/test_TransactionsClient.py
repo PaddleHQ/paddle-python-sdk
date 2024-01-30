@@ -2,12 +2,9 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing_python_sdk.Environment    import Environment
-
 from paddle_billing_python_sdk.Entities.Collections.TransactionWithIncludesCollection import TransactionWithIncludesCollection
 
 from paddle_billing_python_sdk.Entities.DateTime                                    import DateTime
-from paddle_billing_python_sdk.Entities.Transaction                                 import Transaction
 from paddle_billing_python_sdk.Entities.TransactionData                             import TransactionData
 from paddle_billing_python_sdk.Entities.TransactionPreview                          import TransactionPreview
 from paddle_billing_python_sdk.Entities.TransactionWithIncludes                     import TransactionWithIncludes
@@ -27,7 +24,6 @@ from paddle_billing_python_sdk.Entities.Shared.Interval          import Interval
 from paddle_billing_python_sdk.Entities.Shared.Money             import Money
 from paddle_billing_python_sdk.Entities.Shared.PriceQuantity     import PriceQuantity
 from paddle_billing_python_sdk.Entities.Shared.StatusTransaction import StatusTransaction
-from paddle_billing_python_sdk.Entities.Shared.StatusTransaction import StatusTransaction
 from paddle_billing_python_sdk.Entities.Shared.TaxMode           import TaxMode
 from paddle_billing_python_sdk.Entities.Shared.TimePeriod        import TimePeriod
 
@@ -46,6 +42,60 @@ from tests.Utils.ReadsFixture import ReadsFixtures
 
 
 class TestTransactionsClient:
+    @mark.parametrize("operation", [
+        ListTransactions()
+    ])
+    def test_list_transaction_can_paginate(self, test_client, mock_requests, operation):
+        expected_response_status        = 200
+        expected_page_one_url           = f"{test_client.base_url}/transactions"
+        expected_page_one_response_body = ReadsFixtures.read_raw_json_fixture('response/list_paginated_page_one')
+
+        # meta.pagination.next value is hardcoded in response/list_paginated_page_one, so this must be an absolute value
+        expected_page_two_url           = 'https://api.paddle.com/transactions?after=txn_01h69ddtrb11km0wk46dn607ya'
+        expected_page_two_response_body = ReadsFixtures.read_raw_json_fixture('response/list_paginated_page_two')
+
+        mock_requests.get(
+            url         = expected_page_one_url,
+            status_code = expected_response_status,
+            text        = ReadsFixtures.read_raw_json_fixture('response/list_paginated_page_one'),
+        )
+        mock_requests.get(
+            url         = expected_page_two_url,
+            status_code = expected_response_status,
+            text        = ReadsFixtures.read_raw_json_fixture('response/list_paginated_page_two'),
+        )
+
+        transactions  = test_client.client.transactions.list(operation)
+        response_json = test_client.client.transactions.response.json()
+
+        # Assertions for first request
+        assert len(mock_requests.request_history) > 0
+        first_request = mock_requests.request_history[0]
+        assert first_request is not None
+        assert first_request.method           == 'GET'
+        assert test_client.client.status_code == expected_response_status
+        assert unquote(first_request.url)     == expected_page_one_url, \
+            "The URL does not match the expected URL, verify the query string is correct"
+        assert response_json == loads(expected_page_one_response_body), \
+            "The response JSON doesn't match the expected fixture JSON"
+
+        for transaction in transactions:
+            assert isinstance(transaction, TransactionWithIncludes)
+
+        # Assertions for second request
+        second_request = mock_requests.request_history[1]
+        assert second_request is not None
+        assert second_request.method          == 'GET'
+        assert test_client.client.status_code == expected_response_status
+        assert unquote(second_request.url)    == expected_page_two_url, \
+            "The URL does not match the expected URL, verify the query string is correct"
+
+        # Due to limitations of how TransactionsClient.list() sets test_client.client.transactions.response,
+        # we can't test the response body of subsequent paginated pages
+        # assert response_json == loads(expected_page_two_response_body), \
+        #     "The response JSON doesn't match the expected fixture JSON"
+
+
     @mark.parametrize(
         'operation, expected_request_body, expected_response_status, expected_response_body, expected_url',
         [
@@ -117,7 +167,7 @@ class TestTransactionsClient:
         expected_response_body,
         expected_url,
     ):
-        expected_url = f"{Environment.SANDBOX.base_url}{expected_url}"
+        expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         transaction   = test_client.client.transactions.create(operation)
@@ -162,7 +212,7 @@ class TestTransactionsClient:
         expected_response_body,
         expected_url,
     ):
-        expected_url = f"{Environment.SANDBOX.base_url}{expected_url}"
+        expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         transaction   = test_client.client.transactions.create(operation, includes=[Includes.Customer, Includes.Business])
@@ -211,7 +261,7 @@ class TestTransactionsClient:
         expected_response_body,
         expected_url,
     ):
-        expected_url = f"{Environment.SANDBOX.base_url}{expected_url}"
+        expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.patch(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         transaction   = test_client.client.transactions.update('txn_01h7zcgmdc6tmwtjehp3sh7azf', operation)
@@ -274,68 +324,57 @@ class TestTransactionsClient:
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/list_default'),
                 '/transactions?collection_mode=automatic',
-            ),
-            # (  # TODO
-            #     ListTransactions(billed_at=DateComparison('2023-11-06 14:00:00')),
-            #     200,
-            #     ReadsFixtures.read_raw_json_fixture('response/list_default'),
-            #     "/transactions?billed_at=2023-11-06T14:00:00.000000Z",
-            # ),
-            # (  # TODO
-            #     ListTransactions(billed_at=DateComparison('2023-11-06 14:00:00'), Comparator.GT),
-            #     200,
-            #     ReadsFixtures.read_raw_json_fixture('response/list_default'),
-            #     "/transactions?billed_at[GT]=2023-11-06T14:00:00.000000Z",
-            # ),
-            (
+            ), (
+                ListTransactions(billed_at=DateComparison(DateTime('2023-11-06 14:00:00').as_datetime)),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_default'),
+                "/transactions?billed_at=2023-11-06T14:00:00.000000Z",
+            ), (
+                ListTransactions(billed_at=DateComparison(DateTime('2023-11-06 14:00:00').as_datetime, Comparator.GT)),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_default'),
+                "/transactions?billed_at[GT]=2023-11-06T14:00:00.000000Z",
+            ), (
                 ListTransactions(invoice_numbers=['inv_01gsz4s0w61y0pp88528f1wvvb']),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/list_default'),
                 '/transactions?invoice_number=inv_01gsz4s0w61y0pp88528f1wvvb',
-            ),
-            (
+            ), (
                 ListTransactions(invoice_numbers=['inv_01gsz4s0w61y0pp88528f1wvvb', 'inv_01h1vjes1y163xfj1rh1tkfb65']),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/list_default'),
                 '/transactions?invoice_number=inv_01gsz4s0w61y0pp88528f1wvvb,inv_01h1vjes1y163xfj1rh1tkfb65',
-            ),
-            (
+            ), (
                 ListTransactions(subscription_ids=['sub_01gsz4s0w61y0pp88528f1wvvb']),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/list_default'),
                 '/transactions?subscription_id=sub_01gsz4s0w61y0pp88528f1wvvb',
-            ),
-            (
+            ), (
                 ListTransactions(subscription_ids=['sub_01gsz4s0w61y0pp88528f1wvvb', 'sub_01h1vjes1y163xfj1rh1tkfb65']),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/list_default'),
                 '/transactions?subscription_id=sub_01gsz4s0w61y0pp88528f1wvvb,sub_01h1vjes1y163xfj1rh1tkfb65',
-            ),
-            # (  # TODO
-            #     ListTransactions(updated_at=DateComparison('2023-11-06 14:00:00')),
-            #     200,
-            #     ReadsFixtures.read_raw_json_fixture('response/list_default'),
-            #     "/transactions?updated_at=2023-11-06T14:00:00.000000Z",
-            # ),
-            # (  # TODO
-            #     ListTransactions(updated_at=DateComparison('2023-11-06 14:00:00'), Comparator.GT),
-            #     200,
-            #     ReadsFixtures.read_raw_json_fixture('response/list_default'),
-            #     "/transactions?updated_at[GT]=2023-11-06T14:00:00.000000Z",
-            # ),
-            # (  # TODO
-            #     ListTransactions(created_at=DateComparison('2023-11-06 14:00:00')),
-            #     200,
-            #     ReadsFixtures.read_raw_json_fixture('response/list_default'),
-            #     "/transactions?created_at=2023-11-06T14:00:00.000000Z",
-            # ),
-            # (  # TODO
-            #     ListTransactions(created_at=DateComparison('2023-11-06 14:00:00'), Comparator.GT),
-            #     200,
-            #     ReadsFixtures.read_raw_json_fixture('response/list_default'),
-            #     "/transactions?created_at[GT]=2023-11-06T14:00:00.000000Z",
-            # ),
-            (
+            ), (
+                ListTransactions(updated_at=DateComparison(DateTime('2023-11-06 14:00:00').as_datetime)),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_default'),
+                "/transactions?updated_at=2023-11-06T14:00:00.000000Z",
+            ), (
+                ListTransactions(updated_at=DateComparison(DateTime('2023-11-06 14:00:00').as_datetime, Comparator.GT)),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_default'),
+                "/transactions?updated_at[GT]=2023-11-06T14:00:00.000000Z",
+            ), (
+                ListTransactions(created_at=DateComparison(DateTime('2023-11-06 14:00:00').as_datetime)),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_default'),
+                "/transactions?created_at=2023-11-06T14:00:00.000000Z",
+            ), (
+                ListTransactions(created_at=DateComparison(DateTime('2023-11-06 14:00:00').as_datetime, Comparator.GT)),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_default'),
+                "/transactions?created_at[GT]=2023-11-06T14:00:00.000000Z",
+            ), (
                 ListTransactions(includes=[Includes.Customer]),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/list_default'),
@@ -355,24 +394,22 @@ class TestTransactionsClient:
         ids = [
             "List transactions without pagination",
             "List transactions with default pagination",
-            "List paginated transactions after specified transaction id",
+            "List paginated transactions after specified transaction_id",
             "List transactions filtered by status",
             "List transactions filtered by multiple statuses",
             "List transactions filtered by id",
             "List transactions filtered by multiple ids",
-            "List transactions filtered by automatic collection mode",
-            # "List transactions filtered by billed at without a comparator",  # TODO
-            # "List transactions filtered by billed at with a comparator",     # TODO
-            "List transactions filtered by invoice number",
-            "List transactions filtered by multiple invoice numbers",
-            "List transactions filtered by subscription id",
-            "List transactions filtered by multiple subscription ids",
-            # "List transactions filtered by updated at without a comparator",  # TODO
-            # "List transactions filtered by updated at with a comparator",     # TODO
-            # "List transactions filtered by created at without a comparator",  # TODO
-            # "List transactions filtered by created at with a comparator",     # TODO
-            # "List transactions with includes",
-            # "List transactions with includes",
+            "List transactions filtered by automatic collection_mode",
+            "List transactions filtered by billed_at without a comparator",
+            "List transactions filtered by billed at with a comparator",
+            "List transactions filtered by invoice_number",
+            "List transactions filtered by multiple invoice_numbers",
+            "List transactions filtered by subscription_id",
+            "List transactions filtered by multiple subscription_ids",
+            "List transactions filtered by updated_at without a comparator",
+            "List transactions filtered by updated_at with a comparator",
+            "List transactions filtered by created_at without a comparator",
+            "List transactions filtered by created_at with a comparator",
             "List transactions with includes",
             "List transactions with multiple includes",
             "List transactions with origins",
@@ -387,7 +424,7 @@ class TestTransactionsClient:
         expected_response_body,
         expected_url,
     ):
-        expected_url = f"{Environment.SANDBOX.base_url}{expected_url}"
+        expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.get(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         response     = test_client.client.transactions.list(operation)
@@ -434,7 +471,7 @@ class TestTransactionsClient:
         expected_response_body,
         expected_url,
     ):
-        expected_url = f"{Environment.SANDBOX.base_url}{expected_url}"
+        expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.get(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         transaction   = test_client.client.transactions.get(transaction_id=transaction_id, includes=includes)
@@ -507,7 +544,7 @@ class TestTransactionsClient:
         expected_response_body,
         expected_url,
     ):
-        expected_url = f"{Environment.SANDBOX.base_url}{expected_url}"
+        expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         product       = test_client.client.transactions.preview(operation)
@@ -531,7 +568,7 @@ class TestTransactionsClient:
         transaction_id           = 'txn_01hen7bxc1p8ep4yk7n5jbzk9r'
         expected_response_status = 200
         expected_response_body   = ReadsFixtures.read_raw_json_fixture('response/get_invoice_pdf_default')
-        expected_url             = f"{Environment.SANDBOX.base_url}/transactions/{transaction_id}/invoice"
+        expected_url             = f"{test_client.base_url}/transactions/{transaction_id}/invoice"
 
         mock_requests.get(
             url         = expected_url,

@@ -1,4 +1,5 @@
 import json
+from requests     import Response
 from urllib.parse import urlparse, parse_qs
 
 from paddle_billing_python_sdk.Entities.Shared.Pagination import Pagination
@@ -8,7 +9,7 @@ from paddle_billing_python_sdk.Exceptions.ApiError import ApiError
 
 # TODO
 class ResponseParser:
-    def __init__(self, response):
+    def __init__(self, response: Response):
         self.body = None
 
         if not hasattr(response, 'text'):
@@ -23,25 +24,17 @@ class ResponseParser:
             self.parse_errors()
 
 
-    def get_data(self):
+    def get_data(self) -> list | dict:
         return self.body.get('data', []) if self.body else []
 
 
-    def get_pagination(self):
-        meta       = self.body.get('meta', {})  if self.body else {}
-        pagination = meta.get('pagination', {}) if self.body else {}
-
-        next_page        = pagination.get('next')
-        next_page_number = None
-
-        if next_page:
-            parsed_url       = urlparse(next_page)
-            query_params     = parse_qs(parsed_url.query)
-            next_page_number = query_params.get('page', [None])[0]
+    def get_pagination(self) -> Pagination:
+        meta       = self.body.get('meta',  {}) if self.body  else {}
+        pagination = meta.get('pagination', {}) if meta       else {}
 
         return Pagination(
             per_page        = pagination.get('per_page'),
-            next            = next_page_number,
+            next            = pagination.get('next'),
             has_more        = pagination.get('has_more'),
             estimated_total = pagination.get('estimated_total'),
         )

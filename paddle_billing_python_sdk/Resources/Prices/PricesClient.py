@@ -49,7 +49,6 @@ class PricesClient:
 
         params        = {'include': ','.join(include.value for include in includes)} if includes else {}
         self.response = self.client.get_raw(f"/prices/{price_id}", params)
-        print(f"self.response={self.response.json()}")
         parser        = ResponseParser(self.response)
 
         return PriceWithIncludes.from_dict(parser.get_data())

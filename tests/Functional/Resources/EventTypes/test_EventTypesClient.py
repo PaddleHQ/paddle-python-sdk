@@ -16,7 +16,7 @@ class TestEventTypesClient:
         [(
             200,
             ReadsFixtures.read_raw_json_fixture('response/list_default'),
-            f"{Environment.SANDBOX.base_url}/event-types",
+            '/event-types',
         )],
         ids = ["List event types"],
     )
@@ -28,6 +28,7 @@ class TestEventTypesClient:
         expected_response_body,
         expected_url,
     ):
+        expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.get(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         event_types   = test_client.client.event_types.list()

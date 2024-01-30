@@ -49,10 +49,8 @@ class PaddleSignature:
             PaddleSignature().TIMESTAMP: 0,
             'hashes':                    {PaddleSignature().HASH_ALGORITHM_1: []},
         }
-        # print(f"components: {components}")
 
         for key_value_pair in signature_header.split(";"):
-            # print(f"key_value_pair: {key_value_pair}")
             if '=' in key_value_pair:
                 key, value = key_value_pair.split('=')
 
@@ -63,7 +61,6 @@ class PaddleSignature:
                 else:
                     raise ValueError(f"Unrecognized Paddle-Signature key")
 
-        print(f"components: {components}")
         return components[PaddleSignature().TIMESTAMP], components['hashes']
 
 

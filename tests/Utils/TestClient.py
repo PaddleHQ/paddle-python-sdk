@@ -41,7 +41,7 @@ class TestClient:
 
 @fixture(autouse=True)
 def test_client():
-    return TestClient()
+    return TestClient(environment=Environment.PRODUCTION)
 
 
 @fixture

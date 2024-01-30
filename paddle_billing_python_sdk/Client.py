@@ -119,9 +119,8 @@ class Client:
         """
         Makes an actual API call to Paddle
         """
-        # print(f"Request: {method} {url}")
-        print(f"Request: {method} {unquote(url)}")
-        # Parse and update URI with base URL components if necessary
+
+        # Parse and update URL with base URL components if necessary
         if isinstance(url, str):
             url = urljoin(self.options.environment.base_url, url)
 
@@ -132,7 +131,7 @@ class Client:
         self.payload = self.serialize_json_payload(payload) if payload else None
         try:
             # We use data= instead of json= because we manually serialize data into JSON
-            response = self.client.request(method.upper(), url, data=self.payload)
+            response         = self.client.request(method.upper(), url, data=self.payload)
             self.status_code = response.status_code
             response.raise_for_status()
 

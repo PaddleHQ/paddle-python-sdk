@@ -15,15 +15,16 @@ class Paginator:
         self._mapper     = mapper
 
 
+    @property
     def has_more(self) -> bool:
         return self._pagination.has_more
 
 
-    def next_page(self):
+    def next_page(self) -> 'Collection':
         response        = self._client.get_raw(self._pagination.next)
         response_parser = ResponseParser(response)
 
-        return self._mapper.from_array(
+        return self._mapper.from_list(
             response_parser.get_data(),
             Paginator(self._client, response_parser.get_pagination(), self._mapper)
         )
