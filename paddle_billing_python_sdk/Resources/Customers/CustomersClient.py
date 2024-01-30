@@ -62,7 +62,7 @@ class CustomersClient:
 
 
     def credit_balances(self, customer_id: str) -> CreditBalanceCollection:
-        self.response = self.client.get_raw(f"/customers/{customer_id}/credit-balance")
+        self.response = self.client.get_raw(f"/customers/{customer_id}/credit-balances")
         parser        = ResponseParser(self.response)
 
         return CreditBalanceCollection.from_list(parser.get_data())
