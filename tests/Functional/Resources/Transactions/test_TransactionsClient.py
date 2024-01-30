@@ -479,7 +479,7 @@ class TestTransactionsClient:
         expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.get(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        response      = test_client.client.transactions.get(transaction_id=transaction_id, includes=includes)
+        response      = test_client.client.transactions.get(transaction_id, includes=includes)
         response_json = test_client.client.transactions.response.json()
         last_request  = mock_requests.last_request
 
