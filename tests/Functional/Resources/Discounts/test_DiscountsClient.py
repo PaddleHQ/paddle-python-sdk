@@ -8,14 +8,8 @@ from paddle_billing_python_sdk.Entities.Discounts.DiscountType   import Discount
 
 from paddle_billing_python_sdk.Entities.Collections.DiscountCollection import DiscountCollection
 
-from paddle_billing_python_sdk.Entities.Shared.CountryCode       import CountryCode
 from paddle_billing_python_sdk.Entities.Shared.CurrencyCode      import CurrencyCode
-from paddle_billing_python_sdk.Entities.Shared.CustomData        import CustomData
-from paddle_billing_python_sdk.Entities.Shared.Interval          import Interval
-from paddle_billing_python_sdk.Entities.Shared.Money             import Money
 from paddle_billing_python_sdk.Entities.Shared.Status            import Status
-from paddle_billing_python_sdk.Entities.Shared.TaxMode           import TaxMode
-from paddle_billing_python_sdk.Entities.Shared.TimePeriod        import TimePeriod
 
 from paddle_billing_python_sdk.Resources.Discounts.Operations.CreateDiscount import CreateDiscount
 from paddle_billing_python_sdk.Resources.Discounts.Operations.ListDiscounts  import ListDiscounts
