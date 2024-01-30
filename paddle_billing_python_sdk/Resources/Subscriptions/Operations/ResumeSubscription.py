@@ -10,8 +10,9 @@ class ResumeSubscription:
 
 
     def __post_init__(self):
-        if isinstance(self.effective_from, DateTime):
-            self.effective_from = DateTime.from_datetime(self.effective_from)
+        pass
+        # if isinstance(self.effective_from, DateTime):
+        #     self.effective_from = DateTime.from_datetime(self.effective_from)
 
 
     def get_parameters(self) -> dict:
