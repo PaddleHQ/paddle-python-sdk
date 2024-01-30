@@ -265,13 +265,9 @@ class TestProductsClient:
         expected_url,
     ):
         expected_url = f"{test_client.base_url}{expected_url}"
-        mock_requests.get(
-            url         = expected_url,
-            status_code = expected_response_status,
-            text        = expected_response_body
-        )
+        mock_requests.get(expected_url, status_code=expected_response_status,  text=expected_response_body)
 
-        response      = test_client.client.products.get(product_id=product_id, includes=includes)
+        response      = test_client.client.products.get(product_id, includes=includes)
         response_json = test_client.client.products.response.json()
         last_request  = mock_requests.last_request
 

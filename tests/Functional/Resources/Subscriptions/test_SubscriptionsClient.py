@@ -108,7 +108,7 @@ class TestSubscriptionsClient:
         expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.patch(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        response      = test_client.client.subscriptions.update(subscription_id, operation)
+        response      = test_client.client.subscriptions.update(subscription_id, operation=operation)
         request_json  = test_client.client.payload
         response_json = test_client.client.subscriptions.response.json()
         last_request  = mock_requests.last_request
@@ -191,7 +191,7 @@ class TestSubscriptionsClient:
             ), (
                 ListSubscriptions(scheduled_change_actions=[
                     SubscriptionScheduledChangeAction.Pause,
-                    SubscriptionScheduledChangeAction.Cancel
+                    SubscriptionScheduledChangeAction.Cancel,
                 ]),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/list_default'),
@@ -212,7 +212,7 @@ class TestSubscriptionsClient:
             "List subscriptions filtered by multiple price_ids",
             "List subscriptions with scheduled_change_actions",
             "List subscriptions with multiple scheduled_change_actions",
-        ]
+        ],
     )
     def test_list_subscriptions_returns_expected_response(
         self,
@@ -335,7 +335,7 @@ class TestSubscriptionsClient:
         expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        response      = test_client.client.subscriptions.pause(subscription_id, operation)
+        response      = test_client.client.subscriptions.pause(subscription_id, operation=operation)
         request_json  = test_client.client.payload
         response_json = test_client.client.subscriptions.response.json()
         last_request  = mock_requests.last_request
@@ -555,7 +555,7 @@ class TestSubscriptionsClient:
                 'sub_01h8bx8fmywym11t6swgzba704',
                 CreateOneTimeCharge(
                     SubscriptionEffectiveFrom.NextBillingPeriod,
-                    [SubscriptionItems('pri_01gsz98e27ak2tyhexptwc58yk', 1)]
+                    [SubscriptionItems('pri_01gsz98e27ak2tyhexptwc58yk', 1)],
                 ),
                 ReadsFixtures.read_raw_json_fixture('request/create_one_time_charge_minimal'),
                 200,
@@ -576,7 +576,7 @@ class TestSubscriptionsClient:
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/full_entity'),
                 '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/charge',
-            )
+            ),
         ],
         ids = [
             "Create subscription one-time payment for one item effective next billing period",

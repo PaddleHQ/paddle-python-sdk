@@ -21,7 +21,7 @@ An unofficial Python wrapper for the new Paddle Billing SDK, based on Paddle's o
 - [Examples](#Examples)
 
 ## Requirements
-Python 3.11 and later.
+Python>=3.11 (for native type hinting, StrEnum, trailing slashes)
 
 **Project dependencies** (automatically installed by pip):
 - requests>=2.31

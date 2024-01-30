@@ -2,8 +2,6 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing_python_sdk.Environment import Environment
-
 from paddle_billing_python_sdk.Entities.Collections.EventCollection   import EventCollection
 from paddle_billing_python_sdk.Resources.Events.Operations.ListEvents import ListEvents
 from paddle_billing_python_sdk.Resources.Shared.Operations.List.Pager import Pager

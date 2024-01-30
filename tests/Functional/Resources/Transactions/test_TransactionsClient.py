@@ -190,26 +190,26 @@ class TestTransactionsClient:
 
 
     @mark.parametrize(
-        'operation, expected_response_status, expected_response_body, expected_url',
+        'operation, includes, expected_response_status, expected_response_body, expected_url',
         [
             (
                 CreateTransaction(items=[
                     TransactionCreateItem(price_id='pri_01he5kxqey1k8ankgef29cj4bv', quantity=1)
                 ]),
+                [Includes.Customer, Includes.Business],
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/minimal_entity'),
                 '/transactions?include=customer,business',
             )
         ],
-        ids = [
-            "Create transaction with multiple includes"
-        ],
+        ids = ["Create transaction with multiple includes"],
     )
     def test_create_transaction_with_includes_returns_expected_payload(
         self,
         test_client,
         mock_requests,
         operation,
+        includes,
         expected_response_status,
         expected_response_body,
         expected_url,
@@ -217,7 +217,7 @@ class TestTransactionsClient:
         expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        response      = test_client.client.transactions.create(operation, includes=[Includes.Customer, Includes.Business])
+        response      = test_client.client.transactions.create(operation, includes=includes)
         response_json = test_client.client.transactions.response.json()
         last_request  = mock_requests.last_request
 

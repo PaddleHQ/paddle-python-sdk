@@ -2,8 +2,6 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing_python_sdk.Environment import Environment
-
 from paddle_billing_python_sdk.Entities.Collections.EventTypeCollection import EventTypeCollection
 
 from tests.Utils.TestClient   import mock_requests, test_client

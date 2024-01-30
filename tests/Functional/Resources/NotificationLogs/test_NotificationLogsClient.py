@@ -55,7 +55,7 @@ class TestNotificationLogsClient:
         expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.get(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        response      = test_client.client.notification_logs.list(TEST_ID, operation)
+        response      = test_client.client.notification_logs.list(TEST_ID, operation=operation)
         response_json = test_client.client.notification_logs.response.json()
         last_request  = mock_requests.last_request
 

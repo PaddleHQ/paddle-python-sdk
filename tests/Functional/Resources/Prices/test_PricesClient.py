@@ -2,8 +2,6 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing_python_sdk.Environment    import Environment
-
 from paddle_billing_python_sdk.Entities.Price             import Price
 from paddle_billing_python_sdk.Entities.PriceWithIncludes import PriceWithIncludes
 
@@ -306,7 +304,7 @@ class TestPricesClient:
             text        = expected_response_body
         )
 
-        response      = test_client.client.prices.get(price_id=price_id, includes=includes)
+        response      = test_client.client.prices.get(price_id, includes=includes)
         response_json = test_client.client.prices.response.json()
         last_request  = mock_requests.last_request
 
