@@ -88,7 +88,7 @@ class TestSubscriptionsClient:
             ),
         ],
         ids = [
-            "Update subscription with single new value",
+            "Update subscription with a single new value",
             "Update subscription with partial new values",
             "Update subscription with all new values",
         ],
@@ -355,7 +355,7 @@ class TestSubscriptionsClient:
         ],
         ids = ["Cancel subscription"],
     )
-    def test_get_payment_method_change_transaction_uses_expected_payload(
+    def test_get_payment_method_change_transaction_returns_expected_response(
         self,
         test_client,
         mock_requests,
@@ -395,7 +395,7 @@ class TestSubscriptionsClient:
         ],
         ids = ["Activate trialing subscription"],
     )
-    def test_update_subscription_returns_expected_response(
+    def test_activate_subscription_returns_expected_response(
         self,
         test_client,
         mock_requests,
@@ -422,9 +422,10 @@ class TestSubscriptionsClient:
 
 
     @mark.parametrize(
-        'operation, expected_request_body, expected_response_status, expected_response_body, expected_url',
+        'subscription_id, operation, expected_request_body, expected_response_status, expected_response_body, expected_url',
         [
             (
+                'sub_01h8bx8fmywym11t6swgzba704',
                 CreateOneTimeCharge(
                     SubscriptionEffectiveFrom.NextBillingPeriod,
                     [SubscriptionItems('pri_01gsz98e27ak2tyhexptwc58yk', 1)]
@@ -434,6 +435,7 @@ class TestSubscriptionsClient:
                 ReadsFixtures.read_raw_json_fixture('response/full_entity'),
                 '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/charge',
             ), (
+                'sub_01h8bx8fmywym11t6swgzba704',
                 CreateOneTimeCharge(
                     SubscriptionEffectiveFrom.Immediately,
                     [
@@ -447,7 +449,7 @@ class TestSubscriptionsClient:
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/full_entity'),
                 '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/charge',
-            )
+        )
         ],
         ids = [
             "Create subscription one-time payment for one item effective next billing period",
@@ -458,6 +460,7 @@ class TestSubscriptionsClient:
         self,
         test_client,
         mock_requests,
+        subscription_id,
         operation,
         expected_request_body,
         expected_response_status,
@@ -467,12 +470,162 @@ class TestSubscriptionsClient:
         expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        response      = test_client.client.subscriptions.create_one_time_charge('sub_01h8bx8fmywym11t6swgzba704', operation)
+        response      = test_client.client.subscriptions.create_one_time_charge(subscription_id, operation)
         request_json  = test_client.client.payload
         response_json = test_client.client.subscriptions.response.json()
         last_request  = mock_requests.last_request
 
         assert isinstance(response, Subscription)
+        assert last_request is not None
+        assert last_request.method            == 'POST'
+        assert test_client.client.status_code == expected_response_status
+        assert unquote(last_request.url)      == expected_url, \
+            "The URL does not match the expected URL, verify the query string is correct"
+        assert loads(request_json) == loads(expected_request_body), \
+            "The request JSON doesn't match the expected fixture JSON"
+        assert response_json == loads(expected_response_body), \
+            "The response JSON doesn't match the expected fixture JSON"
+
+
+    @mark.parametrize(
+        'subscription_id, operation, expected_request_body, expected_response_status, expected_response_body, expected_url',
+        [
+            (
+                'sub_01h8bx8fmywym11t6swgzba704',
+                PreviewUpdateSubscription(proration_billing_mode=SubscriptionProrationBillingMode.ProratedNextBillingPeriod),
+                ReadsFixtures.read_raw_json_fixture('request/preview_update_single'),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/preview_update_full_entity'),
+                '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/preview',
+            ), (
+                'sub_01h8bx8fmywym11t6swgzba704',
+                PreviewUpdateSubscription(
+                    proration_billing_mode = SubscriptionProrationBillingMode.FullImmediately,
+                    scheduled_change       = None,
+                ),
+                ReadsFixtures.read_raw_json_fixture('request/preview_update_partial'),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/preview_update_full_entity'),
+                '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/preview',
+            ), (
+                'sub_01h8bx8fmywym11t6swgzba704',
+                PreviewUpdateSubscription(
+                    customer_id            = 'ctm_01h8441jn5pcwrfhwh78jqt8hk',
+                    address_id             = 'add_01h848pep46enq8y372x7maj0p',
+                    business_id            = None,
+                    currency_code          = CurrencyCode.GBP,
+                    next_billed_at         = DateTime('2023-11-06 14:00:00'),
+                    collection_mode        = CollectionMode.Automatic,
+                    billing_details        = None,
+                    scheduled_change       = None,
+                    proration_billing_mode = SubscriptionProrationBillingMode.FullImmediately,
+                    custom_data            = CustomData({'early_access': True}),
+                    discount               = SubscriptionDiscount(
+                        'dsc_01h848pep46enq8y372x7maj0p',
+                        SubscriptionEffectiveFrom.NextBillingPeriod,
+                    ),
+                    items = [
+                        SubscriptionItems('pri_01gsz91wy9k1yn7kx82aafwvea', 1),
+                        SubscriptionItems('pri_01gsz91wy9k1yn7kx82bafwvea', 5),
+                    ],
+                ),
+                ReadsFixtures.read_raw_json_fixture('request/preview_update_full'),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/preview_update_full_entity'),
+                '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/preview',
+            ),
+        ],
+        ids = [
+            "Preview updating a subscription with a single new value",
+            "Preview updating a subscription with partial new values",
+            "Preview updating a subscription with all new values",
+        ],
+    )
+    def test_preview_update_subscription_uses_expected_payload(
+        self,
+        test_client,
+        mock_requests,
+        subscription_id,
+        operation,
+        expected_request_body,
+        expected_response_status,
+        expected_response_body,
+        expected_url,
+    ):
+        expected_url = f"{test_client.base_url}{expected_url}"
+        mock_requests.patch(expected_url, status_code=expected_response_status, text=expected_response_body)
+
+        response      = test_client.client.subscriptions.preview_update('sub_01h8bx8fmywym11t6swgzba704', operation)
+        request_json  = test_client.client.payload
+        response_json = test_client.client.subscriptions.response.json()
+        last_request  = mock_requests.last_request
+
+        assert isinstance(response, SubscriptionPreview)
+        assert last_request is not None
+        assert last_request.method            == 'PATCH'
+        assert test_client.client.status_code == expected_response_status
+        assert unquote(last_request.url)      == expected_url, \
+            "The URL does not match the expected URL, verify the query string is correct"
+        assert loads(request_json) == loads(expected_request_body), \
+            "The request JSON doesn't match the expected fixture JSON"
+        assert response_json == loads(expected_response_body), \
+            "The response JSON doesn't match the expected fixture JSON"
+
+
+    @mark.parametrize(
+        'subscription_id, operation, expected_request_body, expected_response_status, expected_response_body, expected_url',
+        [
+            (
+                'sub_01h8bx8fmywym11t6swgzba704',
+                PreviewOneTimeCharge(
+                    SubscriptionEffectiveFrom.NextBillingPeriod,
+                    [SubscriptionItems('pri_01gsz98e27ak2tyhexptwc58yk', 1)]
+                ),
+                ReadsFixtures.read_raw_json_fixture('request/preview_one_time_charge_minimal'),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/preview_update_full_entity'),
+                '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/charge/preview',
+            ), (
+                'sub_01h8bx8fmywym11t6swgzba704',
+                PreviewOneTimeCharge(
+                    SubscriptionEffectiveFrom.Immediately,
+                    [
+                        SubscriptionItems('pri_01gsz98e27ak2tyhexptwc58yk', 1),
+                        SubscriptionItems('pri_01h7zdqstxe6djaefkqbkjy4k2', 10),
+                        SubscriptionItems('pri_01h7zd9mzfq79850w4ryc39v38', 845),
+                    ],
+                ),
+                ReadsFixtures.read_raw_json_fixture('request/preview_one_time_charge_full'),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/preview_update_full_entity'),
+                '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/charge/preview',
+            )
+        ],
+        ids = [
+            "Preview creating a subscription one-time payment for one item effective next billing period",
+            "Preview creating a subscription one-time payment for multiple items effective immediately",
+        ],
+    )
+    def test_preview_create_subscription_one_time_charge_uses_expected_payload(
+        self,
+        test_client,
+        mock_requests,
+        subscription_id,
+        operation,
+        expected_request_body,
+        expected_response_status,
+        expected_response_body,
+        expected_url,
+    ):
+        expected_url = f"{test_client.base_url}{expected_url}"
+        mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
+
+        response      = test_client.client.subscriptions.preview_one_time_charge(subscription_id, operation)
+        request_json  = test_client.client.payload
+        response_json = test_client.client.subscriptions.response.json()
+        last_request  = mock_requests.last_request
+
+        assert isinstance(response, SubscriptionPreview)
         assert last_request is not None
         assert last_request.method            == 'POST'
         assert test_client.client.status_code == expected_response_status

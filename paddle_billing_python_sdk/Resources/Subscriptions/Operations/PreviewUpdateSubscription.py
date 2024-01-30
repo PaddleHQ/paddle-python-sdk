@@ -36,17 +36,9 @@ class PreviewUpdateSubscription:
     def get_parameters(self) -> dict:
         parameters = asdict(self)
 
-        if self.currency_code:
-            parameters['currency_code'] = self.currency_code.value
-        if self.collection_mode:
-            parameters['collection_mode'] = self.collection_mode.value
-        if self.proration_billing_mode:
-            parameters['proration_billing_mode'] = self.proration_billing_mode.value
-        if self.on_payment_failure:
-            parameters['on_payment_failure'] = self.on_payment_failure.value
         if isinstance(self.next_billed_at, DateTime):
             parameters['next_billed_at'] = self.next_billed_at.format()
-        if self.items:
+        if not isinstance(self.items, Undefined):
             parameters['items'] = [item.get_parameters() for item in self.items]
 
         return parameters

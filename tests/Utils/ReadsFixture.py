@@ -23,7 +23,7 @@ class ReadsFixtures:
 
             base_path = base_path.parent
 
-        raise ValueError(f"Fixture '{fixture}.json' not found!")
+        raise FileNotFoundError(f"Fixture '{fixture}.json' not found!")
 
 
     @staticmethod
