@@ -44,7 +44,7 @@ class Adjustment(Entity):
             status                    = StatusAdjustment(data['status']),
             totals                    = TotalAdjustments.from_dict(data['totals']),
             created_at                = datetime.fromisoformat(data['created_at']),
-            items                     = [AdjustmentItemTotals.from_dict(item) for item in data['items']],
+            items                     = data['items'],
             payout_totals             = PayoutTotalsAdjustment.from_dict(data['payout_totals']) if data.get('payout_totals') else None,
             updated_at                = datetime.fromisoformat(data['updated_at'])              if data.get('updated_at')    else None,
         )
