@@ -18,7 +18,7 @@ setup(
 
     classifiers = [
         # Full list: https://pypi.org/classifiers/
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3',
