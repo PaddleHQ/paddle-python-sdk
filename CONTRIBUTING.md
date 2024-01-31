@@ -12,4 +12,20 @@ pip install .[dev]
 
 
 ## Running tests
-Python `pytest` tests can be run by changing into the `paddle-billing-python-sdk` root and running `pytest`.
+Python `pytest` tests can be run by changing into the `paddle-billing-python-sdk`, activating the `venv`, and running `pytest`
+``` bash
+cd paddle-billing-python-sdk && \
+source .venv/bin/activate && \
+pytest
+```
+
+You can run specific tests by passing a parameter to `pytest`. For example, you can run all tests within a directory:
+``` bash
+pytest tests/Unit
+```
+Or you can run an individual test within a file:
+``` bash
+pytest tests/Unit/Notification/test_Verifier.py::test_validate_paddle_signature_header_integrity
+```
+
+#### Use the command `deactivate` to exit the venv.
