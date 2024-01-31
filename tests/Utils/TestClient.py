@@ -2,9 +2,7 @@ from os            import environ
 from pytest        import fixture
 from requests_mock import Mocker
 
-from paddle_billing.Client      import Client
-from paddle_billing.Environment import Environment
-from paddle_billing.Options     import Options
+from paddle_billing import Client, Environment, Options
 
 
 class TestClient:
@@ -34,7 +32,7 @@ class TestClient:
 
     def create_client(self, api_secret_key: str | None = None):
         return Client(
-            api_key = environ.get('PADDLE_API_SECRET_KEY') if api_secret_key is None else api_secret_key,
+            environ.get('PADDLE_API_SECRET_KEY') if api_secret_key is None else api_secret_key,
             options = Options(self._environment),
         )
 
