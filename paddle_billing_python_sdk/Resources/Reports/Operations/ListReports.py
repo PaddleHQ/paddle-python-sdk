@@ -1,7 +1,7 @@
 from paddle_billing_python_sdk.EnumStringify import enum_stringify
 from paddle_billing_python_sdk.HasParameters import HasParameters
 
-from paddle_billing_python_sdk.Entities.Shared.Status import Status
+from paddle_billing_python_sdk.Entities.Reports.ReportStatus import ReportStatus
 
 from paddle_billing_python_sdk.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 
@@ -11,14 +11,14 @@ from paddle_billing_python_sdk.Resources.Shared.Operations.List.Pager import Pag
 class ListReports(HasParameters):
     def __init__(
         self,
-        pager:    Pager        = None,
-        statuses: list[Status] = None,
+        pager:    Pager              = None,
+        statuses: list[ReportStatus] = None,
     ):
         self.pager    = pager
         self.statuses = statuses if statuses is not None else []
 
         # Validation
-        for field_name, field_value, field_type in [('statuses', self.statuses, Status),]:
+        for field_name, field_value, field_type in [('statuses', self.statuses, ReportStatus)]:
             invalid_items = [item for item in field_value if not isinstance(item, field_type)]
             if invalid_items:
                 raise InvalidArgumentException(field_name, field_type.__name__, invalid_items)

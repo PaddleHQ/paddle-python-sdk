@@ -1,4 +1,4 @@
-from dataclasses import asdict, dataclass, field
+from dataclasses import dataclass, field
 
 from paddle_billing_python_sdk.Undefined import Undefined
 
@@ -11,7 +11,7 @@ from paddle_billing_python_sdk.Exceptions.SdkExceptions.InvalidArgumentException
 @dataclass
 class CreateReport:
     type:    ReportType
-    filters: list[ReportFilters] | None | Undefined = field(default_factory=list)
+    filters: list[ReportFilters] = field(default_factory=list)
 
 
     def __post_init__(self):
@@ -22,4 +22,9 @@ class CreateReport:
 
 
     def get_parameters(self) -> dict:
-        return asdict(self)
+        parameters = {'type': self.type}
+
+        if self.filters is not None and self.filters != []:
+            parameters.update({'filters': [filter.get_parameters() for filter in self.filters]})
+
+        return parameters
