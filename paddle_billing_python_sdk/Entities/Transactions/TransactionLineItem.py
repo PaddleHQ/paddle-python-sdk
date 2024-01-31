@@ -1,8 +1,7 @@
 from __future__  import annotations
 from dataclasses import dataclass
 
-from paddle_billing_python_sdk.Entities.Product             import Product  # TODO changed from ProductWithIncludes
-from paddle_billing_python_sdk.Entities.ProductWithIncludes import ProductWithIncludes
+from paddle_billing_python_sdk.Entities.Product import Product
 
 from paddle_billing_python_sdk.Entities.Transactions.TransactionProration import TransactionProration
 
@@ -19,7 +18,7 @@ class TransactionLineItem:
     tax_rate:    str
     unit_totals: UnitTotals
     totals:      Totals
-    product:     Product  # TODO changed from ProductWithIncludes
+    product:     Product
 
 
     @staticmethod
@@ -32,5 +31,5 @@ class TransactionLineItem:
             tax_rate    = data['tax_rate'],
             unit_totals = UnitTotals.from_dict(data['unit_totals']),
             totals      = Totals.from_dict(data['totals']),
-            product     = Product.from_dict(data['product']),  # TODO changed from ProductWithIncludes
+            product     = Product.from_dict(data['product']),
         )

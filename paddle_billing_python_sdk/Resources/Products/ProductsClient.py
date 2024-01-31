@@ -2,11 +2,10 @@ from typing import TYPE_CHECKING, Union
 
 from paddle_billing_python_sdk.ResponseParser import ResponseParser
 
-from paddle_billing_python_sdk.Entities.Product                                   import Product
-from paddle_billing_python_sdk.Entities.ProductWithIncludes                       import ProductWithIncludes
-from paddle_billing_python_sdk.Entities.Collections.Paginator                     import Paginator
-from paddle_billing_python_sdk.Entities.Collections.ProductWithIncludesCollection import ProductWithIncludesCollection
-from paddle_billing_python_sdk.Entities.Shared.Status                             import Status
+from paddle_billing_python_sdk.Entities.Product                       import Product
+from paddle_billing_python_sdk.Entities.Collections.Paginator         import Paginator
+from paddle_billing_python_sdk.Entities.Collections.ProductCollection import ProductCollection
+from paddle_billing_python_sdk.Entities.Shared.Status                 import Status
 
 from paddle_billing_python_sdk.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 
@@ -26,20 +25,20 @@ class ProductsClient:
         self.response = None
 
 
-    def list(self, operation: ListProducts = None) -> ProductWithIncludesCollection:
+    def list(self, operation: ListProducts = None) -> ProductCollection:
         if operation is None:
             operation = ListProducts()
 
         self.response = self.client.get_raw('/products', operation.get_parameters())
         parser        = ResponseParser(self.response)
 
-        return ProductWithIncludesCollection.from_list(
+        return ProductCollection.from_list(
             parser.get_data(),
-            Paginator(self.client, parser.get_pagination(), ProductWithIncludesCollection)
+            Paginator(self.client, parser.get_pagination(), ProductCollection)
         )
 
 
-    def get(self, product_id: str, includes = None) -> Product | ProductWithIncludes:
+    def get(self, product_id: str, includes = None) -> Product | Product:
         if product_id is None:
             raise ValueError('product_id is required')
         if not isinstance(product_id, str):
@@ -56,9 +55,7 @@ class ProductsClient:
         self.response = self.client.get_raw(f"/products/{product_id}", params)
         parser         = ResponseParser(self.response)
 
-        return ProductWithIncludes.from_dict(parser.get_data()) \
-            if includes \
-            else Product.from_dict(parser.get_data())
+        return Product.from_dict(parser.get_data())
 
 
     def create(self, operation: CreateProduct) -> Product:

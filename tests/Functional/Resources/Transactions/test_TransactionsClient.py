@@ -2,12 +2,12 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing_python_sdk.Entities.Collections.TransactionWithIncludesCollection import TransactionWithIncludesCollection
+from paddle_billing_python_sdk.Entities.Collections.TransactionCollection import TransactionCollection
 
-from paddle_billing_python_sdk.Entities.DateTime                import DateTime
-from paddle_billing_python_sdk.Entities.TransactionData         import TransactionData
-from paddle_billing_python_sdk.Entities.TransactionPreview      import TransactionPreview
-from paddle_billing_python_sdk.Entities.TransactionWithIncludes import TransactionWithIncludes
+from paddle_billing_python_sdk.Entities.DateTime           import DateTime
+from paddle_billing_python_sdk.Entities.Transaction        import Transaction
+from paddle_billing_python_sdk.Entities.TransactionData    import TransactionData
+from paddle_billing_python_sdk.Entities.TransactionPreview import TransactionPreview
 
 from paddle_billing_python_sdk.Entities.Shared.BillingDetails    import BillingDetails
 from paddle_billing_python_sdk.Entities.Shared.CollectionMode    import CollectionMode
@@ -80,7 +80,7 @@ class TestTransactionsClient:
             "The response JSON doesn't match the expected fixture JSON"
 
         for transaction in transactions:
-            assert isinstance(transaction, TransactionWithIncludes)
+            assert isinstance(transaction, Transaction)
 
         # Assertions for second request
         second_request = mock_requests.request_history[1]
@@ -175,7 +175,7 @@ class TestTransactionsClient:
         request_json  = test_client.client.payload
         last_request  = mock_requests.last_request
 
-        assert isinstance(response, TransactionWithIncludes)
+        assert isinstance(response, Transaction)
         assert last_request is not None
         assert last_request.method            == 'POST'
         assert test_client.client.status_code == expected_response_status
@@ -217,7 +217,7 @@ class TestTransactionsClient:
         response_json = test_client.client.transactions.response.json()
         last_request  = mock_requests.last_request
 
-        assert isinstance(response, TransactionWithIncludes)
+        assert isinstance(response, Transaction)
         assert last_request is not None
         assert last_request.method            == 'POST'
         assert test_client.client.status_code == expected_response_status
@@ -270,7 +270,7 @@ class TestTransactionsClient:
         request_json  = test_client.client.payload
         last_request  = mock_requests.last_request
 
-        assert isinstance(response, TransactionWithIncludes)
+        assert isinstance(response, Transaction)
         assert last_request is not None
         assert last_request.method            == 'PATCH'
         assert test_client.client.status_code == expected_response_status
@@ -431,7 +431,7 @@ class TestTransactionsClient:
         response     = test_client.client.transactions.list(operation)
         last_request = mock_requests.last_request
 
-        assert isinstance(response, TransactionWithIncludesCollection)
+        assert isinstance(response, TransactionCollection)
         assert last_request is not None
         assert last_request.method            == 'GET'
         assert test_client.client.status_code == expected_response_status
@@ -478,7 +478,7 @@ class TestTransactionsClient:
         response_json = test_client.client.transactions.response.json()
         last_request  = mock_requests.last_request
 
-        assert isinstance(response, TransactionWithIncludes)
+        assert isinstance(response, Transaction)
         assert last_request is not None
         assert last_request.method            == 'GET'
         assert test_client.client.status_code == expected_response_status

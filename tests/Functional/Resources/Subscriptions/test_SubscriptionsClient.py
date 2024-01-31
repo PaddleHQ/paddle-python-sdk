@@ -2,13 +2,12 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing_python_sdk.Entities.Collections.SubscriptionWithIncludesCollection import SubscriptionWithIncludesCollection
+from paddle_billing_python_sdk.Entities.Collections.SubscriptionCollection import SubscriptionCollection
 
-from paddle_billing_python_sdk.Entities.DateTime                 import DateTime
-from paddle_billing_python_sdk.Entities.Subscription             import Subscription
-from paddle_billing_python_sdk.Entities.SubscriptionPreview      import SubscriptionPreview
-from paddle_billing_python_sdk.Entities.SubscriptionWithIncludes import SubscriptionWithIncludes
-from paddle_billing_python_sdk.Entities.TransactionWithIncludes  import TransactionWithIncludes
+from paddle_billing_python_sdk.Entities.DateTime            import DateTime
+from paddle_billing_python_sdk.Entities.Subscription        import Subscription
+from paddle_billing_python_sdk.Entities.SubscriptionPreview import SubscriptionPreview
+from paddle_billing_python_sdk.Entities.Transaction         import Transaction
 
 from paddle_billing_python_sdk.Entities.Shared.CollectionMode import CollectionMode
 from paddle_billing_python_sdk.Entities.Shared.CurrencyCode   import CurrencyCode
@@ -230,7 +229,7 @@ class TestSubscriptionsClient:
         response_json = test_client.client.subscriptions.response.json()
         last_request  = mock_requests.last_request
 
-        assert isinstance(response, SubscriptionWithIncludesCollection)
+        assert isinstance(response, SubscriptionCollection)
         assert last_request is not None
         assert last_request.method            == 'GET'
         assert test_client.client.status_code == expected_response_status
@@ -279,7 +278,7 @@ class TestSubscriptionsClient:
         response_json = test_client.client.subscriptions.response.json()
         last_request  = mock_requests.last_request
 
-        assert isinstance(response, SubscriptionWithIncludes)
+        assert isinstance(response, Subscription)
         assert last_request is not None
         assert last_request.method            == 'GET'
         assert test_client.client.status_code == expected_response_status
@@ -498,7 +497,7 @@ class TestSubscriptionsClient:
         response_json = test_client.client.subscriptions.response.json()
         last_request  = mock_requests.last_request
 
-        assert isinstance(response, TransactionWithIncludes)
+        assert isinstance(response, Transaction)
         assert last_request is not None
         assert last_request.method            == 'GET'
         assert test_client.client.status_code == expected_response_status

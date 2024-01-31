@@ -2,13 +2,12 @@ from typing import TYPE_CHECKING
 
 from paddle_billing_python_sdk.ResponseParser import ResponseParser
 
-from paddle_billing_python_sdk.Entities.Subscription             import Subscription
-from paddle_billing_python_sdk.Entities.SubscriptionPreview      import SubscriptionPreview
-from paddle_billing_python_sdk.Entities.SubscriptionWithIncludes import SubscriptionWithIncludes
-from paddle_billing_python_sdk.Entities.TransactionWithIncludes  import TransactionWithIncludes
+from paddle_billing_python_sdk.Entities.Subscription        import Subscription
+from paddle_billing_python_sdk.Entities.SubscriptionPreview import SubscriptionPreview
+from paddle_billing_python_sdk.Entities.Transaction         import Transaction
 
-from paddle_billing_python_sdk.Entities.Collections.Paginator                          import Paginator
-from paddle_billing_python_sdk.Entities.Collections.SubscriptionWithIncludesCollection import SubscriptionWithIncludesCollection
+from paddle_billing_python_sdk.Entities.Collections.Paginator              import Paginator
+from paddle_billing_python_sdk.Entities.Collections.SubscriptionCollection import SubscriptionCollection
 
 from paddle_billing_python_sdk.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 
@@ -33,20 +32,20 @@ class SubscriptionsClient:
         self.response = None
 
 
-    def list(self, operation: ListSubscriptions = None) -> SubscriptionWithIncludesCollection:
+    def list(self, operation: ListSubscriptions = None) -> SubscriptionCollection:
         if operation is None:
             operation = ListSubscriptions()
 
         self.response = self.client.get_raw('/subscriptions', operation.get_parameters())
         parser        = ResponseParser(self.response)
 
-        return SubscriptionWithIncludesCollection.from_list(
+        return SubscriptionCollection.from_list(
             parser.get_data(),
-            Paginator(self.client, parser.get_pagination(), SubscriptionWithIncludesCollection)
+            Paginator(self.client, parser.get_pagination(), SubscriptionCollection)
         )
 
 
-    def get(self, subscription_id: str, includes = None) -> SubscriptionWithIncludes:
+    def get(self, subscription_id: str, includes = None) -> Subscription:
         if includes is None:
             includes = []
 
@@ -58,7 +57,7 @@ class SubscriptionsClient:
         self.response = self.client.get_raw(f"/subscriptions/{subscription_id}", params)
         parser        = ResponseParser(self.response)
 
-        return SubscriptionWithIncludes.from_dict(parser.get_data())
+        return Subscription.from_dict(parser.get_data())
 
 
     def update(self, subscription_id: str, operation: UpdateSubscription) -> Subscription:
@@ -89,11 +88,11 @@ class SubscriptionsClient:
         return Subscription.from_dict(parser.get_data())
 
 
-    def get_payment_method_change_transaction(self, subscription_id: str) -> TransactionWithIncludes:
+    def get_payment_method_change_transaction(self, subscription_id: str) -> Transaction:
         self.response = self.client.get_raw(f"/subscriptions/{subscription_id}/update-payment-method-transaction")
         parser        = ResponseParser(self.response)
 
-        return TransactionWithIncludes.from_dict(parser.get_data())
+        return Transaction.from_dict(parser.get_data())
 
 
     def activate(self, subscription_id: str) -> Subscription:

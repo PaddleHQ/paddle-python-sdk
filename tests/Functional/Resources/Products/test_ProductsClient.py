@@ -2,13 +2,13 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing_python_sdk.Entities.Collections.ProductWithIncludesCollection import ProductWithIncludesCollection
+from paddle_billing_python_sdk.Entities.Collections.ProductCollection import ProductCollection
 
-from paddle_billing_python_sdk.Entities.Product             import Product
-from paddle_billing_python_sdk.Entities.ProductWithIncludes import ProductWithIncludes
-from paddle_billing_python_sdk.Entities.Shared.CustomData   import CustomData
-from paddle_billing_python_sdk.Entities.Shared.Status       import Status
-from paddle_billing_python_sdk.Entities.Shared.TaxCategory  import TaxCategory
+from paddle_billing_python_sdk.Entities.Product            import Product
+from paddle_billing_python_sdk.Entities.Product            import Product
+from paddle_billing_python_sdk.Entities.Shared.CustomData  import CustomData
+from paddle_billing_python_sdk.Entities.Shared.Status      import Status
+from paddle_billing_python_sdk.Entities.Shared.TaxCategory import TaxCategory
 
 from paddle_billing_python_sdk.Resources.Products.Operations.CreateProduct import CreateProduct
 from paddle_billing_python_sdk.Resources.Products.Operations.ListProducts  import ListProducts
@@ -221,7 +221,7 @@ class TestProductsClient:
         response     = test_client.client.products.list(operation)
         last_request = mock_requests.last_request
 
-        assert isinstance(response, ProductWithIncludesCollection)
+        assert isinstance(response, ProductCollection)
         assert last_request is not None
         assert last_request.method            == 'GET'
         assert test_client.client.status_code == expected_response_status
@@ -268,7 +268,7 @@ class TestProductsClient:
         response_json = test_client.client.products.response.json()
         last_request  = mock_requests.last_request
 
-        assert isinstance(response, ProductWithIncludes) if includes else isinstance(response, Product)
+        assert isinstance(response, Product) if includes else isinstance(response, Product)
         assert last_request is not None
         assert last_request.method            == 'GET'
         assert test_client.client.status_code == expected_response_status

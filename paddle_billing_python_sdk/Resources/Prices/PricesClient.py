@@ -2,11 +2,10 @@ from typing import TYPE_CHECKING
 
 from paddle_billing_python_sdk.ResponseParser import ResponseParser
 
-from paddle_billing_python_sdk.Entities.Price                                   import Price
-from paddle_billing_python_sdk.Entities.PriceWithIncludes                       import PriceWithIncludes
-from paddle_billing_python_sdk.Entities.Collections.Paginator                   import Paginator
-from paddle_billing_python_sdk.Entities.Collections.PriceWithIncludesCollection import PriceWithIncludesCollection
-from paddle_billing_python_sdk.Entities.Shared.Status                           import Status
+from paddle_billing_python_sdk.Entities.Price                       import Price
+from paddle_billing_python_sdk.Entities.Collections.Paginator       import Paginator
+from paddle_billing_python_sdk.Entities.Collections.PriceCollection import PriceCollection
+from paddle_billing_python_sdk.Entities.Shared.Status               import Status
 
 from paddle_billing_python_sdk.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 
@@ -26,20 +25,20 @@ class PricesClient:
         self.response = None
 
 
-    def list(self, operation: ListPrices = None) -> PriceWithIncludesCollection:
+    def list(self, operation: ListPrices = None) -> PriceCollection:
         if operation is None:
             operation = ListPrices()
 
         self.response = self.client.get_raw('/prices', operation.get_parameters())
         parser        = ResponseParser(self.response)
 
-        return PriceWithIncludesCollection.from_list(
+        return PriceCollection.from_list(
             parser.get_data(),
-            Paginator(self.client, parser.get_pagination(), PriceWithIncludesCollection)
+            Paginator(self.client, parser.get_pagination(), PriceCollection)
         )
 
 
-    def get(self, price_id: str, includes = None) -> PriceWithIncludes:
+    def get(self, price_id: str, includes = None) -> Price:
         if includes is None:
             includes = []
 
@@ -51,7 +50,7 @@ class PricesClient:
         self.response = self.client.get_raw(f"/prices/{price_id}", params)
         parser        = ResponseParser(self.response)
 
-        return PriceWithIncludes.from_dict(parser.get_data())
+        return Price.from_dict(parser.get_data())
 
 
     def create(self, operation: CreatePrice) -> Price:

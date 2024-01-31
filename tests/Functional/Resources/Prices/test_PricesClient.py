@@ -2,10 +2,9 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing_python_sdk.Entities.Price             import Price
-from paddle_billing_python_sdk.Entities.PriceWithIncludes import PriceWithIncludes
+from paddle_billing_python_sdk.Entities.Price import Price
 
-from paddle_billing_python_sdk.Entities.Collections.PriceWithIncludesCollection import PriceWithIncludesCollection
+from paddle_billing_python_sdk.Entities.Collections.PriceCollection import PriceCollection
 
 from paddle_billing_python_sdk.Entities.Shared.CountryCode       import CountryCode
 from paddle_billing_python_sdk.Entities.Shared.CurrencyCode      import CurrencyCode
@@ -254,7 +253,7 @@ class TestPricesClient:
         response     = test_client.client.prices.list(operation)
         last_request = mock_requests.last_request
 
-        assert isinstance(response, PriceWithIncludesCollection)
+        assert isinstance(response, PriceCollection)
         assert last_request is not None
         assert last_request.method            == 'GET'
         assert test_client.client.status_code == expected_response_status
@@ -301,7 +300,7 @@ class TestPricesClient:
         response_json = test_client.client.prices.response.json()
         last_request  = mock_requests.last_request
 
-        assert isinstance(response, PriceWithIncludes)
+        assert isinstance(response, Price)
         assert last_request is not None
         assert last_request.method            == 'GET'
         assert test_client.client.status_code == expected_response_status

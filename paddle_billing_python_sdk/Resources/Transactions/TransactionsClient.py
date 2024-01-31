@@ -2,11 +2,11 @@ from typing import TYPE_CHECKING
 
 from paddle_billing_python_sdk.ResponseParser import ResponseParser
 
-from paddle_billing_python_sdk.Entities.TransactionData                               import TransactionData
-from paddle_billing_python_sdk.Entities.TransactionPreview                            import TransactionPreview
-from paddle_billing_python_sdk.Entities.TransactionWithIncludes                       import TransactionWithIncludes
-from paddle_billing_python_sdk.Entities.Collections.Paginator                         import Paginator
-from paddle_billing_python_sdk.Entities.Collections.TransactionWithIncludesCollection import TransactionWithIncludesCollection
+from paddle_billing_python_sdk.Entities.Transaction                       import Transaction
+from paddle_billing_python_sdk.Entities.TransactionData                   import TransactionData
+from paddle_billing_python_sdk.Entities.TransactionPreview                import TransactionPreview
+from paddle_billing_python_sdk.Entities.Collections.Paginator             import Paginator
+from paddle_billing_python_sdk.Entities.Collections.TransactionCollection import TransactionCollection
 
 from paddle_billing_python_sdk.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 
@@ -27,20 +27,20 @@ class TransactionsClient:
         self.response = None
 
 
-    def list(self, operation: ListTransactions = None) -> TransactionWithIncludesCollection:
+    def list(self, operation: ListTransactions = None) -> TransactionCollection:
         if operation is None:
             operation = ListTransactions()
 
         self.response = self.client.get_raw('/transactions', operation.get_parameters())
         parser        = ResponseParser(self.response)
 
-        return TransactionWithIncludesCollection.from_list(
+        return TransactionCollection.from_list(
             parser.get_data(),
-            Paginator(self.client, parser.get_pagination(), TransactionWithIncludesCollection)
+            Paginator(self.client, parser.get_pagination(), TransactionCollection)
         )
 
 
-    def get(self, transaction_id: str, includes = None) -> TransactionWithIncludes:
+    def get(self, transaction_id: str, includes = None) -> Transaction:
         if includes is None:
             includes = []
 
@@ -52,10 +52,10 @@ class TransactionsClient:
         self.response = self.client.get_raw(f"/transactions/{transaction_id}", params)
         parser        = ResponseParser(self.response)
 
-        return TransactionWithIncludes.from_dict(parser.get_data())
+        return Transaction.from_dict(parser.get_data())
 
 
-    def create(self, operation: CreateTransaction, includes = None) -> TransactionWithIncludes:
+    def create(self, operation: CreateTransaction, includes = None) -> Transaction:
         if includes is None:
             includes = []
 
@@ -67,14 +67,14 @@ class TransactionsClient:
         self.response = self.client.post_raw('/transactions', operation.get_parameters(), params)
         parser        = ResponseParser(self.response)
 
-        return TransactionWithIncludes.from_dict(parser.get_data())
+        return Transaction.from_dict(parser.get_data())
 
 
-    def update(self, transaction_id: str, operation: UpdateTransaction) -> TransactionWithIncludes:
+    def update(self, transaction_id: str, operation: UpdateTransaction) -> Transaction:
         self.response = self.client.patch_raw(f"/transactions/{transaction_id}", operation.get_parameters())
         parser        = ResponseParser(self.response)
 
-        return TransactionWithIncludes.from_dict(parser.get_data())
+        return Transaction.from_dict(parser.get_data())
 
 
     def preview(self, operation: PreviewTransaction) -> TransactionPreview:
