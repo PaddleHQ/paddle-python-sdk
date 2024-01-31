@@ -2,15 +2,15 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing_python_sdk.Entities.NotificationSetting import NotificationSetting
+from paddle_billing.Entities.NotificationSetting import NotificationSetting
 
-from paddle_billing_python_sdk.Entities.Collections.NotificationSettingCollection import NotificationSettingCollection
+from paddle_billing.Entities.Collections.NotificationSettingCollection import NotificationSettingCollection
 
-from paddle_billing_python_sdk.Entities.NotificationSettings.NotificationSettingType import NotificationSettingType
-from paddle_billing_python_sdk.Entities.Events.EventTypeName                         import EventTypeName
+from paddle_billing.Entities.NotificationSettings.NotificationSettingType import NotificationSettingType
+from paddle_billing.Entities.Events.EventTypeName                         import EventTypeName
 
-from paddle_billing_python_sdk.Resources.NotificationSettings.Operations.CreateNotificationSetting import CreateNotificationSetting
-from paddle_billing_python_sdk.Resources.NotificationSettings.Operations.UpdateNotificationSetting import UpdateNotificationSetting
+from paddle_billing.Resources.NotificationSettings.Operations.CreateNotificationSetting import CreateNotificationSetting
+from paddle_billing.Resources.NotificationSettings.Operations.UpdateNotificationSetting import UpdateNotificationSetting
 
 from tests.Utils.TestClient   import mock_requests, test_client
 from tests.Utils.ReadsFixture import ReadsFixtures

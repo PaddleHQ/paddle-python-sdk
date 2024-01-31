@@ -2,9 +2,9 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing_python_sdk.Entities.Collections.EventCollection   import EventCollection
-from paddle_billing_python_sdk.Resources.Events.Operations.ListEvents import ListEvents
-from paddle_billing_python_sdk.Resources.Shared.Operations.List.Pager import Pager
+from paddle_billing.Entities.Collections.EventCollection   import EventCollection
+from paddle_billing.Resources.Events.Operations.ListEvents import ListEvents
+from paddle_billing.Resources.Shared.Operations.List.Pager import Pager
 
 from tests.Utils.TestClient   import mock_requests, test_client
 from tests.Utils.ReadsFixture import ReadsFixtures

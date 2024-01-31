@@ -2,18 +2,18 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing_python_sdk.Entities.Business import Business
+from paddle_billing.Entities.Business import Business
 
-from paddle_billing_python_sdk.Entities.Collections.BusinessCollection import BusinessCollection
+from paddle_billing.Entities.Collections.BusinessCollection import BusinessCollection
 
-from paddle_billing_python_sdk.Entities.Shared.Contacts   import Contacts
-from paddle_billing_python_sdk.Entities.Shared.CustomData import CustomData
-from paddle_billing_python_sdk.Entities.Shared.Status     import Status
+from paddle_billing.Entities.Shared.Contacts   import Contacts
+from paddle_billing.Entities.Shared.CustomData import CustomData
+from paddle_billing.Entities.Shared.Status     import Status
 
-from paddle_billing_python_sdk.Resources.Businesses.Operations.CreateBusiness import CreateBusiness
-from paddle_billing_python_sdk.Resources.Businesses.Operations.ListBusinesses import ListBusinesses
-from paddle_billing_python_sdk.Resources.Businesses.Operations.UpdateBusiness import UpdateBusiness
-from paddle_billing_python_sdk.Resources.Shared.Operations.List.Pager         import Pager
+from paddle_billing.Resources.Businesses.Operations.CreateBusiness import CreateBusiness
+from paddle_billing.Resources.Businesses.Operations.ListBusinesses import ListBusinesses
+from paddle_billing.Resources.Businesses.Operations.UpdateBusiness import UpdateBusiness
+from paddle_billing.Resources.Shared.Operations.List.Pager         import Pager
 
 from tests.Utils.TestClient   import mock_requests, test_client
 from tests.Utils.ReadsFixture import ReadsFixtures

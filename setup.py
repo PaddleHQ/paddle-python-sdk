@@ -1,6 +1,6 @@
 from setuptools  import setup, find_packages
 
-from paddle_billing_python_sdk.__VERSION__ import __VERSION__
+from paddle_billing.__VERSION__ import __VERSION__
 
 
 setup(

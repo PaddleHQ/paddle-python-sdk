@@ -2,37 +2,37 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing_python_sdk.Entities.Collections.SubscriptionCollection import SubscriptionCollection
+from paddle_billing.Entities.Collections.SubscriptionCollection import SubscriptionCollection
 
-from paddle_billing_python_sdk.Entities.DateTime            import DateTime
-from paddle_billing_python_sdk.Entities.Subscription        import Subscription
-from paddle_billing_python_sdk.Entities.SubscriptionPreview import SubscriptionPreview
-from paddle_billing_python_sdk.Entities.Transaction         import Transaction
+from paddle_billing.Entities.DateTime            import DateTime
+from paddle_billing.Entities.Subscription        import Subscription
+from paddle_billing.Entities.SubscriptionPreview import SubscriptionPreview
+from paddle_billing.Entities.Transaction         import Transaction
 
-from paddle_billing_python_sdk.Entities.Shared.CollectionMode import CollectionMode
-from paddle_billing_python_sdk.Entities.Shared.CurrencyCode   import CurrencyCode
-from paddle_billing_python_sdk.Entities.Shared.CustomData     import CustomData
+from paddle_billing.Entities.Shared.CollectionMode import CollectionMode
+from paddle_billing.Entities.Shared.CurrencyCode   import CurrencyCode
+from paddle_billing.Entities.Shared.CustomData     import CustomData
 
-from paddle_billing_python_sdk.Entities.Subscriptions.SubscriptionEffectiveFrom         import SubscriptionEffectiveFrom
-from paddle_billing_python_sdk.Entities.Subscriptions.SubscriptionItems                 import SubscriptionItems
-from paddle_billing_python_sdk.Entities.Subscriptions.SubscriptionOnPaymentFailure      import SubscriptionOnPaymentFailure
-from paddle_billing_python_sdk.Entities.Subscriptions.SubscriptionProrationBillingMode  import SubscriptionProrationBillingMode
-from paddle_billing_python_sdk.Entities.Subscriptions.SubscriptionScheduledChangeAction import SubscriptionScheduledChangeAction
-from paddle_billing_python_sdk.Entities.Subscriptions.SubscriptionStatus                import SubscriptionStatus
+from paddle_billing.Entities.Subscriptions.SubscriptionEffectiveFrom         import SubscriptionEffectiveFrom
+from paddle_billing.Entities.Subscriptions.SubscriptionItems                 import SubscriptionItems
+from paddle_billing.Entities.Subscriptions.SubscriptionOnPaymentFailure      import SubscriptionOnPaymentFailure
+from paddle_billing.Entities.Subscriptions.SubscriptionProrationBillingMode  import SubscriptionProrationBillingMode
+from paddle_billing.Entities.Subscriptions.SubscriptionScheduledChangeAction import SubscriptionScheduledChangeAction
+from paddle_billing.Entities.Subscriptions.SubscriptionStatus                import SubscriptionStatus
 
-from paddle_billing_python_sdk.Resources.Shared.Operations.List.Pager import Pager
+from paddle_billing.Resources.Shared.Operations.List.Pager import Pager
 
-from paddle_billing_python_sdk.Resources.Subscriptions.Operations.CancelSubscription        import CancelSubscription
-from paddle_billing_python_sdk.Resources.Subscriptions.Operations.CreateOneTimeCharge       import CreateOneTimeCharge
-from paddle_billing_python_sdk.Resources.Subscriptions.Operations.Get.Includes              import Includes
-from paddle_billing_python_sdk.Resources.Subscriptions.Operations.PauseSubscription         import PauseSubscription
-from paddle_billing_python_sdk.Resources.Subscriptions.Operations.PreviewOneTimeCharge      import PreviewOneTimeCharge
-from paddle_billing_python_sdk.Resources.Subscriptions.Operations.PreviewUpdateSubscription import PreviewUpdateSubscription
-from paddle_billing_python_sdk.Resources.Subscriptions.Operations.ResumeSubscription        import ResumeSubscription
-from paddle_billing_python_sdk.Resources.Subscriptions.Operations.UpdateSubscription        import UpdateSubscription
+from paddle_billing.Resources.Subscriptions.Operations.CancelSubscription        import CancelSubscription
+from paddle_billing.Resources.Subscriptions.Operations.CreateOneTimeCharge       import CreateOneTimeCharge
+from paddle_billing.Resources.Subscriptions.Operations.Get.Includes              import Includes
+from paddle_billing.Resources.Subscriptions.Operations.PauseSubscription         import PauseSubscription
+from paddle_billing.Resources.Subscriptions.Operations.PreviewOneTimeCharge      import PreviewOneTimeCharge
+from paddle_billing.Resources.Subscriptions.Operations.PreviewUpdateSubscription import PreviewUpdateSubscription
+from paddle_billing.Resources.Subscriptions.Operations.ResumeSubscription        import ResumeSubscription
+from paddle_billing.Resources.Subscriptions.Operations.UpdateSubscription        import UpdateSubscription
 
-from paddle_billing_python_sdk.Resources.Subscriptions.Operations.ListSubscriptions           import ListSubscriptions
-from paddle_billing_python_sdk.Resources.Subscriptions.Operations.Update.SubscriptionDiscount import SubscriptionDiscount
+from paddle_billing.Resources.Subscriptions.Operations.ListSubscriptions           import ListSubscriptions
+from paddle_billing.Resources.Subscriptions.Operations.Update.SubscriptionDiscount import SubscriptionDiscount
 
 from tests.Utils.TestClient   import mock_requests, test_client
 from tests.Utils.ReadsFixture import ReadsFixtures

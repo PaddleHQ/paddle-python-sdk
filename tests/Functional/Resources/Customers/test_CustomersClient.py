@@ -2,16 +2,16 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing_python_sdk.Entities.Collections.CreditBalanceCollection import CreditBalanceCollection
-from paddle_billing_python_sdk.Entities.Collections.CustomerCollection      import CustomerCollection
-from paddle_billing_python_sdk.Entities.Customer                            import Customer
-from paddle_billing_python_sdk.Entities.Shared.CustomData                   import CustomData
-from paddle_billing_python_sdk.Entities.Shared.Status                       import Status
+from paddle_billing.Entities.Collections.CreditBalanceCollection import CreditBalanceCollection
+from paddle_billing.Entities.Collections.CustomerCollection      import CustomerCollection
+from paddle_billing.Entities.Customer                            import Customer
+from paddle_billing.Entities.Shared.CustomData                   import CustomData
+from paddle_billing.Entities.Shared.Status                       import Status
 
-from paddle_billing_python_sdk.Resources.Customers.Operations.CreateCustomer import CreateCustomer
-from paddle_billing_python_sdk.Resources.Customers.Operations.ListCustomers  import ListCustomers
-from paddle_billing_python_sdk.Resources.Customers.Operations.UpdateCustomer import UpdateCustomer
-from paddle_billing_python_sdk.Resources.Shared.Operations.List.Pager        import Pager
+from paddle_billing.Resources.Customers.Operations.CreateCustomer import CreateCustomer
+from paddle_billing.Resources.Customers.Operations.ListCustomers  import ListCustomers
+from paddle_billing.Resources.Customers.Operations.UpdateCustomer import UpdateCustomer
+from paddle_billing.Resources.Shared.Operations.List.Pager        import Pager
 
 from tests.Utils.TestClient   import mock_requests, test_client
 from tests.Utils.ReadsFixture import ReadsFixtures

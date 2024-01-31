@@ -2,42 +2,42 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing_python_sdk.Entities.Collections.TransactionCollection import TransactionCollection
+from paddle_billing.Entities.Collections.TransactionCollection import TransactionCollection
 
-from paddle_billing_python_sdk.Entities.DateTime           import DateTime
-from paddle_billing_python_sdk.Entities.Transaction        import Transaction
-from paddle_billing_python_sdk.Entities.TransactionData    import TransactionData
-from paddle_billing_python_sdk.Entities.TransactionPreview import TransactionPreview
+from paddle_billing.Entities.DateTime           import DateTime
+from paddle_billing.Entities.Transaction        import Transaction
+from paddle_billing.Entities.TransactionData    import TransactionData
+from paddle_billing.Entities.TransactionPreview import TransactionPreview
 
-from paddle_billing_python_sdk.Entities.Shared.BillingDetails    import BillingDetails
-from paddle_billing_python_sdk.Entities.Shared.CollectionMode    import CollectionMode
-from paddle_billing_python_sdk.Entities.Shared.CurrencyCode      import CurrencyCode
-from paddle_billing_python_sdk.Entities.Shared.CustomData        import CustomData
-from paddle_billing_python_sdk.Entities.Shared.Interval          import Interval
-from paddle_billing_python_sdk.Entities.Shared.Money             import Money
-from paddle_billing_python_sdk.Entities.Shared.PriceQuantity     import PriceQuantity
-from paddle_billing_python_sdk.Entities.Shared.StatusTransaction import StatusTransaction
-from paddle_billing_python_sdk.Entities.Shared.TaxMode           import TaxMode
-from paddle_billing_python_sdk.Entities.Shared.TimePeriod        import TimePeriod
+from paddle_billing.Entities.Shared.BillingDetails    import BillingDetails
+from paddle_billing.Entities.Shared.CollectionMode    import CollectionMode
+from paddle_billing.Entities.Shared.CurrencyCode      import CurrencyCode
+from paddle_billing.Entities.Shared.CustomData        import CustomData
+from paddle_billing.Entities.Shared.Interval          import Interval
+from paddle_billing.Entities.Shared.Money             import Money
+from paddle_billing.Entities.Shared.PriceQuantity     import PriceQuantity
+from paddle_billing.Entities.Shared.StatusTransaction import StatusTransaction
+from paddle_billing.Entities.Shared.TaxMode           import TaxMode
+from paddle_billing.Entities.Shared.TimePeriod        import TimePeriod
 
-from paddle_billing_python_sdk.Entities.Transactions.TransactionCreateItem          import TransactionCreateItem
-from paddle_billing_python_sdk.Entities.Transactions.TransactionCreateItemWithPrice import TransactionCreateItemWithPrice
-from paddle_billing_python_sdk.Entities.Transactions.TransactionNonCatalogPrice     import TransactionNonCatalogPrice
-from paddle_billing_python_sdk.Entities.Transactions.TransactionItemPreviewWithNonCatalogPrice \
+from paddle_billing.Entities.Transactions.TransactionCreateItem          import TransactionCreateItem
+from paddle_billing.Entities.Transactions.TransactionCreateItemWithPrice import TransactionCreateItemWithPrice
+from paddle_billing.Entities.Transactions.TransactionNonCatalogPrice     import TransactionNonCatalogPrice
+from paddle_billing.Entities.Transactions.TransactionItemPreviewWithNonCatalogPrice \
     import TransactionItemPreviewWithNonCatalogPrice
-from paddle_billing_python_sdk.Entities.Transactions.TransactionItemPreviewWithPriceId \
+from paddle_billing.Entities.Transactions.TransactionItemPreviewWithPriceId \
     import TransactionItemPreviewWithPriceId
 
-from paddle_billing_python_sdk.Resources.Shared.Operations.List.Comparator     import Comparator
-from paddle_billing_python_sdk.Resources.Shared.Operations.List.DateComparison import DateComparison
-from paddle_billing_python_sdk.Resources.Shared.Operations.List.Pager          import Pager
+from paddle_billing.Resources.Shared.Operations.List.Comparator     import Comparator
+from paddle_billing.Resources.Shared.Operations.List.DateComparison import DateComparison
+from paddle_billing.Resources.Shared.Operations.List.Pager          import Pager
 
-from paddle_billing_python_sdk.Resources.Transactions.Operations.CreateTransaction  import CreateTransaction
-from paddle_billing_python_sdk.Resources.Transactions.Operations.ListTransactions   import ListTransactions
-from paddle_billing_python_sdk.Resources.Transactions.Operations.List.Includes      import Includes
-from paddle_billing_python_sdk.Resources.Transactions.Operations.List.Origin        import Origin
-from paddle_billing_python_sdk.Resources.Transactions.Operations.PreviewTransaction import PreviewTransaction
-from paddle_billing_python_sdk.Resources.Transactions.Operations.UpdateTransaction  import UpdateTransaction
+from paddle_billing.Resources.Transactions.Operations.CreateTransaction  import CreateTransaction
+from paddle_billing.Resources.Transactions.Operations.ListTransactions   import ListTransactions
+from paddle_billing.Resources.Transactions.Operations.List.Includes      import Includes
+from paddle_billing.Resources.Transactions.Operations.List.Origin        import Origin
+from paddle_billing.Resources.Transactions.Operations.PreviewTransaction import PreviewTransaction
+from paddle_billing.Resources.Transactions.Operations.UpdateTransaction  import UpdateTransaction
 
 from tests.Utils.TestClient   import mock_requests, test_client
 from tests.Utils.ReadsFixture import ReadsFixtures

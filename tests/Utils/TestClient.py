@@ -2,9 +2,9 @@ from os            import environ
 from pytest        import fixture
 from requests_mock import Mocker
 
-from paddle_billing_python_sdk.Client      import Client
-from paddle_billing_python_sdk.Environment import Environment
-from paddle_billing_python_sdk.Options     import Options
+from paddle_billing.Client      import Client
+from paddle_billing.Environment import Environment
+from paddle_billing.Options     import Options
 
 
 class TestClient:

@@ -2,19 +2,19 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing_python_sdk.Entities.Collections.ProductCollection import ProductCollection
+from paddle_billing.Entities.Collections.ProductCollection import ProductCollection
 
-from paddle_billing_python_sdk.Entities.Product            import Product
-from paddle_billing_python_sdk.Entities.Product            import Product
-from paddle_billing_python_sdk.Entities.Shared.CustomData  import CustomData
-from paddle_billing_python_sdk.Entities.Shared.Status      import Status
-from paddle_billing_python_sdk.Entities.Shared.TaxCategory import TaxCategory
+from paddle_billing.Entities.Product            import Product
+from paddle_billing.Entities.Product            import Product
+from paddle_billing.Entities.Shared.CustomData  import CustomData
+from paddle_billing.Entities.Shared.Status      import Status
+from paddle_billing.Entities.Shared.TaxCategory import TaxCategory
 
-from paddle_billing_python_sdk.Resources.Products.Operations.CreateProduct import CreateProduct
-from paddle_billing_python_sdk.Resources.Products.Operations.ListProducts  import ListProducts
-from paddle_billing_python_sdk.Resources.Products.Operations.UpdateProduct import UpdateProduct
-from paddle_billing_python_sdk.Resources.Products.Operations.List.Includes import Includes
-from paddle_billing_python_sdk.Resources.Shared.Operations.List.Pager      import Pager
+from paddle_billing.Resources.Products.Operations.CreateProduct import CreateProduct
+from paddle_billing.Resources.Products.Operations.ListProducts  import ListProducts
+from paddle_billing.Resources.Products.Operations.UpdateProduct import UpdateProduct
+from paddle_billing.Resources.Products.Operations.List.Includes import Includes
+from paddle_billing.Resources.Shared.Operations.List.Pager      import Pager
 
 from tests.Utils.TestClient   import mock_requests, test_client
 from tests.Utils.ReadsFixture import ReadsFixtures

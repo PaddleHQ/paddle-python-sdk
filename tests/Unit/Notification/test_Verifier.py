@@ -1,4 +1,4 @@
-from paddle_billing_python_sdk.Notification import PaddleSignature, Verifier, Secret
+from paddle_billing.Notification import PaddleSignature, Verifier, Secret
 
 from tests.Utils import FakeResponse
 
