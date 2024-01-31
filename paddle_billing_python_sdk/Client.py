@@ -3,16 +3,15 @@ from logging            import Logger, getLogger
 from requests           import Response, RequestException, Session
 from requests.adapters  import HTTPAdapter
 from urllib3.util.retry import Retry
-from urllib.parse       import unquote, urljoin, urlencode
+from urllib.parse       import unquote, urljoin, urlencode  # unquote used for debug
 from uuid               import uuid4
 
 from paddle_billing_python_sdk.__VERSION__      import __VERSION__
-from paddle_billing_python_sdk.FiltersNone      import FiltersNone
 from paddle_billing_python_sdk.FiltersUndefined import FiltersUndefined
 from paddle_billing_python_sdk.HasParameters    import HasParameters
 from paddle_billing_python_sdk.Options          import Options
 
-# from paddle_billing_python_sdk.Logger.Formatter   import CustomLogger
+# from paddle_billing_python_sdk.Logger.Formatter   import CustomLogger  # TODO
 from paddle_billing_python_sdk.Logger.NullHandler import NullHandler
 
 from paddle_billing_python_sdk.Resources.Addresses.AddressesClient                       import AddressesClient

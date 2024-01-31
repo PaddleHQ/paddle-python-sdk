@@ -17,12 +17,12 @@ class Product(Entity):
     name:         str
     status:       Status
     tax_category: TaxCategory
-    created_at:   datetime    | None
-    custom_data:  CustomData  | None
     description:  str         | None
     image_url:    str         | None
-    import_meta:  ImportMeta  | None
-    type:         CatalogType | None
+    created_at:   datetime    | None = None
+    custom_data:  CustomData  | None = None
+    import_meta:  ImportMeta  | None = None
+    type:         CatalogType | None = None
 
 
     @classmethod

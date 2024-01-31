@@ -32,15 +32,15 @@ class NotificationsClient:
         )
 
 
-    def get(self, notification_setting_id: str) -> Notification:
-        self.response = self.client.get_raw(f"/notifications/{notification_setting_id}")
+    def get(self, notification_id: str) -> Notification:
+        self.response = self.client.get_raw(f"/notifications/{notification_id}")
         parser        = ResponseParser(self.response)
 
         return Notification.from_dict(parser.get_data())
 
 
-    def replay(self, notification_setting_id: str) -> str:
-        self.response = self.client.post_raw(f"/notifications/{notification_setting_id}")
+    def replay(self, notification_id: str) -> str:
+        self.response = self.client.post_raw(f"/notifications/{notification_id}")
         parser        = ResponseParser(self.response)
         data          = parser.get_data()
 

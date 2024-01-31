@@ -16,11 +16,11 @@ class Customer(Entity):
     email:             str
     marketing_consent: bool
     status:            Status
-    custom_data:       CustomData | None
     locale:            str
     created_at:        datetime
     updated_at:        datetime
-    import_meta:       ImportMeta | None
+    custom_data:       CustomData | None = None
+    import_meta:       ImportMeta | None = None
 
 
     @classmethod

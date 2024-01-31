@@ -12,16 +12,16 @@ from paddle_billing_python_sdk.Entities.Shared.Status     import Status
 
 @dataclass
 class Business(Entity):
-    id:            str
-    name:          str
+    id:             str
+    name:           str
     company_number: str | None
     tax_identifier: str | None
-    status:        Status
-    contacts:      list[Contacts]
+    status:         Status
+    contacts:       list[Contacts]
     created_at:     datetime
     updated_at:     datetime
-    custom_data:    CustomData | None
-    import_meta:   ImportMeta | None
+    custom_data:    CustomData | None = None
+    import_meta:    ImportMeta | None = None
 
 
     @classmethod

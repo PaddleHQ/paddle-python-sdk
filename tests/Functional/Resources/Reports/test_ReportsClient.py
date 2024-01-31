@@ -134,10 +134,10 @@ class TestReportsClient:
     @mark.parametrize(
         'report_id, expected_response_status, expected_response_body, expected_url',
         [(
-                'rep_01hhq4c3b03g3x2kpkj8aecjv6',
-                200,
-                ReadsFixtures.read_raw_json_fixture('response/full_entity'),
-                '/reports/rep_01hhq4c3b03g3x2kpkj8aecjv6',
+            'rep_01hhq4c3b03g3x2kpkj8aecjv6',
+            200,
+            ReadsFixtures.read_raw_json_fixture('response/full_entity'),
+            '/reports/rep_01hhq4c3b03g3x2kpkj8aecjv6',
         )],
         ids=["Get a report by its id"],
     )
@@ -170,10 +170,10 @@ class TestReportsClient:
     @mark.parametrize(
         'report_id, expected_response_status, expected_response_body, expected_url',
         [(
-                'rep_01hhq4c3b03g3x2kpkj8aecjv6',
-                200,
-                ReadsFixtures.read_raw_json_fixture('response/report_csv_entity'),
-                '/reports/rep_01hhq4c3b03g3x2kpkj8aecjv6/download-url',
+            'rep_01hhq4c3b03g3x2kpkj8aecjv6',
+            200,
+            ReadsFixtures.read_raw_json_fixture('response/report_csv_entity'),
+            '/reports/rep_01hhq4c3b03g3x2kpkj8aecjv6/download-url',
         )],
         ids=["Get a report csv by its id"],
     )

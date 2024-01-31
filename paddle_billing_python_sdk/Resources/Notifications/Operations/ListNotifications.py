@@ -1,5 +1,3 @@
-from dataclasses import dataclass
-
 from paddle_billing_python_sdk.EnumStringify import enum_stringify
 from paddle_billing_python_sdk.HasParameters import HasParameters
 
@@ -23,8 +21,8 @@ class ListNotifications(HasParameters):
         self.pager                   = pager
         self.search                  = search
         self.filter                  = filter
-        self.end                     = DateTime.from_datetime(end)
-        self.start                   = DateTime.from_datetime(start)
+        self.end                     = end  # DateTime.from_datetime(end)
+        self.start                   = start  # DateTime.from_datetime(start)
         self.notification_setting_id = notification_setting_id if notification_setting_id is not None else []
         self.statuses                = statuses                if statuses                is not None else []
 

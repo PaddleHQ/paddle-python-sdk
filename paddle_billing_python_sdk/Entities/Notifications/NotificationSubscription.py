@@ -8,7 +8,6 @@ from paddle_billing_python_sdk.Entities.Shared.BillingDetails import BillingDeta
 from paddle_billing_python_sdk.Entities.Shared.CollectionMode import CollectionMode
 from paddle_billing_python_sdk.Entities.Shared.CurrencyCode   import CurrencyCode
 from paddle_billing_python_sdk.Entities.Shared.CustomData     import CustomData
-from paddle_billing_python_sdk.Entities.Shared.ImportMeta     import ImportMeta
 from paddle_billing_python_sdk.Entities.Shared.TimePeriod     import TimePeriod
 
 from paddle_billing_python_sdk.Entities.Subscriptions.SubscriptionDiscount        import SubscriptionDiscount
@@ -28,19 +27,19 @@ class NotificationSubscription(Entity):
     currency_code:          CurrencyCode
     created_at:             datetime
     updated_at:             datetime
-    started_at:             datetime | None
-    first_billed_at:        datetime | None
-    next_billed_at:         datetime | None
-    paused_at:              datetime | None
-    canceled_at:            datetime | None
-    discount:               SubscriptionDiscount | None
     collection_mode:        CollectionMode
-    billing_details:        BillingDetails | None
     current_billing_period: SubscriptionTimePeriod
     billing_cycle:          TimePeriod
-    scheduled_change:       SubscriptionScheduledChange | None
     items:                  list[SubscriptionItem]
-    custom_data:            CustomData | None
+    started_at:             datetime                    | None = None
+    first_billed_at:        datetime                    | None = None
+    next_billed_at:         datetime                    | None = None
+    paused_at:              datetime                    | None = None
+    canceled_at:            datetime                    | None = None
+    discount:               SubscriptionDiscount        | None = None
+    billing_details:        BillingDetails              | None = None
+    scheduled_change:       SubscriptionScheduledChange | None = None
+    custom_data:            CustomData                  | None = None
 
 
     @classmethod
