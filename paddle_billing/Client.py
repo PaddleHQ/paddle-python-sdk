@@ -6,7 +6,6 @@ from urllib3.util.retry import Retry
 from urllib.parse       import urljoin, urlencode
 from uuid               import uuid4
 
-from paddle_billing.__VERSION__      import __VERSION__
 from paddle_billing.FiltersUndefined import FiltersUndefined
 from paddle_billing.HasParameters    import HasParameters
 from paddle_billing.Options          import Options
@@ -35,10 +34,6 @@ class Client:
     """
     Client for making API requests using Python's requests library.
     """
-
-    SDK_VERSION = __VERSION__
-
-
     def __init__(
         self,
         api_key:     str,             # TODO handle our api key class
@@ -189,7 +184,7 @@ class Client:
         session.headers.update({
             'Authorization': f"Bearer {self.__api_key}",
             'Content-Type':  'application/json',
-            'User-Agent':    f"paddle-billing-python-sdk {self.SDK_VERSION}",
+            'User-Agent':    f"paddle-billing-python-sdk",
         })
 
         # Configure retries

@@ -1,7 +1,5 @@
 from setuptools  import setup, find_packages
 
-from paddle_billing.__VERSION__ import __VERSION__
-
 
 setup(
     author           = 'Corey Regan',
@@ -11,7 +9,7 @@ setup(
     packages         = find_packages(),
     python_requires  = '>=3.11',
     url              = 'https://github.com/invincibear/paddle-billing-python-sdk',
-    version          = __VERSION__,
+    version          = '0.0.1a87',
 
     long_description              = open('README.md').read(),
     long_description_content_type = 'text/markdown',
