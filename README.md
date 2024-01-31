@@ -21,7 +21,7 @@ An unofficial Python wrapper for the new Paddle Billing SDK, based on Paddle's o
 - [Examples](#Examples)
 
 ## Requirements
-Python>=3.11, <3.13
+Python>=3.11
 
 **Project dependencies** (automatically installed by pip):
 - requests>=2.31
