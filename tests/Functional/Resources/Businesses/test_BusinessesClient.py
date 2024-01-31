@@ -256,7 +256,7 @@ class TestBusinessesClient:
                 ReadsFixtures.read_raw_json_fixture('response/full_entity'),
                 '/customers/ctm_01h844p3h41s12zs5mn4axja51/businesses/biz_01h84a7hr4pzhsajkm8tev89ev',
         )],
-        ids=[ "Get business"],
+        ids=["Get a business by its id"],
     )
     def test_get_businesses_returns_expected_response(
         self,
