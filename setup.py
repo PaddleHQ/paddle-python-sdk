@@ -9,7 +9,7 @@ setup(
     description      = 'A Python wrapper for the Paddle Billing API',
     name             = 'paddle-billing-python-sdk',
     packages         = find_packages(),
-    python_requires  = '>=3.11',
+    python_requires  = '>=3.11, <3.13',
     url              = 'https://github.com/invincibear/paddle-billing-python-sdk',
     version          = __VERSION__,
 

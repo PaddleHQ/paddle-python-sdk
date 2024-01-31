@@ -10,6 +10,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    environment: dev
     strategy:
       matrix:
         python-version: [ '3.11', '3.12' ]
