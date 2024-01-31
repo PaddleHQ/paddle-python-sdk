@@ -6,7 +6,7 @@ from paddle_billing_python_sdk.Entities.Adjustment                 import Adjust
 from paddle_billing_python_sdk.Entities.Adjustments.AdjustmentItem import AdjustmentItem
 from paddle_billing_python_sdk.Entities.Adjustments.AdjustmentType import AdjustmentType
 
-from paddle_billing_python_sdk.Entities.Collections.AdjustmentsAdjustmentCollection import AdjustmentsAdjustmentCollection
+from paddle_billing_python_sdk.Entities.Collections.AdjustmentCollection import AdjustmentCollection
 
 from paddle_billing_python_sdk.Entities.Shared.Action           import Action
 from paddle_billing_python_sdk.Entities.Shared.StatusAdjustment import StatusAdjustment
@@ -186,7 +186,7 @@ class TestAdjustmentsClient:
         response     = test_client.client.adjustments.list(operation)
         last_request = mock_requests.last_request
 
-        assert isinstance(response, AdjustmentsAdjustmentCollection)
+        assert isinstance(response, AdjustmentCollection)
         assert last_request is not None
         assert last_request.method            == 'GET'
         assert test_client.client.status_code == expected_response_status

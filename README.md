@@ -59,10 +59,7 @@ from paddle_billing_python_sdk.Client      import Client
 from paddle_billing_python_sdk.Options     import Options
 from paddle_billing_python_sdk.Environment import Environment
 
-paddle = Client(
-    api_key = 'PADDLE_API_SECRET_KEY',
-    options = Options(Environment.SANDBOX),
-)
+paddle = Client('PADDLE_API_SECRET_KEY', options=Options(Environment.SANDBOX))
 ```
 
 Keep in mind that API keys are separate for your sandbox and live accounts, so you'll need to generate keys for each environment.

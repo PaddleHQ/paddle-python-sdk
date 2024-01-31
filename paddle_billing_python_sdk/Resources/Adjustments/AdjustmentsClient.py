@@ -2,9 +2,9 @@ from typing import TYPE_CHECKING
 
 from paddle_billing_python_sdk.ResponseParser import ResponseParser
 
-from paddle_billing_python_sdk.Entities.Adjustment                                  import Adjustment
-from paddle_billing_python_sdk.Entities.Collections.Paginator                       import Paginator
-from paddle_billing_python_sdk.Entities.Collections.AdjustmentsAdjustmentCollection import AdjustmentsAdjustmentCollection
+from paddle_billing_python_sdk.Entities.Adjustment                       import Adjustment
+from paddle_billing_python_sdk.Entities.Collections.Paginator            import Paginator
+from paddle_billing_python_sdk.Entities.Collections.AdjustmentCollection import AdjustmentCollection
 
 from paddle_billing_python_sdk.Resources.Adjustments.Operations.CreateAdjustment import CreateAdjustment
 from paddle_billing_python_sdk.Resources.Adjustments.Operations.ListAdjustments  import ListAdjustments
@@ -20,16 +20,16 @@ class AdjustmentsClient:
         self.response = None
 
 
-    def list(self, operation: ListAdjustments = None) -> AdjustmentsAdjustmentCollection:
+    def list(self, operation: ListAdjustments = None) -> AdjustmentCollection:
         if operation is None:
             operation = ListAdjustments()
 
         self.response = self.client.get_raw('/adjustments', operation.get_parameters())
         parser        = ResponseParser(self.response)
 
-        return AdjustmentsAdjustmentCollection.from_list(
+        return AdjustmentCollection.from_list(
             parser.get_data(),
-            Paginator(self.client, parser.get_pagination(), AdjustmentsAdjustmentCollection)
+            Paginator(self.client, parser.get_pagination(), AdjustmentCollection)
         )
 
 
