@@ -1,5 +1,5 @@
-from __future__   import annotations
-from dataclasses  import dataclass
+from __future__  import annotations
+from dataclasses import dataclass
 
 from paddle_billing_python_sdk.Environment import Environment
 

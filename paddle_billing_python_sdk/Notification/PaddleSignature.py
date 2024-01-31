@@ -1,7 +1,7 @@
 from hashlib import sha256
 from hmac    import HMAC, compare_digest, new as hmac_new
 
-from paddle_billing_python_sdk                     import log
+from paddle_billing_python_sdk.Logger              import get_logger
 from paddle_billing_python_sdk.Notification.Secret import Secret
 
 
@@ -10,6 +10,7 @@ class PaddleSignature:
         """
         Verifies the integrity of a Paddle signature
         """
+        self.log = get_logger()
 
 
     @property
@@ -23,18 +24,6 @@ class PaddleSignature:
     @property
     def TIMESTAMP(self):  # noqa N802
         return 'ts'
-
-
-    # @staticmethod
-    # def parse(signature_header: str) -> tuple:
-    #     """
-    #     Parse the Paddle-Signature header to extract the timestamp and signature
-    #
-    #     @param   signature_header:  The Paddle-Signature key=value from the webhook event's headers
-    #     @return:                    A tuple containing (timestamp, signature)
-    #     """
-    #     timestamp, signature = signature_header.split(";")
-    #     return timestamp.lstrip(f"ts="), signature.lstrip(f"h1=")
 
 
     @staticmethod
@@ -69,15 +58,13 @@ class PaddleSignature:
         return hmac_new(secret_key.encode('utf-8'), data, sha256)
 
 
-    @staticmethod
-    def __do_comparison(generated_signature: str, signature: str) -> bool:
-        log.debug(f"Comparing received Paddle signature '{signature}' to our calculated signature: '{generated_signature}'")
+    def __do_comparison(self, generated_signature: str, signature: str) -> bool:
+        self.log.debug(f"Comparing received Paddle signature '{signature}' to our calculated signature: '{generated_signature}'")
 
         return compare_digest(generated_signature, signature)
 
 
-    @staticmethod
-    def __do_verify(timestamp: str, signatures: list[str], raw_body: str, secret_key: Secret) -> bool:
+    def __do_verify(self, timestamp: str, signatures: list[str], raw_body: str, secret_key: Secret) -> bool:
         """
         Verifies an individual secret key against a Paddle-Signature header.
         Called by PaddleSignature.verify()
@@ -92,17 +79,16 @@ class PaddleSignature:
         integrity           = False
 
         for signature in signatures:
-            integrity_result = PaddleSignature.__do_comparison(generated_signature, signature)
+            integrity_result = self.__do_comparison(generated_signature, signature)
             if integrity_result is True:
                 integrity = True
                 break
 
-        log.info(f"Paddle signature integrity {'passed' if integrity else 'failed'}")
+        self.log.info(f"Paddle signature integrity {'passed' if integrity else 'failed'}")
         return integrity
 
 
-    @staticmethod
-    def verify(signature_header: str, raw_body: str, secrets: list[Secret] | Secret) -> bool:
+    def verify(self, signature_header: str, raw_body: str, secrets: list[Secret] | Secret) -> bool:
         """
         https://developer.paddle.com/webhooks/signature-verification
         Performs an integrity check on a Paddle webhook's signature against one or more Secrets
@@ -111,16 +97,16 @@ class PaddleSignature:
         @param signature_header:    The Paddle-Signature header
         @param raw_body:            Raw body of the webhook request
         @param secrets:             One or more Paddle secret key(s): https://developer.paddle.com/webhooks/signature-verification#get-secret-key
-        @return:                    True if any secret key passes verification success, False if all secret keys fail verification
+        @return:                    True if any secret key passes verification success. Raises a ConnectionRefusedError if all secret keys fail verification
         """
         is_list   = type(secrets) is list
         key_count = 'multiple secret keys' if is_list else 'one secret key'
-        log.info(f"Verifying Paddle signature integrity against {key_count}")
+        self.log.info(f"Verifying Paddle signature integrity against {key_count}")
 
         timestamp, signature = PaddleSignature.parse(signature_header)
 
         if not is_list:
-            return PaddleSignature.__do_verify(
+            return self.__do_verify(
                 timestamp  = timestamp,
                 signatures = signature[PaddleSignature().HASH_ALGORITHM_1],
                 raw_body   = raw_body,
@@ -128,7 +114,7 @@ class PaddleSignature:
             )
 
         for secret in secrets:
-            verification_result = PaddleSignature.__do_verify(
+            verification_result = self.__do_verify(
                 timestamp  = timestamp,
                 signatures = signature[PaddleSignature().HASH_ALGORITHM_1],
                 raw_body   = raw_body,
@@ -138,4 +124,4 @@ class PaddleSignature:
                 return True
 
         # If we got this far then none of the provided secrets passed verification
-        return False
+        raise ConnectionRefusedError(f"Paddle signature failed integrity check")

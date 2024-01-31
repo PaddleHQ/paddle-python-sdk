@@ -3,7 +3,7 @@ from logging            import Logger, getLogger
 from requests           import Response, RequestException, Session
 from requests.adapters  import HTTPAdapter
 from urllib3.util.retry import Retry
-from urllib.parse       import unquote, urljoin, urlencode  # unquote used for debug
+from urllib.parse       import urljoin, urlencode
 from uuid               import uuid4
 
 from paddle_billing_python_sdk.__VERSION__      import __VERSION__
@@ -11,7 +11,6 @@ from paddle_billing_python_sdk.FiltersUndefined import FiltersUndefined
 from paddle_billing_python_sdk.HasParameters    import HasParameters
 from paddle_billing_python_sdk.Options          import Options
 
-# from paddle_billing_python_sdk.Logger.Formatter   import CustomLogger  # TODO
 from paddle_billing_python_sdk.Logger.NullHandler import NullHandler
 
 from paddle_billing_python_sdk.Resources.Addresses.AddressesClient                       import AddressesClient
@@ -45,14 +44,14 @@ class Client:
         api_key:     str,             # TODO handle our api key class
         options:     Options  = None,
         http_client: Session  = None,
-        logger                = None,
+        logger:      Logger   = None,
         retry_count: int      = 3,
     ):
         self.__api_key      = api_key
         self.retry_count    = retry_count
         self.transaction_id = None
         self.options        = options     if options     else Options()
-        self.logger         = logger      if logger      else Client.null_logger()
+        self.log            = logger      if logger      else Client.null_logger()
         self.client         = http_client if http_client else self.build_request_session()
         self.payload        = None  # Used by pytest
         self.status_code    = None  # Used by pytest
@@ -93,8 +92,8 @@ class Client:
         Requests logs were redirected here and to our custom logger which filters out sensitive data
         """
 
-        self.logger.debug(f"Request:  {response.request.method} {response.request.url}")
-        self.logger.debug(f"Response: {response.status_code} {response.text}")
+        self.log.info(f"Request: {response.request.method} {response.request.url}")
+        self.log.debug(f"Response: {response.status_code} {response.text}")
 
 
     @staticmethod
@@ -118,7 +117,6 @@ class Client:
         """
         Makes an actual API call to Paddle
         """
-
         # Parse and update URL with base URL components if necessary
         if isinstance(url, str):
             url = urljoin(self.options.environment.base_url, url)
@@ -138,8 +136,8 @@ class Client:
         except RequestException as e:
             self.status_code = e.response.status_code
 
-            if self.logger:
-                self.logger.error(f"Request failed: {e}")
+            if self.log:
+                self.log.error(f"Request failed: {e}")
             raise
 
 
@@ -199,7 +197,7 @@ class Client:
         session.mount('https://', HTTPAdapter(max_retries=retries))
 
         # Handle logging
-        if self.logger:
+        if self.log:
             session.hooks['response'] = self.logging_hook
 
         return session
