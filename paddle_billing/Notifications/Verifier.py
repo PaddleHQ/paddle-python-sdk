@@ -3,7 +3,7 @@ import requests
 from time import time
 
 from paddle_billing.Logger       import get_logger
-from paddle_billing.Notification import PaddleSignature, Secret
+from paddle_billing.Notifications import PaddleSignature, Secret
 
 
 class Verifier:

@@ -14,6 +14,9 @@ from paddle_billing.Entities.Shared.TaxMode           import TaxMode
 from paddle_billing.Entities.Shared.TimePeriod        import TimePeriod
 from paddle_billing.Entities.Shared.UnitPriceOverride import UnitPriceOverride
 
+from paddle_billing.Logger import get_logger
+log = get_logger()
+
 
 @dataclass
 class Price(Entity):
@@ -45,7 +48,7 @@ class Price(Entity):
             quantity             = PriceQuantity.from_dict(data['quantity']),
             status               = Status(data['status']),
             unit_price_overrides = [UnitPriceOverride.from_dict(override) for override in data.get('unit_price_overrides', [])],
-            type                 = CatalogType(data.get('type'), '')                         if data.get('type')          else None,
+            type                 = CatalogType(data.get('type'))                             if data.get('type')          else None,
             billing_cycle        = TimePeriod.from_dict(data['billing_cycle'])               if data.get('billing_cycle') else None,
             trial_period         = TimePeriod.from_dict(data['trial_period'])                if data.get('trial_period')  else None,
             tax_mode             = TaxMode(data.get('tax_mode'))                             if data.get('tax_mode')      else None,

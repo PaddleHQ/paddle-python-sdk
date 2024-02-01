@@ -36,7 +36,7 @@ class Client:
     """
     def __init__(
         self,
-        api_key:     str,             # TODO handle our api key class
+        api_key:     str,
         options:     Options  = None,
         http_client: Session  = None,
         logger:      Logger   = None,

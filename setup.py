@@ -9,7 +9,7 @@ setup(
     packages         = find_packages(),
     python_requires  = '>=3.11',
     url              = 'https://github.com/invincibear/paddle-billing-python-sdk',
-    version          = '0.0.1a87',
+    version          = '0.0.1a88',
 
     long_description              = open('README.md').read(),
     long_description_content_type = 'text/markdown',

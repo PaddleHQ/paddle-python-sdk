@@ -67,10 +67,10 @@ Keep in mind that API keys are separate for your sandbox and live accounts, so y
 
 
 ## Examples
-There are examples included in the [examples folder](). To prevent leaking errors to your clients we recommend encapsulating Paddle operations inside Try/Except blocks. For brevity, the below examples do not do this.
+There are examples included in the [examples folder](https://github.com/Invincibear/paddle-billing-python-sdk/tree/main/examples). To prevent leaking errors to your clients we recommend encapsulating Paddle operations inside Try/Except blocks. For brevity, the below examples do not do this.
 
 ### List entities
-You can list supported entities with the `list` function in the resource. It returns an iterator to help when working with multiple pages.
+You can list supported entities with the `list()` method in the resource. It returns an iterator to help when working with multiple pages.
 ``` python
 from paddle_billing.Client import Client
 
@@ -78,13 +78,13 @@ paddle = Client('PADDLE_API_SECRET_KEY')
 
 products = paddle.products.list()
 
-# List returns an iterable, so pagination is handled automatically.
+# List() returns an iterable, so pagination is handled automatically.
 for product in products:
     print(f"Product's id: {product.id}")
 ```
 
 ### Get an entity
-You can get an entity with the `get` function in the resource. It accepts the `id` of the entity to get. The entity is returned.
+You can get an entity with the `get()` method in the resource. It accepts the `id` of the entity to get. The entity is returned.
 ``` python
 from paddle_billing.Client import Client
 
@@ -94,7 +94,7 @@ product = paddle.products.get('PRODUCT_ID')
 ```
 
 ### Create an entity
-You can create a supported entity with the `create` function in the resource. It accepts the resource's corresponding `CreateOperation` e.g. `CreateProduct`. The created entity is returned.
+You can create a supported entity with the `create()` method in the resource. It accepts the resource's corresponding `CreateOperation` e.g. `CreateProduct`. The created entity is returned.
 
 ``` python
 from paddle_billing.Client                                      import Client
@@ -110,7 +110,7 @@ created_product = paddle.products.create(CreateProduct(
 ```
 
 ### Update an entity
-You can update a supported entity with the `update` function in the resource. It accepts the `id` of the entity to update and the corresponding `UpdateOperation` e.g. `UpdateProduct`. The updated entity is returned.
+You can update a supported entity with the `update()` method in the resource. It accepts the `id` of the entity to update and the corresponding `UpdateOperation` e.g. `UpdateProduct`. The updated entity is returned.
 ``` python
 from paddle_billing.Client                                      import Client
 from paddle_billing.Resources.Products.Operations.UpdateProduct import UpdateProduct
@@ -123,7 +123,7 @@ updated_product = paddle.products.update('PRODUCT_ID', UpdateProduct(
 ))
 ```
 
-Where operations require more than one `id`, the `update` function accepts multiple arguments. For example, to update an address for a customer, pass the `customerId` and the `addressId`:
+Where operations require more than one `id`, the `update()` method accepts multiple arguments. For example, to update an address for a customer, pass the `customerId` and the `addressId`:
 ``` python
 updated_address = paddle.addresses.update(
     'CUSTOMER_ID',
@@ -133,7 +133,7 @@ updated_address = paddle.addresses.update(
 ```
 
 ### Delete an entity
-You can delete an entity with the `delete` function in the resource. It accepts the `id` of the entity to delete. The deleted entity is returned.
+You can delete an entity with the `delete()` method in the resource. It accepts the `id` of the entity to delete. The deleted entity is returned.
 ``` python
 from paddle_billing.Client import Client
 
@@ -141,3 +141,19 @@ paddle = Client('PADDLE_API_SECRET_KEY')
 
 deleted_product = paddle.products.delete('PRODUCT_ID')
 ```
+
+
+## Resources
+
+### Webhook signature verification
+The SDK includes a helper class to verify webhook signatures sent by Notifications from Paddle.
+
+``` python
+from paddle_billing.Notifications import Secret, Verifier
+
+integrity_check = Verifier().verify(request, Secret('WEBHOOK_SECRET_KEY')
+```
+
+## Learn more
+- [Paddle API reference](https://developer.paddle.com/api-reference/overview?utm_source=dx&utm_medium=paddle-php-sdk)
+- [Sign up for Paddle Billing](https://login.paddle.com/signup?utm_source=dx&utm_medium=paddle-php-sdk)

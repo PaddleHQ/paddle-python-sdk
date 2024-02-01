@@ -1,4 +1,4 @@
-from paddle_billing.Notification import PaddleSignature, Verifier, Secret
+from paddle_billing.Notifications import PaddleSignature, Verifier, Secret
 
 from tests.Utils import FakeResponse
 
