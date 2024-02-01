@@ -8,6 +8,7 @@ from paddle_billing.Entities.Shared.BillingDetails import BillingDetails
 from paddle_billing.Entities.Shared.CollectionMode import CollectionMode
 from paddle_billing.Entities.Shared.CurrencyCode   import CurrencyCode
 from paddle_billing.Entities.Shared.CustomData     import CustomData
+from paddle_billing.Entities.Shared.ImportMeta     import ImportMeta
 from paddle_billing.Entities.Shared.TimePeriod     import TimePeriod
 
 from paddle_billing.Entities.Subscriptions.SubscriptionDiscount        import SubscriptionDiscount
@@ -19,27 +20,28 @@ from paddle_billing.Entities.Subscriptions.SubscriptionTimePeriod      import Su
 
 @dataclass
 class NotificationSubscription(Entity):
-    id:                     str
-    status:                 SubscriptionStatus
-    customer_id:            str
     address_id:             str
-    business_id:            str | None
-    currency_code:          CurrencyCode
-    created_at:             datetime
-    updated_at:             datetime
-    collection_mode:        CollectionMode
-    current_billing_period: SubscriptionTimePeriod
     billing_cycle:          TimePeriod
+    collection_mode:        CollectionMode
+    created_at:             datetime
+    currency_code:          CurrencyCode
+    customer_id:            str
+    id:                     str
     items:                  list[SubscriptionItem]
-    started_at:             datetime                    | None = None
+    status:                 SubscriptionStatus
+    updated_at:             datetime
+    billing_details:        BillingDetails              | None = None
+    business_id:            str                         | None = None
+    canceled_at:            datetime                    | None = None
+    current_billing_period: SubscriptionTimePeriod      | None = None
+    custom_data:            CustomData                  | None = None
+    discount:               SubscriptionDiscount        | None = None
+    import_meta:            ImportMeta                  | None = None
     first_billed_at:        datetime                    | None = None
     next_billed_at:         datetime                    | None = None
     paused_at:              datetime                    | None = None
-    canceled_at:            datetime                    | None = None
-    discount:               SubscriptionDiscount        | None = None
-    billing_details:        BillingDetails              | None = None
     scheduled_change:       SubscriptionScheduledChange | None = None
-    custom_data:            CustomData                  | None = None
+    started_at:             datetime                    | None = None
 
 
     @classmethod
@@ -54,18 +56,17 @@ class NotificationSubscription(Entity):
             created_at             = datetime.fromisoformat(data['created_at']),
             updated_at             = datetime.fromisoformat(data['updated_at']),
             collection_mode        = CollectionMode(data['collection_mode']),
-            current_billing_period = SubscriptionTimePeriod.from_dict(data['current_billing_period']),
             billing_cycle          = TimePeriod.from_dict(data['billing_cycle']),
             items                  = [SubscriptionItem.from_dict(item) for item in data['items']],
-            started_at             = datetime.fromisoformat(data['started_at'])        if data.get('started_at')      else None,
+            billing_details        = BillingDetails.from_dict(data['billing_details']) if data.get('billing_details') else None,
+            canceled_at            = datetime.fromisoformat(data['canceled_at'])       if data.get('canceled_at')     else None,
+            custom_data            = CustomData(data['custom_data'])                   if data.get('custom_data')     else None,
+            discount               = SubscriptionDiscount.from_dict(data['discount'])  if data.get('discount')        else None,
             first_billed_at        = datetime.fromisoformat(data['first_billed_at'])   if data.get('first_billed_at') else None,
+            import_meta            = ImportMeta(data['import_meta'])                   if data.get('import_meta')     else None,
             next_billed_at         = datetime.fromisoformat(data['next_billed_at'])    if data.get('next_billed_at')  else None,
             paused_at              = datetime.fromisoformat(data['paused_at'])         if data.get('paused_at')       else None,
-            canceled_at            = datetime.fromisoformat(data['canceled_at'])       if data.get('canceled_at')     else None,
-            discount               = SubscriptionDiscount.from_dict(data['discount'])  if data.get('discount')        else None,
-            billing_details        = BillingDetails.from_dict(data['billing_details']) if data.get('billing_details') else None,
-            custom_data            = CustomData(data['custom_data'])                   if data.get('custom_data')     else None,
-            scheduled_change       = (SubscriptionScheduledChange.from_dict(data['scheduled_change'])
-                                      if data.get('scheduled_change')
-                                      else None),
+            started_at             = datetime.fromisoformat(data['started_at'])        if data.get('started_at')      else None,
+            current_billing_period = SubscriptionTimePeriod.from_dict(data['current_billing_period']) if data.get('billing_details') else None,
+            scheduled_change       = SubscriptionScheduledChange.from_dict(data['scheduled_change'])  if data.get('scheduled_change') else None,
         )

@@ -8,43 +8,49 @@ from paddle_billing.Entities.Discounts.DiscountType   import DiscountType
 from paddle_billing.Entities.Entity import Entity
 
 from paddle_billing.Entities.Shared.CurrencyCode import CurrencyCode
+from paddle_billing.Entities.Shared.CustomData   import CustomData
+from paddle_billing.Entities.Shared.ImportMeta   import ImportMeta
 
 
 @dataclass
 class NotificationDiscount(Entity):
-    id:                          str
-    status:                      DiscountStatus
+    amount:                      str
+    created_at:                  datetime
     description:                 str
     enabled_for_checkout:        bool
-    code:                        str | None
-    type:                        DiscountType
-    amount:                      str
-    currency_code:               CurrencyCode | None
+    id:                          str
     recur:                       bool
-    maximum_recurring_intervals: int | None
-    usage_limit:                 int | None
-    restrict_to:                 list | None
-    expires_at:                  datetime | None
-    created_at:                  datetime
+    status:                      DiscountStatus
+    type:                        DiscountType
     updated_at:                  datetime
+    code:                        str          | None = None
+    currency_code:               CurrencyCode | None = None
+    custom_data:                 CustomData   | None = None
+    expires_at:                  datetime     | None = None
+    import_meta:                 ImportMeta   | None = None
+    maximum_recurring_intervals: int          | None = None
+    restrict_to:                 list         | None = None
+    usage_limit:                 int          | None = None
 
 
     @classmethod
     def from_dict(cls, data: dict) -> NotificationDiscount:
         return NotificationDiscount(
-            id                          = data['id'],
-            status                      = DiscountStatus(data['status']),
+            amount                      = data['amount'],
+            code                        = data.get('code'),
+            created_at                  = datetime.fromisoformat(data['created_at']),
             description                 = data['description'],
             enabled_for_checkout        = data['enabled_for_checkout'],
-            code                        = data.get('code'),
-            type                        = DiscountType(data['type']),
-            amount                      = data['amount'],
-            recur                       = data['recur'],
+            id                          = data['id'],
             maximum_recurring_intervals = data.get('maximum_recurring_intervals'),
             usage_limit                 = data.get('usage_limit'),
+            recur                       = data['recur'],
             restrict_to                 = data.get('restrict_to'),
-            created_at                  = datetime.fromisoformat(data['created_at']),
+            status                      = DiscountStatus(data['status']),
+            type                        = DiscountType(data['type']),
             updated_at                  = datetime.fromisoformat(data['updated_at']),
             currency_code               = CurrencyCode(data['currency_code'])        if data.get('currency_code') else None,
+            custom_data                 = CustomData(data['custom_data'])            if data.get('custom_data')   else None,
             expires_at                  = datetime.fromisoformat(data['expires_at']) if data.get('expires_at')    else None,
+            import_meta                 = ImportMeta(data['import_meta'])            if data.get('import_meta')   else None,
         )
