@@ -44,10 +44,10 @@ class Subscription(Entity):
     scheduled_change:              SubscriptionScheduledChange | None
     management_urls:               SubscriptionManagementUrls  | None
     items:                         list[SubscriptionItem]
-    custom_data:                   CustomData                  | None
-    import_meta:                   ImportMeta                  | None
     next_transaction:              SubscriptionNextTransaction | None
     recurring_transaction_details: TransactionDetailsPreview   | None
+    import_meta:                   ImportMeta                  | None = None
+    custom_data:                   CustomData                  | None = None
 
 
     @classmethod
