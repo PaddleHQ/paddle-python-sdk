@@ -51,7 +51,7 @@ class PaddleSignature:
                 else:
                     raise ValueError(f"Unrecognized Paddle-Signature key")
 
-        return components[PaddleSignature().TIMESTAMP], components['hashes']
+        return int(components[PaddleSignature().TIMESTAMP]), components['hashes']
 
 
     @staticmethod
