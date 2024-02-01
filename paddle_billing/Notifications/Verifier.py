@@ -39,6 +39,12 @@ class Verifier:
             self.log.critical(f"Too much time has elapsed between the request and this process")
             return False
 
-        raw_body = request.body.decode('utf-8') if hasattr(request, 'body') else request.content.decode('utf-8')
+        raw_body = None
+        if hasattr(request, 'body'):
+            raw_body = request.body.decode('utf-8')
+        elif hasattr(request, 'content'):
+            raw_body = request.content.decode('utf-8')
+        elif hasattr(request, 'data'):
+            raw_body = request.data.decode('utf-8')
 
         return self.paddle_signature.verify(signature_header, raw_body, secrets)
