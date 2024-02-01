@@ -1,7 +1,8 @@
 from hashlib import sha256
 from hmac    import HMAC, compare_digest, new as hmac_new
 
-from paddle_billing.Logger               import get_logger
+from paddle_billing.Logger import get_logger
+
 from paddle_billing.Notifications.Secret import Secret
 
 
