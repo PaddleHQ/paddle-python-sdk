@@ -36,20 +36,22 @@ class Client:
     """
     def __init__(
         self,
-        api_key:     str,
-        options:     Options  = None,
-        http_client: Session  = None,
-        logger:      Logger   = None,
-        retry_count: int      = 3,
+        api_key:         str,
+        options:         Options  = None,
+        http_client:     Session  = None,
+        logger:          Logger   = None,
+        retry_count:     int      = 3,
+        use_api_version: int      = 1,
     ):
-        self.__api_key      = api_key
-        self.retry_count    = retry_count
-        self.transaction_id = None
-        self.options        = options     if options     else Options()
-        self.log            = logger      if logger      else Client.null_logger()
-        self.client         = http_client if http_client else self.build_request_session()
-        self.payload        = None  # Used by pytest
-        self.status_code    = None  # Used by pytest
+        self.__api_key       = api_key
+        self.retry_count     = retry_count
+        self.transaction_id  = None
+        self.use_api_version = use_api_version
+        self.options         = options     if options     else Options()
+        self.log             = logger      if logger      else Client.null_logger()
+        self.client          = http_client if http_client else self.build_request_session()
+        self.payload         = None  # Used by pytest
+        self.status_code     = None  # Used by pytest
 
         # Initialize the various clients
         self.addresses             = AddressesClient(self)
@@ -182,9 +184,10 @@ class Client:
     def build_request_session(self) -> Session:
         session = Session()
         session.headers.update({
-            'Authorization': f"Bearer {self.__api_key}",
-            'Content-Type':  'application/json',
-            'User-Agent':    f"paddle-billing-python-sdk",
+            'Authorization':  f"Bearer {self.__api_key}",
+            'Content-Type':   'application/json',
+            'Paddle-Version': str(self.use_api_version),
+            'User-Agent':     'paddle-billing-python-sdk',
         })
 
         # Configure retries
