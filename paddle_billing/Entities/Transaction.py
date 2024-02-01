@@ -56,25 +56,27 @@ class Transaction(Entity):
     customer:                  Customer                           | None = None
     discount:                  Discount                           | None = None
     available_payment_methods: list[AvailablePaymentMethods]      | None = None
+    receipt_data:              str                                | None = None
 
 
     @classmethod
     def from_dict(cls, data: dict) -> Transaction:
         return Transaction(
-            id              = data['id'],
-            status          = StatusTransaction(data['status']),
-            customer_id     = data.get('customer_id'),
             address_id      = data.get('address_id'),
             business_id     = data.get('business_id'),
+            collection_mode = CollectionMode(data['collection_mode']),
+            created_at      = datetime.fromisoformat(data['created_at']),
             currency_code   = CurrencyCode(data['currency_code']),
-            origin          = TransactionOrigin(data['origin']),
-            subscription_id = data.get('subscription_id'),
+            customer_id     = data.get('customer_id'),
+            details         = TransactionDetails.from_dict(data['details']),
+            discount_id     = data.get('discount_id'),
+            id              = data['id'],
             invoice_id      = data.get('invoice_id'),
             invoice_number  = data.get('invoice_number'),
-            collection_mode = CollectionMode(data['collection_mode']),
-            discount_id     = data.get('discount_id'),
-            details         = TransactionDetails.from_dict(data['details']),
-            created_at      = datetime.fromisoformat(data['created_at']),
+            origin          = TransactionOrigin(data['origin']),
+            receipt_data    = data.get('receipt_data'),
+            status          = StatusTransaction(data['status']),
+            subscription_id = data.get('subscription_id'),
             updated_at      = datetime.fromisoformat(data['updated_at']),
             items           = [TransactionItem.from_dict(item)           for item in data.get('items',       [])],
             payments        = [TransactionPaymentAttempt.from_dict(item) for item in data.get('payments',    [])],
