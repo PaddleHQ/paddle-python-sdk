@@ -49,5 +49,5 @@ from paddle_billing.Entities.Shared.UnitTotals                      import UnitT
 
 
 # These two cause circular imports
-# from paddle_billing.Entities.Shared.TransactionDetailsPreview import TransactionDetailsPreview
+# from paddle_billing.Entities.Shared.TransactionDetailsPreview  import TransactionDetailsPreview
 # from paddle_billing.Entities.Shared.TransactionLineItemPreview import TransactionLineItemPreview

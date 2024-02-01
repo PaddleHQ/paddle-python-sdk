@@ -2,19 +2,13 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing.Entities.Discount                 import Discount
-from paddle_billing.Entities.Discounts.DiscountStatus import DiscountStatus
-from paddle_billing.Entities.Discounts.DiscountType   import DiscountType
+from paddle_billing.Entities.Discount    import Discount
+from paddle_billing.Entities.Discounts   import DiscountStatus, DiscountType
+from paddle_billing.Entities.Collections import DiscountCollection
+from paddle_billing.Entities.Shared      import CurrencyCode, Status
 
-from paddle_billing.Entities.Collections.DiscountCollection import DiscountCollection
-
-from paddle_billing.Entities.Shared.CurrencyCode      import CurrencyCode
-from paddle_billing.Entities.Shared.Status            import Status
-
-from paddle_billing.Resources.Discounts.Operations.CreateDiscount import CreateDiscount
-from paddle_billing.Resources.Discounts.Operations.ListDiscounts  import ListDiscounts
-from paddle_billing.Resources.Discounts.Operations.UpdateDiscount import UpdateDiscount
-from paddle_billing.Resources.Shared.Operations.List.Pager        import Pager
+from paddle_billing.Resources.Discounts.Operations import CreateDiscount, ListDiscounts, UpdateDiscount
+from paddle_billing.Resources.Shared.Operations    import Pager
 
 from tests.Utils.TestClient   import mock_requests, test_client
 from tests.Utils.ReadsFixture import ReadsFixtures

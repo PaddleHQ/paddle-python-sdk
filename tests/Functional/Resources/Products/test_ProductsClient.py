@@ -4,17 +4,11 @@ from urllib.parse import unquote
 
 from paddle_billing.Entities.Collections.ProductCollection import ProductCollection
 
-from paddle_billing.Entities.Product            import Product
-from paddle_billing.Entities.Product            import Product
-from paddle_billing.Entities.Shared.CustomData  import CustomData
-from paddle_billing.Entities.Shared.Status      import Status
-from paddle_billing.Entities.Shared.TaxCategory import TaxCategory
+from paddle_billing.Entities.Product import Product
+from paddle_billing.Entities.Shared  import CustomData, Status, TaxCategory
 
-from paddle_billing.Resources.Products.Operations.CreateProduct import CreateProduct
-from paddle_billing.Resources.Products.Operations.ListProducts  import ListProducts
-from paddle_billing.Resources.Products.Operations.UpdateProduct import UpdateProduct
-from paddle_billing.Resources.Products.Operations.List.Includes import Includes
-from paddle_billing.Resources.Shared.Operations.List.Pager      import Pager
+from paddle_billing.Resources.Products.Operations import CreateProduct, ListProducts, UpdateProduct, ProductIncludes
+from paddle_billing.Resources.Shared.Operations   import Pager
 
 from tests.Utils.TestClient   import mock_requests, test_client
 from tests.Utils.ReadsFixture import ReadsFixtures
@@ -191,7 +185,7 @@ class TestProductsClient:
                 200,
                 '/products?tax_category=digital-goods,standard'
             ), (
-                ListProducts(includes=[Includes.Prices]),
+                ListProducts(includes=[ProductIncludes.Prices]),
                 200,
                 '/products?include=prices'
             ),
@@ -240,7 +234,7 @@ class TestProductsClient:
                 '/products/pro_01h7zcgmdc6tmwtjehp3sh7azf'
             ), (
                 'pro_01h7zcgmdc6tmwtjehp3sh7azf',
-                [Includes.Prices],
+                [ProductIncludes.Prices],
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/full_entity_with_includes'),
                 '/products/pro_01h7zcgmdc6tmwtjehp3sh7azf?include=prices'

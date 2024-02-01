@@ -2,19 +2,13 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing.Entities.Report                 import Report
-from paddle_billing.Entities.ReportCSV              import ReportCSV
-from paddle_billing.Entities.Reports.ReportFilters  import ReportFilters
-from paddle_billing.Entities.Reports.ReportName     import ReportName
-from paddle_billing.Entities.Reports.ReportOperator import ReportOperator
-from paddle_billing.Entities.Reports.ReportStatus   import ReportStatus
-from paddle_billing.Entities.Reports.ReportType     import ReportType
+from paddle_billing.Entities.Report      import Report
+from paddle_billing.Entities.ReportCSV   import ReportCSV
+from paddle_billing.Entities.Reports     import ReportFilters, ReportName, ReportOperator, ReportStatus, ReportType
+from paddle_billing.Entities.Collections import ReportCollection
 
-from paddle_billing.Entities.Collections.ReportCollection import ReportCollection
-
-from paddle_billing.Resources.Reports.Operations.CreateReport import CreateReport
-from paddle_billing.Resources.Reports.Operations.ListReports  import ListReports
-from paddle_billing.Resources.Shared.Operations.List.Pager    import Pager
+from paddle_billing.Resources.Reports.Operations import CreateReport, ListReports
+from paddle_billing.Resources.Shared.Operations  import Pager
 
 from tests.Utils.TestClient   import mock_requests, test_client
 from tests.Utils.ReadsFixture import ReadsFixtures

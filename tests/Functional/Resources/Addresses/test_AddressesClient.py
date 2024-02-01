@@ -2,19 +2,12 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing.Entities.Address import Address
+from paddle_billing.Entities.Address     import Address
+from paddle_billing.Entities.Collections import AddressCollection
+from paddle_billing.Entities.Shared      import CountryCode, CustomData, Status
 
-from paddle_billing.Entities.Collections.AddressCollection import AddressCollection
-
-from paddle_billing.Entities.Shared.CountryCode  import CountryCode
-from paddle_billing.Entities.Shared.CurrencyCode import CurrencyCode
-from paddle_billing.Entities.Shared.CustomData   import CustomData
-from paddle_billing.Entities.Shared.Status       import Status
-
-from paddle_billing.Resources.Addresses.Operations.CreateAddress import CreateAddress
-from paddle_billing.Resources.Addresses.Operations.ListAddresses import ListAddresses
-from paddle_billing.Resources.Addresses.Operations.UpdateAddress import UpdateAddress
-from paddle_billing.Resources.Shared.Operations.List.Pager       import Pager
+from paddle_billing.Resources.Addresses.Operations import CreateAddress, ListAddresses, UpdateAddress
+from paddle_billing.Resources.Shared.Operations    import Pager
 
 from tests.Utils.TestClient   import mock_requests, test_client
 from tests.Utils.ReadsFixture import ReadsFixtures

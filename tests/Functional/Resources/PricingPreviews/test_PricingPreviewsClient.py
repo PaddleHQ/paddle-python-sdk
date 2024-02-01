@@ -2,14 +2,11 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing.Entities.PricePreview                     import PricePreview
-from paddle_billing.Entities.PricingPreviews.PricePreviewItem import PricePreviewItem
+from paddle_billing.Entities.PricePreview    import PricePreview
+from paddle_billing.Entities.PricingPreviews import PricePreviewItem
+from paddle_billing.Entities.Shared          import AddressPreview, CountryCode, CurrencyCode
 
-from paddle_billing.Entities.Shared.AddressPreview import AddressPreview
-from paddle_billing.Entities.Shared.CountryCode    import CountryCode
-from paddle_billing.Entities.Shared.CurrencyCode   import CurrencyCode
-
-from paddle_billing.Resources.PricingPreviews.Operations.PreviewPrice import PreviewPrice
+from paddle_billing.Resources.PricingPreviews.Operations import PreviewPrice
 
 from tests.Utils.TestClient   import mock_requests, test_client
 from tests.Utils.ReadsFixture import ReadsFixtures

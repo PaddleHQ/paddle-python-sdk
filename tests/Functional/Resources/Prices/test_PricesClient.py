@@ -2,26 +2,23 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing.Entities.Price import Price
+from paddle_billing.Entities.Price       import Price
+from paddle_billing.Entities.Collections import PriceCollection
+from paddle_billing.Entities.Shared      import (
+    CountryCode,
+    CurrencyCode,
+    CustomData,
+    Interval,
+    Money,
+    PriceQuantity,
+    Status,
+    TaxMode,
+    TimePeriod,
+    UnitPriceOverride
+)
 
-from paddle_billing.Entities.Collections.PriceCollection import PriceCollection
-
-from paddle_billing.Entities.Shared.CountryCode       import CountryCode
-from paddle_billing.Entities.Shared.CurrencyCode      import CurrencyCode
-from paddle_billing.Entities.Shared.CustomData        import CustomData
-from paddle_billing.Entities.Shared.Interval          import Interval
-from paddle_billing.Entities.Shared.Money             import Money
-from paddle_billing.Entities.Shared.PriceQuantity     import PriceQuantity
-from paddle_billing.Entities.Shared.Status            import Status
-from paddle_billing.Entities.Shared.TaxMode           import TaxMode
-from paddle_billing.Entities.Shared.TimePeriod        import TimePeriod
-from paddle_billing.Entities.Shared.UnitPriceOverride import UnitPriceOverride
-
-from paddle_billing.Resources.Prices.Operations.CreatePrice   import CreatePrice
-from paddle_billing.Resources.Prices.Operations.ListPrices    import ListPrices
-from paddle_billing.Resources.Prices.Operations.UpdatePrice   import UpdatePrice
-from paddle_billing.Resources.Prices.Operations.List.Includes import Includes
-from paddle_billing.Resources.Shared.Operations.List.Pager    import Pager
+from paddle_billing.Resources.Prices.Operations import CreatePrice, ListPrices, UpdatePrice, PriceIncludes
+from paddle_billing.Resources.Shared.Operations import Pager
 
 from tests.Utils.TestClient   import mock_requests, test_client
 from tests.Utils.ReadsFixture import ReadsFixtures
@@ -219,7 +216,7 @@ class TestPricesClient:
                 ReadsFixtures.read_raw_json_fixture('response/list_default'),
                 '/prices?recurring=true',
             ), (
-                ListPrices(includes=[Includes.Product]),
+                ListPrices(includes=[PriceIncludes.Product]),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/list_default'),
                 '/prices?include=product',
@@ -272,7 +269,7 @@ class TestPricesClient:
                 '/prices/pri_01h7zcgmdc6tmwtjehp3sh7azf',
             ), (
                 'pri_01h7zcgmdc6tmwtjehp3sh7azf',
-                [Includes.Product],
+                [PriceIncludes.Product],
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/full_entity_with_includes'),
                 '/prices/pri_01h7zcgmdc6tmwtjehp3sh7azf?include=product',

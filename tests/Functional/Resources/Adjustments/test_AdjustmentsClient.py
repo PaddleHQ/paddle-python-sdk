@@ -2,18 +2,13 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing.Entities.Adjustment                 import Adjustment
-from paddle_billing.Entities.Adjustments.AdjustmentItem import AdjustmentItem
-from paddle_billing.Entities.Adjustments.AdjustmentType import AdjustmentType
+from paddle_billing.Entities.Adjustment  import Adjustment
+from paddle_billing.Entities.Adjustments import AdjustmentItem, AdjustmentType
+from paddle_billing.Entities.Collections import AdjustmentCollection
+from paddle_billing.Entities.Shared      import Action, StatusAdjustment
 
-from paddle_billing.Entities.Collections.AdjustmentCollection import AdjustmentCollection
-
-from paddle_billing.Entities.Shared.Action           import Action
-from paddle_billing.Entities.Shared.StatusAdjustment import StatusAdjustment
-
-from paddle_billing.Resources.Adjustments.Operations.CreateAdjustment import CreateAdjustment
-from paddle_billing.Resources.Adjustments.Operations.ListAdjustments  import ListAdjustments
-from paddle_billing.Resources.Shared.Operations.List.Pager            import Pager
+from paddle_billing.Resources.Adjustments.Operations import CreateAdjustment, ListAdjustments
+from paddle_billing.Resources.Shared.Operations      import Pager
 
 from tests.Utils.TestClient   import mock_requests, test_client
 from tests.Utils.ReadsFixture import ReadsFixtures

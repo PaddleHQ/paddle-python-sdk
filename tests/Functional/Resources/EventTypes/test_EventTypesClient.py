@@ -2,7 +2,7 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing.Entities.Collections.EventTypeCollection import EventTypeCollection
+from paddle_billing.Entities.Collections import EventTypeCollection
 
 from tests.Utils.TestClient   import mock_requests, test_client
 from tests.Utils.ReadsFixture import ReadsFixtures

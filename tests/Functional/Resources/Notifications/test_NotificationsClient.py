@@ -2,14 +2,13 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing.Entities.DateTime                         import DateTime
-from paddle_billing.Entities.Notification                     import Notification
-from paddle_billing.Entities.Notifications.NotificationStatus import NotificationStatus
+from paddle_billing.Entities.DateTime      import DateTime
+from paddle_billing.Entities.Notification  import Notification
+from paddle_billing.Entities.Notifications import NotificationStatus
+from paddle_billing.Entities.Collections   import NotificationCollection
 
-from paddle_billing.Entities.Collections.NotificationCollection import NotificationCollection
-
-from paddle_billing.Resources.Notifications.Operations.ListNotifications import ListNotifications
-from paddle_billing.Resources.Shared.Operations.List.Pager               import Pager
+from paddle_billing.Resources.Notifications.Operations import ListNotifications
+from paddle_billing.Resources.Shared.Operations        import Pager
 
 from tests.Utils.TestClient   import mock_requests, test_client
 from tests.Utils.ReadsFixture import ReadsFixtures
