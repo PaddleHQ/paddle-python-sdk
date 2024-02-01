@@ -7,7 +7,6 @@ from paddle_billing.Entities.Shared.Pagination import Pagination
 from paddle_billing.Exceptions.ApiError import ApiError
 
 
-# TODO
 class ResponseParser:
     def __init__(self, response: Response):
         self.body = None
