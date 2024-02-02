@@ -1,10 +1,8 @@
 from __future__  import annotations
 from dataclasses import dataclass
 
-from paddle_billing.Entities.Adjustments.AdjustmentProration import AdjustmentProration
-
-from paddle_billing.Entities.Shared.AdjustmentItemTotals import AdjustmentItemTotals as SharedAdjustmentItemTotals
-from paddle_billing.Entities.Shared.Type                 import Type
+from paddle_billing.Entities.Adjustments import AdjustmentProration
+from paddle_billing.Entities.Shared      import Type, AdjustmentItemTotals as SharedAdjustmentItemTotals
 
 
 @dataclass

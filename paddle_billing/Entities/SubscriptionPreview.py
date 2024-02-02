@@ -3,22 +3,20 @@ from dataclasses import dataclass
 from datetime    import datetime
 
 from paddle_billing.Entities.Entity import Entity
+from paddle_billing.Entities.Shared import BillingDetails, CollectionMode, CurrencyCode, CustomData, TimePeriod
 
-from paddle_billing.Entities.Shared.BillingDetails            import BillingDetails
-from paddle_billing.Entities.Shared.CollectionMode            import CollectionMode
-from paddle_billing.Entities.Shared.CurrencyCode              import CurrencyCode
-from paddle_billing.Entities.Shared.CustomData                import CustomData
-from paddle_billing.Entities.Shared.TimePeriod                import TimePeriod
 from paddle_billing.Entities.Shared.TransactionDetailsPreview import TransactionDetailsPreview
 
-from paddle_billing.Entities.Subscriptions.SubscriptionDiscount                         import SubscriptionDiscount
-from paddle_billing.Entities.Subscriptions.SubscriptionItem                             import SubscriptionItem
-from paddle_billing.Entities.Subscriptions.SubscriptionManagementUrls                   import SubscriptionManagementUrls
-from paddle_billing.Entities.Subscriptions.SubscriptionNextTransaction                  import SubscriptionNextTransaction
-from paddle_billing.Entities.Subscriptions.SubscriptionPreviewSubscriptionUpdateSummary import SubscriptionPreviewSubscriptionUpdateSummary
-from paddle_billing.Entities.Subscriptions.SubscriptionScheduledChange                  import SubscriptionScheduledChange
-from paddle_billing.Entities.Subscriptions.SubscriptionStatus                           import SubscriptionStatus
-from paddle_billing.Entities.Subscriptions.SubscriptionTimePeriod                       import SubscriptionTimePeriod
+from paddle_billing.Entities.Subscriptions import (
+    SubscriptionDiscount,
+    SubscriptionItem,
+    SubscriptionManagementUrls,
+    SubscriptionNextTransaction,
+    SubscriptionPreviewSubscriptionUpdateSummary,
+    SubscriptionScheduledChange,
+    SubscriptionStatus,
+    SubscriptionTimePeriod,
+)
 
 
 @dataclass

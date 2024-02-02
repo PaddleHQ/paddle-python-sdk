@@ -4,15 +4,17 @@ from dataclasses import dataclass
 from paddle_billing.Entities.Entity  import Entity
 from paddle_billing.Entities.Product import Product
 
-from paddle_billing.Entities.Shared.CatalogType       import CatalogType
-from paddle_billing.Entities.Shared.CustomData        import CustomData
-from paddle_billing.Entities.Shared.ImportMeta        import ImportMeta
-from paddle_billing.Entities.Shared.Money             import Money
-from paddle_billing.Entities.Shared.PriceQuantity     import PriceQuantity
-from paddle_billing.Entities.Shared.Status            import Status
-from paddle_billing.Entities.Shared.TaxMode           import TaxMode
-from paddle_billing.Entities.Shared.TimePeriod        import TimePeriod
-from paddle_billing.Entities.Shared.UnitPriceOverride import UnitPriceOverride
+from paddle_billing.Entities.Shared import (
+    CatalogType,
+    CustomData,
+    ImportMeta,
+    Money,
+    PriceQuantity,
+    Status,
+    TaxMode,
+    TimePeriod,
+    UnitPriceOverride,
+)
 
 from paddle_billing.Logger import get_logger
 log = get_logger()

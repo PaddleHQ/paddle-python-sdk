@@ -2,11 +2,8 @@ from __future__  import annotations
 from dataclasses import dataclass
 from datetime    import datetime
 
-from paddle_billing.Entities.Entity import Entity
-
-from paddle_billing.Entities.Reports.ReportFilters import ReportFilters
-from paddle_billing.Entities.Reports.ReportStatus  import ReportStatus
-from paddle_billing.Entities.Reports.ReportType    import ReportType
+from paddle_billing.Entities.Entity  import Entity
+from paddle_billing.Entities.Reports import ReportFilters, ReportStatus, ReportType
 
 
 @dataclass

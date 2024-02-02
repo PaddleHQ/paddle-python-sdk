@@ -1,8 +1,7 @@
 from __future__  import annotations
 from dataclasses import dataclass
 
-from paddle_billing.Entities.Shared.TransactionDetailsPreview import TransactionDetailsPreview
-
+from paddle_billing.Entities.Shared.TransactionDetailsPreview            import TransactionDetailsPreview
 from paddle_billing.Entities.Subscriptions.SubscriptionTimePeriod        import SubscriptionTimePeriod
 from paddle_billing.Entities.Subscriptions.SubscriptionAdjustmentPreview import SubscriptionAdjustmentPreview
 

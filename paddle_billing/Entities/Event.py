@@ -5,8 +5,7 @@ from importlib   import import_module
 
 from paddle_billing.ConditionallyRemoveImportMeta import conditionally_remove_import_meta
 from paddle_billing.Entities.Entity import Entity
-
-from paddle_billing.Entities.Events.EventTypeName import EventTypeName
+from paddle_billing.Entities.Events import EventTypeName
 
 
 @dataclass

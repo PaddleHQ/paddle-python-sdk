@@ -2,13 +2,10 @@ from __future__  import annotations
 from dataclasses import dataclass
 from datetime    import datetime
 
-from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.Event  import Event
-
-from paddle_billing.Entities.Events.EventTypeName import EventTypeName
-
-from paddle_billing.Entities.Notifications.NotificationOrigin import NotificationOrigin
-from paddle_billing.Entities.Notifications.NotificationStatus import NotificationStatus
+from paddle_billing.Entities.Entity        import Entity
+from paddle_billing.Entities.Event         import Event
+from paddle_billing.Entities.Events        import EventTypeName
+from paddle_billing.Entities.Notifications import NotificationOrigin, NotificationStatus
 
 
 @dataclass

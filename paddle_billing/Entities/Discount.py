@@ -3,11 +3,8 @@ from .Entity     import Entity
 from dataclasses import dataclass
 from datetime    import datetime
 
-from paddle_billing.Entities.Discounts.DiscountStatus import DiscountStatus
-from paddle_billing.Entities.Discounts.DiscountType   import DiscountType
-
-from paddle_billing.Entities.Shared.CurrencyCode import CurrencyCode
-from paddle_billing.Entities.Shared.ImportMeta   import ImportMeta
+from paddle_billing.Entities.Discounts import DiscountStatus, DiscountType
+from paddle_billing.Entities.Shared    import CurrencyCode, ImportMeta
 
 
 @dataclass

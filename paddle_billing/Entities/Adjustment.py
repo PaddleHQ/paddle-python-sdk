@@ -3,13 +3,7 @@ from dataclasses import dataclass
 from datetime    import datetime
 
 from paddle_billing.Entities.Entity import Entity
-
-from paddle_billing.Entities.Shared.Action                 import Action
-from paddle_billing.Entities.Shared.AdjustmentItemTotals   import AdjustmentItemTotals
-from paddle_billing.Entities.Shared.CurrencyCode           import CurrencyCode
-from paddle_billing.Entities.Shared.PayoutTotalsAdjustment import PayoutTotalsAdjustment
-from paddle_billing.Entities.Shared.StatusAdjustment       import StatusAdjustment
-from paddle_billing.Entities.Shared.TotalAdjustments       import TotalAdjustments
+from paddle_billing.Entities.Shared import Action, AdjustmentItemTotals, CurrencyCode, PayoutTotalsAdjustment, StatusAdjustment, TotalAdjustments
 
 
 @dataclass

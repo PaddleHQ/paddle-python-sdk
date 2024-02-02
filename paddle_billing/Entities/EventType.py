@@ -2,8 +2,7 @@ from __future__  import annotations
 from dataclasses import dataclass
 
 from paddle_billing.Entities.Entity import Entity
-
-from paddle_billing.Entities.Events.EventTypeName import EventTypeName
+from paddle_billing.Entities.Events import EventTypeName
 
 
 @dataclass

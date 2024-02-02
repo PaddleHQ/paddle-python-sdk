@@ -1,13 +1,15 @@
 from __future__  import annotations
 from dataclasses import dataclass
 
-from paddle_billing.Entities.Shared.TaxRatesUsed                    import TaxRatesUsed
-from paddle_billing.Entities.Shared.TransactionPayoutTotals         import TransactionPayoutTotals
-from paddle_billing.Entities.Shared.TransactionPayoutTotalsAdjusted import TransactionPayoutTotalsAdjusted
-from paddle_billing.Entities.Shared.TransactionTotals               import TransactionTotals
-from paddle_billing.Entities.Shared.TransactionTotalsAdjusted       import TransactionTotalsAdjusted
+from paddle_billing.Entities.Shared import (
+    TaxRatesUsed,
+    TransactionPayoutTotals,
+    TransactionPayoutTotalsAdjusted,
+    TransactionTotals,
+    TransactionTotalsAdjusted
+)
 
-from paddle_billing.Entities.Subscriptions.SubscriptionTransactionLineItem import SubscriptionTransactionLineItem
+from paddle_billing.Entities.Subscriptions import SubscriptionTransactionLineItem
 
 
 @dataclass

@@ -8,19 +8,23 @@ from paddle_billing.Entities.Customer import Customer
 from paddle_billing.Entities.Discount import Discount
 from paddle_billing.Entities.Entity   import Entity
 
-from paddle_billing.Entities.Shared.BillingDetails            import BillingDetails
-from paddle_billing.Entities.Shared.Checkout                  import Checkout
-from paddle_billing.Entities.Shared.CollectionMode            import CollectionMode
-from paddle_billing.Entities.Shared.CurrencyCode              import CurrencyCode
-from paddle_billing.Entities.Shared.CustomData                import CustomData
-from paddle_billing.Entities.Shared.StatusTransaction         import StatusTransaction
-from paddle_billing.Entities.Shared.TransactionOrigin         import TransactionOrigin
-from paddle_billing.Entities.Shared.TransactionPaymentAttempt import TransactionPaymentAttempt
+from paddle_billing.Entities.Shared import (
+    BillingDetails,
+    Checkout,
+    CollectionMode,
+    CurrencyCode,
+    CustomData,
+    StatusTransaction,
+    TransactionOrigin,
+    TransactionPaymentAttempt,
+)
 
-from paddle_billing.Entities.Subscriptions.SubscriptionAdjustment      import SubscriptionAdjustment
-from paddle_billing.Entities.Subscriptions.SubscriptionDetails         import SubscriptionDetails
-from paddle_billing.Entities.Subscriptions.SubscriptionTimePeriod      import SubscriptionTimePeriod
-from paddle_billing.Entities.Subscriptions.SubscriptionTransactionItem import SubscriptionTransactionItem
+from paddle_billing.Entities.Subscriptions import (
+    SubscriptionAdjustment,
+    SubscriptionDetails,
+    SubscriptionTimePeriod,
+    SubscriptionTransactionItem,
+)
 
 
 @dataclass

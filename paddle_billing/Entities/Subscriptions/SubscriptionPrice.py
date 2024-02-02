@@ -1,9 +1,7 @@
 from __future__  import annotations
 from dataclasses import dataclass
 
-from paddle_billing.Entities.Shared.Money      import Money
-from paddle_billing.Entities.Shared.TaxMode    import TaxMode
-from paddle_billing.Entities.Shared.TimePeriod import TimePeriod
+from paddle_billing.Entities.Shared import Money, TaxMode, TimePeriod
 
 
 @dataclass

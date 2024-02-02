@@ -2,21 +2,23 @@ from __future__  import annotations
 from dataclasses import dataclass
 from datetime    import datetime
 
-from paddle_billing.Entities.Entity  import Entity
-from paddle_billing.Entities.Address import Address
+from paddle_billing.Entities.Entity   import Entity
+from paddle_billing.Entities.Address  import Address
 from paddle_billing.Entities.Business import Business
 from paddle_billing.Entities.Customer import Customer
 from paddle_billing.Entities.Discount import Discount
 
-from paddle_billing.Entities.Shared.AvailablePaymentMethods   import AvailablePaymentMethods
-from paddle_billing.Entities.Shared.BillingDetails            import BillingDetails
-from paddle_billing.Entities.Shared.Checkout                  import Checkout
-from paddle_billing.Entities.Shared.CollectionMode            import CollectionMode
-from paddle_billing.Entities.Shared.CustomData                import CustomData
-from paddle_billing.Entities.Shared.CurrencyCode              import CurrencyCode
-from paddle_billing.Entities.Shared.StatusTransaction         import StatusTransaction
-from paddle_billing.Entities.Shared.TransactionOrigin         import TransactionOrigin
-from paddle_billing.Entities.Shared.TransactionPaymentAttempt import TransactionPaymentAttempt
+from paddle_billing.Entities.Shared import (
+    AvailablePaymentMethods,
+    BillingDetails,
+    Checkout,
+    CollectionMode,
+    CustomData,
+    CurrencyCode,
+    StatusTransaction,
+    TransactionOrigin,
+    TransactionPaymentAttempt,
+)
 
 from paddle_billing.Entities.Transactions.TransactionAdjustment        import TransactionAdjustment
 from paddle_billing.Entities.Transactions.TransactionAdjustmentsTotals import TransactionAdjustmentsTotals

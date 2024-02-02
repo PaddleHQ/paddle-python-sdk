@@ -1,8 +1,7 @@
 from __future__  import annotations
 from dataclasses import asdict, dataclass
 
-from paddle_billing.Entities.Reports.ReportName     import ReportName
-from paddle_billing.Entities.Reports.ReportOperator import ReportOperator
+from paddle_billing.Entities.Reports import ReportName, ReportOperator
 
 
 @dataclass

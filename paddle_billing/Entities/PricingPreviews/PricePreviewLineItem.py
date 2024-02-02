@@ -4,9 +4,7 @@ from dataclasses import dataclass
 from paddle_billing.Entities.Entity  import Entity
 from paddle_billing.Entities.Price   import Price
 from paddle_billing.Entities.Product import Product
-
-from paddle_billing.Entities.Shared.Totals     import Totals
-from paddle_billing.Entities.Shared.UnitTotals import UnitTotals
+from paddle_billing.Entities.Shared  import Totals, UnitTotals
 
 from paddle_billing.Entities.PricingPreviews.PricePreviewUnitTotalsFormatted import PricePreviewUnitTotalsFormatted
 from paddle_billing.Entities.PricingPreviews.PricePreviewTotalsFormatted     import PricePreviewTotalsFormatted

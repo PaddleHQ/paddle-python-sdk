@@ -2,7 +2,6 @@ from __future__  import annotations
 from dataclasses import dataclass
 
 from paddle_billing.Entities.Entity import Entity
-
 from paddle_billing.Entities.PricingPreviews.PricePreviewLineItem import PricePreviewLineItem
 
 
