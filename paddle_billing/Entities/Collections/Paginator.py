@@ -7,8 +7,8 @@ if TYPE_CHECKING:
     from paddle_billing.Entities.Shared      import Pagination
 
 
-class Paginator():
-    def __init__(self, client: 'Client', pagination: 'Pagination', mapper: 'Collection'):
+class Paginator:
+    def __init__(self, client: 'Client', pagination: 'Pagination', mapper):
         self._client     = client
         self._pagination = pagination
         self._mapper     = mapper
