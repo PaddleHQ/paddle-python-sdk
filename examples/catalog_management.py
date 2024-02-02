@@ -53,7 +53,6 @@ except (ApiError, MalformedResponse) as e:
     exit()
 
 print(f"Created product '{product.id}': {product.description}")
-print(f"product={product}\n\n")
 
 
 # ┌───
@@ -70,7 +69,6 @@ except (ApiError, MalformedResponse) as e:
     exit()
 
 print(f"Updated product '{product.id}': {product.description}")
-print(f"product={product}\n\n")
 
 
 # ┌───
@@ -98,7 +96,6 @@ except (ApiError, MalformedResponse) as e:
     exit()
 
 print(f"Created price '{price.id}': {price.description}")
-print(f"price={price}\n\n")
 
 
 # ┌───
@@ -115,7 +112,6 @@ except (ApiError, MalformedResponse) as e:
     exit()
 
 print(f"Updated price '{price.id}': {price.description}")
-print(f"price={price}\n\n")
 
 
 # ┌───
@@ -127,7 +123,8 @@ except (ApiError, MalformedResponse) as e:
     print(e)
     exit()
 
-print(f"Read product '{product.id}' with prices " + ', '.join([str(p.id) for p in product.prices]))
+print(f"product.prices={product.prices}")
+print(f"Read product '{product.id}' with prices " + ', '.join([str(price.id) for price in product.prices]))
 
 
 # ┌───
@@ -139,7 +136,7 @@ except (ApiError, MalformedResponse) as e:
     print(e)
     exit()
 
-print(f"Read price '{price.id}' with product {price.product.id if price.product else '????'}")
+print(f"Read price '{price.id}' with product {price.product.id if price.product else 'MISSING PRODUCT'}")
 
 
 # ┌───
@@ -159,8 +156,8 @@ except (ApiError, MalformedResponse) as e:
 # │ Iterate Products and Prices │
 # └─────────────────────────────┘
 for product in products:
-    print(product.name)
+    print(f"Product: {product.name}")
     print('-' * len(product.name))
     for price in product.prices:
-        print(f"{price.unit_price.amount} - {price.description}")
+        print(f"Price: {price.name} - {price.description}")
     print()
