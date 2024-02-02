@@ -1,8 +1,8 @@
 from datetime import datetime
 
-from paddle_billing.Entities.Event                                  import Event
-from paddle_billing.Entities.Events.EventTypeName                   import EventTypeName
-from paddle_billing.Entities.Notifications.NotificationSubscription import NotificationSubscription
+from paddle_billing.Entities.Event         import Event
+from paddle_billing.Entities.Events        import EventTypeName
+from paddle_billing.Entities.Notifications import NotificationSubscription
 
 
 class SubscriptionActivated(Event):

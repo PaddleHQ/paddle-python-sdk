@@ -1,8 +1,8 @@
 from datetime import datetime
 
-from paddle_billing.Entities.Event                            import Event
-from paddle_billing.Entities.Events.EventTypeName             import EventTypeName
-from paddle_billing.Entities.Notifications.NotificationPayout import NotificationPayout
+from paddle_billing.Entities.Event         import Event
+from paddle_billing.Entities.Events        import EventTypeName
+from paddle_billing.Entities.Notifications import NotificationPayout
 
 
 class PayoutPaid(Event):
