@@ -37,7 +37,7 @@ class Product(Entity):
             name         = data['name'],
             status       = Status(data['status']),
             tax_category = TaxCategory(data['tax_category']),
-            prices       = PriceCollection(data['prices'])            if data.get('prices')      else [],
+            prices       = PriceCollection.from_list(data['prices'])  if data.get('prices')      else [],
             type         = CatalogType(data['type'])                  if data.get('type')        else None,
             custom_data  = CustomData(data['custom_data'])            if data.get('custom_data') else None,
             created_at   = datetime.fromisoformat(data['created_at']) if data.get('created_at')  else None,
