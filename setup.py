@@ -2,6 +2,8 @@ from setuptools  import setup, find_packages
 
 
 setup(
+    version          = '0.0.1a90',
+
     author           = 'Corey Regan',
     author_email     = 'regan.corey@gmail.com',
     description      = 'A Python wrapper for the Paddle Billing API',
@@ -9,7 +11,6 @@ setup(
     packages         = find_packages(),
     python_requires  = '>=3.11',
     url              = 'https://github.com/invincibear/paddle-billing-python-sdk',
-    version          = '0.0.1a89',
 
     long_description              = open('README.md').read(),
     long_description_content_type = 'text/markdown',
