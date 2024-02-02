@@ -18,8 +18,8 @@ from paddle_billing.Entities.Shared import (
 from paddle_billing.Exceptions.ApiError                        import ApiError
 from paddle_billing.Exceptions.SdkExceptions.MalformedResponse import MalformedResponse
 
+from paddle_billing.Resources.Prices.Operations   import CreatePrice, UpdatePrice, PriceIncludes
 from paddle_billing.Resources.Products.Operations import CreateProduct, UpdateProduct, ProductIncludes, ListProducts
-from paddle_billing.Resources.Prices.Operations   import CreatePrice,   UpdatePrice,   PriceIncludes
 
 
 # Verify your Paddle API key was provided by a PADDLE_SECRET_API_KEY environment variable

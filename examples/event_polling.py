@@ -2,8 +2,8 @@ from os import getenv
 
 from paddle_billing import Client, Environment, Options
 
-from paddle_billing.Resources.Events.Operations.ListEvents import ListEvents
-from paddle_billing.Resources.Shared.Operations.List.Pager import Pager
+from paddle_billing.Resources.Events.Operations import ListEvents
+from paddle_billing.Resources.Shared.Operations import Pager
 
 
 # Verify your Paddle API key was provided by a PADDLE_SECRET_API_KEY environment variable

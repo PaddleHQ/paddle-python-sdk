@@ -2,42 +2,42 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing.Entities.Collections.TransactionCollection import TransactionCollection
-
+from paddle_billing.Entities.Collections        import TransactionCollection
 from paddle_billing.Entities.DateTime           import DateTime
 from paddle_billing.Entities.Transaction        import Transaction
 from paddle_billing.Entities.TransactionData    import TransactionData
 from paddle_billing.Entities.TransactionPreview import TransactionPreview
+from paddle_billing.Resources.Shared.Operations import Comparator, DateComparison, Pager
 
-from paddle_billing.Entities.Shared.BillingDetails    import BillingDetails
-from paddle_billing.Entities.Shared.CollectionMode    import CollectionMode
-from paddle_billing.Entities.Shared.CurrencyCode      import CurrencyCode
-from paddle_billing.Entities.Shared.CustomData        import CustomData
-from paddle_billing.Entities.Shared.Interval          import Interval
-from paddle_billing.Entities.Shared.Money             import Money
-from paddle_billing.Entities.Shared.PriceQuantity     import PriceQuantity
-from paddle_billing.Entities.Shared.StatusTransaction import StatusTransaction
-from paddle_billing.Entities.Shared.TaxMode           import TaxMode
-from paddle_billing.Entities.Shared.TimePeriod        import TimePeriod
+from paddle_billing.Entities.Shared import (
+    BillingDetails,
+    CollectionMode,
+    CurrencyCode,
+    CustomData,
+    Interval,
+    Money,
+    PriceQuantity,
+    StatusTransaction,
+    TaxMode,
+    TimePeriod,
+)
 
-from paddle_billing.Entities.Transactions.TransactionCreateItem          import TransactionCreateItem
-from paddle_billing.Entities.Transactions.TransactionCreateItemWithPrice import TransactionCreateItemWithPrice
-from paddle_billing.Entities.Transactions.TransactionNonCatalogPrice     import TransactionNonCatalogPrice
-from paddle_billing.Entities.Transactions.TransactionItemPreviewWithNonCatalogPrice \
-    import TransactionItemPreviewWithNonCatalogPrice
-from paddle_billing.Entities.Transactions.TransactionItemPreviewWithPriceId \
-    import TransactionItemPreviewWithPriceId
+from paddle_billing.Entities.Transactions import (
+    TransactionCreateItem,
+    TransactionCreateItemWithPrice,
+    TransactionNonCatalogPrice,
+    TransactionItemPreviewWithNonCatalogPrice,
+    TransactionItemPreviewWithPriceId,
+)
 
-from paddle_billing.Resources.Shared.Operations.List.Comparator     import Comparator
-from paddle_billing.Resources.Shared.Operations.List.DateComparison import DateComparison
-from paddle_billing.Resources.Shared.Operations.List.Pager          import Pager
-
-from paddle_billing.Resources.Transactions.Operations.CreateTransaction  import CreateTransaction
-from paddle_billing.Resources.Transactions.Operations.ListTransactions   import ListTransactions
-from paddle_billing.Resources.Transactions.Operations.List.Includes      import Includes
-from paddle_billing.Resources.Transactions.Operations.List.Origin        import Origin
-from paddle_billing.Resources.Transactions.Operations.PreviewTransaction import PreviewTransaction
-from paddle_billing.Resources.Transactions.Operations.UpdateTransaction  import UpdateTransaction
+from paddle_billing.Resources.Transactions.Operations import (
+    CreateTransaction,
+    ListTransactions,
+    TransactionIncludes,
+    TransactionOrigin,
+    PreviewTransaction,
+    UpdateTransaction,
+)
 
 from tests.Utils.TestClient   import mock_requests, test_client
 from tests.Utils.ReadsFixture import ReadsFixtures
@@ -193,7 +193,7 @@ class TestTransactionsClient:
             CreateTransaction(items=[
                 TransactionCreateItem(price_id='pri_01he5kxqey1k8ankgef29cj4bv', quantity=1)
             ]),
-            [Includes.Customer, Includes.Business],
+            [TransactionIncludes.Customer, TransactionIncludes.Business],
             200,
             ReadsFixtures.read_raw_json_fixture('response/minimal_entity'),
             '/transactions?include=customer,business',
@@ -376,17 +376,17 @@ class TestTransactionsClient:
                 ReadsFixtures.read_raw_json_fixture('response/list_default'),
                 "/transactions?created_at[GT]=2023-11-06T14:00:00.000000Z",
             ), (
-                ListTransactions(includes=[Includes.Customer]),
+                ListTransactions(includes=[TransactionIncludes.Customer]),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/list_default'),
                 "/transactions?include=customer",
             ), (
-                ListTransactions(includes=[Includes.Customer, Includes.Address, Includes.Discount]),
+                ListTransactions(includes=[TransactionIncludes.Customer, TransactionIncludes.Address, TransactionIncludes.Discount]),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/list_default'),
                 '/transactions?include=customer,address,discount',
             ), (
-                ListTransactions(origins=[Origin.Web, Origin.Api, Origin.SubscriptionRecurring]),
+                ListTransactions(origins=[TransactionOrigin.Web, TransactionOrigin.Api, TransactionOrigin.SubscriptionRecurring]),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/list_default'),
                 '/transactions?origin=web,api,subscription_recurring',
@@ -450,7 +450,7 @@ class TestTransactionsClient:
                 '/transactions/txn_01hen7bxc1p8ep4yk7n5jbzk9r',
             ), (
                 'txn_01hen7bxc1p8ep4yk7n5jbzk9r',
-                [Includes.Customer, Includes.Address, Includes.Business, Includes.Discount, Includes.AvailablePaymentMethods],
+                [TransactionIncludes.Customer, TransactionIncludes.Address, TransactionIncludes.Business, TransactionIncludes.Discount, TransactionIncludes.AvailablePaymentMethods],
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/full_entity'),
                 '/transactions/txn_01hen7bxc1p8ep4yk7n5jbzk9r?include=customer,address,business,discount,available_payment_methods',
