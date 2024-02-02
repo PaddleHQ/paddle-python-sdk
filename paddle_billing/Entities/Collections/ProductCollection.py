@@ -6,7 +6,7 @@ from paddle_billing.Entities.Collections.Paginator  import Paginator
 
 class ProductCollection(Collection):
     @classmethod
-    def from_list(cls, items_data: list, paginator: Paginator = None) -> ProductCollection:
+    def from_list(cls, items_data: list, paginator: Paginator | None = None) -> ProductCollection:
         from paddle_billing.Entities.Product import Product
 
         items = [Product.from_dict(item) for item in items_data]

@@ -6,7 +6,7 @@ from paddle_billing.Entities.Collections.Paginator  import Paginator
 
 class AdjustmentCollection(Collection):
     @classmethod
-    def from_list(cls, items_data: list, paginator: Paginator = None) -> AdjustmentCollection:
+    def from_list(cls, items_data: list, paginator: Paginator | None = None) -> AdjustmentCollection:
         from paddle_billing.Entities.Adjustment import Adjustment
 
         items = [Adjustment.from_dict(item) for item in items_data]

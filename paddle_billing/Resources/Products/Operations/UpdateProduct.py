@@ -6,13 +6,13 @@ from paddle_billing.Entities.Shared import CatalogType, CustomData, Status, TaxC
 
 @dataclass
 class UpdateProduct:
-    name:         str         | None | Undefined = Undefined()
+    name:         str                | Undefined = Undefined()
     description:  str         | None | Undefined = Undefined()
     type:         CatalogType | None | Undefined = Undefined()
-    tax_category: TaxCategory | None | Undefined = Undefined()
+    tax_category: TaxCategory        | Undefined = Undefined()
     image_url:    str         | None | Undefined = Undefined()
     custom_data:  CustomData  | None | Undefined = Undefined()
-    status:       Status      | None | Undefined = Undefined()
+    status:       Status             | Undefined = Undefined()
 
 
     def get_parameters(self) -> dict:

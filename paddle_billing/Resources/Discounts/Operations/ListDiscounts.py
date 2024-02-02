@@ -11,7 +11,7 @@ from paddle_billing.Resources.Shared.Operations import Pager
 class ListDiscounts(HasParameters):
     def __init__(
         self,
-        pager:    Pager        = None,
+        pager:    Pager | None = None,
         ids:      list[str]    = None,
         statuses: list[Status] = None,
         codes:    list[str]    = None,

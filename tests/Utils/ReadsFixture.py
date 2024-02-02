@@ -5,15 +5,14 @@ from pathlib import Path
 
 class ReadsFixtures:
     @staticmethod
-    def read_raw_json_fixture(fixture: str, base_path=None):
+    def read_raw_json_fixture(fixture: str, base_path: str | None = None):
         """
         Reads a raw JSON fixture file and returns its contents as a string.
         """
-        # if base_path is None:
-        #     base_path = Path(__file__).parent
-
-        caller_file = stack()[1].filename  # Get the file path of the calling file, e.g. test_EventsClient.py
-        base_path   = Path(caller_file).parent
+        if base_path is None:
+            # Get the file path of the calling file, e.g. test_EventsClient.py
+            caller_file = stack()[1].filename
+            base_path   = Path(caller_file).parent
 
         while base_path != Path(__file__).parent.parent:
             file_path = base_path / '_fixtures' / f"{fixture}.json"
@@ -27,7 +26,7 @@ class ReadsFixtures:
 
 
     @staticmethod
-    def read_json_fixture(fixture: str, base_path=None):
+    def read_json_fixture(fixture: str, base_path: str | None = None):
         """
         Reads a JSON fixture file and returns its contents as a dictionary.
         """

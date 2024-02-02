@@ -6,7 +6,7 @@ from paddle_billing.Entities.Collections.Paginator  import Paginator
 
 class SubscriptionCollection(Collection):
     @classmethod
-    def from_list(cls, items_data: list, paginator: Paginator = None) -> SubscriptionCollection:
+    def from_list(cls, items_data: list, paginator: Paginator | None = None) -> SubscriptionCollection:
         from paddle_billing.Entities.Subscription import Subscription
 
         items = [Subscription.from_dict(item) for item in items_data]

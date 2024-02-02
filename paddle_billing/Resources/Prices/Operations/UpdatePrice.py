@@ -6,16 +6,16 @@ from paddle_billing.Entities.Shared import CatalogType, CustomData, Money, Price
 
 @dataclass
 class UpdatePrice:
-    description:          str                     | None | Undefined = Undefined()
+    description:          str                            | Undefined = Undefined()
     name:                 str                     | None | Undefined = Undefined()
-    type:                 CatalogType             | None | Undefined = Undefined()
+    type:                 CatalogType                    | Undefined = Undefined()
     billing_cycle:        TimePeriod              | None | Undefined = Undefined()
     trial_period:         TimePeriod              | None | Undefined = Undefined()
-    tax_mode:             TaxMode                 | None | Undefined = Undefined()
-    unit_price:           Money                   | None | Undefined = Undefined()
-    unit_price_overrides: list[UnitPriceOverride] | None | Undefined = Undefined()
-    quantity:             PriceQuantity           | None | Undefined = Undefined()
-    status:               Status                  | None | Undefined = Undefined()
+    tax_mode:             TaxMode                        | Undefined = Undefined()
+    unit_price:           Money                          | Undefined = Undefined()
+    unit_price_overrides: list[UnitPriceOverride]        | Undefined = Undefined()
+    quantity:             PriceQuantity                  | Undefined = Undefined()
+    status:               Status                         | Undefined = Undefined()
     custom_data:          CustomData              | None | Undefined = Undefined()
 
 

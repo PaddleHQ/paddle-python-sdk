@@ -12,7 +12,7 @@ from paddle_billing.Resources.Shared.Operations                 import Pager
 class ListProducts(HasParameters):
     def __init__(
         self,
-        pager:          Pager                 = None,
+        pager:          Pager | None          = None,
         includes:       list[ProductIncludes] = None,
         ids:            list[str]             = None,
         types:          list[CatalogType]     = None,

@@ -11,7 +11,7 @@ class UpdateBusiness:
     tax_identifier: str            | None | Undefined = Undefined()
     contacts:       list[Contacts]        | Undefined = Undefined()
     custom_data:    CustomData     | None | Undefined = Undefined()
-    status:         Status         | None | Undefined = Undefined()
+    status:         Status                | Undefined = Undefined()
 
 
     def get_parameters(self) -> dict:

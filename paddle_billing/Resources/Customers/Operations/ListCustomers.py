@@ -11,11 +11,11 @@ from paddle_billing.Resources.Shared.Operations import Pager
 class ListCustomers(HasParameters):
     def __init__(
         self,
-        pager:    Pager        = None,
-        ids:      list[str]    = None,
-        statuses: list[Status] = None,
-        search:   str          = None,
-        emails:   list[str]    = None,
+        pager:    Pager        | None = None,
+        ids:      list[str]           = None,
+        statuses: list[Status]        = None,
+        search:   str          | None = None,
+        emails:   list[str]           = None,
     ):
         self.pager    = pager
         self.search   = search

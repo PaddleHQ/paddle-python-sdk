@@ -6,7 +6,7 @@ from paddle_billing.Entities.Collections.Paginator  import Paginator
 
 class DiscountCollection(Collection):
     @classmethod
-    def from_list(cls, items_data: list, paginator: Paginator = None) -> DiscountCollection:
+    def from_list(cls, items_data: list, paginator: Paginator | None = None) -> DiscountCollection:
         from paddle_billing.Entities.Discount import Discount
 
         items = [Discount.from_dict(item) for item in items_data]

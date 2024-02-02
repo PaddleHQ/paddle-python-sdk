@@ -18,7 +18,7 @@ class UpdateDiscount:
     usage_limit:                 int            | None | Undefined = Undefined()
     restrict_to:                 list[str]      | None | Undefined = Undefined()
     expires_at:                  str            | None | Undefined = Undefined()
-    status:                      DiscountStatus | None | Undefined = Undefined()
+    status:                      DiscountStatus        | Undefined = Undefined()
 
 
     def get_parameters(self) -> dict:

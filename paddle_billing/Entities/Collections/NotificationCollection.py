@@ -6,7 +6,7 @@ from paddle_billing.Entities.Collections.Paginator  import Paginator
 
 class NotificationCollection(Collection):
     @classmethod
-    def from_list(cls, items_data: list, paginator: Paginator = None) -> NotificationCollection:
+    def from_list(cls, items_data: list, paginator: Paginator | None = None) -> NotificationCollection:
         from paddle_billing.Entities.Notification import Notification
 
         items = [Notification.from_dict(item) for item in items_data]

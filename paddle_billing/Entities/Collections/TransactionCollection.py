@@ -6,7 +6,7 @@ from paddle_billing.Entities.Collections.Paginator  import Paginator
 
 class TransactionCollection(Collection):
     @classmethod
-    def from_list(cls, items_data: list, paginator: Paginator = None) -> TransactionCollection:
+    def from_list(cls, items_data: list, paginator: Paginator | None = None) -> TransactionCollection:
         from paddle_billing.Entities.Transaction import Transaction
 
         items = [Transaction.from_dict(item) for item in items_data]

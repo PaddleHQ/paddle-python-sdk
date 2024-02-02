@@ -12,9 +12,9 @@ from paddle_billing.Resources.Shared.Operations import Pager
 class ListSubscriptions(HasParameters):
     def __init__(
         self,
-        pager:                    Pager                                   = None,
+        pager:                    Pager | None                            = None,
         address_ids:              list[str]                               = None,
-        collection_mode:          CollectionMode                          = None,
+        collection_mode:          CollectionMode | None                   = None,
         customer_ids:             list[str]                               = None,
         ids:                      list[str]                               = None,
         price_ids:                list[str]                               = None,

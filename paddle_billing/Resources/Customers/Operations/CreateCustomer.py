@@ -9,7 +9,7 @@ class CreateCustomer:
     email:       str
     name:        str        | None | Undefined = Undefined()
     custom_data: CustomData | None | Undefined = Undefined()
-    locale:      str        | None | Undefined = Undefined()
+    locale:      str               | Undefined = Undefined()
 
 
     def get_parameters(self) -> dict:

@@ -12,7 +12,7 @@ from paddle_billing.Resources.Shared.Operations import Pager
 class ListReports(HasParameters):
     def __init__(
         self,
-        pager:    Pager              = None,
+        pager:    Pager | None       = None,
         statuses: list[ReportStatus] = None,
     ):
         self.pager    = pager

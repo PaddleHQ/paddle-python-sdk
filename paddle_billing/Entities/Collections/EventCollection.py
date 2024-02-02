@@ -6,7 +6,7 @@ from paddle_billing.Entities.Collections.Paginator  import Paginator
 
 class EventCollection(Collection):
     @classmethod
-    def from_list(cls, items_data: list, paginator: Paginator = None) -> EventCollection:
+    def from_list(cls, items_data: list, paginator: Paginator | None = None) -> EventCollection:
         from paddle_billing.Entities.Event import Event
 
         items = [Event.from_dict(item) for item in items_data]

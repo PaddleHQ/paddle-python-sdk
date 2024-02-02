@@ -7,9 +7,9 @@ from paddle_billing.Resources.Shared.Operations.List.OrderBy import OrderBy
 class Pager(HasParameters):
     def __init__(
         self,
-        after:       str     = None,
-        order_by:    OrderBy = None,
-        per_page:    int     = 50,
+        after:       str     | None = None,
+        order_by:    OrderBy | None = None,
+        per_page:    int            = 50,
     ):
         self.after    = after
         self.order_by = order_by if order_by is not None else OrderBy.id_ascending()

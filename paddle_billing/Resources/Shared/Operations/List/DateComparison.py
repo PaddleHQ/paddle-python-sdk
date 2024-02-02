@@ -9,7 +9,7 @@ class DateComparison:
     def __init__(
         self,
         date:       datetime,
-        comparator: Comparator = None,
+        comparator: Comparator | None = None,
     ):
         self.date       = date
         self._comparator = comparator

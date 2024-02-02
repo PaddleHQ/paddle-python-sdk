@@ -13,13 +13,13 @@ from paddle_billing.Resources.Prices.Operations.List.Includes import Includes as
 class ListPrices(HasParameters):
     def __init__(
         self, 
-        pager:       Pager               = None,
+        pager:       Pager | None        = None,
         includes:    list[PriceIncludes] = None,
         ids:         list[str]           = None,
         types:       list[CatalogType]   = None,
         product_ids: list[str]           = None,
         statuses:    list[Status]        = None,
-        recurring:   bool                = None,
+        recurring:   bool | None         = None,
     ):
         self.pager       = pager
         self.recurring   = recurring

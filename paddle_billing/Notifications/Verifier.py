@@ -9,7 +9,7 @@ from paddle_billing.Notifications.PaddleSignature import PaddleSignature
 
 
 class Verifier:
-    def __init__(self, maximum_variance: int = 5):
+    def __init__(self, maximum_variance: int | None = 5):
         """"""
         self.__maximum_variance = maximum_variance
         self.log = get_logger()

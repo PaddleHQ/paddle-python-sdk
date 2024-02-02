@@ -6,7 +6,7 @@ from paddle_billing.Entities.Collections.Paginator  import Paginator
 
 class AddressCollection(Collection):
     @classmethod
-    def from_list(cls, items_data: list, paginator: Paginator = None) -> AddressCollection:
+    def from_list(cls, items_data: list, paginator: Paginator | None = None) -> AddressCollection:
         from paddle_billing.Entities.Address import Address
 
         items = [Address.from_dict(item) for item in items_data]

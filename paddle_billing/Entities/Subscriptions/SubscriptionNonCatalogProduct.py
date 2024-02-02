@@ -7,10 +7,10 @@ from paddle_billing.Entities.Shared import CatalogType, CustomData, TaxCategory
 @dataclass
 class SubscriptionNonCatalogProduct:
     name:         str
-    description:  str | None
+    description:  str         | None
     type:         CatalogType | None
     tax_category: TaxCategory
-    image_url:    str | None
+    image_url:    str        | None
     custom_data:  CustomData | None
 
 
