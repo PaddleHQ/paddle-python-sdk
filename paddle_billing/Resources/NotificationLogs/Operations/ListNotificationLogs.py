@@ -1,6 +1,5 @@
-from paddle_billing.HasParameters import HasParameters
-
-from paddle_billing.Resources.Shared.Operations.List.Pager import Pager
+from paddle_billing.HasParameters               import HasParameters
+from paddle_billing.Resources.Shared.Operations import Pager
 
 
 class ListNotificationLogs(HasParameters):

@@ -1,13 +1,8 @@
+from paddle_billing.ResponseParser                        import ResponseParser
+from paddle_billing.Entities.Collections                  import Paginator, NotificationLogCollection
+from paddle_billing.Resources.NotificationLogs.Operations import ListNotificationLogs
+
 from typing import TYPE_CHECKING
-
-from paddle_billing.ResponseParser import ResponseParser
-
-from paddle_billing.Entities.Collections.Paginator                 import Paginator
-from paddle_billing.Entities.Collections.NotificationLogCollection import NotificationLogCollection
-
-from paddle_billing.Resources.NotificationLogs.Operations.ListNotificationLogs import ListNotificationLogs
-
-
 if TYPE_CHECKING:
     from paddle_billing.Client import Client
 

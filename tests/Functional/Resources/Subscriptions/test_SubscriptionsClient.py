@@ -2,8 +2,7 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing.Entities.Collections.SubscriptionCollection import SubscriptionCollection
-
+from paddle_billing.Entities.Collections         import SubscriptionCollection
 from paddle_billing.Entities.DateTime            import DateTime
 from paddle_billing.Entities.Subscription        import Subscription
 from paddle_billing.Entities.SubscriptionPreview import SubscriptionPreview

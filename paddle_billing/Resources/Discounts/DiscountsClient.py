@@ -1,17 +1,12 @@
-from typing import TYPE_CHECKING
-
 from paddle_billing.ResponseParser import ResponseParser
 
-from paddle_billing.Entities.Collections.Paginator          import Paginator
-from paddle_billing.Entities.Collections.DiscountCollection import DiscountCollection
-from paddle_billing.Entities.Discount                       import Discount
-from paddle_billing.Entities.Discounts.DiscountStatus       import DiscountStatus
+from paddle_billing.Entities.Collections import Paginator, DiscountCollection
+from paddle_billing.Entities.Discount    import Discount
+from paddle_billing.Entities.Discounts   import DiscountStatus
 
-from paddle_billing.Resources.Discounts.Operations.CreateDiscount   import CreateDiscount
-from paddle_billing.Resources.Discounts.Operations.ListDiscounts    import ListDiscounts
-from paddle_billing.Resources.Discounts.Operations.UpdateDiscount   import UpdateDiscount
+from paddle_billing.Resources.Discounts.Operations   import CreateDiscount, ListDiscounts, UpdateDiscount
 
-
+from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from paddle_billing.Client import Client
 

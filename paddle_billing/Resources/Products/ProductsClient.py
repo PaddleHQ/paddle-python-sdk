@@ -1,20 +1,14 @@
-from typing import TYPE_CHECKING, Union
-
 from paddle_billing.ResponseParser import ResponseParser
 
-from paddle_billing.Entities.Product                       import Product
-from paddle_billing.Entities.Collections.Paginator         import Paginator
-from paddle_billing.Entities.Collections.ProductCollection import ProductCollection
-from paddle_billing.Entities.Shared.Status                 import Status
+from paddle_billing.Entities.Collections import Paginator, ProductCollection
+from paddle_billing.Entities.Product     import Product
+from paddle_billing.Entities.Shared      import Status
 
 from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 
-from paddle_billing.Resources.Products.Operations.CreateProduct import CreateProduct
-from paddle_billing.Resources.Products.Operations.ListProducts  import ListProducts
-from paddle_billing.Resources.Products.Operations.UpdateProduct import UpdateProduct
-from paddle_billing.Resources.Products.Operations.List.Includes import Includes
+from paddle_billing.Resources.Products.Operations import CreateProduct, ListProducts, UpdateProduct, ProductIncludes
 
-
+from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from paddle_billing.Client import Client
 
@@ -47,9 +41,9 @@ class ProductsClient:
         if includes is None:
             includes = []
 
-        invalid_items = [item for item in includes if not isinstance(item, Includes)]
+        invalid_items = [item for item in includes if not isinstance(item, ProductIncludes)]
         if invalid_items:
-            raise InvalidArgumentException('includes', Includes.__name__, invalid_items)
+            raise InvalidArgumentException('includes', ProductIncludes.__name__, invalid_items)
 
         params         = {'include': ','.join(include.value for include in includes)} if includes else {}
         self.response = self.client.get_raw(f"/products/{product_id}", params)

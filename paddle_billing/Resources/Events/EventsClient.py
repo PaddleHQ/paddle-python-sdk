@@ -1,13 +1,8 @@
+from paddle_billing.ResponseParser              import ResponseParser
+from paddle_billing.Entities.Collections        import EventCollection, Paginator
+from paddle_billing.Resources.Events.Operations import ListEvents
+
 from typing import TYPE_CHECKING
-
-from paddle_billing.ResponseParser import ResponseParser
-
-from paddle_billing.Entities.Collections.EventCollection import EventCollection
-from paddle_billing.Entities.Collections.Paginator       import Paginator
-
-from paddle_billing.Resources.Events.Operations.ListEvents import ListEvents
-
-
 if TYPE_CHECKING:
     from paddle_billing.Client import Client
 

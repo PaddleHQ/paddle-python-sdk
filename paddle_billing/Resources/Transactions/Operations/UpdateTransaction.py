@@ -1,18 +1,8 @@
 from dataclasses import asdict, dataclass, field
 
-from paddle_billing.Undefined import Undefined
-
-from paddle_billing.Entities.Shared.BillingDetails    import BillingDetails
-from paddle_billing.Entities.Shared.Checkout          import Checkout
-from paddle_billing.Entities.Shared.CollectionMode    import CollectionMode
-from paddle_billing.Entities.Shared.CurrencyCode      import CurrencyCode
-from paddle_billing.Entities.Shared.CustomData        import CustomData
-from paddle_billing.Entities.Shared.StatusTransaction import StatusTransaction
-
-from paddle_billing.Entities.Transactions.TransactionCreateItem          import TransactionCreateItem
-from paddle_billing.Entities.Transactions.TransactionCreateItemWithPrice import TransactionCreateItemWithPrice
-from paddle_billing.Entities.Transactions.TransactionTimePeriod          import TransactionTimePeriod
-
+from paddle_billing.Undefined             import Undefined
+from paddle_billing.Entities.Shared       import BillingDetails, Checkout, CollectionMode, CurrencyCode, CustomData, StatusTransaction
+from paddle_billing.Entities.Transactions import TransactionCreateItem, TransactionCreateItemWithPrice, TransactionTimePeriod
 
 
 @dataclass

@@ -2,10 +2,9 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing.Entities.Collections.ProductCollection import ProductCollection
-
-from paddle_billing.Entities.Product import Product
-from paddle_billing.Entities.Shared  import CustomData, Status, TaxCategory
+from paddle_billing.Entities.Collections import ProductCollection
+from paddle_billing.Entities.Product     import Product
+from paddle_billing.Entities.Shared      import CustomData, Status, TaxCategory
 
 from paddle_billing.Resources.Products.Operations import CreateProduct, ListProducts, UpdateProduct, ProductIncludes
 from paddle_billing.Resources.Shared.Operations   import Pager

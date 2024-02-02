@@ -1,14 +1,12 @@
 from paddle_billing.EnumStringify import enum_stringify
 from paddle_billing.HasParameters import HasParameters
 
-from paddle_billing.Entities.Shared.CollectionMode            import CollectionMode
-from paddle_billing.Entities.Subscriptions.SubscriptionStatus import SubscriptionStatus
-from paddle_billing.Entities.Subscriptions.SubscriptionScheduledChangeAction \
-    import SubscriptionScheduledChangeAction
+from paddle_billing.Entities.Shared        import CollectionMode
+from paddle_billing.Entities.Subscriptions import SubscriptionStatus, SubscriptionScheduledChangeAction
 
 from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 
-from paddle_billing.Resources.Shared.Operations.List.Pager import Pager
+from paddle_billing.Resources.Shared.Operations import Pager
 
 
 class ListSubscriptions(HasParameters):

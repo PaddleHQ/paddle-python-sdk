@@ -1,8 +1,7 @@
 from dataclasses import asdict, dataclass
 
-from paddle_billing.Undefined import Undefined
-
-from paddle_billing.Entities.Events.EventTypeName import EventTypeName
+from paddle_billing.Undefined       import Undefined
+from paddle_billing.Entities.Events import EventTypeName
 
 
 @dataclass

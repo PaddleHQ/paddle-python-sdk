@@ -1,10 +1,7 @@
 from dataclasses import asdict, dataclass
 
-from paddle_billing.Undefined import Undefined
-
-from paddle_billing.Entities.Shared.CountryCode import CountryCode
-from paddle_billing.Entities.Shared.CustomData  import CustomData
-from paddle_billing.Entities.Shared.Status      import Status
+from paddle_billing.Undefined       import Undefined
+from paddle_billing.Entities.Shared import CountryCode, CustomData, Status
 
 
 @dataclass

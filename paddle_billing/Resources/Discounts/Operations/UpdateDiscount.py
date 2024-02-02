@@ -1,10 +1,8 @@
 from dataclasses import asdict, dataclass
 
-from paddle_billing.Undefined import Undefined
-
-from paddle_billing.Entities.Discounts.DiscountStatus import DiscountStatus
-from paddle_billing.Entities.Discounts.DiscountType   import DiscountType
-from paddle_billing.Entities.Shared.CurrencyCode      import CurrencyCode
+from paddle_billing.Undefined          import Undefined
+from paddle_billing.Entities.Discounts import DiscountStatus, DiscountType
+from paddle_billing.Entities.Shared    import CurrencyCode
 
 
 @dataclass

@@ -1,14 +1,11 @@
-from typing import TYPE_CHECKING
-
 from paddle_billing.ResponseParser import ResponseParser
 
-from paddle_billing.Entities.NotificationSetting                       import NotificationSetting
-from paddle_billing.Entities.Collections.NotificationSettingCollection import NotificationSettingCollection
+from paddle_billing.Entities.Collections         import NotificationSettingCollection
+from paddle_billing.Entities.NotificationSetting import NotificationSetting
 
-from paddle_billing.Resources.NotificationSettings.Operations.CreateNotificationSetting import CreateNotificationSetting
-from paddle_billing.Resources.NotificationSettings.Operations.UpdateNotificationSetting import UpdateNotificationSetting
+from paddle_billing.Resources.NotificationSettings.Operations import CreateNotificationSetting, UpdateNotificationSetting
 
-
+from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from paddle_billing.Client import Client
 

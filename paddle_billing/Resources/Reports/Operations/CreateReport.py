@@ -1,9 +1,6 @@
 from dataclasses import dataclass, field
 
-from paddle_billing.Undefined import Undefined
-
-from paddle_billing.Entities.Reports.ReportType    import ReportType
-from paddle_billing.Entities.Reports.ReportFilters import ReportFilters
+from paddle_billing.Entities.Reports import ReportType, ReportFilters
 
 from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 

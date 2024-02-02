@@ -1,8 +1,7 @@
 from dataclasses import asdict, dataclass
 
-from paddle_billing.Undefined import Undefined
-
-from paddle_billing.Entities.Shared.CustomData import CustomData
+from paddle_billing.Undefined       import Undefined
+from paddle_billing.Entities.Shared import CustomData
 
 
 @dataclass

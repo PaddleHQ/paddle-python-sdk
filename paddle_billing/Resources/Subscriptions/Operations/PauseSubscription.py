@@ -1,7 +1,7 @@
 from dataclasses import asdict, dataclass
 
-from paddle_billing.Entities.DateTime                                import DateTime
-from paddle_billing.Entities.Subscriptions.SubscriptionEffectiveFrom import SubscriptionEffectiveFrom
+from paddle_billing.Entities.DateTime      import DateTime
+from paddle_billing.Entities.Subscriptions import SubscriptionEffectiveFrom
 
 
 @dataclass

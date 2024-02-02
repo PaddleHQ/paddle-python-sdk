@@ -1,18 +1,12 @@
-from typing import TYPE_CHECKING
-
 from paddle_billing.ResponseParser import ResponseParser
 
-from paddle_billing.Entities.Customer                            import Customer
-from paddle_billing.Entities.Collections.Paginator               import Paginator
-from paddle_billing.Entities.Collections.CreditBalanceCollection import CreditBalanceCollection
-from paddle_billing.Entities.Collections.CustomerCollection      import CustomerCollection
-from paddle_billing.Entities.Shared.Status                       import Status
+from paddle_billing.Entities.Collections import Paginator, CreditBalanceCollection, CustomerCollection
+from paddle_billing.Entities.Customer    import Customer
+from paddle_billing.Entities.Shared      import Status
 
-from paddle_billing.Resources.Customers.Operations.CreateCustomer import CreateCustomer
-from paddle_billing.Resources.Customers.Operations.ListCustomers  import ListCustomers
-from paddle_billing.Resources.Customers.Operations.UpdateCustomer import UpdateCustomer
+from paddle_billing.Resources.Customers.Operations import CreateCustomer, ListCustomers, UpdateCustomer
 
-
+from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from paddle_billing.Client import Client
 

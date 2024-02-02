@@ -2,10 +2,12 @@ from dataclasses import asdict, dataclass
 
 from paddle_billing.Undefined import Undefined
 
-from paddle_billing.Entities.Subscriptions.SubscriptionEffectiveFrom    import SubscriptionEffectiveFrom
-from paddle_billing.Entities.Subscriptions.SubscriptionItems            import SubscriptionItems
-from paddle_billing.Entities.Subscriptions.SubscriptionItemsWithPrice   import SubscriptionItemsWithPrice
-from paddle_billing.Entities.Subscriptions.SubscriptionOnPaymentFailure import SubscriptionOnPaymentFailure
+from paddle_billing.Entities.Subscriptions import (
+    SubscriptionEffectiveFrom,
+    SubscriptionItems,
+    SubscriptionItemsWithPrice,
+    SubscriptionOnPaymentFailure,
+)
 
 
 @dataclass

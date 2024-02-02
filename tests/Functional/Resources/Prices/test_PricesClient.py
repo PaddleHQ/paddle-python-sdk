@@ -2,8 +2,8 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing.Entities.Price       import Price
 from paddle_billing.Entities.Collections import PriceCollection
+from paddle_billing.Entities.Price       import Price
 from paddle_billing.Entities.Shared      import (
     CountryCode,
     CurrencyCode,

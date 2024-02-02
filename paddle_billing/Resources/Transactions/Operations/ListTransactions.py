@@ -2,13 +2,11 @@ from paddle_billing.Entities.DateTime import DateTime
 from paddle_billing.EnumStringify     import enum_stringify
 from paddle_billing.HasParameters     import HasParameters
 
-from paddle_billing.Entities.Shared.CollectionMode    import CollectionMode
-from paddle_billing.Entities.Shared.StatusTransaction import StatusTransaction
+from paddle_billing.Entities.Shared import CollectionMode, StatusTransaction
 
 from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 
-from paddle_billing.Resources.Shared.Operations.List.DateComparison import DateComparison
-from paddle_billing.Resources.Shared.Operations.List.Pager          import Pager
+from paddle_billing.Resources.Shared.Operations                     import DateComparison, Pager
 from paddle_billing.Resources.Transactions.Operations.List.Includes import Includes
 from paddle_billing.Resources.Transactions.Operations.List.Origin   import Origin
 

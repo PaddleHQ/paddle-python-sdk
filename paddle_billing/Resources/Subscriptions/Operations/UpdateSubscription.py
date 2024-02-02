@@ -2,16 +2,9 @@ from dataclasses import asdict, dataclass
 
 from paddle_billing.Undefined import Undefined
 
-from paddle_billing.Entities.DateTime import DateTime
-
-from paddle_billing.Entities.Shared.BillingDetails import BillingDetails
-from paddle_billing.Entities.Shared.CollectionMode import CollectionMode
-from paddle_billing.Entities.Shared.CurrencyCode   import CurrencyCode
-from paddle_billing.Entities.Shared.CustomData     import CustomData
-
-from paddle_billing.Entities.Subscriptions.SubscriptionItems                import SubscriptionItems
-from paddle_billing.Entities.Subscriptions.SubscriptionOnPaymentFailure     import SubscriptionOnPaymentFailure
-from paddle_billing.Entities.Subscriptions.SubscriptionProrationBillingMode import SubscriptionProrationBillingMode
+from paddle_billing.Entities.DateTime      import DateTime
+from paddle_billing.Entities.Shared        import BillingDetails, CollectionMode, CurrencyCode, CustomData
+from paddle_billing.Entities.Subscriptions import SubscriptionItems, SubscriptionOnPaymentFailure, SubscriptionProrationBillingMode
 
 from paddle_billing.Resources.Subscriptions.Operations.Update.SubscriptionDiscount import SubscriptionDiscount
 

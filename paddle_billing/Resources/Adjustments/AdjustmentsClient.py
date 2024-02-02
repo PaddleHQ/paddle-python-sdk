@@ -1,15 +1,11 @@
-from typing import TYPE_CHECKING
-
 from paddle_billing.ResponseParser import ResponseParser
 
-from paddle_billing.Entities.Adjustment                       import Adjustment
-from paddle_billing.Entities.Collections.Paginator            import Paginator
-from paddle_billing.Entities.Collections.AdjustmentCollection import AdjustmentCollection
+from paddle_billing.Entities.Adjustment  import Adjustment
+from paddle_billing.Entities.Collections import Paginator, AdjustmentCollection
 
-from paddle_billing.Resources.Adjustments.Operations.CreateAdjustment import CreateAdjustment
-from paddle_billing.Resources.Adjustments.Operations.ListAdjustments  import ListAdjustments
+from paddle_billing.Resources.Adjustments.Operations import CreateAdjustment, ListAdjustments
 
-
+from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from paddle_billing.Client import Client
 

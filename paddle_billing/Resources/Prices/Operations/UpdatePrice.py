@@ -1,15 +1,7 @@
 from dataclasses import asdict, dataclass
 
-from paddle_billing.Undefined import Undefined
-
-from paddle_billing.Entities.Shared.CatalogType       import CatalogType
-from paddle_billing.Entities.Shared.CustomData        import CustomData
-from paddle_billing.Entities.Shared.Money             import Money
-from paddle_billing.Entities.Shared.PriceQuantity     import PriceQuantity
-from paddle_billing.Entities.Shared.Status            import Status
-from paddle_billing.Entities.Shared.TaxMode           import TaxMode
-from paddle_billing.Entities.Shared.TimePeriod        import TimePeriod
-from paddle_billing.Entities.Shared.UnitPriceOverride import UnitPriceOverride
+from paddle_billing.Undefined       import Undefined
+from paddle_billing.Entities.Shared import CatalogType, CustomData, Money, PriceQuantity, Status, TaxMode, TimePeriod, UnitPriceOverride
 
 
 @dataclass

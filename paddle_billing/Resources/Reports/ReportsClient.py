@@ -1,16 +1,12 @@
-from typing import TYPE_CHECKING
-
 from paddle_billing.ResponseParser import ResponseParser
 
-from paddle_billing.Entities.Report                       import Report
-from paddle_billing.Entities.ReportCSV                    import ReportCSV
-from paddle_billing.Entities.Collections.Paginator        import Paginator
-from paddle_billing.Entities.Collections.ReportCollection import ReportCollection
+from paddle_billing.Entities.Report      import Report
+from paddle_billing.Entities.ReportCSV   import ReportCSV
+from paddle_billing.Entities.Collections import Paginator, ReportCollection
 
-from paddle_billing.Resources.Reports.Operations.CreateReport import CreateReport
-from paddle_billing.Resources.Reports.Operations.ListReports  import ListReports
+from paddle_billing.Resources.Reports.Operations import CreateReport, ListReports
 
-
+from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from paddle_billing.Client import Client
 

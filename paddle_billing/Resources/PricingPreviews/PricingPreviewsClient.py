@@ -1,12 +1,8 @@
+from paddle_billing.ResponseParser                       import ResponseParser
+from paddle_billing.Entities.PricePreview                import PricePreview
+from paddle_billing.Resources.PricingPreviews.Operations import PreviewPrice
+
 from typing import TYPE_CHECKING
-
-from paddle_billing.ResponseParser import ResponseParser
-
-from paddle_billing.Entities.PricePreview import PricePreview
-
-from paddle_billing.Resources.PricingPreviews.Operations.PreviewPrice import PreviewPrice
-
-
 if TYPE_CHECKING:
     from paddle_billing.Client import Client
 

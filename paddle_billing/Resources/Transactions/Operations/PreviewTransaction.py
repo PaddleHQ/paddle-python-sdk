@@ -1,15 +1,8 @@
 from dataclasses import asdict, dataclass
 
-from paddle_billing.Undefined import Undefined
-
-from paddle_billing.Entities.Shared.AddressPreview import AddressPreview
-from paddle_billing.Entities.Shared.CollectionMode import CollectionMode
-from paddle_billing.Entities.Shared.CurrencyCode   import CurrencyCode
-
-from paddle_billing.Entities.Transactions.TransactionItemPreviewWithPriceId \
-    import TransactionItemPreviewWithPriceId
-from paddle_billing.Entities.Transactions.TransactionItemPreviewWithNonCatalogPrice \
-    import TransactionItemPreviewWithNonCatalogPrice
+from paddle_billing.Undefined             import Undefined
+from paddle_billing.Entities.Shared       import AddressPreview, CollectionMode, CurrencyCode
+from paddle_billing.Entities.Transactions import TransactionItemPreviewWithPriceId, TransactionItemPreviewWithNonCatalogPrice
 
 
 

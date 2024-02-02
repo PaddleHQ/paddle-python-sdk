@@ -1,22 +1,21 @@
-from typing import TYPE_CHECKING
-
 from paddle_billing.ResponseParser import ResponseParser
 
-from paddle_billing.Entities.Transaction                       import Transaction
-from paddle_billing.Entities.TransactionData                   import TransactionData
-from paddle_billing.Entities.TransactionPreview                import TransactionPreview
-from paddle_billing.Entities.Collections.Paginator             import Paginator
-from paddle_billing.Entities.Collections.TransactionCollection import TransactionCollection
+from paddle_billing.Entities.Transaction        import Transaction
+from paddle_billing.Entities.TransactionData    import TransactionData
+from paddle_billing.Entities.TransactionPreview import TransactionPreview
+from paddle_billing.Entities.Collections        import Paginator, TransactionCollection
 
 from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 
-from paddle_billing.Resources.Transactions.Operations.CreateTransaction  import CreateTransaction
-from paddle_billing.Resources.Transactions.Operations.ListTransactions   import ListTransactions
-from paddle_billing.Resources.Transactions.Operations.UpdateTransaction  import UpdateTransaction
-from paddle_billing.Resources.Transactions.Operations.PreviewTransaction import PreviewTransaction
-from paddle_billing.Resources.Transactions.Operations.List.Includes      import Includes
+from paddle_billing.Resources.Transactions.Operations import (
+    CreateTransaction,
+    ListTransactions,
+    UpdateTransaction,
+    PreviewTransaction,
+    TransactionIncludes,
+)
 
-
+from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from paddle_billing.Client import Client
 
@@ -44,9 +43,9 @@ class TransactionsClient:
         if includes is None:
             includes = []
 
-        invalid_items = [item for item in includes if not isinstance(item, Includes)]
+        invalid_items = [item for item in includes if not isinstance(item, TransactionIncludes)]
         if invalid_items:
-            raise InvalidArgumentException('includes', Includes.__name__, invalid_items)
+            raise InvalidArgumentException('includes', TransactionIncludes.__name__, invalid_items)
 
         params        = {'include': ','.join(include.value for include in includes)} if includes else {}
         self.response = self.client.get_raw(f"/transactions/{transaction_id}", params)
@@ -59,9 +58,9 @@ class TransactionsClient:
         if includes is None:
             includes = []
 
-        invalid_items = [item for item in includes if not isinstance(item, Includes)]
+        invalid_items = [item for item in includes if not isinstance(item, TransactionIncludes)]
         if invalid_items:
-            raise InvalidArgumentException('includes', Includes.__name__, invalid_items)
+            raise InvalidArgumentException('includes', TransactionIncludes.__name__, invalid_items)
 
         params        = {'include': ','.join(include.value for include in includes)} if includes else {}
         self.response = self.client.post_raw('/transactions', operation.get_parameters(), params)

@@ -1,8 +1,7 @@
 import json
 from requests     import Response
-from urllib.parse import urlparse, parse_qs
 
-from paddle_billing.Entities.Shared.Pagination import Pagination
+from paddle_billing.Entities.Shared import Pagination
 
 from paddle_billing.Exceptions.ApiError import ApiError
 

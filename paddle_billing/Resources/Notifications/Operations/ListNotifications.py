@@ -1,10 +1,10 @@
 from paddle_billing.EnumStringify import enum_stringify
 from paddle_billing.HasParameters import HasParameters
 
-from paddle_billing.Entities.DateTime                         import DateTime
-from paddle_billing.Entities.Notifications.NotificationStatus import NotificationStatus
+from paddle_billing.Entities.DateTime      import DateTime
+from paddle_billing.Entities.Notifications import NotificationStatus
 
-from paddle_billing.Resources.Shared.Operations.List.Pager import Pager
+from paddle_billing.Resources.Shared.Operations import Pager
 
 
 class ListNotifications(HasParameters):

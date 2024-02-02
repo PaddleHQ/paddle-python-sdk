@@ -1,12 +1,11 @@
 from paddle_billing.EnumStringify import enum_stringify
 from paddle_billing.HasParameters import HasParameters
 
-from paddle_billing.Entities.Shared.Action           import Action
-from paddle_billing.Entities.Shared.StatusAdjustment import StatusAdjustment
+from paddle_billing.Entities.Shared import Action, StatusAdjustment
 
 from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 
-from paddle_billing.Resources.Shared.Operations.List.Pager import Pager
+from paddle_billing.Resources.Shared.Operations import Pager
 
 
 class ListAdjustments(HasParameters):

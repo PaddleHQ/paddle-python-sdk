@@ -1,10 +1,8 @@
 from dataclasses import asdict, dataclass
 
-from paddle_billing.Undefined                                 import Undefined
-
-from paddle_billing.Entities.PricingPreviews.PricePreviewItem import PricePreviewItem
-from paddle_billing.Entities.Shared.CurrencyCode              import CurrencyCode
-from paddle_billing.Entities.Shared.AddressPreview            import AddressPreview
+from paddle_billing.Undefined                import Undefined
+from paddle_billing.Entities.PricingPreviews import PricePreviewItem
+from paddle_billing.Entities.Shared          import CurrencyCode, AddressPreview
 
 
 @dataclass

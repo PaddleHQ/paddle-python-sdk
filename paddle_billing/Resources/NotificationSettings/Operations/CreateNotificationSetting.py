@@ -1,9 +1,8 @@
 from dataclasses import asdict, dataclass
 
-from paddle_billing.Undefined import Undefined
-
-from paddle_billing.Entities.Events.EventTypeName import EventTypeName
-from paddle_billing.Entities.NotificationSettings.NotificationSettingType import NotificationSettingType
+from paddle_billing.Undefined                     import Undefined
+from paddle_billing.Entities.Events               import EventTypeName
+from paddle_billing.Entities.NotificationSettings import NotificationSettingType
 
 
 @dataclass

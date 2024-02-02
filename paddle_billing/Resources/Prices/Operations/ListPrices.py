@@ -1,26 +1,25 @@
 from paddle_billing.EnumStringify import enum_stringify
 from paddle_billing.HasParameters import HasParameters
 
-from paddle_billing.Entities.Shared.CatalogType import CatalogType
-from paddle_billing.Entities.Shared.Status      import Status
+from paddle_billing.Entities.Shared import CatalogType, Status
 
 from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 
-from paddle_billing.Resources.Shared.Operations.List.Pager    import Pager
-from paddle_billing.Resources.Prices.Operations.List.Includes import Includes
+from paddle_billing.Resources.Shared.Operations               import Pager
+from paddle_billing.Resources.Prices.Operations.List.Includes import Includes as PriceIncludes
 
 
 
 class ListPrices(HasParameters):
     def __init__(
         self, 
-        pager:       Pager             = None,
-        includes:    list[Includes]    = None,
-        ids:         list[str]         = None,
-        types:       list[CatalogType] = None,
-        product_ids: list[str]         = None,
-        statuses:    list[Status]      = None,
-        recurring:   bool              = None,
+        pager:       Pager               = None,
+        includes:    list[PriceIncludes] = None,
+        ids:         list[str]           = None,
+        types:       list[CatalogType]   = None,
+        product_ids: list[str]           = None,
+        statuses:    list[Status]        = None,
+        recurring:   bool                = None,
     ):
         self.pager       = pager
         self.recurring   = recurring
@@ -33,7 +32,7 @@ class ListPrices(HasParameters):
         # Validation
         for field_name, field_value, field_type in [
             ('ids',         self.ids,         str),
-            ('includes',    self.includes,    Includes),
+            ('includes',    self.includes,    PriceIncludes),
             ('product_ids', self.product_ids, str),
             ('statuses',    self.statuses,    Status),
             ('types',       self.types,       CatalogType),

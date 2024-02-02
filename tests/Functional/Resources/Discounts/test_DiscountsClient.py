@@ -2,9 +2,9 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
+from paddle_billing.Entities.Collections import DiscountCollection
 from paddle_billing.Entities.Discount    import Discount
 from paddle_billing.Entities.Discounts   import DiscountStatus, DiscountType
-from paddle_billing.Entities.Collections import DiscountCollection
 from paddle_billing.Entities.Shared      import CurrencyCode, Status
 
 from paddle_billing.Resources.Discounts.Operations import CreateDiscount, ListDiscounts, UpdateDiscount

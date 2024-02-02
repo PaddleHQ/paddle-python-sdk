@@ -1,14 +1,13 @@
+from paddle_billing.ResponseParser       import ResponseParser
+
 from typing import TYPE_CHECKING
-
-from paddle_billing.ResponseParser import ResponseParser
-
 if TYPE_CHECKING:
-    from paddle_billing.Client                     import Client
-    from paddle_billing.Entities.Collections       import Collection
-    from paddle_billing.Entities.Shared.Pagination import Pagination
+    from paddle_billing.Client               import Client
+    from paddle_billing.Entities.Collections import Collection
+    from paddle_billing.Entities.Shared      import Pagination
 
 
-class Paginator:
+class Paginator():
     def __init__(self, client: 'Client', pagination: 'Pagination', mapper: 'Collection'):
         self._client     = client
         self._pagination = pagination

@@ -1,6 +1,6 @@
 from dataclasses import asdict, dataclass
 
-from paddle_billing.Entities.Subscriptions.SubscriptionEffectiveFrom import SubscriptionEffectiveFrom
+from paddle_billing.Entities.Subscriptions import SubscriptionEffectiveFrom
 
 
 @dataclass

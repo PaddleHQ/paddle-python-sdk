@@ -2,7 +2,7 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing.Entities.Collections.NotificationLogCollection import NotificationLogCollection
+from paddle_billing.Entities.Collections import NotificationLogCollection
 
 from paddle_billing.Resources.NotificationLogs.Operations import ListNotificationLogs
 from paddle_billing.Resources.Shared.Operations           import Pager
