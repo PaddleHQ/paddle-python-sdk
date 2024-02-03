@@ -21,7 +21,7 @@ A Python wrapper for the new Paddle Billing SDK, based on Paddle's official [pad
 - [Examples](#Examples)
 
 ## Requirements
-Python>=3.11 (for native type hinting, StrEnum, trailing slashes)
+Python>=3.11 (for native type hinting, StrEnum, trailing commas)
 
 **Project dependencies** (automatically installed by pip):
 - requests>=2.31
@@ -78,7 +78,7 @@ paddle = Client('PADDLE_API_SECRET_KEY')
 
 products = paddle.products.list()
 
-# List() returns an iterable, so pagination is handled automatically.
+# List() returns an iterable, so pagination is automatically handled
 for product in products:
     print(f"Product's id: {product.id}")
 ```
