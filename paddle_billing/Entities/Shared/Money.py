@@ -2,14 +2,13 @@ from __future__  import annotations
 from dataclasses import dataclass
 
 from paddle_billing.Entities.Shared.CurrencyCode import CurrencyCode
-from paddle_billing.Exceptions.FieldError import FieldError
 
 
 @dataclass
 class Money:
     """
     https://developer.paddle.com/api-reference/about/data-types#money
-    When specifying the amount, specify it with the the lowest denomination of the currency included. For example,
+    When specifying the amount, specify it with the lowest denomination of the currency included. For example,
     $420.69USD would be called with Money('42069', CurrencyCode('USD'))
     """
     amount:        str

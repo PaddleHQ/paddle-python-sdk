@@ -451,7 +451,7 @@
         "pagination": {
             "per_page": 50,
             "estimated_total": 5,
-            "next": "http://api.paddle.com/notifications?after=ntf_01h8441jz6fr97hv7zemswj8cw",
+            "next": "https://api.paddle.com/notifications?after=ntf_01h8441jz6fr97hv7zemswj8cw",
             "has_more": false
         },
         "request_id": "21279f36-3eee-4828-943b-e2a9a6df4fce"

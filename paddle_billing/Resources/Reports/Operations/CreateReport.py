@@ -22,6 +22,6 @@ class CreateReport:
         parameters = {'type': self.type}
 
         if self.filters is not None and self.filters != []:
-            parameters.update({'filters': [filter.get_parameters() for filter in self.filters]})
+            parameters.update({'filters': [filter_.get_parameters() for filter_ in self.filters]})
 
         return parameters

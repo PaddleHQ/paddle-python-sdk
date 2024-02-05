@@ -45,7 +45,7 @@ try:
         name         = 'Kitten Service',
         tax_category = TaxCategory.Standard,
         description  = 'Simply an awesome product',
-        image_url    = 'http://placekitten.com/200/300',
+        image_url    = 'https://placekitten.com/200/300',
         custom_data  = CustomData({'foo': 'bar'}),
     ))
 except (ApiError, MalformedResponse) as e:

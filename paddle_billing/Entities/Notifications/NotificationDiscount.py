@@ -47,5 +47,5 @@ class NotificationDiscount(Entity):
             currency_code               = CurrencyCode(data['currency_code'])        if data.get('currency_code') else None,
             custom_data                 = CustomData(data['custom_data'])            if data.get('custom_data')   else None,
             expires_at                  = datetime.fromisoformat(data['expires_at']) if data.get('expires_at')    else None,
-            import_meta                 = ImportMeta(data['import_meta'])            if data.get('import_meta')   else None,
+            import_meta                 = ImportMeta.from_dict(data['import_meta'])  if data.get('import_meta')   else None,
         )

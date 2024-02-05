@@ -58,7 +58,7 @@ class NotificationSubscription(Entity):
             custom_data            = CustomData(data['custom_data'])                   if data.get('custom_data')     else None,
             discount               = SubscriptionDiscount.from_dict(data['discount'])  if data.get('discount')        else None,
             first_billed_at        = datetime.fromisoformat(data['first_billed_at'])   if data.get('first_billed_at') else None,
-            import_meta            = ImportMeta(data['import_meta'])                   if data.get('import_meta')     else None,
+            import_meta            = ImportMeta.from_dict(data['import_meta'])         if data.get('import_meta')     else None,
             next_billed_at         = datetime.fromisoformat(data['next_billed_at'])    if data.get('next_billed_at')  else None,
             paused_at              = datetime.fromisoformat(data['paused_at'])         if data.get('paused_at')       else None,
             started_at             = datetime.fromisoformat(data['started_at'])        if data.get('started_at')      else None,

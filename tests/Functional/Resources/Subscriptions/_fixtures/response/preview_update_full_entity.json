@@ -70,7 +70,7 @@
               "name": " Basic Plan Product",
               "description": "This is a description of my fav product",
               "tax_category": "standard",
-              "image_url": "http://example.com",
+              "image_url": "https://example.com",
               "status": "active"
             },
             "tax_rate": "0.2",
@@ -310,7 +310,7 @@
               "name": " Basic Plan Product",
               "description": "This is a description of my fav product",
               "tax_category": "standard",
-              "image_url": "http://example.com",
+              "image_url": "https://example.com",
               "status": "active"
             },
             "tax_rate": "0.2",

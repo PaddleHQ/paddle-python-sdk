@@ -12,7 +12,7 @@ class Collection(ABC, Iterator):
 
 
     @abstractmethod
-    def from_list(cls, data, paginator: Paginator | None = None):
+    def from_list(self, data, paginator: Paginator | None = None):
         pass
 
 

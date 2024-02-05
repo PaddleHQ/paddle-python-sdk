@@ -75,7 +75,7 @@
     "pagination": {
       "per_page": 50,
       "estimated_total": 10,
-      "next": "http://api.paddle.com/notifications/ntf_01h8bzam1z32agrxjwhjgqk8w6/logs?after=ntflog_01h8bzame8ykt2zw5a11mxs110",
+      "next": "https://api.paddle.com/notifications/ntf_01h8bzam1z32agrxjwhjgqk8w6/logs?after=ntflog_01h8bzame8ykt2zw5a11mxs110",
       "has_more": false
     },
     "request_id": "b12dc646-6131-4801-b76a-b717d1aff37c"

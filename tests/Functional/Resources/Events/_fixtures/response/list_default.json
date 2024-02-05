@@ -2769,7 +2769,7 @@
     "pagination": {
       "per_page": 10,
       "estimated_total": 5574,
-      "next": "http://sandbox-api.paddle.com/events?per_page=10&after=evt_01hfyd0v4xppkwmjaca5xyzh5d",
+      "next": "https://sandbox-api.paddle.com/events?per_page=10&after=evt_01hfyd0v4xppkwmjaca5xyzh5d",
       "has_more": true
     },
     "request_id": "acca7502-1eaf-4a9e-9635-c6ab9844c8a5"
