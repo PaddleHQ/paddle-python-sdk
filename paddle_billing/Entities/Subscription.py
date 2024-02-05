@@ -4,6 +4,7 @@ from datetime    import datetime
 
 from paddle_billing.Entities.Entity import Entity
 
+from paddle_billing.Entities.Shared.TransactionDetailsPreview import TransactionDetailsPreview
 from paddle_billing.Entities.Shared import (
     BillingDetails,
     CollectionMode,
@@ -11,7 +12,6 @@ from paddle_billing.Entities.Shared import (
     CustomData,
     ImportMeta,
     TimePeriod,
-    TransactionDetailsPreview,
 )
 
 from paddle_billing.Entities.Subscriptions import (
