@@ -1,7 +1,7 @@
 from enum import StrEnum
 
 
-class ReportName(StrEnum):
+class ReportFilterName(StrEnum):
     CollectionMode = 'collection_mode'
     CurrencyCode   = 'currency_code'
     Origin         = 'origin'

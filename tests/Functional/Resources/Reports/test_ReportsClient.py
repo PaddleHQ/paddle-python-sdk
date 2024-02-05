@@ -5,7 +5,7 @@ from urllib.parse import unquote
 from paddle_billing.Entities.Collections import ReportCollection
 from paddle_billing.Entities.Report      import Report
 from paddle_billing.Entities.ReportCSV   import ReportCSV
-from paddle_billing.Entities.Reports     import ReportFilters, ReportName, ReportOperator, ReportStatus, ReportType
+from paddle_billing.Entities.Reports     import ReportFilter, ReportFilterName, ReportFilterOperator, ReportStatus, ReportType
 
 from paddle_billing.Resources.Reports.Operations import CreateReport, ListReports
 from paddle_billing.Resources.Shared.Operations  import Pager
@@ -27,7 +27,7 @@ class TestReportsClient:
             ), (
                 CreateReport(
                     type    = ReportType.Transactions,
-                    filters = [ReportFilters(name=ReportName.UpdatedAt, operator=ReportOperator.Lt, value='2023-12-30')],
+                    filters = [ReportFilter(name=ReportFilterName.UpdatedAt, operator=ReportFilterOperator.Lt, value='2023-12-30')],
                 ),
                 ReadsFixtures.read_raw_json_fixture('request/create_full'),
                 200,

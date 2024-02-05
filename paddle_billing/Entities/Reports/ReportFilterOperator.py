@@ -1,6 +1,6 @@
 from enum import StrEnum
 
 
-class ReportOperator(StrEnum):
+class ReportFilterOperator(StrEnum):
     Lt  = 'lt'
     Gte = 'gte'

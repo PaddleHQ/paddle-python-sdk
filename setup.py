@@ -2,7 +2,7 @@ from setuptools  import setup, find_packages
 
 
 setup(
-    version          = '0.0.1a91',
+    version          = '0.0.1a92',
 
     author           = 'Corey Regan',
     author_email     = 'regan.corey@gmail.com',
@@ -20,7 +20,6 @@ setup(
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.11',
         'Programming Language :: Python :: 3.12',
         'Programming Language :: Python :: 3.13',
