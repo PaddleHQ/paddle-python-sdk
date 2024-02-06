@@ -1,8 +1,9 @@
 from __future__  import annotations
 from dataclasses import dataclass
 
-from paddle_billing.Entities.Shared        import CustomData, Money, PriceQuantity, TaxMode, UnitPriceOverride
-from paddle_billing.Entities.Subscriptions import SubscriptionNonCatalogProduct
+from paddle_billing.Entities.Shared import CustomData, Money, PriceQuantity, TaxMode, UnitPriceOverride
+
+from paddle_billing.Entities.Subscriptions.SubscriptionNonCatalogProduct import SubscriptionNonCatalogProduct
 
 
 @dataclass

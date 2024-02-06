@@ -2,8 +2,9 @@ from __future__  import annotations
 from dataclasses import dataclass
 from datetime    import datetime
 
-from paddle_billing.Entities.Shared        import Action, CurrencyCode, PayoutTotalsAdjustment, StatusAdjustment, TotalAdjustments
-from paddle_billing.Entities.Subscriptions import SubscriptionAdjustmentItem
+from paddle_billing.Entities.Shared import Action, CurrencyCode, PayoutTotalsAdjustment, StatusAdjustment, TotalAdjustments
+
+from paddle_billing.Entities.Subscriptions.SubscriptionAdjustmentItem import SubscriptionAdjustmentItem
 
 
 @dataclass

@@ -1,8 +1,8 @@
 from __future__  import annotations
 from dataclasses import dataclass
 
-from paddle_billing.Entities.Price         import Price
-from paddle_billing.Entities.Subscriptions import SubscriptionProration
+from paddle_billing.Entities.Price                               import Price
+from paddle_billing.Entities.Subscriptions.SubscriptionProration import SubscriptionProration
 
 
 @dataclass

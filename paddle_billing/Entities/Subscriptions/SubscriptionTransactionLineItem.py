@@ -1,9 +1,10 @@
 from __future__  import annotations
 from dataclasses import dataclass
 
-from paddle_billing.Entities.Product       import Product
-from paddle_billing.Entities.Shared        import Totals, UnitTotals
-from paddle_billing.Entities.Subscriptions import SubscriptionProration
+from paddle_billing.Entities.Product import Product
+from paddle_billing.Entities.Shared  import Totals, UnitTotals
+
+from paddle_billing.Entities.Subscriptions.SubscriptionProration import SubscriptionProration
 
 
 @dataclass
