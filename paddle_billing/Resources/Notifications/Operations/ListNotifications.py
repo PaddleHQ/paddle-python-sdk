@@ -30,7 +30,7 @@ class ListNotifications(HasParameters):
 
         # Validation
         for field_name, field_value, field_type in [
-            ('notification_setting_ids', self.notification_setting_ids, NotificationStatus),
+            ('notification_setting_ids', self.notification_setting_ids, str),
             ('statuses',                 self.statuses,                 NotificationStatus),
         ]:
             invalid_items = [item for item in field_value if not isinstance(item, field_type)]
