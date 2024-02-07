@@ -9,7 +9,7 @@ class ProductCollection(Collection):
     def from_list(cls, items_data: list, paginator: Paginator | None = None) -> ProductCollection:
         from paddle_billing.Entities.Product import Product
 
-        items = [Product.from_dict(item) for item in items_data]
+        items: list[Product] = [Product.from_dict(item) for item in items_data]
 
         return ProductCollection(items, paginator)
 

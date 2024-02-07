@@ -9,7 +9,7 @@ class CustomerCollection(Collection):
     def from_list(cls, items_data: list, paginator: Paginator | None = None) -> CustomerCollection:
         from paddle_billing.Entities.Customer import Customer
 
-        items = [Customer.from_dict(item) for item in items_data]
+        items: list[Customer] = [Customer.from_dict(item) for item in items_data]
 
         return CustomerCollection(items, paginator)
 

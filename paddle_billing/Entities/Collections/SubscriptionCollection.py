@@ -9,7 +9,7 @@ class SubscriptionCollection(Collection):
     def from_list(cls, items_data: list, paginator: Paginator | None = None) -> SubscriptionCollection:
         from paddle_billing.Entities.Subscription import Subscription
 
-        items = [Subscription.from_dict(item) for item in items_data]
+        items: list[Subscription] = [Subscription.from_dict(item) for item in items_data]
 
         return SubscriptionCollection(items, paginator)
 

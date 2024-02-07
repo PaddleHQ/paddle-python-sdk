@@ -9,7 +9,7 @@ class AdjustmentCollection(Collection):
     def from_list(cls, items_data: list, paginator: Paginator | None = None) -> AdjustmentCollection:
         from paddle_billing.Entities.Adjustment import Adjustment
 
-        items = [Adjustment.from_dict(item) for item in items_data]
+        items: list[Adjustment] = [Adjustment.from_dict(item) for item in items_data]
 
         return AdjustmentCollection(items, paginator)
 

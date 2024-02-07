@@ -8,7 +8,7 @@ class Collection(ABC, Iterator):
     def __init__(self, items, paginator: Paginator | None = None):
         self.items     = items
         self.paginator = paginator
-        self._pointer   = 0
+        self._pointer  = 0
 
 
     @abstractmethod

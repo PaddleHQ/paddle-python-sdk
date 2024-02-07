@@ -9,7 +9,7 @@ class TransactionsDataCollection(Collection):
     def from_list(cls, items_data: list, paginator: Paginator | None = None) -> TransactionsDataCollection:
         from paddle_billing.Entities.TransactionData import TransactionData
 
-        items = [TransactionData.from_dict(item) for item in items_data]
+        items: list[TransactionData] = [TransactionData.from_dict(item) for item in items_data]
 
         return TransactionsDataCollection(items, paginator)
 

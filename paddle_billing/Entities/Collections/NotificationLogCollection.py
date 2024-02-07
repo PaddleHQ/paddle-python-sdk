@@ -9,7 +9,7 @@ class NotificationLogCollection(Collection):
     def from_list(cls, items_data: list, paginator: Paginator | None = None) -> NotificationLogCollection:
         from paddle_billing.Entities.NotificationLog import NotificationLog
 
-        items = [NotificationLog.from_dict(item) for item in items_data]
+        items: list[NotificationLog] = [NotificationLog.from_dict(item) for item in items_data]
 
         return NotificationLogCollection(items, paginator)
 

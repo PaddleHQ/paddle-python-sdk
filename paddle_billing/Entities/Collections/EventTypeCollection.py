@@ -9,7 +9,7 @@ class EventTypeCollection(Collection):
     def from_list(cls, items_data: list, paginator: Paginator | None = None) -> EventTypeCollection:
         from paddle_billing.Entities.EventType import EventType
 
-        items = [EventType.from_dict(item) for item in items_data]
+        items: list[EventType] = [EventType.from_dict(item) for item in items_data]
 
         return EventTypeCollection(items, paginator)
 

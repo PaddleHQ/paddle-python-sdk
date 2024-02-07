@@ -9,7 +9,7 @@ class AddressCollection(Collection):
     def from_list(cls, items_data: list, paginator: Paginator | None = None) -> AddressCollection:
         from paddle_billing.Entities.Address import Address
 
-        items = [Address.from_dict(item) for item in items_data]
+        items: list[Address] = [Address.from_dict(item) for item in items_data]
 
         return AddressCollection(items, paginator)
 

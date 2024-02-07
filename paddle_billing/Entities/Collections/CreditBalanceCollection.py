@@ -9,7 +9,7 @@ class CreditBalanceCollection(Collection):
     def from_list(cls, items_data: list, paginator: Paginator | None = None) -> CreditBalanceCollection:
         from paddle_billing.Entities.CreditBalance import CreditBalance
 
-        items = [CreditBalance.from_dict(item) for item in items_data]
+        items: list[CreditBalance] = [CreditBalance.from_dict(item) for item in items_data]
 
         return CreditBalanceCollection(items, paginator)
 

@@ -9,7 +9,7 @@ class DiscountCollection(Collection):
     def from_list(cls, items_data: list, paginator: Paginator | None = None) -> DiscountCollection:
         from paddle_billing.Entities.Discount import Discount
 
-        items = [Discount.from_dict(item) for item in items_data]
+        items: list[Discount] = [Discount.from_dict(item) for item in items_data]
 
         return DiscountCollection(items, paginator)
 

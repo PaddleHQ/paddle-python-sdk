@@ -9,7 +9,7 @@ class ReportCollection(Collection):
     def from_list(cls, items_data: list, paginator: Paginator | None = None) -> ReportCollection:
         from paddle_billing.Entities.Report import Report
 
-        items = [Report.from_dict(item) for item in items_data]
+        items: list[Report] = [Report.from_dict(item) for item in items_data]
 
         return ReportCollection(items, paginator)
 

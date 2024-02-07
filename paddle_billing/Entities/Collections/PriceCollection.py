@@ -9,7 +9,7 @@ class PriceCollection(Collection):
     def from_list(cls, items_data: list, paginator: Paginator | None = None) -> PriceCollection:
         from paddle_billing.Entities.Price import Price
 
-        items = [Price.from_dict(item) for item in items_data]
+        items: list[Price] = [Price.from_dict(item) for item in items_data]
 
         return PriceCollection(items, paginator)
 
