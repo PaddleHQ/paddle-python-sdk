@@ -1,11 +1,9 @@
 from __future__  import annotations
 from dataclasses import dataclass
 
-from paddle_billing.Entities.Entity import Entity
-
 
 @dataclass
-class PricePreviewItem(Entity):
+class PricePreviewItem:
     price_id: str
     quantity: int
 

@@ -1,14 +1,13 @@
 from __future__  import annotations
 from dataclasses import dataclass
 
-from paddle_billing.Entities.Entity   import Entity
 from paddle_billing.Entities.Discount import Discount
 
 
 @dataclass
-class PricePreviewDiscounts(Entity):
-    discount:       Discount
-    total:          str
+class PricePreviewDiscounts:
+    discount:        Discount
+    total:           str
     formatted_total: str
 
 

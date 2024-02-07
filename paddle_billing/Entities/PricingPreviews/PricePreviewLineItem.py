@@ -1,18 +1,17 @@
 from __future__  import annotations
 from dataclasses import dataclass
 
-from paddle_billing.Entities.Entity  import Entity
 from paddle_billing.Entities.Price   import Price
 from paddle_billing.Entities.Product import Product
 from paddle_billing.Entities.Shared  import Totals, UnitTotals
 
-from paddle_billing.Entities.PricingPreviews.PricePreviewUnitTotalsFormatted import PricePreviewUnitTotalsFormatted
-from paddle_billing.Entities.PricingPreviews.PricePreviewTotalsFormatted     import PricePreviewTotalsFormatted
 from paddle_billing.Entities.PricingPreviews.PricePreviewDiscounts           import PricePreviewDiscounts
+from paddle_billing.Entities.PricingPreviews.PricePreviewTotalsFormatted     import PricePreviewTotalsFormatted
+from paddle_billing.Entities.PricingPreviews.PricePreviewUnitTotalsFormatted import PricePreviewUnitTotalsFormatted
 
 
 @dataclass
-class PricePreviewLineItem(Entity):
+class PricePreviewLineItem:
     price:                 Price
     quantity:              int
     tax_rate:              str
