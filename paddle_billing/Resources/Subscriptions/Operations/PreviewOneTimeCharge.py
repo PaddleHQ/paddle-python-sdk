@@ -15,6 +15,7 @@ class PreviewOneTimeCharge:
     effective_from:     SubscriptionEffectiveFrom
     items:              list[SubscriptionItems | SubscriptionItemsWithPrice]
     on_payment_failure: SubscriptionOnPaymentFailure | Undefined = Undefined()
+    receipt_data:       str                          | Undefined = Undefined()
 
 
     def get_parameters(self) -> dict:

@@ -4,7 +4,7 @@ from paddle_billing.Entities.Collections import Paginator, CreditBalanceCollecti
 from paddle_billing.Entities.Customer    import Customer
 from paddle_billing.Entities.Shared      import Status
 
-from paddle_billing.Resources.Customers.Operations import CreateCustomer, ListCustomers, UpdateCustomer
+from paddle_billing.Resources.Customers.Operations import CreateCustomer, ListCreditBalances, ListCustomers, UpdateCustomer
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
@@ -55,7 +55,10 @@ class CustomersClient:
         return self.update(customer_id, UpdateCustomer(status=Status.Archived))
 
 
-    def credit_balances(self, customer_id: str) -> CreditBalanceCollection:
+    def credit_balances(self, customer_id: str, operation: ListCreditBalances = None) -> CreditBalanceCollection:
+        if operation is None:
+            operation = ListCreditBalances()
+
         self.response = self.client.get_raw(f"/customers/{customer_id}/credit-balances")
         parser        = ResponseParser(self.response)
 

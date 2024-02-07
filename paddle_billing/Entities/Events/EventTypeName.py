@@ -11,6 +11,7 @@ class EventTypeName(StrEnum):
     BusinessImported         = 'business.imported'
     BusinessUpdated          = 'business.updated'
     CustomerCreated          = 'customer.created'
+    CustomerImported         = 'customer.imported'
     CustomerUpdated          = 'customer.updated'
     DiscountCreated          = 'discount.created'
     DiscountImported         = 'discount.imported'

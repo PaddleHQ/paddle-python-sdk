@@ -34,12 +34,12 @@ class TestNotificationsClient:
                 ReadsFixtures.read_raw_json_fixture('response/list_default'),
                 '/notifications?after=nft_01h83xenpcfjyhkqr4x214m02x&order_by=id[asc]&per_page=50',
             ), (
-                ListNotifications(notification_setting_id=['nftset_01h83xenpcfjyhkqr4x214m02']),
+                ListNotifications(notification_setting_ids=['nftset_01h83xenpcfjyhkqr4x214m02']),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/list_default'),
                 '/notifications?notification_setting_id=nftset_01h83xenpcfjyhkqr4x214m02',
             ), (
-                ListNotifications(notification_setting_id=[
+                ListNotifications(notification_setting_ids=[
                     'nftset_01h83xenpcfjyhkqr4x214m02',
                     'nftset_01h8brhckjd6qk4n7e4py2340t',
                 ]),
