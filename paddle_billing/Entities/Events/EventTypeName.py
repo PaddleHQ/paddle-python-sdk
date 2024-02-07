@@ -3,10 +3,12 @@ from enum import StrEnum
 
 class EventTypeName(StrEnum):
     AddressCreated           = 'address.created'
+    AddressImported          = 'address.imported'
     AddressUpdated           = 'address.updated'
     AdjustmentCreated        = 'adjustment.created'
     AdjustmentUpdated        = 'adjustment.updated'
     BusinessCreated          = 'business.created'
+    BusinessImported         = 'business.imported'
     BusinessUpdated          = 'business.updated'
     CustomerCreated          = 'customer.created'
     CustomerUpdated          = 'customer.updated'
