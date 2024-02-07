@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from datetime    import datetime
 
 from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.Shared import Action, AdjustmentItemTotals, CurrencyCode, PayoutTotalsAdjustment, StatusAdjustment, TotalAdjustments
+from paddle_billing.Entities.Shared import Action, AdjustmentItemTotals, AdjustmentStatus, CurrencyCode, PayoutTotalsAdjustment, TotalAdjustments
 
 
 @dataclass
@@ -16,7 +16,7 @@ class Adjustment(Entity):
     reason:                    str
     credit_applied_to_balance: bool | None
     currency_code:             CurrencyCode
-    status:                    StatusAdjustment
+    status:                    AdjustmentStatus
     items:                     list[AdjustmentItemTotals]
     totals:                    TotalAdjustments
     payout_totals:             PayoutTotalsAdjustment | None
@@ -35,7 +35,7 @@ class Adjustment(Entity):
             reason                    = data['reason'],
             credit_applied_to_balance = data.get('credit_applied_to_balance'),
             currency_code             = CurrencyCode(data['currency_code']),
-            status                    = StatusAdjustment(data['status']),
+            status                    = AdjustmentStatus(data['status']),
             totals                    = TotalAdjustments.from_dict(data['totals']),
             created_at                = datetime.fromisoformat(data['created_at']),
             items                     = data['items'],

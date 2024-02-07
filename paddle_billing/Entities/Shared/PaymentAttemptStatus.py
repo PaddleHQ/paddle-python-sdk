@@ -1,7 +1,7 @@
 from enum import StrEnum
 
 
-class StatusPaymentAttempt(StrEnum):
+class PaymentAttemptStatus(StrEnum):
     Authorized              = 'authorized'
     AuthorizedFlagged       = 'authorized_flagged'
     Canceled                = 'canceled'

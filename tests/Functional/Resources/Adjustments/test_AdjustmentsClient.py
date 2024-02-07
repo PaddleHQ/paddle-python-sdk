@@ -5,7 +5,7 @@ from urllib.parse import unquote
 from paddle_billing.Entities.Adjustment  import Adjustment
 from paddle_billing.Entities.Adjustments import AdjustmentItem, AdjustmentType
 from paddle_billing.Entities.Collections import AdjustmentCollection
-from paddle_billing.Entities.Shared      import Action, StatusAdjustment
+from paddle_billing.Entities.Shared      import Action, AdjustmentStatus
 
 from paddle_billing.Resources.Adjustments.Operations import CreateAdjustment, ListAdjustments
 from paddle_billing.Resources.Shared.Operations      import Pager
@@ -99,7 +99,7 @@ class TestAdjustmentsClient:
                 ReadsFixtures.read_raw_json_fixture('response/list_default'),
                 '/adjustments?after=adj_01h8c65c2ggq5nxswnnwv78e75&order_by=id[asc]&per_page=50',
             ), (
-                ListAdjustments(statuses=[StatusAdjustment.PendingApproval]),
+                ListAdjustments(statuses=[AdjustmentStatus.PendingApproval]),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/list_default'),
                 '/adjustments?status=pending_approval',

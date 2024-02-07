@@ -4,7 +4,7 @@ from datetime    import datetime
 
 from paddle_billing.Entities.Shared.ErrorCode            import ErrorCode
 from paddle_billing.Entities.Shared.MethodDetails        import MethodDetails
-from paddle_billing.Entities.Shared.StatusPaymentAttempt import StatusPaymentAttempt
+from paddle_billing.Entities.Shared.PaymentAttemptStatus import PaymentAttemptStatus
 
 
 @dataclass
@@ -13,7 +13,7 @@ class TransactionPaymentAttempt:
     payment_method_id:        str
     stored_payment_method_id: str
     amount:                   str
-    status:                   StatusPaymentAttempt
+    status:                   PaymentAttemptStatus
     error_code:               ErrorCode | None
     method_details:           MethodDetails
     created_at:               datetime
@@ -27,7 +27,7 @@ class TransactionPaymentAttempt:
             payment_method_id        = data['payment_method_id'],
             stored_payment_method_id = data['stored_payment_method_id'],
             amount                   = data['amount'],
-            status                   = StatusPaymentAttempt(data['status']),
+            status                   = PaymentAttemptStatus(data['status']),
             method_details           = MethodDetails.from_dict(data['method_details']),
             created_at               = datetime.fromisoformat(data['created_at']),
             error_code               = ErrorCode(data['error_code'])               if data.get('error_code')  else None,

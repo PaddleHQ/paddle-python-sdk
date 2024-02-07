@@ -1,7 +1,7 @@
 from enum import StrEnum
 
 
-class StatusTransaction(StrEnum):
+class TransactionStatus(StrEnum):
     Draft     = 'draft'
     Ready     = 'ready'
     Billed    = 'billed'

@@ -2,7 +2,7 @@ from __future__  import annotations
 from dataclasses import dataclass
 from datetime    import datetime
 
-from paddle_billing.Entities.Shared import Action, CurrencyCode, PayoutTotalsAdjustment, StatusAdjustment, TotalAdjustments
+from paddle_billing.Entities.Shared import Action, AdjustmentStatus, CurrencyCode, PayoutTotalsAdjustment, TotalAdjustments
 
 from paddle_billing.Entities.Subscriptions.SubscriptionAdjustmentItem import SubscriptionAdjustmentItem
 
@@ -17,7 +17,7 @@ class SubscriptionAdjustment:
     reason:                    str
     credit_applied_to_balance: bool
     currency_code:             CurrencyCode
-    status:                    StatusAdjustment
+    status:                    AdjustmentStatus
     items:                     list[SubscriptionAdjustmentItem]
     totals:                    TotalAdjustments
     payout_totals:             PayoutTotalsAdjustment
@@ -36,7 +36,7 @@ class SubscriptionAdjustment:
             reason                    = data['reason'],
             credit_applied_to_balance = data['credit_applied_to_balance'],
             currency_code             = CurrencyCode(data['currency_code']),
-            status                    = StatusAdjustment(data['status']),
+            status                    = AdjustmentStatus(data['status']),
             items                     = [SubscriptionAdjustmentItem.from_dict(item) for item in data['items']],
             totals                    = TotalAdjustments.from_dict(data['totals']),
             payout_totals             = PayoutTotalsAdjustment.from_dict(data['payout_totals']),

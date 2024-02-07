@@ -17,7 +17,7 @@ from paddle_billing.Entities.Shared import (
     Interval,
     Money,
     PriceQuantity,
-    StatusTransaction,
+    TransactionStatus,
     TaxMode,
     TimePeriod,
 )
@@ -132,7 +132,7 @@ class TestTransactionsClient:
             ), (
                 CreateTransaction(
                     items           = [TransactionCreateItem(price_id='pri_01gsz8x8sawmvhz1pv30nge1ke', quantity=1)],
-                    status          = StatusTransaction.Billed,
+                    status          = TransactionStatus.Billed,
                     customer_id     = 'ctm_01he849dseyj0zgrc589eeb1c7',
                     address_id      = 'add_01hen28ebw1ew99y295jhd4n3n',
                     business_id     = 'biz_01hen2ng2290g84twtefdn5s00',
@@ -232,14 +232,14 @@ class TestTransactionsClient:
         [
             (
                 'txn_01h7zcgmdc6tmwtjehp3sh7azf',
-                UpdateTransaction(status=StatusTransaction.Billed),
+                UpdateTransaction(status=TransactionStatus.Billed),
                 ReadsFixtures.read_raw_json_fixture('request/update_single'),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/full_entity'),
                 '/transactions/txn_01h7zcgmdc6tmwtjehp3sh7azf',
             ), (
                 'txn_01h7zcgmdc6tmwtjehp3sh7azf',
-                UpdateTransaction(status=StatusTransaction.Billed, custom_data=CustomData({'completed_by': 'Frank T'})),
+                UpdateTransaction(status=TransactionStatus.Billed, custom_data=CustomData({'completed_by': 'Frank T'})),
                 ReadsFixtures.read_raw_json_fixture('request/update_partial'),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/full_entity'),
@@ -301,12 +301,12 @@ class TestTransactionsClient:
                 ReadsFixtures.read_raw_json_fixture('response/list_default'),
                 '/transactions?after=pro_01gsz4s0w61y0pp88528f1wvvb&order_by=id[asc]&per_page=50',
             ), (
-                ListTransactions(statuses=[StatusTransaction.Billed]),
+                ListTransactions(statuses=[TransactionStatus.Billed]),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/list_default'),
                 '/transactions?status=billed',
             ), (
-                ListTransactions(statuses=[StatusTransaction.Billed, StatusTransaction.Completed]),
+                ListTransactions(statuses=[TransactionStatus.Billed, TransactionStatus.Completed]),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/list_default'),
                 '/transactions?status=billed,completed',

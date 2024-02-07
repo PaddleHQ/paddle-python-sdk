@@ -13,11 +13,11 @@ from paddle_billing.Entities.Shared import (
     BillingDetails,
     Checkout,
     CollectionMode,
-    CustomData,
     CurrencyCode,
-    StatusTransaction,
+    CustomData,
     TransactionOrigin,
     TransactionPaymentAttempt,
+    TransactionStatus,
 )
 
 from paddle_billing.Entities.Transactions.TransactionAdjustment        import TransactionAdjustment
@@ -30,7 +30,7 @@ from paddle_billing.Entities.Transactions.TransactionTimePeriod        import Tr
 @dataclass
 class Transaction(Entity):
     id:                        str
-    status:                    StatusTransaction
+    status:                    TransactionStatus
     customer_id:               str        | None
     address_id:                str        | None
     business_id:               str        | None
@@ -77,7 +77,7 @@ class Transaction(Entity):
             invoice_number  = data.get('invoice_number'),
             origin          = TransactionOrigin(data['origin']),
             receipt_data    = data.get('receipt_data'),
-            status          = StatusTransaction(data['status']),
+            status          = TransactionStatus(data['status']),
             subscription_id = data.get('subscription_id'),
             updated_at      = datetime.fromisoformat(data['updated_at']),
             items           = [TransactionItem.from_dict(item)           for item in data.get('items',       [])],

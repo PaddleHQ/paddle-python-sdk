@@ -14,9 +14,9 @@ from paddle_billing.Entities.Shared import (
     CollectionMode,
     CurrencyCode,
     CustomData,
-    StatusTransaction,
-    TransactionOrigin,
     TransactionPaymentAttempt,
+    TransactionOrigin,
+    TransactionStatus,
 )
 
 from paddle_billing.Entities.Subscriptions import (
@@ -30,7 +30,7 @@ from paddle_billing.Entities.Subscriptions import (
 @dataclass
 class SubscriptionTransaction(Entity):
     id:              str
-    status:          StatusTransaction
+    status:          TransactionStatus
     customer_id:     str | None
     address_id:      str | None
     business_id:     str | None
@@ -62,7 +62,7 @@ class SubscriptionTransaction(Entity):
     def from_dict(cls, data: dict) -> SubscriptionTransaction:
         return SubscriptionTransaction(
             id              = data['id'],
-            status          = StatusTransaction(data['status']),
+            status          = TransactionStatus(data['status']),
             customer_id     = data.get('customer_id'),
             address_id      = data.get('address_id'),
             business_id     = data.get('business_id'),

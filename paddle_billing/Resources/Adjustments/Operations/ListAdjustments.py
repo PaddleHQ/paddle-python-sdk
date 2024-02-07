@@ -1,7 +1,7 @@
 from paddle_billing.EnumStringify import enum_stringify
 from paddle_billing.HasParameters import HasParameters
 
-from paddle_billing.Entities.Shared import Action, StatusAdjustment
+from paddle_billing.Entities.Shared import Action, AdjustmentStatus
 
 from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 
@@ -11,13 +11,13 @@ from paddle_billing.Resources.Shared.Operations import Pager
 class ListAdjustments(HasParameters):
     def __init__(
         self,
-        pager:            Pager | None                           = None,
-        ids:              list[str]                              = None,
-        statuses:         list[StatusAdjustment]                 = None,
-        customer_ids:     list[str]                              = None,
-        transaction_ids:  list[str]                              = None,
-        subscription_ids: list[str]                              = None,
-        action:           Action | None                          = None,
+        pager:            Pager | None           = None,
+        ids:              list[str]              = None,
+        statuses:         list[AdjustmentStatus] = None,
+        customer_ids:     list[str]              = None,
+        transaction_ids:  list[str]              = None,
+        subscription_ids: list[str]              = None,
+        action:           Action | None          = None,
     ):
         self.pager            = pager
         self.action           = action
@@ -31,7 +31,7 @@ class ListAdjustments(HasParameters):
         for field_name, field_value, field_type in [
             ('ids',              self.ids,              str),
             ('customer_ids',     self.customer_ids,     str),
-            ('statuses',         self.statuses,         StatusAdjustment),
+            ('statuses',         self.statuses,         AdjustmentStatus),
             ('subscription_ids', self.subscription_ids, str),
             ('transaction_ids',  self.transaction_ids,  str),
         ]:

@@ -1,7 +1,7 @@
 from paddle_billing.EnumStringify import enum_stringify
 from paddle_billing.HasParameters import HasParameters
 
-from paddle_billing.Entities.Shared import CollectionMode, StatusTransaction
+from paddle_billing.Entities.Shared import CollectionMode, TransactionStatus
 
 from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 
@@ -22,7 +22,7 @@ class ListTransactions(HasParameters):
         ids:                list[str]               = None,
         includes:           list[Includes]          = None,
         invoice_numbers:    list[str]               = None,
-        statuses:           list[StatusTransaction] = None,
+        statuses:           list[TransactionStatus] = None,
         subscription_ids:   list[str]               = None,
         origins:            list[Origin]            = None,
     ):
@@ -46,7 +46,7 @@ class ListTransactions(HasParameters):
             ('subscription_ids', self.subscription_ids, str),
             ('invoice_numbers',  self.invoice_numbers,  str),
             ('includes',         self.includes,         Includes),
-            ('statuses',         self.statuses,         StatusTransaction),
+            ('statuses',         self.statuses,         TransactionStatus),
             ('origins',          self.origins,          Origin),
         ]:
             invalid_items = [item for item in field_value if not isinstance(item, field_type)]

@@ -28,9 +28,9 @@ from paddle_billing.Entities.Shared.Pagination                      import Pagin
 from paddle_billing.Entities.Shared.PayoutTotalsAdjustment          import PayoutTotalsAdjustment
 from paddle_billing.Entities.Shared.PriceQuantity                   import PriceQuantity
 from paddle_billing.Entities.Shared.Status                          import Status
-from paddle_billing.Entities.Shared.StatusAdjustment                import StatusAdjustment
-from paddle_billing.Entities.Shared.StatusPaymentAttempt            import StatusPaymentAttempt
-from paddle_billing.Entities.Shared.StatusTransaction               import StatusTransaction
+from paddle_billing.Entities.Shared.AdjustmentStatus                import AdjustmentStatus
+from paddle_billing.Entities.Shared.PaymentAttemptStatus            import PaymentAttemptStatus
+from paddle_billing.Entities.Shared.TransactionStatus               import TransactionStatus
 from paddle_billing.Entities.Shared.TaxCategory                     import TaxCategory
 from paddle_billing.Entities.Shared.TaxMode                         import TaxMode
 from paddle_billing.Entities.Shared.TaxRatesUsed                    import TaxRatesUsed
