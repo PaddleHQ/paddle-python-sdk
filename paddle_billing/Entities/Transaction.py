@@ -2,11 +2,12 @@ from __future__  import annotations
 from dataclasses import dataclass
 from datetime    import datetime
 
-from paddle_billing.Entities.Entity   import Entity
-from paddle_billing.Entities.Address  import Address
-from paddle_billing.Entities.Business import Business
-from paddle_billing.Entities.Customer import Customer
-from paddle_billing.Entities.Discount import Discount
+from paddle_billing.Entities.Adjustment import Adjustment
+from paddle_billing.Entities.Entity     import Entity
+from paddle_billing.Entities.Address    import Address
+from paddle_billing.Entities.Business   import Business
+from paddle_billing.Entities.Customer   import Customer
+from paddle_billing.Entities.Discount   import Discount
 
 from paddle_billing.Entities.Shared import (
     AvailablePaymentMethods,
@@ -20,7 +21,6 @@ from paddle_billing.Entities.Shared import (
     TransactionStatus,
 )
 
-from paddle_billing.Entities.Transactions.TransactionAdjustment        import TransactionAdjustment
 from paddle_billing.Entities.Transactions.TransactionAdjustmentsTotals import TransactionAdjustmentsTotals
 from paddle_billing.Entities.Transactions.TransactionDetails           import TransactionDetails
 from paddle_billing.Entities.Transactions.TransactionItem              import TransactionItem
@@ -52,7 +52,7 @@ class Transaction(Entity):
     updated_at:                datetime
     billed_at:                 datetime                           | None
     address:                   Address                            | None = None
-    adjustments:               list[TransactionAdjustment]        | None = None
+    adjustments:               list[Adjustment]                   | None = None
     adjustment_totals:         list[TransactionAdjustmentsTotals] | None = None
     business:                  Business                           | None = None
     customer:                  Customer                           | None = None
@@ -82,7 +82,7 @@ class Transaction(Entity):
             updated_at      = datetime.fromisoformat(data['updated_at']),
             items           = [TransactionItem.from_dict(item)           for item in data.get('items',       [])],
             payments        = [TransactionPaymentAttempt.from_dict(item) for item in data.get('payments',    [])],
-            adjustments     = [TransactionAdjustment.from_dict(item)     for item in data.get('adjustments', [])],
+            adjustments     = [Adjustment.from_dict(item)                for item in data.get('adjustments', [])],
             address         = Address.from_dict(data['address'])                      if data.get('address')         else None,
             billed_at       = datetime.fromisoformat(data['billed_at'])               if data.get('billed_at')       else None,
             billing_details = BillingDetails.from_dict(data['billing_details'])       if data.get('billing_details') else None,

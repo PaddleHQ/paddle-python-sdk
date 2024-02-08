@@ -1,7 +1,7 @@
 from __future__  import annotations
 from dataclasses import dataclass
 
-from paddle_billing.Entities.Adjustments import AdjustmentTimePeriod
+from paddle_billing.Entities.Shared.AdjustmentTimePeriod import AdjustmentTimePeriod
 
 
 @dataclass

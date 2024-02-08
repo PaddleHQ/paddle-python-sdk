@@ -1,4 +1,3 @@
-from paddle_billing.Entities.Subscriptions.SubscriptionAdjustment                       import SubscriptionAdjustment
 from paddle_billing.Entities.Subscriptions.SubscriptionAdjustmentItem                   import SubscriptionAdjustmentItem
 from paddle_billing.Entities.Subscriptions.SubscriptionAdjustmentPreview                import SubscriptionAdjustmentPreview
 from paddle_billing.Entities.Subscriptions.SubscriptionCharge                           import SubscriptionCharge

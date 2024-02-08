@@ -3,11 +3,10 @@ from pytest       import mark
 from urllib.parse import unquote
 
 from paddle_billing.Entities.Adjustment  import Adjustment
-from paddle_billing.Entities.Adjustments import AdjustmentItem, AdjustmentType
 from paddle_billing.Entities.Collections import AdjustmentCollection
-from paddle_billing.Entities.Shared      import Action, AdjustmentStatus
+from paddle_billing.Entities.Shared      import Action, AdjustmentStatus, AdjustmentType
 
-from paddle_billing.Resources.Adjustments.Operations import CreateAdjustment, ListAdjustments
+from paddle_billing.Resources.Adjustments.Operations import CreateAdjustment, CreateAdjustmentItem, ListAdjustments
 from paddle_billing.Resources.Shared.Operations      import Pager
 
 from tests.Utils.TestClient   import mock_requests, test_client
@@ -21,7 +20,7 @@ class TestAdjustmentsClient:
             (
                 CreateAdjustment(
                     Action.Refund,
-                    [AdjustmentItem('txnitm_01h8bxryv3065dyh6103p3yg28', AdjustmentType.Partial, '100')],
+                    [CreateAdjustmentItem('txnitm_01h8bxryv3065dyh6103p3yg28', AdjustmentType.Partial, '100')],
                     'error',
                     'txn_01h8bxpvx398a7zbawb77y0kp5',
                 ),
@@ -33,8 +32,8 @@ class TestAdjustmentsClient:
                 CreateAdjustment(
                     Action.Refund,
                     [
-                        AdjustmentItem('txnitm_01h8bxryv3065dyh6103p3yg28', AdjustmentType.Partial, '100'),
-                        AdjustmentItem('txnitm_01h8bxryv3065dyh6103p3yg29', AdjustmentType.Full,    '1949'),
+                        CreateAdjustmentItem('txnitm_01h8bxryv3065dyh6103p3yg28', AdjustmentType.Partial, '100'),
+                        CreateAdjustmentItem('txnitm_01h8bxryv3065dyh6103p3yg29', AdjustmentType.Full, '1949'),
                     ],
                     'error',
                     'txn_01h8bxpvx398a7zbawb77y0kp5',

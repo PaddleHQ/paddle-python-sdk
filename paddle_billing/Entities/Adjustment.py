@@ -2,8 +2,9 @@ from __future__  import annotations
 from dataclasses import dataclass
 from datetime    import datetime
 
-from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.Shared import Action, AdjustmentItemTotals, AdjustmentStatus, CurrencyCode, PayoutTotalsAdjustment, TotalAdjustments
+from paddle_billing.Entities.Entity      import Entity
+from paddle_billing.Entities.Adjustments import AdjustmentItem
+from paddle_billing.Entities.Shared      import Action, AdjustmentStatus, CurrencyCode, PayoutTotalsAdjustment, TotalAdjustments
 
 
 @dataclass
@@ -17,7 +18,7 @@ class Adjustment(Entity):
     credit_applied_to_balance: bool | None
     currency_code:             CurrencyCode
     status:                    AdjustmentStatus
-    items:                     list[AdjustmentItemTotals]
+    items:                     list[AdjustmentItem]
     totals:                    TotalAdjustments
     payout_totals:             PayoutTotalsAdjustment | None
     created_at:                datetime
@@ -38,7 +39,7 @@ class Adjustment(Entity):
             status                    = AdjustmentStatus(data['status']),
             totals                    = TotalAdjustments.from_dict(data['totals']),
             created_at                = datetime.fromisoformat(data['created_at']),
-            items                     = data['items'],
+            items                     = [AdjustmentItem.from_dict(item) for item in data['items']],
             payout_totals             = PayoutTotalsAdjustment.from_dict(data['payout_totals']) if data.get('payout_totals') else None,
             updated_at                = datetime.fromisoformat(data['updated_at'])              if data.get('updated_at')    else None,
         )

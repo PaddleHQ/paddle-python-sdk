@@ -1,5 +1,3 @@
-from paddle_billing.Entities.Transactions.TransactionAdjustment                     import TransactionAdjustment
-from paddle_billing.Entities.Transactions.TransactionAdjustmentItem                 import TransactionAdjustmentItem
 from paddle_billing.Entities.Transactions.TransactionAdjustmentsTotals              import TransactionAdjustmentsTotals
 from paddle_billing.Entities.Transactions.TransactionBreakdown                      import TransactionBreakdown
 from paddle_billing.Entities.Transactions.TransactionCardType                       import TransactionCardType
