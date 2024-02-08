@@ -3,13 +3,11 @@ from dataclasses import dataclass
 
 from paddle_billing.Entities.Shared import AdjustmentItemTotals, AdjustmentProration, AdjustmentType
 
-from paddle_billing.Entities.Subscriptions.SubscriptionProration import SubscriptionProration
-
 
 @dataclass
 class SubscriptionAdjustmentItem:
     item_id:   str
-    type: AdjustmentType
+    type:      AdjustmentType
     amount:    str | None
     proration: AdjustmentProration
     totals:    AdjustmentItemTotals

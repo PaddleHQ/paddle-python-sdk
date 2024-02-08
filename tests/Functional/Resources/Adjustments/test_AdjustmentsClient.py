@@ -33,7 +33,7 @@ class TestAdjustmentsClient:
                     Action.Refund,
                     [
                         CreateAdjustmentItem('txnitm_01h8bxryv3065dyh6103p3yg28', AdjustmentType.Partial, '100'),
-                        CreateAdjustmentItem('txnitm_01h8bxryv3065dyh6103p3yg29', AdjustmentType.Full, '1949'),
+                        CreateAdjustmentItem('txnitm_01h8bxryv3065dyh6103p3yg29', AdjustmentType.Full,    '1949'),
                     ],
                     'error',
                     'txn_01h8bxpvx398a7zbawb77y0kp5',
