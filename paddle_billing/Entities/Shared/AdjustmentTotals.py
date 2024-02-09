@@ -5,7 +5,7 @@ from paddle_billing.Entities.Shared.CurrencyCode import CurrencyCode
 
 
 @dataclass
-class TotalAdjustments:
+class AdjustmentTotals:
     subtotal:      str
     tax:           str
     total:         str
@@ -15,8 +15,8 @@ class TotalAdjustments:
 
 
     @staticmethod
-    def from_dict(data: dict) -> TotalAdjustments:
-        return TotalAdjustments(
+    def from_dict(data: dict) -> AdjustmentTotals:
+        return AdjustmentTotals(
             subtotal      = data['subtotal'],
             tax           = data['tax'],
             total         = data['total'],

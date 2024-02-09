@@ -4,6 +4,7 @@ from paddle_billing.Entities.Shared.AdjustmentItemTotals            import Adjus
 from paddle_billing.Entities.Shared.AdjustmentProration             import AdjustmentProration
 from paddle_billing.Entities.Shared.AdjustmentStatus                import AdjustmentStatus
 from paddle_billing.Entities.Shared.AdjustmentTimePeriod            import AdjustmentTimePeriod
+from paddle_billing.Entities.Shared.AdjustmentTotals                import AdjustmentTotals
 from paddle_billing.Entities.Shared.AdjustmentType                  import AdjustmentType
 from paddle_billing.Entities.Shared.AvailablePaymentMethods         import AvailablePaymentMethods
 from paddle_billing.Entities.Shared.BillingDetails                  import BillingDetails
@@ -39,7 +40,6 @@ from paddle_billing.Entities.Shared.TaxCategory                     import TaxCa
 from paddle_billing.Entities.Shared.TaxMode                         import TaxMode
 from paddle_billing.Entities.Shared.TaxRatesUsed                    import TaxRatesUsed
 from paddle_billing.Entities.Shared.TimePeriod                      import TimePeriod
-from paddle_billing.Entities.Shared.TotalAdjustments                import TotalAdjustments
 from paddle_billing.Entities.Shared.Totals                          import Totals
 from paddle_billing.Entities.Shared.TransactionOrigin               import TransactionOrigin
 from paddle_billing.Entities.Shared.TransactionPaymentAttempt       import TransactionPaymentAttempt

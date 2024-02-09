@@ -4,7 +4,7 @@ from datetime    import datetime
 
 from paddle_billing.Entities.Entity      import Entity
 from paddle_billing.Entities.Adjustments import AdjustmentItem
-from paddle_billing.Entities.Shared      import Action, AdjustmentStatus, CurrencyCode, PayoutTotalsAdjustment, TotalAdjustments
+from paddle_billing.Entities.Shared      import Action, AdjustmentStatus, CurrencyCode, PayoutTotalsAdjustment, AdjustmentTotals
 
 
 @dataclass
@@ -19,7 +19,7 @@ class Adjustment(Entity):
     currency_code:             CurrencyCode
     status:                    AdjustmentStatus
     items:                     list[AdjustmentItem]
-    totals:                    TotalAdjustments
+    totals:                    AdjustmentTotals
     payout_totals:             PayoutTotalsAdjustment | None
     created_at:                datetime
     updated_at:                datetime | None
@@ -37,7 +37,7 @@ class Adjustment(Entity):
             credit_applied_to_balance = data.get('credit_applied_to_balance'),
             currency_code             = CurrencyCode(data['currency_code']),
             status                    = AdjustmentStatus(data['status']),
-            totals                    = TotalAdjustments.from_dict(data['totals']),
+            totals                    = AdjustmentTotals.from_dict(data['totals']),
             created_at                = datetime.fromisoformat(data['created_at']),
             items                     = [AdjustmentItem.from_dict(item) for item in data['items']],
             payout_totals             = PayoutTotalsAdjustment.from_dict(data['payout_totals']) if data.get('payout_totals') else None,
