@@ -44,7 +44,7 @@ class NotificationSubscription(Entity):
     paused_at:              datetime                    | None = None
     scheduled_change:       SubscriptionScheduledChange | None = None
     started_at:             datetime                    | None = None
-    transaction_id:         str                         | None = None
+    transaction_id:         str                         | None = None  # Only provided by subscription.created
 
 
     @classmethod

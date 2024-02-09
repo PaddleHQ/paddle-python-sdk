@@ -7,7 +7,7 @@ class CustomLogger(logging.Filter):
         # Define multiple regex patterns for different sensitive data types
         search_patterns = {
             r"'X-Transaction-ID': '\s*([^']+)'": "'X-Transaction-ID': '<redacted>'",
-            r"Bearer \s*([^']+)": "Bearer <API_SECRET_KEY>",
+            r"Bearer \s*([^']+)":                "Bearer <API_SECRET_KEY>",
         }
 
         # If the log record's message is a string, apply each regex substitution
