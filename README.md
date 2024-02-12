@@ -84,38 +84,6 @@ for product in products:
     print(f"Product's id: {product.id}")
 ```
 
-Here's a more production-ready version of the same code. Note the encapsulation of Paddle queries inside `try`/`except` blocks.
-``` python
-from logging               import getLogger
-from paddle_billing.Client import Client
-from sys                   import exit  # You should use classes/functions that return instead of exit
-
-log    = getLogger('my_app')
-paddle = Client('PADDLE_API_SECRET_KEY', options=Options(Environment.SANDBOX), logger=log)
-
-products = None
-try:
-    products = paddle.products.list()
-except (ApiError, MalformedResponse) as error:
-    log.error(error)
-    # Your additional logic that can handle Paddle's hints about what went wrong
-except Exception as error:
-    log.error(f"We received an unknown error listing products: {error}")
-
-if not products:
-    print("There was an error trying to list products")
-    exit(1)
-if not len(products.items):
-    log.warn("There are no products to list, try creating one using the example below")
-    print("There are no products to list")
-    exit
-
-# No need to specifically iterate products.items, products itself is iterable 
-for product in products:
-    print(f"Product's id: {product.id}")
-    # Your additional logic for using each product
-```
-
 ### Get an entity
 You can get an entity with the `get()` method in the resource. It accepts the `id` of the entity to get. The entity is returned.
 ``` python

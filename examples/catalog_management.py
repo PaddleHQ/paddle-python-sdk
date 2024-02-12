@@ -27,7 +27,7 @@ from paddle_billing.Resources.Products.Operations import CreateProduct, UpdatePr
 # Use environment variables, and/or secrets management like Vault to obtain your secrets
 api_key: str = getenv('PADDLE_SECRET_API_KEY', None)
 if not api_key:
-    raise ValueError("You must provide the PADDLE_API_KEY in your environment variables")
+    raise ValueError("You must provide the PADDLE_SECRET_API_KEY in your environment variables")
 
 # Determine the environment, defaulting to sandbox
 environment = getenv('PADDLE_ENVIRONMENT', 'sandbox')
