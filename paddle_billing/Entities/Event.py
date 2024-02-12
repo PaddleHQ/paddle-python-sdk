@@ -48,7 +48,7 @@ class Event(Entity):
             conditionally_remove_import_meta(entity_class, data)
             instantiated_class = entity_class(**data['data'])
         except Exception as error:
-            print(f"Error dynamically instantiating an object: {error}")
+            print(f"Error dynamically instantiating a '{entity_module_path}.{entity_class_name}' object: {error}")
 
         if not entity_class:
             raise ValueError(f"Event type '{entity_class_name}' cannot be mapped to an object")
