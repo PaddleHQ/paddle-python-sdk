@@ -103,7 +103,7 @@ except Exception as error:
     log.error(f"We received an unknown error listing products: {error}")
 
 if not products:
-    print("There was a problem trying to list products")
+    print("There was an error trying to list products")
     exit(1)
 
 if not len(products.items):
