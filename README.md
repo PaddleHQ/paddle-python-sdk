@@ -102,12 +102,12 @@ except Exception as error:
     log.error(f"We received an unknown error listing products: {error}")
 
 if not products:
-    print(f"There was a problem trying to list products")
+    print("There was a problem trying to list products")
     exit(1)
 
 if not len(products):
     log.warn(f"There are no products to list, try creating one using the example below")
-    print(f"There are no products to list")
+    print("There are no products to list")
     exit
 
 for product in products:
