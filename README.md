@@ -19,6 +19,7 @@ A Python wrapper for the new Paddle Billing SDK, based on Paddle's official [pad
 - [Install](#Install)
 - [Usage](#Usage)
 - [Examples](#Examples)
+- [Resources](#Resources)
 
 ## Requirements
 Python>=3.11 (for native type hinting, StrEnum, trailing commas, f-strings)
@@ -67,7 +68,7 @@ Keep in mind that API keys are separate for your sandbox and live accounts, so y
 
 
 ## Examples
-There are examples included in the [examples folder](https://github.com/Invincibear/paddle-billing-python-sdk/tree/main/examples). To prevent leaking errors to your clients we recommend encapsulating Paddle operations inside Try/Except blocks. For brevity, the below examples do not do this.
+There are examples included in the [examples folder](https://github.com/Invincibear/paddle-billing-python-sdk/tree/main/examples). To prevent leaking errors we recommend encapsulating Paddle operations inside Try/Except blocks. For brevity, most of the examples below do not do this.
 
 ### List entities
 You can list supported entities with the `list()` method in the resource. It returns an iterator to help when working with multiple pages.
@@ -83,7 +84,7 @@ for product in products:
     print(f"Product's id: {product.id}")
 ```
 
-And a more production-friendly version of the same code, although you'd want to use your own logger instead of `print()`. Note the encapsulation of Paddle queries inside `try`/`except` blocks.
+Here's a more production-ready version of the same code. Note the encapsulation of Paddle queries inside `try`/`except` blocks.
 ``` python
 from logging               import getLogger
 from paddle_billing.Client import Client
