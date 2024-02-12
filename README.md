@@ -187,5 +187,5 @@ integrity_check = Verifier().verify(request, Secret('WEBHOOK_SECRET_KEY')
 ```
 
 ## Learn more
-- [Paddle API reference](https://developer.paddle.com/api-reference/overview?utm_source=dx&utm_medium=paddle-php-sdk)
-- [Sign up for Paddle Billing](https://login.paddle.com/signup?utm_source=dx&utm_medium=paddle-php-sdk)
+- [Paddle API reference](https://developer.paddle.com/api-reference/overview?utm_source=dx&utm_medium=paddle-billing-python-sdk)
+- [Sign up for Paddle Billing](https://login.paddle.com/signup?utm_source=dx&utm_medium=paddle-billing-python-sdk)
