@@ -129,9 +129,9 @@ product = paddle.products.get('PRODUCT_ID')
 You can create a supported entity with the `create()` method in the resource. It accepts the resource's corresponding `CreateOperation` e.g. `CreateProduct`. The created entity is returned.
 
 ``` python
-from paddle_billing.Client                                      import Client
-from paddle_billing.Entities.Shared.TaxCategory                 import TaxCategory
-from paddle_billing.Resources.Products.Operations.CreateProduct import CreateProduct
+from paddle_billing.Client                        import Client
+from paddle_billing.Entities.Shared.TaxCategory   import TaxCategory
+from paddle_billing.Resources.Products.Operations import CreateProduct
 
 paddle = Client('PADDLE_API_SECRET_KEY')
 
@@ -144,8 +144,8 @@ created_product = paddle.products.create(CreateProduct(
 ### Update an entity
 You can update a supported entity with the `update()` method in the resource. It accepts the `id` of the entity to update and the corresponding `UpdateOperation` e.g. `UpdateProduct`. The updated entity is returned.
 ``` python
-from paddle_billing.Client                                      import Client
-from paddle_billing.Resources.Products.Operations.UpdateProduct import UpdateProduct
+from paddle_billing.Client                        import Client
+from paddle_billing.Resources.Products.Operations import UpdateProduct
 
 paddle = Client('PADDLE_API_SECRET_KEY')
 
