@@ -110,6 +110,7 @@ if not len(products.items):
     print("There are no products to list")
     exit
 
+# No need to specifically iterate products.items, products itself is iterable 
 for product in products:
     print(f"Product's id: {product.id}")
     # Your additional logic for using each product
