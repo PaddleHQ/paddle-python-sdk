@@ -105,7 +105,6 @@ except Exception as error:
 if not products:
     print("There was an error trying to list products")
     exit(1)
-
 if not len(products.items):
     log.warn("There are no products to list, try creating one using the example below")
     print("There are no products to list")
