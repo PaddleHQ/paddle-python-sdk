@@ -21,7 +21,7 @@ A Python wrapper for the new Paddle Billing SDK, based on Paddle's official [pad
 - [Examples](#Examples)
 
 ## Requirements
-Python>=3.11 (for native type hinting, StrEnum, trailing commas)
+Python>=3.11 (for native type hinting, StrEnum, trailing commas, f-strings)
 
 **Project dependencies** (automatically installed by pip):
 - requests>=2.31
@@ -81,6 +81,38 @@ products = paddle.products.list()
 # List() returns an iterable, so pagination is automatically handled
 for product in products:
     print(f"Product's id: {product.id}")
+```
+
+And a more production-friendly version of the same code, although you'd want to use your own logger instead of `print()`. Note the encapsulation of Paddle queries inside `try`/`except` blocks.
+``` python
+from logging               import getLogger
+from paddle_billing.Client import Client
+from sys                   import exit  # You should use classes/functions that return instead of exit
+
+log    = getLogger('my_app')
+paddle = Client('PADDLE_API_SECRET_KEY', options=Options(Environment.SANDBOX), logger=log)
+
+products = None
+try:
+    products = paddle.products.list()
+except (ApiError, MalformedResponse) as error:
+    log.error(error)
+    # Your additional logic that can handle Paddle's hints about what went wrong
+except Exception as error:
+    log.error(f"We received an unknown error listing products: {error}")
+
+if not products:
+    print(f"There was a problem trying to list products")
+    exit(1)
+
+if not len(products):
+    log.warn(f"There are no products to list, try creating one using the example below")
+    print(f"There are no products to list")
+    exit
+
+for product in products:
+    print(f"Product's id: {product.id}")
+    # Your additional logic for using each product
 ```
 
 ### Get an entity
