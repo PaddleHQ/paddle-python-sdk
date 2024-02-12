@@ -106,7 +106,7 @@ if not products:
     exit(1)
 
 if not len(products):
-    log.warn(f"There are no products to list, try creating one using the example below")
+    log.warn("There are no products to list, try creating one using the example below")
     print("There are no products to list")
     exit
 
