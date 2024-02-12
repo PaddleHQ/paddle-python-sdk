@@ -47,7 +47,7 @@ paddle = Client('PADDLE_API_SECRET_KEY')
 
 You can pass your Paddle API secret key into the SDK from an environment variable:
 ``` python
-from os import environ
+from os                    import environ
 from paddle_billing.Client import Client
 
 paddle = Client(environ.get('PADDLE_API_SECRET_KEY'))
@@ -128,7 +128,7 @@ Where operations require more than one `id`, the `update()` method accepts multi
 updated_address = paddle.addresses.update(
     'CUSTOMER_ID',
     'ADDRESS_ID',
-    operation,
+    operation_goes_here,
 )
 ```
 

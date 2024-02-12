@@ -44,7 +44,7 @@ class SubscriptionPreview(Entity):
     custom_data:                   CustomData | None
     immediate_transaction:         SubscriptionNextTransaction | None
     next_transaction:              SubscriptionNextTransaction | None
-    recurring_transaction_details: TransactionDetailsPreview | None
+    recurring_transaction_details: TransactionDetailsPreview   | None
     update_summary:                SubscriptionPreviewSubscriptionUpdateSummary | None
 
 
