@@ -21,6 +21,7 @@ from paddle_billing.Entities.Subscriptions.SubscriptionProration                
 from paddle_billing.Entities.Subscriptions.SubscriptionProrationBillingMode             import SubscriptionProrationBillingMode
 from paddle_billing.Entities.Subscriptions.SubscriptionResult                           import SubscriptionResult
 from paddle_billing.Entities.Subscriptions.SubscriptionResultAction                     import SubscriptionResultAction
+from paddle_billing.Entities.Subscriptions.SubscriptionResumeEffectiveFrom              import SubscriptionResumeEffectiveFrom
 from paddle_billing.Entities.Subscriptions.SubscriptionScheduledChange                  import SubscriptionScheduledChange
 from paddle_billing.Entities.Subscriptions.SubscriptionScheduledChangeAction            import SubscriptionScheduledChangeAction
 from paddle_billing.Entities.Subscriptions.SubscriptionStatus                           import SubscriptionStatus

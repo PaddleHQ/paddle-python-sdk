@@ -1,12 +1,12 @@
 from dataclasses import dataclass
 
 from paddle_billing.Entities.DateTime      import DateTime
-from paddle_billing.Entities.Subscriptions import SubscriptionEffectiveFrom
+from paddle_billing.Entities.Subscriptions import SubscriptionResumeEffectiveFrom
 
 
 @dataclass
 class ResumeSubscription:
-    effective_from: SubscriptionEffectiveFrom | DateTime | None = None
+    effective_from: SubscriptionResumeEffectiveFrom | DateTime | None = None
 
 
     def get_parameters(self) -> dict:

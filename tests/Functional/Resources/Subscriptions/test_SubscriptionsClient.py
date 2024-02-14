@@ -14,22 +14,23 @@ from paddle_billing.Entities.Subscriptions import (
     SubscriptionItems,
     SubscriptionOnPaymentFailure,
     SubscriptionProrationBillingMode,
+    SubscriptionResumeEffectiveFrom,
     SubscriptionScheduledChangeAction,
     SubscriptionStatus,
 )
 
-from paddle_billing.Resources.Shared.Operations         import Pager
-from paddle_billing.Resources.Subscriptions.Operations  import (
+from paddle_billing.Resources.Shared.Operations        import Pager
+from paddle_billing.Resources.Subscriptions.Operations import (
     CancelSubscription,
     CreateOneTimeCharge,
-    SubscriptionIncludes,
+    ListSubscriptions,
     PauseSubscription,
     PreviewOneTimeCharge,
     PreviewUpdateSubscription,
     ResumeSubscription,
+    SubscriptionDiscount,
+    SubscriptionIncludes,
     UpdateSubscription,
-    ListSubscriptions,
-    SubscriptionDiscount
 )
 
 from tests.Utils.TestClient   import mock_requests, test_client
@@ -361,7 +362,7 @@ class TestSubscriptionsClient:
                 '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/resume',
             ), (
                 'sub_01h8bx8fmywym11t6swgzba704',
-                ResumeSubscription(SubscriptionEffectiveFrom.NextBillingPeriod),
+                ResumeSubscription(SubscriptionResumeEffectiveFrom.Immediately),
                 ReadsFixtures.read_raw_json_fixture('request/resume_single_as_enum'),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/full_entity'),
