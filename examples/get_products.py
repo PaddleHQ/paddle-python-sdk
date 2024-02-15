@@ -1,6 +1,6 @@
-from logging               import getLogger
-from os                    import getenv
-from sys                   import exit  # You should use classes/functions that return instead of exit
+from logging import getLogger
+from os      import getenv
+from sys     import exit  # You should use classes/functions that return instead of exit
 
 from paddle_billing.Client      import Client
 from paddle_billing.Environment import Environment
