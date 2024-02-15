@@ -1,4 +1,4 @@
-from os            import environ
+from os            import getenv
 from pytest        import fixture
 from requests_mock import Mocker
 
@@ -32,7 +32,7 @@ class TestClient:
 
     def create_client(self, api_secret_key: str | None = None):
         return Client(
-            environ.get('PADDLE_API_SECRET_KEY') if api_secret_key is None else api_secret_key,
+            getenv('PADDLE_API_SECRET_KEY') if api_secret_key is None else api_secret_key,
             options = Options(self._environment),
         )
 

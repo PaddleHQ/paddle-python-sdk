@@ -48,10 +48,10 @@ paddle = Client('PADDLE_API_SECRET_KEY')
 
 You can pass your Paddle API secret key into the SDK from an environment variable:
 ``` python
-from os                    import environ
+from os                    import getenv
 from paddle_billing.Client import Client
 
-paddle = Client(environ.get('PADDLE_API_SECRET_KEY'))
+paddle = Client(getenv('PADDLE_API_SECRET_KEY'))
 ```
 
 You can also pass an environment to work with Paddle's sandbox:
