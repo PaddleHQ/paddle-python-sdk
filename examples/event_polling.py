@@ -24,7 +24,7 @@ environment        = getenv('PADDLE_ENVIRONMENT', 'sandbox')
 paddle_environment = getattr(Environment, environment)  # E.g. Environment.sandbox
 
 # Initialize the Paddle client
-paddle = Client(api_key, options=Options(paddle_environment))
+paddle = Client(api_key, options=Options(paddle_environment), logger=log)
 
 # Placeholder for the last processed event ID
 last_processed_event_id = 'evt_01hfxx8t6ek9h399srcrp36jt3'

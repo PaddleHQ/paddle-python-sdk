@@ -1,4 +1,6 @@
-from os import getenv
+from logging import getLogger
+from os      import getenv
+from sys     import exit  # You should use classes/functions that return instead of exit
 
 from paddle_billing import Client, Environment, Options
 
@@ -21,6 +23,7 @@ from paddle_billing.Exceptions.SdkExceptions.MalformedResponse import MalformedR
 from paddle_billing.Resources.Prices.Operations   import CreatePrice, UpdatePrice, PriceIncludes
 from paddle_billing.Resources.Products.Operations import CreateProduct, UpdateProduct, ProductIncludes, ListProducts
 
+log = getLogger('my_app')
 
 # Verify your Paddle API key was provided by a PADDLE_SECRET_API_KEY environment variable
 # It is strongly advised that you do not include secrets in your source code
@@ -30,11 +33,11 @@ if not api_key:
     raise ValueError("You must provide the PADDLE_SECRET_API_KEY in your environment variables")
 
 # Determine the environment, defaulting to sandbox
-environment = getenv('PADDLE_ENVIRONMENT', 'sandbox')
+environment        = getenv('PADDLE_ENVIRONMENT', 'sandbox')
 paddle_environment = getattr(Environment, environment)  # E.g. Environment.sandbox
 
 # Initialize the Paddle client
-paddle = Client(api_key, options=Options(paddle_environment))
+paddle = Client(api_key, options=Options(paddle_environment), logger=log)
 
 
 # ┌───
@@ -48,9 +51,9 @@ try:
         image_url    = 'https://placekitten.com/200/300',
         custom_data  = CustomData({'foo': 'bar'}),
     ))
-except (ApiError, MalformedResponse) as e:
-    print(e)
-    exit()
+except (ApiError, MalformedResponse) as error:
+    print(error)
+    exit(1)
 
 print(f"Created product '{product.id}': {product.description}")
 
@@ -64,9 +67,9 @@ try:
         image_url   = 'https://placebear.com/200/300',
         custom_data = CustomData({'beep': 'boop'}),
     ))
-except (ApiError, MalformedResponse) as e:
-    print(e)
-    exit()
+except (ApiError, MalformedResponse) as error:
+    print(error)
+    exit(1)
 
 print(f"Updated product '{product.id}': {product.description}")
 
@@ -91,9 +94,9 @@ try:
             ),
         ],
     ))
-except (ApiError, MalformedResponse) as e:
-    print(e)
-    exit()
+except (ApiError, MalformedResponse) as error:
+    print(error)
+    exit(1)
 
 print(f"Created price '{price.id}': {price.description}")
 
@@ -107,9 +110,9 @@ try:
         unit_price  = Money('500', CurrencyCode.GBP),
         custom_data = CustomData({'beep': 'boop'}),
     ))
-except (ApiError, MalformedResponse) as e:
-    print(e)
-    exit()
+except (ApiError, MalformedResponse) as error:
+    print(error)
+    exit(1)
 
 print(f"Updated price '{price.id}': {price.description}")
 
@@ -119,9 +122,9 @@ print(f"Updated price '{price.id}': {price.description}")
 # └─────────────────────────┘
 try:
     product = paddle.products.get(product.id, [ProductIncludes.Prices])
-except (ApiError, MalformedResponse) as e:
-    print(e)
-    exit()
+except (ApiError, MalformedResponse) as error:
+    print(error)
+    exit(1)
 
 print(f"product.prices={product.prices}")
 print(f"Read product '{product.id}' with prices " + ', '.join([str(price.id) for price in product.prices]))
@@ -132,9 +135,9 @@ print(f"Read product '{product.id}' with prices " + ', '.join([str(price.id) for
 # └────────────────────────┘
 try:
     price = paddle.prices.get(price.id, [PriceIncludes.Product])
-except (ApiError, MalformedResponse) as e:
-    print(e)
-    exit()
+except (ApiError, MalformedResponse) as error:
+    print(error)
+    exit(1)
 
 print(f"Read price '{price.id}' with product {price.product.id if price.product else 'MISSING PRODUCT'}")
 
@@ -147,9 +150,9 @@ try:
         includes = [ProductIncludes.Prices],
         statuses = [Status.Active],
     ))
-except (ApiError, MalformedResponse) as e:
-    print(e)
-    exit()
+except (ApiError, MalformedResponse) as error:
+    print(error)
+    exit(1)
 
 
 # ┌───
