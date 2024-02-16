@@ -29,7 +29,7 @@ class Price(Entity):
     type:                 CatalogType | None
     billing_cycle:        TimePeriod  | None
     trial_period:         TimePeriod  | None
-    tax_mode:             TaxMode     | None
+    tax_mode:             TaxMode
     unit_price:           Money
     unit_price_overrides: list[UnitPriceOverride]
     quantity:             PriceQuantity
@@ -49,11 +49,11 @@ class Price(Entity):
             unit_price           = Money.from_dict(data['unit_price']),
             quantity             = PriceQuantity.from_dict(data['quantity']),
             status               = Status(data['status']),
+            tax_mode             = TaxMode(data.get('tax_mode')),
             unit_price_overrides = [UnitPriceOverride.from_dict(override) for override in data.get('unit_price_overrides', [])],
             type                 = CatalogType(data.get('type'))                             if data.get('type')          else None,
             billing_cycle        = TimePeriod.from_dict(data['billing_cycle'])               if data.get('billing_cycle') else None,
             trial_period         = TimePeriod.from_dict(data['trial_period'])                if data.get('trial_period')  else None,
-            tax_mode             = TaxMode(data.get('tax_mode'))                             if data.get('tax_mode')      else None,
             custom_data          = CustomData(data['custom_data'])                           if data.get('custom_data')   else None,
             import_meta          = ImportMeta.from_dict(data['import_meta'])                 if data.get('import_meta')   else None,
             product              = Product.from_dict(data['product'])                        if data.get('product')       else None,
