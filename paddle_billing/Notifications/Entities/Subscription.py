@@ -2,8 +2,8 @@ from __future__  import annotations
 from dataclasses import dataclass
 from datetime    import datetime
 
-from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.Shared import (
+from paddle_billing.Notifications.Entities.Entity import Entity
+from paddle_billing.Notifications.Entities.Shared import (
     BillingDetails,
     CollectionMode,
     CurrencyCode,
@@ -11,7 +11,7 @@ from paddle_billing.Entities.Shared import (
     ImportMeta,
     TimePeriod
 )
-from paddle_billing.Entities.Subscriptions import (
+from paddle_billing.Notifications.Entities.Subscriptions import (
     SubscriptionDiscount,
     SubscriptionItem,
     SubscriptionScheduledChange,
@@ -21,7 +21,7 @@ from paddle_billing.Entities.Subscriptions import (
 
 
 @dataclass
-class NotificationSubscription(Entity):
+class Subscription(Entity):
     address_id:             str
     billing_cycle:          TimePeriod
     collection_mode:        CollectionMode
@@ -48,8 +48,8 @@ class NotificationSubscription(Entity):
 
 
     @classmethod
-    def from_dict(cls, data: dict) -> NotificationSubscription:
-        return NotificationSubscription(
+    def from_dict(cls, data: dict) -> Subscription:
+        return Subscription(
             id                     = data['id'],
             transaction_id         = data.get('transaction_id'),
             status                 = SubscriptionStatus(data['status']),

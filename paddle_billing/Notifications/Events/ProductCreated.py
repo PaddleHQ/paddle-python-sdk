@@ -1,8 +1,9 @@
 from datetime import datetime
 
-from paddle_billing.Entities.Event   import Event
-from paddle_billing.Entities.Events  import EventTypeName
-from paddle_billing.Entities.Product import Product
+from paddle_billing.Entities.Event  import Event
+from paddle_billing.Entities.Events import EventTypeName
+
+from paddle_billing.Notifications.Entities.Product import Product
 
 
 class ProductCreated(Event):

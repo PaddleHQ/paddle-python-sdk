@@ -1,8 +1,9 @@
 from datetime import datetime
 
-from paddle_billing.Entities.Event         import Event
-from paddle_billing.Entities.Events        import EventTypeName
-from paddle_billing.Entities.Notifications import NotificationSubscription
+from paddle_billing.Entities.Event  import Event
+from paddle_billing.Entities.Events import EventTypeName
+
+from paddle_billing.Notifications.Entities.Subscription import Subscription
 
 
 class SubscriptionCreated(Event):
@@ -11,6 +12,6 @@ class SubscriptionCreated(Event):
         event_id:    str,
         event_type:  EventTypeName,
         occurred_at: datetime,
-        data:        NotificationSubscription,
+        data:        Subscription,
     ):
         super().__init__(event_id, event_type, occurred_at, data)

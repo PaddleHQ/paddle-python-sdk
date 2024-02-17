@@ -1,0 +1,1 @@
+from paddle_billing.Notifications.Entities.Adjustments.AdjustmentItem import AdjustmentItem

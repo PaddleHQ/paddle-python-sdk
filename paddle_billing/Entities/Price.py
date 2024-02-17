@@ -2,7 +2,6 @@ from __future__  import annotations
 from dataclasses import dataclass
 
 from paddle_billing.Entities.Entity  import Entity
-from paddle_billing.Entities.Product import Product
 
 from paddle_billing.Entities.Shared import (
     CatalogType,
@@ -58,3 +57,8 @@ class Price(Entity):
             import_meta          = ImportMeta.from_dict(data['import_meta'])   if data.get('import_meta')   else None,
             product              = Product.from_dict(data['product'])          if data.get('product')       else None,
         )
+
+
+
+# Prevents circular import
+from paddle_billing.Entities.Product import Product  # noqa E402

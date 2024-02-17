@@ -2,13 +2,13 @@ from __future__  import annotations
 from dataclasses import dataclass
 from datetime    import datetime
 
-from paddle_billing.Entities.Discounts import DiscountStatus, DiscountType
-from paddle_billing.Entities.Entity    import Entity
-from paddle_billing.Entities.Shared    import CurrencyCode, CustomData, ImportMeta
+from paddle_billing.Notifications.Entities.Discounts import DiscountStatus, DiscountType
+from paddle_billing.Notifications.Entities.Entity    import Entity
+from paddle_billing.Notifications.Entities.Shared    import CurrencyCode, CustomData, ImportMeta
 
 
 @dataclass
-class NotificationDiscount(Entity):
+class Discount(Entity):
     amount:                      str
     created_at:                  datetime
     description:                 str
@@ -29,8 +29,8 @@ class NotificationDiscount(Entity):
 
 
     @classmethod
-    def from_dict(cls, data: dict) -> NotificationDiscount:
-        return NotificationDiscount(
+    def from_dict(cls, data: dict) -> Discount:
+        return Discount(
             amount                      = data['amount'],
             code                        = data.get('code'),
             created_at                  = datetime.fromisoformat(data['created_at']),

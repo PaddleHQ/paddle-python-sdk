@@ -1,8 +1,9 @@
 from datetime import datetime
 
-from paddle_billing.Entities.Customer import Customer
-from paddle_billing.Entities.Event    import Event
-from paddle_billing.Entities.Events   import EventTypeName
+from paddle_billing.Entities.Event  import Event
+from paddle_billing.Entities.Events import EventTypeName
+
+from paddle_billing.Notifications.Entities.Customer import Customer
 
 
 class CustomerUpdated(Event):

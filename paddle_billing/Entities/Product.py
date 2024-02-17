@@ -23,8 +23,6 @@ class Product(Entity):
 
     @classmethod
     def from_dict(cls, data: dict) -> Product:
-        from paddle_billing.Entities.Price  import Price  # prevents circular import from Entities/Products.py
-
         return Product(
             description  = data.get('description'),
             id           = data['id'],
@@ -38,3 +36,8 @@ class Product(Entity):
             created_at   = datetime.fromisoformat(data['created_at']) if data.get('created_at')  else None,
             import_meta  = ImportMeta.from_dict(data['import_meta'])  if data.get('import_meta') else None,
         )
+
+
+
+# Prevents circular import
+from paddle_billing.Entities.Price  import Price  # noqa E402
