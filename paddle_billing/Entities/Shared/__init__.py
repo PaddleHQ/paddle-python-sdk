@@ -47,7 +47,7 @@ from paddle_billing.Entities.Shared.TransactionPayoutTotals         import Trans
 from paddle_billing.Entities.Shared.TransactionPayoutTotalsAdjusted import TransactionPayoutTotalsAdjusted
 from paddle_billing.Entities.Shared.TransactionTotals               import TransactionTotals
 from paddle_billing.Entities.Shared.TransactionTotalsAdjusted       import TransactionTotalsAdjusted
-from paddle_billing.Entities.Shared.Type                            import Type
+from paddle_billing.Entities.Shared.PaymentMethodType               import PaymentMethodType
 from paddle_billing.Entities.Shared.UnitPriceOverride               import UnitPriceOverride
 from paddle_billing.Entities.Shared.UnitTotals                      import UnitTotals
 

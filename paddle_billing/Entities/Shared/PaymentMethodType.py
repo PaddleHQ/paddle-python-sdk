@@ -1,7 +1,7 @@
 from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class Type(PaddleStrEnum):
+class PaymentMethodType(PaddleStrEnum):
     Alipay       = 'alipay'
     ApplePay     = 'apple_pay'
     Bancontact   = 'bancontact'
