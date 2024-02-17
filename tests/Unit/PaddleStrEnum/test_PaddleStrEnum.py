@@ -38,6 +38,6 @@ def test_dataclass_asdict_returns_expected_paddle_str_enum_value():
 
     assert is_dataclass(test_dataclass)
     assert isinstance(test_dataclass.get_parameters(), dict)
-    assert test_dataclass.get_parameters().get('country_code', None) is not None
+    assert test_dataclass.get_parameters().get('country_code', None)       is not None
     assert type(test_dataclass.get_parameters().get('country_code', None)) == TestCountryCodesEnum
-    assert test_dataclass.get_parameters().get('country_code', None) == 'canada'
+    assert test_dataclass.get_parameters().get('country_code', None)       == 'canada'
