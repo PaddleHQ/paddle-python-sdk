@@ -1,7 +1,7 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class PaymentAttemptStatus(StrEnum):
+class PaymentAttemptStatus(PaddleStrEnum):
     Authorized              = 'authorized'
     AuthorizedFlagged       = 'authorized_flagged'
     Canceled                = 'canceled'

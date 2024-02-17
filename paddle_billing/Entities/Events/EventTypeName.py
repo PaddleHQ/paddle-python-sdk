@@ -1,7 +1,7 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class EventTypeName(StrEnum):
+class EventTypeName(PaddleStrEnum):
     AddressCreated           = 'address.created'
     AddressImported          = 'address.imported'
     AddressUpdated           = 'address.updated'

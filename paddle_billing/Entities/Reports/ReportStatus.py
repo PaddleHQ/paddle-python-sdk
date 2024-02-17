@@ -1,7 +1,7 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class ReportStatus(StrEnum):
+class ReportStatus(PaddleStrEnum):
     Pending = 'pending'
     Ready   = 'ready'
     Failed  = 'failed'

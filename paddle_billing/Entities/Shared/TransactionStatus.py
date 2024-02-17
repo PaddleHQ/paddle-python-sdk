@@ -1,7 +1,7 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class TransactionStatus(StrEnum):
+class TransactionStatus(PaddleStrEnum):
     Draft     = 'draft'
     Ready     = 'ready'
     Billed    = 'billed'

@@ -1,7 +1,7 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class TaxMode(StrEnum):
+class TaxMode(PaddleStrEnum):
     AccountSetting = 'account_setting'
     External       = 'external'
     Internal       = 'internal'

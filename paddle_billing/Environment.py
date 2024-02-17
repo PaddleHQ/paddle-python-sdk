@@ -1,7 +1,7 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class Environment(StrEnum):
+class Environment(PaddleStrEnum):
     PRODUCTION = 'production'
     SANDBOX    = 'sandbox'
 

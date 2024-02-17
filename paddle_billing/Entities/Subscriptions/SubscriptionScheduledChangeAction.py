@@ -1,7 +1,7 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class SubscriptionScheduledChangeAction(StrEnum):
+class SubscriptionScheduledChangeAction(PaddleStrEnum):
     Cancel = 'cancel'
     Pause  = 'pause'
     Resume = 'resume'

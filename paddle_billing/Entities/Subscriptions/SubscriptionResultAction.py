@@ -1,6 +1,6 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class SubscriptionResultAction(StrEnum):
+class SubscriptionResultAction(PaddleStrEnum):
     Credit = 'credit'
     Charge = 'charge'

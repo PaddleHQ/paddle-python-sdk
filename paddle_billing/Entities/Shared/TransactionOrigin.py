@@ -1,7 +1,7 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class TransactionOrigin(StrEnum):
+class TransactionOrigin(PaddleStrEnum):
     Api                             = 'api'
     SubscriptionCharge              = 'subscription_charge'
     SubscriptionPaymentMethodChange = 'subscription_payment_method_change'

@@ -1,6 +1,6 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class Status(StrEnum):
+class Status(PaddleStrEnum):
     Active   = 'active'
     Archived = 'archived'

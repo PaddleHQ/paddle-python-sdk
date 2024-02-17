@@ -1,7 +1,7 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class Comparator(StrEnum):
+class Comparator(PaddleStrEnum):
     LT  = 'LT'
     LTE = 'LTE'
     GT  = 'GT'

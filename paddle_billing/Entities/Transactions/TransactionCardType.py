@@ -1,7 +1,7 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class TransactionCardType(StrEnum):
+class TransactionCardType(PaddleStrEnum):
     AmericanExpress = 'american_express'
     DinersClub      = 'diners_club'
     Discover        = 'discover'

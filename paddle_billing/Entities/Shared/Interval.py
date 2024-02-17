@@ -1,7 +1,7 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class Interval(StrEnum):
+class Interval(PaddleStrEnum):
     Day   = 'day'
     Week  = 'week'
     Month = 'month'

@@ -1,7 +1,7 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class ReportType(StrEnum):
+class ReportType(PaddleStrEnum):
     Adjustments          = 'adjustments'
     AdjustmentLineItems  = 'adjustment_line_items'
     Transactions         = 'transactions'

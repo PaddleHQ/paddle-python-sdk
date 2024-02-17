@@ -1,7 +1,7 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class AdjustmentStatus(StrEnum):
+class AdjustmentStatus(PaddleStrEnum):
     PendingApproval = 'pending_approval'
     Approved        = 'approved'
     Rejected        = 'rejected'

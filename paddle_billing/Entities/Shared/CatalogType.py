@@ -1,6 +1,6 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class CatalogType(StrEnum):
+class CatalogType(PaddleStrEnum):
     Standard = 'standard'
     Custom   = 'custom'

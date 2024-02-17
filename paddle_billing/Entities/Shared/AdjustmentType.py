@@ -1,7 +1,7 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class AdjustmentType(StrEnum):
+class AdjustmentType(PaddleStrEnum):
     Full      = 'full'
     Partial   = 'partial'
     Tax       = 'tax'

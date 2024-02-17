@@ -1,6 +1,6 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class Includes(StrEnum):
+class Includes(PaddleStrEnum):
     NextTransaction             = 'next_transaction'
     RecurringTransactionDetails = 'recurring_transaction_details'

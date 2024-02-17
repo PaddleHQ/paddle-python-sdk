@@ -1,7 +1,7 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class CurrencyCode(StrEnum):
+class CurrencyCode(PaddleStrEnum):
     USD = 'USD'
     EUR = 'EUR'
     GBP = 'GBP'

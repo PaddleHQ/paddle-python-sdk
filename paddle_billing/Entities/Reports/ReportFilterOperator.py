@@ -1,6 +1,6 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class ReportFilterOperator(StrEnum):
+class ReportFilterOperator(PaddleStrEnum):
     Lt  = 'lt'
     Gte = 'gte'

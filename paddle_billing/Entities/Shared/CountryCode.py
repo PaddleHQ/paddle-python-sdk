@@ -1,7 +1,7 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class CountryCode(StrEnum):
+class CountryCode(PaddleStrEnum):
     AD = 'AD'
     AE = 'AE'
     AG = 'AG'

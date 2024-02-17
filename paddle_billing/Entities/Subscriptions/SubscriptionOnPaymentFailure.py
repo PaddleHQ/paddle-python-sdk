@@ -1,6 +1,6 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class SubscriptionOnPaymentFailure(StrEnum):
+class SubscriptionOnPaymentFailure(PaddleStrEnum):
     PreventChange = 'prevent_change'
     ApplyChange   = 'apply_change'

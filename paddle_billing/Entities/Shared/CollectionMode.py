@@ -1,6 +1,6 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class CollectionMode(StrEnum):
+class CollectionMode(PaddleStrEnum):
     Automatic = 'automatic'
     Manual    = 'manual'

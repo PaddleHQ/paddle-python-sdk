@@ -1,7 +1,7 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class CurrencyCodePayouts(StrEnum):
+class CurrencyCodePayouts(PaddleStrEnum):
     AUD = 'AUD'
     CAD = 'CAD'
     CHF = 'CHF'

@@ -1,5 +1,5 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class Includes(StrEnum):
+class Includes(PaddleStrEnum):
     Product = 'product'

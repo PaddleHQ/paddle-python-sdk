@@ -1,7 +1,7 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class TaxCategory(StrEnum):
+class TaxCategory(PaddleStrEnum):
     DigitalGoods                = 'digital-goods'
     Ebooks                      = 'ebooks'
     ImplementationServices      = 'implementation-services'

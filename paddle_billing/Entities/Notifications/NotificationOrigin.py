@@ -1,6 +1,6 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class NotificationOrigin(StrEnum):
+class NotificationOrigin(PaddleStrEnum):
     Event  = 'event'
     Replay = 'replay'

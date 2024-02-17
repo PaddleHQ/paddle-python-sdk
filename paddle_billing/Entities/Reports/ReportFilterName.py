@@ -1,7 +1,7 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class ReportFilterName(StrEnum):
+class ReportFilterName(PaddleStrEnum):
     Action         = 'action'
     CollectionMode = 'collection_mode'
     CurrencyCode   = 'currency_code'

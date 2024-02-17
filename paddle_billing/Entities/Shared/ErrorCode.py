@@ -1,7 +1,7 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class ErrorCode(StrEnum):
+class ErrorCode(PaddleStrEnum):
     AlreadyCanceled         = 'already_canceled'
     AlreadyRefunded         = 'already_refunded'
     AuthenticationFailed    = 'authentication_failed'

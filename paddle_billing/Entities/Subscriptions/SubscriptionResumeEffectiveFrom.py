@@ -1,5 +1,5 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class SubscriptionResumeEffectiveFrom(StrEnum):
+class SubscriptionResumeEffectiveFrom(PaddleStrEnum):
     Immediately       = 'immediately'

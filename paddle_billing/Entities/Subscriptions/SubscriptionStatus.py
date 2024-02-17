@@ -1,7 +1,7 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class SubscriptionStatus(StrEnum):
+class SubscriptionStatus(PaddleStrEnum):
     Active   = 'active'
     Canceled = 'canceled'
     PastDue  = 'past_due'

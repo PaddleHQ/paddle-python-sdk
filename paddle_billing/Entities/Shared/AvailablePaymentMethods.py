@@ -1,7 +1,7 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class AvailablePaymentMethods(StrEnum):
+class AvailablePaymentMethods(PaddleStrEnum):
     Alipay     = 'alipay'
     ApplePay   = 'apple_pay'
     Bancontact = 'bancontact'

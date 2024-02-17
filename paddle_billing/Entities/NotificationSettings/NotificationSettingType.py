@@ -1,6 +1,6 @@
-from enum import StrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 
 
-class NotificationSettingType(StrEnum):
+class NotificationSettingType(PaddleStrEnum):
     Email = 'email'
     Url   = 'url'
