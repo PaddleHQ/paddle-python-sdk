@@ -18,6 +18,9 @@ def test_paddle_str_enum_works_as_expected():
     assert TestCountryCodesEnum('canada') == 'canada'
     assert TestCountryCodesEnum('usa')    == 'usa'
 
+    # Test for non-existent enum name
+    assert isinstance(TestCountryCodesEnum.FAKE, Undefined)
+
 
 
 def test_dataclass_asdict_returns_expected_paddle_str_enum_value():
@@ -35,9 +38,15 @@ def test_dataclass_asdict_returns_expected_paddle_str_enum_value():
 
 
     test_dataclass = TestDataclass(TestCountryCodesEnum.CA)
-
     assert is_dataclass(test_dataclass)
     assert isinstance(test_dataclass.get_parameters(), dict)
     assert test_dataclass.get_parameters().get('country_code', None)       is not None
     assert type(test_dataclass.get_parameters().get('country_code', None)) == TestCountryCodesEnum
     assert test_dataclass.get_parameters().get('country_code', None)       == 'canada'
+
+    # Test for non-existent enum name
+    test_dataclass = TestDataclass(TestCountryCodesEnum.FAKE)
+    assert is_dataclass(test_dataclass)
+    assert isinstance(test_dataclass.get_parameters(), dict)
+    assert test_dataclass.get_parameters().get('country_code', None)       is not None
+    assert type(test_dataclass.get_parameters().get('country_code', None)) == Undefined

@@ -3,7 +3,8 @@ from enum import EnumMeta, StrEnum
 from paddle_billing.Undefined import Undefined
 
 
-def _is_dunder(name):  # Copied from enum.py because IDE complains when calling protected class super()._is_dunder
+# Copied from enum.py because IDE complains when calling protected class super()._is_dunder
+def _is_dunder(name):
     """
     Returns True if a __dunder__ name, False otherwise.
     """
