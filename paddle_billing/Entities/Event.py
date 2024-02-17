@@ -1,4 +1,5 @@
 from __future__  import annotations
+from abc         import ABC
 from dataclasses import dataclass
 from datetime    import datetime
 from importlib   import import_module
@@ -12,8 +13,8 @@ from paddle_billing.Notifications.Entities.Entity import Entity as NotificationE
 
 
 @dataclass
-class Event(Entity):
-    event_id:     str
+class Event(Entity, ABC):
+    event_id:    str
     event_type:  EventTypeName
     occurred_at: datetime
     data:        NotificationEntity
