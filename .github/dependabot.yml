@@ -1,10 +1,12 @@
 version: 2
 updates:
   - package-ecosystem: "pip"
+    allow:
+      - dependency-type: "all"
     directory: "/"
+    open-pull-requests-limit: 10
     schedule:
       interval: "daily"
-    open-pull-requests-limit: 10
-    ignore:
+#    ignore:
 #      - dependency-name: "setuptools"
 #        versions: ["69.0.3"]
