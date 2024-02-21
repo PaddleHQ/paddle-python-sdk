@@ -19,7 +19,7 @@ def get_logger(
         logger.setLevel(log_level)
 
         formatter = logging.Formatter("{asctime} {levelname:<8} {message}", style='{')
-        handler   = logging.StreamHandler() if not log_file_path else logging.FileHandler(log_file_path)
+        handler   = logging.NullHandler() if not log_file_path else logging.FileHandler(log_file_path)
 
         handler.setFormatter(formatter)
         logger.addHandler(handler)
