@@ -2,7 +2,7 @@ from setuptools  import setup, find_packages
 
 
 setup(
-    version          = '0.0.1a103',
+    version          = '0.1.0b1',
 
     author           = 'Corey Regan',
     author_email     = 'regan.corey@gmail.com',
@@ -17,7 +17,7 @@ setup(
 
     classifiers = [
         # Full list: https://pypi.org/classifiers/
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 3 - Beta',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3.11',
@@ -34,6 +34,6 @@ setup(
     },
     install_requires = [
         'requests>=2.31',
-        'urllib3>=2.1.0',
+        'urllib3>=1.26.18',
     ],
 )
