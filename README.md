@@ -77,7 +77,7 @@ paddle = Client('PADDLE_API_SECRET_KEY')
 
 products = paddle.products.list()
 
-# List() returns an iterable, so pagination is automatically handled
+# list() returns an iterable, so pagination is automatically handled
 for product in products:
     print(f"Product's id: {product.id}")
 ```
