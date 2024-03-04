@@ -12,4 +12,3 @@ class PaymentMethodType(PaddleStrEnum):
     Paypal       = 'paypal'
     Unknown      = 'unknown'
     WireTransfer = 'wire_transfer'
-    Visa         = 'visa'
