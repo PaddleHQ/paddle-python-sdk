@@ -12,9 +12,10 @@ class Product(Entity):
     name:         str
     status:       Status
     tax_category: TaxCategory
+    created_at:   datetime
+    updated_at:   datetime
     description:  str         | None
     image_url:    str         | None
-    created_at:   datetime    | None = None
     custom_data:  CustomData  | None = None
     import_meta:  ImportMeta  | None = None
     prices:       list[Price] | None = None
@@ -30,10 +31,11 @@ class Product(Entity):
             name         = data['name'],
             status       = Status(data['status']),
             tax_category = TaxCategory(data['tax_category']),
+            created_at   = datetime.fromisoformat(data['created_at']),
+            updated_at   = datetime.fromisoformat(data['updated_at']),
             prices       = [Price.from_dict(price) for price in data.get('prices', [])],
             type         = CatalogType(data['type'])                  if data.get('type')        else None,
             custom_data  = CustomData(data['custom_data'])            if data.get('custom_data') else None,
-            created_at   = datetime.fromisoformat(data['created_at']) if data.get('created_at')  else None,
             import_meta  = ImportMeta.from_dict(data['import_meta'])  if data.get('import_meta') else None,
         )
 

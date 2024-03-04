@@ -1,8 +1,8 @@
 from __future__  import annotations
 from dataclasses import dataclass
+from datetime    import datetime
 
-from paddle_billing.Entities.Entity  import Entity
-
+from paddle_billing.Entities.Entity import Entity
 from paddle_billing.Entities.Shared import (
     CatalogType,
     CustomData,
@@ -36,6 +36,8 @@ class Price(Entity):
     custom_data:          CustomData | None
     import_meta:          ImportMeta | None
     product:              Product    | None
+    created_at:           datetime
+    updated_at:           datetime
 
 
     @classmethod
@@ -49,6 +51,8 @@ class Price(Entity):
             quantity             = PriceQuantity.from_dict(data['quantity']),
             status               = Status(data['status']),
             tax_mode             = TaxMode(data.get('tax_mode')),
+            created_at           = datetime.fromisoformat(data['created_at']),
+            updated_at           = datetime.fromisoformat(data['updated_at']),
             unit_price_overrides = [UnitPriceOverride.from_dict(override) for override in data.get('unit_price_overrides', [])],
             type                 = CatalogType(data.get('type'))               if data.get('type')          else None,
             billing_cycle        = TimePeriod.from_dict(data['billing_cycle']) if data.get('billing_cycle') else None,

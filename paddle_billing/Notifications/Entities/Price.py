@@ -1,5 +1,6 @@
 from __future__  import annotations
 from dataclasses import dataclass
+from datetime    import datetime
 
 from paddle_billing.Notifications.Entities.Entity import Entity
 from paddle_billing.Notifications.Entities.Shared import (
@@ -34,7 +35,8 @@ class Price(Entity):
     status:               Status
     custom_data:          CustomData | None
     import_meta:          ImportMeta | None
-    # product:              Product    | None
+    created_at:           datetime   | None
+    updated_at:           datetime   | None
 
 
     @classmethod
@@ -54,7 +56,8 @@ class Price(Entity):
             trial_period         = TimePeriod.from_dict(data['trial_period'])  if data.get('trial_period')  else None,
             custom_data          = CustomData(data['custom_data'])             if data.get('custom_data')   else None,
             import_meta          = ImportMeta.from_dict(data['import_meta'])   if data.get('import_meta')   else None,
-            # product              = Product.from_dict(data['product'])          if data.get('product')       else None,
+            created_at           = datetime.fromisoformat(data['created_at'])  if data.get('created_at')    else None,
+            updated_at           = datetime.fromisoformat(data['updated_at'])  if data.get('updated_at')    else None,
         )
 
 
