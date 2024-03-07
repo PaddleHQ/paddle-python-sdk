@@ -16,17 +16,19 @@ class Address(Entity):
     postal_code:  str | None
     region:       str | None
     country_code: CountryCode
-    custom_data:  CustomData | None
     status:       Status
     created_at:   datetime
     updated_at:   datetime
-    import_meta:  ImportMeta | None
+    custom_data:  CustomData | None = None
+    import_meta:  ImportMeta | None = None
+    customer_id:  str        | None = None
 
 
     @classmethod
     def from_dict(cls, data: dict) -> Address:
         return Address(
             id           = data['id'],
+            customer_id  = data.get('customer_id'),
             description  = data.get('description'),
             first_line   = data.get('first_line'),
             second_line  = data.get('second_line'),

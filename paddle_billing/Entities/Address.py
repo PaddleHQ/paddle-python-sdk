@@ -9,6 +9,7 @@ from paddle_billing.Entities.Shared import CountryCode, CustomData, ImportMeta, 
 @dataclass
 class Address(Entity):
     id:           str
+    customer_id:  str
     description:  str | None
     first_line:   str | None
     second_line:  str | None
@@ -27,6 +28,7 @@ class Address(Entity):
     def from_dict(cls, data: dict) -> Address:
         return Address(
             id           = data['id'],
+            customer_id  = data['customer_id'],
             description  = data.get('description'),
             first_line   = data.get('first_line'),
             second_line  = data.get('second_line'),

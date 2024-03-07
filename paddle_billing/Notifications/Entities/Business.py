@@ -19,12 +19,14 @@ class Business(Entity):
     updated_at:     datetime
     custom_data:    CustomData | None = None
     import_meta:    ImportMeta | None = None
+    customer_id:    str        | None = None
 
 
     @classmethod
     def from_dict(cls, data: dict) -> Business:
         return Business(
             id             = data['id'],
+            customer_id    = data.get('customer_id'),
             name           = data['name'],
             company_number = data.get('company_number'),
             tax_identifier = data.get('tax_identifier'),

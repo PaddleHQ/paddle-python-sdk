@@ -9,6 +9,7 @@ from paddle_billing.Entities.Shared import Contacts, CustomData, ImportMeta, Sta
 @dataclass
 class Business(Entity):
     id:             str
+    customer_id:    str
     name:           str
     company_number: str | None
     tax_identifier: str | None
@@ -24,6 +25,7 @@ class Business(Entity):
     def from_dict(cls, data: dict) -> Business:
         return Business(
             id             = data['id'],
+            customer_id    = data['customer_id'],
             name           = data['name'],
             company_number = data.get('company_number'),
             tax_identifier = data.get('tax_identifier'),
