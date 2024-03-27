@@ -28,7 +28,7 @@ pytest tests/Unit
 ```
 Or you can run an individual test within a file:
 ``` bash
-pytest tests/Unit/Notification/test_Verifier.py::test_validate_paddle_signature_header_integrity
+pytest tests/Unit/Notification/test_Verifier.py::TestVerifier::test_validate_paddle_signature_header_integrity
 ```
 
 #### Use the command `deactivate` to exit the `venv`.

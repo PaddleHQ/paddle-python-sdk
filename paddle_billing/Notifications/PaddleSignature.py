@@ -32,8 +32,8 @@ class PaddleSignature:
         """
         Parse the Paddle-Signature header to extract the timestamp and signature
 
-        @param   signature_header:  The Paddle-Signature key=value from the webhook event's headers
-        @return:                    A tuple containing (timestamp, signature)
+        @param   signature_header: The Paddle-Signature key=value from the webhook event's headers
+        @return:                   A tuple containing (timestamp, signature)
         """
         components = {
             PaddleSignature().TIMESTAMP: 0,
@@ -95,10 +95,10 @@ class PaddleSignature:
         Performs an integrity check on a Paddle webhook's signature against one or more Secrets
         Handling multiple Secrets is needed because of key rotation situations
 
-        @param signature_header:    The Paddle-Signature header
-        @param raw_body:            Raw body of the webhook request
-        @param secrets:             One or more Paddle secret key(s): https://developer.paddle.com/webhooks/signature-verification#get-secret-key
-        @return:                    True if any secret key passes verification success. Raises a ConnectionRefusedError if all secret keys fail verification
+        @param signature_header: The Paddle-Signature header
+        @param raw_body:         Raw body of the webhook request
+        @param secrets:          One or more Paddle secret key(s): https://developer.paddle.com/webhooks/signature-verification#get-secret-key
+        @return:                 True if any secret key passes verification success. Raises a ConnectionRefusedError if all secret keys fail verification
         """
         is_list   = type(secrets) is list
         key_count = 'multiple secret keys' if is_list else 'one secret key'
