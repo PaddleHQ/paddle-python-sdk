@@ -24,10 +24,10 @@ class Verifier:
 
     def verify(self, request: requests, secrets: list[Secret] | Secret, verify_time_drift = True):
         """
-        @param request:           The request object to verify
-        @param secrets:           One or more Secrets to use for verifying the request
-        @param verify_time_drift: Defaults to True. Set False to disable time drift verification (NOT RECOMMENDED, counters MITM attacks)
-        @return:                  True on verification success, False on verification failure
+        :param request:           The request object to verify
+        :param secrets:           One or more Secrets to use for verifying the request
+        :param verify_time_drift: Defaults to True. Set False to disable time drift verification (NOT RECOMMENDED, counters MITM attacks)
+        :return:                  True on verification success, False on verification failure
         """
         self.log.info(f"Attempting to verify the authenticity of a request")
 

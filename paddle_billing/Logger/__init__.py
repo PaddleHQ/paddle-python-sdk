@@ -9,9 +9,9 @@ def get_logger(
     """
     Configures a logger instance that our Client() uses
 
-    @param log_level:     Defaults to logging.INFO
-    @param log_file_path: Defaults to None, which streams logs to the console. If a file path is provided logs are written to the file.
-    @return:              Returns a logger instance
+    :param log_level:     Defaults to logging.INFO
+    :param log_file_path: Defaults to None, which streams logs to the console. If a file path is provided logs are written to the file.
+    :return:              Returns a logger instance
     """
     logger = logging.getLogger('paddle_billing')
 
