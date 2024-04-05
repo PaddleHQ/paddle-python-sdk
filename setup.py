@@ -30,7 +30,7 @@ setup(
         'dev': [
             'pytest>=7.4.4,<8.1.0',
             'pytest-cov~=4.1.0',
-            'requests-mock~=1.11.0',
+            'requests-mock>=1.11,<1.13',
             'setuptools>=69.0.3',
         ],
     },
