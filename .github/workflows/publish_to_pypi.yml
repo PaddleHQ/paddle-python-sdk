@@ -43,7 +43,7 @@ jobs:
         id:   check_version
         run:  |
           LOCAL_VERSION=$(python setup.py --version)
-          PYPI_VERSION=$(curl -s https://pypi.org/pypi/paddle-billing-python-sdk/json | jq -r '.info.version')
+          PYPI_VERSION=$(curl -s https://pypi.org/pypi/paddle-python-sdk/json | jq -r '.info.version')
           if [ "$LOCAL_VERSION" != "$PYPI_VERSION" ]; then
               echo "Version has changed. Current version: $LOCAL_VERSION"
               echo "should_publish=true" >> $GITHUB_ENV

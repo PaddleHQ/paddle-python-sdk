@@ -1,17 +1,17 @@
-[![Build Status](https://img.shields.io/github/actions/workflow/status/Invincibear/paddle-billing-python-sdk/publish_to_pypi.yml)](https://github.com/Invincibear/paddle-billing-python-sdk/actions/?query=branch%3Amain)
-[![PyPI](https://img.shields.io/pypi/v/paddle-billing-python-sdk.svg)](https://pypi.python.org/pypi/paddle-billing-python-sdk)
-[![PyPI pyversions](https://img.shields.io/pypi/pyversions/paddle-billing-python-sdk.svg)](https://pypi.python.org/pypi/paddle-billing-python-sdk/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/PaddleHQ/paddle-python-sdk/publish_to_pypi.yml)](https://github.com/PaddleHQ/paddle-python-sdk/actions/?query=branch%3Amain)
+[![PyPI](https://img.shields.io/pypi/v/paddle-python-sdk.svg)](https://pypi.python.org/pypi/paddle-python-sdk)
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/paddle-python-sdk.svg)](https://pypi.python.org/pypi/paddle-python-sdk/)
+[![License: Apache 2.0](https://img.shields.io/github/license/PaddleHQ/paddle-python-sdk)](http://www.apache.org/licenses/LICENSE-2.0)
 
 
+# paddle-python-sdk
+[Paddle Billing](https://www.paddle.com/billing?utm_source=dx&utm_medium=paddle-python-sdk) is a complete digital product sales and subscription management platform, designed for modern software businesses. It helps you increase your revenue, retain customers, and scale your operations.
 
-# paddle-billing-python-sdk
-A Python wrapper for the new Paddle Billing SDK, based on Paddle's official [paddle-php-sdk](https://github.com/PaddleHQ/paddle-php-sdk/)
+This is a [Python](https://www.python.org/) SDK that you can use to integrate Paddle Billing with applications written in Python.
 
+For working with Paddle in your frontend, use [Paddle.js](https://developer.paddle.com/paddlejs/overview?utm_source=dx&utm_medium=paddle-python-sdk). You can open checkouts, securely collect payment information, build pricing pages, and integrate with Paddle Retain.
 
-### Core developers
-- [Invincibear](https://github.com/Invincibear)
-
+> **Important:** This package works with Paddle Billing. It does not support Paddle Classic. To work with Paddle Classic, see: [Paddle Classic API reference](https://developer.paddle.com/classic/api-reference/1384a288aca7a-api-reference?utm_source=dx&utm_medium=paddle-python-sdk)
 
 
 ## Table of contents
@@ -30,9 +30,9 @@ Python>=3.11 (for native type hinting, StrEnum, trailing commas, f-strings)
 
 
 ## Install
-Because `paddle-billing-python-sdk` is [available on PyPi](https://pypi.org/project/paddle-billing-python-sdk/), installation is as simple as running the following `pip` command: 
+Because `paddle-python-sdk` is [available on PyPi](https://pypi.org/project/paddle-python-sdk/), installation is as simple as running the following `pip` command: 
 
-`pip install paddle-billing-python-sdk`
+`pip install paddle-python-sdk`
 
 
 
@@ -66,7 +66,7 @@ Keep in mind that API keys are separate for your sandbox and live accounts, so y
 
 
 ## Examples
-There are examples included in the [examples folder](https://github.com/Invincibear/paddle-billing-python-sdk/tree/main/examples). To prevent leaking errors we recommend encapsulating Paddle operations inside Try/Except blocks. For brevity, most of the examples below do not do this.
+There are examples included in the [examples folder](https://github.com/PaddleHQ/paddle-python-sdk/tree/main/examples). To prevent leaking errors we recommend encapsulating Paddle operations inside Try/Except blocks. For brevity, most of the examples below do not do this.
 
 ### List entities
 You can list supported entities with the `list()` method in the resource. It returns an iterator to help when working with multiple pages.
@@ -154,5 +154,5 @@ integrity_check = Verifier().verify(request, Secret('WEBHOOK_SECRET_KEY')
 ```
 
 ## Learn more
-- [Paddle API reference](https://developer.paddle.com/api-reference/overview?utm_source=dx&utm_medium=paddle-billing-python-sdk)
-- [Sign up for Paddle Billing](https://login.paddle.com/signup?utm_source=dx&utm_medium=paddle-billing-python-sdk)
+- [Paddle API reference](https://developer.paddle.com/api-reference/overview?utm_source=dx&utm_medium=paddle-python-sdk)
+- [Sign up for Paddle Billing](https://login.paddle.com/signup?utm_source=dx&utm_medium=paddle-python-sdk)

@@ -1,10 +1,7 @@
-# Paddle Billing Python SDK Changelog
+# Paddle Python SDK Changelog
 
 
-## Version 0.0.1a1 (2024-01-22)
+## Version 0.1.0 (2024-04-05)
 
 ### Features:
-- We exist
-
-### Bug fixes:
-- None, perfect code /s
+- Initial launch!
