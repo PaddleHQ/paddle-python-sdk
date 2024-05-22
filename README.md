@@ -150,7 +150,7 @@ The SDK includes a helper class to verify webhook signatures sent by Notificatio
 ``` python
 from paddle_billing.Notifications import Secret, Verifier
 
-integrity_check = Verifier().verify(request, Secret('WEBHOOK_SECRET_KEY')
+integrity_check = Verifier().verify(request, Secret('WEBHOOK_SECRET_KEY'))
 ```
 
 ## Learn more
