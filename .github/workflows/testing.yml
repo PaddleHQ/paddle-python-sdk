@@ -4,7 +4,11 @@ on:
   #  release:
   #    types: [created]
   push:
-    branches: [ main ]
+    branches: 
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   test:
