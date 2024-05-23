@@ -6,7 +6,7 @@ from paddle_billing.Entities.Shared import Contacts, CustomData, Status
 
 @dataclass
 class UpdateBusiness:
-    name:           str                   | Undefined = Undefined
+    name:           str                   | Undefined = Undefined()
     company_number: str            | None | Undefined = Undefined()
     tax_identifier: str            | None | Undefined = Undefined()
     contacts:       list[Contacts]        | Undefined = Undefined()

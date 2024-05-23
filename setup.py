@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 
 setup(
-    version         = '0.1.0',
+    version         = '0.1.1',
 
     author          = 'Paddle and contributors',
     author_email    = 'team-dx@paddle.com',
