@@ -9,6 +9,7 @@ from uuid               import uuid4
 from paddle_billing.FiltersUndefined import FiltersUndefined
 from paddle_billing.HasParameters    import HasParameters
 from paddle_billing.Options          import Options
+from paddle_billing.ResponseParser   import ResponseParser
 
 from paddle_billing.Logger.NullHandler import NullHandler
 
@@ -133,8 +134,17 @@ class Client:
         except RequestException as e:
             self.status_code = e.response.status_code
 
+            api_error = None
+            if e.response is not None:
+                response_parser = ResponseParser(e.response)
+                api_error = response_parser.get_error()
+
             if self.log:
-                self.log.error(f"Request failed: {e}")
+                self.log.error(f"Request failed: {e}. {repr(api_error)}")
+
+            if api_error is not None:
+                raise api_error
+
             raise
 
 

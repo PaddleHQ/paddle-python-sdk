@@ -1,13 +1,16 @@
-from json         import loads
-from pytest       import mark
+from json         import loads, dumps
+from pytest       import mark, raises
 from urllib.parse import unquote
 
 from paddle_billing.Entities.Address     import Address
 from paddle_billing.Entities.Collections import AddressCollection
 from paddle_billing.Entities.Shared      import CountryCode, CustomData, Status
+from paddle_billing.Exceptions.ApiError  import ApiError
 
 from paddle_billing.Resources.Addresses.Operations import CreateAddress, ListAddresses, UpdateAddress
 from paddle_billing.Resources.Shared.Operations    import Pager
+
+from requests.exceptions import RequestException, HTTPError
 
 from tests.Utils.TestClient   import mock_requests, test_client
 from tests.Utils.ReadsFixture import ReadsFixtures
@@ -76,6 +79,100 @@ class TestAddressesClient:
             "The request JSON doesn't match the expected fixture JSON"
         assert response_json == loads(str(expected_response_body)), \
             "The response JSON doesn't match the expected fixture JSON"
+
+
+    @mark.parametrize(
+        [
+            'customer_id',
+            'operation',
+            'expected_request_body',
+            'expected_response_status',
+            'expected_reason',
+            'expected_response_body',
+            'expected_url_path',
+        ],
+        [
+            (
+                'ctm_01h844p3h41s12zs5mn4axja51',
+                CreateAddress(CountryCode.AG),
+                ReadsFixtures.read_raw_json_fixture('request/create_basic'),
+                400,
+                'Bad Request',
+                {
+                    "error": {
+                        "type": "request_error",
+                        "code": "bad_request",
+                        "detail": "Invalid request",
+                        "documentation_url": "https://developer.paddle.com/v1/errors/shared/bad_request",
+                        "errors": [
+                        {
+                            "field": "postal_code",
+                            "message": "US postal_code must be 5 digits only"
+                        }
+                        ]
+                    },
+                    "meta": {
+                        "request_id": "f00bb3ca-399d-4686-889c-50b028f4c911"
+                    }
+                },
+                '/customers/ctm_01h844p3h41s12zs5mn4axja51/addresses'
+            ),
+        ],
+        ids=[
+            "Returns 400 response for postal code",
+        ],
+    )
+    def test_create_address_returns_error_response(
+        self,
+        test_client,
+        mock_requests,
+        customer_id,
+        operation,
+        expected_request_body,
+        expected_response_status,
+        expected_reason,
+        expected_response_body,
+        expected_url_path,
+    ):
+        expected_url = f"{test_client.base_url}{expected_url_path}"
+        mock_requests.post(expected_url, status_code=expected_response_status, text=dumps(expected_response_body), reason=expected_reason)
+
+        with raises(ApiError) as exception_info:
+            test_client.client.addresses.create(customer_id, operation)
+
+        request_json = test_client.client.payload
+        last_request = mock_requests.last_request
+        api_error    = exception_info.value
+
+        assert unquote(last_request.url) == expected_url, \
+            "The URL does not match the expected URL, verify the query string is correct"
+
+        assert loads(request_json) == loads(expected_request_body), \
+            "The request JSON doesn't match the expected fixture JSON"
+
+        assert isinstance(api_error, ApiError)
+        assert isinstance(api_error, HTTPError)
+        assert isinstance(api_error, RequestException)
+        assert api_error.response.status_code == expected_response_status, 'Unexpected status code'
+        assert api_error.error_type == expected_response_body['error']['type']
+        assert api_error.error_code == expected_response_body['error']['code']
+        assert api_error.detail == expected_response_body['error']['detail']
+        assert api_error.docs_url == expected_response_body['error']['documentation_url']
+
+        assert len(api_error.field_errors) == len(expected_response_body['error']['errors'])
+
+        for i, expected_field_error in enumerate(expected_response_body['error']['errors']):
+            assert api_error.field_errors[i].field == expected_field_error['field']
+            assert api_error.field_errors[i].error == expected_field_error['message']
+
+        assert str(api_error) == api_error.detail
+        assert repr(api_error) == ("ApiError("
+            f"error_type='{api_error.error_type}', "
+            f"error_code='{api_error.error_code}', "
+            f"detail='{api_error.detail}', "
+            f"docs_url='{api_error.docs_url}', "
+            f"field_errors={api_error.field_errors}"
+            ")")
 
 
     @mark.parametrize(
