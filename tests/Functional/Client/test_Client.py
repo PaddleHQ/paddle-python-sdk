@@ -7,7 +7,7 @@ from paddle_billing.Exceptions.ApiErrors.AddressApiError import AddressApiError
 
 from requests.exceptions import RequestException, HTTPError
 
-from tests.Utils.TestClient import mock_requests, test_client
+from tests.Utils.TestLogger import test_log_handler, LogHandler
 
 
 class TestClient:
@@ -83,6 +83,7 @@ class TestClient:
     def test_post_raw_returns_error_response(
         self,
         test_client,
+        test_log_handler: LogHandler,
         mock_requests,
         expected_response_status,
         expected_reason,
@@ -132,3 +133,6 @@ class TestClient:
             f"docs_url='{api_error.docs_url}', "
             f"field_errors={api_error.field_errors}"
             ")")
+
+        assert test_log_handler.get_logs()[0].message == \
+            f"Request failed: {expected_response_status} Client Error: {expected_reason} for url: {expected_request_url}. {repr(api_error)}"
