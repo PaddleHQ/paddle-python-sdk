@@ -140,7 +140,7 @@ class Client:
                 api_error = response_parser.get_error()
 
             if self.log:
-                self.log.error(f"Request failed: {e}.{' ' + repr(api_error) if api_error is not None else ''}")
+                self.log.error(f"Request failed: {e}.{' ' + api_error.detail if api_error is not None else ''}")
 
             if api_error is not None:
                 raise api_error

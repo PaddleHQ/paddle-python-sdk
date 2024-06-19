@@ -135,4 +135,4 @@ class TestClient:
             ")")
 
         assert test_log_handler.get_logs()[0].message == \
-            f"Request failed: {expected_response_status} Client Error: {expected_reason} for url: {expected_request_url}. {repr(api_error)}"
+            f"Request failed: {expected_response_status} Client Error: {expected_reason} for url: {expected_request_url}. {api_error.detail}"
