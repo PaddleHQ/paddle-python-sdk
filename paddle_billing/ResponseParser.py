@@ -9,6 +9,8 @@ from paddle_billing.Exceptions.ApiError import ApiError
 class ResponseParser:
     def __init__(self, response: Response):
         self.body = None
+        self.error = None
+        self.response = response
 
         if not hasattr(response, 'text'):
             return
@@ -19,11 +21,15 @@ class ResponseParser:
             self.body = None
 
         if self.body and 'error' in self.body:
-            self.parse_errors()
+            self.error = self.parse_errors()
 
 
     def get_data(self) -> list | dict:
         return self.body.get('data', []) if self.body else []
+
+
+    def get_error(self) -> ApiError | None:
+        return self.error
 
 
     def get_pagination(self) -> Pagination:
@@ -38,15 +44,15 @@ class ResponseParser:
         )
 
 
-    def parse_errors(self):
+    def parse_errors(self) -> ApiError | None:
         if not self.body or 'error' not in self.body:
-            return
+            return None
 
         error           = self.body['error']
         code            = error.get('code', 'shared_error')
         exception_class = self.find_exception_class_from_code(code)
 
-        raise exception_class(error)
+        return exception_class.from_error_data(self.response, error)
 
 
     @staticmethod
@@ -57,7 +63,7 @@ class ResponseParser:
         if not resource:
             return ApiError
 
-        class_name = f"api_error.{resource}ApiError"
+        class_name = f"paddle_billing.Exceptions.ApiErrors.{resource}ApiError"
         try:
             module = __import__(class_name, fromlist=[''])
             return getattr(module, f'{resource}ApiError')
