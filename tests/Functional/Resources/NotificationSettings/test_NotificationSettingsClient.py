@@ -200,13 +200,17 @@ class TestNotificationSettingsClient:
         expected_url,
     ):
         expected_url = f"{test_client.base_url}{expected_url}"
-        mock_requests.get(expected_url, status_code=expected_response_status)
+        mock_requests.get(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         response     = test_client.client.notification_settings.list()
         last_request = mock_requests.last_request
 
         assert isinstance(response, NotificationSettingCollection)
+        assert all(
+            isinstance(item, NotificationSetting) for item in response.items
+        ), "Not all items are NotificationSetting"
         assert last_request is not None
+
         assert last_request.method            == 'GET'
         assert test_client.client.status_code == expected_response_status
         assert unquote(last_request.url)      == expected_url, \
