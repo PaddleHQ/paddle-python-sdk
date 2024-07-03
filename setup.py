@@ -28,7 +28,7 @@ setup(
     ],
     extras_require = {
         'dev': [
-            'pytest>=7.4.4,<8.1.0',
+            'pytest>=8.2.2,<8.3.0',
             'pytest-cov~=4.1.0',
             'requests-mock~=1.11.0',
             'setuptools>=69.0.3',
