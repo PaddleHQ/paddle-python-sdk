@@ -14,8 +14,8 @@ class NotificationLog(Entity):
     attempted_at:          datetime
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> NotificationLog:
+    @staticmethod
+    def from_dict(data: dict) -> NotificationLog:
         return NotificationLog(
             id                    = data['id'],
             response_code         = data['response_code'],

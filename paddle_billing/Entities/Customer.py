@@ -20,8 +20,8 @@ class Customer(Entity):
     import_meta:       ImportMeta | None = None
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Customer:
+    @staticmethod
+    def from_dict(data: dict) -> Customer:
         return Customer(
             id                = data['id'],
             name              = data.get('name'),

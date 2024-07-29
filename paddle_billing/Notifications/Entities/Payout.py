@@ -14,8 +14,8 @@ class Payout(Entity):
     status:        PayoutStatus
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Payout:
+    @staticmethod
+    def from_dict(data: dict) -> Payout:
         return Payout(
             amount        = data['amount'],
             id            = data['id'],

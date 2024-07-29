@@ -9,7 +9,7 @@ class TransactionData(Entity):
     url: str
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> TransactionData:
+    @staticmethod
+    def from_dict(data: dict) -> TransactionData:
         return TransactionData(data['url'])
 

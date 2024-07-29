@@ -46,8 +46,8 @@ class Transaction(Entity):
     receipt_data:              str      | None = None
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Transaction:
+    @staticmethod
+    def from_dict(data: dict) -> Transaction:
         return Transaction(
             address_id      = data.get('address_id'),
             business_id     = data.get('business_id'),

@@ -8,8 +8,8 @@ class PricePreviewItem:
     quantity: int
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> PricePreviewItem:
+    @staticmethod
+    def from_dict(data: dict) -> PricePreviewItem:
         return PricePreviewItem(
             price_id = data['price_id'],
             quantity = data['quantity'],

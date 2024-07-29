@@ -8,8 +8,8 @@ class ImportMeta:
     imported_from: str
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> ImportMeta:
+    @staticmethod
+    def from_dict(data: dict) -> ImportMeta:
         return ImportMeta(
             external_id   = data.get('external_id'),
             imported_from = data['imported_from'],

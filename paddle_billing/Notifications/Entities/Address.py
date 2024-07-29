@@ -24,8 +24,8 @@ class Address(Entity):
     customer_id:  str        | None = None
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Address:
+    @staticmethod
+    def from_dict(data: dict) -> Address:
         return Address(
             id           = data['id'],
             customer_id  = data.get('customer_id'),

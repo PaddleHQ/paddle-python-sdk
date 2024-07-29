@@ -23,8 +23,8 @@ class PricePreviewLineItem:
     discounts:             list[PricePreviewDiscounts]
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> PricePreviewLineItem:
+    @staticmethod
+    def from_dict(data: dict) -> PricePreviewLineItem:
         return PricePreviewLineItem(
             price                 = Price.from_dict(data['price']),
             quantity              = data['quantity'],

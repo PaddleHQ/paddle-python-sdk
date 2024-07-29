@@ -10,6 +10,6 @@ class PricePreviewDetails(Entity):
     line_items: list[PricePreviewLineItem]
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> PricePreviewDetails:
+    @staticmethod
+    def from_dict(data: dict) -> PricePreviewDetails:
         return PricePreviewDetails(line_items=[PricePreviewLineItem.from_dict(item) for item in data['line_items']])

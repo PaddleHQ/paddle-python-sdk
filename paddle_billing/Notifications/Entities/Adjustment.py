@@ -25,8 +25,8 @@ class Adjustment(Entity):
     updated_at:                datetime | None
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Adjustment:
+    @staticmethod
+    def from_dict(data: dict) -> Adjustment:
         return Adjustment(
             id                        = data['id'],
             action                    = Action(data['action']),

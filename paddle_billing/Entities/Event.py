@@ -20,8 +20,8 @@ class Event(Entity, ABC):
     data:        NotificationEntity
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Event:
+    @staticmethod
+    def from_dict(data: dict) -> Event:
         _type = data['event_type'].split('.')[0] or ''
 
         entity_class_name  = data['event_type'].split('.')[0].lower().title()

@@ -47,8 +47,8 @@ class Subscription(Entity):
     transaction_id:         str                         | None = None  # Only provided by subscription.created
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Subscription:
+    @staticmethod
+    def from_dict(data: dict) -> Subscription:
         return Subscription(
             id                     = data['id'],
             transaction_id         = data.get('transaction_id'),

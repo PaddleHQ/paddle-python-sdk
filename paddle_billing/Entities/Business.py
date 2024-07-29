@@ -21,8 +21,8 @@ class Business(Entity):
     import_meta:    ImportMeta | None = None
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Business:
+    @staticmethod
+    def from_dict(data: dict) -> Business:
         return Business(
             id             = data['id'],
             customer_id    = data['customer_id'],

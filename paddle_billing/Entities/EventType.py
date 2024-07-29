@@ -13,8 +13,8 @@ class EventType(Entity):
     available_versions: list
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> EventType:
+    @staticmethod
+    def from_dict(data: dict) -> EventType:
         return EventType(
             name               = EventTypeName(data['name']),
             description        = data['description'],

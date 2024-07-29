@@ -28,8 +28,8 @@ class Discount(Entity):
     import_meta:                 ImportMeta | None
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Discount:
+    @staticmethod
+    def from_dict(data: dict) -> Discount:
         return Discount(
             id                          = data['id'],
             status                      = DiscountStatus(data['status']),

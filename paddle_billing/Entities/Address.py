@@ -24,8 +24,8 @@ class Address(Entity):
     import_meta:  ImportMeta | None
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Address:
+    @staticmethod
+    def from_dict(data: dict) -> Address:
         return Address(
             id           = data['id'],
             customer_id  = data['customer_id'],

@@ -19,8 +19,8 @@ class PricePreview(Entity):
     available_payment_methods: list[AvailablePaymentMethods]
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> PricePreview:
+    @staticmethod
+    def from_dict(data: dict) -> PricePreview:
         return PricePreview(
             customer_id               = data.get('customer_id'),
             address_id                = data.get('address_id'),
