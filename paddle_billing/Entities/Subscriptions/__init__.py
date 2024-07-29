@@ -16,7 +16,6 @@ from paddle_billing.Entities.Subscriptions.SubscriptionNonCatalogPriceWithProduc
 from paddle_billing.Entities.Subscriptions.SubscriptionNonCatalogProduct                import SubscriptionNonCatalogProduct
 from paddle_billing.Entities.Subscriptions.SubscriptionOnPaymentFailure                 import SubscriptionOnPaymentFailure
 from paddle_billing.Entities.Subscriptions.SubscriptionPreviewSubscriptionUpdateSummary import SubscriptionPreviewSubscriptionUpdateSummary
-from paddle_billing.Entities.Subscriptions.SubscriptionPrice                            import SubscriptionPrice
 from paddle_billing.Entities.Subscriptions.SubscriptionProration                        import SubscriptionProration
 from paddle_billing.Entities.Subscriptions.SubscriptionProrationBillingMode             import SubscriptionProrationBillingMode
 from paddle_billing.Entities.Subscriptions.SubscriptionResult                           import SubscriptionResult

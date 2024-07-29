@@ -87,6 +87,138 @@
       }
     },
     {
+      "event_id": "evt_01hv9771tccgcm4y810d8zbceh",
+      "event_type": "subscription.created",
+      "occurred_at": "2024-04-12T13:16:10.444253Z",
+      "data": {
+        "id": "sub_01hv9770y40xzc823155s0z4zz",
+        "status": "active",
+        "customer_id": "ctm_01hv976dcgq4wmyrp8yq7asfmj",
+        "address_id": "add_01hv976dczs1h4a7zym0dn7qam",
+        "business_id": null,
+        "currency_code": "USD",
+        "created_at": "2024-04-12T13:16:09.54Z",
+        "updated_at": "2024-04-12T13:16:09.54Z",
+        "started_at": "2024-04-12T13:16:08.821891Z",
+        "first_billed_at": "2024-04-12T13:16:08.821891Z",
+        "next_billed_at": "2024-05-12T13:16:08.821891Z",
+        "paused_at": null,
+        "canceled_at": null,
+        "discount": null,
+        "collection_mode": "automatic",
+        "billing_details": null,
+        "current_billing_period": {
+          "ends_at": "2024-05-12T13:16:08.821891Z",
+          "starts_at": "2024-04-12T13:16:08.821891Z"
+        },
+        "billing_cycle": {
+          "interval": "month",
+          "frequency": 1
+        },
+        "scheduled_change": null,
+        "items": [
+          {
+            "price": {
+              "id": "pri_01gsz8x8sawmvhz1pv30nge1ke",
+              "name": "Monthly (per seat)",
+              "type": "standard",
+              "status": "active",
+              "quantity": {
+                "maximum": 999,
+                "minimum": 1
+              },
+              "tax_mode": "account_setting",
+              "created_at": "2023-02-23T13:55:22.538367Z",
+              "product_id": "pro_01gsz4t5hdjse780zja8vvr7jg",
+              "unit_price": {
+                "amount": "3000",
+                "currency_code": "USD"
+              },
+              "updated_at": "2024-04-11T13:54:52.254748Z",
+              "custom_data": null,
+              "description": "Monthly",
+              "import_meta": null,
+              "trial_period": null,
+              "billing_cycle": {
+                "interval": "month",
+                "frequency": 1
+              },
+              "unit_price_overrides": [
+                {
+                  "country_codes": [
+                    "IE",
+                    "FR",
+                    "DE"
+                  ],
+                  "unit_price": {
+                    "amount": "700",
+                    "currency_code": "EUR"
+                  }
+                },
+                {
+                  "country_codes": [
+                    "GB"
+                  ],
+                  "unit_price": {
+                    "amount": "600",
+                    "currency_code": "GBP"
+                  }
+                }
+              ]
+            },
+            "status": "active",
+            "quantity": 10,
+            "recurring": true,
+            "created_at": "2024-04-12T13:16:09.54Z",
+            "updated_at": "2024-04-12T13:16:09.54Z",
+            "trial_dates": null,
+            "next_billed_at": "2024-05-12T13:16:08.821891Z",
+            "previously_billed_at": "2024-04-12T13:16:08.821891Z"
+          },
+          {
+            "price": {
+              "id": "pri_01h1vjfevh5etwq3rb416a23h2",
+              "name": "Monthly (recurring addon)",
+              "type": "standard",
+              "status": "active",
+              "quantity": {
+                "maximum": 100,
+                "minimum": 1
+              },
+              "tax_mode": "account_setting",
+              "created_at": "2023-06-01T13:31:12.625056Z",
+              "product_id": "pro_01h1vjes1y163xfj1rh1tkfb65",
+              "unit_price": {
+                "amount": "10000",
+                "currency_code": "USD"
+              },
+              "updated_at": "2024-04-12T10:42:45.476453Z",
+              "custom_data": null,
+              "description": "Monthly",
+              "import_meta": null,
+              "trial_period": null,
+              "billing_cycle": {
+                "interval": "month",
+                "frequency": 1
+              },
+              "unit_price_overrides": []
+            },
+            "status": "active",
+            "quantity": 1,
+            "recurring": true,
+            "created_at": "2024-04-12T13:16:09.54Z",
+            "updated_at": "2024-04-12T13:16:09.54Z",
+            "trial_dates": null,
+            "next_billed_at": "2024-05-12T13:16:08.821891Z",
+            "previously_billed_at": "2024-04-12T13:16:08.821891Z"
+          }
+        ],
+        "custom_data": null,
+        "transaction_id": "txn_01hv975mbh902hcyb7mks5kt0n",
+        "import_meta": null
+      }
+    },
+    {
       "event_id": "evt_01hg0trtbnd4jz0h6y6yg0jjv6",
       "event_type": "transaction.past_due",
       "occurred_at": "2023-11-24T14:12:05.621593Z",
