@@ -1,7 +1,7 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class Action(PaddleStrEnum):
+class Action(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     Credit            = 'credit'
     CreditReverse     = 'credit_reverse'
     Refund            = 'refund'

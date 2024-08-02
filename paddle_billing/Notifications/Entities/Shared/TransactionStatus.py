@@ -1,7 +1,7 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class TransactionStatus(PaddleStrEnum):
+class TransactionStatus(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     Draft     = 'draft'
     Ready     = 'ready'
     Billed    = 'billed'

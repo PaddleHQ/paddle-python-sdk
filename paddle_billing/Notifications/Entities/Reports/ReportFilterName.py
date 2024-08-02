@@ -1,7 +1,7 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class ReportFilterName(PaddleStrEnum):
+class ReportFilterName(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     Action           = 'action'
     CollectionMode   = 'collection_mode'
     CurrencyCode     = 'currency_code'

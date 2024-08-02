@@ -1,7 +1,7 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class TransactionCardType(PaddleStrEnum):
+class TransactionCardType(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     AmericanExpress = 'american_express'
     DinersClub      = 'diners_club'
     Discover        = 'discover'

@@ -1,9 +1,9 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class Environment(PaddleStrEnum):
-    PRODUCTION = 'production'
-    SANDBOX    = 'sandbox'
+class Environment(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
+    PRODUCTION: "Environment" = 'production'
+    SANDBOX: "Environment"    = 'sandbox'
 
 
     @property

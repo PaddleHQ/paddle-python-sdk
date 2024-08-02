@@ -1,6 +1,6 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class CollectionMode(PaddleStrEnum):
+class CollectionMode(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     Automatic = 'automatic'
     Manual    = 'manual'

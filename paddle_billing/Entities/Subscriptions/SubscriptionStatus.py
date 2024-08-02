@@ -1,7 +1,7 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class SubscriptionStatus(PaddleStrEnum):
+class SubscriptionStatus(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     Active   = 'active'
     Canceled = 'canceled'
     PastDue  = 'past_due'

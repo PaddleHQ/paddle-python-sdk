@@ -1,7 +1,7 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class ReportType(PaddleStrEnum):
+class ReportType(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     Adjustments          = 'adjustments'
     AdjustmentLineItems  = 'adjustment_line_items'
     Discounts            = 'discounts'

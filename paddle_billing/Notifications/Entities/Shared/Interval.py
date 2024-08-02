@@ -1,7 +1,7 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class Interval(PaddleStrEnum):
+class Interval(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     Day   = 'day'
     Week  = 'week'
     Month = 'month'

@@ -1,7 +1,7 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class CurrencyCode(PaddleStrEnum):
+class CurrencyCode(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     USD = 'USD'
     EUR = 'EUR'
     GBP = 'GBP'

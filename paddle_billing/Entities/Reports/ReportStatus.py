@@ -1,7 +1,7 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class ReportStatus(PaddleStrEnum):
+class ReportStatus(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     Pending = 'pending'
     Ready   = 'ready'
     Failed  = 'failed'

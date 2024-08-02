@@ -1,7 +1,7 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class TaxCategory(PaddleStrEnum):
+class TaxCategory(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     DigitalGoods                = 'digital-goods'
     Ebooks                      = 'ebooks'
     ImplementationServices      = 'implementation-services'

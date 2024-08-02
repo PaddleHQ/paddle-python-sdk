@@ -1,7 +1,7 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class ErrorCode(PaddleStrEnum):
+class ErrorCode(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     AlreadyCanceled         = 'already_canceled'
     AlreadyRefunded         = 'already_refunded'
     AuthenticationFailed    = 'authentication_failed'

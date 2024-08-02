@@ -1,5 +1,5 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class Includes(PaddleStrEnum):
+class Includes(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     Prices = 'prices'

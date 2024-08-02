@@ -1,7 +1,7 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class EventTypeName(PaddleStrEnum):
+class EventTypeName(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     AddressCreated           = 'address.created'
     AddressImported          = 'address.imported'
     AddressUpdated           = 'address.updated'

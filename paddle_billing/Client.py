@@ -1,4 +1,4 @@
-from json               import dumps as json_dumps
+from json import dumps as json_dumps, JSONEncoder
 from logging            import Logger, getLogger
 from requests           import Response, RequestException, Session
 from requests.adapters  import HTTPAdapter
@@ -9,6 +9,7 @@ from uuid               import uuid4
 from paddle_billing.FiltersUndefined import FiltersUndefined
 from paddle_billing.HasParameters    import HasParameters
 from paddle_billing.Options          import Options
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
 from paddle_billing.ResponseParser   import ResponseParser
 
 from paddle_billing.Logger.NullHandler import NullHandler
@@ -30,6 +31,12 @@ from paddle_billing.Resources.Reports.ReportsClient                           im
 from paddle_billing.Resources.Subscriptions.SubscriptionsClient               import SubscriptionsClient
 from paddle_billing.Resources.Transactions.TransactionsClient                 import TransactionsClient
 
+class PayloadEncoder(JSONEncoder):
+    def default(self, z):
+        if hasattr(z, 'to_json') and callable(z.to_json):
+            return z.to_json()
+
+        return super().default(z)
 
 class Client:
     """
@@ -100,7 +107,7 @@ class Client:
         if payload.get('custom_data') and 'data' in payload['custom_data']:
             payload['custom_data'] = payload['custom_data']['data']
 
-        json_payload = json_dumps(payload)
+        json_payload = json_dumps(payload, cls=PayloadEncoder)
         final_json   = json_payload if json_payload != '[]' else '{}'
 
         return final_json

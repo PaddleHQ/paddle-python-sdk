@@ -1,7 +1,7 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class PaymentAttemptStatus(PaddleStrEnum):
+class PaymentAttemptStatus(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     Authorized              = 'authorized'
     AuthorizedFlagged       = 'authorized_flagged'
     Canceled                = 'canceled'
