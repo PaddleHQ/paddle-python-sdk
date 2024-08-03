@@ -2,9 +2,9 @@ from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
 class Action(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    Credit            = 'credit'
-    CreditReverse     = 'credit_reverse'
-    Refund            = 'refund'
-    Chargeback        = 'chargeback'
-    ChargebackReverse = 'chargeback_reverse'
-    ChargebackWarning = 'chargeback_warning'
+    Credit: "Action"            = 'credit'
+    CreditReverse: "Action"     = 'credit_reverse'
+    Refund: "Action"            = 'refund'
+    Chargeback: "Action"        = 'chargeback'
+    ChargebackReverse: "Action" = 'chargeback_reverse'
+    ChargebackWarning: "Action" = 'chargeback_warning'

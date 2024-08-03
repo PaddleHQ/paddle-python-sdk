@@ -2,9 +2,9 @@ from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
 class Origin(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    Api                             = 'api'
-    SubscriptionCharge              = 'subscription_charge'
-    SubscriptionPaymentMethodChange = 'subscription_payment_method_change'
-    SubscriptionRecurring           = 'subscription_recurring'
-    SubscriptionUpdate              = 'subscription_update'
-    Web                             = 'web'
+    Api: "Origin"                             = 'api'
+    SubscriptionCharge: "Origin"              = 'subscription_charge'
+    SubscriptionPaymentMethodChange: "Origin" = 'subscription_payment_method_change'
+    SubscriptionRecurring: "Origin"           = 'subscription_recurring'
+    SubscriptionUpdate: "Origin"              = 'subscription_update'
+    Web: "Origin"                             = 'web'
