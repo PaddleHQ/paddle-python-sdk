@@ -1,6 +1,6 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class NotificationSettingType(PaddleStrEnum):
-    Email = 'email'
-    Url   = 'url'
+class NotificationSettingType(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
+    Email: "NotificationSettingType" = 'email'
+    Url: "NotificationSettingType"   = 'url'

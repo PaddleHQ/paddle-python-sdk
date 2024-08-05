@@ -1,11 +1,11 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class Includes(PaddleStrEnum):
-    Address                 = 'address'
-    Adjustment              = 'adjustment'
-    AdjustmentsTotals       = 'adjustments_totals'
-    AvailablePaymentMethods = 'available_payment_methods'
-    Business                = 'business'
-    Customer                = 'customer'
-    Discount                = 'discount'
+class Includes(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
+    Address: "Includes"                 = 'address'
+    Adjustment: "Includes"              = 'adjustment'
+    AdjustmentsTotals: "Includes"       = 'adjustments_totals'
+    AvailablePaymentMethods: "Includes" = 'available_payment_methods'
+    Business: "Includes"                = 'business'
+    Customer: "Includes"                = 'customer'
+    Discount: "Includes"                = 'discount'

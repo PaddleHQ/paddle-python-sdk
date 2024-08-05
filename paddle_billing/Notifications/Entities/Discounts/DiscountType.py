@@ -1,7 +1,7 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class DiscountType(PaddleStrEnum):
-    Flat        = 'flat'
-    FlatPerSeat = 'flat_per_seat'
-    Percentage  = 'percentage'
+class DiscountType(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
+    Flat: "DiscountType"        = 'flat'
+    FlatPerSeat: "DiscountType" = 'flat_per_seat'
+    Percentage: "DiscountType"  = 'percentage'

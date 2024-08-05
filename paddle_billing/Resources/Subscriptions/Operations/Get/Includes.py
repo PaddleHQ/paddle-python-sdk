@@ -1,6 +1,6 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class Includes(PaddleStrEnum):
-    NextTransaction             = 'next_transaction'
-    RecurringTransactionDetails = 'recurring_transaction_details'
+class Includes(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
+    NextTransaction: "Includes"             = 'next_transaction'
+    RecurringTransactionDetails: "Includes" = 'recurring_transaction_details'

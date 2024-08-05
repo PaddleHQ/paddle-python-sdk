@@ -1,13 +1,13 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class PaymentAttemptStatus(PaddleStrEnum):
-    Authorized              = 'authorized'
-    AuthorizedFlagged       = 'authorized_flagged'
-    Canceled                = 'canceled'
-    Captured                = 'captured'
-    Error                   = 'error'
-    ActionRequired          = 'action_required'
-    PendingNoActionRequired = 'pending_no_action_required'
-    Created                 = 'created'
-    Unknown                 = 'unknown'
+class PaymentAttemptStatus(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
+    Authorized: "PaymentAttemptStatus"              = 'authorized'
+    AuthorizedFlagged: "PaymentAttemptStatus"       = 'authorized_flagged'
+    Canceled: "PaymentAttemptStatus"                = 'canceled'
+    Captured: "PaymentAttemptStatus"                = 'captured'
+    Error: "PaymentAttemptStatus"                   = 'error'
+    ActionRequired: "PaymentAttemptStatus"          = 'action_required'
+    PendingNoActionRequired: "PaymentAttemptStatus" = 'pending_no_action_required'
+    Created: "PaymentAttemptStatus"                 = 'created'
+    Unknown: "PaymentAttemptStatus"                 = 'unknown'

@@ -1,6 +1,6 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class SubscriptionResultAction(PaddleStrEnum):
-    Credit = 'credit'
-    Charge = 'charge'
+class SubscriptionResultAction(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
+    Credit: "SubscriptionResultAction" = 'credit'
+    Charge: "SubscriptionResultAction" = 'charge'

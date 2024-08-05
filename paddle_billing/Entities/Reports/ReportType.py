@@ -1,10 +1,10 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class ReportType(PaddleStrEnum):
-    Adjustments          = 'adjustments'
-    AdjustmentLineItems  = 'adjustment_line_items'
-    Discounts            = 'discounts'
-    ProductsPrices       = 'products_prices'
-    Transactions         = 'transactions'
-    TransactionLineItems = 'transaction_line_items'
+class ReportType(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
+    Adjustments: "ReportType"          = 'adjustments'
+    AdjustmentLineItems: "ReportType"  = 'adjustment_line_items'
+    Discounts: "ReportType"            = 'discounts'
+    ProductsPrices: "ReportType"       = 'products_prices'
+    Transactions: "ReportType"         = 'transactions'
+    TransactionLineItems: "ReportType" = 'transaction_line_items'

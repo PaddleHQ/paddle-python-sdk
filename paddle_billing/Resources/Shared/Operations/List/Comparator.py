@@ -1,8 +1,8 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class Comparator(PaddleStrEnum):
-    LT  = 'LT'
-    LTE = 'LTE'
-    GT  = 'GT'
-    GTE = 'GTE'
+class Comparator(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
+    LT: "Comparator"  = 'LT'
+    LTE: "Comparator" = 'LTE'
+    GT: "Comparator"  = 'GT'
+    GTE: "Comparator" = 'GTE'

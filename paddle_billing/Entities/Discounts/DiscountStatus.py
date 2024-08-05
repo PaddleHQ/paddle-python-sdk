@@ -1,8 +1,8 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class DiscountStatus(PaddleStrEnum):
-    Active   = 'active'
-    Archived = 'archived'
-    Expired  = 'expired'
-    Used     = 'used'
+class DiscountStatus(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
+    Active: "DiscountStatus"   = 'active'
+    Archived: "DiscountStatus" = 'archived'
+    Expired: "DiscountStatus"  = 'expired'
+    Used: "DiscountStatus"     = 'used'

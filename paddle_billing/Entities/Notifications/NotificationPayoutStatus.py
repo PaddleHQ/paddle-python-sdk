@@ -1,6 +1,6 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class NotificationPayoutStatus(PaddleStrEnum):
-    Unpaid = 'unpaid'
-    Paid   = 'paid'
+class NotificationPayoutStatus(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
+    Unpaid: "NotificationPayoutStatus" = 'unpaid'
+    Paid: "NotificationPayoutStatus"   = 'paid'

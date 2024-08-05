@@ -1,10 +1,10 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class TransactionOrigin(PaddleStrEnum):
-    Api                             = 'api'
-    SubscriptionCharge              = 'subscription_charge'
-    SubscriptionPaymentMethodChange = 'subscription_payment_method_change'
-    SubscriptionRecurring           = 'subscription_recurring'
-    SubscriptionUpdate              = 'subscription_update'
-    Web                             = 'web'
+class TransactionOrigin(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
+    Api: "TransactionOrigin"                             = 'api'
+    SubscriptionCharge: "TransactionOrigin"              = 'subscription_charge'
+    SubscriptionPaymentMethodChange: "TransactionOrigin" = 'subscription_payment_method_change'
+    SubscriptionRecurring: "TransactionOrigin"           = 'subscription_recurring'
+    SubscriptionUpdate: "TransactionOrigin"              = 'subscription_update'
+    Web: "TransactionOrigin"                             = 'web'

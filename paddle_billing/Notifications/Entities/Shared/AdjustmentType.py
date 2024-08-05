@@ -1,8 +1,8 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class AdjustmentType(PaddleStrEnum):
-    Full      = 'full'
-    Partial   = 'partial'
-    Tax       = 'tax'
-    Proration = 'proration'
+class AdjustmentType(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
+    Full: "AdjustmentType"      = 'full'
+    Partial: "AdjustmentType"   = 'partial'
+    Tax: "AdjustmentType"       = 'tax'
+    Proration: "AdjustmentType" = 'proration'

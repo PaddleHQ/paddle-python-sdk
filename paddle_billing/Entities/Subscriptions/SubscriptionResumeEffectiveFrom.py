@@ -1,5 +1,5 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class SubscriptionResumeEffectiveFrom(PaddleStrEnum):
-    Immediately       = 'immediately'
+class SubscriptionResumeEffectiveFrom(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
+    Immediately: "SubscriptionResumeEffectiveFrom" = 'immediately'

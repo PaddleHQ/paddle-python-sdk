@@ -1,8 +1,8 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class AdjustmentStatus(PaddleStrEnum):
-    PendingApproval = 'pending_approval'
-    Approved        = 'approved'
-    Rejected        = 'rejected'
-    Reversed        = 'reversed'
+class AdjustmentStatus(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
+    PendingApproval: "AdjustmentStatus" = 'pending_approval'
+    Approved: "AdjustmentStatus"        = 'approved'
+    Rejected: "AdjustmentStatus"        = 'rejected'
+    Reversed: "AdjustmentStatus"        = 'reversed'

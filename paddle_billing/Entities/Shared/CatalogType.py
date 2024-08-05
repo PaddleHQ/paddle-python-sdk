@@ -1,6 +1,6 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class CatalogType(PaddleStrEnum):
-    Standard = 'standard'
-    Custom   = 'custom'
+class CatalogType(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
+    Standard: "CatalogType" = 'standard'
+    Custom: "CatalogType"   = 'custom'

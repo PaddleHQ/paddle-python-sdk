@@ -1,11 +1,11 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
-class TransactionStatus(PaddleStrEnum):
-    Draft     = 'draft'
-    Ready     = 'ready'
-    Billed    = 'billed'
-    Paid      = 'paid'
-    Completed = 'completed'
-    Canceled  = 'canceled'
-    PastDue   = 'past_due'
+class TransactionStatus(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
+    Draft: "TransactionStatus"     = 'draft'
+    Ready: "TransactionStatus"     = 'ready'
+    Billed: "TransactionStatus"    = 'billed'
+    Paid: "TransactionStatus"      = 'paid'
+    Completed: "TransactionStatus" = 'completed'
+    Canceled: "TransactionStatus"  = 'canceled'
+    PastDue: "TransactionStatus"   = 'past_due'
