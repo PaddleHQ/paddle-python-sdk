@@ -14,8 +14,8 @@ class NotificationPayout(Entity):
     currency_code: CurrencyCodePayouts
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> NotificationPayout:
+    @staticmethod
+    def from_dict(data: dict) -> NotificationPayout:
         return NotificationPayout(
             id            = data['id'],
             status        = NotificationPayoutStatus(data['status']),

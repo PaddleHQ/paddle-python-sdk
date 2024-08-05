@@ -22,8 +22,8 @@ class Product(Entity):
     updated_at:   datetime    | None = None
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Product:
+    @staticmethod
+    def from_dict(data: dict) -> Product:
         return Product(
             description  = data.get('description'),
             id           = data['id'],

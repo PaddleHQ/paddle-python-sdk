@@ -18,8 +18,8 @@ class Report(Entity):
     updated_at: datetime
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Report:
+    @staticmethod
+    def from_dict(data: dict) -> Report:
         return Report(
             id         = data['id'],
             status     = ReportStatus(data['status']),

@@ -10,8 +10,8 @@ class PricePreviewTotalsFormatted:
     total:    str
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> PricePreviewTotalsFormatted:
+    @staticmethod
+    def from_dict(data: dict) -> PricePreviewTotalsFormatted:
         return PricePreviewTotalsFormatted(
             subtotal = data['subtotal'],
             discount = data['discount'],

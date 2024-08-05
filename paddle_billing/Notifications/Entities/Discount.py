@@ -28,8 +28,8 @@ class Discount(Entity):
     usage_limit:                 int          | None = None
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Discount:
+    @staticmethod
+    def from_dict(data: dict) -> Discount:
         return Discount(
             amount                      = data['amount'],
             code                        = data.get('code'),

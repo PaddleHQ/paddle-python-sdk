@@ -13,8 +13,8 @@ class CreditBalance(Entity):
     balance:       AdjustmentCustomerBalance
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> CreditBalance:
+    @staticmethod
+    def from_dict(data: dict) -> CreditBalance:
         return CreditBalance(
             customer_id   = data['customer_id'],
             currency_code = CurrencyCode(data['currency_code']),

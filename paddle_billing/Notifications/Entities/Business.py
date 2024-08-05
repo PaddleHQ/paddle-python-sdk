@@ -22,8 +22,8 @@ class Business(Entity):
     customer_id:    str        | None = None
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Business:
+    @staticmethod
+    def from_dict(data: dict) -> Business:
         return Business(
             id             = data['id'],
             customer_id    = data.get('customer_id'),

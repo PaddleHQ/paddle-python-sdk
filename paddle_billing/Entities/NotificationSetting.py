@@ -19,8 +19,8 @@ class NotificationSetting(Entity):
     endpoint_secret_key:      str
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> NotificationSetting:
+    @staticmethod
+    def from_dict(data: dict) -> NotificationSetting:
         return NotificationSetting(
             id                       = data['id'],
             description              = data['description'],

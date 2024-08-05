@@ -24,8 +24,8 @@ class Notification(Entity):
     notification_setting_id: str
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Notification:
+    @staticmethod
+    def from_dict(data: dict) -> Notification:
         return Notification(
             id                      = data['id'],
             type                    = EventTypeName(data['type']),

@@ -11,8 +11,8 @@ class PricePreviewDiscounts:
     formatted_total: str
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> PricePreviewDiscounts:
+    @staticmethod
+    def from_dict(data: dict) -> PricePreviewDiscounts:
         return PricePreviewDiscounts(
             discount        = Discount.from_dict(data['discount']),
             total           = data['total'],

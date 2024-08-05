@@ -40,8 +40,8 @@ class Price(Entity):
     updated_at:           datetime
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Price:
+    @staticmethod
+    def from_dict(data: dict) -> Price:
         return Price(
             id                   = data['id'],
             product_id           = data['product_id'],

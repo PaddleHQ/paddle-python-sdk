@@ -11,8 +11,8 @@ class MethodDetails:
     card: Card | None
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> MethodDetails:
+    @staticmethod
+    def from_dict(data: dict) -> MethodDetails:
         return MethodDetails(
             PaymentMethodType(data['type']),
             Card.from_dict(data['card']) if data.get('card') else None,

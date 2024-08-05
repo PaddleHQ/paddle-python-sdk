@@ -48,8 +48,8 @@ class SubscriptionPreview(Entity):
     update_summary:                SubscriptionPreviewSubscriptionUpdateSummary | None
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> SubscriptionPreview:
+    @staticmethod
+    def from_dict(data: dict) -> SubscriptionPreview:
         return SubscriptionPreview(
             status                        = SubscriptionStatus(data['status']),
             customer_id                   = data['customer_id'],

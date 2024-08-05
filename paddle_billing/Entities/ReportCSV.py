@@ -8,6 +8,6 @@ from paddle_billing.Entities.Entity import Entity
 class ReportCSV(Entity):
     url: str
 
-    @classmethod
-    def from_dict(cls, data: dict) -> ReportCSV:
+    @staticmethod
+    def from_dict(data: dict) -> ReportCSV:
         return ReportCSV(url=data['url'])

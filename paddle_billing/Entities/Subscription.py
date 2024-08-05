@@ -54,8 +54,8 @@ class Subscription(Entity):
     custom_data:                   CustomData                  | None = None
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Subscription:
+    @staticmethod
+    def from_dict(data: dict) -> Subscription:
         return Subscription(
             id                     = data['id'],
             status                 = SubscriptionStatus(data['status']),

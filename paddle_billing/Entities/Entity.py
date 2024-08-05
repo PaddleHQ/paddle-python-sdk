@@ -3,9 +3,9 @@ from abc        import ABC, abstractmethod
 
 
 class Entity(ABC):
-    @classmethod
+    @staticmethod
     @abstractmethod
-    def from_dict(cls, data: dict):
+    def from_dict(data: dict):
         """
         A static factory for the entity that conforms to the Paddle API.
         """

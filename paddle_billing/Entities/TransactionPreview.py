@@ -23,8 +23,8 @@ class TransactionPreview(Entity):
     available_payment_methods: list[AvailablePaymentMethods]
 
 
-    @classmethod
-    def from_dict(cls, data: dict) -> TransactionPreview:
+    @staticmethod
+    def from_dict(data: dict) -> TransactionPreview:
         return TransactionPreview(
             customer_id               = data.get('customer_id'),
             address_id                = data.get('address_id'),
