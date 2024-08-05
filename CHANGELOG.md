@@ -6,6 +6,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-python-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## 0.2.0 - 2024-09-05
+
+### Changed
+
+- `PaddleStrEnum` has been re-implement to gracefully handle non-existent values, it is no longer using native enums
+- The `paddle_billing.Entities.Subscriptions.SubscriptionItem` price entity is now using the main `paddle_billing.Entities.Price` entity
+- Updated the version of `pytest` supported to accept 8.4.0
+
+### Added
+
+- The `paddle_billing.Notifications.Entities.Subscriptions.SubscriptionPrice` entity has been updated to include support for all `Price` properties
+- Improved IDE support for Collections, IDEs will now know the variable type when iterating through the collection
+
+### Fixed
+
+- Entity factory methods are consistently static now where previously there were implementations as class methods 
+
+### Removed
+
+- The `paddle_billing.Entities.Subscriptions.SubscriptionPrice` entity which has been removed in favour of reusing `paddle_billing.Entities.Price` entity.
+
+
 ## 0.1.3 - 2024-06-20
 
 ### Fixed
