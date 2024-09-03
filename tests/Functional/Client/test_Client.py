@@ -8,6 +8,7 @@ from paddle_billing.Exceptions.ApiErrors.AddressApiError import AddressApiError
 from requests.exceptions import RequestException, HTTPError
 
 from tests.Utils.TestLogger import test_log_handler, LogHandler
+from tests.Utils.TestClient import TestClient as UtilsTestClient
 
 
 class TestClient:
@@ -136,3 +137,32 @@ class TestClient:
 
         assert test_log_handler.get_logs()[0].message == \
             f"Request failed: {expected_response_status} Client Error: {expected_reason} for url: {expected_request_url}. {api_error.detail}"
+
+
+    def test_client_with_custom_timeout(
+        self,
+        mock_requests
+    ):
+        test_client = UtilsTestClient(timeout=99)
+
+        expected_request_url = f"{test_client.base_url}/some/url"
+
+        mock_requests.post(expected_request_url, status_code=200)
+
+        test_client.client.post_raw(expected_request_url)
+
+        assert mock_requests.last_request.timeout == 99
+
+
+    def test_client_default_timeout(
+        self,
+        test_client,
+        mock_requests
+    ):
+        expected_request_url = f"{test_client.base_url}/some/url"
+
+        mock_requests.post(expected_request_url, status_code=200)
+
+        test_client.client.post_raw(expected_request_url)
+
+        assert mock_requests.last_request.timeout == 60.0

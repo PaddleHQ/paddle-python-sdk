@@ -15,10 +15,11 @@ class TestClient:
         api_secret_key: str    | None = None,
         environment:    Environment   = Environment.SANDBOX,
         logger:         Logger | None = None,
+        timeout:        float | None = None,
      ):
         self._environment = environment
         self._base_url    = self._environment.base_url
-        self._client      = client or self.create_client(api_secret_key, logger)
+        self._client      = client or self.create_client(api_secret_key, logger, timeout)
 
 
     @property
@@ -34,12 +35,17 @@ class TestClient:
         return self._environment
 
 
-    def create_client(self, api_secret_key: str | None = None, logger: Logger | None = None):
-        return Client(
-            getenv('PADDLE_API_SECRET_KEY') if api_secret_key is None else api_secret_key,
-            options = Options(self._environment),
-            logger=logger
-        )
+    def create_client(self, api_secret_key: str | None = None, logger: Logger | None = None, timeout = None):
+        config = {
+            "api_key": getenv('PADDLE_API_SECRET_KEY') if api_secret_key is None else api_secret_key,
+            "options": Options(self._environment),
+            "logger": logger,
+        }
+
+        if timeout is not None:
+            config["timeout"] = timeout
+
+        return Client(**config)
 
 
 @fixture(autouse=True)
