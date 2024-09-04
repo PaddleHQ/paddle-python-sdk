@@ -206,7 +206,7 @@ class Client:
             'Authorization':  f"Bearer {self.__api_key}",
             'Content-Type':   'application/json',
             'Paddle-Version': str(self.use_api_version),
-            'User-Agent':     'PaddleSDK/python 0.2.1',
+            'User-Agent':     'PaddleSDK/python 0.2.2',
         })
 
         # Configure retries

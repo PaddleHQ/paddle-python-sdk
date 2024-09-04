@@ -6,13 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-python-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
-## 0.2.1 - 2024-09-19
+## 0.2.2 - 2024-09-03
+
+### Fixed
+
+- Fixed [bug](https://github.com/PaddleHQ/paddle-python-sdk/pull/24) - set default timeout.
+
+## 0.2.1 - 2024-08-19
 
 ### Fixed
 
 - Fix `setup.py` version
 
-## 0.2.0 - 2024-09-05
+## 0.2.0 - 2024-08-05
 
 ### Changed
 
