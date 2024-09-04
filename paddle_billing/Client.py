@@ -50,6 +50,7 @@ class Client:
         logger:          Logger   = None,
         retry_count:     int      = 3,
         use_api_version: int      = 1,
+        timeout:         float    = 60.0,
     ):
         self.__api_key       = api_key
         self.retry_count     = retry_count
@@ -58,6 +59,7 @@ class Client:
         self.options         = options     if options     else Options()
         self.log             = logger      if logger      else Client.null_logger()
         self.client          = http_client if http_client else self.build_request_session()
+        self.timeout         = timeout
         self.payload         = None  # Used by pytest
         self.status_code     = None  # Used by pytest
 
@@ -133,7 +135,7 @@ class Client:
         self.payload = self.serialize_json_payload(payload) if payload else None
         try:
             # We use data= instead of json= because we manually serialize data into JSON
-            response         = self.client.request(method.upper(), url, data=self.payload)
+            response         = self.client.request(method.upper(), url, data=self.payload, timeout=self.timeout)
             self.status_code = response.status_code
             response.raise_for_status()
 
