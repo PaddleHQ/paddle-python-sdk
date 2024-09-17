@@ -123,6 +123,26 @@ class TestNotificationsClient:
         assert unquote(last_request.url)      == expected_url, \
             "The URL does not match the expected URL, verify the query string is correct"
 
+
+    def test_list_subscription_notification_with_and_without_product(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        expected_url = f"{test_client.base_url}/notifications"
+        mock_requests.get(expected_url, status_code=200, text=ReadsFixtures.read_raw_json_fixture('response/list_default'))
+
+        response     = test_client.client.notifications.list(ListNotifications())
+        subscription = response.items[3].payload.data
+
+        itemWithoutProduct = subscription.items[0]
+        assert itemWithoutProduct.product is None
+
+        itemWithProduct = subscription.items[1]
+        assert itemWithProduct.product is not None
+        assert itemWithProduct.product.id == 'pro_01h84cd36f900f3wmpdfamgv8w'
+
+
     @mark.parametrize(
         'notification_id, expected_response_status, expected_response_body, expected_url',
         [(
