@@ -11,6 +11,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 ### Added
 
 - Added `product` to `subscription.items[]`, see [related changelog](https://developer.paddle.com/changelog/2024/subscription-items-product?utm_source=dx&utm_medium=paddle-python-sdk)
+- Support custom prices when updating and previewing subscriptions, see [related changelog](https://developer.paddle.com/changelog/2024/add-custom-items-subscription)
 
 ## 0.2.2 - 2024-09-03
 

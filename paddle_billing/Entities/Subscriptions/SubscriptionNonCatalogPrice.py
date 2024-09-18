@@ -1,7 +1,7 @@
 from __future__  import annotations
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 
-from paddle_billing.Entities.Shared import CustomData, Money, PriceQuantity, TaxMode, UnitPriceOverride
+from paddle_billing.Entities.Shared import CustomData, Money, PriceQuantity, TaxMode, UnitPriceOverride, TimePeriod
 
 
 @dataclass
@@ -14,6 +14,8 @@ class SubscriptionNonCatalogPrice:
     unit_price_overrides: list[UnitPriceOverride]
     quantity:             PriceQuantity
     custom_data:          CustomData | None
+    billing_cycle:        TimePeriod | None
+    trial_period:         TimePeriod | None
 
 
     @staticmethod
@@ -27,4 +29,15 @@ class SubscriptionNonCatalogPrice:
             unit_price_overrides = [UnitPriceOverride.from_dict(override) for override in data['unit_price_overrides']],
             quantity             = PriceQuantity.from_dict(data['quantity']),
             custom_data          = CustomData(data['custom_data']) if data.get('custom_data') else None,
+            billing_cycle        = TimePeriod.from_dict(data['billing_cycle']) if data.get('billing_cycle') else None,
+            trial_period         = TimePeriod.from_dict(data['trial_period'])  if data.get('trial_period')  else None,
         )
+
+
+    def get_parameters(self) -> dict:
+        parameters = asdict(self)
+
+        if isinstance(self.custom_data, CustomData):
+            parameters['custom_data'] = self.custom_data.get_parameters()
+
+        return parameters
