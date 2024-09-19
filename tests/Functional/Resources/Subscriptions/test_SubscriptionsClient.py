@@ -7,6 +7,7 @@ from paddle_billing.Entities.DateTime            import DateTime
 from paddle_billing.Entities.Subscription        import Subscription
 from paddle_billing.Entities.SubscriptionPreview import SubscriptionPreview
 from paddle_billing.Entities.Transaction         import Transaction
+from paddle_billing.Entities.Discount            import Discount, DiscountStatus
 
 from paddle_billing.Entities.Shared import (
     CollectionMode,
@@ -541,10 +542,9 @@ class TestSubscriptionsClient:
 
 
     @mark.parametrize(
-        'subscription_id, operation, expected_response_status, expected_response_body, expected_url',
+        'subscription_id, expected_response_status, expected_response_body, expected_url',
         [(
             'sub_01h7zcgmdc6tmwtjehp3sh7azf',
-            CancelSubscription(),
             200,
             ReadsFixtures.read_raw_json_fixture('response/get_payment_method_change_transaction_entity'),
             '/subscriptions/sub_01h7zcgmdc6tmwtjehp3sh7azf/update-payment-method-transaction',
@@ -556,7 +556,6 @@ class TestSubscriptionsClient:
         test_client,
         mock_requests,
         subscription_id,
-        operation,
         expected_response_status,
         expected_response_body,
         expected_url,
@@ -576,6 +575,45 @@ class TestSubscriptionsClient:
             "The URL does not match the expected URL, verify the query string is correct"
         assert response_json == loads(str(expected_response_body)), \
             "The response JSON doesn't match the expected fixture JSON"
+
+
+    def test_get_payment_method_change_transaction_returns_transaction_with_discount(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        mock_requests.get(
+            f"{test_client.base_url}/subscriptions/sub_01h7zcgmdc6tmwtjehp3sh7azf/update-payment-method-transaction",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture('response/get_payment_method_change_transaction_entity'),
+        )
+
+        response = test_client.client.subscriptions.get_payment_method_change_transaction('sub_01h7zcgmdc6tmwtjehp3sh7azf')
+
+        assert isinstance(response, Transaction)
+
+        discount = response.discount
+        assert isinstance(discount, Discount)
+        assert discount.id == 'dsc_01h83xenpcfjyhkqr4x214m02x'
+        assert discount.status == DiscountStatus.Active
+        assert discount.description == 'Nonprofit discount'
+        assert discount.enabled_for_checkout == True
+        assert discount.code == 'ABCDE12345'
+        assert discount.type == 'percentage'
+        assert discount.amount == '10'
+        assert discount.recur == True
+        assert discount.maximum_recurring_intervals == 5
+        assert discount.usage_limit == 1000
+        assert discount.restrict_to == [
+            "pro_01gsz4t5hdjse780zja8vvr7jg",
+            "pro_01gsz4s0w61y0pp88528f1wvvb"
+        ]
+        assert discount.expires_at.isoformat() == '2024-08-18T08:51:07.596000+00:00'
+        assert discount.times_used == 0
+        assert discount.created_at.isoformat() == '2023-08-18T08:51:07.596000+00:00'
+        assert discount.updated_at.isoformat() == '2023-08-18T08:51:07.596000+00:00'
+        assert isinstance(discount.custom_data, CustomData)
+        assert discount.custom_data.data.get('key') == 'value'
 
 
     @mark.parametrize(
