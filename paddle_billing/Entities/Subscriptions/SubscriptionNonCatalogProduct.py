@@ -1,5 +1,5 @@
 from __future__  import annotations
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 
 from paddle_billing.Entities.Shared import CatalogType, CustomData, TaxCategory
 
@@ -24,12 +24,3 @@ class SubscriptionNonCatalogProduct:
             type         = CatalogType(data['type'])       if data.get('type')        else None,
             custom_data  = CustomData(data['custom_data']) if data.get('custom_data') else None,
         )
-
-
-    def get_parameters(self) -> dict:
-        parameters = asdict(self)
-
-        if isinstance(self.custom_data, CustomData):
-            parameters['custom_data'] = self.custom_data.get_parameters()
-
-        return parameters

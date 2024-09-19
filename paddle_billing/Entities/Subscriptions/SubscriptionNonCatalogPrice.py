@@ -1,5 +1,5 @@
 from __future__  import annotations
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 
 from paddle_billing.Entities.Shared import CustomData, Money, PriceQuantity, TaxMode, UnitPriceOverride, TimePeriod
 
@@ -32,12 +32,3 @@ class SubscriptionNonCatalogPrice:
             billing_cycle        = TimePeriod.from_dict(data['billing_cycle']) if data.get('billing_cycle') else None,
             trial_period         = TimePeriod.from_dict(data['trial_period'])  if data.get('trial_period')  else None,
         )
-
-
-    def get_parameters(self) -> dict:
-        parameters = asdict(self)
-
-        if isinstance(self.custom_data, CustomData):
-            parameters['custom_data'] = self.custom_data.get_parameters()
-
-        return parameters

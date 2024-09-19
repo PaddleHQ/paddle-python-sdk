@@ -20,9 +20,4 @@ class SubscriptionItemsWithPrice:
 
 
     def get_parameters(self) -> dict:
-        parameters = asdict(self)
-
-        if isinstance(self.price, (SubscriptionNonCatalogPrice, SubscriptionNonCatalogPriceWithProduct)):
-            parameters['price'] = self.price.get_parameters()
-
-        return parameters
+        return asdict(self)
