@@ -18,7 +18,10 @@
         "expires_at": "2025-01-01 10:00:00",
         "times_used": 0,
         "created_at": "2023-08-18T08:51:07.596Z",
-        "updated_at": "2023-08-18T08:51:07.596Z"
+        "updated_at": "2023-08-18T08:51:07.596Z",
+        "custom_data": {
+            "key": "value"
+        }
     },
     "meta": {
         "request_id": "badf3eb7-3eb8-4d4a-92f9-bc798790b7bc"

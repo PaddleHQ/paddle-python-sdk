@@ -5,7 +5,7 @@ from urllib.parse import unquote
 from paddle_billing.Entities.Collections import DiscountCollection
 from paddle_billing.Entities.Discount    import Discount
 from paddle_billing.Entities.Discounts   import DiscountStatus, DiscountType
-from paddle_billing.Entities.Shared      import CurrencyCode, Status
+from paddle_billing.Entities.Shared      import CurrencyCode, Status, CustomData
 
 from paddle_billing.Resources.Discounts.Operations import CreateDiscount, ListDiscounts, UpdateDiscount
 from paddle_billing.Resources.Shared.Operations    import Pager
@@ -44,6 +44,7 @@ class TestDiscountsClient:
                     usage_limit=1000,
                     restrict_to=['pro_01gsz4t5hdjse780zja8vvr7jg', 'pro_01gsz4s0w61y0pp88528f1wvvb'],
                     expires_at='2025-01-01 10:00:00',
+                    custom_data = CustomData({'key': 'value'})
                 ),
                 ReadsFixtures.read_raw_json_fixture('request/create_full'),
                 200,
@@ -86,6 +87,27 @@ class TestDiscountsClient:
             "The response JSON doesn't match the expected fixture JSON"
 
 
+    def test_create_discount_response_has_custom_data(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        mock_requests.post(f"{test_client.base_url}/discounts", status_code=200, text=ReadsFixtures.read_raw_json_fixture('response/full_entity'))
+
+        response = test_client.client.discounts.create(
+            CreateDiscount(
+                '10',
+                'Nonprofit discount',
+                DiscountType.Percentage,
+                True,
+                True,
+                CurrencyCode.USD,
+            )
+        )
+
+        assert response.custom_data.data.get('key') == 'value'
+
+
     @mark.parametrize(
         'discount_id, operation, expected_request_body, expected_response_status, expected_response_body, expected_url',
         [
@@ -121,6 +143,7 @@ class TestDiscountsClient:
                         'pro_01gsz4t5hdjse780zja8vvr7jg',
                         'pro_01gsz4s0w61y0pp88528f1wvvb',
                     ],
+                    custom_data                 = CustomData({'key': 'value'})
                 ),
                 ReadsFixtures.read_raw_json_fixture('request/update_full'),
                 200,
@@ -163,6 +186,22 @@ class TestDiscountsClient:
             "The request JSON doesn't match the expected fixture JSON"
         assert response_json == loads(str(expected_response_body)), \
             "The response JSON doesn't match the expected fixture JSON"
+
+
+    def test_update_discount_response_has_custom_data(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        mock_requests.patch(
+            f"{test_client.base_url}/discounts/dsc_01h83xenpcfjyhkqr4x214m02x",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture('response/full_entity'),
+        )
+
+        response = test_client.client.discounts.update('dsc_01h83xenpcfjyhkqr4x214m02x', UpdateDiscount(enabled_for_checkout=False))
+
+        assert response.custom_data.data.get('key') == 'value'
 
 
     @mark.parametrize(

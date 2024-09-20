@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from datetime    import datetime
 
 from paddle_billing.Entities.Discounts import DiscountStatus, DiscountType
-from paddle_billing.Entities.Shared    import CurrencyCode, ImportMeta
+from paddle_billing.Entities.Shared    import CurrencyCode, ImportMeta, CustomData
 
 
 @dataclass
@@ -26,6 +26,7 @@ class Discount(Entity):
     created_at:                  datetime
     updated_at:                  datetime
     import_meta:                 ImportMeta | None
+    custom_data:                 CustomData | None
 
 
     @staticmethod
@@ -48,4 +49,5 @@ class Discount(Entity):
             currency_code               = CurrencyCode(data['currency_code'])        if data.get('currency_code') else None,
             expires_at                  = datetime.fromisoformat(data['expires_at']) if data.get('expires_at')    else None,
             import_meta                 = ImportMeta.from_dict(data['import_meta'])  if data.get('import_meta')   else None,
+            custom_data                 = CustomData(data['custom_data'])            if data.get('custom_data')   else None,
         )

@@ -2,7 +2,7 @@ from dataclasses import asdict, dataclass
 
 from paddle_billing.Undefined          import Undefined
 from paddle_billing.Entities.Discounts import DiscountStatus, DiscountType
-from paddle_billing.Entities.Shared    import CurrencyCode
+from paddle_billing.Entities.Shared    import CurrencyCode, CustomData
 
 
 @dataclass
@@ -19,6 +19,7 @@ class UpdateDiscount:
     restrict_to:                 list[str]      | None | Undefined = Undefined()
     expires_at:                  str            | None | Undefined = Undefined()
     status:                      DiscountStatus        | Undefined = Undefined()
+    custom_data:                 CustomData     | None | Undefined = Undefined()
 
 
     def get_parameters(self) -> dict:
