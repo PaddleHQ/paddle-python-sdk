@@ -8,10 +8,27 @@ from paddle_billing.Entities.Subscription        import Subscription
 from paddle_billing.Entities.SubscriptionPreview import SubscriptionPreview
 from paddle_billing.Entities.Transaction         import Transaction
 
-from paddle_billing.Entities.Shared        import CollectionMode, CurrencyCode, CustomData
+from paddle_billing.Entities.Shared import (
+    CollectionMode,
+    CurrencyCode,
+    CustomData,
+    TaxMode,
+    Money,
+    PriceQuantity,
+    CustomData,
+    TimePeriod,
+    Interval,
+    CatalogType,
+    TaxCategory,
+)
+
 from paddle_billing.Entities.Subscriptions import (
     SubscriptionEffectiveFrom,
     SubscriptionItems,
+    SubscriptionItemsWithPrice,
+    SubscriptionNonCatalogPrice,
+    SubscriptionNonCatalogPriceWithProduct,
+    SubscriptionNonCatalogProduct,
     SubscriptionOnPaymentFailure,
     SubscriptionProrationBillingMode,
     SubscriptionResumeEffectiveFrom,
@@ -58,7 +75,8 @@ class TestSubscriptionsClient:
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/full_entity'),
                 '/subscriptions/sub_01h8bx8fmywym11t6swgzba704',
-            ), (
+            ),
+            (
                 'sub_01h8bx8fmywym11t6swgzba704',
                 UpdateSubscription(
                     customer_id            = 'ctm_01h8441jn5pcwrfhwh78jqt8hk',
@@ -78,6 +96,43 @@ class TestSubscriptionsClient:
                     items = [
                         SubscriptionItems('pri_01gsz91wy9k1yn7kx82aafwvea', 1),
                         SubscriptionItems('pri_01gsz91wy9k1yn7kx82bafwvea', 5),
+                        SubscriptionItemsWithPrice(
+                            SubscriptionNonCatalogPrice(
+                                'some description',
+                                'some name',
+                                'pro_01gsz4t5hdjse780zja8vvr7jg',
+                                TaxMode.AccountSetting,
+                                Money('1', CurrencyCode.GBP),
+                                list(),
+                                PriceQuantity(1, 3),
+                                CustomData({'key': 'value'}),
+                                TimePeriod(Interval.Day, 1),
+                                TimePeriod(Interval.Day, 2),
+                            ),
+                            2,
+                        ),
+                        SubscriptionItemsWithPrice(
+                            SubscriptionNonCatalogPriceWithProduct(
+                                'some description',
+                                'some name',
+                                SubscriptionNonCatalogProduct(
+                                    'some name',
+                                    'some description',
+                                    CatalogType.Custom,
+                                    TaxCategory.DigitalGoods,
+                                    'https://www.example.com/image.jpg',
+                                    CustomData({'key': 'value'}),
+                                ),
+                                TaxMode.AccountSetting,
+                                Money('1', CurrencyCode.GBP),
+                                list(),
+                                PriceQuantity(1, 3),
+                                CustomData({'key': 'value'}),
+                                TimePeriod(Interval.Day, 1),
+                                TimePeriod(Interval.Day, 2),
+                            ),
+                            2,
+                        ),
                     ],
                 ),
                 ReadsFixtures.read_raw_json_fixture('request/update_full'),
@@ -665,6 +720,43 @@ class TestSubscriptionsClient:
                     items = [
                         SubscriptionItems('pri_01gsz91wy9k1yn7kx82aafwvea', 1),
                         SubscriptionItems('pri_01gsz91wy9k1yn7kx82bafwvea', 5),
+                        SubscriptionItemsWithPrice(
+                            SubscriptionNonCatalogPrice(
+                                'some description',
+                                'some name',
+                                'pro_01gsz4t5hdjse780zja8vvr7jg',
+                                TaxMode.AccountSetting,
+                                Money('1', CurrencyCode.GBP),
+                                list(),
+                                PriceQuantity(1, 3),
+                                CustomData({'key': 'value'}),
+                                TimePeriod(Interval.Day, 1),
+                                TimePeriod(Interval.Day, 2),
+                            ),
+                            2,
+                        ),
+                        SubscriptionItemsWithPrice(
+                            SubscriptionNonCatalogPriceWithProduct(
+                                'some description',
+                                'some name',
+                                SubscriptionNonCatalogProduct(
+                                    'some name',
+                                    'some description',
+                                    CatalogType.Custom,
+                                    TaxCategory.DigitalGoods,
+                                    'https://www.example.com/image.jpg',
+                                    CustomData({'key': 'value'}),
+                                ),
+                                TaxMode.AccountSetting,
+                                Money('1', CurrencyCode.GBP),
+                                list(),
+                                PriceQuantity(1, 3),
+                                CustomData({'key': 'value'}),
+                                TimePeriod(Interval.Day, 1),
+                                TimePeriod(Interval.Day, 2),
+                            ),
+                            2,
+                        ),
                     ],
                 ),
                 ReadsFixtures.read_raw_json_fixture('request/preview_update_full'),

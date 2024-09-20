@@ -1,5 +1,5 @@
 from __future__  import annotations
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 
 from paddle_billing.Entities.Subscriptions.SubscriptionNonCatalogPrice            import SubscriptionNonCatalogPrice
 from paddle_billing.Entities.Subscriptions.SubscriptionNonCatalogPriceWithProduct import SubscriptionNonCatalogPriceWithProduct
@@ -17,3 +17,7 @@ class SubscriptionItemsWithPrice:
             price    = data['price'],
             quantity = data['quantity'],
         )
+
+
+    def get_parameters(self) -> dict:
+        return asdict(self)
