@@ -21,6 +21,7 @@ from paddle_billing.Entities.Shared import (
     TransactionStatus,
     TaxMode,
     TimePeriod,
+    Disposition,
 )
 
 from paddle_billing.Entities.Transactions import (
@@ -38,6 +39,7 @@ from paddle_billing.Resources.Transactions.Operations import (
     TransactionOrigin,
     PreviewTransaction,
     UpdateTransaction,
+    GetTransactionInvoice,
 )
 
 from tests.Utils.TestClient   import mock_requests, test_client
@@ -623,3 +625,51 @@ class TestTransactionsClient:
             "The URL does not match the expected URL, verify the query string is correct"
         assert response_json == loads(str(expected_response_body)), \
             "The response JSON doesn't match the expected fixture JSON"
+
+
+    @mark.parametrize(
+        'transaction_id, operation, expected_path',
+        [
+            (
+                'txn_01hen7bxc1p8ep4yk7n5jbzk9r',
+                None,
+                '/transactions/txn_01hen7bxc1p8ep4yk7n5jbzk9r/invoice',
+            ), (
+                'txn_01hen7bxc1p8ep4yk7n5jbzk9r',
+                GetTransactionInvoice(disposition = Disposition.Inline),
+                '/transactions/txn_01hen7bxc1p8ep4yk7n5jbzk9r/invoice?disposition=inline',
+            ), (
+                'txn_01hen7bxc1p8ep4yk7n5jbzk9r',
+                GetTransactionInvoice(disposition = Disposition.Attachment),
+                '/transactions/txn_01hen7bxc1p8ep4yk7n5jbzk9r/invoice?disposition=attachment',
+            ),
+        ],
+        ids=[
+            "Get invoice default",
+            "Get invoice with inline disposition",
+            "Get invoice with attachment disposition",
+        ],
+    )
+    def test_get_transaction_invoice_pdf_hits_expected_url(
+        self,
+        test_client,
+        mock_requests,
+        transaction_id,
+        operation,
+        expected_path,
+    ):
+        transaction_id = 'txn_01hen7bxc1p8ep4yk7n5jbzk9r'
+        expected_url   = f"{test_client.base_url}{expected_path}"
+
+        mock_requests.get(
+            expected_url,
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture('response/get_invoice_pdf_default'),
+        )
+
+        response     = test_client.client.transactions.get_invoice_pdf(transaction_id, operation)
+        last_request = mock_requests.last_request
+
+        assert isinstance(response, TransactionData)
+        assert unquote(last_request.url) == expected_url, \
+            "The URL does not match the expected URL, verify the query string is correct"

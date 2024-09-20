@@ -21,6 +21,7 @@ from paddle_billing.Entities.Shared.CurrencyCodeAdjustments         import Curre
 from paddle_billing.Entities.Shared.CurrencyCodePayouts             import CurrencyCodePayouts
 from paddle_billing.Entities.Shared.CustomData                      import CustomData
 from paddle_billing.Entities.Shared.Data                            import Data
+from paddle_billing.Entities.Shared.Disposition                     import Disposition
 from paddle_billing.Entities.Shared.ErrorCode                       import ErrorCode
 from paddle_billing.Entities.Shared.ImportMeta                      import ImportMeta
 from paddle_billing.Entities.Shared.Interval                        import Interval
