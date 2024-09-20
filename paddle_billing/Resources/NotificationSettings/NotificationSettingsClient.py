@@ -1,9 +1,9 @@
 from paddle_billing.ResponseParser import ResponseParser
 
-from paddle_billing.Entities.Collections         import NotificationSettingCollection
+from paddle_billing.Entities.Collections         import NotificationSettingCollection, Paginator
 from paddle_billing.Entities.NotificationSetting import NotificationSetting
 
-from paddle_billing.Resources.NotificationSettings.Operations import CreateNotificationSetting, UpdateNotificationSetting
+from paddle_billing.Resources.NotificationSettings.Operations import CreateNotificationSetting, UpdateNotificationSetting, ListNotificationSettings
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
@@ -16,11 +16,17 @@ class NotificationSettingsClient:
         self.response = None
 
 
-    def list(self) -> NotificationSettingCollection:
-        self.response = self.client.get_raw('/notification-settings')
+    def list(self, operation: ListNotificationSettings | None = None) -> NotificationSettingCollection:
+        if operation is None:
+            operation = ListNotificationSettings()
+
+        self.response = self.client.get_raw('/notification-settings', operation.get_parameters())
         parser        = ResponseParser(self.response)
 
-        return NotificationSettingCollection.from_list(parser.get_data())
+        return NotificationSettingCollection.from_list(
+            parser.get_data(),
+            Paginator(self.client, parser.get_pagination(), NotificationSettingCollection),
+        )
 
 
     def get(self, notification_setting_id: str) -> NotificationSetting:

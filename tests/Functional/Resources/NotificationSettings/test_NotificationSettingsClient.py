@@ -7,7 +7,9 @@ from paddle_billing.Entities.Events               import EventTypeName
 from paddle_billing.Entities.NotificationSetting  import NotificationSetting
 from paddle_billing.Entities.NotificationSettings import NotificationSettingType
 
-from paddle_billing.Resources.NotificationSettings.Operations import CreateNotificationSetting, UpdateNotificationSetting
+from paddle_billing.Resources.Shared.Operations import Pager
+
+from paddle_billing.Resources.NotificationSettings.Operations import CreateNotificationSetting, UpdateNotificationSetting, ListNotificationSettings
 
 from tests.Utils.TestClient   import mock_requests, test_client
 from tests.Utils.ReadsFixture import ReadsFixtures
@@ -215,6 +217,99 @@ class TestNotificationSettingsClient:
         assert test_client.client.status_code == expected_response_status
         assert unquote(last_request.url)      == expected_url, \
             "The URL does not match the expected URL, verify the query string is correct"
+
+
+    @mark.parametrize(
+        'operation, expected_path',
+        [
+            (
+                None,
+                '/notification-settings',
+            ),(
+                ListNotificationSettings(
+                    pager = None,
+                    active = True,
+                ),
+                '/notification-settings?active=true',
+            ),(
+                ListNotificationSettings(
+                    pager = None,
+                    active = False,
+                ),
+                '/notification-settings?active=false',
+            ),(
+                ListNotificationSettings(
+                    pager = Pager(),
+                ),
+                '/notification-settings?order_by=id[asc]&per_page=50',
+            ),(
+                ListNotificationSettings(
+                    pager = Pager(
+                        after = 'ntfset_01gkpjp8bkm3tm53kdgkx6sms7',
+                        order_by = 'id[desc]',
+                        per_page = 100,
+                    ),
+                ),
+                '/notification-settings?after=ntfset_01gkpjp8bkm3tm53kdgkx6sms7&order_by=id[desc]&per_page=100',
+            ),
+        ],
+        ids=[
+            "List all notification-settings",
+            "List active notification-settings",
+            "List inactive notification-settings",
+            "List notification-settings with pagination",
+            "List notification-settings with pagination after",
+        ],
+    )
+    def test_list_notification_settings_hits_expected_url(
+        self,
+        test_client,
+        mock_requests,
+        operation,
+        expected_path,
+    ):
+        expected_url = f"{test_client.base_url}{expected_path}"
+
+        mock_requests.get(
+            expected_url,
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture('response/list_default'),
+        )
+
+        response     = test_client.client.notification_settings.list(operation)
+        last_request = mock_requests.last_request
+
+        assert isinstance(response, NotificationSettingCollection)
+        assert unquote(last_request.url) == expected_url, \
+            "The URL does not match the expected URL, verify the query string is correct"
+
+
+    def test_list_notification_settings_can_paginate(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        mock_requests.get(
+            f"{test_client.base_url}/notification-settings",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture('response/list_paginated_page_one'),
+        )
+
+        mock_requests.get(
+            f"{test_client.base_url}/notification-settings?after=ntfset_01gkpjp8bkm3tm53kdgkx6sms7",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture('response/list_paginated_page_two'),
+        )
+
+        response = test_client.client.notification_settings.list()
+
+        assert isinstance(response, NotificationSettingCollection)
+
+        allNotificationSettings = []
+        for notificationSetting in response:
+            allNotificationSettings.append(notificationSetting)
+
+        assert len(allNotificationSettings) == 2
 
 
     @mark.parametrize(
