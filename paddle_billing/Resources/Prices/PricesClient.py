@@ -38,7 +38,7 @@ class PricesClient:
 
         invalid_items = [item for item in includes if not isinstance(item, PriceIncludes)]
         if invalid_items:
-            raise InvalidArgumentException('includes', PriceIncludes.__name__, invalid_items)
+            raise InvalidArgumentException.array_contains_invalid_types('includes', PriceIncludes.__name__, invalid_items)
 
         params        = {'include': ','.join(include.value for include in includes)} if includes else {}
         self.response = self.client.get_raw(f"/prices/{price_id}", params)

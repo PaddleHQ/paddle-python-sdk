@@ -23,9 +23,9 @@ class ListAddresses(HasParameters):
 
         # Validation
         if any(not isinstance(aid, str) for aid in self.ids):
-            raise InvalidArgumentException('ids', 'string')
+            raise InvalidArgumentException.array_contains_invalid_types('ids', 'string')
         if any(not isinstance(status, Status) for status in self.statuses):
-            raise InvalidArgumentException('statuses', Status.__name__)
+            raise InvalidArgumentException.array_contains_invalid_types('statuses', Status.__name__)
 
 
     def get_parameters(self) -> dict:

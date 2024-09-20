@@ -15,7 +15,7 @@ class CreateReport:
         # Validation
         if any(not isinstance(filter_item, ReportFilter) for filter_item in self.filters):
             invalid_items = [filter_item for filter_item in self.filters if not isinstance(filter_item, ReportFilter)]
-            raise InvalidArgumentException('filters', 'ReportFilter', ', '.join(map(str, invalid_items)))
+            raise InvalidArgumentException.array_contains_invalid_types('filters', 'ReportFilter', ', '.join(map(str, invalid_items)))
 
 
     def get_parameters(self) -> dict:

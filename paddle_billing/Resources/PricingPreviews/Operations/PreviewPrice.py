@@ -23,8 +23,9 @@ class PreviewPrice:
         if len(self.items) == 0:
             raise InvalidArgumentException.array_is_empty('items')
 
-        if any(not isinstance(item, PricePreviewItem) for item in self.items):
-            raise InvalidArgumentException.array_contains_invalid_types('items', PricePreviewItem.__name__)
+        invalid_items = [item for item in self.items if not isinstance(item, PricePreviewItem)]
+        if invalid_items:
+            raise InvalidArgumentException.array_contains_invalid_types('items', PricePreviewItem.__name__, invalid_items)
 
 
     def get_parameters(self) -> dict:
