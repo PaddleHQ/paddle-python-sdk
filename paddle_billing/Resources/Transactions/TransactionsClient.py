@@ -13,6 +13,7 @@ from paddle_billing.Resources.Transactions.Operations import (
     UpdateTransaction,
     PreviewTransaction,
     TransactionIncludes,
+    GetTransactionInvoice,
 )
 
 from typing import TYPE_CHECKING
@@ -83,8 +84,8 @@ class TransactionsClient:
         return TransactionPreview.from_dict(parser.get_data())
 
 
-    def get_invoice_pdf(self, transaction_id: str) -> TransactionData:
-        self.response = self.client.get_raw(f"/transactions/{transaction_id}/invoice")
+    def get_invoice_pdf(self, transaction_id: str, operation: GetTransactionInvoice = None) -> TransactionData:
+        self.response = self.client.get_raw(f"/transactions/{transaction_id}/invoice", operation)
         parser        = ResponseParser(self.response)
 
         return TransactionData.from_dict(parser.get_data())

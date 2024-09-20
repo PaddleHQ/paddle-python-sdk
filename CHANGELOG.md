@@ -15,6 +15,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 - Support for `custom_data` on discounts
 - Support notification settings pagination, see [related changelog](https://developer.paddle.com/changelog/2024/notification-settings-pagination)
 - Support notification settings `active` filter
+- `TransactionsClient.get_invoice_pdf` now supports `disposition` parameter, see [related changelog](https://developer.paddle.com/changelog/2024/invoice-pdf-open-in-browser)
 
 ### Changed
 
