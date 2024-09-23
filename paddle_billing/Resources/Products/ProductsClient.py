@@ -43,7 +43,7 @@ class ProductsClient:
 
         invalid_items = [item for item in includes if not isinstance(item, ProductIncludes)]
         if invalid_items:
-            raise InvalidArgumentException('includes', ProductIncludes.__name__, invalid_items)
+            raise InvalidArgumentException.array_contains_invalid_types('includes', ProductIncludes.__name__, invalid_items)
 
         params         = {'include': ','.join(include.value for include in includes)} if includes else {}
         self.response = self.client.get_raw(f"/products/{product_id}", params)

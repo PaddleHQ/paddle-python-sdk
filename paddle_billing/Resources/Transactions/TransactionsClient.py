@@ -46,7 +46,7 @@ class TransactionsClient:
 
         invalid_items = [item for item in includes if not isinstance(item, TransactionIncludes)]
         if invalid_items:
-            raise InvalidArgumentException('includes', TransactionIncludes.__name__, invalid_items)
+            raise InvalidArgumentException.array_contains_invalid_types('includes', TransactionIncludes.__name__, invalid_items)
 
         params        = {'include': ','.join(include.value for include in includes)} if includes else {}
         self.response = self.client.get_raw(f"/transactions/{transaction_id}", params)
@@ -61,7 +61,7 @@ class TransactionsClient:
 
         invalid_items = [item for item in includes if not isinstance(item, TransactionIncludes)]
         if invalid_items:
-            raise InvalidArgumentException('includes', TransactionIncludes.__name__, invalid_items)
+            raise InvalidArgumentException.array_contains_invalid_types('includes', TransactionIncludes.__name__, invalid_items)
 
         params        = {'include': ','.join(include.value for include in includes)} if includes else {}
         self.response = self.client.post_raw('/transactions', operation.get_parameters(), params)
