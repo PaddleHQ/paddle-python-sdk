@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from datetime    import datetime
 
 from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.Shared import BillingDetails, CollectionMode, CurrencyCode, CustomData, TimePeriod
+from paddle_billing.Entities.Shared import BillingDetails, CollectionMode, CurrencyCode, CustomData, TimePeriod, ImportMeta
 
 from paddle_billing.Entities.Shared.TransactionDetailsPreview import TransactionDetailsPreview
 
@@ -46,6 +46,7 @@ class SubscriptionPreview(Entity):
     next_transaction:              SubscriptionNextTransaction | None
     recurring_transaction_details: TransactionDetailsPreview   | None
     update_summary:                SubscriptionPreviewSubscriptionUpdateSummary | None
+    import_meta:                   ImportMeta | None
 
 
     @staticmethod
@@ -76,4 +77,5 @@ class SubscriptionPreview(Entity):
             next_transaction              = SubscriptionNextTransaction.from_dict(data['next_transaction'])                if data.get('next_transaction')              else None,
             recurring_transaction_details = TransactionDetailsPreview.from_dict(data['recurring_transaction_details'])     if data.get('recurring_transaction_details') else None,
             update_summary                = SubscriptionPreviewSubscriptionUpdateSummary.from_dict(data['update_summary']) if data.get('update_summary')                else None,
+            import_meta                   = ImportMeta.from_dict(data['import_meta'])                                      if data.get('import_meta')                   else None,
         )

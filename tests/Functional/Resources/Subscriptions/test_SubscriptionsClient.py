@@ -21,6 +21,7 @@ from paddle_billing.Entities.Shared import (
     Interval,
     CatalogType,
     TaxCategory,
+    ImportMeta,
 )
 
 from paddle_billing.Entities.Subscriptions import (
@@ -840,6 +841,27 @@ class TestSubscriptionsClient:
             "The response JSON doesn't match the expected fixture JSON"
 
 
+    def test_preview_update_subscription_has_import_meta(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        mock_requests.patch(
+            f"{test_client.base_url}/subscriptions/sub_01h8bx8fmywym11t6swgzba704/preview",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture('response/preview_update_full_entity'),
+        )
+
+        response = test_client.client.subscriptions.preview_update('sub_01h8bx8fmywym11t6swgzba704', PreviewUpdateSubscription())
+
+        assert isinstance(response, SubscriptionPreview)
+
+        import_meta = response.import_meta
+        assert isinstance(import_meta, ImportMeta)
+        assert import_meta.external_id == 'external-id'
+        assert import_meta.imported_from == 'external-platform'
+
+
     @mark.parametrize(
         'subscription_id, operation, expected_request_body, expected_response_status, expected_response_body, expected_url',
         [
@@ -851,7 +873,7 @@ class TestSubscriptionsClient:
                 ),
                 ReadsFixtures.read_raw_json_fixture('request/preview_one_time_charge_minimal'),
                 200,
-                ReadsFixtures.read_raw_json_fixture('response/preview_update_full_entity'),
+                ReadsFixtures.read_raw_json_fixture('response/preview_charge_full_entity'),
                 '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/charge/preview',
             ), (
                 'sub_01h8bx8fmywym11t6swgzba704',
@@ -865,7 +887,7 @@ class TestSubscriptionsClient:
                 ),
                 ReadsFixtures.read_raw_json_fixture('request/preview_one_time_charge_full'),
                 200,
-                ReadsFixtures.read_raw_json_fixture('response/preview_update_full_entity'),
+                ReadsFixtures.read_raw_json_fixture('response/preview_charge_full_entity'),
                 '/subscriptions/sub_01h8bx8fmywym11t6swgzba704/charge/preview',
             ),
         ],
@@ -903,3 +925,30 @@ class TestSubscriptionsClient:
             "The request JSON doesn't match the expected fixture JSON"
         assert response_json == loads(str(expected_response_body)), \
             "The response JSON doesn't match the expected fixture JSON"
+
+
+    def test_preview_create_subscription_one_time_charge_has_import_meta(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        mock_requests.post(
+            f"{test_client.base_url}/subscriptions/sub_01h8bx8fmywym11t6swgzba704/charge/preview",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture('response/preview_charge_full_entity'),
+        )
+
+        response = test_client.client.subscriptions.preview_one_time_charge(
+            'sub_01h8bx8fmywym11t6swgzba704',
+            PreviewOneTimeCharge(
+                SubscriptionEffectiveFrom.NextBillingPeriod,
+                [SubscriptionItems('pri_01gsz98e27ak2tyhexptwc58yk', 1)]
+            ),
+        )
+
+        assert isinstance(response, SubscriptionPreview)
+
+        import_meta = response.import_meta
+        assert isinstance(import_meta, ImportMeta)
+        assert import_meta.external_id == 'external-id'
+        assert import_meta.imported_from == 'external-platform'

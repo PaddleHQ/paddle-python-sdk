@@ -561,7 +561,10 @@
         "currency_code": "USD"
       }
     },
-    "import_meta": null
+    "import_meta": {
+      "external_id": "external-id",
+      "imported_from": "external-platform"
+    }
   },
   "meta": {
     "request_id": "e7181c45-0370-46a9-b405-91783219dda2"
