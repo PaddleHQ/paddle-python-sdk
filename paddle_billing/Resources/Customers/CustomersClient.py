@@ -59,7 +59,7 @@ class CustomersClient:
         if operation is None:
             operation = ListCreditBalances()
 
-        self.response = self.client.get_raw(f"/customers/{customer_id}/credit-balances")
+        self.response = self.client.get_raw(f"/customers/{customer_id}/credit-balances", operation)
         parser        = ResponseParser(self.response)
 
         return CreditBalanceCollection.from_list(parser.get_data())

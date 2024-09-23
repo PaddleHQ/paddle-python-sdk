@@ -4,9 +4,9 @@ from urllib.parse import unquote
 
 from paddle_billing.Entities.Collections import CreditBalanceCollection, CustomerCollection
 from paddle_billing.Entities.Customer    import Customer
-from paddle_billing.Entities.Shared      import CustomData, Status
+from paddle_billing.Entities.Shared      import CustomData, Status, CurrencyCode
 
-from paddle_billing.Resources.Customers.Operations import CreateCustomer, ListCustomers, UpdateCustomer
+from paddle_billing.Resources.Customers.Operations import CreateCustomer, ListCustomers, UpdateCustomer, ListCreditBalances
 from paddle_billing.Resources.Shared.Operations    import Pager
 
 from tests.Utils.TestClient   import mock_requests, test_client
@@ -256,14 +256,26 @@ class TestCustomersClient:
 
 
     @mark.parametrize(
-        'customer_id, expected_response_status, expected_response_body, expected_url',
-        [(
-            'ctm_01h8441jn5pcwrfhwh78jqt8hk',
-            200,
-            ReadsFixtures.read_raw_json_fixture('response/list_credit_balances'),
-            '/customers/ctm_01h8441jn5pcwrfhwh78jqt8hk/credit-balances',
-        )],
-        ids=["List a customer's credit balances"],
+        'customer_id, expected_response_status, expected_response_body, expected_path, operation',
+        [
+            (
+                'ctm_01h8441jn5pcwrfhwh78jqt8hk',
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_credit_balances'),
+                '/customers/ctm_01h8441jn5pcwrfhwh78jqt8hk/credit-balances',
+                None,
+            ), (
+                'ctm_01h8441jn5pcwrfhwh78jqt8hk',
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/list_credit_balances'),
+                '/customers/ctm_01h8441jn5pcwrfhwh78jqt8hk/credit-balances?currency_code=USD,GBP',
+                ListCreditBalances([CurrencyCode.USD, CurrencyCode.GBP]),
+            ),
+        ],
+        ids=[
+            "List a customer's credit balances",
+            "List a customer's credit balances for currency code"
+        ],
     )
     def test_list_credit_balance_customers_returns_expected_response(
         self,
@@ -272,12 +284,13 @@ class TestCustomersClient:
         customer_id,
         expected_response_status,
         expected_response_body,
-        expected_url,
+        expected_path,
+        operation,
     ):
-        expected_url = f"{test_client.base_url}{expected_url}"
+        expected_url = f"{test_client.base_url}{expected_path}"
         mock_requests.get(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        response      = test_client.client.customers.credit_balances(customer_id)
+        response      = test_client.client.customers.credit_balances(customer_id, operation)
         response_json = test_client.client.customers.response.json()
         last_request  = mock_requests.last_request
 
