@@ -2,7 +2,7 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing.Entities.Adjustment  import Adjustment
+from paddle_billing.Entities.Adjustment  import Adjustment, AdjustmentTaxRatesUsed
 from paddle_billing.Entities.Collections import AdjustmentCollection
 from paddle_billing.Entities.Shared      import Action, AdjustmentStatus, AdjustmentType
 
@@ -77,6 +77,36 @@ class TestAdjustmentsClient:
             "The request JSON doesn't match the expected fixture JSON"
         assert response_json == loads(str(expected_response_body)), \
             "The response JSON doesn't match the expected fixture JSON"
+
+
+    def test_create_adjustment_returns_response_with_tax_rates_used(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        mock_requests.post(
+            f"{test_client.base_url}/adjustments",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture('response/full_entity'),
+        )
+
+        response = test_client.client.adjustments.create(
+            CreateAdjustment(
+                Action.Refund,
+                [CreateAdjustmentItem('txnitm_01h8bxryv3065dyh6103p3yg28', AdjustmentType.Partial, '100')],
+                'error',
+                'txn_01h8bxpvx398a7zbawb77y0kp5',
+            ),
+        )
+
+        assert isinstance(response, Adjustment)
+
+        tax_rates_used = response.tax_rates_used[0]
+        assert isinstance(tax_rates_used, AdjustmentTaxRatesUsed)
+        assert tax_rates_used.tax_rate == '0.2'
+        assert tax_rates_used.totals.total == '66000'
+        assert tax_rates_used.totals.subtotal == '55000'
+        assert tax_rates_used.totals.tax == '11000'
 
 
     @mark.parametrize(
@@ -175,7 +205,7 @@ class TestAdjustmentsClient:
         expected_url,
     ):
         expected_url = f"{test_client.base_url}{expected_url}"
-        mock_requests.get(expected_url, status_code=expected_response_status)
+        mock_requests.get(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         response     = test_client.client.adjustments.list(operation)
         last_request = mock_requests.last_request
@@ -186,3 +216,30 @@ class TestAdjustmentsClient:
         assert test_client.client.status_code == expected_response_status
         assert unquote(last_request.url)      == expected_url, \
             "The URL does not match the expected URL, verify the query string is correct"
+        assert all(isinstance(item, Adjustment) for item in response.items), "Not all elements are adjustments"
+
+
+    def test_list_adjustments_returns_response_with_tax_rates_used(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        mock_requests.get(
+            f"{test_client.base_url}/adjustments",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture('response/list_default'),
+        )
+
+        response = test_client.client.adjustments.list()
+
+        assert isinstance(response, AdjustmentCollection)
+
+        adjustment = response.items[0]
+
+        tax_rates_used = adjustment.tax_rates_used[0]
+
+        assert isinstance(tax_rates_used, AdjustmentTaxRatesUsed)
+        assert tax_rates_used.tax_rate == '0.2'
+        assert tax_rates_used.totals.total == '66000'
+        assert tax_rates_used.totals.subtotal == '55000'
+        assert tax_rates_used.totals.tax == '11000'

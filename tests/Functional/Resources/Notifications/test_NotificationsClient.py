@@ -7,6 +7,10 @@ from paddle_billing.Entities.DateTime      import DateTime
 from paddle_billing.Entities.Notification  import Notification
 from paddle_billing.Entities.Notifications import NotificationStatus
 
+from paddle_billing.Notifications.Entities.Adjustment import Adjustment
+
+from paddle_billing.Notifications.Entities.Adjustments.AdjustmentTaxRatesUsed import AdjustmentTaxRatesUsed
+
 from paddle_billing.Resources.Notifications.Operations import ListNotifications
 from paddle_billing.Resources.Shared.Operations        import Pager
 
@@ -141,6 +145,32 @@ class TestNotificationsClient:
         itemWithProduct = subscription.items[1]
         assert itemWithProduct.product is not None
         assert itemWithProduct.product.id == 'pro_01h84cd36f900f3wmpdfamgv8w'
+
+
+    def test_list_adjustment_notification_with_and_without_tax_rates_used(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        expected_url = f"{test_client.base_url}/notifications"
+        mock_requests.get(expected_url, status_code=200, text=ReadsFixtures.read_raw_json_fixture('response/list_default'))
+
+        response = test_client.client.notifications.list(ListNotifications())
+
+        adjustmentWithTaxRatesUsed = response.items[5].payload.data
+        assert isinstance(adjustmentWithTaxRatesUsed, Adjustment)
+
+        tax_rates_used = adjustmentWithTaxRatesUsed.tax_rates_used[0]
+
+        assert isinstance(tax_rates_used, AdjustmentTaxRatesUsed)
+        assert tax_rates_used.tax_rate == '0.2'
+        assert tax_rates_used.totals.total == '66000'
+        assert tax_rates_used.totals.subtotal == '55000'
+        assert tax_rates_used.totals.tax == '11000'
+
+        adjustmentWithoutTaxRatesUsed = response.items[6].payload.data
+        assert isinstance(adjustmentWithoutTaxRatesUsed, Adjustment)
+        assert adjustmentWithoutTaxRatesUsed.tax_rates_used == None
 
 
     @mark.parametrize(
