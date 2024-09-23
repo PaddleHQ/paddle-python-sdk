@@ -40,7 +40,17 @@
                 "currency_code": "USD"
             },
             "created_at": "2023-08-21T13:57:15.489634Z",
-            "updated_at": "2023-08-21T13:57:15.489634Z"
+            "updated_at": "2023-08-21T13:57:15.489634Z",
+            "tax_rates_used": [
+                {
+                    "totals": {
+                        "tax": "11000",
+                        "total": "66000",
+                        "subtotal": "55000"
+                    },
+                    "tax_rate": "0.2"
+                }
+            ]
         },
         {
             "id": "adj_01h8bxezh16gm6t8rx21dx271b",
@@ -89,7 +99,17 @@
                 "currency_code": "USD"
             },
             "created_at": "2023-08-21T11:25:13.138521Z",
-            "updated_at": "2023-08-21T11:25:13.138521Z"
+            "updated_at": "2023-08-21T11:25:13.138521Z",
+            "tax_rates_used": [
+                {
+                    "totals": {
+                        "tax": "11000",
+                        "total": "66000",
+                        "subtotal": "55000"
+                    },
+                    "tax_rate": "0.2"
+                }
+            ]
         },
         {
             "id": "adj_01h7jgzjqt2s8sab70e03ptkhv",
@@ -138,7 +158,17 @@
                 "currency_code": "USD"
             },
             "created_at": "2023-08-11T14:46:04.811464Z",
-            "updated_at": "2023-08-11T14:46:05.13404Z"
+            "updated_at": "2023-08-11T14:46:05.13404Z",
+            "tax_rates_used": [
+                {
+                    "totals": {
+                        "tax": "11000",
+                        "total": "66000",
+                        "subtotal": "55000"
+                    },
+                    "tax_rate": "0.2"
+                }
+            ]
         },
         {
             "id": "adj_01h7jf6ptkfsc93hzc20fgf8wy",
@@ -187,7 +217,17 @@
                 "currency_code": "USD"
             },
             "created_at": "2023-08-11T14:15:01.225381Z",
-            "updated_at": "2023-08-11T14:15:03.54843Z"
+            "updated_at": "2023-08-11T14:15:03.54843Z",
+            "tax_rates_used": [
+                {
+                    "totals": {
+                        "tax": "11000",
+                        "total": "66000",
+                        "subtotal": "55000"
+                    },
+                    "tax_rate": "0.2"
+                }
+            ]
         },
         {
             "id": "adj_01h468w41ttb2j2bh8av74gwt1",
@@ -254,7 +294,17 @@
                 "currency_code": "USD"
             },
             "created_at": "2023-06-30T13:46:24.240375Z",
-            "updated_at": "2023-06-30T13:46:24.240376Z"
+            "updated_at": "2023-06-30T13:46:24.240376Z",
+            "tax_rates_used": [
+                {
+                    "totals": {
+                        "tax": "11000",
+                        "total": "66000",
+                        "subtotal": "55000"
+                    },
+                    "tax_rate": "0.2"
+                }
+            ]
         }
     ],
     "meta": {

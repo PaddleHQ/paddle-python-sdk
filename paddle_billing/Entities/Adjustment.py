@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from datetime    import datetime
 
 from paddle_billing.Entities.Entity      import Entity
-from paddle_billing.Entities.Adjustments import AdjustmentItem
+from paddle_billing.Entities.Adjustments import AdjustmentItem, AdjustmentTaxRatesUsed
 from paddle_billing.Entities.Shared      import Action, AdjustmentStatus, CurrencyCode, PayoutTotalsAdjustment, AdjustmentTotals
 
 
@@ -23,6 +23,7 @@ class Adjustment(Entity):
     payout_totals:             PayoutTotalsAdjustment | None
     created_at:                datetime
     updated_at:                datetime | None
+    tax_rates_used:            list[AdjustmentTaxRatesUsed]
 
 
     @staticmethod
@@ -42,4 +43,5 @@ class Adjustment(Entity):
             items                     = [AdjustmentItem.from_dict(item) for item in data['items']],
             payout_totals             = PayoutTotalsAdjustment.from_dict(data['payout_totals']) if data.get('payout_totals') else None,
             updated_at                = datetime.fromisoformat(data['updated_at'])              if data.get('updated_at')    else None,
+            tax_rates_used            = [AdjustmentTaxRatesUsed.from_dict(item) for item in data['tax_rates_used']],
         )

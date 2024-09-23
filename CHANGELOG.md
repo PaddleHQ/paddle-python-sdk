@@ -17,6 +17,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 - Support notification settings `active` filter
 - `TransactionsClient.get_invoice_pdf` now supports `disposition` parameter, see [related changelog](https://developer.paddle.com/changelog/2024/invoice-pdf-open-in-browser)
 - `SubscriptionClient` `preview_update` and `preview_one_time_charge` responses now have `import_meta` property
+- Support for `tax_rates_used` on Adjustments
 
 ### Changed
 
