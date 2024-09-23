@@ -9,4 +9,4 @@ class TestListAddresses:
         with raises(InvalidArgumentException) as exception_info:
             ListAddresses(ids = [1])
 
-        assert str(exception_info.value) == "Expected 'ids' to only contain only type/s 'string'"
+        assert str(exception_info.value) == "Expected 'ids' to only contain type 'string'"

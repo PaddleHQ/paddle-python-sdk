@@ -8,10 +8,11 @@ class InvalidArgumentException(SdkException):
         return InvalidArgumentException(message)
 
     @staticmethod
-    def array_contains_invalid_types(field, expected_type, given = None):
-        message = f"Expected '{field}' to only contain only type/s '{expected_type}'"
+    def array_contains_invalid_types(field, expected_type, given: list = None):
+        message = f"Expected '{field}' to only contain type '{expected_type}'"
 
         if given is not None:
-            message += f", '{given}' given"
+            invalidTypeList = "', '".join(map(lambda x: type(x).__name__, given))
+            message += f" ('{invalidTypeList}' given)"
 
         return InvalidArgumentException(message)

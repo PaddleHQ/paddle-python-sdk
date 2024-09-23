@@ -13,7 +13,7 @@ class TestPreviewPrice:
                 "'items' cannot be empty",
             ), (
                 ['some invalid type'],
-                "Expected 'items' to only contain only type/s 'PricePreviewItem', '['some invalid type']' given",
+                "Expected 'items' to only contain type 'PricePreviewItem' ('str' given)",
             ),
         ],
         ids=[
