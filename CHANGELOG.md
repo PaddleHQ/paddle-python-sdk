@@ -18,6 +18,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 - `TransactionsClient.get_invoice_pdf` now supports `disposition` parameter, see [related changelog](https://developer.paddle.com/changelog/2024/invoice-pdf-open-in-browser)
 - `SubscriptionClient` `preview_update` and `preview_one_time_charge` responses now have `import_meta` property
 - Support for `tax_rates_used` on Adjustments
+- `AvailablePaymentMethods` now supports `offline`, `unknown` and `wire_transfer`
 
 ### Changed
 
