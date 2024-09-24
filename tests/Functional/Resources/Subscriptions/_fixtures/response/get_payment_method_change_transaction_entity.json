@@ -192,7 +192,19 @@
       "custom_data": {
           "key": "value"
       }
-  }
+    },
+    "available_payment_methods": [
+      "alipay",
+      "apple_pay",
+      "bancontact",
+      "card",
+      "google_pay",
+      "ideal",
+      "offline",
+      "paypal",
+      "unknown",
+      "wire_transfer"
+    ]
   },
   "meta": {
     "request_id": "e4747324-738b-4707-ac7a-7eaabb7c7a26"

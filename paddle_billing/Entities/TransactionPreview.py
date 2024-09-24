@@ -2,7 +2,7 @@ from __future__  import annotations
 from dataclasses import dataclass
 
 from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.Shared import AddressPreview, AvailablePaymentMethods, CurrencyCode
+from paddle_billing.Entities.Shared import AddressPreview, CurrencyCode, PaymentMethodType
 
 from paddle_billing.Entities.Shared.TransactionDetailsPreview             import TransactionDetailsPreview
 from paddle_billing.Entities.Transactions.TransactionItemPreviewWithPrice import TransactionItemPreviewWithPrice
@@ -20,7 +20,7 @@ class TransactionPreview(Entity):
     ignore_trials:             bool
     items:                     list[TransactionItemPreviewWithPrice]
     details:                   TransactionDetailsPreview
-    available_payment_methods: list[AvailablePaymentMethods]
+    available_payment_methods: list[PaymentMethodType]
 
 
     @staticmethod
@@ -35,6 +35,6 @@ class TransactionPreview(Entity):
             ignore_trials             = data['ignore_trials'],
             details                   = TransactionDetailsPreview.from_dict(data['details']),
             items                     = [TransactionItemPreviewWithPrice.from_dict(item) for item   in data['items']],
-            available_payment_methods = [AvailablePaymentMethods(method)                 for method in data['available_payment_methods']],
+            available_payment_methods = [PaymentMethodType(method)                       for method in data['available_payment_methods']],
             address                   = AddressPreview.from_dict(data['address']) if data.get('address') else None,
         )

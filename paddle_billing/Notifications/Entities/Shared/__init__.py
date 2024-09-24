@@ -6,7 +6,6 @@ from paddle_billing.Notifications.Entities.Shared.AdjustmentStatus              
 from paddle_billing.Notifications.Entities.Shared.AdjustmentTimePeriod            import AdjustmentTimePeriod
 from paddle_billing.Notifications.Entities.Shared.AdjustmentTotals                import AdjustmentTotals
 from paddle_billing.Notifications.Entities.Shared.AdjustmentType                  import AdjustmentType
-from paddle_billing.Notifications.Entities.Shared.AvailablePaymentMethods         import AvailablePaymentMethods
 from paddle_billing.Notifications.Entities.Shared.BillingDetails                  import BillingDetails
 from paddle_billing.Notifications.Entities.Shared.Card                            import Card
 from paddle_billing.Notifications.Entities.Shared.CatalogType                     import CatalogType

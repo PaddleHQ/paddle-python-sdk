@@ -15,6 +15,7 @@ from paddle_billing.Entities.Shared import (
     CustomData,
     TaxMode,
     Money,
+    PaymentMethodType,
     PriceQuantity,
     CustomData,
     TimePeriod,
@@ -615,6 +616,34 @@ class TestSubscriptionsClient:
         assert discount.updated_at.isoformat() == '2023-08-18T08:51:07.596000+00:00'
         assert isinstance(discount.custom_data, CustomData)
         assert discount.custom_data.data.get('key') == 'value'
+
+
+    def test_get_payment_method_change_transaction_returns_transaction_with_available_payment_methods(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        mock_requests.get(
+            f"{test_client.base_url}/subscriptions/sub_01h7zcgmdc6tmwtjehp3sh7azf/update-payment-method-transaction",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture('response/get_payment_method_change_transaction_entity'),
+        )
+
+        response = test_client.client.subscriptions.get_payment_method_change_transaction('sub_01h7zcgmdc6tmwtjehp3sh7azf')
+
+        assert isinstance(response, Transaction)
+
+        available_payment_methods = response.available_payment_methods
+        assert available_payment_methods[0] == PaymentMethodType.Alipay
+        assert available_payment_methods[1] == PaymentMethodType.ApplePay
+        assert available_payment_methods[2] == PaymentMethodType.Bancontact
+        assert available_payment_methods[3] == PaymentMethodType.Card
+        assert available_payment_methods[4] == PaymentMethodType.GooglePay
+        assert available_payment_methods[5] == PaymentMethodType.Ideal
+        assert available_payment_methods[6] == PaymentMethodType.Offline
+        assert available_payment_methods[7] == PaymentMethodType.Paypal
+        assert available_payment_methods[8] == PaymentMethodType.Unknown
+        assert available_payment_methods[9] == PaymentMethodType.WireTransfer
 
 
     @mark.parametrize(
