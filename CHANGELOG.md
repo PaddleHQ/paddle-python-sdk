@@ -23,6 +23,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 ### Changed
 
 - `paddle_billing.Entities.Shared.CustomData` is no longer a `dataclass`
+- `NotificationSettingsClient.delete` now returns `None` for `204 No Content` response
 
 ### Fixed
 
