@@ -2,6 +2,14 @@
 
 All breaking changes prior to v1 will be documented in this file to assist with upgrading.
 
+## v0.3.0
+
+1. `paddle_billing.Entities.Shared.AvailablePaymentMethods` has been replaced by `paddle_billing.Entities.Shared.PaymentMethodType`.
+
+`Transaction` `available_payment_methods` will now return a list of `PaymentMethodType`.
+
+All usage of `AvailablePaymentMethods` will need to be replaced with `PaymentMethodType`.
+
 ## v0.2.0
 
 This release includes a few breaking changes. These changes should be limited impact on most integrations but may cause problems in some circumstances. 

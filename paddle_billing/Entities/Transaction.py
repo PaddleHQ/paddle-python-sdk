@@ -10,12 +10,12 @@ from paddle_billing.Entities.Customer   import Customer
 from paddle_billing.Entities.Discount   import Discount
 
 from paddle_billing.Entities.Shared import (
-    AvailablePaymentMethods,
     BillingDetails,
     Checkout,
     CollectionMode,
     CurrencyCode,
     CustomData,
+    PaymentMethodType,
     TransactionOrigin,
     TransactionPaymentAttempt,
     TransactionStatus,
@@ -57,7 +57,7 @@ class Transaction(Entity):
     business:                  Business                           | None = None
     customer:                  Customer                           | None = None
     discount:                  Discount                           | None = None
-    available_payment_methods: list[AvailablePaymentMethods]      | None = None
+    available_payment_methods: list[PaymentMethodType]            | None = None
     receipt_data:              str                                | None = None
 
 
@@ -93,6 +93,6 @@ class Transaction(Entity):
             customer        = Customer.from_dict(data['customer'])                    if data.get('customer')        else None,
             discount        = Discount.from_dict(data['discount'])                    if data.get('discount')        else None,
 
-            available_payment_methods = [AvailablePaymentMethods(item) for item    in data.get('available_payment_methods', [])],
+            available_payment_methods = [PaymentMethodType(item) for item in data.get('available_payment_methods', [])],
             adjustment_totals         = TransactionAdjustmentsTotals.from_dict(data['adjustment_totals']) if data.get('adjustment_totals') else None,
         )

@@ -7,7 +7,7 @@ from paddle_billing.Entities.DateTime      import DateTime
 from paddle_billing.Entities.Notification  import Notification
 from paddle_billing.Entities.Notifications import NotificationStatus
 
-from paddle_billing.Notifications.Entities.Adjustment import Adjustment
+from paddle_billing.Notifications.Entities.Adjustment  import Adjustment
 
 from paddle_billing.Notifications.Entities.Adjustments.AdjustmentTaxRatesUsed import AdjustmentTaxRatesUsed
 
