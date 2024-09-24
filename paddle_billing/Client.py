@@ -21,6 +21,7 @@ from paddle_billing.Resources.Customers.CustomersClient                       im
 from paddle_billing.Resources.Discounts.DiscountsClient                       import DiscountsClient
 from paddle_billing.Resources.Events.EventsClient                             import EventsClient
 from paddle_billing.Resources.EventTypes.EventTypesClient                     import EventTypesClient
+from paddle_billing.Resources.IPAddresses.IPAddressesClient                   import IPAddressesClient
 from paddle_billing.Resources.Notifications.NotificationsClient               import NotificationsClient
 from paddle_billing.Resources.NotificationLogs.NotificationLogsClient         import NotificationLogsClient
 from paddle_billing.Resources.NotificationSettings.NotificationSettingsClient import NotificationSettingsClient
@@ -80,6 +81,7 @@ class Client:
         self.reports               = ReportsClient(self)
         self.subscriptions         = SubscriptionsClient(self)
         self.transactions          = TransactionsClient(self)
+        self.ip_addresses          = IPAddressesClient(self)
 
 
     @staticmethod
