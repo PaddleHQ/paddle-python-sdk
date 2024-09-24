@@ -53,8 +53,7 @@ class NotificationSettingsClient:
         return NotificationSetting.from_dict(parser.get_data())
 
 
-    def delete(self, notification_setting_id: str) -> NotificationSetting:
-        self.response = self.client.delete_raw(f"/notification-settings/{notification_setting_id}")
-        parser        = ResponseParser(self.response)
+    def delete(self, notification_setting_id: str) -> None:
+        self.client.delete_raw(f"/notification-settings/{notification_setting_id}")
 
-        return NotificationSetting.from_dict(parser.get_data())
+        return None
