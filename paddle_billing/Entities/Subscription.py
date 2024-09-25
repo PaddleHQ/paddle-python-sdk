@@ -10,6 +10,7 @@ from paddle_billing.Entities.Shared import (
     CollectionMode,
     CurrencyCode,
     CustomData,
+    Duration,
     ImportMeta,
     TimePeriod,
 )
@@ -21,7 +22,6 @@ from paddle_billing.Entities.Subscriptions import (
     SubscriptionNextTransaction,
     SubscriptionScheduledChange,
     SubscriptionStatus,
-    SubscriptionTimePeriod,
 )
 
 
@@ -42,9 +42,9 @@ class Subscription(Entity):
     canceled_at:                   datetime             | None
     discount:                      SubscriptionDiscount | None
     collection_mode:               CollectionMode
-    billing_details:               BillingDetails         | None
-    current_billing_period:        SubscriptionTimePeriod | None
-    billing_cycle:                 TimePeriod
+    billing_details:               BillingDetails       | None
+    current_billing_period:        TimePeriod           | None
+    billing_cycle:                 Duration
     scheduled_change:              SubscriptionScheduledChange | None
     management_urls:               SubscriptionManagementUrls  | None
     items:                         list[SubscriptionItem]
@@ -66,9 +66,9 @@ class Subscription(Entity):
             created_at             = datetime.fromisoformat(data['created_at']),
             updated_at             = datetime.fromisoformat(data['updated_at']),
             collection_mode        = CollectionMode(data['collection_mode']),
-            billing_cycle          = TimePeriod.from_dict(data['billing_cycle']),
+            billing_cycle          = Duration.from_dict(data['billing_cycle']),
             items                  = [SubscriptionItem.from_dict(item) for item in data['items']],
-            current_billing_period = SubscriptionTimePeriod.from_dict(data['current_billing_period']) if data.get('current_billing_period') else None,
+            current_billing_period = TimePeriod.from_dict(data['current_billing_period']) if data.get('current_billing_period') else None,
             management_urls        = SubscriptionManagementUrls.from_dict(data['management_urls'])    if data.get('management_urls')        else None,
             started_at             = datetime.fromisoformat(data['started_at'])                       if data.get('started_at')             else None,
             first_billed_at        = datetime.fromisoformat(data['first_billed_at'])                  if data.get('first_billed_at')        else None,

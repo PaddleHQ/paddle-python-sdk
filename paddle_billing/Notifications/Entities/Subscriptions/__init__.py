@@ -10,4 +10,3 @@ from paddle_billing.Notifications.Entities.Subscriptions.SubscriptionPrice      
 from paddle_billing.Notifications.Entities.Subscriptions.SubscriptionScheduledChange       import SubscriptionScheduledChange
 from paddle_billing.Notifications.Entities.Subscriptions.SubscriptionScheduledChangeAction import SubscriptionScheduledChangeAction
 from paddle_billing.Notifications.Entities.Subscriptions.SubscriptionStatus                import SubscriptionStatus
-from paddle_billing.Notifications.Entities.Subscriptions.SubscriptionTimePeriod            import SubscriptionTimePeriod

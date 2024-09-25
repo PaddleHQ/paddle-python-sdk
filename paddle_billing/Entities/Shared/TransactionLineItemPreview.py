@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from paddle_billing.Entities.Product           import Product
 from paddle_billing.Entities.Shared.Totals     import Totals
 from paddle_billing.Entities.Shared.UnitTotals import UnitTotals
+from paddle_billing.Entities.Shared.Proration  import Proration
 
 
 @dataclass
@@ -14,6 +15,7 @@ class TransactionLineItemPreview:
     unit_totals: UnitTotals
     totals:      Totals
     product:     Product
+    proration:   Proration
 
 
     @staticmethod
@@ -25,4 +27,5 @@ class TransactionLineItemPreview:
             unit_totals = UnitTotals.from_dict(data['unit_totals']),
             totals      = Totals.from_dict(data['totals']),
             product     = Product.from_dict(data['product']),
+            proration   = Proration.from_dict(data['proration']),
         )

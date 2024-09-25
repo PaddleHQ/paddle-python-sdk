@@ -137,7 +137,170 @@
       "cancel": "https://buyer-portal.paddle.com/subscriptions/sub_01hp463gxfvndqjjyqn2n7tkth/cancel"
     },
     "discount": null,
-    "import_meta": null
+    "import_meta": null,
+    "recurring_transaction_details": {
+      "tax_rates_used": [
+        {
+          "tax_rate": "0.08875",
+          "totals": {
+            "subtotal": "178500",
+            "discount": "0",
+            "tax": "15841",
+            "total": "194341"
+          }
+        }
+      ],
+      "totals": {
+        "subtotal": "178500",
+        "tax": "15841",
+        "discount": "0",
+        "total": "194341",
+        "fee": null,
+        "credit": "0",
+        "credit_to_balance": "0",
+        "balance": "194341",
+        "grand_total": "194341",
+        "earnings": null,
+        "currency_code": "USD",
+        "exchange_rate": "1"
+      },
+      "line_items": [
+        {
+          "item_id": null,
+          "price_id": "pri_01gsz8x8sawmvhz1pv30nge1ke",
+          "quantity": 50,
+          "totals": {
+            "subtotal": "150000",
+            "tax": "13312",
+            "discount": "0",
+            "total": "163312"
+          },
+          "product": {
+            "id": "pro_01gsz4t5hdjse780zja8vvr7jg",
+            "name": "ChatApp Pro",
+            "type": "standard",
+            "tax_category": "standard",
+            "description": "Everything in basic, plus access to a suite of powerful tools and features designed to take your team's productivity to the next level.",
+            "image_url": "https://paddle-sandbox.s3.amazonaws.com/user/10889/2nmP8MQSret0aWeDemRw_icon1.png",
+            "custom_data": {
+              "features": {
+                "crm": true,
+                "data_retention": false,
+                "reports": true
+              },
+              "suggested_addons": [
+                "pro_01h1vjes1y163xfj1rh1tkfb65",
+                "pro_01gsz97mq9pa4fkyy0wqenepkz"
+              ],
+              "upgrade_description": "Move from Basic to Pro to take advantage of advanced reporting and a CRM that's right where you're chatting."
+            },
+            "status": "active",
+            "import_meta": null,
+            "created_at": "2023-08-16T14:38:08.3Z",
+            "updated_at": "2023-08-16T14:38:08.3Z"
+          },
+          "tax_rate": "0.08875",
+          "unit_totals": {
+            "subtotal": "3000",
+            "discount": "0",
+            "tax": "266",
+            "total": "3266"
+          },
+          "proration": {
+            "rate": "1",
+            "billing_period": {
+              "starts_at": "2023-02-08T11:02:03.946454Z",
+              "ends_at": "2024-03-08T11:02:03.946454Z"
+            }
+          }
+        }
+      ]
+    },
+    "next_transaction": {
+      "billing_period": {
+        "starts_at": "2024-03-08T11:02:03.946454Z",
+        "ends_at": "2024-04-08T11:02:03.946454Z"
+      },
+      "details": {
+        "tax_rates_used": [
+          {
+            "tax_rate": "0.08875",
+            "totals": {
+              "subtotal": "178500",
+              "discount": "0",
+              "tax": "15841",
+              "total": "194341"
+            }
+          }
+        ],
+        "totals": {
+          "subtotal": "178500",
+          "tax": "15841",
+          "discount": "0",
+          "total": "194341",
+          "fee": null,
+          "credit": "0",
+          "credit_to_balance": "0",
+          "balance": "194341",
+          "grand_total": "194341",
+          "earnings": null,
+          "currency_code": "USD",
+          "exchange_rate": "1"
+        },
+        "line_items": [
+          {
+            "item_id": null,
+            "price_id": "pri_01gsz8x8sawmvhz1pv30nge1ke",
+            "quantity": 50,
+            "totals": {
+              "subtotal": "150000",
+              "tax": "13312",
+              "discount": "0",
+              "total": "163312"
+            },
+            "product": {
+              "id": "pro_01gsz4t5hdjse780zja8vvr7jg",
+              "name": "ChatApp Pro",
+              "type": "standard",
+              "tax_category": "standard",
+              "description": "Everything in basic, plus access to a suite of powerful tools and features designed to take your team's productivity to the next level.",
+              "image_url": "https://paddle-sandbox.s3.amazonaws.com/user/10889/2nmP8MQSret0aWeDemRw_icon1.png",
+              "custom_data": {
+                "features": {
+                  "crm": true,
+                  "data_retention": false,
+                  "reports": true
+                },
+                "suggested_addons": [
+                  "pro_01h1vjes1y163xfj1rh1tkfb65",
+                  "pro_01gsz97mq9pa4fkyy0wqenepkz"
+                ],
+                "upgrade_description": "Move from Basic to Pro to take advantage of advanced reporting and a CRM that's right where you're chatting."
+              },
+              "status": "active",
+              "import_meta": null,
+              "created_at": "2023-08-16T14:38:08.3Z",
+              "updated_at": "2023-08-16T14:38:08.3Z"
+            },
+            "tax_rate": "0.08875",
+            "unit_totals": {
+              "subtotal": "3000",
+              "discount": "0",
+              "tax": "266",
+              "total": "3266"
+            },
+            "proration": {
+              "rate": "1",
+              "billing_period": {
+                "starts_at": "2023-03-08T11:02:03.946454Z",
+                "ends_at": "2024-04-08T11:02:03.946454Z"
+              }
+            }
+          }
+        ]
+      },
+      "adjustments": []
+    }
   },
   "meta": {
     "request_id": "b6752f6a-acbf-445c-8eb5-2cbb80b7a8e5"

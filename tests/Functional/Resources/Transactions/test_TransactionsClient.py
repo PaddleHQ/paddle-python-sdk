@@ -15,13 +15,13 @@ from paddle_billing.Entities.Shared import (
     CollectionMode,
     CurrencyCode,
     CustomData,
+    Duration,
     Interval,
     Money,
     PaymentMethodType,
     PriceQuantity,
     TransactionStatus,
     TaxMode,
-    TimePeriod,
     Disposition,
 )
 
@@ -116,7 +116,7 @@ class TestTransactionsClient:
                             price = TransactionNonCatalogPrice(
                                 description          = 'Annual (per seat)',
                                 name                 = 'Annual (per seat)',
-                                billing_cycle        = TimePeriod(Interval.Year, 1),
+                                billing_cycle        = Duration(Interval.Year, 1),
                                 trial_period         = None,
                                 tax_mode             = TaxMode.AccountSetting,
                                 unit_price           = Money('30000', CurrencyCode.USD),
@@ -145,7 +145,7 @@ class TestTransactionsClient:
                     discount_id     = 'dsc_01hen7bjzh12m0v2peer15d9qt',
                     billing_details = BillingDetails(
                         enable_checkout       = True,
-                        payment_terms         = TimePeriod(interval=Interval.Month, frequency=1),
+                        payment_terms         = Duration(interval=Interval.Month, frequency=1),
                         purchase_order_number = '10009',
                     ),
                 ),
@@ -582,7 +582,7 @@ class TestTransactionsClient:
                         price             = TransactionNonCatalogPrice(
                             description          = 'Annual (per seat)',
                             name                 = 'Annual (per seat)',
-                            billing_cycle        = TimePeriod(Interval.Year, 1),
+                            billing_cycle        = Duration(Interval.Year, 1),
                             trial_period         = None,
                             tax_mode             = TaxMode.AccountSetting,
                             unit_price           = Money('30000', CurrencyCode.USD),
