@@ -1,8 +1,8 @@
 from dataclasses import asdict, dataclass
 
 from paddle_billing.Undefined             import Undefined
-from paddle_billing.Entities.Shared       import BillingDetails, Checkout, CollectionMode, CurrencyCode, CustomData, TransactionStatus
-from paddle_billing.Entities.Transactions import TransactionCreateItem, TransactionCreateItemWithPrice, TransactionTimePeriod
+from paddle_billing.Entities.Shared       import BillingDetails, Checkout, CollectionMode, CurrencyCode, CustomData, TimePeriod, TransactionStatus
+from paddle_billing.Entities.Transactions import TransactionCreateItem, TransactionCreateItemWithPrice
 
 
 @dataclass
@@ -17,7 +17,7 @@ class CreateTransaction:
     collection_mode: CollectionMode               | Undefined                       = Undefined()
     discount_id:     str                   | None | Undefined                       = Undefined()
     billing_details: BillingDetails        | None | Undefined                       = Undefined()
-    billing_period:  TransactionTimePeriod | None | Undefined                       = Undefined()
+    billing_period:  TimePeriod            | None | Undefined                       = Undefined()
     checkout:        Checkout              | None | Undefined                       = Undefined()
 
 

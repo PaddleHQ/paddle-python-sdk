@@ -1,9 +1,7 @@
 from paddle_billing.Entities.Shared.Action                          import Action
 from paddle_billing.Entities.Shared.AddressPreview                  import AddressPreview
 from paddle_billing.Entities.Shared.AdjustmentItemTotals            import AdjustmentItemTotals
-from paddle_billing.Entities.Shared.AdjustmentProration             import AdjustmentProration
 from paddle_billing.Entities.Shared.AdjustmentStatus                import AdjustmentStatus
-from paddle_billing.Entities.Shared.AdjustmentTimePeriod            import AdjustmentTimePeriod
 from paddle_billing.Entities.Shared.AdjustmentTotals                import AdjustmentTotals
 from paddle_billing.Entities.Shared.AdjustmentType                  import AdjustmentType
 from paddle_billing.Entities.Shared.BillingDetails                  import BillingDetails
@@ -21,6 +19,7 @@ from paddle_billing.Entities.Shared.CurrencyCodePayouts             import Curre
 from paddle_billing.Entities.Shared.CustomData                      import CustomData
 from paddle_billing.Entities.Shared.Data                            import Data
 from paddle_billing.Entities.Shared.Disposition                     import Disposition
+from paddle_billing.Entities.Shared.Duration                        import Duration
 from paddle_billing.Entities.Shared.ErrorCode                       import ErrorCode
 from paddle_billing.Entities.Shared.ImportMeta                      import ImportMeta
 from paddle_billing.Entities.Shared.Interval                        import Interval
@@ -34,6 +33,7 @@ from paddle_billing.Entities.Shared.PaymentAttemptStatus            import Payme
 from paddle_billing.Entities.Shared.PaymentMethodType               import PaymentMethodType
 from paddle_billing.Entities.Shared.PayoutTotalsAdjustment          import PayoutTotalsAdjustment
 from paddle_billing.Entities.Shared.PriceQuantity                   import PriceQuantity
+from paddle_billing.Entities.Shared.Proration                       import Proration
 from paddle_billing.Entities.Shared.Status                          import Status
 from paddle_billing.Entities.Shared.TransactionStatus               import TransactionStatus
 from paddle_billing.Entities.Shared.TaxCategory                     import TaxCategory

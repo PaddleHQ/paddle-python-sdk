@@ -8,8 +8,7 @@ from paddle_billing.Entities.Transactions.TransactionItemPreviewWithPriceId     
 from paddle_billing.Entities.Transactions.TransactionNonCatalogPrice                import TransactionNonCatalogPrice
 from paddle_billing.Entities.Transactions.TransactionNonCatalogPriceWithProduct     import TransactionNonCatalogPriceWithProduct
 from paddle_billing.Entities.Transactions.TransactionNonCatalogProduct              import TransactionNonCatalogProduct
-from paddle_billing.Entities.Transactions.TransactionProration                      import TransactionProration
-from paddle_billing.Entities.Transactions.TransactionTimePeriod                     import TransactionTimePeriod
+from paddle_billing.Entities.Shared.TimePeriod                                      import TimePeriod
 from paddle_billing.Entities.Transactions.TransactionUpdateTransactionItem          import TransactionUpdateTransactionItem
 
 

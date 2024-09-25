@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 from paddle_billing.Entities.Price import Price
 
-from paddle_billing.Entities.Transactions.TransactionProration import TransactionProration
+from paddle_billing.Entities.Shared.Proration import Proration
 
 
 @dataclass
@@ -11,7 +11,7 @@ class TransactionItem:
     price_id:  str | None
     price:     Price
     quantity:  int
-    proration: TransactionProration | None
+    proration: Proration | None
 
 
     @staticmethod
@@ -20,5 +20,5 @@ class TransactionItem:
             price_id  = data.get('price_id'),
             price     = Price.from_dict(data['price']),
             quantity  = data['quantity'],
-            proration = TransactionProration.from_dict(data['proration']) if data.get('proration') else None,
+            proration = Proration.from_dict(data['proration']) if data.get('proration') else None,
         )

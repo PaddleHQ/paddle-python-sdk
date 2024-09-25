@@ -19,11 +19,17 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 - `SubscriptionClient` `preview_update` and `preview_one_time_charge` responses now have `import_meta` property
 - Support for `tax_rates_used` on Adjustments
 - Added `IPAddressesClient.get_ip_addresses` to support retrieval of Paddle IP addresses
+- Support for `proration` on subscription `recurring_transaction_details.line_items[]` and `next_transaction.details.line_items[]`
 
 ### Changed
 
 - `paddle_billing.Entities.Shared.CustomData` is no longer a `dataclass`
 - `NotificationSettingsClient.delete` now returns `None` for `204 No Content` response
+- `TimePeriod` is now aligned to API specification:
+  - Existing shared `TimePeriod` was renamed to `Duration` (with properties `interval` and `frequency`)
+  - New shared `TimePeriod` was added (with properties `starts_at` and `ends_at`)
+- Replaced `AdjustmentTimePeriod`, `SubscriptionTimePeriod` and `TransactionTimePeriod` with shared `TimePeriod`
+- Replaced `AdjustmentProration`, `SubscriptionProration` and `TransactionProration` with shared `Proration`
 
 ### Fixed
 

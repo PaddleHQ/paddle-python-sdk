@@ -1,9 +1,7 @@
 from paddle_billing.Notifications.Entities.Shared.Action                          import Action
 from paddle_billing.Notifications.Entities.Shared.AddressPreview                  import AddressPreview
 from paddle_billing.Notifications.Entities.Shared.AdjustmentItemTotals            import AdjustmentItemTotals
-from paddle_billing.Notifications.Entities.Shared.AdjustmentProration             import AdjustmentProration
 from paddle_billing.Notifications.Entities.Shared.AdjustmentStatus                import AdjustmentStatus
-from paddle_billing.Notifications.Entities.Shared.AdjustmentTimePeriod            import AdjustmentTimePeriod
 from paddle_billing.Notifications.Entities.Shared.AdjustmentTotals                import AdjustmentTotals
 from paddle_billing.Notifications.Entities.Shared.AdjustmentType                  import AdjustmentType
 from paddle_billing.Notifications.Entities.Shared.BillingDetails                  import BillingDetails
@@ -18,6 +16,7 @@ from paddle_billing.Notifications.Entities.Shared.CurrencyCodeAdjustments       
 from paddle_billing.Notifications.Entities.Shared.CurrencyCodePayouts             import CurrencyCodePayouts
 from paddle_billing.Notifications.Entities.Shared.CustomData                      import CustomData
 from paddle_billing.Notifications.Entities.Shared.Data                            import Data
+from paddle_billing.Notifications.Entities.Shared.Duration                        import Duration
 from paddle_billing.Notifications.Entities.Shared.ErrorCode                       import ErrorCode
 from paddle_billing.Notifications.Entities.Shared.ImportMeta                      import ImportMeta
 from paddle_billing.Notifications.Entities.Shared.Interval                        import Interval
@@ -28,6 +27,7 @@ from paddle_billing.Notifications.Entities.Shared.PaymentAttemptStatus          
 from paddle_billing.Notifications.Entities.Shared.PaymentMethodType               import PaymentMethodType
 from paddle_billing.Notifications.Entities.Shared.PayoutTotalsAdjustment          import PayoutTotalsAdjustment
 from paddle_billing.Notifications.Entities.Shared.PriceQuantity                   import PriceQuantity
+from paddle_billing.Notifications.Entities.Shared.Proration                       import Proration
 from paddle_billing.Notifications.Entities.Shared.Status                          import Status
 from paddle_billing.Notifications.Entities.Shared.TransactionStatus               import TransactionStatus
 from paddle_billing.Notifications.Entities.Shared.TaxCategory                     import TaxCategory

@@ -8,22 +8,22 @@ from paddle_billing.Notifications.Entities.Shared import (
     CollectionMode,
     CurrencyCode,
     CustomData,
+    Duration,
     ImportMeta,
-    TimePeriod
+    TimePeriod,
 )
 from paddle_billing.Notifications.Entities.Subscriptions import (
     SubscriptionDiscount,
     SubscriptionItem,
     SubscriptionScheduledChange,
     SubscriptionStatus,
-    SubscriptionTimePeriod,
 )
 
 
 @dataclass
 class Subscription(Entity):
     address_id:             str
-    billing_cycle:          TimePeriod
+    billing_cycle:          Duration
     collection_mode:        CollectionMode
     created_at:             datetime
     currency_code:          CurrencyCode
@@ -35,7 +35,7 @@ class Subscription(Entity):
     billing_details:        BillingDetails              | None = None
     business_id:            str                         | None = None
     canceled_at:            datetime                    | None = None
-    current_billing_period: SubscriptionTimePeriod      | None = None
+    current_billing_period: TimePeriod                  | None = None
     custom_data:            CustomData                  | None = None
     discount:               SubscriptionDiscount        | None = None
     import_meta:            ImportMeta                  | None = None
@@ -60,7 +60,7 @@ class Subscription(Entity):
             created_at             = datetime.fromisoformat(data['created_at']),
             updated_at             = datetime.fromisoformat(data['updated_at']),
             collection_mode        = CollectionMode(data['collection_mode']),
-            billing_cycle          = TimePeriod.from_dict(data['billing_cycle']),
+            billing_cycle          = Duration.from_dict(data['billing_cycle']),
             items                  = [SubscriptionItem.from_dict(item) for item in data['items']],
             billing_details        = BillingDetails.from_dict(data['billing_details']) if data.get('billing_details') else None,
             canceled_at            = datetime.fromisoformat(data['canceled_at'])       if data.get('canceled_at')     else None,
@@ -71,6 +71,6 @@ class Subscription(Entity):
             next_billed_at         = datetime.fromisoformat(data['next_billed_at'])    if data.get('next_billed_at')  else None,
             paused_at              = datetime.fromisoformat(data['paused_at'])         if data.get('paused_at')       else None,
             started_at             = datetime.fromisoformat(data['started_at'])        if data.get('started_at')      else None,
-            current_billing_period = SubscriptionTimePeriod.from_dict(data['current_billing_period']) if data.get('billing_details')  else None,
+            current_billing_period = TimePeriod.from_dict(data['current_billing_period']) if data.get('billing_details')  else None,
             scheduled_change       = SubscriptionScheduledChange.from_dict(data['scheduled_change'])  if data.get('scheduled_change') else None,
         )

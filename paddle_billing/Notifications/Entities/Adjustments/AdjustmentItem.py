@@ -1,7 +1,7 @@
 from __future__  import annotations
 from dataclasses import dataclass
 
-from paddle_billing.Notifications.Entities.Shared import AdjustmentItemTotals, AdjustmentProration, AdjustmentType
+from paddle_billing.Notifications.Entities.Shared import AdjustmentItemTotals, AdjustmentType, Proration
 
 
 @dataclass
@@ -10,7 +10,7 @@ class AdjustmentItem:
     item_id:   str
     type:      AdjustmentType
     amount:    str                 | None
-    proration: AdjustmentProration | None
+    proration: Proration           | None
     totals:    AdjustmentItemTotals
 
 
@@ -21,6 +21,6 @@ class AdjustmentItem:
             item_id   = data['item_id'],
             type      = AdjustmentType(data['type']),
             amount    = data.get('amount'),
-            proration = AdjustmentProration.from_dict(data['proration']) if data.get('proration') else None,
+            proration = Proration.from_dict(data['proration']) if data.get('proration') else None,
             totals    = AdjustmentItemTotals.from_dict(data['totals']),
         )

@@ -8,12 +8,12 @@ from paddle_billing.Entities.Shared      import (
     CountryCode,
     CurrencyCode,
     CustomData,
+    Duration,
     Interval,
     Money,
     PriceQuantity,
     Status,
     TaxMode,
-    TimePeriod,
     UnitPriceOverride
 )
 
@@ -45,8 +45,8 @@ class TestPricesClient:
                     unit_price    = Money("1000", CurrencyCode.GBP),
                     name          = "Weekly",
                     tax_mode      = TaxMode.AccountSetting,
-                    trial_period  = TimePeriod(Interval.Week, 1),
-                    billing_cycle = TimePeriod(Interval.Year, 1),
+                    trial_period  = Duration(Interval.Week, 1),
+                    billing_cycle = Duration(Interval.Year, 1),
                     quantity      = PriceQuantity(1, 1),
                     custom_data   = CustomData({"foo": "bar"}),
 
@@ -120,8 +120,8 @@ class TestPricesClient:
                     unit_price           = Money('100000', CurrencyCode.GBP),
                     unit_price_overrides = [UnitPriceOverride([CountryCode.US], Money('200000', CurrencyCode.USD))],
                     quantity             = PriceQuantity(1, 10),
-                    trial_period         = TimePeriod(Interval.Month, 1),
-                    billing_cycle        = TimePeriod(Interval.Year, 1),
+                    trial_period         = Duration(Interval.Month, 1),
+                    billing_cycle        = Duration(Interval.Year, 1),
                     tax_mode             = TaxMode.External,
                     custom_data          = CustomData({'features': {'reports': True}}),
                 ),

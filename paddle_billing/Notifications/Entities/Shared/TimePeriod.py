@@ -1,18 +1,17 @@
 from __future__  import annotations
 from dataclasses import dataclass
-
-from paddle_billing.Notifications.Entities.Shared.Interval import Interval
+from datetime    import datetime
 
 
 @dataclass
 class TimePeriod:
-    interval:  Interval
-    frequency: int
+    starts_at: datetime
+    ends_at:   datetime
 
 
     @staticmethod
     def from_dict(data: dict) -> TimePeriod:
         return TimePeriod(
-            interval  = Interval(data['interval']),
-            frequency = data['frequency'],
+            starts_at = datetime.fromisoformat(data['starts_at']),
+            ends_at   = datetime.fromisoformat(data['ends_at']),
         )

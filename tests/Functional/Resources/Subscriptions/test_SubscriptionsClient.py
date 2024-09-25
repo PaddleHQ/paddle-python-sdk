@@ -13,12 +13,12 @@ from paddle_billing.Entities.Shared import (
     CollectionMode,
     CurrencyCode,
     CustomData,
+    Duration,
     TaxMode,
     Money,
     PaymentMethodType,
     PriceQuantity,
     CustomData,
-    TimePeriod,
     Interval,
     CatalogType,
     TaxCategory,
@@ -109,8 +109,8 @@ class TestSubscriptionsClient:
                                 list(),
                                 PriceQuantity(1, 3),
                                 CustomData({'key': 'value'}),
-                                TimePeriod(Interval.Day, 1),
-                                TimePeriod(Interval.Day, 2),
+                                Duration(Interval.Day, 1),
+                                Duration(Interval.Day, 2),
                             ),
                             2,
                         ),
@@ -131,8 +131,8 @@ class TestSubscriptionsClient:
                                 list(),
                                 PriceQuantity(1, 3),
                                 CustomData({'key': 'value'}),
-                                TimePeriod(Interval.Day, 1),
-                                TimePeriod(Interval.Day, 2),
+                                Duration(Interval.Day, 1),
+                                Duration(Interval.Day, 2),
                             ),
                             2,
                         ),
@@ -360,6 +360,31 @@ class TestSubscriptionsClient:
         product = response.items[0].product
         assert product is not None
         assert product.id == 'pro_01gsz4t5hdjse780zja8vvr7jg'
+
+
+    def test_get_subscription_returns_transaction_line_item_proration(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        expected_url = f"{test_client.base_url}/subscriptions/sub_01h7zcgmdc6tmwtjehp3sh7azf"
+        mock_requests.get(expected_url, status_code=200, text=ReadsFixtures.read_raw_json_fixture('response/full_entity'))
+
+        response      = test_client.client.subscriptions.get('sub_01h7zcgmdc6tmwtjehp3sh7azf')
+
+        assert isinstance(response, Subscription)
+
+        recurring_transaction_proration = response.recurring_transaction_details.line_items[0].proration
+        assert recurring_transaction_proration is not None
+        assert recurring_transaction_proration.billing_period.starts_at.isoformat() == '2023-02-08T11:02:03.946454+00:00'
+        assert recurring_transaction_proration.billing_period.ends_at.isoformat() == '2024-03-08T11:02:03.946454+00:00'
+        assert recurring_transaction_proration.rate == '1'
+
+        next_transaction_proration = response.next_transaction.details.line_items[0].proration
+        assert next_transaction_proration is not None
+        assert next_transaction_proration.billing_period.starts_at.isoformat() == '2023-03-08T11:02:03.946454+00:00'
+        assert next_transaction_proration.billing_period.ends_at.isoformat() == '2024-04-08T11:02:03.946454+00:00'
+        assert next_transaction_proration.rate == '1'
 
 
     @mark.parametrize(
@@ -798,8 +823,8 @@ class TestSubscriptionsClient:
                                 list(),
                                 PriceQuantity(1, 3),
                                 CustomData({'key': 'value'}),
-                                TimePeriod(Interval.Day, 1),
-                                TimePeriod(Interval.Day, 2),
+                                Duration(Interval.Day, 1),
+                                Duration(Interval.Day, 2),
                             ),
                             2,
                         ),
@@ -820,8 +845,8 @@ class TestSubscriptionsClient:
                                 list(),
                                 PriceQuantity(1, 3),
                                 CustomData({'key': 'value'}),
-                                TimePeriod(Interval.Day, 1),
-                                TimePeriod(Interval.Day, 2),
+                                Duration(Interval.Day, 1),
+                                Duration(Interval.Day, 2),
                             ),
                             2,
                         ),

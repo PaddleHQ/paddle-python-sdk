@@ -129,6 +129,13 @@
             "tax": "0",
             "discount": "3000",
             "total": "27000"
+          },
+          "proration": {
+            "rate": "0",
+            "billing_period": {
+              "starts_at": "2023-08-21T11:31:08.689295Z",
+              "ends_at": "2023-09-21T11:31:08.689295Z"
+            }
           }
         },
         {
@@ -157,6 +164,13 @@
             "tax": "0",
             "discount": "1990",
             "total": "17910"
+          },
+          "proration": {
+            "rate": "0",
+            "billing_period": {
+              "starts_at": "2023-08-21T11:31:08.689295Z",
+              "ends_at": "2023-09-21T11:31:08.689295Z"
+            }
           }
         }
       ]

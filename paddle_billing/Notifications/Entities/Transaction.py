@@ -9,6 +9,7 @@ from paddle_billing.Notifications.Entities.Shared import (
     CollectionMode,
     CurrencyCode,
     CustomData,
+    TimePeriod,
     TransactionOrigin,
     TransactionPaymentAttempt,
     TransactionStatus,
@@ -16,7 +17,6 @@ from paddle_billing.Notifications.Entities.Shared import (
 
 from paddle_billing.Notifications.Entities.Transactions.TransactionDetails    import TransactionDetails
 from paddle_billing.Notifications.Entities.Transactions.TransactionItem       import TransactionItem
-from paddle_billing.Notifications.Entities.Transactions.TransactionTimePeriod import TransactionTimePeriod
 
 
 @dataclass
@@ -33,9 +33,9 @@ class Transaction(Entity):
     invoice_id:                str | None
     invoice_number:            str | None
     collection_mode:           CollectionMode
-    discount_id:               str                   | None
-    billing_details:           BillingDetails        | None
-    billing_period:            TransactionTimePeriod | None
+    discount_id:               str            | None
+    billing_details:           BillingDetails | None
+    billing_period:            TimePeriod     | None
     items:                     list[TransactionItem]
     details:                   TransactionDetails
     payments:                  list[TransactionPaymentAttempt]
@@ -65,9 +65,9 @@ class Transaction(Entity):
             updated_at      = datetime.fromisoformat(data['updated_at']),
             items           = [TransactionItem.from_dict(item)           for item in data.get('items',       [])],
             payments        = [TransactionPaymentAttempt.from_dict(item) for item in data.get('payments',    [])],
-            billed_at       = datetime.fromisoformat(data['billed_at'])               if data.get('billed_at')       else None,
-            billing_details = BillingDetails.from_dict(data['billing_details'])       if data.get('billing_details') else None,
-            billing_period  = TransactionTimePeriod.from_dict(data['billing_period']) if data.get('billing_period')  else None,
-            custom_data     = CustomData(data['custom_data'])                         if data.get('custom_data')     else None,
-            checkout        = Checkout.from_dict(data['checkout'])                    if data.get('checkout')        else None,
+            billed_at       = datetime.fromisoformat(data['billed_at'])         if data.get('billed_at')       else None,
+            billing_details = BillingDetails.from_dict(data['billing_details']) if data.get('billing_details') else None,
+            billing_period  = TimePeriod.from_dict(data['billing_period'])      if data.get('billing_period')  else None,
+            custom_data     = CustomData(data['custom_data'])                   if data.get('custom_data')     else None,
+            checkout        = Checkout.from_dict(data['checkout'])              if data.get('checkout')        else None,
         )

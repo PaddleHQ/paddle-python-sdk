@@ -6,12 +6,12 @@ from paddle_billing.Notifications.Entities.Entity import Entity
 from paddle_billing.Notifications.Entities.Shared import (
     CatalogType,
     CustomData,
+    Duration,
     ImportMeta,
     Money,
     PriceQuantity,
     Status,
     TaxMode,
-    TimePeriod,
     UnitPriceOverride,
 )
 
@@ -26,8 +26,8 @@ class Price(Entity):
     name:                 str | None
     description:          str
     type:                 CatalogType | None
-    billing_cycle:        TimePeriod  | None
-    trial_period:         TimePeriod  | None
+    billing_cycle:        Duration  | None
+    trial_period:         Duration  | None
     tax_mode:             TaxMode
     unit_price:           Money
     unit_price_overrides: list[UnitPriceOverride]
@@ -52,8 +52,8 @@ class Price(Entity):
             tax_mode             = TaxMode(data.get('tax_mode')),
             unit_price_overrides = [UnitPriceOverride.from_dict(override) for override in data.get('unit_price_overrides', [])],
             type                 = CatalogType(data.get('type'))               if data.get('type')          else None,
-            billing_cycle        = TimePeriod.from_dict(data['billing_cycle']) if data.get('billing_cycle') else None,
-            trial_period         = TimePeriod.from_dict(data['trial_period'])  if data.get('trial_period')  else None,
+            billing_cycle        = Duration.from_dict(data['billing_cycle']) if data.get('billing_cycle') else None,
+            trial_period         = Duration.from_dict(data['trial_period'])  if data.get('trial_period')  else None,
             custom_data          = CustomData(data['custom_data'])             if data.get('custom_data')   else None,
             import_meta          = ImportMeta.from_dict(data['import_meta'])   if data.get('import_meta')   else None,
             created_at           = datetime.fromisoformat(data['created_at'])  if data.get('created_at')    else None,
