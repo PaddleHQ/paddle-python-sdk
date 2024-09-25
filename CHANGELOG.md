@@ -18,10 +18,12 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 - `TransactionsClient.get_invoice_pdf` now supports `disposition` parameter, see [related changelog](https://developer.paddle.com/changelog/2024/invoice-pdf-open-in-browser)
 - `SubscriptionClient` `preview_update` and `preview_one_time_charge` responses now have `import_meta` property
 - Support for `tax_rates_used` on Adjustments
+- Added `IPAddressesClient.get_ip_addresses` to support retrieval of Paddle IP addresses
 
 ### Changed
 
 - `paddle_billing.Entities.Shared.CustomData` is no longer a `dataclass`
+- `NotificationSettingsClient.delete` now returns `None` for `204 No Content` response
 
 ### Fixed
 
@@ -31,6 +33,8 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 ### Removed
 
 - `AvailablePaymentMethods` - replaced by `PaymentMethodType`
+- Removed `receipt_data` from `CreateOneTimeCharge` and `PreviewOneTimeCharge` subscription operations
+- Removed `receipt_data` from `Transaction`
 
 ## 0.2.2 - 2024-09-03
 

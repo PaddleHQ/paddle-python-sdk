@@ -43,7 +43,6 @@ class Transaction(Entity):
     created_at:                datetime
     updated_at:                datetime
     billed_at:                 datetime | None
-    receipt_data:              str      | None = None
 
 
     @staticmethod
@@ -61,7 +60,6 @@ class Transaction(Entity):
             invoice_id      = data.get('invoice_id'),
             invoice_number  = data.get('invoice_number'),
             origin          = TransactionOrigin(data['origin']),
-            receipt_data    = data.get('receipt_data'),
             status          = TransactionStatus(data['status']),
             subscription_id = data.get('subscription_id'),
             updated_at      = datetime.fromisoformat(data['updated_at']),
