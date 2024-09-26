@@ -4,7 +4,8 @@ from importlib    import import_module
 
 from paddle_billing.Entities.Event import Event
 
-from paddle_billing.Notifications.Entities.Subscription import Subscription
+from paddle_billing.Notifications.Entities.Subscription        import Subscription
+from paddle_billing.Notifications.Entities.SubscriptionCreated import SubscriptionCreated
 
 from tests.Utils.ReadsFixture import ReadsFixtures
 
@@ -37,7 +38,7 @@ class TestEvent:
             ('product.imported', 'Product'),
             ('subscription.activated', 'Subscription'),
             ('subscription.canceled', 'Subscription'),
-            ('subscription.created', 'Subscription'),
+            ('subscription.created', 'SubscriptionCreated'),
             ('subscription.imported', 'Subscription'),
             ('subscription.past_due', 'Subscription'),
             ('subscription.paused', 'Subscription'),
@@ -124,21 +125,32 @@ class TestEvent:
         assert event.occurred_at.isoformat() == '2023-08-21T11:57:47.390028+00:00'
 
 
+    def test_subscription_created_event_transaction_id(self):
+        event = Event.from_dict({
+            "data": loads(ReadsFixtures.read_raw_json_fixture(f"notification/entity/subscription.created")),
+            "event_type": 'subscription.created',
+            "event_id": "evt_01h8bzakzx3hm2fmen703n5q45",
+            "occurred_at": "2023-08-21T11:57:47.390028Z",
+            "notification_id": "ntf_01h8bzam1z32agrxjwhjgqk8w6"
+        })
+
+        assert isinstance(event.data, SubscriptionCreated)
+        assert event.data.transaction_id == 'txn_01hv8wptq8987qeep44cyrewp9'
+
+
     @mark.parametrize(
-        'event_type, expected_transaction_id',
+        'event_type',
         [
-            ('subscription.created', 'txn_01hv8wptq8987qeep44cyrewp9'),
-            ('subscription.activated', None),
-            ('subscription.canceled', None),
-            ('subscription.imported', None),
-            ('subscription.past_due', None),
-            ('subscription.paused', None),
-            ('subscription.resumed', None),
-            ('subscription.trialing', None),
-            ('subscription.updated', None),
+            ('subscription.activated'),
+            ('subscription.canceled'),
+            ('subscription.imported'),
+            ('subscription.past_due'),
+            ('subscription.paused'),
+            ('subscription.resumed'),
+            ('subscription.trialing'),
+            ('subscription.updated'),
         ],
         ids=[
-            'subscription.created',
             'subscription.activated',
             'subscription.canceled',
             'subscription.imported',
@@ -149,10 +161,9 @@ class TestEvent:
             'subscription.updated',
         ]
     )
-    def test_subscription_event_transaction_id(
+    def test_subscription_events_without_transaction_id(
         self,
         event_type,
-        expected_transaction_id,
     ):
 
         event = Event.from_dict({
@@ -164,4 +175,4 @@ class TestEvent:
         })
 
         assert isinstance(event.data, Subscription)
-        assert event.data.transaction_id == expected_transaction_id
+        assert not hasattr(event.data, 'transaction_id')

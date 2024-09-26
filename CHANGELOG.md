@@ -30,6 +30,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
   - New shared `TimePeriod` was added (with properties `starts_at` and `ends_at`)
 - Replaced `AdjustmentTimePeriod`, `SubscriptionTimePeriod` and `TransactionTimePeriod` with shared `TimePeriod`
 - Replaced `AdjustmentProration`, `SubscriptionProration` and `TransactionProration` with shared `Proration`
+- `paddle_billing.Entities.Event` `data` will now be `paddle_billing.Notifications.Entities.SubscriptionCreated` for `subscription.created` events
 
 ### Fixed
 

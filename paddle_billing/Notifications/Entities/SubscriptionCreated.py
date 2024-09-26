@@ -21,7 +21,7 @@ from paddle_billing.Notifications.Entities.Subscriptions import (
 
 
 @dataclass
-class Subscription(Entity):
+class SubscriptionCreated(Entity):
     address_id:             str
     billing_cycle:          Duration
     collection_mode:        CollectionMode
@@ -44,12 +44,14 @@ class Subscription(Entity):
     paused_at:              datetime                    | None = None
     scheduled_change:       SubscriptionScheduledChange | None = None
     started_at:             datetime                    | None = None
+    transaction_id:         str                         | None = None
 
 
     @staticmethod
-    def from_dict(data: dict) -> Subscription:
-        return Subscription(
+    def from_dict(data: dict) -> SubscriptionCreated:
+        return SubscriptionCreated(
             id                     = data['id'],
+            transaction_id         = data.get('transaction_id'),
             status                 = SubscriptionStatus(data['status']),
             customer_id            = data['customer_id'],
             address_id             = data['address_id'],
