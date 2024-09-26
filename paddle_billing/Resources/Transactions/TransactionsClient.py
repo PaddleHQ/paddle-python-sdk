@@ -11,7 +11,9 @@ from paddle_billing.Resources.Transactions.Operations import (
     CreateTransaction,
     ListTransactions,
     UpdateTransaction,
-    PreviewTransaction,
+    PreviewTransactionByAddress,
+    PreviewTransactionByCustomer,
+    PreviewTransactionByIP,
     TransactionIncludes,
     GetTransactionInvoice,
 )
@@ -77,7 +79,7 @@ class TransactionsClient:
         return Transaction.from_dict(parser.get_data())
 
 
-    def preview(self, operation: PreviewTransaction) -> TransactionPreview:
+    def preview(self, operation: PreviewTransactionByAddress | PreviewTransactionByCustomer | PreviewTransactionByIP) -> TransactionPreview:
         self.response = self.client.post_raw('/transactions/preview', operation.get_parameters())
         parser        = ResponseParser(self.response)
 
