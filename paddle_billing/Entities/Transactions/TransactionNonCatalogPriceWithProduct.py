@@ -33,7 +33,7 @@ class TransactionNonCatalogPriceWithProduct:
             tax_mode             = data['tax_mode'],
             unit_price           = Money.from_dict(data['unit_price']),
             quantity             = PriceQuantity.from_dict(data['quantity']),
-            product              = TransactionNonCatalogProduct.from_dict(data['product_id']),
+            product              = TransactionNonCatalogProduct.from_dict(data['product']),
             unit_price_overrides = [UnitPriceOverride.from_dict(item) for item in data['unit_price_overrides']],
             billing_cycle        = Duration.from_dict(data['billing_cycle']) if data.get('billing_cycle') else None,
             trial_period         = Duration.from_dict(data['trial_period'])  if data.get('trial_period')  else None,

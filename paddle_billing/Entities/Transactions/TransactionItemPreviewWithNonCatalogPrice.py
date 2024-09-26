@@ -15,7 +15,15 @@ class TransactionItemPreviewWithNonCatalogPrice:
     @staticmethod
     def from_dict(data: dict) -> TransactionItemPreviewWithNonCatalogPrice:
         return TransactionItemPreviewWithNonCatalogPrice(
-            price             = data['price'],
+            price             = TransactionItemPreviewWithNonCatalogPrice._create_price(data['price']),
             quantity          = data['quantity'],
             include_in_totals = data.get('include_in_totals'),
         )
+
+
+    @staticmethod
+    def _create_price(data: dict) -> TransactionNonCatalogPrice | TransactionNonCatalogPriceWithProduct:
+        if data.get('product') is not None:
+            return TransactionNonCatalogPriceWithProduct.from_dict(data)
+
+        return TransactionNonCatalogPrice.from_dict(data)
