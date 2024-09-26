@@ -35,6 +35,12 @@ Existing usages of `paddle_billing.Entities.Shared.TimePeriod` will need to be c
 - `paddle_billing.Notifications.Entities.Shared.AdjustmentProration`
 - `paddle_billing.Notifications.Entities.Transactions.TransactionProration`
 
+### 3. Transaction preview operation `PreviewTransaction` is removed
+
+Usage of `paddle_billing.Resources.Transactions.Operations.PreviewTransaction` should be replaced with one of:
+- `paddle_billing.Resources.Transactions.Operations.PreviewTransactionByAddress`
+- `paddle_billing.Resources.Transactions.Operations.PreviewTransactionByCustomer`
+- `paddle_billing.Resources.Transactions.Operations.PreviewTransactionByIP`
 
 ## v0.2.0
 
