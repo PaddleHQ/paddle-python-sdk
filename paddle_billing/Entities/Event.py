@@ -22,9 +22,8 @@ class Event(Entity, ABC):
 
     @staticmethod
     def from_dict(data: dict) -> Event:
-        _type = data['event_type'].split('.')[0] or ''
+        entity_class_name = Event._resolve_event_class_name(data['event_type'])
 
-        entity_class_name  = data['event_type'].split('.')[0].lower().title()
         entity_class       = None
         instantiated_class = None
         entity_module_path = 'paddle_billing.Notifications.Entities'
@@ -41,7 +40,7 @@ class Event(Entity, ABC):
         if not entity_class:
             raise ValueError(f"Event type '{entity_class_name}' cannot be mapped to an object")
         if not issubclass(entity_class, NotificationEntity):
-            raise ValueError(f"Event type '{_type}' is not of NotificationEntity")
+            raise ValueError(f"Event type '{entity_class_name}' is not of NotificationEntity")
 
         return Event(
             data['event_id'],
@@ -49,3 +48,13 @@ class Event(Entity, ABC):
             datetime.fromisoformat(data['occurred_at']),
             instantiated_class.from_dict(data['data']),
         )
+
+
+    @staticmethod
+    def _resolve_event_class_name(event_type) -> str:
+        if event_type == 'subscription.created':
+            return 'SubscriptionCreated'
+
+        event_entity = event_type.split('.')[0] or ''
+
+        return event_entity.lower().title()

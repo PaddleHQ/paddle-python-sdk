@@ -7,6 +7,9 @@ from paddle_billing.Entities.Collections import EventCollection
 from paddle_billing.Resources.Events.Operations import ListEvents
 from paddle_billing.Resources.Shared.Operations import Pager
 
+from paddle_billing.Notifications.Entities.Subscription        import Subscription
+from paddle_billing.Notifications.Entities.SubscriptionCreated import SubscriptionCreated
+
 from tests.Utils.TestClient   import mock_requests, test_client
 from tests.Utils.ReadsFixture import ReadsFixtures
 
@@ -62,3 +65,27 @@ class TestEventsClient:
             "The URL does not match the expected URL, verify the query string is correct"
         assert response_json == loads(str(expected_response_body)), \
             "The response JSON doesn't match the expected fixture JSON"
+
+
+    def test_list_subscription_created_event(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        mock_requests.get(
+            f"{test_client.base_url}/events",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture('response/list_default')
+        )
+
+        events = test_client.client.events.list()
+
+        assert isinstance(events, EventCollection)
+
+        subscription_updated_entity = events.items[0].data
+        assert isinstance(subscription_updated_entity, Subscription)
+        assert not hasattr(subscription_updated_entity, 'transaction_id')
+
+        subscription_created_entity = events.items[1].data
+        assert isinstance(subscription_created_entity, SubscriptionCreated)
+        assert subscription_created_entity.transaction_id == 'txn_01hv975mbh902hcyb7mks5kt0n'
