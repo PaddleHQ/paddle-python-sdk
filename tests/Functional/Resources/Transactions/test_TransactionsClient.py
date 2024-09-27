@@ -11,8 +11,10 @@ from paddle_billing.Resources.Shared.Operations import Comparator, DateCompariso
 from paddle_billing.Entities.Discount           import Discount, DiscountStatus
 
 from paddle_billing.Entities.Shared import (
+    AddressPreview,
     BillingDetails,
     CollectionMode,
+    CountryCode,
     CurrencyCode,
     CustomData,
     Duration,
@@ -20,6 +22,7 @@ from paddle_billing.Entities.Shared import (
     Money,
     PaymentMethodType,
     PriceQuantity,
+    TaxCategory,
     TransactionStatus,
     TaxMode,
     Disposition,
@@ -29,6 +32,8 @@ from paddle_billing.Entities.Transactions import (
     TransactionCreateItem,
     TransactionCreateItemWithPrice,
     TransactionNonCatalogPrice,
+    TransactionNonCatalogPriceWithProduct,
+    TransactionNonCatalogProduct,
     TransactionItemPreviewWithNonCatalogPrice,
     TransactionItemPreviewWithPriceId,
 )
@@ -38,7 +43,9 @@ from paddle_billing.Resources.Transactions.Operations import (
     ListTransactions,
     TransactionIncludes,
     TransactionOrigin,
-    PreviewTransaction,
+    PreviewTransactionByAddress,
+    PreviewTransactionByCustomer,
+    PreviewTransactionByIP,
     UpdateTransaction,
     GetTransactionInvoice,
 )
@@ -563,45 +570,228 @@ class TestTransactionsClient:
         'operation, expected_request_body, expected_response_status, expected_response_body, expected_url',
         [
             (
-                PreviewTransaction(items=[
-                    TransactionItemPreviewWithPriceId(
-                        price_id          = 'pri_01he5kxqey1k8ankgef29cj4bv',
-                        quantity          = 1,
-                        include_in_totals = True,
-                    )
-                ]),
-                ReadsFixtures.read_raw_json_fixture('request/preview_basic'),
+                PreviewTransactionByAddress(
+                    address= AddressPreview(
+                        postal_code='12345',
+                        country_code=CountryCode.US,
+                    ),
+                    items=[
+                        TransactionItemPreviewWithPriceId(
+                            price_id          = 'pri_01he5kxqey1k8ankgef29cj4bv',
+                            quantity          = 1,
+                            include_in_totals = True,
+                        )
+                    ],
+                ),
+                ReadsFixtures.read_raw_json_fixture('request/preview_by_address_basic'),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/preview_entity'),
                 '/transactions/preview',
-            ), (
-                PreviewTransaction(items=[
-                    TransactionItemPreviewWithNonCatalogPrice(
-                        quantity          = 20,
-                        include_in_totals = True,
-                        price             = TransactionNonCatalogPrice(
-                            description          = 'Annual (per seat)',
-                            name                 = 'Annual (per seat)',
-                            billing_cycle        = Duration(Interval.Year, 1),
-                            trial_period         = None,
-                            tax_mode             = TaxMode.AccountSetting,
-                            unit_price           = Money('30000', CurrencyCode.USD),
-                            unit_price_overrides = [],
-                            quantity             = PriceQuantity(minimum=10, maximum=999),
-                            custom_data          = None,
-                            product_id           = 'pro_01gsz4t5hdjse780zja8vvr7jg',
+            ),
+            (
+                PreviewTransactionByAddress(
+                    address= AddressPreview(
+                        postal_code='12345',
+                        country_code=CountryCode.US,
+                    ),
+                    customer_id='ctm_01h844q4mznqpgqgm6evgw1w63',
+                    currency_code=CurrencyCode.USD,
+                    discount_id='dsc_01gtgztp8fpchantd5g1wrksa3',
+                    ignore_trials=True,
+                    items=[
+                        TransactionItemPreviewWithNonCatalogPrice(
+                            quantity          = 20,
+                            include_in_totals = True,
+                            price             = TransactionNonCatalogPrice(
+                                description          = 'Annual (per seat)',
+                                name                 = 'Annual (per seat)',
+                                billing_cycle        = Duration(Interval.Year, 1),
+                                trial_period         = None,
+                                tax_mode             = TaxMode.AccountSetting,
+                                unit_price           = Money('30000', CurrencyCode.USD),
+                                unit_price_overrides = [],
+                                quantity             = PriceQuantity(minimum=10, maximum=999),
+                                custom_data          = None,
+                                product_id           = 'pro_01gsz4t5hdjse780zja8vvr7jg',
+                            ),
                         ),
-                    )
-                ]),
-                ReadsFixtures.read_raw_json_fixture('request/preview_with_non_catalog_price'),
+                        TransactionItemPreviewWithNonCatalogPrice(
+                            quantity          = 20,
+                            include_in_totals = True,
+                            price             = TransactionNonCatalogPriceWithProduct(
+                                description          = 'Annual (per seat)',
+                                name                 = 'Annual (per seat)',
+                                billing_cycle        = Duration(Interval.Year, 1),
+                                trial_period         = None,
+                                tax_mode             = TaxMode.AccountSetting,
+                                unit_price           = Money('30000', CurrencyCode.USD),
+                                unit_price_overrides = [],
+                                quantity             = PriceQuantity(minimum=10, maximum=999),
+                                custom_data          = None,
+                                product              = TransactionNonCatalogProduct(
+                                    name = 'Analytics addon',
+                                    description = 'Some Description',
+                                    image_url = 'https://paddle.s3.amazonaws.com/user/165798/97dRpA6SXzcE6ekK9CAr_analytics.png',
+                                    tax_category = TaxCategory.Standard,
+                                    custom_data = CustomData({'key': 'value'}),
+                                ),
+                            ),
+                        )
+                    ],
+                ),
+                ReadsFixtures.read_raw_json_fixture('request/preview_by_address_full'),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/preview_entity'),
+                '/transactions/preview',
+            ),
+            (
+                PreviewTransactionByCustomer(
+                    address_id= 'add_01hv8h6jj90jjz0d71m6hj4r9z',
+                    customer_id= 'ctm_01h844q4mznqpgqgm6evgw1w63',
+                    items=[
+                        TransactionItemPreviewWithPriceId(
+                            price_id          = 'pri_01he5kxqey1k8ankgef29cj4bv',
+                            quantity          = 1,
+                            include_in_totals = True,
+                        )
+                    ],
+                ),
+                ReadsFixtures.read_raw_json_fixture('request/preview_by_customer_basic'),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/preview_entity'),
+                '/transactions/preview',
+            ),
+            (
+                PreviewTransactionByCustomer(
+                    address_id='add_01hv8h6jj90jjz0d71m6hj4r9z',
+                    customer_id='ctm_01h844q4mznqpgqgm6evgw1w63',
+                    business_id='biz_01hv8j0z17hv4ew8teebwjmfcb',
+                    currency_code=CurrencyCode.USD,
+                    discount_id='dsc_01gtgztp8fpchantd5g1wrksa3',
+                    ignore_trials=True,
+                    items=[
+                        TransactionItemPreviewWithNonCatalogPrice(
+                            quantity          = 20,
+                            include_in_totals = True,
+                            price             = TransactionNonCatalogPrice(
+                                description          = 'Annual (per seat)',
+                                name                 = 'Annual (per seat)',
+                                billing_cycle        = Duration(Interval.Year, 1),
+                                trial_period         = None,
+                                tax_mode             = TaxMode.AccountSetting,
+                                unit_price           = Money('30000', CurrencyCode.USD),
+                                unit_price_overrides = [],
+                                quantity             = PriceQuantity(minimum=10, maximum=999),
+                                custom_data          = None,
+                                product_id           = 'pro_01gsz4t5hdjse780zja8vvr7jg',
+                            ),
+                        ),
+                        TransactionItemPreviewWithNonCatalogPrice(
+                            quantity          = 20,
+                            include_in_totals = True,
+                            price             = TransactionNonCatalogPriceWithProduct(
+                                description          = 'Annual (per seat)',
+                                name                 = 'Annual (per seat)',
+                                billing_cycle        = Duration(Interval.Year, 1),
+                                trial_period         = None,
+                                tax_mode             = TaxMode.AccountSetting,
+                                unit_price           = Money('30000', CurrencyCode.USD),
+                                unit_price_overrides = [],
+                                quantity             = PriceQuantity(minimum=10, maximum=999),
+                                custom_data          = None,
+                                product              = TransactionNonCatalogProduct(
+                                    name = 'Analytics addon',
+                                    description = 'Some Description',
+                                    image_url = 'https://paddle.s3.amazonaws.com/user/165798/97dRpA6SXzcE6ekK9CAr_analytics.png',
+                                    tax_category = TaxCategory.Standard,
+                                    custom_data = CustomData({'key': 'value'}),
+                                ),
+                            ),
+                        )
+                    ],
+                ),
+                ReadsFixtures.read_raw_json_fixture('request/preview_by_customer_full'),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/preview_entity'),
+                '/transactions/preview',
+            ),
+            (
+                PreviewTransactionByIP(
+                    customer_ip_address= '203.0.113.0',
+                    items=[
+                        TransactionItemPreviewWithPriceId(
+                            price_id          = 'pri_01he5kxqey1k8ankgef29cj4bv',
+                            quantity          = 1,
+                            include_in_totals = True,
+                        )
+                    ],
+                ),
+                ReadsFixtures.read_raw_json_fixture('request/preview_by_ip_basic'),
+                200,
+                ReadsFixtures.read_raw_json_fixture('response/preview_entity'),
+                '/transactions/preview',
+            ),
+            (
+                PreviewTransactionByIP(
+                    customer_ip_address= '203.0.113.0',
+                    customer_id='ctm_01h844q4mznqpgqgm6evgw1w63',
+                    currency_code=CurrencyCode.USD,
+                    discount_id='dsc_01gtgztp8fpchantd5g1wrksa3',
+                    ignore_trials=True,
+                    items=[
+                        TransactionItemPreviewWithNonCatalogPrice(
+                            quantity          = 20,
+                            include_in_totals = True,
+                            price             = TransactionNonCatalogPrice(
+                                description          = 'Annual (per seat)',
+                                name                 = 'Annual (per seat)',
+                                billing_cycle        = Duration(Interval.Year, 1),
+                                trial_period         = None,
+                                tax_mode             = TaxMode.AccountSetting,
+                                unit_price           = Money('30000', CurrencyCode.USD),
+                                unit_price_overrides = [],
+                                quantity             = PriceQuantity(minimum=10, maximum=999),
+                                custom_data          = None,
+                                product_id           = 'pro_01gsz4t5hdjse780zja8vvr7jg',
+                            ),
+                        ),
+                        TransactionItemPreviewWithNonCatalogPrice(
+                            quantity          = 20,
+                            include_in_totals = True,
+                            price             = TransactionNonCatalogPriceWithProduct(
+                                description          = 'Annual (per seat)',
+                                name                 = 'Annual (per seat)',
+                                billing_cycle        = Duration(Interval.Year, 1),
+                                trial_period         = None,
+                                tax_mode             = TaxMode.AccountSetting,
+                                unit_price           = Money('30000', CurrencyCode.USD),
+                                unit_price_overrides = [],
+                                quantity             = PriceQuantity(minimum=10, maximum=999),
+                                custom_data          = None,
+                                product              = TransactionNonCatalogProduct(
+                                    name = 'Analytics addon',
+                                    description = 'Some Description',
+                                    image_url = 'https://paddle.s3.amazonaws.com/user/165798/97dRpA6SXzcE6ekK9CAr_analytics.png',
+                                    tax_category = TaxCategory.Standard,
+                                    custom_data = CustomData({'key': 'value'}),
+                                ),
+                            ),
+                        )
+                    ],
+                ),
+                ReadsFixtures.read_raw_json_fixture('request/preview_by_ip_full'),
                 200,
                 ReadsFixtures.read_raw_json_fixture('response/preview_entity'),
                 '/transactions/preview',
             ),
         ],
         ids=[
-            "Basic transaction preview",
-            "Preview transaction with non-catalog price",
+            "Basic transaction preview by address",
+            "Full transaction preview by address",
+            "Basic transaction preview by customer",
+            "Full transaction preview by customer",
+            "Basic transaction preview by IP",
+            "Full transaction preview by IP",
         ],
     )
     def test_preview_transaction_returns_expected_response(

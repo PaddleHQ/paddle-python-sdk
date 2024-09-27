@@ -42,6 +42,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 - `AvailablePaymentMethods` - replaced by `PaymentMethodType`
 - Removed `receipt_data` from `CreateOneTimeCharge` and `PreviewOneTimeCharge` subscription operations
 - Removed `receipt_data` from `Transaction`
+- Removed `paddle_billing.Resources.Transactions.Operations.PreviewTransaction` - replaced by `PreviewTransactionByAddress` | `PreviewTransactionByCustomer` | `PreviewTransactionByIP`
 
 ## 0.2.2 - 2024-09-03
 

@@ -1,0 +1,67 @@
+{
+  "customer_ip_address": "203.0.113.0",
+  "customer_id": "ctm_01h844q4mznqpgqgm6evgw1w63",
+  "currency_code": "USD",
+  "discount_id": "dsc_01gtgztp8fpchantd5g1wrksa3",
+  "ignore_trials": true,
+  "items": [
+    {
+      "quantity": 20,
+      "price": {
+        "description": "Annual (per seat)",
+        "name": "Annual (per seat)",
+        "product_id": "pro_01gsz4t5hdjse780zja8vvr7jg",
+        "billing_cycle": {
+          "interval": "year",
+          "frequency": 1
+        },
+        "trial_period": null,
+        "tax_mode": "account_setting",
+        "unit_price": {
+          "amount": "30000",
+          "currency_code": "USD"
+        },
+        "unit_price_overrides": [],
+        "quantity": {
+          "minimum": 10,
+          "maximum": 999
+        },
+        "custom_data": null
+      },
+      "include_in_totals": true
+    },
+    {
+      "quantity": 20,
+      "price": {
+        "description": "Annual (per seat)",
+        "name": "Annual (per seat)",
+        "product": {
+          "name": "Analytics addon",
+          "description": "Some Description",
+          "tax_category": "standard",
+          "image_url": "https://paddle.s3.amazonaws.com/user/165798/97dRpA6SXzcE6ekK9CAr_analytics.png",
+          "custom_data": {
+            "key": "value"
+          }
+        },
+        "billing_cycle": {
+          "interval": "year",
+          "frequency": 1
+        },
+        "trial_period": null,
+        "tax_mode": "account_setting",
+        "unit_price": {
+          "amount": "30000",
+          "currency_code": "USD"
+        },
+        "unit_price_overrides": [],
+        "quantity": {
+          "minimum": 10,
+          "maximum": 999
+        },
+        "custom_data": null
+      },
+      "include_in_totals": true
+    }
+  ]
+}
