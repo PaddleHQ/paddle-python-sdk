@@ -1,0 +1,36 @@
+{
+    "type": "adjustments",
+    "filters": [
+        {
+            "name": "action",
+            "operator": null,
+            "value": [
+                "chargeback"
+            ]
+        },
+        {
+            "name": "status",
+            "operator": null,
+            "value": [
+                "approved"
+            ]
+        },
+        {
+            "name": "currency_code",
+            "operator": null,
+            "value": [
+                "USD"
+            ]
+        },
+        {
+            "name": "updated_at",
+            "operator": "gte",
+            "value": "2023-12-30T00:00:00.000000Z"
+        },
+        {
+            "name": "updated_at",
+            "operator": "lt",
+            "value": "2024-12-30T12:30:01.123456Z"
+        }
+    ]
+}

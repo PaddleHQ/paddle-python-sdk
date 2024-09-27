@@ -42,6 +42,14 @@ Usage of `paddle_billing.Resources.Transactions.Operations.PreviewTransaction` s
 - `paddle_billing.Resources.Transactions.Operations.PreviewTransactionByCustomer`
 - `paddle_billing.Resources.Transactions.Operations.PreviewTransactionByIP`
 
+### 4. `CreateReport` operation is replaced by report specific operations `CreateAdjustmentsReport` | `CreateDiscountsReport` | `CreateProductsAndPricesReport` | `CreateTransactionsReport`
+
+Usage of `paddle_billing.Resources.Reports.Operations.CreateReport` should be replaced with one of:
+- `paddle_billing.Resources.Reports.Operations.CreateAdjustmentsReport`
+- `paddle_billing.Resources.Reports.Operations.CreateDiscountsReport`
+- `paddle_billing.Resources.Reports.Operations.CreateProductsAndPricesReport`
+- `paddle_billing.Resources.Reports.Operations.CreateTransactionsReport`
+
 ## v0.2.0
 
 This release includes a few breaking changes. These changes should be limited impact on most integrations but may cause problems in some circumstances. 
