@@ -70,14 +70,12 @@ from tests.Utils.ReadsFixture import ReadsFixtures
 
 class TestReportsClient:
     @mark.parametrize(
-        'operation, expected_request_body, expected_response_status, expected_response_body, expected_url',
+        'operation, expected_request_body, expected_report_type',
         [
             (
                 CreateTransactionsReport(type=TransactionsReportType.TransactionLineItems),
                 ReadsFixtures.read_raw_json_fixture('request/create_transaction_basic'),
-                200,
-                ReadsFixtures.read_raw_json_fixture('response/full_entity'),
-                '/reports',
+                TransactionsReportType,
             ), (
                 CreateTransactionsReport(
                     type    = TransactionsReportType.Transactions,
@@ -91,15 +89,11 @@ class TestReportsClient:
                     ],
                 ),
                 ReadsFixtures.read_raw_json_fixture('request/create_transaction_full'),
-                200,
-                ReadsFixtures.read_raw_json_fixture('response/full_entity'),
-                '/reports',
+                TransactionsReportType,
             ), (
                 CreateAdjustmentsReport(type=AdjustmentsReportType.AdjustmentLineItems),
                 ReadsFixtures.read_raw_json_fixture('request/create_adjustment_basic'),
-                200,
-                ReadsFixtures.read_raw_json_fixture('response/full_entity'),
-                '/reports',
+                AdjustmentsReportType,
             ), (
                 CreateAdjustmentsReport(
                     type    = AdjustmentsReportType.Adjustments,
@@ -112,9 +106,7 @@ class TestReportsClient:
                     ],
                 ),
                 ReadsFixtures.read_raw_json_fixture('request/create_adjustment_full'),
-                200,
-                ReadsFixtures.read_raw_json_fixture('response/full_entity'),
-                '/reports',
+                AdjustmentsReportType,
             ), (
                 CreateDiscountsReport(
                     type    = DiscountsReportType.Discounts,
@@ -126,9 +118,7 @@ class TestReportsClient:
                     ],
                 ),
                 ReadsFixtures.read_raw_json_fixture('request/create_discount_full'),
-                200,
-                ReadsFixtures.read_raw_json_fixture('response/full_entity'),
-                '/reports',
+                DiscountsReportType,
             ), (
                 CreateProductsAndPricesReport(
                     type    = ProductsPricesReportType.ProductsPrices,
@@ -144,9 +134,7 @@ class TestReportsClient:
                     ],
                 ),
                 ReadsFixtures.read_raw_json_fixture('request/create_products_prices_full'),
-                200,
-                ReadsFixtures.read_raw_json_fixture('response/full_entity'),
-                '/reports',
+                ProductsPricesReportType,
             ),
         ],
         ids=[
@@ -164,12 +152,18 @@ class TestReportsClient:
         mock_requests,
         operation,
         expected_request_body,
-        expected_response_status,
-        expected_response_body,
-        expected_url,
+        expected_report_type,
     ):
-        expected_url = f"{test_client.base_url}{expected_url}"
-        mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
+        expected_response_body = ReadsFixtures.read_raw_json_fixture('response/full_entity')
+        expected_url = f"{test_client.base_url}/reports"
+
+        mock_requests.post(
+            expected_url,
+            status_code=200,
+            text=expected_response_body,
+        )
+
+        assert isinstance(operation.type, expected_report_type)
 
         response      = test_client.client.reports.create(operation)
         response_json = test_client.client.reports.response.json()
@@ -179,7 +173,7 @@ class TestReportsClient:
         assert isinstance(response, Report)
         assert last_request is not None
         assert last_request.method            == 'POST'
-        assert test_client.client.status_code == expected_response_status
+        assert test_client.client.status_code == 200
         assert unquote(last_request.url)      == expected_url, \
             "The URL does not match the expected URL, verify the query string is correct"
         assert loads(request_json) == loads(expected_request_body), \
