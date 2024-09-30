@@ -38,6 +38,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 
 - `PreviewPrice` operation no longer allows empty `items`
 - `CustomersClient.credit_balances` can now be filtered by `currency_code`
+- Transaction payments `payment_method_id` can be `string` or `None`
 
 ### Removed
 

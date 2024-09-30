@@ -2545,6 +2545,26 @@
             "payment_attempt_id": "0bec49bd-dd4d-45e3-a91e-46992b09c5e2",
             "payment_method_id": "paymtd_01hkm9xwqpbbpr1ksmvg3sx3v1",
             "stored_payment_method_id": "8009a718-30f7-4718-a7f6-4d3fdecf559b"
+          },
+          {
+            "amount": "66000",
+            "status": "captured",
+            "created_at": "2023-11-23T15:33:02.177841Z",
+            "error_code": null,
+            "captured_at": "2023-11-23T15:33:04.574587Z",
+            "method_details": {
+              "card": {
+                "type": "visa",
+                "last4": "4242",
+                "expiry_year": 2024,
+                "expiry_month": 1,
+                "cardholder_name": "Michael McGovern"
+              },
+              "type": "card"
+            },
+            "payment_attempt_id": "0bec49bd-dd4d-45e3-a91e-46992b09c5e2",
+            "payment_method_id": null,
+            "stored_payment_method_id": "8009a718-30f7-4718-a7f6-4d3fdecf559b"
           }
         ],
         "checkout": {

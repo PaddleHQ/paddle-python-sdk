@@ -10,7 +10,7 @@ from paddle_billing.Entities.Shared.PaymentAttemptStatus import PaymentAttemptSt
 @dataclass
 class TransactionPaymentAttempt:
     payment_attempt_id:       str
-    payment_method_id:        str
+    payment_method_id:        str | None
     stored_payment_method_id: str
     amount:                   str
     status:                   PaymentAttemptStatus
@@ -24,7 +24,7 @@ class TransactionPaymentAttempt:
     def from_dict(data: dict) -> TransactionPaymentAttempt:
         return TransactionPaymentAttempt(
             payment_attempt_id       = data['payment_attempt_id'],
-            payment_method_id        = data['payment_method_id'],
+            payment_method_id        = data.get('payment_method_id'),
             stored_payment_method_id = data['stored_payment_method_id'],
             amount                   = data['amount'],
             status                   = PaymentAttemptStatus(data['status']),
