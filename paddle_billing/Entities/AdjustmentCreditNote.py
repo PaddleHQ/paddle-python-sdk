@@ -5,11 +5,11 @@ from paddle_billing.Entities.Entity import Entity
 
 
 @dataclass
-class CreditNote(Entity):
+class AdjustmentCreditNote(Entity):
     url: str
 
 
     @staticmethod
-    def from_dict(data: dict) -> TransactionData:
-        return CreditNote(data['url'])
+    def from_dict(data: dict) -> AdjustmentCreditNote:
+        return AdjustmentCreditNote(data['url'])
 

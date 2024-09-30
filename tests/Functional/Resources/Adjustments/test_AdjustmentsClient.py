@@ -2,10 +2,10 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing.Entities.Adjustment  import Adjustment, AdjustmentTaxRatesUsed
-from paddle_billing.Entities.Collections import AdjustmentCollection
-from paddle_billing.Entities.CreditNote  import CreditNote
-from paddle_billing.Entities.Shared      import Action, AdjustmentStatus, AdjustmentType, Disposition
+from paddle_billing.Entities.Adjustment           import Adjustment, AdjustmentTaxRatesUsed
+from paddle_billing.Entities.Collections          import AdjustmentCollection
+from paddle_billing.Entities.AdjustmentCreditNote import AdjustmentCreditNote
+from paddle_billing.Entities.Shared               import Action, AdjustmentStatus, AdjustmentType, Disposition
 
 from paddle_billing.Resources.Adjustments.Operations import CreateAdjustment, CreateAdjustmentItem, GetCreditNote, ListAdjustments
 from paddle_billing.Resources.Shared.Operations      import Pager
@@ -258,7 +258,7 @@ class TestAdjustmentsClient:
         response_json = test_client.client.adjustments.response.json()
         last_request  = mock_requests.last_request
 
-        assert isinstance(response, CreditNote)
+        assert isinstance(response, AdjustmentCreditNote)
         assert response.url == 'https://paddle-production-invoice-service-pdfs.s3.amazonaws.com/credit_notes/15839/crdnt_01j4scmgpbtbxap16573dtck9n/credit_notes_296-10016_Paddle-com.pdf'
 
         assert last_request is not None
@@ -312,6 +312,6 @@ class TestAdjustmentsClient:
         response     = test_client.client.adjustments.get_credit_note(adjustment_id, operation)
         last_request = mock_requests.last_request
 
-        assert isinstance(response, CreditNote)
+        assert isinstance(response, AdjustmentCreditNote)
         assert unquote(last_request.url) == expected_url, \
             "The URL does not match the expected URL, verify the query string is correct"
