@@ -31,6 +31,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 - Replaced `AdjustmentTimePeriod`, `SubscriptionTimePeriod` and `TransactionTimePeriod` with shared `TimePeriod`
 - Replaced `AdjustmentProration`, `SubscriptionProration` and `TransactionProration` with shared `Proration`
 - `paddle_billing.Entities.Event` `data` will now be `paddle_billing.Notifications.Entities.SubscriptionCreated` for `subscription.created` events
+- `paddle_billing.Resources.Reports.Operations.CreateReport` is replaced by report specific operations `CreateAdjustmentsReport` | `CreateDiscountsReport` | `CreateProductsAndPricesReport` | `CreateTransactionsReport`
 
 ### Fixed
 

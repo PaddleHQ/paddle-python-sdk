@@ -1,0 +1,43 @@
+{
+    "type": "transactions",
+    "filters": [
+        {
+            "name": "collection_mode",
+            "operator": null,
+            "value": [
+                "automatic"
+            ]
+        },
+        {
+            "name": "currency_code",
+            "operator": null,
+            "value": [
+                "USD"
+            ]
+        },
+        {
+            "name": "origin",
+            "operator": null,
+            "value": [
+                "subscription_charge"
+            ]
+        },
+        {
+            "name": "status",
+            "operator": null,
+            "value": [
+                "completed"
+            ]
+        },
+        {
+            "name": "updated_at",
+            "operator": "gte",
+            "value": "2023-12-30T00:00:00.000000Z"
+        },
+        {
+            "name": "updated_at",
+            "operator": "lt",
+            "value": "2024-12-30T12:30:01.123456Z"
+        }
+    ]
+}

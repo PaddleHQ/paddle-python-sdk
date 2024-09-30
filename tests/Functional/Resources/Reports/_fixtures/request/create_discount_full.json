@@ -1,0 +1,29 @@
+{
+    "type": "discounts",
+    "filters": [
+        {
+            "name": "status",
+            "operator": null,
+            "value": [
+                "active"
+            ]
+        },
+        {
+            "name": "type",
+            "operator": null,
+            "value": [
+                "flat"
+            ]
+        },
+        {
+            "name": "updated_at",
+            "operator": "gte",
+            "value": "2023-12-30T00:00:00.000000Z"
+        },
+        {
+            "name": "updated_at",
+            "operator": "lt",
+            "value": "2024-12-30T12:30:01.123456Z"
+        }
+    ]
+}

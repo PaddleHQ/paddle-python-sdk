@@ -1,0 +1,55 @@
+{
+    "type": "products_prices",
+    "filters": [
+        {
+            "name": "product_status",
+            "operator": null,
+            "value": [
+                "active"
+            ]
+        },
+        {
+            "name": "product_type",
+            "operator": null,
+            "value": [
+                "standard",
+                "custom"
+            ]
+        },
+        {
+            "name": "product_updated_at",
+            "operator": "gte",
+            "value": "2023-12-30T00:00:00.000000Z"
+        },
+        {
+            "name": "product_updated_at",
+            "operator": "lt",
+            "value": "2024-12-30T12:30:01.123456Z"
+        },
+        {
+            "name": "price_status",
+            "operator": null,
+            "value": [
+                "active"
+            ]
+        },
+        {
+            "name": "price_type",
+            "operator": null,
+            "value": [
+                "standard",
+                "custom"
+            ]
+        },
+        {
+            "name": "price_updated_at",
+            "operator": "gte",
+            "value": "2023-12-30T00:00:00.000000Z"
+        },
+        {
+            "name": "price_updated_at",
+            "operator": "lt",
+            "value": "2024-12-30T12:30:01.123456Z"
+        }
+    ]
+}
