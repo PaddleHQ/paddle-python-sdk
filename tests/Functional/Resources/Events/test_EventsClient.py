@@ -9,6 +9,7 @@ from paddle_billing.Resources.Shared.Operations import Pager
 
 from paddle_billing.Notifications.Entities.Subscription        import Subscription
 from paddle_billing.Notifications.Entities.SubscriptionCreated import SubscriptionCreated
+from paddle_billing.Notifications.Entities.Transaction         import Transaction
 
 from tests.Utils.TestClient   import mock_requests, test_client
 from tests.Utils.ReadsFixture import ReadsFixtures
@@ -89,3 +90,29 @@ class TestEventsClient:
         subscription_created_entity = events.items[1].data
         assert isinstance(subscription_created_entity, SubscriptionCreated)
         assert subscription_created_entity.transaction_id == 'txn_01hv975mbh902hcyb7mks5kt0n'
+
+
+    def test_list_transaction_event_with_and_without_payment_method_id(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        mock_requests.get(
+            f"{test_client.base_url}/events",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture('response/list_default')
+        )
+
+        events = test_client.client.events.list()
+
+        assert isinstance(events, EventCollection)
+
+        transaction_updated_entity = events.items[9].data
+
+        assert isinstance(transaction_updated_entity, Transaction)
+
+        payment_with_payment_method_id = transaction_updated_entity.payments[0]
+        assert payment_with_payment_method_id.payment_method_id == 'paymtd_01hkm9xwqpbbpr1ksmvg3sx3v1'
+
+        payment_without_payment_method_id = transaction_updated_entity.payments[1]
+        assert payment_without_payment_method_id.payment_method_id is None

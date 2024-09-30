@@ -566,6 +566,28 @@ class TestTransactionsClient:
         assert available_payment_methods[9] == PaymentMethodType.WireTransfer
 
 
+    def test_get_transaction_with_and_without_payment_method_id(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        mock_requests.get(
+            f"{test_client.base_url}/transactions/txn_01hen7bxc1p8ep4yk7n5jbzk9r",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture('response/full_entity'),
+        )
+
+        response = test_client.client.transactions.get('txn_01hen7bxc1p8ep4yk7n5jbzk9r')
+
+        assert isinstance(response, Transaction)
+
+        payment_with_payment_method_id = response.payments[0]
+        assert payment_with_payment_method_id.payment_method_id == 'paymtd_01hkm9xwqpbbpr1ksmvg3sx3v1'
+
+        payment_without_payment_method_id = response.payments[1]
+        assert payment_without_payment_method_id.payment_method_id is None
+
+
     @mark.parametrize(
         'operation, expected_request_body, expected_response_status, expected_response_body, expected_url',
         [
