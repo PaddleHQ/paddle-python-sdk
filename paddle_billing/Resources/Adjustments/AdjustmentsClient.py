@@ -1,9 +1,10 @@
 from paddle_billing.ResponseParser import ResponseParser
 
-from paddle_billing.Entities.Adjustment  import Adjustment
-from paddle_billing.Entities.Collections import Paginator, AdjustmentCollection
+from paddle_billing.Entities.Adjustment           import Adjustment
+from paddle_billing.Entities.AdjustmentCreditNote import AdjustmentCreditNote
+from paddle_billing.Entities.Collections          import Paginator, AdjustmentCollection
 
-from paddle_billing.Resources.Adjustments.Operations import CreateAdjustment, ListAdjustments
+from paddle_billing.Resources.Adjustments.Operations import CreateAdjustment, GetCreditNote, ListAdjustments
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
@@ -34,3 +35,10 @@ class AdjustmentsClient:
         parser        = ResponseParser(self.response)
 
         return Adjustment.from_dict(parser.get_data())
+
+
+    def get_credit_note(self, adjustment_id: str, operation: GetCreditNote = None) -> AdjustmentCreditNote:
+        self.response = self.client.get_raw(f"/adjustments/{adjustment_id}/credit-note", operation)
+        parser        = ResponseParser(self.response)
+
+        return AdjustmentCreditNote.from_dict(parser.get_data())

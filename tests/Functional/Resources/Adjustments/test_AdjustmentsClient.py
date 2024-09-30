@@ -2,11 +2,12 @@ from json         import loads
 from pytest       import mark
 from urllib.parse import unquote
 
-from paddle_billing.Entities.Adjustment  import Adjustment, AdjustmentTaxRatesUsed
-from paddle_billing.Entities.Collections import AdjustmentCollection
-from paddle_billing.Entities.Shared      import Action, AdjustmentStatus, AdjustmentType
+from paddle_billing.Entities.Adjustment           import Adjustment, AdjustmentTaxRatesUsed
+from paddle_billing.Entities.Collections          import AdjustmentCollection
+from paddle_billing.Entities.AdjustmentCreditNote import AdjustmentCreditNote
+from paddle_billing.Entities.Shared               import Action, AdjustmentStatus, AdjustmentType, Disposition
 
-from paddle_billing.Resources.Adjustments.Operations import CreateAdjustment, CreateAdjustmentItem, ListAdjustments
+from paddle_billing.Resources.Adjustments.Operations import CreateAdjustment, CreateAdjustmentItem, GetCreditNote, ListAdjustments
 from paddle_billing.Resources.Shared.Operations      import Pager
 
 from tests.Utils.TestClient   import mock_requests, test_client
@@ -243,3 +244,74 @@ class TestAdjustmentsClient:
         assert tax_rates_used.totals.total == '66000'
         assert tax_rates_used.totals.subtotal == '55000'
         assert tax_rates_used.totals.tax == '11000'
+
+
+    def test_get_credit_note_returns_expected_response(self, test_client, mock_requests):
+        adjustment_id           = 'adj_01h8c65c2ggq5nxswnnwv78e75'
+        expected_response_status = 200
+        expected_response_body   = ReadsFixtures.read_raw_json_fixture('response/get_credit_note_default')
+        expected_url             = f"{test_client.base_url}/adjustments/{adjustment_id}/credit-note"
+
+        mock_requests.get(expected_url, status_code=expected_response_status, text=expected_response_body)
+
+        response      = test_client.client.adjustments.get_credit_note(adjustment_id)
+        response_json = test_client.client.adjustments.response.json()
+        last_request  = mock_requests.last_request
+
+        assert isinstance(response, AdjustmentCreditNote)
+        assert response.url == 'https://paddle-production-invoice-service-pdfs.s3.amazonaws.com/credit_notes/15839/crdnt_01j4scmgpbtbxap16573dtck9n/credit_notes_296-10016_Paddle-com.pdf'
+
+        assert last_request is not None
+        assert last_request.method            == 'GET'
+        assert test_client.client.status_code == expected_response_status
+        assert unquote(last_request.url)      == expected_url, \
+            "The URL does not match the expected URL, verify the query string is correct"
+        assert response_json == loads(str(expected_response_body)), \
+            "The response JSON doesn't match the expected fixture JSON"
+
+
+    @mark.parametrize(
+        'adjustment_id, operation, expected_path',
+        [
+            (
+                'adj_01h8c65c2ggq5nxswnnwv78e75',
+                None,
+                '/adjustments/adj_01h8c65c2ggq5nxswnnwv78e75/credit-note',
+            ), (
+                'adj_02h8c65c2ggq5nxswnnwv78e75',
+                GetCreditNote(disposition = Disposition.Inline),
+                '/adjustments/adj_02h8c65c2ggq5nxswnnwv78e75/credit-note?disposition=inline',
+            ), (
+                'adj_03h8c65c2ggq5nxswnnwv78e75',
+                GetCreditNote(disposition = Disposition.Attachment),
+                '/adjustments/adj_03h8c65c2ggq5nxswnnwv78e75/credit-note?disposition=attachment',
+            ),
+        ],
+        ids=[
+            "Get invoice default",
+            "Get invoice with inline disposition",
+            "Get invoice with attachment disposition",
+        ],
+    )
+    def test_get_credit_note_hits_expected_url(
+        self,
+        test_client,
+        mock_requests,
+        adjustment_id,
+        operation,
+        expected_path,
+    ):
+        expected_url   = f"{test_client.base_url}{expected_path}"
+
+        mock_requests.get(
+            expected_url,
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture('response/get_credit_note_default'),
+        )
+
+        response     = test_client.client.adjustments.get_credit_note(adjustment_id, operation)
+        last_request = mock_requests.last_request
+
+        assert isinstance(response, AdjustmentCreditNote)
+        assert unquote(last_request.url) == expected_url, \
+            "The URL does not match the expected URL, verify the query string is correct"

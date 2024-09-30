@@ -20,6 +20,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 - Support for `tax_rates_used` on Adjustments
 - Added `IPAddressesClient.get_ip_addresses` to support retrieval of Paddle IP addresses
 - Support for `proration` on subscription `recurring_transaction_details.line_items[]` and `next_transaction.details.line_items[]`
+- Added `AdjustmentsClient.get_credit_note`, see [related changelog](https://developer.paddle.com/changelog/2024/generate-adjustments-credit-notes)
 
 ### Changed
 

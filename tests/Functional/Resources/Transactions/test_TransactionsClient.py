@@ -837,6 +837,8 @@ class TestTransactionsClient:
         last_request  = mock_requests.last_request
 
         assert isinstance(response, TransactionData)
+        assert response.url == 'https://paddle-invoice-service-pdfs.s3.amazonaws.com/invoices/00000/f64658f0-d8ef-41cb-a916-d24d9b1e33bf/invoice_325-10001_Bluth.pdf'
+
         assert last_request is not None
         assert last_request.method            == 'GET'
         assert test_client.client.status_code == expected_response_status
@@ -877,7 +879,6 @@ class TestTransactionsClient:
         operation,
         expected_path,
     ):
-        transaction_id = 'txn_01hen7bxc1p8ep4yk7n5jbzk9r'
         expected_url   = f"{test_client.base_url}{expected_path}"
 
         mock_requests.get(
