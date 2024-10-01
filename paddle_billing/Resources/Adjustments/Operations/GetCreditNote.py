@@ -10,11 +10,10 @@ class GetCreditNote(HasParameters):
     ):
         self.disposition = disposition
 
-
     def get_parameters(self) -> dict:
         parameters = {}
 
         if self.disposition:
-            parameters['disposition'] = self.disposition.value
+            parameters["disposition"] = self.disposition.value
 
         return parameters

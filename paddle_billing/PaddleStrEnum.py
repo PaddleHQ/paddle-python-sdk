@@ -2,21 +2,11 @@ def _is_dunder(name):
     """
     Returns True if a __dunder__ name, False otherwise.
     """
-    return (
-            len(name) > 4 and
-            name[:2] == name[-2:] == '__' and
-            name[2] != '_' and
-            name[-3] != '_'
-    )
+    return len(name) > 4 and name[:2] == name[-2:] == "__" and name[2] != "_" and name[-3] != "_"
 
 
 class PaddleStrEnumMeta(type):
-    def __new__(
-            cls,
-            name,
-            bases,
-            attrs
-    ):
+    def __new__(cls, name, bases, attrs):
         # Store the original attrs to ensure we have all the class attributes
         original_attrs = dict(attrs)
 
@@ -46,7 +36,7 @@ class PaddleStrEnum:
     _members = None
     _iter_index = 0
 
-    _unknown_name = 'Undefined'
+    _unknown_name = "Undefined"
 
     def __init__(self, value) -> None:
         members = self.members()
@@ -92,7 +82,7 @@ class PaddleStrEnum:
     @classmethod
     def members(cls) -> dict:
         if not cls._members:
-            members = dict(filter(lambda item: not item[0].startswith('__'), cls.__dict__.items()))
+            members = dict(filter(lambda item: not item[0].startswith("__"), cls.__dict__.items()))
             cls._members = dict(zip(members.keys(), members.values()))
         return cls._members
 

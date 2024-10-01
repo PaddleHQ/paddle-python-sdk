@@ -1,8 +1,8 @@
-from __future__  import annotations
-from abc         import ABC
+from __future__ import annotations
+from abc import ABC
 from dataclasses import dataclass
-from datetime    import datetime
-from importlib   import import_module
+from datetime import datetime
+from importlib import import_module
 
 from paddle_billing.ConditionallyRemoveImportMeta import conditionally_remove_import_meta
 
@@ -14,23 +14,22 @@ from paddle_billing.Notifications.Entities.Entity import Entity as NotificationE
 
 @dataclass
 class Event(Entity, ABC):
-    event_id:    str
-    event_type:  EventTypeName
+    event_id: str
+    event_type: EventTypeName
     occurred_at: datetime
-    data:        NotificationEntity
-
+    data: NotificationEntity
 
     @staticmethod
     def from_dict(data: dict) -> Event:
-        entity_class_name = Event._resolve_event_class_name(data['event_type'])
+        entity_class_name = Event._resolve_event_class_name(data["event_type"])
 
-        entity_class       = None
+        entity_class = None
         instantiated_class = None
-        entity_module_path = 'paddle_billing.Notifications.Entities'
+        entity_module_path = "paddle_billing.Notifications.Entities"
 
         try:
             imported_module = import_module(f"{entity_module_path}.{entity_class_name}")
-            entity_class    = getattr(imported_module, entity_class_name)
+            entity_class = getattr(imported_module, entity_class_name)
 
             conditionally_remove_import_meta(entity_class, data)
             instantiated_class = entity_class  # (**data['data'])
@@ -43,18 +42,17 @@ class Event(Entity, ABC):
             raise ValueError(f"Event type '{entity_class_name}' is not of NotificationEntity")
 
         return Event(
-            data['event_id'],
-            EventTypeName(data['event_type']),
-            datetime.fromisoformat(data['occurred_at']),
-            instantiated_class.from_dict(data['data']),
+            data["event_id"],
+            EventTypeName(data["event_type"]),
+            datetime.fromisoformat(data["occurred_at"]),
+            instantiated_class.from_dict(data["data"]),
         )
-
 
     @staticmethod
     def _resolve_event_class_name(event_type) -> str:
-        if event_type == 'subscription.created':
-            return 'SubscriptionCreated'
+        if event_type == "subscription.created":
+            return "SubscriptionCreated"
 
-        event_entity = event_type.split('.')[0] or ''
+        event_entity = event_type.split(".")[0] or ""
 
         return event_entity.lower().title()

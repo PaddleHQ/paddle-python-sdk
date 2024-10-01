@@ -12,10 +12,9 @@ from paddle_billing.Entities.Subscriptions import (
 
 @dataclass
 class PreviewOneTimeCharge:
-    effective_from:     SubscriptionEffectiveFrom
-    items:              list[SubscriptionItems | SubscriptionItemsWithPrice]
+    effective_from: SubscriptionEffectiveFrom
+    items: list[SubscriptionItems | SubscriptionItemsWithPrice]
     on_payment_failure: SubscriptionOnPaymentFailure | Undefined = Undefined()
-
 
     def get_parameters(self) -> dict:
         return asdict(self)

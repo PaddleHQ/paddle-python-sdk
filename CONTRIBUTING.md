@@ -10,6 +10,12 @@ cd paddle-python-sdk && \
 pip install .[dev]
 ```
 
+### Pre-commit hooks
+
+After installing dev dependencies, install pre-commit hooks to run codestyle requirements:
+```bash
+pre-commit install
+```
 
 ## Run tests
 Python `pytest` tests can be run either by changing into the `paddle-python-sdk`, activating the `venv`, and running `pytest`, or by running `pytest` directly
@@ -32,3 +38,13 @@ pytest tests/Unit/Notification/test_Verifier.py::TestVerifier::test_validate_pad
 ```
 
 #### Use the command `deactivate` to exit the `venv`.
+
+
+## Codestyle
+
+This project uses [flake8](https://github.com/PyCQA/flake8) to enforce codestyle requirements.
+
+To format code run:
+```bash
+black .
+```

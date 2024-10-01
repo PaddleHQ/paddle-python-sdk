@@ -18,14 +18,9 @@ from paddle_billing.Resources.Reports.Operations.CreateReport import (
 @dataclass
 class CreateTransactionsReport(CreateReport):
     type: TransactionsReportType
-    filters: list[
-        CollectionModeFilter
-        | CurrencyCodeFilter
-        | TransactionOriginFilter
-        | TransactionStatusFilter
-        | UpdatedAtFilter
-    ] = field(default_factory=list)
-
+    filters: list[CollectionModeFilter | CurrencyCodeFilter | TransactionOriginFilter | TransactionStatusFilter | UpdatedAtFilter] = field(
+        default_factory=list
+    )
 
     @staticmethod
     def get_allowed_filters() -> tuple:

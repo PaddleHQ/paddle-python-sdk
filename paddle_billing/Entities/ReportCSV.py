@@ -1,4 +1,4 @@
-from __future__  import annotations
+from __future__ import annotations
 from dataclasses import dataclass
 
 from paddle_billing.Entities.Entity import Entity
@@ -10,4 +10,4 @@ class ReportCSV(Entity):
 
     @staticmethod
     def from_dict(data: dict) -> ReportCSV:
-        return ReportCSV(url=data['url'])
+        return ReportCSV(url=data["url"])

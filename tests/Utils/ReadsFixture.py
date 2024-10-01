@@ -1,5 +1,5 @@
 from inspect import stack
-from json    import loads as json_loads
+from json import loads as json_loads
 from pathlib import Path
 
 
@@ -12,18 +12,17 @@ class ReadsFixtures:
         if base_path is None:
             # Get the file path of the calling file, e.g. test_EventsClient.py
             caller_file = stack()[1].filename
-            base_path   = Path(caller_file).parent
+            base_path = Path(caller_file).parent
 
         while base_path != Path(__file__).parent.parent:
-            file_path = base_path / '_fixtures' / f"{fixture}.json"
+            file_path = base_path / "_fixtures" / f"{fixture}.json"
             if file_path.exists():
-                with open(file_path, 'r') as file:
+                with open(file_path, "r") as file:
                     return file.read()
 
             base_path = base_path.parent
 
         raise FileNotFoundError(f"Fixture '{fixture}.json' not found!")
-
 
     @staticmethod
     def read_json_fixture(fixture: str, base_path: str | None = None):

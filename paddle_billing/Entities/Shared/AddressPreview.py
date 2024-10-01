@@ -1,4 +1,4 @@
-from __future__  import annotations
+from __future__ import annotations
 from dataclasses import dataclass
 
 from paddle_billing.Entities.Shared.CountryCode import CountryCode
@@ -6,13 +6,12 @@ from paddle_billing.Entities.Shared.CountryCode import CountryCode
 
 @dataclass
 class AddressPreview:
-    postal_code:  str | None
+    postal_code: str | None
     country_code: CountryCode
-
 
     @staticmethod
     def from_dict(data: dict) -> AddressPreview:
         return AddressPreview(
-            postal_code  = data.get('postal_code'),
-            country_code = CountryCode(data['country_code']),
+            postal_code=data.get("postal_code"),
+            country_code=CountryCode(data["country_code"]),
         )

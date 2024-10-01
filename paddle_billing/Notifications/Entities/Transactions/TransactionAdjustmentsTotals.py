@@ -1,4 +1,4 @@
-from __future__  import annotations
+from __future__ import annotations
 from dataclasses import dataclass
 
 from paddle_billing.Notifications.Entities.Shared.CurrencyCode import CurrencyCode
@@ -8,23 +8,22 @@ from paddle_billing.Notifications.Entities.Transactions.TransactionBreakdown imp
 
 @dataclass
 class TransactionAdjustmentsTotals:
-    subtotal:      str
-    tax:           str
-    total:         str
-    fee:           str
-    earnings:      str
-    breakdown:     TransactionBreakdown
+    subtotal: str
+    tax: str
+    total: str
+    fee: str
+    earnings: str
+    breakdown: TransactionBreakdown
     currency_code: CurrencyCode
-
 
     @staticmethod
     def from_dict(data: dict) -> TransactionAdjustmentsTotals:
         return TransactionAdjustmentsTotals(
-            subtotal      = data['subtotal'],
-            tax           = data['tax'],
-            total         = data['total'],
-            fee           = data['fee'],
-            earnings      = data['earnings'],
-            breakdown     = TransactionBreakdown.from_dict(data['breakdown']),
-            currency_code = CurrencyCode(data['currency_code']),
+            subtotal=data["subtotal"],
+            tax=data["tax"],
+            total=data["total"],
+            fee=data["fee"],
+            earnings=data["earnings"],
+            breakdown=TransactionBreakdown.from_dict(data["breakdown"]),
+            currency_code=CurrencyCode(data["currency_code"]),
         )
