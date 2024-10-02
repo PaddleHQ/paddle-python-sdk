@@ -24,7 +24,9 @@ class AdjustmentsClient:
         self.response = self.client.get_raw("/adjustments", operation.get_parameters())
         parser = ResponseParser(self.response)
 
-        return AdjustmentCollection.from_list(parser.get_data(), Paginator(self.client, parser.get_pagination(), AdjustmentCollection))
+        return AdjustmentCollection.from_list(
+            parser.get_data(), Paginator(self.client, parser.get_pagination(), AdjustmentCollection)
+        )
 
     def create(self, operation: CreateAdjustment) -> Adjustment:
         self.response = self.client.post_raw("/adjustments", operation.get_parameters())

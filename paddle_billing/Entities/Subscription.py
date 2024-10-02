@@ -67,8 +67,12 @@ class Subscription(Entity):
             collection_mode=CollectionMode(data["collection_mode"]),
             billing_cycle=Duration.from_dict(data["billing_cycle"]),
             items=[SubscriptionItem.from_dict(item) for item in data["items"]],
-            current_billing_period=TimePeriod.from_dict(data["current_billing_period"]) if data.get("current_billing_period") else None,
-            management_urls=SubscriptionManagementUrls.from_dict(data["management_urls"]) if data.get("management_urls") else None,
+            current_billing_period=(
+                TimePeriod.from_dict(data["current_billing_period"]) if data.get("current_billing_period") else None
+            ),
+            management_urls=(
+                SubscriptionManagementUrls.from_dict(data["management_urls"]) if data.get("management_urls") else None
+            ),
             started_at=datetime.fromisoformat(data["started_at"]) if data.get("started_at") else None,
             first_billed_at=datetime.fromisoformat(data["first_billed_at"]) if data.get("first_billed_at") else None,
             next_billed_at=datetime.fromisoformat(data["next_billed_at"]) if data.get("next_billed_at") else None,
@@ -76,11 +80,21 @@ class Subscription(Entity):
             canceled_at=datetime.fromisoformat(data["canceled_at"]) if data.get("canceled_at") else None,
             discount=SubscriptionDiscount.from_dict(data["discount"]) if data.get("discount") else None,
             billing_details=BillingDetails.from_dict(data["billing_details"]) if data.get("billing_details") else None,
-            scheduled_change=SubscriptionScheduledChange.from_dict(data["scheduled_change"]) if data.get("scheduled_change") else None,
+            scheduled_change=(
+                SubscriptionScheduledChange.from_dict(data["scheduled_change"])
+                if data.get("scheduled_change")
+                else None
+            ),
             custom_data=CustomData(data["custom_data"]) if data.get("custom_data") else None,
             import_meta=ImportMeta.from_dict(data["import_meta"]) if data.get("import_meta") else None,
-            next_transaction=SubscriptionNextTransaction.from_dict(data["next_transaction"]) if data.get("next_transaction") else None,
+            next_transaction=(
+                SubscriptionNextTransaction.from_dict(data["next_transaction"])
+                if data.get("next_transaction")
+                else None
+            ),
             recurring_transaction_details=(
-                TransactionDetailsPreview.from_dict(data["recurring_transaction_details"]) if data.get("recurring_transaction_details") else None
+                TransactionDetailsPreview.from_dict(data["recurring_transaction_details"])
+                if data.get("recurring_transaction_details")
+                else None
             ),
         )

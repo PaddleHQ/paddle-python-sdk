@@ -26,7 +26,9 @@ class PricesClient:
         self.response = self.client.get_raw("/prices", operation.get_parameters())
         parser = ResponseParser(self.response)
 
-        return PriceCollection.from_list(parser.get_data(), Paginator(self.client, parser.get_pagination(), PriceCollection))
+        return PriceCollection.from_list(
+            parser.get_data(), Paginator(self.client, parser.get_pagination(), PriceCollection)
+        )
 
     def get(self, price_id: str, includes=None) -> Price:
         if includes is None:
@@ -34,7 +36,9 @@ class PricesClient:
 
         invalid_items = [item for item in includes if not isinstance(item, PriceIncludes)]
         if invalid_items:
-            raise InvalidArgumentException.array_contains_invalid_types("includes", PriceIncludes.__name__, invalid_items)
+            raise InvalidArgumentException.array_contains_invalid_types(
+                "includes", PriceIncludes.__name__, invalid_items
+            )
 
         params = {"include": ",".join(include.value for include in includes)} if includes else {}
         self.response = self.client.get_raw(f"/prices/{price_id}", params)

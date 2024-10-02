@@ -39,4 +39,6 @@ class TestEventTypesClient:
         assert last_request.method == "GET"
         assert test_client.client.status_code == expected_response_status
         assert unquote(last_request.url) == expected_url, "The URL does not match the expected URL"
-        assert response_json == loads(str(expected_response_body)), "The response JSON doesn't match the expected fixture JSON"
+        assert response_json == loads(
+            str(expected_response_body)
+        ), "The response JSON doesn't match the expected fixture JSON"

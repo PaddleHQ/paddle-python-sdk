@@ -5,8 +5,12 @@ from paddle_billing.Notifications.Entities.Subscriptions.SubscriptionDiscount im
 from paddle_billing.Notifications.Entities.Subscriptions.SubscriptionEffectiveFrom import SubscriptionEffectiveFrom
 from paddle_billing.Notifications.Entities.Subscriptions.SubscriptionItem import SubscriptionItem
 from paddle_billing.Notifications.Entities.Subscriptions.SubscriptionItemStatus import SubscriptionItemStatus
-from paddle_billing.Notifications.Entities.Subscriptions.SubscriptionOnPaymentFailure import SubscriptionOnPaymentFailure
+from paddle_billing.Notifications.Entities.Subscriptions.SubscriptionOnPaymentFailure import (
+    SubscriptionOnPaymentFailure,
+)
 from paddle_billing.Notifications.Entities.Subscriptions.SubscriptionPrice import SubscriptionPrice
 from paddle_billing.Notifications.Entities.Subscriptions.SubscriptionScheduledChange import SubscriptionScheduledChange
-from paddle_billing.Notifications.Entities.Subscriptions.SubscriptionScheduledChangeAction import SubscriptionScheduledChangeAction
+from paddle_billing.Notifications.Entities.Subscriptions.SubscriptionScheduledChangeAction import (
+    SubscriptionScheduledChangeAction,
+)
 from paddle_billing.Notifications.Entities.Subscriptions.SubscriptionStatus import SubscriptionStatus

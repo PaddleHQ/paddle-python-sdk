@@ -24,7 +24,9 @@ class BusinessesClient:
         self.response = self.client.get_raw(f"/customers/{customer_id}/businesses", operation.get_parameters())
         parser = ResponseParser(self.response)
 
-        return BusinessCollection.from_list(parser.get_data(), Paginator(self.client, parser.get_pagination(), BusinessCollection))
+        return BusinessCollection.from_list(
+            parser.get_data(), Paginator(self.client, parser.get_pagination(), BusinessCollection)
+        )
 
     def get(self, customer_id: str, business_id: str) -> Business:
         self.response = self.client.get_raw(f"/customers/{customer_id}/businesses/{business_id}")
@@ -39,7 +41,9 @@ class BusinessesClient:
         return Business.from_dict(parser.get_data())
 
     def update(self, customer_id: str, business_id: str, operation: UpdateBusiness) -> Business:
-        self.response = self.client.patch_raw(f"/customers/{customer_id}/businesses/{business_id}", operation.get_parameters())
+        self.response = self.client.patch_raw(
+            f"/customers/{customer_id}/businesses/{business_id}", operation.get_parameters()
+        )
         parser = ResponseParser(self.response)
 
         return Business.from_dict(parser.get_data())

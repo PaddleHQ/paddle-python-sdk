@@ -90,5 +90,9 @@ class Transaction(Entity):
             customer=Customer.from_dict(data["customer"]) if data.get("customer") else None,
             discount=Discount.from_dict(data["discount"]) if data.get("discount") else None,
             available_payment_methods=[PaymentMethodType(item) for item in data.get("available_payment_methods", [])],
-            adjustment_totals=TransactionAdjustmentsTotals.from_dict(data["adjustment_totals"]) if data.get("adjustment_totals") else None,
+            adjustment_totals=(
+                TransactionAdjustmentsTotals.from_dict(data["adjustment_totals"])
+                if data.get("adjustment_totals")
+                else None
+            ),
         )

@@ -24,7 +24,9 @@ class AddressesClient:
         self.response = self.client.get_raw(f"/customers/{customer_id}/addresses", operation.get_parameters())
         parser = ResponseParser(self.response)
 
-        return AddressCollection.from_list(parser.get_data(), Paginator(self.client, parser.get_pagination(), AddressCollection))
+        return AddressCollection.from_list(
+            parser.get_data(), Paginator(self.client, parser.get_pagination(), AddressCollection)
+        )
 
     def get(self, customer_id: str, address_id: str) -> Address:
         self.response = self.client.get_raw(f"/customers/{customer_id}/addresses/{address_id}")
@@ -39,7 +41,9 @@ class AddressesClient:
         return Address.from_dict(parser.get_data())
 
     def update(self, customer_id: str, address_id: str, operation: UpdateAddress) -> Address:
-        self.response = self.client.patch_raw(f"/customers/{customer_id}/addresses/{address_id}", operation.get_parameters())
+        self.response = self.client.patch_raw(
+            f"/customers/{customer_id}/addresses/{address_id}", operation.get_parameters()
+        )
         parser = ResponseParser(self.response)
 
         return Address.from_dict(parser.get_data())

@@ -124,7 +124,9 @@ class Client:
         if isinstance(url, str):
             url = urljoin(self.options.environment.base_url, url)
 
-        self.client.headers.update({"X-Transaction-ID": str(self.transaction_id) if self.transaction_id else str(uuid4())})
+        self.client.headers.update(
+            {"X-Transaction-ID": str(self.transaction_id) if self.transaction_id else str(uuid4())}
+        )
 
         self.payload = self.serialize_json_payload(payload) if payload else None
         try:
@@ -166,7 +168,9 @@ class Client:
 
         return self._make_request("GET", url, None)
 
-    def post_raw(self, url: str, payload: dict | None = None, parameters: HasParameters | dict | None = None) -> Response:
+    def post_raw(
+        self, url: str, payload: dict | None = None, parameters: HasParameters | dict | None = None
+    ) -> Response:
         if payload:
             payload = FiltersUndefined.filter_undefined_values(payload)  # Strip Undefined items from the dict
 

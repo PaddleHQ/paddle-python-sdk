@@ -23,7 +23,9 @@ class NotificationsClient:
         self.response = self.client.get_raw("/notifications", operation.get_parameters())
         parser = ResponseParser(self.response)
 
-        return NotificationCollection.from_list(parser.get_data(), Paginator(self.client, parser.get_pagination(), NotificationCollection))
+        return NotificationCollection.from_list(
+            parser.get_data(), Paginator(self.client, parser.get_pagination(), NotificationCollection)
+        )
 
     def get(self, notification_id: str) -> Notification:
         self.response = self.client.get_raw(f"/notifications/{notification_id}")

@@ -63,15 +63,23 @@ class TestEventsClient:
         assert last_request is not None
         assert last_request.method == "GET"
         assert test_client.client.status_code == expected_response_status
-        assert unquote(last_request.url) == expected_url, "The URL does not match the expected URL, verify the query string is correct"
-        assert response_json == loads(str(expected_response_body)), "The response JSON doesn't match the expected fixture JSON"
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
+        assert response_json == loads(
+            str(expected_response_body)
+        ), "The response JSON doesn't match the expected fixture JSON"
 
     def test_list_subscription_created_event(
         self,
         test_client,
         mock_requests,
     ):
-        mock_requests.get(f"{test_client.base_url}/events", status_code=200, text=ReadsFixtures.read_raw_json_fixture("response/list_default"))
+        mock_requests.get(
+            f"{test_client.base_url}/events",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture("response/list_default"),
+        )
 
         events = test_client.client.events.list()
 
@@ -90,7 +98,11 @@ class TestEventsClient:
         test_client,
         mock_requests,
     ):
-        mock_requests.get(f"{test_client.base_url}/events", status_code=200, text=ReadsFixtures.read_raw_json_fixture("response/list_default"))
+        mock_requests.get(
+            f"{test_client.base_url}/events",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture("response/list_default"),
+        )
 
         events = test_client.client.events.list()
 

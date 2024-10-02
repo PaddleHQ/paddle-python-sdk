@@ -9,7 +9,11 @@ from paddle_billing.Entities.NotificationSettings import NotificationSettingType
 
 from paddle_billing.Resources.Shared.Operations import Pager
 
-from paddle_billing.Resources.NotificationSettings.Operations import CreateNotificationSetting, UpdateNotificationSetting, ListNotificationSettings
+from paddle_billing.Resources.NotificationSettings.Operations import (
+    CreateNotificationSetting,
+    UpdateNotificationSetting,
+    ListNotificationSettings,
+)
 
 from tests.Utils.ReadsFixture import ReadsFixtures
 
@@ -95,9 +99,15 @@ class TestNotificationSettingsClient:
         assert last_request is not None
         assert last_request.method == "POST"
         assert test_client.client.status_code == expected_response_status
-        assert unquote(last_request.url) == expected_url, "The URL does not match the expected URL, verify the query string is correct"
-        assert loads(request_json) == loads(expected_request_body), "The request JSON doesn't match the expected fixture JSON"
-        assert response_json == loads(str(expected_response_body)), "The response JSON doesn't match the expected fixture JSON"
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
+        assert loads(request_json) == loads(
+            expected_request_body
+        ), "The request JSON doesn't match the expected fixture JSON"
+        assert response_json == loads(
+            str(expected_response_body)
+        ), "The response JSON doesn't match the expected fixture JSON"
 
     @mark.parametrize(
         "notification_setting_id, operation, expected_request_body, expected_response_status, expected_response_body, expected_url",
@@ -178,9 +188,15 @@ class TestNotificationSettingsClient:
         assert last_request is not None
         assert last_request.method == "PATCH"
         assert test_client.client.status_code == expected_response_status
-        assert unquote(last_request.url) == expected_url, "The URL does not match the expected URL, verify the query string is correct"
-        assert loads(request_json) == loads(expected_request_body), "The request JSON doesn't match the expected fixture JSON"
-        assert response_json == loads(str(expected_response_body)), "The response JSON doesn't match the expected fixture JSON"
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
+        assert loads(request_json) == loads(
+            expected_request_body
+        ), "The request JSON doesn't match the expected fixture JSON"
+        assert response_json == loads(
+            str(expected_response_body)
+        ), "The response JSON doesn't match the expected fixture JSON"
 
     @mark.parametrize(
         "expected_response_status, expected_response_body, expected_url",
@@ -208,12 +224,16 @@ class TestNotificationSettingsClient:
         last_request = mock_requests.last_request
 
         assert isinstance(response, NotificationSettingCollection)
-        assert all(isinstance(item, NotificationSetting) for item in response.items), "Not all items are NotificationSetting"
+        assert all(
+            isinstance(item, NotificationSetting) for item in response.items
+        ), "Not all items are NotificationSetting"
         assert last_request is not None
 
         assert last_request.method == "GET"
         assert test_client.client.status_code == expected_response_status
-        assert unquote(last_request.url) == expected_url, "The URL does not match the expected URL, verify the query string is correct"
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
 
     @mark.parametrize(
         "operation, expected_path",
@@ -280,7 +300,9 @@ class TestNotificationSettingsClient:
         last_request = mock_requests.last_request
 
         assert isinstance(response, NotificationSettingCollection)
-        assert unquote(last_request.url) == expected_url, "The URL does not match the expected URL, verify the query string is correct"
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
 
     def test_list_notification_settings_can_paginate(
         self,
@@ -341,7 +363,9 @@ class TestNotificationSettingsClient:
         assert last_request is not None
         assert last_request.method == "GET"
         assert test_client.client.status_code == expected_response_status
-        assert unquote(last_request.url) == expected_url, "The URL does not match the expected URL, verify the query string is correct"
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
         assert response_json == loads(
             str(expected_response_body)
         ), "The response JSON generated by ResponseParser() doesn't match the expected fixture JSON"
@@ -377,4 +401,6 @@ class TestNotificationSettingsClient:
         assert last_request is not None
         assert last_request.method == "DELETE"
         assert test_client.client.status_code == expected_response_status
-        assert unquote(last_request.url) == expected_url, "The URL does not match the expected URL, verify the query string is correct"
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"

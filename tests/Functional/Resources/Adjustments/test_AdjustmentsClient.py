@@ -7,7 +7,12 @@ from paddle_billing.Entities.Collections import AdjustmentCollection
 from paddle_billing.Entities.AdjustmentCreditNote import AdjustmentCreditNote
 from paddle_billing.Entities.Shared import Action, AdjustmentStatus, AdjustmentType, Disposition
 
-from paddle_billing.Resources.Adjustments.Operations import CreateAdjustment, CreateAdjustmentItem, GetCreditNote, ListAdjustments
+from paddle_billing.Resources.Adjustments.Operations import (
+    CreateAdjustment,
+    CreateAdjustmentItem,
+    GetCreditNote,
+    ListAdjustments,
+)
 from paddle_billing.Resources.Shared.Operations import Pager
 
 from tests.Utils.ReadsFixture import ReadsFixtures
@@ -72,9 +77,15 @@ class TestAdjustmentsClient:
         assert last_request is not None
         assert last_request.method == "POST"
         assert test_client.client.status_code == expected_response_status
-        assert unquote(last_request.url) == expected_url, "The URL does not match the expected URL, verify the query string is correct"
-        assert loads(request_json) == loads(expected_request_body), "The request JSON doesn't match the expected fixture JSON"
-        assert response_json == loads(str(expected_response_body)), "The response JSON doesn't match the expected fixture JSON"
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
+        assert loads(request_json) == loads(
+            expected_request_body
+        ), "The request JSON doesn't match the expected fixture JSON"
+        assert response_json == loads(
+            str(expected_response_body)
+        ), "The response JSON doesn't match the expected fixture JSON"
 
     def test_create_adjustment_returns_response_with_tax_rates_used(
         self,
@@ -222,7 +233,9 @@ class TestAdjustmentsClient:
         assert last_request is not None
         assert last_request.method == "GET"
         assert test_client.client.status_code == expected_response_status
-        assert unquote(last_request.url) == expected_url, "The URL does not match the expected URL, verify the query string is correct"
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
         assert all(isinstance(item, Adjustment) for item in response.items), "Not all elements are adjustments"
 
     def test_list_adjustments_returns_response_with_tax_rates_used(
@@ -271,8 +284,12 @@ class TestAdjustmentsClient:
         assert last_request is not None
         assert last_request.method == "GET"
         assert test_client.client.status_code == expected_response_status
-        assert unquote(last_request.url) == expected_url, "The URL does not match the expected URL, verify the query string is correct"
-        assert response_json == loads(str(expected_response_body)), "The response JSON doesn't match the expected fixture JSON"
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
+        assert response_json == loads(
+            str(expected_response_body)
+        ), "The response JSON doesn't match the expected fixture JSON"
 
     @mark.parametrize(
         "adjustment_id, operation, expected_path",
@@ -319,4 +336,6 @@ class TestAdjustmentsClient:
         last_request = mock_requests.last_request
 
         assert isinstance(response, AdjustmentCreditNote)
-        assert unquote(last_request.url) == expected_url, "The URL does not match the expected URL, verify the query string is correct"
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"

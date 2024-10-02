@@ -20,4 +20,6 @@ class EventsClient:
         self.response = self.client.get_raw("/events", operation.get_parameters())
         parser = ResponseParser(self.response)
 
-        return EventCollection.from_list(parser.get_data(), Paginator(self.client, parser.get_pagination(), EventCollection))
+        return EventCollection.from_list(
+            parser.get_data(), Paginator(self.client, parser.get_pagination(), EventCollection)
+        )

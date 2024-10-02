@@ -38,7 +38,9 @@ class ListProducts(HasParameters):
         ]:
             invalid_items = [item for item in field_value if not isinstance(item, field_type)]
             if invalid_items:
-                raise InvalidArgumentException.array_contains_invalid_types(field_name, field_type.__name__, invalid_items)
+                raise InvalidArgumentException.array_contains_invalid_types(
+                    field_name, field_type.__name__, invalid_items
+                )
 
     def get_parameters(self) -> dict:
         parameters = {}

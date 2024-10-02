@@ -2,7 +2,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
 
-from paddle_billing.Notifications.Entities.Subscriptions.SubscriptionScheduledChangeAction import SubscriptionScheduledChangeAction
+from paddle_billing.Notifications.Entities.Subscriptions.SubscriptionScheduledChangeAction import (
+    SubscriptionScheduledChangeAction,
+)
 
 
 @dataclass

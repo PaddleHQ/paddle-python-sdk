@@ -20,4 +20,6 @@ class NotificationLogsClient:
         self.response = self.client.get_raw(f"/notifications/{notification_id}/logs", operation.get_parameters())
         parser = ResponseParser(self.response)
 
-        return NotificationLogCollection.from_list(parser.get_data(), Paginator(self.client, parser.get_pagination(), NotificationLogCollection))
+        return NotificationLogCollection.from_list(
+            parser.get_data(), Paginator(self.client, parser.get_pagination(), NotificationLogCollection)
+        )

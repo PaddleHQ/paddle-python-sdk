@@ -73,9 +73,15 @@ class TestAddressesClient:
         assert last_request is not None
         assert last_request.method == "POST"
         assert test_client.client.status_code == expected_response_status
-        assert unquote(last_request.url) == expected_url, "The URL does not match the expected URL, verify the query string is correct"
-        assert loads(request_json) == loads(expected_request_body), "The request JSON doesn't match the expected fixture JSON"
-        assert response_json == loads(str(expected_response_body)), "The response JSON doesn't match the expected fixture JSON"
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
+        assert loads(request_json) == loads(
+            expected_request_body
+        ), "The request JSON doesn't match the expected fixture JSON"
+        assert response_json == loads(
+            str(expected_response_body)
+        ), "The response JSON doesn't match the expected fixture JSON"
 
     @mark.parametrize(
         [
@@ -124,7 +130,12 @@ class TestAddressesClient:
         expected_url_path,
     ):
         expected_url = f"{test_client.base_url}{expected_url_path}"
-        mock_requests.post(expected_url, status_code=expected_response_status, text=dumps(expected_response_body), reason=expected_reason)
+        mock_requests.post(
+            expected_url,
+            status_code=expected_response_status,
+            text=dumps(expected_response_body),
+            reason=expected_reason,
+        )
 
         with raises(ApiError) as exception_info:
             test_client.client.addresses.create(customer_id, operation)
@@ -133,9 +144,13 @@ class TestAddressesClient:
         last_request = mock_requests.last_request
         api_error = exception_info.value
 
-        assert unquote(last_request.url) == expected_url, "The URL does not match the expected URL, verify the query string is correct"
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
 
-        assert loads(request_json) == loads(expected_request_body), "The request JSON doesn't match the expected fixture JSON"
+        assert loads(request_json) == loads(
+            expected_request_body
+        ), "The request JSON doesn't match the expected fixture JSON"
 
         assert isinstance(api_error, ApiError)
         assert isinstance(api_error, HTTPError)
@@ -234,9 +249,15 @@ class TestAddressesClient:
         assert last_request is not None
         assert last_request.method == "PATCH"
         assert test_client.client.status_code == expected_response_status
-        assert unquote(last_request.url) == expected_url, "The URL does not match the expected URL, verify the query string is correct"
-        assert loads(request_json) == loads(expected_request_body), "The request JSON doesn't match the expected fixture JSON"
-        assert response_json == loads(str(expected_response_body)), "The response JSON doesn't match the expected fixture JSON"
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
+        assert loads(request_json) == loads(
+            expected_request_body
+        ), "The request JSON doesn't match the expected fixture JSON"
+        assert response_json == loads(
+            str(expected_response_body)
+        ), "The response JSON doesn't match the expected fixture JSON"
 
     @mark.parametrize(
         "customer_id, operation, expected_response_status, expected_response_body, expected_url",
@@ -321,7 +342,9 @@ class TestAddressesClient:
         assert last_request is not None
         assert last_request.method == "GET"
         assert test_client.client.status_code == expected_response_status
-        assert unquote(last_request.url) == expected_url, "The URL does not match the expected URL, verify the query string is correct"
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
 
     @mark.parametrize(
         "customer_id, address_id, expected_response_status, expected_response_body, expected_url",
@@ -357,7 +380,9 @@ class TestAddressesClient:
         assert last_request is not None
         assert last_request.method == "GET"
         assert test_client.client.status_code == expected_response_status
-        assert unquote(last_request.url) == expected_url, "The URL does not match the expected URL, verify the query string is correct"
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
         assert response_json == loads(
             str(expected_response_body)
         ), "The response JSON generated by ResponseParser() doesn't match the expected fixture JSON"

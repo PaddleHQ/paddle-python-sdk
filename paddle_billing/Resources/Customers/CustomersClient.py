@@ -4,7 +4,12 @@ from paddle_billing.Entities.Collections import Paginator, CreditBalanceCollecti
 from paddle_billing.Entities.Customer import Customer
 from paddle_billing.Entities.Shared import Status
 
-from paddle_billing.Resources.Customers.Operations import CreateCustomer, ListCreditBalances, ListCustomers, UpdateCustomer
+from paddle_billing.Resources.Customers.Operations import (
+    CreateCustomer,
+    ListCreditBalances,
+    ListCustomers,
+    UpdateCustomer,
+)
 
 from typing import TYPE_CHECKING
 
@@ -24,7 +29,9 @@ class CustomersClient:
         self.response = self.client.get_raw("/customers", operation.get_parameters())
         parser = ResponseParser(self.response)
 
-        return CustomerCollection.from_list(parser.get_data(), Paginator(self.client, parser.get_pagination(), CustomerCollection))
+        return CustomerCollection.from_list(
+            parser.get_data(), Paginator(self.client, parser.get_pagination(), CustomerCollection)
+        )
 
     def get(self, customer_id: str) -> Customer:
         self.response = self.client.get_raw(f"/customers/{customer_id}")

@@ -37,7 +37,9 @@ class SubscriptionsClient:
         self.response = self.client.get_raw("/subscriptions", operation.get_parameters())
         parser = ResponseParser(self.response)
 
-        return SubscriptionCollection.from_list(parser.get_data(), Paginator(self.client, parser.get_pagination(), SubscriptionCollection))
+        return SubscriptionCollection.from_list(
+            parser.get_data(), Paginator(self.client, parser.get_pagination(), SubscriptionCollection)
+        )
 
     def get(self, subscription_id: str, includes=None) -> Subscription:
         if includes is None:
@@ -45,7 +47,9 @@ class SubscriptionsClient:
 
         invalid_items = [item for item in includes if not isinstance(item, SubscriptionIncludes)]
         if invalid_items:
-            raise InvalidArgumentException.array_contains_invalid_types("includes", SubscriptionIncludes.__name__, invalid_items)
+            raise InvalidArgumentException.array_contains_invalid_types(
+                "includes", SubscriptionIncludes.__name__, invalid_items
+            )
 
         params = {"include": ",".join(include.value for include in includes)} if includes else {}
         self.response = self.client.get_raw(f"/subscriptions/{subscription_id}", params)
@@ -102,7 +106,9 @@ class SubscriptionsClient:
         return SubscriptionPreview.from_dict(parser.get_data())
 
     def preview_one_time_charge(self, subscription_id: str, operation: PreviewOneTimeCharge) -> SubscriptionPreview:
-        self.response = self.client.post_raw(f"/subscriptions/{subscription_id}/charge/preview", operation.get_parameters())
+        self.response = self.client.post_raw(
+            f"/subscriptions/{subscription_id}/charge/preview", operation.get_parameters()
+        )
         parser = ResponseParser(self.response)
 
         return SubscriptionPreview.from_dict(parser.get_data())

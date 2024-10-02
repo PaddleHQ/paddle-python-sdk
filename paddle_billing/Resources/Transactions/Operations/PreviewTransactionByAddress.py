@@ -2,7 +2,10 @@ from dataclasses import asdict, dataclass
 
 from paddle_billing.Undefined import Undefined
 from paddle_billing.Entities.Shared import AddressPreview, CurrencyCode
-from paddle_billing.Entities.Transactions import TransactionItemPreviewWithPriceId, TransactionItemPreviewWithNonCatalogPrice
+from paddle_billing.Entities.Transactions import (
+    TransactionItemPreviewWithPriceId,
+    TransactionItemPreviewWithNonCatalogPrice,
+)
 
 
 @dataclass

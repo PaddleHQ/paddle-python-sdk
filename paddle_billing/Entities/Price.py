@@ -53,7 +53,9 @@ class Price(Entity):
             tax_mode=TaxMode(data.get("tax_mode")),
             created_at=datetime.fromisoformat(data["created_at"]),
             updated_at=datetime.fromisoformat(data["updated_at"]),
-            unit_price_overrides=[UnitPriceOverride.from_dict(override) for override in data.get("unit_price_overrides", [])],
+            unit_price_overrides=[
+                UnitPriceOverride.from_dict(override) for override in data.get("unit_price_overrides", [])
+            ],
             type=CatalogType(data.get("type")) if data.get("type") else None,
             billing_cycle=Duration.from_dict(data["billing_cycle"]) if data.get("billing_cycle") else None,
             trial_period=Duration.from_dict(data["trial_period"]) if data.get("trial_period") else None,

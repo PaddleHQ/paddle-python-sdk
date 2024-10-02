@@ -22,4 +22,6 @@ class Paginator:
         response = self._client.get_raw(self._pagination.next)
         response_parser = ResponseParser(response)
 
-        return self._mapper.from_list(response_parser.get_data(), Paginator(self._client, response_parser.get_pagination(), self._mapper))
+        return self._mapper.from_list(
+            response_parser.get_data(), Paginator(self._client, response_parser.get_pagination(), self._mapper)
+        )

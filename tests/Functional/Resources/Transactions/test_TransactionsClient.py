@@ -85,8 +85,12 @@ class TestTransactionsClient:
         assert first_request is not None
         assert first_request.method == "GET"
         assert test_client.client.status_code == expected_response_status
-        assert unquote(first_request.url) == expected_page_one_url, "The URL does not match the expected URL, verify the query string is correct"
-        assert response_json == loads(expected_page_one_response_body), "The response JSON doesn't match the expected fixture JSON"
+        assert (
+            unquote(first_request.url) == expected_page_one_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
+        assert response_json == loads(
+            expected_page_one_response_body
+        ), "The response JSON doesn't match the expected fixture JSON"
 
         for transaction in transactions:
             assert isinstance(transaction, Transaction)
@@ -96,7 +100,9 @@ class TestTransactionsClient:
         assert second_request is not None
         assert second_request.method == "GET"
         assert test_client.client.status_code == expected_response_status
-        assert unquote(second_request.url) == expected_page_two_url, "The URL does not match the expected URL, verify the query string is correct"
+        assert (
+            unquote(second_request.url) == expected_page_two_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
 
         # Due to limitations of how TransactionsClient.list() sets test_client.client.transactions.response,
         # we can't test the response body of subsequent paginated pages
@@ -188,9 +194,15 @@ class TestTransactionsClient:
         assert last_request is not None
         assert last_request.method == "POST"
         assert test_client.client.status_code == expected_response_status
-        assert unquote(last_request.url) == expected_url, "The URL does not match the expected URL, verify the query string is correct"
-        assert loads(request_json) == loads(expected_request_body), "The request JSON doesn't match the expected fixture JSON"
-        assert response_json == loads(str(expected_response_body)), "The response JSON doesn't match the expected fixture JSON"
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
+        assert loads(request_json) == loads(
+            expected_request_body
+        ), "The request JSON doesn't match the expected fixture JSON"
+        assert response_json == loads(
+            str(expected_response_body)
+        ), "The response JSON doesn't match the expected fixture JSON"
 
     @mark.parametrize(
         "operation, includes, expected_response_status, expected_response_body, expected_url",
@@ -226,8 +238,12 @@ class TestTransactionsClient:
         assert last_request is not None
         assert last_request.method == "POST"
         assert test_client.client.status_code == expected_response_status
-        assert unquote(last_request.url) == expected_url, "The URL does not match the expected URL, verify the query string is correct"
-        assert response_json == loads(str(expected_response_body)), "The response JSON doesn't match the expected fixture JSON"
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
+        assert response_json == loads(
+            str(expected_response_body)
+        ), "The response JSON doesn't match the expected fixture JSON"
 
     @mark.parametrize(
         "transaction_id, operation, expected_request_body, expected_response_status, expected_response_body, expected_url",
@@ -277,9 +293,15 @@ class TestTransactionsClient:
         assert last_request is not None
         assert last_request.method == "PATCH"
         assert test_client.client.status_code == expected_response_status
-        assert unquote(last_request.url) == expected_url, "The URL does not match the expected URL, verify the query string is correct"
-        assert loads(request_json) == loads(expected_request_body), "The request JSON doesn't match the expected fixture JSON"
-        assert response_json == loads(str(expected_response_body)), "The response JSON doesn't match the expected fixture JSON"
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
+        assert loads(request_json) == loads(
+            expected_request_body
+        ), "The request JSON doesn't match the expected fixture JSON"
+        assert response_json == loads(
+            str(expected_response_body)
+        ), "The response JSON doesn't match the expected fixture JSON"
 
     @mark.parametrize(
         "operation, expected_response_status, expected_response_body, expected_url",
@@ -399,13 +421,17 @@ class TestTransactionsClient:
                 "/transactions?include=customer",
             ),
             (
-                ListTransactions(includes=[TransactionIncludes.Customer, TransactionIncludes.Address, TransactionIncludes.Discount]),
+                ListTransactions(
+                    includes=[TransactionIncludes.Customer, TransactionIncludes.Address, TransactionIncludes.Discount]
+                ),
                 200,
                 ReadsFixtures.read_raw_json_fixture("response/list_default"),
                 "/transactions?include=customer,address,discount",
             ),
             (
-                ListTransactions(origins=[TransactionOrigin.Web, TransactionOrigin.Api, TransactionOrigin.SubscriptionRecurring]),
+                ListTransactions(
+                    origins=[TransactionOrigin.Web, TransactionOrigin.Api, TransactionOrigin.SubscriptionRecurring]
+                ),
                 200,
                 ReadsFixtures.read_raw_json_fixture("response/list_default"),
                 "/transactions?origin=web,api,subscription_recurring",
@@ -454,7 +480,9 @@ class TestTransactionsClient:
         assert last_request is not None
         assert last_request.method == "GET"
         assert test_client.client.status_code == expected_response_status
-        assert unquote(last_request.url) == expected_url, "The URL does not match the expected URL, verify the query string is correct"
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
 
     @mark.parametrize(
         "transaction_id, includes, expected_response_status, expected_response_body, expected_url",
@@ -506,7 +534,9 @@ class TestTransactionsClient:
         assert last_request is not None
         assert last_request.method == "GET"
         assert test_client.client.status_code == expected_response_status
-        assert unquote(last_request.url) == expected_url, "The URL does not match the expected URL, verify the query string is correct"
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
         assert response_json == loads(
             str(expected_response_body)
         ), "The response JSON generated by ResponseParser() doesn't match the expected fixture JSON"
@@ -844,9 +874,15 @@ class TestTransactionsClient:
         assert last_request is not None
         assert last_request.method == "POST"
         assert test_client.client.status_code == expected_response_status
-        assert unquote(last_request.url) == expected_url, "The URL does not match the expected URL, verify the query string is correct"
-        assert loads(request_json) == loads(expected_request_body), "The request JSON doesn't match the expected fixture JSON"
-        assert response_json == loads(str(expected_response_body)), "The response JSON doesn't match the expected fixture JSON"
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
+        assert loads(request_json) == loads(
+            expected_request_body
+        ), "The request JSON doesn't match the expected fixture JSON"
+        assert response_json == loads(
+            str(expected_response_body)
+        ), "The response JSON doesn't match the expected fixture JSON"
 
     def test_get_transaction_invoice_pdf_returns_expected_response(self, test_client, mock_requests):
         transaction_id = "txn_01hen7bxc1p8ep4yk7n5jbzk9r"
@@ -869,8 +905,12 @@ class TestTransactionsClient:
         assert last_request is not None
         assert last_request.method == "GET"
         assert test_client.client.status_code == expected_response_status
-        assert unquote(last_request.url) == expected_url, "The URL does not match the expected URL, verify the query string is correct"
-        assert response_json == loads(str(expected_response_body)), "The response JSON doesn't match the expected fixture JSON"
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
+        assert response_json == loads(
+            str(expected_response_body)
+        ), "The response JSON doesn't match the expected fixture JSON"
 
     @mark.parametrize(
         "transaction_id, operation, expected_path",
@@ -917,4 +957,6 @@ class TestTransactionsClient:
         last_request = mock_requests.last_request
 
         assert isinstance(response, TransactionData)
-        assert unquote(last_request.url) == expected_url, "The URL does not match the expected URL, verify the query string is correct"
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"

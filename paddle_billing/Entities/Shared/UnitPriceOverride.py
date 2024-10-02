@@ -12,4 +12,7 @@ class UnitPriceOverride:
 
     @staticmethod
     def from_dict(data: dict) -> UnitPriceOverride:
-        return UnitPriceOverride(country_codes=[CountryCode(code) for code in data["country_codes"]], unit_price=Money.from_dict(data["unit_price"]))
+        return UnitPriceOverride(
+            country_codes=[CountryCode(code) for code in data["country_codes"]],
+            unit_price=Money.from_dict(data["unit_price"]),
+        )

@@ -19,9 +19,14 @@ from paddle_billing.Resources.Reports.Operations.CreateReport import (
 @dataclass
 class CreateProductsAndPricesReport(CreateReport):
     type: ProductsPricesReportType
-    filters: list[PriceStatusFilter | PriceTypeFilter | PriceUpdatedAtFilter | ProductStatusFilter | ProductTypeFilter | ProductUpdatedAtFilter] = (
-        field(default_factory=list)
-    )
+    filters: list[
+        PriceStatusFilter
+        | PriceTypeFilter
+        | PriceUpdatedAtFilter
+        | ProductStatusFilter
+        | ProductTypeFilter
+        | ProductUpdatedAtFilter
+    ] = field(default_factory=list)
 
     @staticmethod
     def get_allowed_filters() -> tuple:

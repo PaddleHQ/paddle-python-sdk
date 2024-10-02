@@ -36,7 +36,9 @@ class TransactionsClient:
         self.response = self.client.get_raw("/transactions", operation.get_parameters())
         parser = ResponseParser(self.response)
 
-        return TransactionCollection.from_list(parser.get_data(), Paginator(self.client, parser.get_pagination(), TransactionCollection))
+        return TransactionCollection.from_list(
+            parser.get_data(), Paginator(self.client, parser.get_pagination(), TransactionCollection)
+        )
 
     def get(self, transaction_id: str, includes=None) -> Transaction:
         if includes is None:
@@ -44,7 +46,9 @@ class TransactionsClient:
 
         invalid_items = [item for item in includes if not isinstance(item, TransactionIncludes)]
         if invalid_items:
-            raise InvalidArgumentException.array_contains_invalid_types("includes", TransactionIncludes.__name__, invalid_items)
+            raise InvalidArgumentException.array_contains_invalid_types(
+                "includes", TransactionIncludes.__name__, invalid_items
+            )
 
         params = {"include": ",".join(include.value for include in includes)} if includes else {}
         self.response = self.client.get_raw(f"/transactions/{transaction_id}", params)
@@ -58,7 +62,9 @@ class TransactionsClient:
 
         invalid_items = [item for item in includes if not isinstance(item, TransactionIncludes)]
         if invalid_items:
-            raise InvalidArgumentException.array_contains_invalid_types("includes", TransactionIncludes.__name__, invalid_items)
+            raise InvalidArgumentException.array_contains_invalid_types(
+                "includes", TransactionIncludes.__name__, invalid_items
+            )
 
         params = {"include": ",".join(include.value for include in includes)} if includes else {}
         self.response = self.client.post_raw("/transactions", operation.get_parameters(), params)
@@ -72,7 +78,9 @@ class TransactionsClient:
 
         return Transaction.from_dict(parser.get_data())
 
-    def preview(self, operation: PreviewTransactionByAddress | PreviewTransactionByCustomer | PreviewTransactionByIP) -> TransactionPreview:
+    def preview(
+        self, operation: PreviewTransactionByAddress | PreviewTransactionByCustomer | PreviewTransactionByIP
+    ) -> TransactionPreview:
         self.response = self.client.post_raw("/transactions/preview", operation.get_parameters())
         parser = ResponseParser(self.response)
 

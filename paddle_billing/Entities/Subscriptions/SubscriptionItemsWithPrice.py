@@ -2,7 +2,9 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 
 from paddle_billing.Entities.Subscriptions.SubscriptionNonCatalogPrice import SubscriptionNonCatalogPrice
-from paddle_billing.Entities.Subscriptions.SubscriptionNonCatalogPriceWithProduct import SubscriptionNonCatalogPriceWithProduct
+from paddle_billing.Entities.Subscriptions.SubscriptionNonCatalogPriceWithProduct import (
+    SubscriptionNonCatalogPriceWithProduct,
+)
 
 
 @dataclass

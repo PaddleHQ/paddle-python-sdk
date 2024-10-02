@@ -16,4 +16,6 @@ class EventTypesClient:
         self.response = self.client.get_raw("/event-types")
         parser = ResponseParser(self.response)
 
-        return EventTypeCollection.from_list(parser.get_data(), Paginator(self.client, parser.get_pagination(), EventTypeCollection))
+        return EventTypeCollection.from_list(
+            parser.get_data(), Paginator(self.client, parser.get_pagination(), EventTypeCollection)
+        )

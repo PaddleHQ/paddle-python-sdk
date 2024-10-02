@@ -24,7 +24,9 @@ class ReportsClient:
         self.response = self.client.get_raw("/reports", operation.get_parameters())
         parser = ResponseParser(self.response)
 
-        return ReportCollection.from_list(parser.get_data(), Paginator(self.client, parser.get_pagination(), ReportCollection))
+        return ReportCollection.from_list(
+            parser.get_data(), Paginator(self.client, parser.get_pagination(), ReportCollection)
+        )
 
     def get(self, report_id: str) -> Report:
         self.response = self.client.get_raw(f"/reports/{report_id}")

@@ -4,7 +4,13 @@ from datetime import datetime
 
 from paddle_billing.Notifications.Entities.Adjustments import AdjustmentItem, AdjustmentTaxRatesUsed
 from paddle_billing.Notifications.Entities.Entity import Entity
-from paddle_billing.Notifications.Entities.Shared import Action, AdjustmentStatus, CurrencyCode, PayoutTotalsAdjustment, AdjustmentTotals
+from paddle_billing.Notifications.Entities.Shared import (
+    Action,
+    AdjustmentStatus,
+    CurrencyCode,
+    PayoutTotalsAdjustment,
+    AdjustmentTotals,
+)
 
 
 @dataclass
@@ -40,7 +46,13 @@ class Adjustment(Entity):
             totals=AdjustmentTotals.from_dict(data["totals"]),
             created_at=datetime.fromisoformat(data["created_at"]),
             items=[AdjustmentItem.from_dict(item) for item in data["items"]],
-            payout_totals=PayoutTotalsAdjustment.from_dict(data["payout_totals"]) if data.get("payout_totals") else None,
+            payout_totals=(
+                PayoutTotalsAdjustment.from_dict(data["payout_totals"]) if data.get("payout_totals") else None
+            ),
             updated_at=datetime.fromisoformat(data["updated_at"]) if data.get("updated_at") else None,
-            tax_rates_used=[AdjustmentTaxRatesUsed.from_dict(item) for item in data["tax_rates_used"]] if data.get("tax_rates_used") else None,
+            tax_rates_used=(
+                [AdjustmentTaxRatesUsed.from_dict(item) for item in data["tax_rates_used"]]
+                if data.get("tax_rates_used")
+                else None
+            ),
         )

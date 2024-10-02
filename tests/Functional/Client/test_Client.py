@@ -82,7 +82,12 @@ class TestClient:
     ):
         expected_request_url = f"{test_client.base_url}/some/url"
         expected_request_body = {"some_property": "some value"}
-        mock_requests.post(expected_request_url, status_code=expected_response_status, text=dumps(expected_response_body), reason=expected_reason)
+        mock_requests.post(
+            expected_request_url,
+            status_code=expected_response_status,
+            text=dumps(expected_response_body),
+            reason=expected_reason,
+        )
 
         with raises(expected_exception) as exception_info:
             test_client.client.post_raw(expected_request_url, expected_request_body)
@@ -91,7 +96,9 @@ class TestClient:
         last_request = mock_requests.last_request
         api_error = exception_info.value
 
-        assert unquote(last_request.url) == expected_request_url, "The URL does not match the expected URL, verify the query string is correct"
+        assert (
+            unquote(last_request.url) == expected_request_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
 
         assert loads(request_json) == expected_request_body, "The request JSON doesn't match the expected fixture JSON"
 

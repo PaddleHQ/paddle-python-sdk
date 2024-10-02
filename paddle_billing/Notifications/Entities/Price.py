@@ -50,7 +50,9 @@ class Price(Entity):
             quantity=PriceQuantity.from_dict(data["quantity"]),
             status=Status(data["status"]),
             tax_mode=TaxMode(data.get("tax_mode")),
-            unit_price_overrides=[UnitPriceOverride.from_dict(override) for override in data.get("unit_price_overrides", [])],
+            unit_price_overrides=[
+                UnitPriceOverride.from_dict(override) for override in data.get("unit_price_overrides", [])
+            ],
             type=CatalogType(data.get("type")) if data.get("type") else None,
             billing_cycle=Duration.from_dict(data["billing_cycle"]) if data.get("billing_cycle") else None,
             trial_period=Duration.from_dict(data["trial_period"]) if data.get("trial_period") else None,

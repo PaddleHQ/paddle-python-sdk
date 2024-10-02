@@ -3,7 +3,11 @@ from paddle_billing.ResponseParser import ResponseParser
 from paddle_billing.Entities.Collections import NotificationSettingCollection, Paginator
 from paddle_billing.Entities.NotificationSetting import NotificationSetting
 
-from paddle_billing.Resources.NotificationSettings.Operations import CreateNotificationSetting, UpdateNotificationSetting, ListNotificationSettings
+from paddle_billing.Resources.NotificationSettings.Operations import (
+    CreateNotificationSetting,
+    UpdateNotificationSetting,
+    ListNotificationSettings,
+)
 
 from typing import TYPE_CHECKING
 
@@ -41,7 +45,9 @@ class NotificationSettingsClient:
         return NotificationSetting.from_dict(parser.get_data())
 
     def update(self, notification_setting_id: str, operation: UpdateNotificationSetting) -> NotificationSetting:
-        self.response = self.client.patch_raw(f"/notification-settings/{notification_setting_id}", operation.get_parameters())
+        self.response = self.client.patch_raw(
+            f"/notification-settings/{notification_setting_id}", operation.get_parameters()
+        )
         parser = ResponseParser(self.response)
 
         return NotificationSetting.from_dict(parser.get_data())

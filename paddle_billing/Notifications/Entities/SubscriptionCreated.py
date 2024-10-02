@@ -70,6 +70,12 @@ class SubscriptionCreated(Entity):
             next_billed_at=datetime.fromisoformat(data["next_billed_at"]) if data.get("next_billed_at") else None,
             paused_at=datetime.fromisoformat(data["paused_at"]) if data.get("paused_at") else None,
             started_at=datetime.fromisoformat(data["started_at"]) if data.get("started_at") else None,
-            current_billing_period=TimePeriod.from_dict(data["current_billing_period"]) if data.get("billing_details") else None,
-            scheduled_change=SubscriptionScheduledChange.from_dict(data["scheduled_change"]) if data.get("scheduled_change") else None,
+            current_billing_period=(
+                TimePeriod.from_dict(data["current_billing_period"]) if data.get("billing_details") else None
+            ),
+            scheduled_change=(
+                SubscriptionScheduledChange.from_dict(data["scheduled_change"])
+                if data.get("scheduled_change")
+                else None
+            ),
         )

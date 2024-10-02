@@ -3,7 +3,15 @@ from dataclasses import dataclass
 from datetime import datetime
 
 from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.Shared import BillingDetails, CollectionMode, CurrencyCode, CustomData, Duration, ImportMeta, TimePeriod
+from paddle_billing.Entities.Shared import (
+    BillingDetails,
+    CollectionMode,
+    CurrencyCode,
+    CustomData,
+    Duration,
+    ImportMeta,
+    TimePeriod,
+)
 
 from paddle_billing.Entities.Shared.TransactionDetailsPreview import TransactionDetailsPreview
 
@@ -67,15 +75,37 @@ class SubscriptionPreview(Entity):
             canceled_at=datetime.fromisoformat(data["canceled_at"]) if data.get("canceled_at") else None,
             discount=SubscriptionDiscount.from_dict(data["discount"]) if data.get("discount") else None,
             billing_details=BillingDetails.from_dict(data["billing_details"]) if data.get("billing_details") else None,
-            current_billing_period=TimePeriod.from_dict(data["current_billing_period"]) if data.get("current_billing_period") else None,
-            scheduled_change=SubscriptionScheduledChange.from_dict(data["scheduled_change"]) if data.get("scheduled_change") else None,
-            management_urls=SubscriptionManagementUrls.from_dict(data["management_urls"]) if data.get("management_urls") else None,
-            custom_data=CustomData(data["custom_data"]) if data.get("custom_data") else None,
-            immediate_transaction=SubscriptionNextTransaction.from_dict(data["immediate_transaction"]) if data.get("immediate_transaction") else None,
-            next_transaction=SubscriptionNextTransaction.from_dict(data["next_transaction"]) if data.get("next_transaction") else None,
-            recurring_transaction_details=(
-                TransactionDetailsPreview.from_dict(data["recurring_transaction_details"]) if data.get("recurring_transaction_details") else None
+            current_billing_period=(
+                TimePeriod.from_dict(data["current_billing_period"]) if data.get("current_billing_period") else None
             ),
-            update_summary=SubscriptionPreviewSubscriptionUpdateSummary.from_dict(data["update_summary"]) if data.get("update_summary") else None,
+            scheduled_change=(
+                SubscriptionScheduledChange.from_dict(data["scheduled_change"])
+                if data.get("scheduled_change")
+                else None
+            ),
+            management_urls=(
+                SubscriptionManagementUrls.from_dict(data["management_urls"]) if data.get("management_urls") else None
+            ),
+            custom_data=CustomData(data["custom_data"]) if data.get("custom_data") else None,
+            immediate_transaction=(
+                SubscriptionNextTransaction.from_dict(data["immediate_transaction"])
+                if data.get("immediate_transaction")
+                else None
+            ),
+            next_transaction=(
+                SubscriptionNextTransaction.from_dict(data["next_transaction"])
+                if data.get("next_transaction")
+                else None
+            ),
+            recurring_transaction_details=(
+                TransactionDetailsPreview.from_dict(data["recurring_transaction_details"])
+                if data.get("recurring_transaction_details")
+                else None
+            ),
+            update_summary=(
+                SubscriptionPreviewSubscriptionUpdateSummary.from_dict(data["update_summary"])
+                if data.get("update_summary")
+                else None
+            ),
             import_meta=ImportMeta.from_dict(data["import_meta"]) if data.get("import_meta") else None,
         )

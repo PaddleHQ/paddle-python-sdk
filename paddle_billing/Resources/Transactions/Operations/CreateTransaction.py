@@ -1,7 +1,15 @@
 from dataclasses import asdict, dataclass
 
 from paddle_billing.Undefined import Undefined
-from paddle_billing.Entities.Shared import BillingDetails, Checkout, CollectionMode, CurrencyCode, CustomData, TimePeriod, TransactionStatus
+from paddle_billing.Entities.Shared import (
+    BillingDetails,
+    Checkout,
+    CollectionMode,
+    CurrencyCode,
+    CustomData,
+    TimePeriod,
+    TransactionStatus,
+)
 from paddle_billing.Entities.Transactions import TransactionCreateItem, TransactionCreateItemWithPrice
 
 

@@ -24,7 +24,9 @@ class DiscountsClient:
         self.response = self.client.get_raw("/discounts", operation.get_parameters())
         parser = ResponseParser(self.response)
 
-        return DiscountCollection.from_list(parser.get_data(), Paginator(self.client, parser.get_pagination(), DiscountCollection))
+        return DiscountCollection.from_list(
+            parser.get_data(), Paginator(self.client, parser.get_pagination(), DiscountCollection)
+        )
 
     def get(self, discount_id: str) -> Discount:
         self.response = self.client.get_raw(f"/discounts/{discount_id}")

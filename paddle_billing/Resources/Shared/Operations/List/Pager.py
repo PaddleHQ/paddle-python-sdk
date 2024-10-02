@@ -16,4 +16,6 @@ class Pager(HasParameters):
         self.per_page = per_page
 
     def get_parameters(self) -> dict:
-        return FiltersNone.filter_none_values({"after": self.after, "order_by": str(self.order_by), "per_page": self.per_page})
+        return FiltersNone.filter_none_values(
+            {"after": self.after, "order_by": str(self.order_by), "per_page": self.per_page}
+        )

@@ -26,4 +26,6 @@ class TestIPAddressesClient:
         assert last_request is not None
         assert last_request.method == "GET"
         assert test_client.client.status_code == 200
-        assert unquote(last_request.url) == expected_url, "The URL does not match the expected URL, verify the query string is correct"
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
