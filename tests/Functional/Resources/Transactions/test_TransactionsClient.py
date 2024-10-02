@@ -60,10 +60,8 @@ class TestTransactionsClient:
         expected_page_one_url = f"{test_client.base_url}/transactions"
         expected_page_one_response_body = ReadsFixtures.read_raw_json_fixture("response/list_paginated_page_one")
 
-        # TODO Test pagination to page 2.
         # meta.pagination.next value is hardcoded in response/list_paginated_page_one, so this must be an absolute value
-        expected_page_two_url = "https://api.paddle.com/transactions?after=txn_01h69ddtrb11km0wk46dn607ya"
-        # expected_page_two_response_body = ReadsFixtures.read_raw_json_fixture("response/list_paginated_page_two")
+        expected_page_two_url = "https://api.paddle.com/transactions?after=txn_06h69ddtrb11km0wk46dn607ya"
 
         mock_requests.get(
             url=expected_page_one_url,
@@ -92,8 +90,17 @@ class TestTransactionsClient:
             expected_page_one_response_body
         ), "The response JSON doesn't match the expected fixture JSON"
 
+        # Iterate all transactions from page one and two.
+        all_transactions: list[Transaction] = []
         for transaction in transactions:
             assert isinstance(transaction, Transaction)
+            all_transactions.append(transaction)
+
+        assert len(all_transactions) == 12
+
+        assert all_transactions[0].id == "txn_01h8bm0f0gwa622zpcvw49hwc1"
+        assert all_transactions[6].id == "txn_07h8bm0f0gwa622zpcvw49hwc1"
+        assert all_transactions[11].id == "txn_12h69ddtrb11km0wk46dn607ya"
 
         # Assertions for second request
         second_request = mock_requests.request_history[1]
@@ -103,11 +110,6 @@ class TestTransactionsClient:
         assert (
             unquote(second_request.url) == expected_page_two_url
         ), "The URL does not match the expected URL, verify the query string is correct"
-
-        # Due to limitations of how TransactionsClient.list() sets test_client.client.transactions.response,
-        # we can't test the response body of subsequent paginated pages
-        # assert response_json == loads(expected_page_two_response_body), \
-        #     "The response JSON doesn't match the expected fixture JSON"
 
     @mark.parametrize(
         "operation, expected_request_body, expected_response_status, expected_response_body, expected_url",
