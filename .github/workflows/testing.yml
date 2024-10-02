@@ -4,7 +4,7 @@ on:
   #  release:
   #    types: [created]
   push:
-    branches: 
+    branches:
       - main
   pull_request:
     branches:

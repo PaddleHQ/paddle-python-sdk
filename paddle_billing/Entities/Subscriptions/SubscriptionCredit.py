@@ -1,4 +1,4 @@
-from __future__  import annotations
+from __future__ import annotations
 from dataclasses import dataclass
 
 from paddle_billing.Entities.Shared import CurrencyCode
@@ -6,13 +6,12 @@ from paddle_billing.Entities.Shared import CurrencyCode
 
 @dataclass
 class SubscriptionCredit:
-    amount:        str
+    amount: str
     currency_code: CurrencyCode
-
 
     @staticmethod
     def from_dict(data: dict) -> SubscriptionCredit:
         return SubscriptionCredit(
-            amount        = data['amount'],
-            currency_code = CurrencyCode(data['currency_code']),
+            amount=data["amount"],
+            currency_code=CurrencyCode(data["currency_code"]),
         )

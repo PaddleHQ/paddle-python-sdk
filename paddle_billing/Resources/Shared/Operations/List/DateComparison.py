@@ -8,17 +8,15 @@ from paddle_billing.Resources.Shared.Operations.List.Comparator import Comparato
 class DateComparison:
     def __init__(
         self,
-        date:       datetime,
+        date: datetime,
         comparator: Comparator | None = None,
     ):
-        self.date       = date
+        self.date = date
         self._comparator = comparator
-
 
     @property
     def comparator(self) -> str:
-        return f"[{self._comparator.value}]" if self._comparator else ''
-
+        return f"[{self._comparator.value}]" if self._comparator else ""
 
     def formatted(self) -> str:
         if isinstance(self.date, datetime):
@@ -28,4 +26,4 @@ class DateComparison:
         else:
             raise TypeError(f"Invalid '{type(self.date)}' type for date")
 
-        return date_obj.format() if date_obj else ''
+        return date_obj.format() if date_obj else ""

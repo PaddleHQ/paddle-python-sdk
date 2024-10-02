@@ -1,23 +1,23 @@
 from logging import getLogger
-from os      import getenv
-from sys     import exit  # You should use classes/functions that returns instead of exits
+from os import getenv
+from sys import exit  # You should use classes/functions that returns instead of exits
 
 from paddle_billing import Client, Environment, Options
 
-from paddle_billing.Exceptions.ApiError                        import ApiError
+from paddle_billing.Exceptions.ApiError import ApiError
 from paddle_billing.Exceptions.SdkExceptions.MalformedResponse import MalformedResponse
 
-log = getLogger('my_app')
+log = getLogger("my_app")
 
 # Verify your Paddle API key was provided by a PADDLE_SECRET_API_KEY environment variable
 # It is strongly advised that you do not include secrets in your source code
 # Use environment variables, and/or secrets management like Vault to obtain your secrets
-api_key = getenv('PADDLE_SECRET_API_KEY', None)
+api_key = getenv("PADDLE_SECRET_API_KEY", None)
 if not api_key:
     raise ValueError("You must provide the PADDLE_SECRET_API_KEY in your environment variables")
 
 # Determine the environment, defaulting to sandbox
-environment        = getenv('PADDLE_ENVIRONMENT', 'sandbox')
+environment = getenv("PADDLE_ENVIRONMENT", "sandbox")
 paddle_environment = getattr(Environment, environment)  # E.g. Environment.sandbox
 
 # Initialize the Paddle client

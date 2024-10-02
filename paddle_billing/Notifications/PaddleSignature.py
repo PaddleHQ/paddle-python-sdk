@@ -1,5 +1,5 @@
 from hashlib import sha256
-from hmac    import HMAC, compare_digest, new as hmac_new
+from hmac import HMAC, compare_digest, new as hmac_new
 
 from paddle_billing.Logger import get_logger
 
@@ -13,19 +13,17 @@ class PaddleSignature:
         """
         self.log = get_logger()
 
-
     @property
     def HASH_ALGORITHM_1(self):  # noqa N802
-        return 'h1'
+        return "h1"
 
     @property
     def HEADER(self):  # noqa N802
-        return 'Paddle-Signature'
+        return "Paddle-Signature"
 
     @property
     def TIMESTAMP(self):  # noqa N802
-        return 'ts'
-
+        return "ts"
 
     @staticmethod
     def parse(signature_header: str) -> tuple:
@@ -37,33 +35,32 @@ class PaddleSignature:
         """
         components = {
             PaddleSignature().TIMESTAMP: 0,
-            'hashes':                    {PaddleSignature().HASH_ALGORITHM_1: []},
+            "hashes": {PaddleSignature().HASH_ALGORITHM_1: []},
         }
 
         for key_value_pair in signature_header.split(";"):
-            if '=' in key_value_pair:
-                key, value = key_value_pair.split('=')
+            if "=" in key_value_pair:
+                key, value = key_value_pair.split("=")
 
                 if key == PaddleSignature().TIMESTAMP:
                     components[PaddleSignature().TIMESTAMP] = value
                 elif key == PaddleSignature().HASH_ALGORITHM_1:
-                    components['hashes'][PaddleSignature().HASH_ALGORITHM_1].append(value)
+                    components["hashes"][PaddleSignature().HASH_ALGORITHM_1].append(value)
                 else:
-                    raise ValueError(f"Unrecognized Paddle-Signature key")
+                    raise ValueError("Unrecognized Paddle-Signature key")
 
-        return int(components[PaddleSignature().TIMESTAMP]), components['hashes']
-
+        return int(components[PaddleSignature().TIMESTAMP]), components["hashes"]
 
     @staticmethod
     def calculate_hmac(secret_key: str, data: bytes) -> HMAC:
-        return hmac_new(secret_key.encode('utf-8'), data, sha256)
-
+        return hmac_new(secret_key.encode("utf-8"), data, sha256)
 
     def __do_comparison(self, generated_signature: str, signature: str) -> bool:
-        self.log.debug(f"Comparing received Paddle signature '{signature}' to our calculated signature: '{generated_signature}'")
+        self.log.debug(
+            f"Comparing received Paddle signature '{signature}' to our calculated signature: '{generated_signature}'"
+        )
 
         return compare_digest(generated_signature, signature)
-
 
     def __do_verify(self, timestamp: str, signatures: list[str], raw_body: str, secret_key: Secret) -> bool:
         """
@@ -75,9 +72,9 @@ class PaddleSignature:
         :param secret_key: A Paddle secret key: https://developer.paddle.com/webhooks/signature-verification#get-secret-key
         :return:           True on verification success, False on verification failure
         """
-        new_body_to_verify  = f"{timestamp}:{raw_body}".encode('utf-8')
+        new_body_to_verify = f"{timestamp}:{raw_body}".encode("utf-8")
         generated_signature = PaddleSignature.calculate_hmac(secret_key.secret_key, new_body_to_verify).hexdigest()
-        integrity           = False
+        integrity = False
 
         for signature in signatures:
             integrity_result = self.__do_comparison(generated_signature, signature)
@@ -87,7 +84,6 @@ class PaddleSignature:
 
         self.log.info(f"Paddle signature integrity {'passed' if integrity else 'failed'}")
         return integrity
-
 
     def verify(self, signature_header: str, raw_body: str, secrets: list[Secret] | Secret) -> bool:
         """
@@ -100,29 +96,29 @@ class PaddleSignature:
         :param secrets:          One or more Paddle secret key(s): https://developer.paddle.com/webhooks/signature-verification#get-secret-key
         :return:                 True if any secret key passes verification success. Raises a ConnectionRefusedError if all secret keys fail verification
         """
-        is_list   = type(secrets) is list
-        key_count = 'multiple secret keys' if is_list else 'one secret key'
+        is_list = type(secrets) is list
+        key_count = "multiple secret keys" if is_list else "one secret key"
         self.log.info(f"Verifying Paddle signature integrity against {key_count}")
 
         timestamp, signature = PaddleSignature.parse(signature_header)
 
         if not is_list:
             return self.__do_verify(
-                timestamp  = timestamp,
-                signatures = signature[PaddleSignature().HASH_ALGORITHM_1],
-                raw_body   = raw_body,
-                secret_key = secrets,
+                timestamp=timestamp,
+                signatures=signature[PaddleSignature().HASH_ALGORITHM_1],
+                raw_body=raw_body,
+                secret_key=secrets,
             )
 
         for secret in secrets:
             verification_result = self.__do_verify(
-                timestamp  = timestamp,
-                signatures = signature[PaddleSignature().HASH_ALGORITHM_1],
-                raw_body   = raw_body,
-                secret_key = secret,
+                timestamp=timestamp,
+                signatures=signature[PaddleSignature().HASH_ALGORITHM_1],
+                raw_body=raw_body,
+                secret_key=secret,
             )
             if verification_result is True:
                 return True
 
         # If we got this far then none of the provided secrets passed verification
-        raise ConnectionRefusedError(f"Paddle signature failed integrity check")
+        raise ConnectionRefusedError("Paddle signature failed integrity check")

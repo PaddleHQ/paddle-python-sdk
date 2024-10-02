@@ -1,4 +1,4 @@
-from __future__  import annotations
+from __future__ import annotations
 from dataclasses import dataclass
 
 from paddle_billing.EnumStringify import enum_stringify
@@ -14,11 +14,9 @@ from paddle_billing.Entities.Reports import ReportFilterName
 class AdjustmentStatusFilter(Filter):
     statuses: list[AdjustmentStatus]
 
-
     @staticmethod
     def get_name() -> ReportFilterName:
         return ReportFilterName.Status
-
 
     def get_value(self) -> list[str]:
         return list(map(enum_stringify, self.statuses))

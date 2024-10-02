@@ -8,4 +8,3 @@ class FiltersUndefined:
         This method filters out values that are None from the given list
         """
         return {key: value for key, value in input_dict.items() if not isinstance(value, Undefined)}
-

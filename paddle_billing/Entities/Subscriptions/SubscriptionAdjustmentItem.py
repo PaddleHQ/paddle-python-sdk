@@ -1,4 +1,4 @@
-from __future__  import annotations
+from __future__ import annotations
 from dataclasses import dataclass
 
 from paddle_billing.Entities.Shared import AdjustmentItemTotals, AdjustmentType, Proration
@@ -6,19 +6,18 @@ from paddle_billing.Entities.Shared import AdjustmentItemTotals, AdjustmentType,
 
 @dataclass
 class SubscriptionAdjustmentItem:
-    item_id:   str
-    type:      AdjustmentType
-    amount:    str | None
+    item_id: str
+    type: AdjustmentType
+    amount: str | None
     proration: Proration
-    totals:    AdjustmentItemTotals
-
+    totals: AdjustmentItemTotals
 
     @staticmethod
     def from_dict(data: dict) -> SubscriptionAdjustmentItem:
         return SubscriptionAdjustmentItem(
-            item_id   = data['item_id'],
-            type      = AdjustmentType(data['type']),
-            amount    = data.get('amount'),
-            proration = Proration.from_dict(data['proration']),
-            totals    = AdjustmentItemTotals.from_dict(data['totals']),
+            item_id=data["item_id"],
+            type=AdjustmentType(data["type"]),
+            amount=data.get("amount"),
+            proration=Proration.from_dict(data["proration"]),
+            totals=AdjustmentItemTotals.from_dict(data["totals"]),
         )

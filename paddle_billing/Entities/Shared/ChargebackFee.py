@@ -1,4 +1,4 @@
-from __future__  import annotations
+from __future__ import annotations
 from dataclasses import dataclass
 
 from paddle_billing.Entities.Shared.Original import Original
@@ -6,13 +6,12 @@ from paddle_billing.Entities.Shared.Original import Original
 
 @dataclass
 class ChargebackFee:
-    amount:   str
+    amount: str
     original: Original | None
-
 
     @staticmethod
     def from_dict(data: dict) -> ChargebackFee:
         return ChargebackFee(
-            amount   = data['amount'],
-            original = Original.from_dict(data['original']) if data.get('original') else None,
+            amount=data["amount"],
+            original=Original.from_dict(data["original"]) if data.get("original") else None,
         )

@@ -5,5 +5,5 @@ from paddle_billing.Entities.Subscriptions.SubscriptionEffectiveFrom import Subs
 
 @dataclass
 class SubscriptionDiscount:
-    id:             str
+    id: str
     effective_from: SubscriptionEffectiveFrom

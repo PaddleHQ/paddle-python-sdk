@@ -1,4 +1,4 @@
-from __future__  import annotations
+from __future__ import annotations
 from dataclasses import dataclass
 
 from paddle_billing.Entities.Entity import Entity
@@ -8,8 +8,6 @@ from paddle_billing.Entities.Entity import Entity
 class TransactionData(Entity):
     url: str
 
-
     @staticmethod
     def from_dict(data: dict) -> TransactionData:
-        return TransactionData(data['url'])
-
+        return TransactionData(data["url"])

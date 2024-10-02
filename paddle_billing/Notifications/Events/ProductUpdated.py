@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from paddle_billing.Entities.Event  import Event
+from paddle_billing.Entities.Event import Event
 from paddle_billing.Entities.Events import EventTypeName
 
 from paddle_billing.Notifications.Entities.Product import Product
@@ -9,9 +9,9 @@ from paddle_billing.Notifications.Entities.Product import Product
 class ProductUpdated(Event):
     def __init__(
         self,
-        event_id:    str,
-        event_type:  EventTypeName,
+        event_id: str,
+        event_type: EventTypeName,
         occurred_at: datetime,
-        data:        Product,
+        data: Product,
     ):
         super().__init__(event_id, event_type, occurred_at, data)

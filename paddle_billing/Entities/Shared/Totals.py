@@ -1,4 +1,4 @@
-from __future__  import annotations
+from __future__ import annotations
 from dataclasses import dataclass
 
 
@@ -6,15 +6,14 @@ from dataclasses import dataclass
 class Totals:
     subtotal: str
     discount: str
-    tax:      str
-    total:    str
-
+    tax: str
+    total: str
 
     @staticmethod
     def from_dict(data: dict) -> Totals:
         return Totals(
-            subtotal = data['subtotal'],
-            discount = data['discount'],
-            tax      = data['tax'],
-            total    = data['total'],
+            subtotal=data["subtotal"],
+            discount=data["discount"],
+            tax=data["tax"],
+            total=data["total"],
         )

@@ -1,4 +1,4 @@
-from __future__  import annotations
+from __future__ import annotations
 from dataclasses import dataclass
 
 from paddle_billing.Entities.Entity import Entity
@@ -9,7 +9,6 @@ from paddle_billing.Entities.PricingPreviews.PricePreviewLineItem import PricePr
 class PricePreviewDetails(Entity):
     line_items: list[PricePreviewLineItem]
 
-
     @staticmethod
     def from_dict(data: dict) -> PricePreviewDetails:
-        return PricePreviewDetails(line_items=[PricePreviewLineItem.from_dict(item) for item in data['line_items']])
+        return PricePreviewDetails(line_items=[PricePreviewLineItem.from_dict(item) for item in data["line_items"]])

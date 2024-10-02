@@ -7,6 +7,5 @@ from paddle_billing.Entities.Subscriptions import SubscriptionEffectiveFrom
 class CancelSubscription:
     effective_from: SubscriptionEffectiveFrom = None
 
-
     def get_parameters(self) -> dict:
         return asdict(self)

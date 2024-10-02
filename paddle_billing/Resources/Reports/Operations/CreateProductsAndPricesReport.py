@@ -28,7 +28,6 @@ class CreateProductsAndPricesReport(CreateReport):
         | ProductUpdatedAtFilter
     ] = field(default_factory=list)
 
-
     @staticmethod
     def get_allowed_filters() -> tuple:
         return (

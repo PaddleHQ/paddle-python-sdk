@@ -4,15 +4,17 @@ from paddle_billing.Resources.PricingPreviews.Operations import PreviewPrice
 
 from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 
+
 class TestPreviewPrice:
     @mark.parametrize(
-        'invalid_items, expected_message',
+        "invalid_items, expected_message",
         [
             (
                 [],
                 "'items' cannot be empty",
-            ), (
-                ['some invalid type'],
+            ),
+            (
+                ["some invalid type"],
                 "Expected 'items' to only contain type 'PricePreviewItem' ('str' given)",
             ),
         ],
