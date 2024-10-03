@@ -13,7 +13,7 @@ class Entity(ABC):
         pass
 
     @staticmethod
-    def from_dict_for_event_type(data: dict, event_type: str) -> Entity:
+    def from_dict_for_event_type(data: dict, event_type: str) -> Entity | dict:
         entity_class_name = Entity._resolve_event_class_name(event_type)
 
         entity_class = None
@@ -26,10 +26,11 @@ class Entity(ABC):
 
             instantiated_class = entity_class.from_dict(data)
         except Exception as error:
-            print(f"Error dynamically instantiating a '{entity_module_path}.{entity_class_name}' object: {repr(error)}")
+            print(f"Error dynamically instantiating a '{entity_module_path}.{entity_class_name}' object: {error}")
 
-        if not entity_class:
-            raise ValueError(f"Event type '{entity_class_name}' cannot be mapped to an object")
+        if not instantiated_class:
+            return data
+
         if not issubclass(entity_class, Entity):
             raise ValueError(f"Event type '{entity_class_name}' is not of NotificationEntity")
 

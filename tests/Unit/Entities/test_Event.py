@@ -178,3 +178,19 @@ class TestEvent:
 
         assert isinstance(event.data, Subscription)
         assert not hasattr(event.data, "transaction_id")
+
+    def test_unknown_event_type_is_handled(self):
+        event = Event.from_dict(
+            {
+                "data": loads(ReadsFixtures.read_raw_json_fixture("notification/entity/address.created")),
+                "event_type": "some_unknown_entity.created",
+                "event_id": "evt_01h8bzakzx3hm2fmen703n5q45",
+                "occurred_at": "2023-08-21T11:57:47.390028Z",
+            }
+        )
+
+        assert event.event_id == "evt_01h8bzakzx3hm2fmen703n5q45"
+        assert event.event_type == "some_unknown_entity.created"
+        assert event.occurred_at.isoformat() == "2023-08-21T11:57:47.390028+00:00"
+        assert isinstance(event.data, dict)
+        assert event.data["id"] == "add_01hv8gq3318ktkfengj2r75gfx"

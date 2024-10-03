@@ -14,7 +14,7 @@ class Event(Entity, ABC):
     event_id: str
     event_type: EventTypeName
     occurred_at: datetime
-    data: NotificationEntity
+    data: NotificationEntity | dict
 
     @staticmethod
     def from_dict(data: dict) -> Event:
