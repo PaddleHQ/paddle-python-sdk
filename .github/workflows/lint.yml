@@ -30,5 +30,8 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install ".[dev]"
 
+      - name: Run Formatter Checks
+        run: black . --check
+
       - name: Run Flake8
         run: flake8 paddle_billing tests examples

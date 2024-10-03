@@ -31,7 +31,7 @@ events = None
 try:
     # List events starting after the last processed event ID
     events = paddle.events.list(ListEvents(Pager(after=last_processed_event_id)))
-except (ApiError) as error:
+except ApiError as error:
     log.error(error)
     # Your additional logic that can handle Paddle's hints about what went wrong
 except Exception as error:
@@ -47,9 +47,7 @@ if not len(events.items):
 
 for event in events:
     last_processed_event_id = event.event_id  # Update the last processed event ID
-    print(
-        f"event: {event.event_id}\t\t Type: {event.event_type.value:28}\t\t Occurred At: {event.occurred_at}"
-    )
+    print(f"event: {event.event_id}\t\t Type: {event.event_type.value:28}\t\t Occurred At: {event.occurred_at}")
     # Your additional logic for using each event
 
 # Now you're up-to-date, you should keep a record of the last processed event...
