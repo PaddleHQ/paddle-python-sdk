@@ -3,6 +3,7 @@ from pytest import mark
 from urllib.parse import unquote
 
 from paddle_billing.Entities.Collections import EventCollection
+from paddle_billing.Entities.Event import Event
 
 from paddle_billing.Resources.Events.Operations import ListEvents
 from paddle_billing.Resources.Shared.Operations import Pager
@@ -69,6 +70,12 @@ class TestEventsClient:
         assert response_json == loads(
             str(expected_response_body)
         ), "The response JSON doesn't match the expected fixture JSON"
+
+        assert len(events.items) == 11
+        for event in events.items:
+            assert isinstance(event, Event)
+            assert event.event_id is not None
+            assert not hasattr(event, "notification_id")
 
     def test_list_subscription_created_event(
         self,

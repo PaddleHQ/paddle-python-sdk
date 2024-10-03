@@ -1,4 +1,4 @@
-class FakeResponse:
+class FakeRequest:
     """This is the easiest way to simulate a Requests response object"""
 
     def __init__(self, headers=None, content=""):

@@ -2,9 +2,6 @@ from __future__ import annotations
 from abc import ABC
 from dataclasses import dataclass
 from datetime import datetime
-from importlib import import_module
-
-from paddle_billing.ConditionallyRemoveImportMeta import conditionally_remove_import_meta
 
 from paddle_billing.Entities.Entity import Entity
 from paddle_billing.Entities.Events import EventTypeName
@@ -21,38 +18,9 @@ class Event(Entity, ABC):
 
     @staticmethod
     def from_dict(data: dict) -> Event:
-        entity_class_name = Event._resolve_event_class_name(data["event_type"])
-
-        entity_class = None
-        instantiated_class = None
-        entity_module_path = "paddle_billing.Notifications.Entities"
-
-        try:
-            imported_module = import_module(f"{entity_module_path}.{entity_class_name}")
-            entity_class = getattr(imported_module, entity_class_name)
-
-            conditionally_remove_import_meta(entity_class, data)
-            instantiated_class = entity_class  # (**data['data'])
-        except Exception as error:
-            print(f"Error dynamically instantiating a '{entity_module_path}.{entity_class_name}' object: {error}")
-
-        if not entity_class:
-            raise ValueError(f"Event type '{entity_class_name}' cannot be mapped to an object")
-        if not issubclass(entity_class, NotificationEntity):
-            raise ValueError(f"Event type '{entity_class_name}' is not of NotificationEntity")
-
         return Event(
             data["event_id"],
             EventTypeName(data["event_type"]),
             datetime.fromisoformat(data["occurred_at"]),
-            instantiated_class.from_dict(data["data"]),
+            NotificationEntity.from_dict_for_event_type(data["data"], data["event_type"]),
         )
-
-    @staticmethod
-    def _resolve_event_class_name(event_type) -> str:
-        if event_type == "subscription.created":
-            return "SubscriptionCreated"
-
-        event_entity = event_type.split(".")[0] or ""
-
-        return event_entity.lower().title()

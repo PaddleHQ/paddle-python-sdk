@@ -33,12 +33,14 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 - Replaced `AdjustmentProration`, `SubscriptionProration` and `TransactionProration` with shared `Proration`
 - `paddle_billing.Entities.Event` `data` will now be `paddle_billing.Notifications.Entities.SubscriptionCreated` for `subscription.created` events
 - `paddle_billing.Resources.Reports.Operations.CreateReport` is replaced by report specific operations `CreateAdjustmentsReport` | `CreateDiscountsReport` | `CreateProductsAndPricesReport` | `CreateTransactionsReport`
+- `paddle_billing.Entities.Notification` `payload` is now `paddle_billing.Entities.Notifications.NotificationEvent`
 
 ### Fixed
 
 - `PreviewPrice` operation no longer allows empty `items`
 - `CustomersClient.credit_balances` can now be filtered by `currency_code`
 - Transaction payments `payment_method_id` can be `string` or `None`
+- `paddle_billing.Notifications.Verifier` `verify()` now expects `request` to be `paddle_billing.Notifications.Requests.Request` protocol
 
 ### Removed
 

@@ -2,7 +2,7 @@ from json import loads
 from pytest import mark
 from importlib import import_module
 
-from paddle_billing.Entities.Event import Event
+from paddle_billing.Entities.Notifications import NotificationEvent
 
 from paddle_billing.Notifications.Entities.Subscription import Subscription
 from paddle_billing.Notifications.Entities.SubscriptionCreated import SubscriptionCreated
@@ -10,7 +10,7 @@ from paddle_billing.Notifications.Entities.SubscriptionCreated import Subscripti
 from tests.Utils.ReadsFixture import ReadsFixtures
 
 
-class TestEvent:
+class TestNotificationEvent:
     @mark.parametrize(
         "event_type, entity_name",
         [
@@ -102,7 +102,7 @@ class TestEvent:
             "report.updated",
         ],
     )
-    def test_event_from_dict(
+    def test_notification_event_from_dict(
         self,
         event_type,
         entity_name,
@@ -112,32 +112,35 @@ class TestEvent:
         imported_module = import_module(f"{entity_module_path}.{entity_name}")
         entity_class = getattr(imported_module, entity_name)
 
-        event = Event.from_dict(
+        notification_event = NotificationEvent.from_dict(
             {
                 "data": loads(ReadsFixtures.read_raw_json_fixture(f"notification/entity/{event_type}")),
+                "notification_id": "ntf_01h8bkrfe7w1vwf8xmytwn51e7",
                 "event_type": event_type,
                 "event_id": "evt_01h8bzakzx3hm2fmen703n5q45",
                 "occurred_at": "2023-08-21T11:57:47.390028Z",
             }
         )
 
-        assert isinstance(event.data, entity_class)
-        assert event.event_id == "evt_01h8bzakzx3hm2fmen703n5q45"
-        assert event.event_type == event_type
-        assert event.occurred_at.isoformat() == "2023-08-21T11:57:47.390028+00:00"
+        assert isinstance(notification_event.data, entity_class)
+        assert notification_event.notification_id == "ntf_01h8bkrfe7w1vwf8xmytwn51e7"
+        assert notification_event.event_id == "evt_01h8bzakzx3hm2fmen703n5q45"
+        assert notification_event.event_type == event_type
+        assert notification_event.occurred_at.isoformat() == "2023-08-21T11:57:47.390028+00:00"
 
-    def test_subscription_created_event_transaction_id(self):
-        event = Event.from_dict(
+    def test_subscription_created_notification_event_transaction_id(self):
+        notification_event = NotificationEvent.from_dict(
             {
                 "data": loads(ReadsFixtures.read_raw_json_fixture("notification/entity/subscription.created")),
+                "notification_id": "ntf_01h8bkrfe7w1vwf8xmytwn51e7",
                 "event_type": "subscription.created",
                 "event_id": "evt_01h8bzakzx3hm2fmen703n5q45",
                 "occurred_at": "2023-08-21T11:57:47.390028Z",
             }
         )
 
-        assert isinstance(event.data, SubscriptionCreated)
-        assert event.data.transaction_id == "txn_01hv8wptq8987qeep44cyrewp9"
+        assert isinstance(notification_event.data, SubscriptionCreated)
+        assert notification_event.data.transaction_id == "txn_01hv8wptq8987qeep44cyrewp9"
 
     @mark.parametrize(
         "event_type",
@@ -162,19 +165,20 @@ class TestEvent:
             "subscription.updated",
         ],
     )
-    def test_subscription_events_without_transaction_id(
+    def test_subscription_notification_events_without_transaction_id(
         self,
         event_type,
     ):
 
-        event = Event.from_dict(
+        notification_event = NotificationEvent.from_dict(
             {
                 "data": loads(ReadsFixtures.read_raw_json_fixture(f"notification/entity/{event_type}")),
+                "notification_id": "ntf_01h8bkrfe7w1vwf8xmytwn51e7",
                 "event_type": event_type,
                 "event_id": "evt_01h8bzakzx3hm2fmen703n5q45",
                 "occurred_at": "2023-08-21T11:57:47.390028Z",
             }
         )
 
-        assert isinstance(event.data, Subscription)
-        assert not hasattr(event.data, "transaction_id")
+        assert isinstance(notification_event.data, Subscription)
+        assert not hasattr(notification_event.data, "transaction_id")

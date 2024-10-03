@@ -3,9 +3,9 @@ from dataclasses import dataclass
 from datetime import datetime
 
 from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.Event import Event
 from paddle_billing.Entities.Events import EventTypeName
 from paddle_billing.Entities.Notifications import NotificationOrigin, NotificationStatus
+from paddle_billing.Entities.Notifications.NotificationEvent import NotificationEvent
 
 
 @dataclass
@@ -13,7 +13,7 @@ class Notification(Entity):
     id: str
     type: EventTypeName
     status: NotificationStatus
-    payload: Event
+    payload: NotificationEvent
     occurred_at: datetime
     delivered_at: datetime | None
     replayed_at: datetime | None
@@ -29,7 +29,7 @@ class Notification(Entity):
             id=data["id"],
             type=EventTypeName(data["type"]),
             status=NotificationStatus(data["status"]),
-            payload=Event.from_dict(data["payload"]),
+            payload=NotificationEvent.from_dict(data["payload"]),
             occurred_at=datetime.fromisoformat(data["occurred_at"]),
             origin=NotificationOrigin(data["origin"]),
             times_attempted=data["times_attempted"],
