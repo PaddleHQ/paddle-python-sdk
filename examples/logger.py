@@ -12,13 +12,12 @@ if not api_key:
     raise ValueError("You must provide the PADDLE_SECRET_API_KEY in your environment variables")
 
 # Determine the environment, defaulting to sandbox
-environment = getenv("PADDLE_ENVIRONMENT", "sandbox")
-paddle_environment = getattr(Environment, environment)  # E.g. Environment.sandbox
+environment = Environment(getenv("PADDLE_ENVIRONMENT", "sandbox"))
 
 # Initialize the Paddle client
 paddle = Client(
     api_key,
-    options=Options(paddle_environment),
+    options=Options(environment),
     logger=logging.getLogger("my_app"),
 )
 
@@ -28,4 +27,7 @@ stdout_handler.setLevel(logging.INFO)
 paddle.log.addHandler(stdout_handler)
 
 # List products
-paddle.products.list()
+products = paddle.products.list()
+
+for product in products:
+    print(f"Product's id: {product.id}")

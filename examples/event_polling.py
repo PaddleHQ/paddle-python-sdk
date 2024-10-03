@@ -5,7 +5,6 @@ from sys import exit  # You should use classes/functions that returns instead of
 from paddle_billing import Client, Environment, Options
 
 from paddle_billing.Exceptions.ApiError import ApiError
-from paddle_billing.Exceptions.SdkExceptions.MalformedResponse import MalformedResponse
 
 from paddle_billing.Resources.Events.Operations import ListEvents
 from paddle_billing.Resources.Shared.Operations import Pager
@@ -20,11 +19,10 @@ if not api_key:
     raise ValueError("You must provide the PADDLE_SECRET_API_KEY in your environment variables")
 
 # Determine the environment, defaulting to sandbox
-environment = getenv("PADDLE_ENVIRONMENT", "sandbox")
-paddle_environment = getattr(Environment, environment)  # E.g. Environment.sandbox
+environment = Environment(getenv("PADDLE_ENVIRONMENT", "sandbox"))
 
 # Initialize the Paddle client
-paddle = Client(api_key, options=Options(paddle_environment), logger=log)
+paddle = Client(api_key, options=Options(environment), logger=log)
 
 # Placeholder for the last processed event ID
 last_processed_event_id = "evt_01hfxx8t6ek9h399srcrp36jt3"
@@ -33,7 +31,7 @@ events = None
 try:
     # List events starting after the last processed event ID
     events = paddle.events.list(ListEvents(Pager(after=last_processed_event_id)))
-except (ApiError, MalformedResponse) as error:
+except (ApiError) as error:
     log.error(error)
     # Your additional logic that can handle Paddle's hints about what went wrong
 except Exception as error:
@@ -50,7 +48,7 @@ if not len(events.items):
 for event in events:
     last_processed_event_id = event.event_id  # Update the last processed event ID
     print(
-        f"event: {event.event_id}\t\t Type: {event.event_type.value:28}\t\t Occurred At: {event.occurred_at.format()}"
+        f"event: {event.event_id}\t\t Type: {event.event_type.value:28}\t\t Occurred At: {event.occurred_at}"
     )
     # Your additional logic for using each event
 

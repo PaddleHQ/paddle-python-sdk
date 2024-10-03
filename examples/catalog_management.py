@@ -8,8 +8,8 @@ from paddle_billing.Entities.Shared import (
     CountryCode,
     CurrencyCode,
     CustomData,
+    Duration,
     Money,
-    TimePeriod,
     PriceQuantity,
     UnitPriceOverride,
     Interval,
@@ -18,7 +18,6 @@ from paddle_billing.Entities.Shared import (
 )
 
 from paddle_billing.Exceptions.ApiError import ApiError
-from paddle_billing.Exceptions.SdkExceptions.MalformedResponse import MalformedResponse
 
 from paddle_billing.Resources.Prices.Operations import CreatePrice, UpdatePrice, PriceIncludes
 from paddle_billing.Resources.Products.Operations import CreateProduct, UpdateProduct, ProductIncludes, ListProducts
@@ -33,11 +32,10 @@ if not api_key:
     raise ValueError("You must provide the PADDLE_SECRET_API_KEY in your environment variables")
 
 # Determine the environment, defaulting to sandbox
-environment = getenv("PADDLE_ENVIRONMENT", "sandbox")
-paddle_environment = getattr(Environment, environment)  # E.g. Environment.sandbox
+environment = Environment(getenv("PADDLE_ENVIRONMENT", "sandbox"))
 
 # Initialize the Paddle client
-paddle = Client(api_key, options=Options(paddle_environment), logger=log)
+paddle = Client(api_key, options=Options(environment), logger=log)
 
 
 # ┌───
@@ -53,7 +51,7 @@ try:
             custom_data=CustomData({"foo": "bar"}),
         )
     )
-except (ApiError, MalformedResponse) as error:
+except (ApiError) as error:
     print(error)
     exit(1)
 
@@ -72,7 +70,7 @@ try:
             custom_data=CustomData({"beep": "boop"}),
         ),
     )
-except (ApiError, MalformedResponse) as error:
+except (ApiError) as error:
     print(error)
     exit(1)
 
@@ -88,8 +86,8 @@ try:
             description="Bear Hug",
             product_id=product.id,
             unit_price=Money("1000", CurrencyCode.GBP),
-            trial_period=TimePeriod(Interval.Week, 1),
-            billing_cycle=TimePeriod(Interval.Year, 1),
+            trial_period=Duration(Interval.Week, 1),
+            billing_cycle=Duration(Interval.Year, 1),
             quantity=PriceQuantity(1, 1),
             custom_data=CustomData({"foo": "bar"}),
             unit_price_overrides=[
@@ -100,7 +98,7 @@ try:
             ],
         )
     )
-except (ApiError, MalformedResponse) as error:
+except (ApiError) as error:
     print(error)
     exit(1)
 
@@ -119,7 +117,7 @@ try:
             custom_data=CustomData({"beep": "boop"}),
         ),
     )
-except (ApiError, MalformedResponse) as error:
+except (ApiError) as error:
     print(error)
     exit(1)
 
@@ -131,7 +129,7 @@ print(f"Updated price '{price.id}': {price.description}")
 # └─────────────────────────┘
 try:
     product = paddle.products.get(product.id, [ProductIncludes.Prices])
-except (ApiError, MalformedResponse) as error:
+except (ApiError) as error:
     print(error)
     exit(1)
 
@@ -144,7 +142,7 @@ print(f"Read product '{product.id}' with prices " + ", ".join([str(price.id) for
 # └────────────────────────┘
 try:
     price = paddle.prices.get(price.id, [PriceIncludes.Product])
-except (ApiError, MalformedResponse) as error:
+except (ApiError) as error:
     print(error)
     exit(1)
 
@@ -161,7 +159,7 @@ try:
             statuses=[Status.Active],
         )
     )
-except (ApiError, MalformedResponse) as error:
+except (ApiError) as error:
     print(error)
     exit(1)
 
