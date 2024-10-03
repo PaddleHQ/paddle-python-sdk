@@ -24,7 +24,7 @@ paddle = Client(api_key, options=Options(environment), logger=log)
 products = None
 try:
     products = paddle.products.list()
-except (ApiError) as error:
+except ApiError as error:
     log.error(error)
     # Your additional logic that can handle Paddle's hints about what went wrong.
     print(f"error_type: {error.error_type}")

@@ -51,7 +51,7 @@ try:
             custom_data=CustomData({"foo": "bar"}),
         )
     )
-except (ApiError) as error:
+except ApiError as error:
     print(error)
     exit(1)
 
@@ -70,7 +70,7 @@ try:
             custom_data=CustomData({"beep": "boop"}),
         ),
     )
-except (ApiError) as error:
+except ApiError as error:
     print(error)
     exit(1)
 
@@ -98,7 +98,7 @@ try:
             ],
         )
     )
-except (ApiError) as error:
+except ApiError as error:
     print(error)
     exit(1)
 
@@ -117,7 +117,7 @@ try:
             custom_data=CustomData({"beep": "boop"}),
         ),
     )
-except (ApiError) as error:
+except ApiError as error:
     print(error)
     exit(1)
 
@@ -129,7 +129,7 @@ print(f"Updated price '{price.id}': {price.description}")
 # └─────────────────────────┘
 try:
     product = paddle.products.get(product.id, [ProductIncludes.Prices])
-except (ApiError) as error:
+except ApiError as error:
     print(error)
     exit(1)
 
@@ -142,7 +142,7 @@ print(f"Read product '{product.id}' with prices " + ", ".join([str(price.id) for
 # └────────────────────────┘
 try:
     price = paddle.prices.get(price.id, [PriceIncludes.Product])
-except (ApiError) as error:
+except ApiError as error:
     print(error)
     exit(1)
 
@@ -159,7 +159,7 @@ try:
             statuses=[Status.Active],
         )
     )
-except (ApiError) as error:
+except ApiError as error:
     print(error)
     exit(1)
 
