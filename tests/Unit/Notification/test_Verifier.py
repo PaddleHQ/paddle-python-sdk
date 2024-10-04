@@ -2,7 +2,7 @@ from pytest import mark
 
 from paddle_billing.Notifications import PaddleSignature, Verifier, Secret
 
-from tests.Utils import FakeResponse
+from tests.Utils import FakeRequest
 from tests.Utils.ReadsFixture import ReadsFixtures
 
 
@@ -13,7 +13,7 @@ class TestVerifier:
         }
         test_data = "hello-world"
 
-        request = FakeResponse(test_headers, test_data)
+        request = FakeRequest(test_headers, test_data)
         secrets = [
             Secret("pdl_ntf_01hbpjmytsa32fhr36nqgc3kgb_TjIG2BXbm83HPXqNfziwe506sBEdqL/4"),  # should fail
             Secret("pdl_ntf_01hbpjmytsa32fhr36nqgc3kgb_vB/yIOnTOCWIvpBadM5jzBZPHc7OmdSo"),  # should fail
@@ -52,7 +52,7 @@ class TestVerifier:
 
         headers = {PaddleSignature().HEADER: signature}
         secret = "pdl_ntfset_01hs0t3tw21j988db1pam5xg8m_GrOWLNef+vmtjJYq4mSnHNzvc8uWoJ1I"
-        request = FakeResponse(headers, payload)
+        request = FakeRequest(headers, payload)
         assert request is not None
 
         integrity_check = Verifier().verify(request, Secret(secret))
