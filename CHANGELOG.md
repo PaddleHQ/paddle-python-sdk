@@ -42,6 +42,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 - `CustomersClient.credit_balances` can now be filtered by `currency_code`
 - Transaction payments `payment_method_id` can be `string` or `None`
 - `paddle_billing.Notifications.Verifier` `verify()` now expects `request` to be `paddle_billing.Notifications.Requests.Request` protocol
+- Client connection errors will be raised as `requests.exceptions.ConnectionError` instead of an `AttributeError`
 
 ### Removed
 

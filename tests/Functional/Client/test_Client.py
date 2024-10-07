@@ -1,6 +1,7 @@
 from json import loads, dumps
 from pytest import mark, raises
 from urllib.parse import unquote
+import requests
 
 from paddle_billing.Exceptions.ApiError import ApiError
 from paddle_billing.Exceptions.ApiErrors.AddressApiError import AddressApiError
@@ -155,3 +156,16 @@ class TestClient:
         test_client.client.post_raw(expected_request_url)
 
         assert mock_requests.last_request.timeout == 60.0
+
+    def test_client_throws_connection_error(self, test_client, mock_requests):
+        expected_request_url = f"{test_client.base_url}/some/url"
+
+        mock_requests.post(expected_request_url, exc=requests.exceptions.ConnectionError("Some Connection Error"))
+
+        with raises(requests.exceptions.ConnectionError) as exception_info:
+            test_client.client.post_raw(expected_request_url)
+
+        exception = exception_info.value
+
+        assert isinstance(exception, RequestException)
+        assert str(exception) == "Some Connection Error"
