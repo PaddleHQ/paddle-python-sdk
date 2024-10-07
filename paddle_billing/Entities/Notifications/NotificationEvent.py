@@ -8,6 +8,7 @@ from paddle_billing.Entities.Entity import Entity
 from paddle_billing.Entities.Events import EventTypeName
 
 from paddle_billing.Notifications.Entities.Entity import Entity as NotificationEntity
+from paddle_billing.Notifications.Entities.UndefinedEntity import UndefinedEntity
 
 from paddle_billing.Notifications.Requests import Request
 
@@ -18,7 +19,7 @@ class NotificationEvent(Entity, ABC):
     event_id: str
     event_type: EventTypeName
     occurred_at: datetime
-    data: NotificationEntity | dict
+    data: NotificationEntity | UndefinedEntity
 
     @staticmethod
     def from_dict(data: dict) -> NotificationEvent:

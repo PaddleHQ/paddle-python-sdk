@@ -6,6 +6,7 @@ from paddle_billing.Entities.Event import Event
 
 from paddle_billing.Notifications.Entities.Subscription import Subscription
 from paddle_billing.Notifications.Entities.SubscriptionCreated import SubscriptionCreated
+from paddle_billing.Notifications.Entities.UndefinedEntity import UndefinedEntity
 
 from tests.Utils.ReadsFixture import ReadsFixtures
 
@@ -125,6 +126,8 @@ class TestEvent:
         assert event.event_id == "evt_01h8bzakzx3hm2fmen703n5q45"
         assert event.event_type == event_type
         assert event.occurred_at.isoformat() == "2023-08-21T11:57:47.390028+00:00"
+        assert isinstance(event.data.to_dict(), dict)
+        assert event.data.to_dict()["id"] is not None
 
     def test_subscription_created_event_transaction_id(self):
         event = Event.from_dict(
@@ -138,6 +141,8 @@ class TestEvent:
 
         assert isinstance(event.data, SubscriptionCreated)
         assert event.data.transaction_id == "txn_01hv8wptq8987qeep44cyrewp9"
+        assert isinstance(event.data.to_dict(), dict)
+        assert event.data.to_dict()["transaction_id"] == "txn_01hv8wptq8987qeep44cyrewp9"
 
     @mark.parametrize(
         "event_type",
@@ -192,5 +197,5 @@ class TestEvent:
         assert event.event_id == "evt_01h8bzakzx3hm2fmen703n5q45"
         assert event.event_type == "some_unknown_entity.created"
         assert event.occurred_at.isoformat() == "2023-08-21T11:57:47.390028+00:00"
-        assert isinstance(event.data, dict)
-        assert event.data["id"] == "add_01hv8gq3318ktkfengj2r75gfx"
+        assert isinstance(event.data, UndefinedEntity)
+        assert event.data.to_dict()["id"] == "add_01hv8gq3318ktkfengj2r75gfx"

@@ -1,9 +1,13 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
+from dataclasses import asdict, dataclass
 from importlib import import_module
+from paddle_billing.Notifications.Entities.EntityDict import EntityDict
+from paddle_billing.Notifications.Entities.UndefinedEntity import UndefinedEntity
 
 
-class Entity(ABC):
+@dataclass
+class Entity(ABC, EntityDict):
     @staticmethod
     @abstractmethod
     def from_dict(data: dict):
@@ -13,7 +17,7 @@ class Entity(ABC):
         pass
 
     @staticmethod
-    def from_dict_for_event_type(data: dict, event_type: str) -> Entity | dict:
+    def from_dict_for_event_type(data: dict, event_type: str) -> Entity | UndefinedEntity:
         entity_class_name = Entity._resolve_event_class_name(event_type)
 
         entity_class = None
@@ -29,7 +33,7 @@ class Entity(ABC):
             print(f"Error dynamically instantiating a '{entity_module_path}.{entity_class_name}' object: {error}")
 
         if not instantiated_class:
-            return data
+            return UndefinedEntity(data)
 
         if not issubclass(entity_class, Entity):
             raise ValueError(f"Event type '{entity_class_name}' is not of NotificationEntity")
@@ -44,3 +48,6 @@ class Entity(ABC):
         event_entity = event_type.split(".")[0] or ""
 
         return event_entity.lower().title()
+
+    def to_dict(self) -> dict:
+        return asdict(self)
