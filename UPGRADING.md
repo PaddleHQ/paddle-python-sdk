@@ -4,13 +4,13 @@ All breaking changes prior to v1 will be documented in this file to assist with 
 
 ## v0.3.0
 
-### 1. `paddle_billing.Entities.Shared.AvailablePaymentMethods` has been replaced by `paddle_billing.Entities.Shared.PaymentMethodType`.
+### 1. `AvailablePaymentMethods` has been replaced by `PaymentMethodType`.
 
-`Transaction` `available_payment_methods` will now return a list of `PaymentMethodType`.
+`Transaction` `available_payment_methods` will now return a list of `paddle_billing.Entities.Shared.PaymentMethodType`.
 
-All usage of `AvailablePaymentMethods` will need to be replaced with `PaymentMethodType`.
+All usage of `paddle_billing.Entities.Shared.AvailablePaymentMethods` will need to be replaced with `paddle_billing.Entities.Shared.PaymentMethodType`.
 
-### 2. `paddle_billing.Entities.Shared.TimePeriod` has been aligned to API specification
+### 2. `TimePeriod` has been aligned to API specification
 
 Existing shared `TimePeriod` was renamed to `Duration` (with properties `interval` and `frequency`), and new `TimePeriod` was added (with properties `starts_at` and `ends_at`).
 
