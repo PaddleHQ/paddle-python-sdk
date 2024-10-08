@@ -35,6 +35,9 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 - `paddle_billing.Entities.Event` `data` will now be `paddle_billing.Notifications.Entities.UndefinedEntity` for unknown event types
 - `paddle_billing.Resources.Reports.Operations.CreateReport` is replaced by report specific operations `CreateAdjustmentsReport` | `CreateDiscountsReport` | `CreateProductsAndPricesReport` | `CreateTransactionsReport`
 - `paddle_billing.Entities.Notification` `payload` is now `paddle_billing.Entities.Notifications.NotificationEvent`
+- `paddle_billing.Entities.Shared.BillingDetails` is no longer used for `billing_details` in request operations
+  - `CreateTransaction` now uses `paddle_billing.Resources.Shared.Operations.Create.CreateBillingDetails`
+  - `UpdateTransaction` | `UpdateSubscription` | `PreviewUpdateSubscription` now uses `paddle_billing.Resources.Shared.Operations.Update.UpdateBillingDetails`
 
 ### Fixed
 

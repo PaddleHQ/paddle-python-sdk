@@ -1,0 +1,8 @@
+{
+  "billing_details": {
+    "payment_terms": {
+      "interval": "month",
+      "frequency": 1
+    }
+  }
+}

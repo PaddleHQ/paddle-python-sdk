@@ -50,6 +50,12 @@ Usage of `paddle_billing.Resources.Reports.Operations.CreateReport` should be re
 - `paddle_billing.Resources.Reports.Operations.CreateProductsAndPricesReport`
 - `paddle_billing.Resources.Reports.Operations.CreateTransactionsReport`
 
+### 5. `BillingDetails` entity is no longer used for `billing_details` in request operations
+
+Usage of `paddle_billing.Entities.Shared.BillingDetails` for `billing_details` in request operations, should be replaced with:
+- `paddle_billing.Resources.Shared.Operations.Update.UpdateBillingDetails` for `UpdateTransaction` | `UpdateSubscription` | `PreviewUpdateSubscription`
+- `paddle_billing.Resources.Shared.Operations.Create.CreateBillingDetails` for `CreateTransaction`
+
 ## v0.2.0
 
 This release includes a few breaking changes. These changes should be limited impact on most integrations but may cause problems in some circumstances. 

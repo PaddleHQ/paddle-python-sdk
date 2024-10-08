@@ -1,8 +1,8 @@
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 
+from paddle_billing.Operation import Operation
 from paddle_billing.Undefined import Undefined
 from paddle_billing.Entities.Shared import (
-    BillingDetails,
     Checkout,
     CollectionMode,
     CurrencyCode,
@@ -11,10 +11,11 @@ from paddle_billing.Entities.Shared import (
     TransactionStatus,
 )
 from paddle_billing.Entities.Transactions import TransactionCreateItem, TransactionCreateItemWithPrice
+from paddle_billing.Resources.Shared.Operations.Update import UpdateBillingDetails
 
 
 @dataclass
-class UpdateTransaction:
+class UpdateTransaction(Operation):
     items: list[TransactionCreateItem | TransactionCreateItemWithPrice] = Undefined()
     status: TransactionStatus | Undefined = Undefined()
     customer_id: str | None | Undefined = Undefined()
@@ -24,9 +25,6 @@ class UpdateTransaction:
     currency_code: CurrencyCode | Undefined = Undefined()
     collection_mode: CollectionMode | Undefined = Undefined()
     discount_id: str | None | Undefined = Undefined()
-    billing_details: BillingDetails | None | Undefined = Undefined()
+    billing_details: UpdateBillingDetails | None | Undefined = Undefined()
     billing_period: TimePeriod | None | Undefined = Undefined()
     checkout: Checkout | None | Undefined = Undefined()
-
-    def get_parameters(self) -> dict:
-        return asdict(self)

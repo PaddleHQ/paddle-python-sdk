@@ -67,13 +67,13 @@ class TransactionsClient:
             )
 
         params = {"include": ",".join(include.value for include in includes)} if includes else {}
-        self.response = self.client.post_raw("/transactions", operation.get_parameters(), params)
+        self.response = self.client.post_raw("/transactions", operation, params)
         parser = ResponseParser(self.response)
 
         return Transaction.from_dict(parser.get_data())
 
     def update(self, transaction_id: str, operation: UpdateTransaction) -> Transaction:
-        self.response = self.client.patch_raw(f"/transactions/{transaction_id}", operation.get_parameters())
+        self.response = self.client.patch_raw(f"/transactions/{transaction_id}", operation)
         parser = ResponseParser(self.response)
 
         return Transaction.from_dict(parser.get_data())

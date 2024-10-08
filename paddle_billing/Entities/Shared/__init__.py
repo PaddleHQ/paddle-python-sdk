@@ -5,7 +5,6 @@ from paddle_billing.Entities.Shared.AdjustmentStatus import AdjustmentStatus
 from paddle_billing.Entities.Shared.AdjustmentTotals import AdjustmentTotals
 from paddle_billing.Entities.Shared.AdjustmentType import AdjustmentType
 from paddle_billing.Entities.Shared.BillingDetails import BillingDetails
-from paddle_billing.Entities.Shared.BillingDetailsUpdate import BillingDetailsUpdate
 from paddle_billing.Entities.Shared.Card import Card
 from paddle_billing.Entities.Shared.CatalogType import CatalogType
 from paddle_billing.Entities.Shared.ChargebackFee import ChargebackFee

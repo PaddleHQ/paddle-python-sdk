@@ -12,7 +12,6 @@ from paddle_billing.Entities.Discount import Discount, DiscountStatus
 
 from paddle_billing.Entities.Shared import (
     AddressPreview,
-    BillingDetails,
     CollectionMode,
     CountryCode,
     CurrencyCode,
@@ -48,6 +47,11 @@ from paddle_billing.Resources.Transactions.Operations import (
     PreviewTransactionByIP,
     UpdateTransaction,
     GetTransactionInvoice,
+)
+
+from paddle_billing.Resources.Shared.Operations import (
+    CreateBillingDetails,
+    UpdateBillingDetails,
 )
 
 from tests.Utils.ReadsFixture import ReadsFixtures
@@ -156,7 +160,7 @@ class TestTransactionsClient:
                     currency_code=CurrencyCode.GBP,
                     collection_mode=CollectionMode.Manual,
                     discount_id="dsc_01hen7bjzh12m0v2peer15d9qt",
-                    billing_details=BillingDetails(
+                    billing_details=CreateBillingDetails(
                         enable_checkout=True,
                         payment_terms=Duration(interval=Interval.Month, frequency=1),
                         purchase_order_number="10009",
@@ -167,11 +171,40 @@ class TestTransactionsClient:
                 ReadsFixtures.read_raw_json_fixture("response/full_entity"),
                 "/transactions",
             ),
+            (
+                CreateTransaction(
+                    items=[TransactionCreateItem(price_id="pri_01gsz8x8sawmvhz1pv30nge1ke", quantity=1)],
+                    billing_details=CreateBillingDetails(
+                        payment_terms=Duration(interval=Interval.Month, frequency=1),
+                    ),
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/create_minimal_billing_details"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/full_entity"),
+                "/transactions",
+            ),
+            (
+                CreateTransaction(
+                    items=[TransactionCreateItem(price_id="pri_01gsz8x8sawmvhz1pv30nge1ke", quantity=1)],
+                    billing_details=CreateBillingDetails(
+                        enable_checkout=True,
+                        payment_terms=Duration(interval=Interval.Month, frequency=1),
+                        purchase_order_number="10009",
+                        additional_information=True,
+                    ),
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/create_full_billing_details"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/full_entity"),
+                "/transactions",
+            ),
         ],
         ids=[
             "Create transaction with basic data",
             "Create transaction with non-catalog price",
             "Create transaction with manual collection mode",
+            "Create transaction with minimal billing details",
+            "Create transaction with full billing details",
         ],
     )
     def test_create_transaction_uses_expected_payload(
@@ -266,10 +299,39 @@ class TestTransactionsClient:
                 ReadsFixtures.read_raw_json_fixture("response/full_entity"),
                 "/transactions/txn_01h7zcgmdc6tmwtjehp3sh7azf",
             ),
+            (
+                "txn_01h7zcgmdc6tmwtjehp3sh7azf",
+                UpdateTransaction(
+                    billing_details=UpdateBillingDetails(
+                        payment_terms=Duration(interval=Interval.Month, frequency=1),
+                    ),
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/update_minimal_billing_details"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/full_entity"),
+                "/transactions/txn_01h7zcgmdc6tmwtjehp3sh7azf",
+            ),
+            (
+                "txn_01h7zcgmdc6tmwtjehp3sh7azf",
+                UpdateTransaction(
+                    billing_details=UpdateBillingDetails(
+                        enable_checkout=True,
+                        payment_terms=Duration(interval=Interval.Month, frequency=1),
+                        purchase_order_number="10009",
+                        additional_information=True,
+                    ),
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/update_full_billing_details"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/full_entity"),
+                "/transactions/txn_01h7zcgmdc6tmwtjehp3sh7azf",
+            ),
         ],
         ids=[
             "Update transaction with single new value",
             "Update transaction with partial new values",
+            "Create transaction with minimal billing details",
+            "Create transaction with full billing details",
         ],
     )
     def test_update_transaction_uses_expected_payload(

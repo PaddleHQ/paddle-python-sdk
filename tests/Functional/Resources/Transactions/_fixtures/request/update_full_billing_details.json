@@ -1,0 +1,11 @@
+{
+  "billing_details": {
+    "additional_information": true,
+    "enable_checkout": true,
+    "purchase_order_number": "10009",
+    "payment_terms": {
+      "interval": "month",
+      "frequency": 1
+    }
+  }
+}

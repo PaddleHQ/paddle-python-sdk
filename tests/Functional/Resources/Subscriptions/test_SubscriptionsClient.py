@@ -52,6 +52,10 @@ from paddle_billing.Resources.Subscriptions.Operations import (
     UpdateSubscription,
 )
 
+from paddle_billing.Resources.Shared.Operations import (
+    UpdateBillingDetails,
+)
+
 from tests.Utils.ReadsFixture import ReadsFixtures
 
 
@@ -142,11 +146,36 @@ class TestSubscriptionsClient:
                 ReadsFixtures.read_raw_json_fixture("response/full_entity"),
                 "/subscriptions/sub_01h8bx8fmywym11t6swgzba704",
             ),
+            (
+                "sub_01h8bx8fmywym11t6swgzba704",
+                UpdateSubscription(billing_details=UpdateBillingDetails()),
+                ReadsFixtures.read_raw_json_fixture("request/update_minimal_billing_details"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/full_entity"),
+                "/subscriptions/sub_01h8bx8fmywym11t6swgzba704",
+            ),
+            (
+                "sub_01h8bx8fmywym11t6swgzba704",
+                UpdateSubscription(
+                    billing_details=UpdateBillingDetails(
+                        enable_checkout=True,
+                        payment_terms=Duration(interval=Interval.Month, frequency=1),
+                        purchase_order_number="10009",
+                        additional_information=True,
+                    ),
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/update_full_billing_details"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/full_entity"),
+                "/subscriptions/sub_01h8bx8fmywym11t6swgzba704",
+            ),
         ],
         ids=[
             "Update subscription with a single new value",
             "Update subscription with partial new values",
             "Update subscription with all new values",
+            "Update subscription with minimal billing details",
+            "Update subscription with full billing details",
         ],
     )
     def test_update_subscription_uses_expected_payload(
@@ -902,11 +931,38 @@ class TestSubscriptionsClient:
                 ReadsFixtures.read_raw_json_fixture("response/preview_update_full_entity"),
                 "/subscriptions/sub_01h8bx8fmywym11t6swgzba704/preview",
             ),
+            (
+                "sub_01h8bx8fmywym11t6swgzba704",
+                PreviewUpdateSubscription(
+                    billing_details=UpdateBillingDetails(),
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/preview_update_minimal_billing_details"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/preview_update_full_entity"),
+                "/subscriptions/sub_01h8bx8fmywym11t6swgzba704/preview",
+            ),
+            (
+                "sub_01h8bx8fmywym11t6swgzba704",
+                PreviewUpdateSubscription(
+                    billing_details=UpdateBillingDetails(
+                        enable_checkout=True,
+                        payment_terms=Duration(interval=Interval.Month, frequency=1),
+                        purchase_order_number="10009",
+                        additional_information=True,
+                    ),
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/preview_update_full_billing_details"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/preview_update_full_entity"),
+                "/subscriptions/sub_01h8bx8fmywym11t6swgzba704/preview",
+            ),
         ],
         ids=[
             "Preview updating a subscription with a single new value",
             "Preview updating a subscription with partial new values",
             "Preview updating a subscription with all new values",
+            "Preview updating a subscription with minimal billing details",
+            "Preview updating a subscription with full billing details",
         ],
     )
     def test_preview_update_subscription_uses_expected_payload(

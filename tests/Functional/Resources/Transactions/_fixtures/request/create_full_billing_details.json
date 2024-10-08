@@ -1,0 +1,17 @@
+{
+  "items": [
+    {
+      "quantity": 1,
+      "price_id": "pri_01gsz8x8sawmvhz1pv30nge1ke"
+    }
+  ],
+  "billing_details": {
+    "additional_information": true,
+    "enable_checkout": true,
+    "purchase_order_number": "10009",
+    "payment_terms": {
+      "interval": "month",
+      "frequency": 1
+    }
+  }
+}
