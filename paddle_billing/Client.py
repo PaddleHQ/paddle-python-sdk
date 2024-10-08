@@ -137,10 +137,9 @@ class Client:
 
             return response
         except RequestException as e:
-            self.status_code = e.response.status_code
-
             api_error = None
             if e.response is not None:
+                self.status_code = e.response.status_code
                 response_parser = ResponseParser(e.response)
                 api_error = response_parser.get_error()
 
