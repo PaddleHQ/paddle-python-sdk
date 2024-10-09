@@ -5,8 +5,11 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 from urllib.parse import urljoin, urlencode
 from uuid import uuid4
+from dataclasses import fields, is_dataclass
 
+from paddle_billing.Operation import Operation
 from paddle_billing.FiltersUndefined import FiltersUndefined
+from paddle_billing.Undefined import Undefined
 from paddle_billing.HasParameters import HasParameters
 from paddle_billing.Options import Options
 from paddle_billing.ResponseParser import ResponseParser
@@ -34,6 +37,16 @@ from paddle_billing.Resources.Transactions.TransactionsClient import Transaction
 
 class PayloadEncoder(JSONEncoder):
     def default(self, z):
+        if is_dataclass(z):
+            data = {}
+            for field in fields(z):
+                data[field.name] = getattr(z, field.name)
+
+            return FiltersUndefined.filter_undefined_values(data)
+
+        if isinstance(z, Undefined):
+            return None
+
         if hasattr(z, "to_json") and callable(z.to_json):
             return z.to_json()
 
@@ -105,7 +118,7 @@ class Client:
         self.log.debug(f"Response: {response.status_code} {response.text}")
 
     @staticmethod
-    def serialize_json_payload(payload: dict) -> str:
+    def serialize_json_payload(payload: dict | Operation) -> str:
         json_payload = json_dumps(payload, cls=PayloadEncoder)
         final_json = json_payload if json_payload != "[]" else "{}"
 
@@ -115,7 +128,7 @@ class Client:
         self,
         method: str,
         url: str,
-        payload: dict | None = None,
+        payload: dict | Operation | None = None,
     ) -> Response:
         """
         Makes an actual API call to Paddle
@@ -168,17 +181,17 @@ class Client:
         return self._make_request("GET", url, None)
 
     def post_raw(
-        self, url: str, payload: dict | None = None, parameters: HasParameters | dict | None = None
+        self, url: str, payload: dict | Operation | None = None, parameters: HasParameters | dict | None = None
     ) -> Response:
-        if payload:
+        if isinstance(payload, dict):
             payload = FiltersUndefined.filter_undefined_values(payload)  # Strip Undefined items from the dict
 
         url = Client.format_uri_parameters(url, parameters) if parameters else url
 
         return self._make_request("POST", url, payload)
 
-    def patch_raw(self, url: str, payload: dict | None) -> Response:
-        if payload:
+    def patch_raw(self, url: str, payload: dict | Operation | None) -> Response:
+        if isinstance(payload, dict):
             payload = FiltersUndefined.filter_undefined_values(payload)  # Strip Undefined items from the dict
 
         return self._make_request("PATCH", url, payload)

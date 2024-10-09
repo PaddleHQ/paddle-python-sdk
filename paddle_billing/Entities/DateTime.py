@@ -36,3 +36,6 @@ class DateTime:
 
     def __str__(self):
         return self.format()
+
+    def to_json(self):
+        return self.format()

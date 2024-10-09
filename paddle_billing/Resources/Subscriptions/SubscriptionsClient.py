@@ -58,7 +58,7 @@ class SubscriptionsClient:
         return Subscription.from_dict(parser.get_data())
 
     def update(self, subscription_id: str, operation: UpdateSubscription) -> Subscription:
-        self.response = self.client.patch_raw(f"/subscriptions/{subscription_id}", operation.get_parameters())
+        self.response = self.client.patch_raw(f"/subscriptions/{subscription_id}", operation)
         parser = ResponseParser(self.response)
 
         return Subscription.from_dict(parser.get_data())
@@ -100,7 +100,7 @@ class SubscriptionsClient:
         return Subscription.from_dict(parser.get_data())
 
     def preview_update(self, subscription_id: str, operation: PreviewUpdateSubscription) -> SubscriptionPreview:
-        self.response = self.client.patch_raw(f"/subscriptions/{subscription_id}/preview", operation.get_parameters())
+        self.response = self.client.patch_raw(f"/subscriptions/{subscription_id}/preview", operation)
         parser = ResponseParser(self.response)
 
         return SubscriptionPreview.from_dict(parser.get_data())

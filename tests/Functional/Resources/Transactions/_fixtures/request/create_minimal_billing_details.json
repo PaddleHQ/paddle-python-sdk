@@ -1,0 +1,14 @@
+{
+  "items": [
+    {
+      "quantity": 1,
+      "price_id": "pri_01gsz8x8sawmvhz1pv30nge1ke"
+    }
+  ],
+  "billing_details": {
+    "payment_terms": {
+      "interval": "month",
+      "frequency": 1
+    }
+  }
+}
