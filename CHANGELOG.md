@@ -36,8 +36,9 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 - `paddle_billing.Resources.Reports.Operations.CreateReport` is replaced by report specific operations `CreateAdjustmentsReport` | `CreateDiscountsReport` | `CreateProductsAndPricesReport` | `CreateTransactionsReport`
 - `paddle_billing.Entities.Notification` `payload` is now `paddle_billing.Entities.Notifications.NotificationEvent`
 - `paddle_billing.Entities.Shared.BillingDetails` is no longer used for `billing_details` in request operations
-  - `CreateTransaction` now uses `paddle_billing.Resources.Shared.Operations.Create.CreateBillingDetails`
-  - `UpdateTransaction` | `UpdateSubscription` | `PreviewUpdateSubscription` now uses `paddle_billing.Resources.Shared.Operations.Update.UpdateBillingDetails`
+  - `CreateTransaction` now uses `paddle_billing.Resources.Transactions.Operations.Create.CreateBillingDetails`
+  - `UpdateTransaction` now uses `paddle_billing.Resources.Transactions.Operations.Update.UpdateBillingDetails`
+  - `UpdateSubscription` | `PreviewUpdateSubscription` now uses `paddle_billing.Resources.Subscriptions.Operations.Update.UpdateBillingDetails`
 
 ### Fixed
 

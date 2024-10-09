@@ -11,7 +11,7 @@ from paddle_billing.Entities.Shared import (
     TransactionStatus,
 )
 from paddle_billing.Entities.Transactions import TransactionCreateItem, TransactionCreateItemWithPrice
-from paddle_billing.Resources.Shared.Operations.Create import CreateBillingDetails
+from paddle_billing.Resources.Transactions.Operations.Create import CreateBillingDetails
 
 
 @dataclass

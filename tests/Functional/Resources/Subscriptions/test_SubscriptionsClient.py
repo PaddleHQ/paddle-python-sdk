@@ -52,9 +52,7 @@ from paddle_billing.Resources.Subscriptions.Operations import (
     UpdateSubscription,
 )
 
-from paddle_billing.Resources.Shared.Operations import (
-    UpdateBillingDetails,
-)
+from paddle_billing.Resources.Subscriptions.Operations.Update import UpdateBillingDetails
 
 from tests.Utils.ReadsFixture import ReadsFixtures
 

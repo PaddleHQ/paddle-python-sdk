@@ -12,8 +12,10 @@ from paddle_billing.Entities.Subscriptions import (
     SubscriptionProrationBillingMode,
 )
 
-from paddle_billing.Resources.Subscriptions.Operations.Update.SubscriptionDiscount import SubscriptionDiscount
-from paddle_billing.Resources.Shared.Operations.Update import UpdateBillingDetails
+from paddle_billing.Resources.Subscriptions.Operations.Update import (
+    SubscriptionDiscount,
+    UpdateBillingDetails,
+)
 
 
 @dataclass

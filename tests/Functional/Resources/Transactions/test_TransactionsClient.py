@@ -49,10 +49,8 @@ from paddle_billing.Resources.Transactions.Operations import (
     GetTransactionInvoice,
 )
 
-from paddle_billing.Resources.Shared.Operations import (
-    CreateBillingDetails,
-    UpdateBillingDetails,
-)
+from paddle_billing.Resources.Transactions.Operations.Create import CreateBillingDetails
+from paddle_billing.Resources.Transactions.Operations.Update import UpdateBillingDetails
 
 from tests.Utils.ReadsFixture import ReadsFixtures
 
