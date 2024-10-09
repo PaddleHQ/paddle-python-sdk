@@ -10,4 +10,4 @@ class UpdateBillingDetails:
     payment_terms: Duration | Undefined = Undefined()
     enable_checkout: bool | Undefined = Undefined()
     purchase_order_number: str | Undefined = Undefined()
-    additional_information: str | Undefined = Undefined()
+    additional_information: str | None | Undefined = Undefined()
