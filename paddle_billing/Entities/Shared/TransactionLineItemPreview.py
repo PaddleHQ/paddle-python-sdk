@@ -15,7 +15,7 @@ class TransactionLineItemPreview:
     unit_totals: UnitTotals
     totals: Totals
     product: Product
-    proration: Proration
+    proration: Proration | None
 
     @staticmethod
     def from_dict(data: dict) -> TransactionLineItemPreview:
@@ -26,5 +26,5 @@ class TransactionLineItemPreview:
             unit_totals=UnitTotals.from_dict(data["unit_totals"]),
             totals=Totals.from_dict(data["totals"]),
             product=Product.from_dict(data["product"]),
-            proration=Proration.from_dict(data["proration"]),
+            proration=Proration.from_dict(data["proration"]) if data.get("proration") else None,
         )
