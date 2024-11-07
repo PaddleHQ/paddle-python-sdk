@@ -200,7 +200,7 @@ class Client:
                 "Authorization": f"Bearer {self.__api_key}",
                 "Content-Type": "application/json",
                 "Paddle-Version": str(self.use_api_version),
-                "User-Agent": "PaddleSDK/python 0.3.2",
+                "User-Agent": "PaddleSDK/python 1.0.0",
             }
         )
 
