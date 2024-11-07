@@ -1,11 +1,12 @@
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 
+from paddle_billing.Operation import Operation
 from paddle_billing.Undefined import Undefined
 from paddle_billing.Entities.Shared import CountryCode, CustomData
 
 
 @dataclass
-class CreateAddress:
+class CreateAddress(Operation):
     country_code: CountryCode
     description: str | None = Undefined()
     first_line: str | None = Undefined()
@@ -14,6 +15,3 @@ class CreateAddress:
     postal_code: str | None = Undefined()
     region: str | None = Undefined()
     custom_data: CustomData | None = Undefined()
-
-    def get_parameters(self) -> dict:
-        return asdict(self)

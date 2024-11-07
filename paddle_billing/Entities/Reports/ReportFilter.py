@@ -1,5 +1,5 @@
 from __future__ import annotations
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 
 from paddle_billing.Entities.Reports import ReportFilterName, ReportFilterOperator
 
@@ -13,6 +13,3 @@ class ReportFilter:
     @staticmethod
     def from_dict(data: dict) -> ReportFilter:
         return ReportFilter(**data)
-
-    def get_parameters(self) -> dict:
-        return asdict(self)

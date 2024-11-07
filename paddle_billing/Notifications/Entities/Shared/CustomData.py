@@ -5,5 +5,5 @@ from dataclasses import dataclass
 class CustomData:
     data: dict | list  # JSON serializable Python types
 
-    def get_parameters(self):
+    def to_json(self):
         return self.data

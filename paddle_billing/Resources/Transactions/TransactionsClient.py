@@ -81,7 +81,7 @@ class TransactionsClient:
     def preview(
         self, operation: PreviewTransactionByAddress | PreviewTransactionByCustomer | PreviewTransactionByIP
     ) -> TransactionPreview:
-        self.response = self.client.post_raw("/transactions/preview", operation.get_parameters())
+        self.response = self.client.post_raw("/transactions/preview", operation)
         parser = ResponseParser(self.response)
 
         return TransactionPreview.from_dict(parser.get_data())

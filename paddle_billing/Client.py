@@ -37,18 +37,18 @@ from paddle_billing.Resources.Transactions.TransactionsClient import Transaction
 
 class PayloadEncoder(JSONEncoder):
     def default(self, z):
+        if isinstance(z, Undefined):
+            return None
+
+        if hasattr(z, "to_json") and callable(z.to_json):
+            return z.to_json()
+
         if is_dataclass(z):
             data = {}
             for field in fields(z):
                 data[field.name] = getattr(z, field.name)
 
             return FiltersUndefined.filter_undefined_values(data)
-
-        if isinstance(z, Undefined):
-            return None
-
-        if hasattr(z, "to_json") and callable(z.to_json):
-            return z.to_json()
 
         return super().default(z)
 
@@ -183,17 +183,11 @@ class Client:
     def post_raw(
         self, url: str, payload: dict | Operation | None = None, parameters: HasParameters | dict | None = None
     ) -> Response:
-        if isinstance(payload, dict):
-            payload = FiltersUndefined.filter_undefined_values(payload)  # Strip Undefined items from the dict
-
         url = Client.format_uri_parameters(url, parameters) if parameters else url
 
         return self._make_request("POST", url, payload)
 
     def patch_raw(self, url: str, payload: dict | Operation | None) -> Response:
-        if isinstance(payload, dict):
-            payload = FiltersUndefined.filter_undefined_values(payload)  # Strip Undefined items from the dict
-
         return self._make_request("PATCH", url, payload)
 
     def delete_raw(self, url: str) -> Response:

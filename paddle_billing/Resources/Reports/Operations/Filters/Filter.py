@@ -9,7 +9,7 @@ from paddle_billing.Entities.Reports import ReportFilterName
 
 @dataclass
 class Filter(ABC):
-    def get_parameters(self) -> dict:
+    def to_json(self) -> dict:
         return {
             "name": self.get_name(),
             "operator": self.get_operator(),

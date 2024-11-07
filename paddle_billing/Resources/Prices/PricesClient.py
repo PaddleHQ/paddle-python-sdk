@@ -47,13 +47,13 @@ class PricesClient:
         return Price.from_dict(parser.get_data())
 
     def create(self, operation: CreatePrice) -> Price:
-        self.response = self.client.post_raw("/prices", operation.get_parameters())
+        self.response = self.client.post_raw("/prices", operation)
         parser = ResponseParser(self.response)
 
         return Price.from_dict(parser.get_data())
 
     def update(self, price_id: str, operation: UpdatePrice) -> Price:
-        self.response = self.client.patch_raw(f"/prices/{price_id}", operation.get_parameters())
+        self.response = self.client.patch_raw(f"/prices/{price_id}", operation)
         parser = ResponseParser(self.response)
 
         return Price.from_dict(parser.get_data())

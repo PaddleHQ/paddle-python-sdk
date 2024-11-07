@@ -1,5 +1,6 @@
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 
+from paddle_billing.Operation import Operation
 from paddle_billing.Undefined import Undefined
 from paddle_billing.Entities.PricingPreviews import PricePreviewItem
 from paddle_billing.Entities.Shared import CurrencyCode, AddressPreview
@@ -8,7 +9,7 @@ from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import Inv
 
 
 @dataclass
-class PreviewPrice:
+class PreviewPrice(Operation):
     items: list[PricePreviewItem]
     customer_id: str | None | Undefined = Undefined()
     address_id: str | None | Undefined = Undefined()
@@ -28,6 +29,3 @@ class PreviewPrice:
             raise InvalidArgumentException.array_contains_invalid_types(
                 "items", PricePreviewItem.__name__, invalid_items
             )
-
-    def get_parameters(self) -> dict:
-        return asdict(self)

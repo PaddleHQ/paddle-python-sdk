@@ -1,5 +1,6 @@
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 
+from paddle_billing.Operation import Operation
 from paddle_billing.Undefined import Undefined
 from paddle_billing.Entities.DateTime import DateTime
 from paddle_billing.Entities.Discounts import DiscountStatus, DiscountType
@@ -7,7 +8,7 @@ from paddle_billing.Entities.Shared import CurrencyCode, CustomData
 
 
 @dataclass
-class UpdateDiscount:
+class UpdateDiscount(Operation):
     amount: str | Undefined = Undefined()
     description: str | Undefined = Undefined()
     type: DiscountType | Undefined = Undefined()
@@ -21,6 +22,3 @@ class UpdateDiscount:
     expires_at: DateTime | None | Undefined = Undefined()
     status: DiscountStatus | Undefined = Undefined()
     custom_data: CustomData | None | Undefined = Undefined()
-
-    def get_parameters(self) -> dict:
-        return asdict(self)

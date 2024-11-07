@@ -1,11 +1,9 @@
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 
+from paddle_billing.Operation import Operation
 from paddle_billing.Entities.Subscriptions import SubscriptionEffectiveFrom
 
 
 @dataclass
-class CancelSubscription:
+class CancelSubscription(Operation):
     effective_from: SubscriptionEffectiveFrom = None
-
-    def get_parameters(self) -> dict:
-        return asdict(self)

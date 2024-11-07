@@ -1,5 +1,6 @@
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 
+from paddle_billing.Operation import Operation
 from paddle_billing.Undefined import Undefined
 
 from paddle_billing.Entities.Subscriptions import (
@@ -11,10 +12,7 @@ from paddle_billing.Entities.Subscriptions import (
 
 
 @dataclass
-class CreateOneTimeCharge:
+class CreateOneTimeCharge(Operation):
     effective_from: SubscriptionEffectiveFrom
     items: list[SubscriptionItems | SubscriptionItemsWithPrice]
     on_payment_failure: SubscriptionOnPaymentFailure | Undefined = Undefined()
-
-    def get_parameters(self) -> dict:
-        return asdict(self)

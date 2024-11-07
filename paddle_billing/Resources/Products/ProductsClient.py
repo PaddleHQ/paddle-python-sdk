@@ -52,13 +52,13 @@ class ProductsClient:
         return Product.from_dict(parser.get_data())
 
     def create(self, operation: CreateProduct) -> Product:
-        self.response = self.client.post_raw("/products", operation.get_parameters())
+        self.response = self.client.post_raw("/products", operation)
         parser = ResponseParser(self.response)
 
         return Product.from_dict(parser.get_data())
 
     def update(self, product_id: str, operation: UpdateProduct) -> Product:
-        self.response = self.client.patch_raw(f"/products/{product_id}", operation.get_parameters())
+        self.response = self.client.patch_raw(f"/products/{product_id}", operation)
         parser = ResponseParser(self.response)
 
         return Product.from_dict(parser.get_data())

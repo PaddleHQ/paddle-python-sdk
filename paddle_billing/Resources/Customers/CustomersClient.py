@@ -40,13 +40,13 @@ class CustomersClient:
         return Customer.from_dict(parser.get_data())
 
     def create(self, operation: CreateCustomer) -> Customer:
-        self.response = self.client.post_raw("/customers", operation.get_parameters())
+        self.response = self.client.post_raw("/customers", operation)
         parser = ResponseParser(self.response)
 
         return Customer.from_dict(parser.get_data())
 
     def update(self, customer_id: str, operation: UpdateCustomer) -> Customer:
-        self.response = self.client.patch_raw(f"/customers/{customer_id}", operation.get_parameters())
+        self.response = self.client.patch_raw(f"/customers/{customer_id}", operation)
         parser = ResponseParser(self.response)
 
         return Customer.from_dict(parser.get_data())

@@ -1,5 +1,6 @@
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 
+from paddle_billing.Operation import Operation
 from paddle_billing.Undefined import Undefined
 from paddle_billing.Entities.Shared import (
     CatalogType,
@@ -13,7 +14,7 @@ from paddle_billing.Entities.Shared import (
 
 
 @dataclass
-class CreatePrice:
+class CreatePrice(Operation):
     description: str
     product_id: str
     unit_price: Money
@@ -25,6 +26,3 @@ class CreatePrice:
     billing_cycle: Duration | None | Undefined = Undefined()
     quantity: PriceQuantity | Undefined = Undefined()
     custom_data: CustomData | Undefined = Undefined()
-
-    def get_parameters(self) -> dict:
-        return asdict(self)

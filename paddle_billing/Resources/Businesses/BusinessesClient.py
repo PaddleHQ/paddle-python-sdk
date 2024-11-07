@@ -35,15 +35,13 @@ class BusinessesClient:
         return Business.from_dict(parser.get_data())
 
     def create(self, customer_id: str, operation: CreateBusiness) -> Business:
-        self.response = self.client.post_raw(f"/customers/{customer_id}/businesses", operation.get_parameters())
+        self.response = self.client.post_raw(f"/customers/{customer_id}/businesses", operation)
         parser = ResponseParser(self.response)
 
         return Business.from_dict(parser.get_data())
 
     def update(self, customer_id: str, business_id: str, operation: UpdateBusiness) -> Business:
-        self.response = self.client.patch_raw(
-            f"/customers/{customer_id}/businesses/{business_id}", operation.get_parameters()
-        )
+        self.response = self.client.patch_raw(f"/customers/{customer_id}/businesses/{business_id}", operation)
         parser = ResponseParser(self.response)
 
         return Business.from_dict(parser.get_data())

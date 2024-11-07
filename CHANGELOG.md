@@ -13,6 +13,9 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 - `paddle_billing.Resources.Discounts.Operations.CreateDiscount` `expires_at` is now `paddle_billing.Entities.DateTime`
 - `paddle_billing.Resources.Discounts.Operations.UpdateDiscount` `expires_at` is now `paddle_billing.Entities.DateTime`
 
+### Removed
+- `get_parameters()` method on request operation classes is now removed or replaced by `to_json()` (see UPGRADING.md for further details)
+
 ## 0.3.2 - 2024-11-07
 
 ### Fixed
