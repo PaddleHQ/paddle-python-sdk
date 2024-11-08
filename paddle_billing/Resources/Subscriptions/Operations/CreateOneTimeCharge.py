@@ -5,14 +5,17 @@ from paddle_billing.Undefined import Undefined
 
 from paddle_billing.Entities.Subscriptions import (
     SubscriptionEffectiveFrom,
-    SubscriptionItems,
-    SubscriptionItemsWithPrice,
     SubscriptionOnPaymentFailure,
+)
+
+from paddle_billing.Resources.Subscriptions.Operations.Charge import (
+    SubscriptionChargeItem,
+    SubscriptionChargeItemWithPrice,
 )
 
 
 @dataclass
 class CreateOneTimeCharge(Operation):
     effective_from: SubscriptionEffectiveFrom
-    items: list[SubscriptionItems | SubscriptionItemsWithPrice]
+    items: list[SubscriptionChargeItem | SubscriptionChargeItemWithPrice]
     on_payment_failure: SubscriptionOnPaymentFailure | Undefined = Undefined()

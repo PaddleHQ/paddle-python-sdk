@@ -19,18 +19,12 @@ from paddle_billing.Entities.Shared import (
     PaymentMethodType,
     PriceQuantity,
     Interval,
-    CatalogType,
     TaxCategory,
     ImportMeta,
 )
 
 from paddle_billing.Entities.Subscriptions import (
     SubscriptionEffectiveFrom,
-    SubscriptionItems,
-    SubscriptionItemsWithPrice,
-    SubscriptionNonCatalogPrice,
-    SubscriptionNonCatalogPriceWithProduct,
-    SubscriptionNonCatalogProduct,
     SubscriptionOnPaymentFailure,
     SubscriptionProrationBillingMode,
     SubscriptionResumeEffectiveFrom,
@@ -50,6 +44,23 @@ from paddle_billing.Resources.Subscriptions.Operations import (
     SubscriptionDiscount,
     SubscriptionIncludes,
     UpdateSubscription,
+)
+
+
+from paddle_billing.Resources.Subscriptions.Operations.Update import (
+    SubscriptionUpdateItem,
+    SubscriptionUpdateItemWithPrice,
+)
+
+from paddle_billing.Resources.Subscriptions.Operations.Charge import (
+    SubscriptionChargeItem,
+    SubscriptionChargeItemWithPrice,
+)
+
+from paddle_billing.Resources.Subscriptions.Operations.Price import (
+    SubscriptionNonCatalogPrice,
+    SubscriptionNonCatalogPriceWithProduct,
+    SubscriptionNonCatalogProduct,
 )
 
 from paddle_billing.Resources.Subscriptions.Operations.Update import UpdateBillingDetails
@@ -98,42 +109,63 @@ class TestSubscriptionsClient:
                         SubscriptionEffectiveFrom.NextBillingPeriod,
                     ),
                     items=[
-                        SubscriptionItems("pri_01gsz91wy9k1yn7kx82aafwvea", 1),
-                        SubscriptionItems("pri_01gsz91wy9k1yn7kx82bafwvea", 5),
-                        SubscriptionItemsWithPrice(
+                        SubscriptionUpdateItem("pri_01gsz91wy9k1yn7kx82aafwvea", 1),
+                        SubscriptionUpdateItem("pri_01gsz91wy9k1yn7kx82bafwvea"),
+                        SubscriptionUpdateItemWithPrice(
                             SubscriptionNonCatalogPrice(
-                                "some description",
-                                "some name",
-                                "pro_01gsz4t5hdjse780zja8vvr7jg",
-                                TaxMode.AccountSetting,
-                                Money("1", CurrencyCode.GBP),
-                                list(),
-                                PriceQuantity(1, 3),
-                                CustomData({"key": "value"}),
-                                Duration(Interval.Day, 1),
-                                Duration(Interval.Day, 2),
+                                description="some description",
+                                name="some name",
+                                product_id="pro_01gsz4t5hdjse780zja8vvr7jg",
+                                tax_mode=TaxMode.AccountSetting,
+                                unit_price=Money("1", CurrencyCode.GBP),
+                                unit_price_overrides=list(),
+                                quantity=PriceQuantity(1, 3),
+                                custom_data=CustomData({"key": "value"}),
+                                billing_cycle=Duration(Interval.Day, 1),
+                                trial_period=Duration(Interval.Day, 2),
                             ),
                             2,
                         ),
-                        SubscriptionItemsWithPrice(
+                        SubscriptionUpdateItemWithPrice(
                             SubscriptionNonCatalogPriceWithProduct(
-                                "some description",
-                                "some name",
-                                SubscriptionNonCatalogProduct(
-                                    "some name",
-                                    "some description",
-                                    CatalogType.Custom,
-                                    TaxCategory.DigitalGoods,
-                                    "https://www.example.com/image.jpg",
-                                    CustomData({"key": "value"}),
+                                description="some description",
+                                name="some name",
+                                product=SubscriptionNonCatalogProduct(
+                                    name="some name",
+                                    description="some description",
+                                    tax_category=TaxCategory.DigitalGoods,
+                                    image_url="https://www.example.com/image.jpg",
+                                    custom_data=CustomData({"key": "value"}),
                                 ),
-                                TaxMode.AccountSetting,
-                                Money("1", CurrencyCode.GBP),
-                                list(),
-                                PriceQuantity(1, 3),
-                                CustomData({"key": "value"}),
-                                Duration(Interval.Day, 1),
-                                Duration(Interval.Day, 2),
+                                tax_mode=TaxMode.AccountSetting,
+                                unit_price=Money("1", CurrencyCode.GBP),
+                                unit_price_overrides=list(),
+                                quantity=PriceQuantity(1, 3),
+                                custom_data=CustomData({"key": "value"}),
+                                billing_cycle=Duration(Interval.Day, 1),
+                                trial_period=Duration(Interval.Day, 2),
+                            ),
+                            2,
+                        ),
+                        SubscriptionUpdateItemWithPrice(
+                            SubscriptionNonCatalogPrice(
+                                description="some description",
+                                product_id="pro_01gsz4t5hdjse780zja8vvr7jg",
+                                unit_price=Money("1", CurrencyCode.GBP),
+                            ),
+                            2,
+                        ),
+                        SubscriptionUpdateItemWithPrice(
+                            SubscriptionNonCatalogPriceWithProduct(
+                                description="some description",
+                                product=SubscriptionNonCatalogProduct(
+                                    name="some name",
+                                    description="some description",
+                                    tax_category=TaxCategory.DigitalGoods,
+                                    image_url="https://www.example.com/image.jpg",
+                                    custom_data=CustomData({"key": "value"}),
+                                ),
+                                unit_price=Money("1", CurrencyCode.GBP),
                             ),
                             2,
                         ),
@@ -779,7 +811,7 @@ class TestSubscriptionsClient:
                 "sub_01h8bx8fmywym11t6swgzba704",
                 CreateOneTimeCharge(
                     SubscriptionEffectiveFrom.NextBillingPeriod,
-                    [SubscriptionItems("pri_01gsz98e27ak2tyhexptwc58yk", 1)],
+                    [SubscriptionChargeItem("pri_01gsz98e27ak2tyhexptwc58yk", 1)],
                 ),
                 ReadsFixtures.read_raw_json_fixture("request/create_one_time_charge_minimal"),
                 200,
@@ -791,9 +823,45 @@ class TestSubscriptionsClient:
                 CreateOneTimeCharge(
                     SubscriptionEffectiveFrom.Immediately,
                     [
-                        SubscriptionItems("pri_01gsz98e27ak2tyhexptwc58yk", 1),
-                        SubscriptionItems("pri_01h7zdqstxe6djaefkqbkjy4k2", 10),
-                        SubscriptionItems("pri_01h7zd9mzfq79850w4ryc39v38", 845),
+                        SubscriptionChargeItem("pri_01gsz98e27ak2tyhexptwc58yk", 1),
+                        SubscriptionChargeItem("pri_01h7zdqstxe6djaefkqbkjy4k2", 10),
+                        SubscriptionChargeItem("pri_01h7zd9mzfq79850w4ryc39v38", 845),
+                        SubscriptionChargeItemWithPrice(
+                            SubscriptionNonCatalogPrice(
+                                description="some description",
+                                name="some name",
+                                product_id="pro_01gsz4t5hdjse780zja8vvr7jg",
+                                tax_mode=TaxMode.AccountSetting,
+                                unit_price=Money("1", CurrencyCode.GBP),
+                                unit_price_overrides=list(),
+                                quantity=PriceQuantity(1, 3),
+                                custom_data=CustomData({"key": "value"}),
+                                billing_cycle=Duration(Interval.Day, 1),
+                                trial_period=Duration(Interval.Day, 2),
+                            ),
+                            2,
+                        ),
+                        SubscriptionChargeItemWithPrice(
+                            SubscriptionNonCatalogPriceWithProduct(
+                                description="some description",
+                                name="some name",
+                                product=SubscriptionNonCatalogProduct(
+                                    name="some name",
+                                    description="some description",
+                                    tax_category=TaxCategory.DigitalGoods,
+                                    image_url="https://www.example.com/image.jpg",
+                                    custom_data=CustomData({"key": "value"}),
+                                ),
+                                tax_mode=TaxMode.AccountSetting,
+                                unit_price=Money("1", CurrencyCode.GBP),
+                                unit_price_overrides=list(),
+                                quantity=PriceQuantity(1, 3),
+                                custom_data=CustomData({"key": "value"}),
+                                billing_cycle=Duration(Interval.Day, 1),
+                                trial_period=Duration(Interval.Day, 2),
+                            ),
+                            2,
+                        ),
                     ],
                     SubscriptionOnPaymentFailure.ApplyChange,
                 ),
@@ -883,42 +951,63 @@ class TestSubscriptionsClient:
                         SubscriptionEffectiveFrom.NextBillingPeriod,
                     ),
                     items=[
-                        SubscriptionItems("pri_01gsz91wy9k1yn7kx82aafwvea", 1),
-                        SubscriptionItems("pri_01gsz91wy9k1yn7kx82bafwvea", 5),
-                        SubscriptionItemsWithPrice(
+                        SubscriptionUpdateItem("pri_01gsz91wy9k1yn7kx82aafwvea", 1),
+                        SubscriptionUpdateItem("pri_01gsz91wy9k1yn7kx82bafwvea"),
+                        SubscriptionUpdateItemWithPrice(
                             SubscriptionNonCatalogPrice(
-                                "some description",
-                                "some name",
-                                "pro_01gsz4t5hdjse780zja8vvr7jg",
-                                TaxMode.AccountSetting,
-                                Money("1", CurrencyCode.GBP),
-                                list(),
-                                PriceQuantity(1, 3),
-                                CustomData({"key": "value"}),
-                                Duration(Interval.Day, 1),
-                                Duration(Interval.Day, 2),
+                                description="some description",
+                                name="some name",
+                                product_id="pro_01gsz4t5hdjse780zja8vvr7jg",
+                                tax_mode=TaxMode.AccountSetting,
+                                unit_price=Money("1", CurrencyCode.GBP),
+                                unit_price_overrides=list(),
+                                quantity=PriceQuantity(1, 3),
+                                custom_data=CustomData({"key": "value"}),
+                                billing_cycle=Duration(Interval.Day, 1),
+                                trial_period=Duration(Interval.Day, 2),
                             ),
                             2,
                         ),
-                        SubscriptionItemsWithPrice(
+                        SubscriptionUpdateItemWithPrice(
                             SubscriptionNonCatalogPriceWithProduct(
-                                "some description",
-                                "some name",
-                                SubscriptionNonCatalogProduct(
-                                    "some name",
-                                    "some description",
-                                    CatalogType.Custom,
-                                    TaxCategory.DigitalGoods,
-                                    "https://www.example.com/image.jpg",
-                                    CustomData({"key": "value"}),
+                                description="some description",
+                                name="some name",
+                                product=SubscriptionNonCatalogProduct(
+                                    name="some name",
+                                    description="some description",
+                                    tax_category=TaxCategory.DigitalGoods,
+                                    image_url="https://www.example.com/image.jpg",
+                                    custom_data=CustomData({"key": "value"}),
                                 ),
-                                TaxMode.AccountSetting,
-                                Money("1", CurrencyCode.GBP),
-                                list(),
-                                PriceQuantity(1, 3),
-                                CustomData({"key": "value"}),
-                                Duration(Interval.Day, 1),
-                                Duration(Interval.Day, 2),
+                                tax_mode=TaxMode.AccountSetting,
+                                unit_price=Money("1", CurrencyCode.GBP),
+                                unit_price_overrides=list(),
+                                quantity=PriceQuantity(1, 3),
+                                custom_data=CustomData({"key": "value"}),
+                                billing_cycle=Duration(Interval.Day, 1),
+                                trial_period=Duration(Interval.Day, 2),
+                            ),
+                            2,
+                        ),
+                        SubscriptionUpdateItemWithPrice(
+                            SubscriptionNonCatalogPrice(
+                                description="some description",
+                                product_id="pro_01gsz4t5hdjse780zja8vvr7jg",
+                                unit_price=Money("1", CurrencyCode.GBP),
+                            ),
+                            2,
+                        ),
+                        SubscriptionUpdateItemWithPrice(
+                            SubscriptionNonCatalogPriceWithProduct(
+                                description="some description",
+                                product=SubscriptionNonCatalogProduct(
+                                    name="some name",
+                                    description="some description",
+                                    tax_category=TaxCategory.DigitalGoods,
+                                    image_url="https://www.example.com/image.jpg",
+                                    custom_data=CustomData({"key": "value"}),
+                                ),
+                                unit_price=Money("1", CurrencyCode.GBP),
                             ),
                             2,
                         ),
@@ -1025,7 +1114,7 @@ class TestSubscriptionsClient:
                 "sub_01h8bx8fmywym11t6swgzba704",
                 PreviewOneTimeCharge(
                     SubscriptionEffectiveFrom.NextBillingPeriod,
-                    [SubscriptionItems("pri_01gsz98e27ak2tyhexptwc58yk", 1)],
+                    [SubscriptionChargeItem("pri_01gsz98e27ak2tyhexptwc58yk", 1)],
                 ),
                 ReadsFixtures.read_raw_json_fixture("request/preview_one_time_charge_minimal"),
                 200,
@@ -1037,9 +1126,67 @@ class TestSubscriptionsClient:
                 PreviewOneTimeCharge(
                     SubscriptionEffectiveFrom.Immediately,
                     [
-                        SubscriptionItems("pri_01gsz98e27ak2tyhexptwc58yk", 1),
-                        SubscriptionItems("pri_01h7zdqstxe6djaefkqbkjy4k2", 10),
-                        SubscriptionItems("pri_01h7zd9mzfq79850w4ryc39v38", 845),
+                        SubscriptionChargeItem("pri_01gsz98e27ak2tyhexptwc58yk", 1),
+                        SubscriptionChargeItem("pri_01h7zdqstxe6djaefkqbkjy4k2", 10),
+                        SubscriptionChargeItem("pri_01h7zd9mzfq79850w4ryc39v38", 845),
+                        SubscriptionChargeItemWithPrice(
+                            SubscriptionNonCatalogPrice(
+                                description="some description",
+                                name="some name",
+                                product_id="pro_01gsz4t5hdjse780zja8vvr7jg",
+                                tax_mode=TaxMode.AccountSetting,
+                                unit_price=Money("1", CurrencyCode.GBP),
+                                unit_price_overrides=list(),
+                                quantity=PriceQuantity(1, 3),
+                                custom_data=CustomData({"key": "value"}),
+                                billing_cycle=Duration(Interval.Day, 1),
+                                trial_period=Duration(Interval.Day, 2),
+                            ),
+                            2,
+                        ),
+                        SubscriptionChargeItemWithPrice(
+                            SubscriptionNonCatalogPriceWithProduct(
+                                description="some description",
+                                name="some name",
+                                product=SubscriptionNonCatalogProduct(
+                                    name="some name",
+                                    description="some description",
+                                    tax_category=TaxCategory.DigitalGoods,
+                                    image_url="https://www.example.com/image.jpg",
+                                    custom_data=CustomData({"key": "value"}),
+                                ),
+                                tax_mode=TaxMode.AccountSetting,
+                                unit_price=Money("1", CurrencyCode.GBP),
+                                unit_price_overrides=list(),
+                                quantity=PriceQuantity(1, 3),
+                                custom_data=CustomData({"key": "value"}),
+                                billing_cycle=Duration(Interval.Day, 1),
+                                trial_period=Duration(Interval.Day, 2),
+                            ),
+                            2,
+                        ),
+                        SubscriptionChargeItemWithPrice(
+                            SubscriptionNonCatalogPrice(
+                                description="some description",
+                                product_id="pro_01gsz4t5hdjse780zja8vvr7jg",
+                                unit_price=Money("1", CurrencyCode.GBP),
+                            ),
+                            2,
+                        ),
+                        SubscriptionChargeItemWithPrice(
+                            SubscriptionNonCatalogPriceWithProduct(
+                                description="some description",
+                                product=SubscriptionNonCatalogProduct(
+                                    name="some name",
+                                    description="some description",
+                                    tax_category=TaxCategory.DigitalGoods,
+                                    image_url="https://www.example.com/image.jpg",
+                                    custom_data=CustomData({"key": "value"}),
+                                ),
+                                unit_price=Money("1", CurrencyCode.GBP),
+                            ),
+                            2,
+                        ),
                     ],
                 ),
                 ReadsFixtures.read_raw_json_fixture("request/preview_one_time_charge_full"),
@@ -1100,7 +1247,8 @@ class TestSubscriptionsClient:
         response = test_client.client.subscriptions.preview_one_time_charge(
             "sub_01h8bx8fmywym11t6swgzba704",
             PreviewOneTimeCharge(
-                SubscriptionEffectiveFrom.NextBillingPeriod, [SubscriptionItems("pri_01gsz98e27ak2tyhexptwc58yk", 1)]
+                SubscriptionEffectiveFrom.NextBillingPeriod,
+                [SubscriptionChargeItem("pri_01gsz98e27ak2tyhexptwc58yk", 1)],
             ),
         )
 

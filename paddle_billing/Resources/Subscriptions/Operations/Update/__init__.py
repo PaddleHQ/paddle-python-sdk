@@ -1,2 +1,6 @@
 from paddle_billing.Resources.Subscriptions.Operations.Update.SubscriptionDiscount import SubscriptionDiscount
+from paddle_billing.Resources.Subscriptions.Operations.Update.SubscriptionUpdateItem import SubscriptionUpdateItem
+from paddle_billing.Resources.Subscriptions.Operations.Update.SubscriptionUpdateItemWithPrice import (
+    SubscriptionUpdateItemWithPrice,
+)
 from paddle_billing.Resources.Subscriptions.Operations.Update.UpdateBillingDetails import UpdateBillingDetails

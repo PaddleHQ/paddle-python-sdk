@@ -3,6 +3,6 @@ from dataclasses import dataclass
 
 
 @dataclass
-class TransactionUpdateTransactionItem:
+class SubscriptionChargeItem:
     price_id: str
     quantity: int

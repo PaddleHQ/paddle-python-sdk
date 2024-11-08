@@ -6,14 +6,14 @@ from paddle_billing.Undefined import Undefined
 from paddle_billing.Entities.DateTime import DateTime
 from paddle_billing.Entities.Shared import CollectionMode, CurrencyCode, CustomData
 from paddle_billing.Entities.Subscriptions import (
-    SubscriptionItems,
-    SubscriptionItemsWithPrice,
     SubscriptionOnPaymentFailure,
     SubscriptionProrationBillingMode,
 )
 
 from paddle_billing.Resources.Subscriptions.Operations.Update import (
     SubscriptionDiscount,
+    SubscriptionUpdateItem,
+    SubscriptionUpdateItemWithPrice,
     UpdateBillingDetails,
 )
 
@@ -29,7 +29,7 @@ class UpdateSubscription(Operation):
     collection_mode: CollectionMode | Undefined = Undefined()
     billing_details: UpdateBillingDetails | None | Undefined = Undefined()
     scheduled_change: None | Undefined = Undefined()
-    items: list[SubscriptionItems | SubscriptionItemsWithPrice] | Undefined = Undefined()
+    items: list[SubscriptionUpdateItem | SubscriptionUpdateItemWithPrice] | Undefined = Undefined()
     custom_data: CustomData | None | Undefined = Undefined()
     proration_billing_mode: SubscriptionProrationBillingMode | Undefined = Undefined()
     on_payment_failure: SubscriptionOnPaymentFailure | Undefined = Undefined()
