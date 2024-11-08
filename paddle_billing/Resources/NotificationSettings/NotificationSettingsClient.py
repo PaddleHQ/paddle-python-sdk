@@ -39,15 +39,13 @@ class NotificationSettingsClient:
         return NotificationSetting.from_dict(parser.get_data())
 
     def create(self, operation: CreateNotificationSetting) -> NotificationSetting:
-        self.response = self.client.post_raw("/notification-settings", operation.get_parameters())
+        self.response = self.client.post_raw("/notification-settings", operation)
         parser = ResponseParser(self.response)
 
         return NotificationSetting.from_dict(parser.get_data())
 
     def update(self, notification_setting_id: str, operation: UpdateNotificationSetting) -> NotificationSetting:
-        self.response = self.client.patch_raw(
-            f"/notification-settings/{notification_setting_id}", operation.get_parameters()
-        )
+        self.response = self.client.patch_raw(f"/notification-settings/{notification_setting_id}", operation)
         parser = ResponseParser(self.response)
 
         return NotificationSetting.from_dict(parser.get_data())

@@ -41,7 +41,7 @@ class ReportsClient:
         return ReportCSV.from_dict(parser.get_data())
 
     def create(self, operation: CreateReport) -> Report:
-        self.response = self.client.post_raw("/reports", operation.get_parameters())
+        self.response = self.client.post_raw("/reports", operation)
         parser = ResponseParser(self.response)
 
         return Report.from_dict(parser.get_data())

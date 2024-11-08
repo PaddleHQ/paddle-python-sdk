@@ -35,13 +35,13 @@ class DiscountsClient:
         return Discount.from_dict(parser.get_data())
 
     def create(self, operation: CreateDiscount) -> Discount:
-        self.response = self.client.post_raw("/discounts", operation.get_parameters())
+        self.response = self.client.post_raw("/discounts", operation)
         parser = ResponseParser(self.response)
 
         return Discount.from_dict(parser.get_data())
 
     def update(self, discount_id: str, operation: UpdateDiscount) -> Discount:
-        self.response = self.client.patch_raw(f"/discounts/{discount_id}", operation.get_parameters())
+        self.response = self.client.patch_raw(f"/discounts/{discount_id}", operation)
         parser = ResponseParser(self.response)
 
         return Discount.from_dict(parser.get_data())

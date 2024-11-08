@@ -29,7 +29,7 @@ class AdjustmentsClient:
         )
 
     def create(self, operation: CreateAdjustment) -> Adjustment:
-        self.response = self.client.post_raw("/adjustments", operation.get_parameters())
+        self.response = self.client.post_raw("/adjustments", operation)
         parser = ResponseParser(self.response)
 
         return Adjustment.from_dict(parser.get_data())

@@ -35,15 +35,13 @@ class AddressesClient:
         return Address.from_dict(parser.get_data())
 
     def create(self, customer_id: str, operation: CreateAddress) -> Address:
-        self.response = self.client.post_raw(f"/customers/{customer_id}/addresses", operation.get_parameters())
+        self.response = self.client.post_raw(f"/customers/{customer_id}/addresses", operation)
         parser = ResponseParser(self.response)
 
         return Address.from_dict(parser.get_data())
 
     def update(self, customer_id: str, address_id: str, operation: UpdateAddress) -> Address:
-        self.response = self.client.patch_raw(
-            f"/customers/{customer_id}/addresses/{address_id}", operation.get_parameters()
-        )
+        self.response = self.client.patch_raw(f"/customers/{customer_id}/addresses/{address_id}", operation)
         parser = ResponseParser(self.response)
 
         return Address.from_dict(parser.get_data())

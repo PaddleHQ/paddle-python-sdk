@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-python-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## [Unreleased]
+
+### Changed
+
+- `paddle_billing.Resources.Discounts.Operations.CreateDiscount` `expires_at` is now `paddle_billing.Entities.DateTime`
+- `paddle_billing.Resources.Discounts.Operations.UpdateDiscount` `expires_at` is now `paddle_billing.Entities.DateTime`
+
+### Removed
+- `get_parameters()` method on request operation classes is now removed or replaced by `to_json()` (see UPGRADING.md for further details)
+
 ## 0.3.2 - 2024-11-07
 
 ### Fixed

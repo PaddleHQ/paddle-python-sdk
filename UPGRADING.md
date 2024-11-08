@@ -2,6 +2,66 @@
 
 All breaking changes prior to v1 will be documented in this file to assist with upgrading.
 
+## Unreleased
+
+### 1. Unused `get_parameters()` method was removed from request operation classes
+
+`get_parameters()` methods returned the data used for operation request payloads, but is now removed or replaced by `to_json()`. This method was intended to be internal, so should not require any changes.
+
+`get_parameters()` method was removed from the following classes:
+  - `paddle_billing.Entities.Reports.ReportFilter`
+  - `paddle_billing.Entities.Shared.CustomData`
+  - `paddle_billing.Entities.Subscriptions.SubscriptionItems`
+  - `paddle_billing.Entities.Subscriptions.SubscriptionItemsWithPrice`
+  - `paddle_billing.Notifications.Entities.Reports.ReportFilter`
+  - `paddle_billing.Notifications.Entities.Shared.CustomData`
+  - `paddle_billing.Resources.Addresses.Operations.CreateAddress`
+  - `paddle_billing.Resources.Addresses.Operations.UpdateAddress`
+  - `paddle_billing.Resources.Adjustments.Operations.CreateAdjustment`
+  - `paddle_billing.Resources.Businesses.Operations.CreateBusiness`
+  - `paddle_billing.Resources.Businesses.Operations.UpdateBusiness`
+  - `paddle_billing.Resources.Customers.Operations.CreateCustomer`
+  - `paddle_billing.Resources.Customers.Operations.UpdateCustomer`
+  - `paddle_billing.Resources.Discounts.Operations.CreateDiscount`
+  - `paddle_billing.Resources.Discounts.Operations.UpdateDiscount`
+  - `paddle_billing.Resources.NotificationSettings.Operations.CreateNotificationSetting`
+  - `paddle_billing.Resources.NotificationSettings.Operations.UpdateNotificationSetting`
+  - `paddle_billing.Resources.Prices.Operations.CreatePrice`
+  - `paddle_billing.Resources.Prices.Operations.UpdatePrice`
+  - `paddle_billing.Resources.PricingPreviews.Operations.PreviewPrice`
+  - `paddle_billing.Resources.Products.Operations.CreateProduct`
+  - `paddle_billing.Resources.Products.Operations.UpdateProduct`
+  - `paddle_billing.Resources.Reports.Operations.CreateReport` subclasses:
+    - `paddle_billing.Resources.Reports.Operations.CreateAdjustmentsReport`
+    - `paddle_billing.Resources.Reports.Operations.CreateDiscountsReport`
+    - `paddle_billing.Resources.Reports.Operations.CreateProductsAndPricesReport`
+    - `paddle_billing.Resources.Reports.Operations.CreateTransactionsReport`
+  - `paddle_billing.Resources.Reports.Operations.Filters.Filter` subclasses:
+    - `paddle_billing.Resources.Reports.Operations.Filters.AdjustmentActionFilter`
+    - `paddle_billing.Resources.Reports.Operations.Filters.AdjustmentStatusFilter`
+    - `paddle_billing.Resources.Reports.Operations.Filters.CollectionModeFilter`
+    - `paddle_billing.Resources.Reports.Operations.Filters.CurrencyCodeFilter`
+    - `paddle_billing.Resources.Reports.Operations.Filters.DiscountStatusFilter`
+    - `paddle_billing.Resources.Reports.Operations.Filters.DiscountTypeFilter`
+    - `paddle_billing.Resources.Reports.Operations.Filters.Filter`
+    - `paddle_billing.Resources.Reports.Operations.Filters.PriceStatusFilter`
+    - `paddle_billing.Resources.Reports.Operations.Filters.PriceTypeFilter`
+    - `paddle_billing.Resources.Reports.Operations.Filters.PriceUpdatedAtFilter`
+    - `paddle_billing.Resources.Reports.Operations.Filters.ProductStatusFilter`
+    - `paddle_billing.Resources.Reports.Operations.Filters.ProductTypeFilter`
+    - `paddle_billing.Resources.Reports.Operations.Filters.ProductUpdatedAtFilter`
+    - `paddle_billing.Resources.Reports.Operations.Filters.TransactionOriginFilter`
+    - `paddle_billing.Resources.Reports.Operations.Filters.TransactionStatusFilter`
+    - `paddle_billing.Resources.Reports.Operations.Filters.UpdatedAtFilter`
+  - `paddle_billing.Resources.Subscriptions.Operations.CancelSubscription`
+  - `paddle_billing.Resources.Subscriptions.Operations.CreateOneTimeCharge`
+  - `paddle_billing.Resources.Subscriptions.Operations.PauseSubscription`
+  - `paddle_billing.Resources.Subscriptions.Operations.PreviewOneTimeCharge`
+  - `paddle_billing.Resources.Subscriptions.Operations.ResumeSubscription`
+  - `paddle_billing.Resources.Transactions.Operations.PreviewTransactionByAddress`
+  - `paddle_billing.Resources.Transactions.Operations.PreviewTransactionByCustomer`
+  - `paddle_billing.Resources.Transactions.Operations.PreviewTransactionByIP`
+
 ## v0.3.0
 
 ### 1. `AvailablePaymentMethods` has been replaced by `PaymentMethodType`.
