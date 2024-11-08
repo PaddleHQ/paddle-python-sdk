@@ -27,16 +27,6 @@ from paddle_billing.Entities.Shared import (
     Disposition,
 )
 
-from paddle_billing.Entities.Transactions import (
-    TransactionCreateItem,
-    TransactionCreateItemWithPrice,
-    TransactionNonCatalogPrice,
-    TransactionNonCatalogPriceWithProduct,
-    TransactionNonCatalogProduct,
-    TransactionItemPreviewWithNonCatalogPrice,
-    TransactionItemPreviewWithPriceId,
-)
-
 from paddle_billing.Resources.Transactions.Operations import (
     CreateTransaction,
     ListTransactions,
@@ -49,8 +39,28 @@ from paddle_billing.Resources.Transactions.Operations import (
     GetTransactionInvoice,
 )
 
-from paddle_billing.Resources.Transactions.Operations.Create import CreateBillingDetails
-from paddle_billing.Resources.Transactions.Operations.Update import UpdateBillingDetails
+from paddle_billing.Resources.Transactions.Operations.Preview import (
+    TransactionItemPreviewWithNonCatalogPrice,
+    TransactionItemPreviewWithPriceId,
+)
+
+from paddle_billing.Resources.Transactions.Operations.Price import (
+    TransactionNonCatalogPrice,
+    TransactionNonCatalogPriceWithProduct,
+    TransactionNonCatalogProduct,
+)
+
+from paddle_billing.Resources.Transactions.Operations.Create import (
+    CreateBillingDetails,
+    TransactionCreateItem,
+    TransactionCreateItemWithPrice,
+)
+from paddle_billing.Resources.Transactions.Operations.Update import (
+    UpdateBillingDetails,
+    # TODO: Test coverage for the following items
+    # TransactionUpdateItem,
+    # TransactionUpdateItemWithPrice,
+)
 
 from tests.Utils.ReadsFixture import ReadsFixtures
 

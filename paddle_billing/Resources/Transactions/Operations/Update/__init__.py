@@ -1,1 +1,5 @@
 from paddle_billing.Resources.Transactions.Operations.Update.UpdateBillingDetails import UpdateBillingDetails
+from paddle_billing.Resources.Transactions.Operations.Update.TransactionUpdateItem import TransactionUpdateItem
+from paddle_billing.Resources.Transactions.Operations.Update.TransactionUpdateItemWithPrice import (
+    TransactionUpdateItemWithPrice,
+)
