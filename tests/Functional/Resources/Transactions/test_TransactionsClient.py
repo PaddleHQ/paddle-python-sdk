@@ -1136,6 +1136,36 @@ class TestTransactionsClient:
             str(expected_response_body)
         ), "The response JSON doesn't match the expected fixture JSON"
 
+    def test_preview_transaction_handles_null_ids(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        operation = PreviewTransactionByCustomer(
+            address_id="add_01hv8h6jj90jjz0d71m6hj4r9z",
+            customer_id="ctm_01h844q4mznqpgqgm6evgw1w63",
+            items=[
+                TransactionItemPreviewWithPriceId(
+                    price_id="pri_01he5kxqey1k8ankgef29cj4bv",
+                    quantity=1,
+                    include_in_totals=True,
+                )
+            ],
+        )
+        expected_response_body = ReadsFixtures.read_raw_json_fixture("response/preview_entity")
+        expected_path = "/transactions/preview"
+
+        expected_url = f"{test_client.base_url}{expected_path}"
+        mock_requests.post(expected_url, status_code=200, text=expected_response_body)
+
+        response = test_client.client.transactions.preview(operation)
+
+        assert isinstance(response, TransactionPreview)
+        assert response.items[2].price.id is None
+        assert response.items[2].price.product_id is None
+        assert response.details.line_items[0].price_id is None
+        assert response.details.line_items[0].product.id is None
+
     def test_get_transaction_invoice_pdf_returns_expected_response(self, test_client, mock_requests):
         transaction_id = "txn_01hen7bxc1p8ep4yk7n5jbzk9r"
         expected_response_status = 200

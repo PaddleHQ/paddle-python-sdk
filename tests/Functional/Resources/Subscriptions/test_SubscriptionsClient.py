@@ -1107,6 +1107,29 @@ class TestSubscriptionsClient:
         assert import_meta.external_id == "external-id"
         assert import_meta.imported_from == "external-platform"
 
+    def test_preview_create_subscription_handles_null_ids(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        mock_requests.patch(
+            f"{test_client.base_url}/subscriptions/sub_01h8bx8fmywym11t6swgzba704/preview",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture("response/preview_update_full_entity"),
+        )
+
+        response = test_client.client.subscriptions.preview_update(
+            "sub_01h8bx8fmywym11t6swgzba704", PreviewUpdateSubscription()
+        )
+
+        assert isinstance(response, SubscriptionPreview)
+        assert response.immediate_transaction.details.line_items[2].price_id is None
+        assert response.immediate_transaction.details.line_items[2].product.id is None
+        assert response.next_transaction.details.line_items[2].price_id is None
+        assert response.next_transaction.details.line_items[2].product.id is None
+        assert response.recurring_transaction_details.line_items[2].price_id is None
+        assert response.recurring_transaction_details.line_items[2].product.id is None
+
     @mark.parametrize(
         "subscription_id, operation, expected_request_body, expected_response_status, expected_response_body, expected_url",
         [
@@ -1258,3 +1281,30 @@ class TestSubscriptionsClient:
         assert isinstance(import_meta, ImportMeta)
         assert import_meta.external_id == "external-id"
         assert import_meta.imported_from == "external-platform"
+
+    def test_preview_create_subscription_one_time_charge_handles_null_ids(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        mock_requests.post(
+            f"{test_client.base_url}/subscriptions/sub_01h8bx8fmywym11t6swgzba704/charge/preview",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture("response/preview_charge_full_entity"),
+        )
+
+        response = test_client.client.subscriptions.preview_one_time_charge(
+            "sub_01h8bx8fmywym11t6swgzba704",
+            PreviewOneTimeCharge(
+                SubscriptionEffectiveFrom.NextBillingPeriod,
+                [SubscriptionChargeItem("pri_01gsz98e27ak2tyhexptwc58yk", 1)],
+            ),
+        )
+
+        assert isinstance(response, SubscriptionPreview)
+        assert response.immediate_transaction.details.line_items[2].price_id is None
+        assert response.immediate_transaction.details.line_items[2].product.id is None
+        assert response.next_transaction.details.line_items[2].price_id is None
+        assert response.next_transaction.details.line_items[2].product.id is None
+        assert response.recurring_transaction_details.line_items[2].price_id is None
+        assert response.recurring_transaction_details.line_items[2].product.id is None
