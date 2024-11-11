@@ -12,6 +12,20 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 
 - `paddle_billing.Resources.Discounts.Operations.CreateDiscount` `expires_at` is now `paddle_billing.Entities.DateTime`
 - `paddle_billing.Resources.Discounts.Operations.UpdateDiscount` `expires_at` is now `paddle_billing.Entities.DateTime`
+- Transaction and Subscription operation items now allow optional properties to be omitted.
+  - The following property types have changed (See UPGRADING.md for further details)
+    - `paddle_billing.Resources.Subscriptions.Operations`:
+      - `UpdateSubscription.items`
+      - `PreviewUpdateSubscription.items`
+      - `CreateOneTimeCharge.items`
+      - `PreviewOneTimeCharge.items`
+    - `paddle_billing.Resources.Transactions.Operations`:
+      - `CreateTransaction.items`
+      - `UpdateTransaction.items`
+      - `PreviewTransactionByAddress.items`
+      - `PreviewTransactionByCustomer.items`
+      - `PreviewTransactionByIP.items`
+- Transaction and Subscription preview responses now support preview products and prices without IDs (see UPGRADING.md for further details)
 
 ### Removed
 - `get_parameters()` method on request operation classes is now removed or replaced by `to_json()` (see UPGRADING.md for further details)

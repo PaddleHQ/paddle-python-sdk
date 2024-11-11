@@ -17,12 +17,12 @@ from paddle_billing.Entities.Shared import (
 
 
 @dataclass
-class Price(Entity):
-    id: str
-    product_id: str
+class TransactionPreviewPrice(Entity):
+    id: str | None
+    product_id: str | None
     name: str | None
     description: str
-    type: CatalogType | None
+    type: CatalogType
     billing_cycle: Duration | None
     trial_period: Duration | None
     tax_mode: TaxMode
@@ -32,15 +32,14 @@ class Price(Entity):
     status: Status
     custom_data: CustomData | None
     import_meta: ImportMeta | None
-    product: Product | None
     created_at: datetime
     updated_at: datetime
 
     @staticmethod
-    def from_dict(data: dict) -> Price:
-        return Price(
-            id=data["id"],
-            product_id=data["product_id"],
+    def from_dict(data: dict) -> TransactionPreviewPrice:
+        return TransactionPreviewPrice(
+            id=data.get("id"),
+            product_id=data.get("product_id"),
             name=data.get("name"),
             description=data["description"],
             unit_price=Money.from_dict(data["unit_price"]),
@@ -57,9 +56,4 @@ class Price(Entity):
             trial_period=Duration.from_dict(data["trial_period"]) if data.get("trial_period") else None,
             custom_data=CustomData(data["custom_data"]) if data.get("custom_data") else None,
             import_meta=ImportMeta.from_dict(data["import_meta"]) if data.get("import_meta") else None,
-            product=Product.from_dict(data["product"]) if data.get("product") else None,
         )
-
-
-# Prevents circular import
-from paddle_billing.Entities.Product import Product  # noqa E402

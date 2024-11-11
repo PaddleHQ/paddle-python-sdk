@@ -50,7 +50,6 @@
       },
       "line_items": [
         {
-          "item_id": null,
           "price_id": "pri_01gsz8x8sawmvhz1pv30nge1ke",
           "quantity": 50,
           "totals": {
@@ -99,7 +98,6 @@
           }
         },
         {
-          "item_id": null,
           "price_id": "pri_01gsz95g2zrkagg294kpstx54r",
           "quantity": 1,
           "totals": {
@@ -110,6 +108,43 @@
           },
           "product": {
             "id": "pro_01gsz92krfzy3hcx5h5rtgnfwz",
+            "name": "VIP support",
+            "type": "standard",
+            "tax_category": "standard",
+            "description": "Get exclusive access to our expert team of product specialists, available to help you make the most of your ChatApp subscription.",
+            "image_url": "https://paddle-sandbox.s3.amazonaws.com/user/10889/SW3OevDQ92dUHSkN5a2x_icon3.png",
+            "custom_data": null,
+            "status": "active",
+            "import_meta": null,
+            "created_at": "2023-08-16T14:38:08.3Z",
+            "updated_at": "2023-08-16T14:38:08.3Z"
+          },
+          "tax_rate": "0.08875",
+          "unit_totals": {
+            "subtotal": "28500",
+            "discount": "0",
+            "tax": "2529",
+            "total": "31029"
+          },
+          "proration": {
+            "rate": "1",
+            "billing_period": {
+              "starts_at": "2024-02-08T11:02:03.946454Z",
+              "ends_at": "2024-03-08T11:02:03.946454Z"
+            }
+          }
+        },
+        {
+          "price_id": null,
+          "quantity": 1,
+          "totals": {
+            "subtotal": "28500",
+            "tax": "2529",
+            "discount": "0",
+            "total": "31029"
+          },
+          "product": {
+            "id": null,
             "name": "VIP support",
             "type": "standard",
             "tax_category": "standard",
@@ -171,7 +206,6 @@
         },
         "line_items": [
           {
-            "item_id": null,
             "price_id": "pri_01gsz8x8sawmvhz1pv30nge1ke",
             "quantity": 50,
             "totals": {
@@ -220,7 +254,6 @@
             }
           },
           {
-            "item_id": null,
             "price_id": "pri_01gsz95g2zrkagg294kpstx54r",
             "quantity": 1,
             "totals": {
@@ -256,10 +289,72 @@
                 "ends_at": "2024-04-08T11:02:03.946454Z"
               }
             }
+          },
+          {
+            "price_id": null,
+            "quantity": 1,
+            "totals": {
+              "subtotal": "28500",
+              "tax": "2529",
+              "discount": "0",
+              "total": "31029"
+            },
+            "product": {
+              "id": null,
+              "name": "VIP support",
+              "type": "standard",
+              "tax_category": "standard",
+              "description": "Get exclusive access to our expert team of product specialists, available to help you make the most of your ChatApp subscription.",
+              "image_url": "https://paddle-sandbox.s3.amazonaws.com/user/10889/SW3OevDQ92dUHSkN5a2x_icon3.png",
+              "custom_data": null,
+              "status": "active",
+              "import_meta": null,
+              "created_at": "2023-08-16T14:38:08.3Z",
+              "updated_at": "2023-08-16T14:38:08.3Z"
+            },
+            "tax_rate": "0.08875",
+            "unit_totals": {
+              "subtotal": "28500",
+              "discount": "0",
+              "tax": "2529",
+              "total": "31029"
+            },
+            "proration": {
+              "rate": "1",
+              "billing_period": {
+                "starts_at": "2024-03-08T11:02:03.946454Z",
+                "ends_at": "2024-04-08T11:02:03.946454Z"
+              }
+            }
           }
         ]
       },
-      "adjustments": []
+      "adjustments": [
+        {
+          "transaction_id": "txn_01gsz8x8sawmvhz1pv30nge1ke",
+          "items": [
+            {
+              "item_id": "txnitm_01gsz8x8sawmvhz1pv30nge1ke",
+              "type": "full",
+              "amount": null,
+              "proration": null,
+              "totals": {
+                "subtotal": "178488",
+                "tax": "15840",
+                "total": "194328"
+              }
+            }
+          ],
+          "totals": {
+            "subtotal": "39997",
+            "tax": "3549",
+            "total": "43546",
+            "fee": "2211",
+            "earnings": "37786",
+            "currency_code": "USD"
+          }
+        }
+      ]
     },
     "immediate_transaction": {
       "billing_period": {
@@ -294,7 +389,6 @@
         },
         "line_items": [
           {
-            "item_id": null,
             "price_id": "pri_01gsz8x8sawmvhz1pv30nge1ke",
             "quantity": 50,
             "totals": {
@@ -343,7 +437,6 @@
             }
           },
           {
-            "item_id": null,
             "price_id": "pri_01gsz95g2zrkagg294kpstx54r",
             "quantity": 1,
             "totals": {
@@ -354,6 +447,43 @@
             },
             "product": {
               "id": "pro_01gsz92krfzy3hcx5h5rtgnfwz",
+              "name": "VIP support",
+              "type": "standard",
+              "tax_category": "standard",
+              "description": "Get exclusive access to our expert team of product specialists, available to help you make the most of your ChatApp subscription.",
+              "image_url": "https://paddle-sandbox.s3.amazonaws.com/user/10889/SW3OevDQ92dUHSkN5a2x_icon3.png",
+              "custom_data": null,
+              "status": "active",
+              "import_meta": null,
+              "created_at": "2023-08-16T14:38:08.3Z",
+              "updated_at": "2023-08-16T14:38:08.3Z"
+            },
+            "tax_rate": "0.08875",
+            "unit_totals": {
+              "subtotal": "28498",
+              "discount": "0",
+              "tax": "2529",
+              "total": "31027"
+            },
+            "proration": {
+              "rate": "0.99993",
+              "billing_period": {
+                "starts_at": "2024-02-08T11:05:53.763Z",
+                "ends_at": "2024-03-08T11:02:03.946454Z"
+              }
+            }
+          },
+          {
+            "price_id": null,
+            "quantity": 1,
+            "totals": {
+              "subtotal": "28498",
+              "tax": "2529",
+              "discount": "0",
+              "total": "31027"
+            },
+            "product": {
+              "id": null,
               "name": "VIP support",
               "type": "standard",
               "tax_category": "standard",

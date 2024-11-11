@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from paddle_billing.Operation import Operation
 from paddle_billing.Undefined import Undefined
 from paddle_billing.Entities.Shared import CurrencyCode
-from paddle_billing.Entities.Transactions import (
+from paddle_billing.Resources.Transactions.Operations.Preview import (
     TransactionItemPreviewWithPriceId,
     TransactionItemPreviewWithNonCatalogPrice,
 )

@@ -12,6 +12,72 @@
         {
             "price_id": "pri_01h7zd9mzfq79850w4ryc39v38",
             "quantity": 845
+        },
+        {
+            "price": {
+                "custom_data": {
+                    "key": "value"
+                },
+                "description": "some description",
+                "name": "some name",
+                "product_id": "pro_01gsz4t5hdjse780zja8vvr7jg",
+                "quantity": {
+                    "maximum": 3,
+                    "minimum": 1
+                },
+                "tax_mode": "account_setting",
+                "unit_price": {
+                    "amount": "1",
+                    "currency_code": "GBP"
+                },
+                "unit_price_overrides": [],
+                "billing_cycle": {
+                    "frequency": 1,
+                    "interval": "day"
+                },
+                "trial_period": {
+                    "frequency": 2,
+                    "interval": "day"
+                }
+            },
+            "quantity": 2
+        },
+        {
+            "price": {
+                "custom_data": {
+                    "key": "value"
+                },
+                "description": "some description",
+                "name": "some name",
+                "product": {
+                    "custom_data": {
+                        "key": "value"
+                    },
+                    "description": "some description",
+                    "image_url": "https://www.example.com/image.jpg",
+                    "name": "some name",
+                    "tax_category": "digital-goods"
+                },
+                "quantity": {
+                    "maximum": 3,
+                    "minimum": 1
+                },
+                "tax_mode": "account_setting",
+                "unit_price": {
+                    "amount": "1",
+                    "currency_code": "GBP"
+                },
+                "unit_price_overrides": [],
+                "billing_cycle": {
+                    "frequency": 1,
+                    "interval": "day"
+                },
+                "trial_period": {
+                    "frequency": 2,
+                    "interval": "day"
+                }
+            },
+            "quantity": 2
         }
     ],
     "on_payment_failure": "apply_change"

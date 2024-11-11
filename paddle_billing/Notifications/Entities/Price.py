@@ -15,10 +15,6 @@ from paddle_billing.Notifications.Entities.Shared import (
     UnitPriceOverride,
 )
 
-from paddle_billing.Logger import get_logger
-
-log = get_logger()
-
 
 @dataclass
 class Price(Entity):
