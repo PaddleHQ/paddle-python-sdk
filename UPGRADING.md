@@ -2,7 +2,7 @@
 
 All breaking changes prior to v1 will be documented in this file to assist with upgrading.
 
-## Unreleased
+## v1.0.0
 
 ### 1. Unused `get_parameters()` method was removed from request operation classes
 
