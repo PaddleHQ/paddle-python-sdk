@@ -62,6 +62,71 @@ All breaking changes prior to v1 will be documented in this file to assist with 
   - `paddle_billing.Resources.Transactions.Operations.PreviewTransactionByCustomer`
   - `paddle_billing.Resources.Transactions.Operations.PreviewTransactionByIP`
 
+### 2. Transaction and Subscription operation items now allow optional properties to be omitted.
+
+Transaction and Subscription operation item types have changed to new types that allow optional properties to be omitted.
+
+- `paddle_billing.Resources.Subscriptions.Operations` `UpdateSubscription` and `PreviewUpdateSubscription` `items` are now list of:
+  - `paddle_billing.Resources.Subscriptions.Operations.Update.SubscriptionUpdateItem`
+  - `paddle_billing.Resources.Subscriptions.Operations.Update.SubscriptionUpdateItemWithPrice`
+- `paddle_billing.Resources.Subscriptions.Operations` `CreateOneTimeCharge` and `PreviewOneTimeCharge` `items` are now list of:
+  - `paddle_billing.Resources.Subscriptions.Operations.Charge.SubscriptionChargeItem`
+  - `paddle_billing.Resources.Subscriptions.Operations.Charge.SubscriptionChargeItemWithPrice`
+- `paddle_billing.Resources.Transactions.Operations.CreateTransaction.items` is now list of:
+  - `paddle_billing.Resources.Transactions.Operations.Create.TransactionCreateItem`
+  - `paddle_billing.Resources.Transactions.Operations.Create.TransactionCreateItemWithPrice`
+- `paddle_billing.Resources.Transactions.Operations.UpdateTransaction.items` is now list of:
+  - `paddle_billing.Resources.Transactions.Operations.Update.TransactionUpdateItem`
+  - `paddle_billing.Resources.Transactions.Operations.Update.TransactionUpdateItemWithPrice`
+- `paddle_billing.Resources.Transactions.Operations` `PreviewTransactionByAddress`, `PreviewTransactionByCustomer` and `PreviewTransactionByIP` `items` are now list of:
+  - `paddle_billing.Resources.Transactions.Operations.Preview.TransactionItemPreviewWithNonCatalogPrice`
+  - `paddle_billing.Resources.Transactions.Operations.Preview.TransactionItemPreviewWithPriceId`
+
+
+The following classes have been removed:
+- `paddle_billing.Entities.Subscriptions`:
+  - `SubscriptionItems`
+    - replaced by `paddle_billing.Resources.Subscriptions.Operations.Update.SubscriptionUpdateItem`
+  - `SubscriptionItemsWithPrice`
+    - replaced by `paddle_billing.Resources.Subscriptions.Operations.Update.SubscriptionUpdateItemWithPrice`
+  - `SubscriptionNonCatalogPrice`
+    - replaced by `paddle_billing.Resources.Subscriptions.Operations.Price.SubscriptionNonCatalogPrice`
+  - `SubscriptionNonCatalogPriceWithProduct`
+    - replaced by `paddle_billing.Resources.Subscriptions.Operations.Price.SubscriptionNonCatalogPriceWithProduct`
+  - `SubscriptionNonCatalogProduct`
+    - replaced by `paddle_billing.Resources.Subscriptions.Operations.Price.SubscriptionNonCatalogProduct`
+- `paddle_billing.Entities.Transactions`:
+  - `TransactionCreateItem`
+    - replaced by:
+      - `paddle_billing.Resources.Transactions.Operations.Create.TransactionCreateItem` (for create)
+      - `paddle_billing.Resources.Transactions.Operations.Update.TransactionUpdateItem` (for update)
+  - `TransactionCreateItemWithPrice`
+    - replaced by:
+      - `paddle_billing.Resources.Transactions.Operations.Create.TransactionCreateItemWithPrice` (for create)
+      - `paddle_billing.Resources.Transactions.Operations.Update.TransactionUpdateItemWithPrice` (for update)
+  - `TransactionNonCatalogPrice`
+    - replaced by `paddle_billing.Resources.Transactions.Operations.Price.TransactionNonCatalogPrice`
+  - `TransactionNonCatalogPriceWithProduct`
+    - replaced by `paddle_billing.Resources.Transactions.Operations.Price.TransactionNonCatalogPriceWithProduct`
+  - `TransactionNonCatalogProduct`
+    - replaced by `paddle_billing.Resources.Transactions.Operations.Price.TransactionNonCatalogProduct`
+  - `TransactionItemPreviewWithNonCatalogPrice`
+    - replaced by `paddle_billing.Resources.Transactions.Operations.Preview.TransactionItemPreviewWithNonCatalogPrice`
+  - `TransactionItemPreviewWithPriceId`
+    - replaced by `paddle_billing.Resources.Transactions.Operations.Preview.TransactionItemPreviewWithPriceId`
+
+### 3. Transaction and Subscription preview responses now support preview products and prices without IDs
+
+- `SubscriptionPreview.immediate_transaction.details.line_items[].price_id` can now be `None`
+- `SubscriptionPreview.immediate_transaction.details.line_items[].product` is now `paddle_billing.Entities.Shared.TransactionPreviewProduct`
+- `SubscriptionPreview.next_transaction.details.line_items[].price_id` can now be `None`
+- `SubscriptionPreview.next_transaction.details.line_items[].product` is now `paddle_billing.Entities.Shared.TransactionPreviewProduct`
+- `SubscriptionPreview.recurring_transaction_details.line_items[].price_id` can now be `None`
+- `SubscriptionPreview.recurring_transaction_details.line_items[].product` is now `paddle_billing.Entities.Shared.TransactionPreviewProduct`
+- `TransactionPreview.items[].price` is now `TransactionPreviewPrice`
+- `TransactionPreview.details.line_items[].price_id` can now be `None`
+- `TransactionPreview.details.line_items[].product` is now `paddle_billing.Entities.Shared.TransactionPreviewProduct`
+
 ## v0.3.0
 
 ### 1. `AvailablePaymentMethods` has been replaced by `PaymentMethodType`.
