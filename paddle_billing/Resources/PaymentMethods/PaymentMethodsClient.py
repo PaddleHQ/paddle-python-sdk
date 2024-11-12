@@ -2,6 +2,7 @@ from paddle_billing.ResponseParser import ResponseParser
 
 from paddle_billing.Entities.Collections import (
     PaymentMethodCollection,
+    Paginator,
 )
 from paddle_billing.Entities.PaymentMethod import PaymentMethod
 
@@ -27,7 +28,10 @@ class PaymentMethodsClient:
         self.response = self.client.get_raw(f"/customers/{customer_id}/payment-methods", operation)
         parser = ResponseParser(self.response)
 
-        return PaymentMethodCollection.from_list(parser.get_data())
+        return PaymentMethodCollection.from_list(
+            parser.get_data(),
+            Paginator(self.client, parser.get_pagination(), PaymentMethodCollection),
+        )
 
     def get(self, customer_id: str, payment_method_id: str) -> PaymentMethod:
         self.response = self.client.get_raw(f"/customers/{customer_id}/payment-methods/{payment_method_id}")

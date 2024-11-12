@@ -15,9 +15,10 @@ class ListPaymentMethods(HasParameters):
         self.supports_checkout = supports_checkout
 
         # Validation
-        invalid_items = [id for id in address_ids if not isinstance(id, str)]
-        if invalid_items:
-            raise InvalidArgumentException.array_contains_invalid_types("ids", str.__name__, invalid_items)
+        if address_ids is not None:
+            invalid_items = [id for id in address_ids if not isinstance(id, str)]
+            if invalid_items:
+                raise InvalidArgumentException.array_contains_invalid_types("ids", str.__name__, invalid_items)
 
     def get_parameters(self) -> dict:
         parameters = {}
