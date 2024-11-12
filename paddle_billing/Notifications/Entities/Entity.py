@@ -44,10 +44,12 @@ class Entity(ABC, EntityDict):
     def _resolve_event_class_name(event_type) -> str:
         if event_type == "subscription.created":
             return "SubscriptionCreated"
+        if event_type == "payment_method.deleted":
+            return "PaymentMethodDeleted"
 
         event_entity = event_type.split(".")[0] or ""
 
-        return event_entity.lower().title()
+        return event_entity.lower().title().replace("_", "")
 
     def to_dict(self) -> dict:
         return asdict(self)
