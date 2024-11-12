@@ -15,6 +15,8 @@ from paddle_billing.Notifications.Entities.Shared.CurrencyCode import CurrencyCo
 from paddle_billing.Notifications.Entities.Shared.CurrencyCodeAdjustments import CurrencyCodeAdjustments
 from paddle_billing.Notifications.Entities.Shared.CurrencyCodePayouts import CurrencyCodePayouts
 from paddle_billing.Notifications.Entities.Shared.CustomData import CustomData
+from paddle_billing.Notifications.Entities.Shared.CustomerPaymentMethodOrigin import CustomerPaymentMethodOrigin
+from paddle_billing.Notifications.Entities.Shared.CustomerPaymentMethodType import CustomerPaymentMethodType
 from paddle_billing.Notifications.Entities.Shared.Data import Data
 from paddle_billing.Notifications.Entities.Shared.Duration import Duration
 from paddle_billing.Notifications.Entities.Shared.ErrorCode import ErrorCode
@@ -26,6 +28,7 @@ from paddle_billing.Notifications.Entities.Shared.Original import Original
 from paddle_billing.Notifications.Entities.Shared.PaymentAttemptStatus import PaymentAttemptStatus
 from paddle_billing.Notifications.Entities.Shared.PaymentMethodType import PaymentMethodType
 from paddle_billing.Notifications.Entities.Shared.PayoutTotalsAdjustment import PayoutTotalsAdjustment
+from paddle_billing.Notifications.Entities.Shared.Paypal import Paypal
 from paddle_billing.Notifications.Entities.Shared.PriceQuantity import PriceQuantity
 from paddle_billing.Notifications.Entities.Shared.Proration import Proration
 from paddle_billing.Notifications.Entities.Shared.Status import Status

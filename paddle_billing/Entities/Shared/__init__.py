@@ -16,6 +16,8 @@ from paddle_billing.Entities.Shared.CurrencyCode import CurrencyCode
 from paddle_billing.Entities.Shared.CurrencyCodeAdjustments import CurrencyCodeAdjustments
 from paddle_billing.Entities.Shared.CurrencyCodePayouts import CurrencyCodePayouts
 from paddle_billing.Entities.Shared.CustomData import CustomData
+from paddle_billing.Entities.Shared.CustomerPaymentMethodOrigin import CustomerPaymentMethodOrigin
+from paddle_billing.Entities.Shared.CustomerPaymentMethodType import CustomerPaymentMethodType
 from paddle_billing.Entities.Shared.Data import Data
 from paddle_billing.Entities.Shared.Disposition import Disposition
 from paddle_billing.Entities.Shared.Duration import Duration
@@ -31,6 +33,7 @@ from paddle_billing.Entities.Shared.Pagination import Pagination
 from paddle_billing.Entities.Shared.PaymentAttemptStatus import PaymentAttemptStatus
 from paddle_billing.Entities.Shared.PaymentMethodType import PaymentMethodType
 from paddle_billing.Entities.Shared.PayoutTotalsAdjustment import PayoutTotalsAdjustment
+from paddle_billing.Entities.Shared.Paypal import Paypal
 from paddle_billing.Entities.Shared.PriceQuantity import PriceQuantity
 from paddle_billing.Entities.Shared.Proration import Proration
 from paddle_billing.Entities.Shared.Status import Status
