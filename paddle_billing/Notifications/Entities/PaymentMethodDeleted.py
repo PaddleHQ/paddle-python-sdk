@@ -15,7 +15,7 @@ class PaymentMethodDeleted(Entity):
     id: str
     customer_id: str
     address_id: str
-    type: SavedPaymentMethodType | None
+    type: SavedPaymentMethodType
     origin: SavedPaymentMethodOrigin
     saved_at: datetime
     updated_at: datetime
