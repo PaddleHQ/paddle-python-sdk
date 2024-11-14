@@ -27,6 +27,7 @@ from paddle_billing.Resources.IPAddresses.IPAddressesClient import IPAddressesCl
 from paddle_billing.Resources.Notifications.NotificationsClient import NotificationsClient
 from paddle_billing.Resources.NotificationLogs.NotificationLogsClient import NotificationLogsClient
 from paddle_billing.Resources.NotificationSettings.NotificationSettingsClient import NotificationSettingsClient
+from paddle_billing.Resources.PaymentMethods.PaymentMethodsClient import PaymentMethodsClient
 from paddle_billing.Resources.Prices.PricesClient import PricesClient
 from paddle_billing.Resources.PricingPreviews.PricingPreviewsClient import PricingPreviewsClient
 from paddle_billing.Resources.Products.ProductsClient import ProductsClient
@@ -90,6 +91,7 @@ class Client:
         self.notifications = NotificationsClient(self)
         self.notification_logs = NotificationLogsClient(self)
         self.notification_settings = NotificationSettingsClient(self)
+        self.payment_methods = PaymentMethodsClient(self)
         self.prices = PricesClient(self)
         self.pricing_previews = PricingPreviewsClient(self)
         self.products = ProductsClient(self)

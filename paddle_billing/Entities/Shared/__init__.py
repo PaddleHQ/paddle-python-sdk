@@ -31,8 +31,11 @@ from paddle_billing.Entities.Shared.Pagination import Pagination
 from paddle_billing.Entities.Shared.PaymentAttemptStatus import PaymentAttemptStatus
 from paddle_billing.Entities.Shared.PaymentMethodType import PaymentMethodType
 from paddle_billing.Entities.Shared.PayoutTotalsAdjustment import PayoutTotalsAdjustment
+from paddle_billing.Entities.Shared.Paypal import Paypal
 from paddle_billing.Entities.Shared.PriceQuantity import PriceQuantity
 from paddle_billing.Entities.Shared.Proration import Proration
+from paddle_billing.Entities.Shared.SavedPaymentMethodOrigin import SavedPaymentMethodOrigin
+from paddle_billing.Entities.Shared.SavedPaymentMethodType import SavedPaymentMethodType
 from paddle_billing.Entities.Shared.Status import Status
 from paddle_billing.Entities.Shared.TransactionStatus import TransactionStatus
 from paddle_billing.Entities.Shared.TaxCategory import TaxCategory

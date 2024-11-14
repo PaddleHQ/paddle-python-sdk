@@ -11,6 +11,7 @@ from paddle_billing.Entities.Collections.NotificationCollection import Notificat
 from paddle_billing.Entities.Collections.NotificationLogCollection import NotificationLogCollection
 from paddle_billing.Entities.Collections.NotificationSettingCollection import NotificationSettingCollection
 from paddle_billing.Entities.Collections.Paginator import Paginator
+from paddle_billing.Entities.Collections.PaymentMethodCollection import PaymentMethodCollection
 from paddle_billing.Entities.Collections.PriceCollection import PriceCollection
 from paddle_billing.Entities.Collections.ProductCollection import ProductCollection
 from paddle_billing.Entities.Collections.ReportCollection import ReportCollection

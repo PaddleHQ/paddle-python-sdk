@@ -26,8 +26,14 @@ from paddle_billing.Notifications.Entities.Shared.Original import Original
 from paddle_billing.Notifications.Entities.Shared.PaymentAttemptStatus import PaymentAttemptStatus
 from paddle_billing.Notifications.Entities.Shared.PaymentMethodType import PaymentMethodType
 from paddle_billing.Notifications.Entities.Shared.PayoutTotalsAdjustment import PayoutTotalsAdjustment
+from paddle_billing.Notifications.Entities.Shared.Paypal import Paypal
 from paddle_billing.Notifications.Entities.Shared.PriceQuantity import PriceQuantity
 from paddle_billing.Notifications.Entities.Shared.Proration import Proration
+from paddle_billing.Notifications.Entities.Shared.SavedPaymentMethodDeletionReason import (
+    SavedPaymentMethodDeletionReason,
+)
+from paddle_billing.Notifications.Entities.Shared.SavedPaymentMethodOrigin import SavedPaymentMethodOrigin
+from paddle_billing.Notifications.Entities.Shared.SavedPaymentMethodType import SavedPaymentMethodType
 from paddle_billing.Notifications.Entities.Shared.Status import Status
 from paddle_billing.Notifications.Entities.Shared.TransactionStatus import TransactionStatus
 from paddle_billing.Notifications.Entities.Shared.TaxCategory import TaxCategory

@@ -1,7 +1,12 @@
 from paddle_billing.ResponseParser import ResponseParser
 
-from paddle_billing.Entities.Collections import Paginator, CreditBalanceCollection, CustomerCollection
+from paddle_billing.Entities.Collections import (
+    Paginator,
+    CreditBalanceCollection,
+    CustomerCollection,
+)
 from paddle_billing.Entities.Customer import Customer
+from paddle_billing.Entities.CustomerAuthToken import CustomerAuthToken
 from paddle_billing.Entities.Shared import Status
 
 from paddle_billing.Resources.Customers.Operations import (
@@ -62,3 +67,9 @@ class CustomersClient:
         parser = ResponseParser(self.response)
 
         return CreditBalanceCollection.from_list(parser.get_data())
+
+    def create_auth_token(self, customer_id: str) -> CustomerAuthToken:
+        self.response = self.client.post_raw(f"/customers/{customer_id}/auth-token")
+        parser = ResponseParser(self.response)
+
+        return CustomerAuthToken.from_dict(parser.get_data())
