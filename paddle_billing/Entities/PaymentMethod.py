@@ -16,7 +16,7 @@ class PaymentMethod(Entity):
     id: str
     customer_id: str
     address_id: str
-    type: SavedPaymentMethodType | None
+    type: SavedPaymentMethodType
     card: Card | None
     paypal: Paypal | None
     origin: SavedPaymentMethodOrigin
