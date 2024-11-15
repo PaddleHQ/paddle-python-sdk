@@ -6,7 +6,7 @@
       "type": "card",
       "card": {
         "type": "visa",
-        "last4": 2,
+        "last4": "0002",
         "expiry_month": 1,
         "expiry_year": 2025,
         "cardholder_name": "Sam Miller"
