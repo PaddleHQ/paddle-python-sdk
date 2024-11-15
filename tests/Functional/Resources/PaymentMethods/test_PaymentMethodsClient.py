@@ -215,7 +215,7 @@ class TestPaymentMethodsClient:
         card = response.card
         assert isinstance(card, Card)
         assert card.type == "visa"
-        assert card.last4 == 2
+        assert card.last4 == "0002"
         assert card.expiry_month == 1
         assert card.expiry_year == 2025
         assert card.cardholder_name == "Sam Miller"
