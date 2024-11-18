@@ -6,7 +6,9 @@ from urllib3.util.retry import Retry
 from urllib.parse import urljoin, urlencode
 from uuid import uuid4
 from dataclasses import fields, is_dataclass
+from datetime import datetime
 
+from paddle_billing.Entities.DateTime import DateTime
 from paddle_billing.Operation import Operation
 from paddle_billing.FiltersUndefined import FiltersUndefined
 from paddle_billing.Undefined import Undefined
@@ -33,6 +35,9 @@ from paddle_billing.Resources.Prices.PricesClient import PricesClient
 from paddle_billing.Resources.PricingPreviews.PricingPreviewsClient import PricingPreviewsClient
 from paddle_billing.Resources.Products.ProductsClient import ProductsClient
 from paddle_billing.Resources.Reports.ReportsClient import ReportsClient
+from paddle_billing.Resources.Simulations.SimulationsClient import SimulationsClient
+from paddle_billing.Resources.SimulationRuns.SimulationRunsClient import SimulationRunsClient
+from paddle_billing.Resources.SimulationRunEvents.SimulationRunEventsClient import SimulationRunEventsClient
 from paddle_billing.Resources.Subscriptions.SubscriptionsClient import SubscriptionsClient
 from paddle_billing.Resources.Transactions.TransactionsClient import TransactionsClient
 
@@ -41,6 +46,9 @@ class PayloadEncoder(JSONEncoder):
     def default(self, z):
         if isinstance(z, Undefined):
             return None
+
+        if isinstance(z, datetime):
+            return DateTime.from_datetime(z)
 
         if hasattr(z, "to_json") and callable(z.to_json):
             return z.to_json()
@@ -98,6 +106,9 @@ class Client:
         self.pricing_previews = PricingPreviewsClient(self)
         self.products = ProductsClient(self)
         self.reports = ReportsClient(self)
+        self.simulations = SimulationsClient(self)
+        self.simulation_runs = SimulationRunsClient(self)
+        self.simulation_run_events = SimulationRunEventsClient(self)
         self.subscriptions = SubscriptionsClient(self)
         self.transactions = TransactionsClient(self)
         self.ip_addresses = IPAddressesClient(self)
