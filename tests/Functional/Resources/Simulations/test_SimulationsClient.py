@@ -1,0 +1,354 @@
+from json import loads
+from pytest import mark
+from urllib.parse import unquote
+from datetime import datetime
+
+from paddle_billing.Entities.Collections import SimulationCollection
+from paddle_billing.Entities.Simulation import Simulation, SimulationScenarioType, SimulationStatus
+from paddle_billing.Notifications.Entities.Address import Address
+from paddle_billing.Notifications.Entities.Adjustment import Adjustment
+from paddle_billing.Entities.Events import EventTypeName
+from paddle_billing.Entities.Shared import (
+    CountryCode,
+    Status,
+)
+
+from paddle_billing.Resources.Simulations.Operations import CreateSimulation, ListSimulations, UpdateSimulation
+from paddle_billing.Resources.Shared.Operations import Pager
+
+from tests.Utils.ReadsFixture import ReadsFixtures
+
+
+class TestSimulationsClient:
+    @mark.parametrize(
+        "operation, expected_request_body, expected_response_status, expected_response_body, expected_url",
+        [
+            (
+                CreateSimulation(
+                    notification_setting_id="ntfset_01j82d983j814ypzx7m1fw2jpz",
+                    type=EventTypeName.AddressCreated,
+                    name="New US address created for CRM",
+                    payload=Address(
+                        id="add_01hv8gq3318ktkfengj2r75gfx",
+                        city="New York",
+                        region="NY",
+                        status=Status.Active,
+                        first_line="4050 Jefferson Plaza, 41st Floor",
+                        customer_id="ctm_01hv6y1jedq4p1n0yqn5ba3ky4",
+                        description="Head Office",
+                        postal_code="10021",
+                        second_line=None,
+                        country_code=CountryCode.US,
+                        created_at=datetime.fromisoformat("2024-04-12T06:42:58.785000Z"),
+                        updated_at=datetime.fromisoformat("2024-04-12T06:42:58.785000Z"),
+                    ),
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/create_full"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/full_entity"),
+                "/simulations",
+            ),
+            (
+                CreateSimulation(
+                    notification_setting_id="ntfset_01j82d983j814ypzx7m1fw2jpz",
+                    type=EventTypeName.AddressCreated,
+                    name="New US address created for CRM",
+                    payload=None,
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/create_without_payload"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/full_entity"),
+                "/simulations",
+            ),
+            (
+                CreateSimulation(
+                    notification_setting_id="ntfset_01j82d983j814ypzx7m1fw2jpz",
+                    type=SimulationScenarioType.SubscriptionResume,
+                    name="Some Scenario",
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/create_scenario"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/full_entity"),
+                "/simulations",
+            ),
+        ],
+        ids=[
+            "Create single event simulation with entity",
+            "Create single event simulation without entity",
+            "Create scenario simulation",
+        ],
+    )
+    def test_create_simulation_uses_expected_payload(
+        self,
+        test_client,
+        mock_requests,
+        operation,
+        expected_request_body,
+        expected_response_status,
+        expected_response_body,
+        expected_url,
+    ):
+        expected_url = f"{test_client.base_url}{expected_url}"
+        mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
+
+        response = test_client.client.simulations.create(operation)
+        response_json = test_client.client.simulations.response.json()
+        request_json = test_client.client.payload
+        last_request = mock_requests.last_request
+
+        assert isinstance(response, Simulation)
+        assert last_request is not None
+        assert last_request.method == "POST"
+        assert test_client.client.status_code == expected_response_status
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
+        assert loads(request_json) == loads(
+            expected_request_body
+        ), "The request JSON doesn't match the expected fixture JSON"
+        assert response_json == loads(
+            str(expected_response_body)
+        ), "The response JSON doesn't match the expected fixture JSON"
+
+    @mark.parametrize(
+        "operation, expected_request_body, expected_response_status, expected_response_body, expected_url",
+        [
+            (
+                UpdateSimulation(status=SimulationStatus.Archived),
+                ReadsFixtures.read_raw_json_fixture("request/update_single"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/full_entity"),
+                "/simulations/pro_01h7zcgmdc6tmwtjehp3sh7azf",
+            ),
+            (
+                UpdateSimulation(
+                    notification_setting_id="ntfset_01j82d983j814ypzx7m1fw2jpz",
+                    name="New simulation name",
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/update_partial"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/full_entity"),
+                "/simulations/pro_01h7zcgmdc6tmwtjehp3sh7azf",
+            ),
+            (
+                UpdateSimulation(
+                    notification_setting_id="ntfset_01j82d983j814ypzx7m1fw2jpz",
+                    type=EventTypeName.AdjustmentUpdated,
+                    name="Refund approved",
+                    status=SimulationStatus.Active,
+                    payload=Adjustment.from_dict(ReadsFixtures.read_json_fixture("request/adjustment_updated_payload")),
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/update_full"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_adjustment_updated"),
+                "/simulations/pro_01h7zcgmdc6tmwtjehp3sh7azf",
+            ),
+        ],
+        ids=[
+            "Update simulation with single new value",
+            "Update simulation with partial new values",
+            "Update simulation with completely new values",
+        ],
+    )
+    def test_update_simulation_uses_expected_payload(
+        self,
+        test_client,
+        mock_requests,
+        operation,
+        expected_request_body,
+        expected_response_status,
+        expected_response_body,
+        expected_url,
+    ):
+        expected_url = f"{test_client.base_url}{expected_url}"
+        mock_requests.patch(expected_url, status_code=expected_response_status, text=expected_response_body)
+
+        response = test_client.client.simulations.update("pro_01h7zcgmdc6tmwtjehp3sh7azf", operation)
+        response_json = test_client.client.simulations.response.json()
+        request_json = test_client.client.payload
+        last_request = mock_requests.last_request
+
+        assert isinstance(response, Simulation)
+        assert last_request is not None
+        assert last_request.method == "PATCH"
+        assert test_client.client.status_code == expected_response_status
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
+        assert loads(request_json) == loads(
+            expected_request_body
+        ), "The request JSON doesn't match the expected fixture JSON"
+        assert response_json == loads(
+            str(expected_response_body)
+        ), "The response JSON doesn't match the expected fixture JSON"
+
+    @mark.parametrize(
+        "operation, expected_response_status, expected_response_body, expected_url",
+        [
+            (
+                ListSimulations(),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/list_default"),
+                "/simulations",
+            ),
+            (
+                ListSimulations(Pager()),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/list_default"),
+                "/simulations?order_by=id[asc]&per_page=50",
+            ),
+            (
+                ListSimulations(Pager(after="ntfsim_01j82d9tc19c67jds5vzbzjcns")),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/list_default"),
+                "/simulations?after=ntfsim_01j82d9tc19c67jds5vzbzjcns&order_by=id[asc]&per_page=50",
+            ),
+            (
+                ListSimulations(statuses=[SimulationStatus.Archived]),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/list_default"),
+                "/simulations?status=archived",
+            ),
+            (
+                ListSimulations(ids=["ntfsim_01j82d9tc19c67jds5vzbzjcns"]),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/list_default"),
+                "/simulations?id=ntfsim_01j82d9tc19c67jds5vzbzjcns",
+            ),
+            (
+                ListSimulations(ids=["ntfsim_01j82d9tc19c67jds5vzbzjcns", "ntfsim_02j82d9tc19c67jds5vzbzjcns"]),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/list_default"),
+                "/simulations?id=ntfsim_01j82d9tc19c67jds5vzbzjcns,ntfsim_02j82d9tc19c67jds5vzbzjcns",
+            ),
+            (
+                ListSimulations(notification_setting_ids=["ntfset_01j82d983j814ypzx7m1fw2jpz"]),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/list_default"),
+                "/simulations?notification_setting_id=ntfset_01j82d983j814ypzx7m1fw2jpz",
+            ),
+            (
+                ListSimulations(
+                    notification_setting_ids=["ntfset_01j82d983j814ypzx7m1fw2jpz", "ntfset_02j82d983j814ypzx7m1fw2jpz"]
+                ),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/list_default"),
+                "/simulations?notification_setting_id=ntfset_01j82d983j814ypzx7m1fw2jpz,ntfset_02j82d983j814ypzx7m1fw2jpz",
+            ),
+        ],
+        ids=[
+            "List simulations without pagination",
+            "List simulations with default pagination",
+            "List paginated simulations after specified simulation id",
+            "List simulations filtered by status",
+            "List simulations filtered by id",
+            "List simulations filtered by multiple ids",
+            "List simulations filtered by notification setting id",
+            "List simulations filtered by multiple notification setting ids",
+        ],
+    )
+    def test_list_simulations_returns_expected_response(
+        self,
+        test_client,
+        mock_requests,
+        operation,
+        expected_response_status,
+        expected_response_body,
+        expected_url,
+    ):
+        expected_url = f"{test_client.base_url}{expected_url}"
+        mock_requests.get(expected_url, status_code=expected_response_status, text=expected_response_body)
+
+        response = test_client.client.simulations.list(operation)
+        response_json = test_client.client.simulations.response.json()
+        last_request = mock_requests.last_request
+
+        assert isinstance(response, SimulationCollection)
+        assert last_request is not None
+        assert last_request.method == "GET"
+        assert test_client.client.status_code == expected_response_status
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
+        assert response_json == loads(
+            str(expected_response_body)
+        ), "The response JSON generated by ResponseParser() doesn't match the expected fixture JSON"
+
+    def test_list_simulations_can_paginate(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        mock_requests.get(
+            f"{test_client.base_url}/simulations",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture("response/list_paginated_page_one"),
+        )
+
+        mock_requests.get(
+            f"{test_client.base_url}/simulations?after=ntfsim_01j82fs5pvrdse93e1kawqy2fr",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture("response/list_paginated_page_two"),
+        )
+
+        response = test_client.client.simulations.list()
+
+        assert isinstance(response, SimulationCollection)
+
+        allSimulations = []
+        for simulation in response:
+            allSimulations.append(simulation)
+
+        assert len(allSimulations) == 2
+
+    def test_get_simulations_returns_expected_response(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        simulation_id = "ntfsim_01j82g2mggsgjpb3mjg0xq6p5k"
+        expected_response_body = ReadsFixtures.read_raw_json_fixture("response/full_entity")
+        expected_url = f"{test_client.base_url}/simulations/ntfsim_01j82g2mggsgjpb3mjg0xq6p5k"
+
+        mock_requests.get(expected_url, status_code=200, text=expected_response_body)
+
+        simulation = test_client.client.simulations.get(simulation_id)
+        response_json = test_client.client.simulations.response.json()
+        last_request = mock_requests.last_request
+
+        assert isinstance(simulation, Simulation)
+        assert last_request is not None
+        assert last_request.method == "GET"
+        assert test_client.client.status_code == 200
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
+        assert response_json == loads(
+            str(expected_response_body)
+        ), "The response JSON generated by ResponseParser() doesn't match the expected fixture JSON"
+
+        assert simulation.id == simulation_id
+        assert simulation.name == "New US address created for CRM"
+        assert simulation.notification_setting_id == "ntfset_01j82d983j814ypzx7m1fw2jpz"
+        assert simulation.type == EventTypeName.AddressCreated
+        assert simulation.last_run_at is None
+        assert simulation.created_at.isoformat() == "2024-09-18T12:00:25.616392+00:00"
+        assert simulation.updated_at.isoformat() == "2024-09-18T12:00:25.616392+00:00"
+
+        address = simulation.payload
+        assert isinstance(address, Address)
+
+        assert address.id == "add_01hv8gq3318ktkfengj2r75gfx"
+        assert address.city == "New York"
+        assert address.region == "NY"
+        assert address.status == Status.Active
+        assert address.first_line == "4050 Jefferson Plaza, 41st Floor"
+        assert address.customer_id == "ctm_01hv6y1jedq4p1n0yqn5ba3ky4"
+        assert address.description == "Head Office"
+        assert address.postal_code == "10021"
+        assert address.second_line is None
+        assert address.country_code == CountryCode.US
+        assert address.created_at.isoformat() == "2024-04-12T06:42:58.785000+00:00"
+        assert address.updated_at.isoformat() == "2024-04-12T06:42:58.785000+00:00"
+        assert address.custom_data is None
+        assert address.import_meta is None
