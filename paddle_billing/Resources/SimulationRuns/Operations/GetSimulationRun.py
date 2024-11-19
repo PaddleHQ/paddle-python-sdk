@@ -1,19 +1,19 @@
 from paddle_billing.EnumStringify import enum_stringify
 from paddle_billing.HasParameters import HasParameters
 from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
-from paddle_billing.Resources.SimulationRuns.Operations import SimulationRunIncludes
+from paddle_billing.Resources.SimulationRuns.Operations.SimulationRunInclude import SimulationRunInclude
 
 
 class GetSimulationRun(HasParameters):
     def __init__(
         self,
-        includes: list[SimulationRunIncludes] = None,
+        includes: list[SimulationRunInclude] = None,
     ):
         self.includes = includes if includes is not None else []
 
         # Validation
         for field_name, field_value, field_type in [
-            ("includes", self.includes, SimulationRunIncludes),
+            ("includes", self.includes, SimulationRunInclude),
         ]:
             invalid_items = [item for item in field_value if not isinstance(item, field_type)]
             if invalid_items:
