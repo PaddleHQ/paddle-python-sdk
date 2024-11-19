@@ -18,10 +18,7 @@ class Product(Entity):
     image_url: str | None
     custom_data: CustomData | None = None
     import_meta: ImportMeta | None = None
-    """
-    Deprecated: prices are not included in product notifications.
-    """
-    prices: list[Price] | None = None
+    prices: list[Price] | None = None  # Deprecated: prices are not included in product notifications.
     type: CatalogType | None = None
     created_at: datetime | None = None
     updated_at: datetime | None = None
