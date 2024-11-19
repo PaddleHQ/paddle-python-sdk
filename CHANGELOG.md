@@ -12,6 +12,17 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 
 - Added `transactions.revise` operation to revise a transaction and added `revised_at` to `Transaction` entity, see [related changelog](https://developer.paddle.com/changelog/2024/revise-transaction-customer-information?utm_source=dx&utm_medium=paddle-python-sdk).
 - Added support for `transaction.revised` notification, see [related changelog](https://developer.paddle.com/changelog/2024/revise-transaction-customer-information?utm_source=dx&utm_medium=paddle-python-sdk).
+- Added simulation API support [related changelog](https://developer.paddle.com/changelog/2024/webhook-simulator?utm_source=dx&utm_medium=paddle-python-sdk)
+  - `Client.simulations.create`
+  - `Client.simulations.update`
+  - `Client.simulations.get`
+  - `Client.simulations.list`
+  - `Client.simulation_runs.create`
+  - `Client.simulation_runs.get`
+  - `Client.simulation_runs.list`
+  - `Client.simulation_run_events.replay`
+  - `Client.simulation_run_events.get`
+  - `Client.simulation_run_events.list`
 
 ## 1.4.0 - 2024-12-19
 
