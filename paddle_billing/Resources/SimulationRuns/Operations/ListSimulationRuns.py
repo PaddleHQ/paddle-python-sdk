@@ -2,7 +2,7 @@ from paddle_billing.EnumStringify import enum_stringify
 from paddle_billing.HasParameters import HasParameters
 from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 from paddle_billing.Resources.Shared.Operations import Pager
-from paddle_billing.Resources.SimulationRuns.Operations import SimulationRunIncludes
+from paddle_billing.Resources.SimulationRuns.Operations.SimulationRunInclude import SimulationRunInclude
 
 
 class ListSimulationRuns(HasParameters):
@@ -10,7 +10,7 @@ class ListSimulationRuns(HasParameters):
         self,
         pager: Pager | None = None,
         ids: list[str] = None,
-        includes: list[SimulationRunIncludes] = None,
+        includes: list[SimulationRunInclude] = None,
     ):
         self.pager = pager
         self.ids = ids if ids is not None else []
@@ -19,7 +19,7 @@ class ListSimulationRuns(HasParameters):
         # Validation
         for field_name, field_value, field_type in [
             ("ids", self.ids, str),
-            ("includes", self.includes, SimulationRunIncludes),
+            ("includes", self.includes, SimulationRunInclude),
         ]:
             invalid_items = [item for item in field_value if not isinstance(item, field_type)]
             if invalid_items:

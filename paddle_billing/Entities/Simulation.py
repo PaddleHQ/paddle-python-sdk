@@ -26,7 +26,7 @@ class Simulation(Entity, ABC):
     @staticmethod
     def from_dict(data: dict) -> Simulation:
         type = EventTypeName(data["type"])
-        if not type.is_known:
+        if not type.is_known():
             type = SimulationScenarioType(data["type"])
 
         return Simulation(

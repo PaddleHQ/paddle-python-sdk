@@ -21,7 +21,7 @@ from tests.Utils.ReadsFixture import ReadsFixtures
 
 class TestSimulationsClient:
     @mark.parametrize(
-        "operation, expected_request_body, expected_response_status, expected_response_body, expected_url",
+        "operation, expected_request_body, expected_response_status, expected_response_body, expected_path",
         [
             (
                 CreateSimulation(
@@ -86,9 +86,9 @@ class TestSimulationsClient:
         expected_request_body,
         expected_response_status,
         expected_response_body,
-        expected_url,
+        expected_path,
     ):
-        expected_url = f"{test_client.base_url}{expected_url}"
+        expected_url = f"{test_client.base_url}{expected_path}"
         mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         response = test_client.client.simulations.create(operation)
@@ -111,7 +111,7 @@ class TestSimulationsClient:
         ), "The response JSON doesn't match the expected fixture JSON"
 
     @mark.parametrize(
-        "operation, expected_request_body, expected_response_status, expected_response_body, expected_url",
+        "operation, expected_request_body, expected_response_status, expected_response_body, expected_path",
         [
             (
                 UpdateSimulation(status=SimulationStatus.Archived),
@@ -158,9 +158,9 @@ class TestSimulationsClient:
         expected_request_body,
         expected_response_status,
         expected_response_body,
-        expected_url,
+        expected_path,
     ):
-        expected_url = f"{test_client.base_url}{expected_url}"
+        expected_url = f"{test_client.base_url}{expected_path}"
         mock_requests.patch(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         response = test_client.client.simulations.update("pro_01h7zcgmdc6tmwtjehp3sh7azf", operation)
@@ -183,7 +183,7 @@ class TestSimulationsClient:
         ), "The response JSON doesn't match the expected fixture JSON"
 
     @mark.parametrize(
-        "operation, expected_response_status, expected_response_body, expected_url",
+        "operation, expected_response_status, expected_response_body, expected_path",
         [
             (
                 ListSimulations(),
@@ -254,9 +254,9 @@ class TestSimulationsClient:
         operation,
         expected_response_status,
         expected_response_body,
-        expected_url,
+        expected_path,
     ):
-        expected_url = f"{test_client.base_url}{expected_url}"
+        expected_url = f"{test_client.base_url}{expected_path}"
         mock_requests.get(expected_url, status_code=expected_response_status, text=expected_response_body)
 
         response = test_client.client.simulations.list(operation)
