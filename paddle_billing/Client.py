@@ -1,18 +1,13 @@
-from json import dumps as json_dumps, JSONEncoder
+from json import dumps as json_dumps
 from logging import Logger, getLogger
 from requests import Response, RequestException, Session
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 from urllib.parse import urljoin, urlencode
 from uuid import uuid4
-from dataclasses import fields, is_dataclass
-from datetime import datetime
-import re
+from paddle_billing.Json import PayloadEncoder
 
-from paddle_billing.Entities.DateTime import DateTime
 from paddle_billing.Operation import Operation
-from paddle_billing.FiltersUndefined import FiltersUndefined
-from paddle_billing.Undefined import Undefined
 from paddle_billing.HasParameters import HasParameters
 from paddle_billing.Options import Options
 from paddle_billing.ResponseParser import ResponseParser
@@ -41,33 +36,6 @@ from paddle_billing.Resources.SimulationRuns.SimulationRunsClient import Simulat
 from paddle_billing.Resources.SimulationRunEvents.SimulationRunEventsClient import SimulationRunEventsClient
 from paddle_billing.Resources.Subscriptions.SubscriptionsClient import SubscriptionsClient
 from paddle_billing.Resources.Transactions.TransactionsClient import TransactionsClient
-
-
-class PayloadEncoder(JSONEncoder):
-    def default(self, z):
-        if isinstance(z, Undefined):
-            return None
-
-        if isinstance(z, datetime):
-            return DateTime.from_datetime(z)
-
-        if hasattr(z, "to_json") and callable(z.to_json):
-            return z.to_json()
-
-        if is_dataclass(z):
-            exclude_properties = getattr(z.__class__, "json_exclude_properties", [])
-
-            data = {}
-            for field in fields(z):
-                if field.name not in exclude_properties:
-                    data[self._camel_to_snake(field.name)] = getattr(z, field.name)
-
-            return FiltersUndefined.filter_undefined_values(data)
-
-        return super().default(z)
-
-    def _camel_to_snake(self, name: str) -> str:
-        return re.sub(r"(?<!^)(?=[A-Z])", "_", name).lower()
 
 
 class Client:
