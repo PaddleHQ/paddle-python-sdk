@@ -10,11 +10,7 @@ from paddle_billing.Json import json_exclude
 @dataclass
 @json_exclude(["price_id"])
 class TransactionItem:
-    """
-    Deprecated: price_id is no longer returned on transaction items.
-    """
-
-    price_id: str | None
+    price_id: str | None  # Deprecated: price_id is no longer returned on transaction items.
     price: Price
     quantity: int
     proration: Proration | None
