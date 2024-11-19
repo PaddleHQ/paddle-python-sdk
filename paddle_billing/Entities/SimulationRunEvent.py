@@ -19,7 +19,7 @@ from paddle_billing.Notifications.Entities.UndefinedEntity import UndefinedEntit
 class SimulationRunEvent(Entity, ABC):
     id: str
     status: SimulationRunEventStatus
-    type: EventTypeName
+    event_type: EventTypeName
     payload: NotificationEntity | UndefinedEntity
     request: SimulationRunEventRequest | None
     response: SimulationRunEventResponse | None
@@ -31,8 +31,8 @@ class SimulationRunEvent(Entity, ABC):
         return SimulationRunEvent(
             id=data["id"],
             status=SimulationRunEventStatus(data["status"]),
-            type=EventTypeName(data["type"]),
-            payload=NotificationEntity.from_dict_for_event_type(data["payload"], data["type"]),
+            event_type=EventTypeName(data["event_type"]),
+            payload=NotificationEntity.from_dict_for_event_type(data["payload"], data["event_type"]),
             request=SimulationRunEventRequest.from_dict(data["request"]) if data.get("request") else None,
             response=SimulationRunEventResponse.from_dict(data["response"]) if data.get("response") else None,
             created_at=datetime.fromisoformat(data["created_at"]),

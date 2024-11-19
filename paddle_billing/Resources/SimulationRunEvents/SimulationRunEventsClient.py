@@ -28,17 +28,17 @@ class SimulationRunEventsClient:
             parser.get_data(), Paginator(self.client, parser.get_pagination(), SimulationRunEventCollection)
         )
 
-    def get(self, simulation_id: str, simulation_run_id: str, simulation_run_event_id: str) -> SimulationRunEvent:
+    def get(self, simulation_id: str, simulation_run_id: str, simulation_event_id: str) -> SimulationRunEvent:
         self.response = self.client.get_raw(
-            f"/simulations/{simulation_id}/runs/{simulation_run_id}/events/{simulation_run_event_id}"
+            f"/simulations/{simulation_id}/runs/{simulation_run_id}/events/{simulation_event_id}"
         )
         parser = ResponseParser(self.response)
 
         return SimulationRunEvent.from_dict(parser.get_data())
 
-    def replay(self, simulation_id: str, simulation_run_id: str, simulation_run_event_id: str) -> SimulationRunEvent:
+    def replay(self, simulation_id: str, simulation_run_id: str, simulation_event_id: str) -> SimulationRunEvent:
         self.response = self.client.post_raw(
-            f"/simulations/{simulation_id}/runs/{simulation_run_id}/events/{simulation_run_event_id}/replay"
+            f"/simulations/{simulation_id}/runs/{simulation_run_id}/events/{simulation_event_id}/replay"
         )
         parser = ResponseParser(self.response)
 

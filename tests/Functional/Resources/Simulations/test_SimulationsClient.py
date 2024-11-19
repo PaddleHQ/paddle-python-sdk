@@ -295,11 +295,11 @@ class TestSimulationsClient:
 
         assert isinstance(response, SimulationCollection)
 
-        allSimulations = []
+        all_simulations = []
         for simulation in response:
-            allSimulations.append(simulation)
+            all_simulations.append(simulation)
 
-        assert len(allSimulations) == 2
+        assert len(all_simulations) == 2
 
     def test_get_simulations_returns_expected_response(
         self,
