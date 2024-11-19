@@ -17,7 +17,7 @@ class TestSimulationRunsClient:
         [
             (
                 "ntfsim_01j82g2mggsgjpb3mjg0xq6p5k",
-                200,
+                201,
                 ReadsFixtures.read_raw_json_fixture("response/full_entity"),
                 "/simulations/ntfsim_01j82g2mggsgjpb3mjg0xq6p5k/runs",
             ),

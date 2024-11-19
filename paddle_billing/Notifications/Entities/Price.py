@@ -57,7 +57,3 @@ class Price(Entity):
             created_at=datetime.fromisoformat(data["created_at"]) if data.get("created_at") else None,
             updated_at=datetime.fromisoformat(data["updated_at"]) if data.get("updated_at") else None,
         )
-
-
-# Prevents circular import
-from paddle_billing.Entities.Product import Product  # noqa E402
