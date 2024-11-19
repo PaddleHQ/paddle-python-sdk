@@ -4,7 +4,7 @@ from datetime import datetime
 
 from paddle_billing.Notifications.Entities.Entity import Entity
 from paddle_billing.Notifications.Entities.Shared import CatalogType, CustomData, ImportMeta, Status, TaxCategory
-from paddle_billing.JsonExclude import json_exclude
+from paddle_billing.Json import json_exclude
 
 
 @dataclass

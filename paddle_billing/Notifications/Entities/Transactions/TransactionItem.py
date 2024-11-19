@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from paddle_billing.Notifications.Entities.Price import Price
 
 from paddle_billing.Notifications.Entities.Shared.Proration import Proration
-from paddle_billing.JsonExclude import json_exclude
+from paddle_billing.Json import json_exclude
 
 
 @dataclass
