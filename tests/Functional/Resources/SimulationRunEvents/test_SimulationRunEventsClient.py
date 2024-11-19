@@ -27,7 +27,7 @@ class TestSimulationRunEventsClient:
                 "ntfsim_01j82g2mggsgjpb3mjg0xq6p5k",
                 "ntfsimrun_01j82d9tc19c67jds5vzbzjcns",
                 "ntfsimevt_01j82j3tr93j99gfv26tsngc27",
-                200,
+                202,
                 ReadsFixtures.read_raw_json_fixture("response/full_entity"),
                 "/simulations/ntfsim_01j82g2mggsgjpb3mjg0xq6p5k/runs/ntfsimrun_01j82d9tc19c67jds5vzbzjcns/events/ntfsimevt_01j82j3tr93j99gfv26tsngc27/replay",
             ),

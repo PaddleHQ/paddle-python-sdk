@@ -1,4 +1,4 @@
-from json import loads
+from json import loads, dumps
 from pytest import mark
 from urllib.parse import unquote
 from datetime import datetime
@@ -6,6 +6,7 @@ from datetime import datetime
 from paddle_billing.Entities.Collections import SimulationCollection
 from paddle_billing.Entities.Simulation import Simulation, SimulationScenarioType, SimulationStatus
 from paddle_billing.Notifications.Entities.Address import Address
+from paddle_billing.Notifications.Entities.Entity import Entity
 from paddle_billing.Notifications.Entities.Adjustment import Adjustment
 from paddle_billing.Entities.Events import EventTypeName
 from paddle_billing.Entities.Shared import (
@@ -44,7 +45,7 @@ class TestSimulationsClient:
                     ),
                 ),
                 ReadsFixtures.read_raw_json_fixture("request/create_full"),
-                200,
+                201,
                 ReadsFixtures.read_raw_json_fixture("response/full_entity"),
                 "/simulations",
             ),
@@ -56,7 +57,7 @@ class TestSimulationsClient:
                     payload=None,
                 ),
                 ReadsFixtures.read_raw_json_fixture("request/create_without_payload"),
-                200,
+                201,
                 ReadsFixtures.read_raw_json_fixture("response/full_entity"),
                 "/simulations",
             ),
@@ -67,7 +68,7 @@ class TestSimulationsClient:
                     name="Some Scenario",
                 ),
                 ReadsFixtures.read_raw_json_fixture("request/create_scenario"),
-                200,
+                201,
                 ReadsFixtures.read_raw_json_fixture("response/full_entity"),
                 "/simulations",
             ),
@@ -109,6 +110,168 @@ class TestSimulationsClient:
         assert response_json == loads(
             str(expected_response_body)
         ), "The response JSON doesn't match the expected fixture JSON"
+
+    @mark.parametrize(
+        "event_type, entity_name",
+        [
+            ("address.created", "Address"),
+            ("address.imported", "Address"),
+            ("address.updated", "Address"),
+            ("adjustment.created", "Adjustment"),
+            ("adjustment.updated", "Adjustment"),
+            ("business.created", "Business"),
+            ("business.imported", "Business"),
+            ("business.updated", "Business"),
+            ("customer.created", "Customer"),
+            ("customer.imported", "Customer"),
+            ("customer.updated", "Customer"),
+            ("discount.created", "Discount"),
+            ("discount.imported", "Discount"),
+            ("discount.updated", "Discount"),
+            ("payment_method.deleted", "PaymentMethodDeleted"),
+            ("payment_method.saved", "PaymentMethod"),
+            ("payout.created", "Payout"),
+            ("payout.paid", "Payout"),
+            ("price.created", "Price"),
+            ("price.updated", "Price"),
+            ("price.imported", "Price"),
+            ("product.created", "Product"),
+            ("product.updated", "Product"),
+            ("product.imported", "Product"),
+            ("subscription.activated", "Subscription"),
+            ("subscription.canceled", "Subscription"),
+            ("subscription.created", "SubscriptionCreated"),
+            ("subscription.imported", "Subscription"),
+            ("subscription.past_due", "Subscription"),
+            ("subscription.paused", "Subscription"),
+            ("subscription.resumed", "Subscription"),
+            ("subscription.trialing", "Subscription"),
+            ("subscription.updated", "Subscription"),
+            ("transaction.billed", "Transaction"),
+            ("transaction.canceled", "Transaction"),
+            ("transaction.completed", "Transaction"),
+            ("transaction.created", "Transaction"),
+            ("transaction.paid", "Transaction"),
+            ("transaction.past_due", "Transaction"),
+            ("transaction.payment_failed", "Transaction"),
+            ("transaction.ready", "Transaction"),
+            ("transaction.updated", "Transaction"),
+            ("report.created", "Report"),
+            ("report.updated", "Report"),
+        ],
+        ids=[
+            "address.created",
+            "address.imported",
+            "address.updated",
+            "adjustment.created",
+            "adjustment.updated",
+            "business.created",
+            "business.imported",
+            "business.updated",
+            "customer.created",
+            "customer.imported",
+            "customer.updated",
+            "discount.created",
+            "discount.imported",
+            "discount.updated",
+            "payment_method.deleted",
+            "payment_method.saved",
+            "payout.created",
+            "payout.paid",
+            "price.created",
+            "price.updated",
+            "price.imported",
+            "product.created",
+            "product.updated",
+            "product.imported",
+            "subscription.activated",
+            "subscription.canceled",
+            "subscription.created",
+            "subscription.imported",
+            "subscription.past_due",
+            "subscription.paused",
+            "subscription.resumed",
+            "subscription.trialing",
+            "subscription.updated",
+            "transaction.billed",
+            "transaction.canceled",
+            "transaction.completed",
+            "transaction.created",
+            "transaction.paid",
+            "transaction.past_due",
+            "transaction.payment_failed",
+            "transaction.ready",
+            "transaction.updated",
+            "report.created",
+            "report.updated",
+        ],
+    )
+    def test_create_simulation_uses_expected_entity_payload(
+        self,
+        test_client,
+        mock_requests,
+        event_type,
+        entity_name,
+    ):
+        entity_data = ReadsFixtures.read_json_fixture(f"payload/{event_type}")
+        payload = Entity.from_dict_for_event_type(entity_data, event_type)
+
+        operation = CreateSimulation(
+            notification_setting_id="ntfset_01j82d983j814ypzx7m1fw2jpz",
+            type=EventTypeName(event_type),
+            name="Some Simulation",
+            payload=payload,
+        )
+
+        expected_path = "/simulations"
+
+        expected_request_body = dumps(
+            {
+                "notification_setting_id": "ntfset_01j82d983j814ypzx7m1fw2jpz",
+                "name": "Some Simulation",
+                "type": event_type,
+                "payload": entity_data,
+            }
+        )
+
+        expected_response_body = dumps(
+            {
+                "data": {
+                    "id": "ntfsim_01j82g2mggsgjpb3mjg0xq6p5k",
+                    "notification_setting_id": "ntfset_01j82d983j814ypzx7m1fw2jpz",
+                    "name": "Some Simulation",
+                    "type": event_type,
+                    "status": "active",
+                    "payload": entity_data,
+                    "last_run_at": None,
+                    "created_at": "2024-09-18T12:00:25.616392Z",
+                    "updated_at": "2024-09-18T12:00:25.616392Z",
+                },
+            }
+        )
+
+        expected_url = f"{test_client.base_url}{expected_path}"
+        mock_requests.post(expected_url, status_code=201, text=expected_response_body)
+
+        response = test_client.client.simulations.create(operation)
+        response_json = test_client.client.simulations.response.json()
+        request_json = test_client.client.payload
+        last_request = mock_requests.last_request
+
+        assert isinstance(response, Simulation)
+        assert last_request is not None
+        assert last_request.method == "POST"
+        assert test_client.client.status_code == 201
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
+        assert loads(request_json) == loads(
+            expected_request_body
+        ), "The request JSON doesn't match the expected fixture JSON"
+        assert response_json == loads(
+            str(expected_response_body)
+        ), "The response JSON doesn't match the expected fixture JSON"
+        assert isinstance(response.payload, payload.__class__), response_json
 
     @mark.parametrize(
         "operation, expected_request_body, expected_response_status, expected_response_body, expected_path",

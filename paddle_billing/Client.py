@@ -7,6 +7,7 @@ from urllib.parse import urljoin, urlencode
 from uuid import uuid4
 from dataclasses import fields, is_dataclass
 from datetime import datetime
+import re
 
 from paddle_billing.Entities.DateTime import DateTime
 from paddle_billing.Operation import Operation
@@ -54,13 +55,19 @@ class PayloadEncoder(JSONEncoder):
             return z.to_json()
 
         if is_dataclass(z):
+            exclude_properties = getattr(z.__class__, "json_exclude_properties", [])
+
             data = {}
             for field in fields(z):
-                data[field.name] = getattr(z, field.name)
+                if field.name not in exclude_properties:
+                    data[self._camel_to_snake(field.name)] = getattr(z, field.name)
 
             return FiltersUndefined.filter_undefined_values(data)
 
         return super().default(z)
+
+    def _camel_to_snake(self, name: str) -> str:
+        return re.sub(r"(?<!^)(?=[A-Z])", "_", name).lower()
 
 
 class Client:

@@ -4,9 +4,11 @@ from datetime import datetime
 
 from paddle_billing.Notifications.Entities.Entity import Entity
 from paddle_billing.Notifications.Entities.Shared import CatalogType, CustomData, ImportMeta, Status, TaxCategory
+from paddle_billing.JsonExclude import json_exclude
 
 
 @dataclass
+@json_exclude(["prices"])
 class Product(Entity):
     id: str
     name: str
@@ -16,6 +18,9 @@ class Product(Entity):
     image_url: str | None
     custom_data: CustomData | None = None
     import_meta: ImportMeta | None = None
+    """
+    Deprecated: prices are not included in product notifications.
+    """
     prices: list[Price] | None = None
     type: CatalogType | None = None
     created_at: datetime | None = None
