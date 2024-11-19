@@ -21,10 +21,14 @@ class SimulationRun(Entity, ABC):
 
     @staticmethod
     def from_dict(data: dict) -> SimulationRun:
+        type = EventTypeName(data["type"])
+        if not type.is_known():
+            type = SimulationScenarioType(data["type"])
+
         return SimulationRun(
             id=data["id"],
             status=SimulationRunStatus(data["status"]),
-            type=EventTypeName(data["type"]),
+            type=type,
             created_at=datetime.fromisoformat(data["created_at"]),
             updated_at=datetime.fromisoformat(data["updated_at"]),
             events=[SimulationRunEvent.from_dict(event) for event in data.get("events", [])],
