@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-python-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## [Unreleased]
+
+### Added
+
+- Added simulation API support [related changelog](https://developer.paddle.com/changelog/2024/webhook-simulator?utm_source=dx&utm_medium=paddle-python-sdk)
+  - `Client.simulations.create`
+  - `Client.simulations.update`
+  - `Client.simulations.get`
+  - `Client.simulations.list`
+  - `Client.simulation_runs.create`
+  - `Client.simulation_runs.get`
+  - `Client.simulation_runs.list`
+  - `Client.simulation_run_events.replay`
+  - `Client.simulation_run_events.get`
+  - `Client.simulation_run_events.list`
+
 ## 1.4.0 - 2024-12-19
 
 ### Added
