@@ -282,7 +282,65 @@ class TestSimulationsClient:
         assert response_json == loads(
             str(expected_response_body)
         ), "The response JSON doesn't match the expected fixture JSON"
-        assert isinstance(response.payload, payload.__class__), response_json
+        assert isinstance(response.payload, payload.__class__)
+
+        # Check partial payloads are accepted.
+        partial_payload = SimulationEntity.from_dict_for_event_type({"id": entity_data["id"]}, event_type)
+
+        partial_operation = CreateSimulation(
+            notification_setting_id="ntfset_01j82d983j814ypzx7m1fw2jpz",
+            type=EventTypeName(event_type),
+            name="Some Simulation",
+            payload=partial_payload,
+        )
+
+        expected_partial_request_body = dumps(
+            {
+                "notification_setting_id": "ntfset_01j82d983j814ypzx7m1fw2jpz",
+                "name": "Some Simulation",
+                "type": event_type,
+                "payload": {"id": entity_data["id"]},
+            }
+        )
+
+        expected_partial_response_body = dumps(
+            {
+                "data": {
+                    "id": "ntfsim_01j82g2mggsgjpb3mjg0xq6p5k",
+                    "notification_setting_id": "ntfset_01j82d983j814ypzx7m1fw2jpz",
+                    "name": "Some Simulation",
+                    "type": event_type,
+                    "status": "active",
+                    "payload": {"id": entity_data["id"]},
+                    "last_run_at": None,
+                    "created_at": "2024-09-18T12:00:25.616392Z",
+                    "updated_at": "2024-09-18T12:00:25.616392Z",
+                },
+            }
+        )
+
+        mock_requests.post(expected_url, status_code=201, text=expected_partial_response_body)
+
+        partial_response = test_client.client.simulations.create(partial_operation)
+        partial_response_json = test_client.client.simulations.response.json()
+        partial_request_json = test_client.client.payload
+        partial_last_request = mock_requests.last_request
+
+        assert isinstance(partial_response, Simulation)
+        assert partial_last_request is not None
+        assert partial_last_request.method == "POST"
+        assert test_client.client.status_code == 201
+        assert (
+            unquote(partial_last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
+        assert loads(partial_request_json) == loads(
+            expected_partial_request_body
+        ), "The request JSON doesn't match the expected fixture JSON"
+        assert partial_response_json == loads(
+            str(expected_partial_response_body)
+        ), "The response JSON doesn't match the expected fixture JSON"
+        assert isinstance(partial_response.payload, partial_payload.__class__)
+        assert partial_response.payload.id == entity_data["id"]
 
     @mark.parametrize(
         "operation, expected_request_body, expected_response_status, expected_response_body, expected_path",
