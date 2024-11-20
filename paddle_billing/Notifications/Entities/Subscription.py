@@ -69,7 +69,7 @@ class Subscription(Entity):
             paused_at=datetime.fromisoformat(data["paused_at"]) if data.get("paused_at") else None,
             started_at=datetime.fromisoformat(data["started_at"]) if data.get("started_at") else None,
             current_billing_period=(
-                TimePeriod.from_dict(data["current_billing_period"]) if data.get("billing_details") else None
+                TimePeriod.from_dict(data["current_billing_period"]) if data.get("current_billing_period") else None
             ),
             scheduled_change=(
                 SubscriptionScheduledChange.from_dict(data["scheduled_change"])

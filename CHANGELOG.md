@@ -6,10 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-python-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
-## [Unreleased]
+## 1.1.2 - 2024-11-20
 
-### Added
-- Added `traffic_source` property to `paddle_billing.Entities.NotificationSetting` entity
+### Fixed
+- `paddle_billing.Notifications.Entities.Subscription` and `paddle_billing.Notifications.Entities.SubscriptionCreated` `current_billing_period` would return `None` if `billing_details` was `None`. `current_billing_period` will now return `TimePeriod` when set.
 
 ## 1.1.1 - 2024-11-14
 
