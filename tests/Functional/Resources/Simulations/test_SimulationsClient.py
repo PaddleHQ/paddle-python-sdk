@@ -5,12 +5,14 @@ from datetime import datetime
 
 from paddle_billing.Entities.Collections import SimulationCollection
 from paddle_billing.Entities.Simulation import Simulation, SimulationScenarioType, SimulationStatus
-from paddle_billing.Notifications.Entities.Address import Address
-from paddle_billing.Notifications.Entities.Entity import Entity
+from paddle_billing.Notifications.Entities.Simulations import Address
+from paddle_billing.Notifications.Entities.Simulations.SimulationEntity import SimulationEntity
 from paddle_billing.Notifications.Entities.Adjustment import Adjustment
 from paddle_billing.Entities.Events import EventTypeName
 from paddle_billing.Entities.Shared import (
     CountryCode,
+    CustomData,
+    ImportMeta,
     Status,
 )
 
@@ -42,6 +44,15 @@ class TestSimulationsClient:
                         country_code=CountryCode.US,
                         created_at=datetime.fromisoformat("2024-04-12T06:42:58.785000Z"),
                         updated_at=datetime.fromisoformat("2024-04-12T06:42:58.785000Z"),
+                        custom_data=CustomData(
+                            {
+                                "some": "data",
+                            }
+                        ),
+                        import_meta=ImportMeta(
+                            external_id="some-external-id",
+                            imported_from="some-source",
+                        ),
                     ),
                 ),
                 ReadsFixtures.read_raw_json_fixture("request/create_full"),
@@ -214,7 +225,7 @@ class TestSimulationsClient:
         entity_name,
     ):
         entity_data = ReadsFixtures.read_json_fixture(f"payload/{event_type}")
-        payload = Entity.from_dict_for_event_type(entity_data, event_type)
+        payload = SimulationEntity.from_dict_for_event_type(entity_data, event_type)
 
         operation = CreateSimulation(
             notification_setting_id="ntfset_01j82d983j814ypzx7m1fw2jpz",
