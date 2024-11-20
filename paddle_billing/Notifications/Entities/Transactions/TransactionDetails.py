@@ -1,6 +1,8 @@
 from __future__ import annotations
 from dataclasses import dataclass
 
+from paddle_billing.Json import json_format_properties
+
 from paddle_billing.Notifications.Entities.Shared.TaxRatesUsed import TaxRatesUsed
 from paddle_billing.Notifications.Entities.Shared.TransactionPayoutTotals import TransactionPayoutTotals
 from paddle_billing.Notifications.Entities.Shared.TransactionPayoutTotalsAdjusted import TransactionPayoutTotalsAdjusted
@@ -11,6 +13,7 @@ from paddle_billing.Notifications.Entities.Transactions.TransactionLineItem impo
 
 
 @dataclass
+@json_format_properties(["lineItems"])
 class TransactionDetails:
     tax_rates_used: list[TaxRatesUsed]
     totals: TransactionTotals

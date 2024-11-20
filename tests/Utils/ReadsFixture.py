@@ -29,4 +29,8 @@ class ReadsFixtures:
         """
         Reads a JSON fixture file and returns its contents as a dictionary.
         """
+        if base_path is None:
+            caller_file = stack()[1].filename
+            base_path = Path(caller_file).parent
+
         return json_loads(ReadsFixtures.read_raw_json_fixture(fixture, base_path))
