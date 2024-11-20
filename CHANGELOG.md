@@ -11,6 +11,10 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 ### Fixed
 - `paddle_billing.Notifications.Entities.Subscription` and `paddle_billing.Notifications.Entities.SubscriptionCreated` `current_billing_period` would return `None` if `billing_details` was `None`. `current_billing_period` will now return `TimePeriod` when set.
 
+### Added
+
+- Added missing `traffic_source` property to `paddle_billing.Entities.NotificationSetting` entity
+
 ## 1.1.1 - 2024-11-14
 
 ### Fixed
