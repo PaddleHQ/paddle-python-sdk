@@ -21,6 +21,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
   - `Client.simulation_run_events.replay`
   - `Client.simulation_run_events.get`
   - `Client.simulation_run_events.list`
+  - `Client.simulation_types.list`
 
 ## 1.1.2 - 2024-11-20
 
