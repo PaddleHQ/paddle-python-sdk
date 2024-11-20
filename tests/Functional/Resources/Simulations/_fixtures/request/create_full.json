@@ -10,12 +10,17 @@
         "created_at": "2024-04-12T06:42:58.785000Z",
         "first_line": "4050 Jefferson Plaza, 41st Floor",
         "updated_at": "2024-04-12T06:42:58.785000Z",
-        "custom_data": null,
         "customer_id": "ctm_01hv6y1jedq4p1n0yqn5ba3ky4",
         "description": "Head Office",
-        "import_meta": null,
         "postal_code": "10021",
         "second_line": null,
-        "country_code": "US"
+        "country_code": "US",
+        "custom_data": {
+            "some": "data"
+        },
+        "import_meta": {
+            "external_id": "some-external-id",
+            "imported_from": "some-source"
+        }
     }
 }
