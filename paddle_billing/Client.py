@@ -34,6 +34,7 @@ from paddle_billing.Resources.Reports.ReportsClient import ReportsClient
 from paddle_billing.Resources.Simulations.SimulationsClient import SimulationsClient
 from paddle_billing.Resources.SimulationRuns.SimulationRunsClient import SimulationRunsClient
 from paddle_billing.Resources.SimulationRunEvents.SimulationRunEventsClient import SimulationRunEventsClient
+from paddle_billing.Resources.SimulationTypes.SimulationTypesClient import SimulationTypesClient
 from paddle_billing.Resources.Subscriptions.SubscriptionsClient import SubscriptionsClient
 from paddle_billing.Resources.Transactions.TransactionsClient import TransactionsClient
 
@@ -84,6 +85,7 @@ class Client:
         self.simulations = SimulationsClient(self)
         self.simulation_runs = SimulationRunsClient(self)
         self.simulation_run_events = SimulationRunEventsClient(self)
+        self.simulation_types = SimulationTypesClient(self)
         self.subscriptions = SubscriptionsClient(self)
         self.transactions = TransactionsClient(self)
         self.ip_addresses = IPAddressesClient(self)
