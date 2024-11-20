@@ -226,6 +226,7 @@ class TestSimulationsClient:
     ):
         entity_data = ReadsFixtures.read_json_fixture(f"payload/{event_type}")
         payload = SimulationEntity.from_dict_for_event_type(entity_data, event_type)
+        assert payload.__class__.__name__ == entity_name
 
         operation = CreateSimulation(
             notification_setting_id="ntfset_01j82d983j814ypzx7m1fw2jpz",
