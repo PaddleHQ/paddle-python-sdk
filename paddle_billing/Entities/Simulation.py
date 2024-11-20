@@ -7,7 +7,7 @@ from paddle_billing.Entities.Entity import Entity
 from paddle_billing.Entities.Events import EventTypeName
 from paddle_billing.Entities.Simulations import SimulationScenarioType, SimulationStatus
 
-from paddle_billing.Notifications.Entities.Entity import Entity as NotificationEntity
+from paddle_billing.Notifications.Entities.Simulations.SimulationEntity import SimulationEntity
 from paddle_billing.Notifications.Entities.UndefinedEntity import UndefinedEntity
 
 
@@ -18,7 +18,7 @@ class Simulation(Entity, ABC):
     notification_setting_id: str
     name: str
     type: EventTypeName | SimulationScenarioType
-    payload: NotificationEntity | UndefinedEntity | None
+    payload: SimulationEntity | UndefinedEntity | None
     last_run_at: datetime | None
     created_at: datetime
     updated_at: datetime
@@ -36,7 +36,7 @@ class Simulation(Entity, ABC):
             name=data["name"],
             type=type,
             payload=(
-                NotificationEntity.from_dict_for_event_type(data["payload"], type.value)
+                SimulationEntity.from_dict_for_event_type(data["payload"], type.value)
                 if isinstance(type, EventTypeName) and data.get("payload")
                 else None
             ),

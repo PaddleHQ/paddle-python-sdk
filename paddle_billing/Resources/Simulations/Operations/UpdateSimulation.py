@@ -6,7 +6,7 @@ from paddle_billing.Undefined import Undefined
 from paddle_billing.Entities.Events import EventTypeName
 from paddle_billing.Entities.Simulations import SimulationScenarioType, SimulationStatus
 
-from paddle_billing.Notifications.Entities.Entity import Entity as NotificationEntity
+from paddle_billing.Notifications.Entities.Simulations.SimulationEntity import SimulationEntity
 
 
 @dataclass
@@ -15,4 +15,4 @@ class UpdateSimulation(Operation):
     type: EventTypeName | SimulationScenarioType | Undefined = Undefined()
     name: str | Undefined = Undefined()
     status: SimulationStatus | Undefined = Undefined()
-    payload: NotificationEntity | Undefined = Undefined()
+    payload: SimulationEntity | Undefined = Undefined()

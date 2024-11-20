@@ -1,28 +1,19 @@
 from __future__ import annotations
-from abc import ABC, abstractmethod
-from dataclasses import asdict, dataclass
-from importlib import import_module
-from paddle_billing.Notifications.Entities.EntityDict import EntityDict
+from dataclasses import dataclass
+from abc import ABC
 from paddle_billing.Notifications.Entities.UndefinedEntity import UndefinedEntity
+from importlib import import_module
 
 
 @dataclass
-class Entity(ABC, EntityDict):
+class SimulationEntity(ABC):
     @staticmethod
-    @abstractmethod
-    def from_dict(data: dict):
-        """
-        A static factory for the entity that conforms to the Paddle API.
-        """
-        pass
-
-    @staticmethod
-    def from_dict_for_event_type(data: dict, event_type: str) -> Entity | UndefinedEntity:
-        entity_class_name = Entity._resolve_event_class_name(event_type)
+    def from_dict_for_event_type(data: dict, event_type: str) -> SimulationEntity | UndefinedEntity:
+        entity_class_name = SimulationEntity._resolve_event_class_name(event_type)
 
         entity_class = None
         instantiated_class = None
-        entity_module_path = "paddle_billing.Notifications.Entities"
+        entity_module_path = "paddle_billing.Notifications.Entities.Simulations"
 
         try:
             imported_module = import_module(f"{entity_module_path}.{entity_class_name}")
@@ -35,8 +26,8 @@ class Entity(ABC, EntityDict):
         if not instantiated_class:
             return UndefinedEntity(data)
 
-        if not issubclass(entity_class, Entity):
-            raise ValueError(f"Event type '{entity_class_name}' is not of Entity")
+        if not issubclass(entity_class, SimulationEntity):
+            raise ValueError(f"Event type '{entity_class_name}' is not of SimulationEntity")
 
         return instantiated_class
 
@@ -50,6 +41,3 @@ class Entity(ABC, EntityDict):
         event_entity = event_type.split(".")[0] or ""
 
         return event_entity.lower().title().replace("_", "")
-
-    def to_dict(self) -> dict:
-        return asdict(self)
