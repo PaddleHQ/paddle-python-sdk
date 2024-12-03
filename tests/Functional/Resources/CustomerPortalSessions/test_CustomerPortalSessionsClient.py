@@ -32,10 +32,26 @@ class TestAddressesClient:
                 ReadsFixtures.read_raw_json_fixture("response/full_entity_multiple"),
                 "/customers/ctm_01gysfvfy7vqhpzkq8rjmrq7an/portal-sessions",
             ),
+            (
+                "ctm_01gysfvfy7vqhpzkq8rjmrq7an",
+                CreateCustomerPortalSession([]),
+                ReadsFixtures.read_raw_json_fixture("request/create_empty"),
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_empty"),
+                "/customers/ctm_01gysfvfy7vqhpzkq8rjmrq7an/portal-sessions",
+            ),
+            (
+                "ctm_01gysfvfy7vqhpzkq8rjmrq7an",
+                CreateCustomerPortalSession(),
+                "{}",
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_empty"),
+                "/customers/ctm_01gysfvfy7vqhpzkq8rjmrq7an/portal-sessions",
+            ),
         ],
         ids=[
             "Create portal session with single subscription ID",
             "Create portal session with multiple subscription IDs",
+            "Create portal session with empty subscription IDs",
+            "Create portal session with omitted subscription IDs",
         ],
     )
     def test_create_uses_expected_payload(
