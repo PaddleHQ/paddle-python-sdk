@@ -9,7 +9,7 @@ from paddle_billing.Entities.CustomerPortalSessions import CustomerPortalSession
 @dataclass
 class CustomerPortalSession(Entity):
     id: str
-    customer_id: str | None
+    customer_id: str
     urls: CustomerPortalSessionUrls
     created_at: datetime
 
@@ -17,7 +17,7 @@ class CustomerPortalSession(Entity):
     def from_dict(data: dict) -> CustomerPortalSession:
         return CustomerPortalSession(
             id=data["id"],
-            customer_id=data.get("customer_id"),
+            customer_id=data["customer_id"],
             urls=CustomerPortalSessionUrls.from_dict(data["urls"]),
             created_at=datetime.fromisoformat(data["created_at"]),
         )

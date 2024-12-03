@@ -11,6 +11,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 ### Fixed
 
 - Subscription IDs can be omitted when creating customer portal sessions
+- Customer portal session customer ID will always be returned as string
 
 ## 1.2.0 - 2024-12-03
 
