@@ -259,12 +259,12 @@ class TestNotificationsClient:
                 200,
                 ReadsFixtures.read_raw_json_fixture("response/replay"),
                 "ntf_01h46h1s2zabpkdks7yt4vkgkc",
-                "/notifications/nft_01h8441jn5pcwrfhwh78jqt8hk",
+                "/notifications/nft_01h8441jn5pcwrfhwh78jqt8hk/replay",
             )
         ],
         ids=["Replay a notification by its id"],
     )
-    def test_replacy_notification_returns_expected_response(
+    def test_replay_notification_returns_expected_response(
         self,
         test_client,
         mock_requests,
