@@ -209,3 +209,47 @@ class TestNotificationEvent:
         assert notification_event.occurred_at.isoformat() == "2023-08-21T11:57:47.390028+00:00"
         assert isinstance(notification_event.data, UndefinedEntity)
         assert notification_event.data.to_dict()["id"] == "add_01hv8gq3318ktkfengj2r75gfx"
+
+    def test_subscription_notification_event_with_null_discount(self):
+        notification_event = NotificationEvent.from_dict(
+            {
+                "data": loads(ReadsFixtures.read_raw_json_fixture("notification/entity/subscription.trialing")),
+                "notification_id": "ntf_01h8bkrfe7w1vwf8xmytwn51e7",
+                "event_type": "subscription.trialing",
+                "event_id": "evt_01h8bzakzx3hm2fmen703n5q45",
+                "occurred_at": "2023-08-21T11:57:47.390028Z",
+            }
+        )
+
+        assert isinstance(notification_event.data, Subscription)
+        assert notification_event.data.discount is None
+
+    def test_subscription_notification_event_discount_without_starts_and_ends_at(self):
+        notification_event = NotificationEvent.from_dict(
+            {
+                "data": loads(ReadsFixtures.read_raw_json_fixture("notification/entity/subscription.paused")),
+                "notification_id": "ntf_01h8bkrfe7w1vwf8xmytwn51e7",
+                "event_type": "subscription.paused",
+                "event_id": "evt_01h8bzakzx3hm2fmen703n5q45",
+                "occurred_at": "2023-08-21T11:57:47.390028Z",
+            }
+        )
+
+        assert isinstance(notification_event.data, Subscription)
+        assert notification_event.data.discount.starts_at is None
+        assert notification_event.data.discount.ends_at is None
+
+    def test_subscription_notification_event_with_discount(self):
+        notification_event = NotificationEvent.from_dict(
+            {
+                "data": loads(ReadsFixtures.read_raw_json_fixture("notification/entity/subscription.created")),
+                "notification_id": "ntf_01h8bkrfe7w1vwf8xmytwn51e7",
+                "event_type": "subscription.created",
+                "event_id": "evt_01h8bzakzx3hm2fmen703n5q45",
+                "occurred_at": "2023-08-21T11:57:47.390028Z",
+            }
+        )
+
+        assert isinstance(notification_event.data, SubscriptionCreated)
+        assert notification_event.data.discount.starts_at.isoformat() == "2024-04-12T10:18:47.635628+00:00"
+        assert notification_event.data.discount.ends_at.isoformat() == "2024-05-12T10:18:47.635628+00:00"
