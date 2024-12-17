@@ -53,5 +53,5 @@ class Adjustment(Entity):
             ),
             updated_at=datetime.fromisoformat(data["updated_at"]) if data.get("updated_at") else None,
             tax_rates_used=[AdjustmentTaxRatesUsed.from_dict(item) for item in data["tax_rates_used"]],
-            type=AdjustmentStatus(data["type"]),
+            type=AdjustmentActionType(data["type"]),
         )
