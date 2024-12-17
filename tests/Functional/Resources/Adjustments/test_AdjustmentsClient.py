@@ -177,6 +177,9 @@ class TestAdjustmentsClient:
         )
 
         assert isinstance(response, Adjustment)
+        assert isinstance(response.action, Action)
+        assert isinstance(response.status, AdjustmentStatus)
+        assert isinstance(response.type, AdjustmentActionType)
 
         tax_rates_used = response.tax_rates_used[0]
         assert isinstance(tax_rates_used, AdjustmentTaxRatesUsed)
