@@ -5,7 +5,7 @@ from urllib.parse import unquote
 from paddle_billing.Entities.Adjustment import Adjustment, AdjustmentTaxRatesUsed
 from paddle_billing.Entities.Collections import AdjustmentCollection
 from paddle_billing.Entities.AdjustmentCreditNote import AdjustmentCreditNote
-from paddle_billing.Entities.Shared import Action, AdjustmentStatus, AdjustmentType, Disposition
+from paddle_billing.Entities.Shared import Action, AdjustmentActionType, AdjustmentStatus, AdjustmentType, Disposition
 
 from paddle_billing.Resources.Adjustments.Operations import (
     CreateAdjustment,
@@ -14,6 +14,8 @@ from paddle_billing.Resources.Adjustments.Operations import (
     ListAdjustments,
 )
 from paddle_billing.Resources.Shared.Operations import Pager
+
+from paddle_billing.Undefined import Undefined
 
 from tests.Utils.ReadsFixture import ReadsFixtures
 
@@ -49,10 +51,77 @@ class TestAdjustmentsClient:
                 ReadsFixtures.read_raw_json_fixture("response/full_entity"),
                 "/adjustments",
             ),
+            (
+                CreateAdjustment(
+                    Action.Refund,
+                    [CreateAdjustmentItem("txnitm_01h8bxryv3065dyh6103p3yg28", AdjustmentType.Partial, "100")],
+                    "error",
+                    "txn_01h8bxpvx398a7zbawb77y0kp5",
+                    AdjustmentActionType.Partial,
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/create_type_partial_with_items"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/minimal_entity"),
+                "/adjustments",
+            ),
+            (
+                CreateAdjustment.partial(
+                    Action.Refund,
+                    [CreateAdjustmentItem("txnitm_01h8bxryv3065dyh6103p3yg28", AdjustmentType.Partial, "100")],
+                    "error",
+                    "txn_01h8bxpvx398a7zbawb77y0kp5",
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/create_type_partial_with_items"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/minimal_entity"),
+                "/adjustments",
+            ),
+            (
+                CreateAdjustment.full(
+                    Action.Refund,
+                    "error",
+                    "txn_01h8bxpvx398a7zbawb77y0kp5",
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/create_type_full_with_no_items"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/minimal_entity"),
+                "/adjustments",
+            ),
+            (
+                CreateAdjustment(
+                    Action.Refund,
+                    None,
+                    "error",
+                    "txn_01h8bxpvx398a7zbawb77y0kp5",
+                    AdjustmentActionType.Full,
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/create_type_full_with_null_items"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/minimal_entity"),
+                "/adjustments",
+            ),
+            (
+                CreateAdjustment(
+                    Action.Refund,
+                    Undefined(),
+                    "error",
+                    "txn_01h8bxpvx398a7zbawb77y0kp5",
+                    AdjustmentActionType.Full,
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/create_type_full_with_no_items"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/minimal_entity"),
+                "/adjustments",
+            ),
         ],
         ids=[
             "Create adjustment with basic data",
             "Create adjustment with full data",
+            "Create adjustment with basic data with type",
+            "Create partial adjustment with items",
+            "Create full adjustment with no items",
+            "Create full adjustment with None items",
+            "Create full adjustment with Undefined items",
         ],
     )
     def test_create_adjustment_uses_expected_payload(

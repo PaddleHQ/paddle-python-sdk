@@ -1,5 +1,6 @@
 from paddle_billing.Notifications.Entities.Shared.Action import Action
 from paddle_billing.Notifications.Entities.Shared.AddressPreview import AddressPreview
+from paddle_billing.Notifications.Entities.Shared.AdjustmentActionType import AdjustmentActionType
 from paddle_billing.Notifications.Entities.Shared.AdjustmentItemTotals import AdjustmentItemTotals
 from paddle_billing.Notifications.Entities.Shared.AdjustmentStatus import AdjustmentStatus
 from paddle_billing.Notifications.Entities.Shared.AdjustmentTotals import AdjustmentTotals

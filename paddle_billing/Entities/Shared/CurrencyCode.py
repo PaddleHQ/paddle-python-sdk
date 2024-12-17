@@ -31,4 +31,5 @@ class CurrencyCode(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     TRY: "CurrencyCode" = "TRY"
     TWD: "CurrencyCode" = "TWD"
     UAH: "CurrencyCode" = "UAH"
+    VND: "CurrencyCode" = "VND"
     ZAR: "CurrencyCode" = "ZAR"
