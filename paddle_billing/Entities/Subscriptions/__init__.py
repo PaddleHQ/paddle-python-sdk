@@ -9,6 +9,7 @@ from paddle_billing.Entities.Subscriptions.SubscriptionItemStatus import Subscri
 from paddle_billing.Entities.Subscriptions.SubscriptionManagementUrls import SubscriptionManagementUrls
 from paddle_billing.Entities.Subscriptions.SubscriptionNextTransaction import SubscriptionNextTransaction
 from paddle_billing.Entities.Subscriptions.SubscriptionOnPaymentFailure import SubscriptionOnPaymentFailure
+from paddle_billing.Entities.Subscriptions.SubscriptionOnResume import SubscriptionOnResume
 from paddle_billing.Entities.Subscriptions.SubscriptionPreviewSubscriptionUpdateSummary import (
     SubscriptionPreviewSubscriptionUpdateSummary,
 )
