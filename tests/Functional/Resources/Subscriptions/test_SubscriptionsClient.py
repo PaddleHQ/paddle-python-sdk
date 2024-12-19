@@ -26,6 +26,7 @@ from paddle_billing.Entities.Shared import (
 from paddle_billing.Entities.Subscriptions import (
     SubscriptionEffectiveFrom,
     SubscriptionOnPaymentFailure,
+    SubscriptionOnResume,
     SubscriptionProrationBillingMode,
     SubscriptionResumeEffectiveFrom,
     SubscriptionScheduledChangeAction,
@@ -516,11 +517,37 @@ class TestSubscriptionsClient:
                 ReadsFixtures.read_raw_json_fixture("response/full_entity"),
                 "/subscriptions/sub_01h8bx8fmywym11t6swgzba704/pause",
             ),
+            (
+                "sub_01h8bx8fmywym11t6swgzba704",
+                PauseSubscription(
+                    SubscriptionEffectiveFrom.NextBillingPeriod,
+                    DateTime("2023-10-09T16:30:00Z"),
+                    SubscriptionOnResume.ContinueExistingBillingPeriod,
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/pause_resume_existing_billing_period"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/full_entity"),
+                "/subscriptions/sub_01h8bx8fmywym11t6swgzba704/pause",
+            ),
+            (
+                "sub_01h8bx8fmywym11t6swgzba704",
+                PauseSubscription(
+                    SubscriptionEffectiveFrom.NextBillingPeriod,
+                    DateTime("2023-10-09T16:30:00Z"),
+                    SubscriptionOnResume.StartNewBillingPeriod,
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/pause_resume_new_billing_period"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/full_entity"),
+                "/subscriptions/sub_01h8bx8fmywym11t6swgzba704/pause",
+            ),
         ],
         ids=[
             "Pause subscription",
             "Pause subscription as of next billing period",
             "Pause subscription as of next billing period and resume at date",
+            "Pause subscription resume in existing billing period",
+            "Pause subscription resume in new billing period",
         ],
     )
     def test_pause_subscription_uses_expected_payload(
@@ -583,11 +610,33 @@ class TestSubscriptionsClient:
                 ReadsFixtures.read_raw_json_fixture("response/full_entity"),
                 "/subscriptions/sub_01h8bx8fmywym11t6swgzba704/resume",
             ),
+            (
+                "sub_01h8bx8fmywym11t6swgzba704",
+                ResumeSubscription(
+                    SubscriptionResumeEffectiveFrom.Immediately, SubscriptionOnResume.ContinueExistingBillingPeriod
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/resume_existing_billing_period"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/full_entity"),
+                "/subscriptions/sub_01h8bx8fmywym11t6swgzba704/resume",
+            ),
+            (
+                "sub_01h8bx8fmywym11t6swgzba704",
+                ResumeSubscription(
+                    SubscriptionResumeEffectiveFrom.Immediately, SubscriptionOnResume.StartNewBillingPeriod
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/resume_new_billing_period"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/full_entity"),
+                "/subscriptions/sub_01h8bx8fmywym11t6swgzba704/resume",
+            ),
         ],
         ids=[
             "Resume subscription",
             "Resume subscription with a billing period",
             "Resume subscription with a new date",
+            "Resume subscription in existing billing period",
+            "Resume subscription in new billing period",
         ],
     )
     def test_resume_subscription_uses_expected_payload(
