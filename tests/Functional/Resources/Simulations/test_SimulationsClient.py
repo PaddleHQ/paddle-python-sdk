@@ -7,7 +7,7 @@ from paddle_billing.Entities.Collections import SimulationCollection
 from paddle_billing.Entities.Simulation import Simulation, SimulationScenarioType, SimulationStatus
 from paddle_billing.Notifications.Entities.Simulations import Address
 from paddle_billing.Notifications.Entities.Simulations.SimulationEntity import SimulationEntity
-from paddle_billing.Notifications.Entities.Adjustment import Adjustment
+from paddle_billing.Notifications.Entities.Simulations.Adjustment import Adjustment
 from paddle_billing.Entities.Events import EventTypeName
 from paddle_billing.Entities.Shared import (
     CountryCode,

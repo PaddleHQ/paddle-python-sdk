@@ -6,6 +6,7 @@ from paddle_billing.Undefined import Undefined
 from paddle_billing.Notifications.Entities.Adjustments import AdjustmentItem, AdjustmentTaxRatesUsed
 from paddle_billing.Notifications.Entities.Shared import (
     Action,
+    AdjustmentActionType,
     AdjustmentStatus,
     CurrencyCode,
     PayoutTotalsAdjustment,
@@ -31,6 +32,7 @@ class Adjustment(SimulationEntity):
     created_at: datetime | Undefined = Undefined()
     updated_at: datetime | None | Undefined = Undefined()
     tax_rates_used: list[AdjustmentTaxRatesUsed] | None | Undefined = Undefined()
+    type: AdjustmentActionType | None | Undefined = Undefined()
 
     @staticmethod
     def from_dict(data: dict) -> Adjustment:
@@ -62,4 +64,5 @@ class Adjustment(SimulationEntity):
                 if data.get("tax_rates_used")
                 else data.get("tax_rates_used", Undefined())
             ),
+            type=AdjustmentActionType(data["type"]) if data.get("type") else Undefined(),
         )
