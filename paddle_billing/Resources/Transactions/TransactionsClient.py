@@ -16,6 +16,7 @@ from paddle_billing.Resources.Transactions.Operations import (
     PreviewTransactionByIP,
     TransactionIncludes,
     GetTransactionInvoice,
+    ReviseTransaction,
 )
 
 from typing import TYPE_CHECKING
@@ -91,3 +92,9 @@ class TransactionsClient:
         parser = ResponseParser(self.response)
 
         return TransactionData.from_dict(parser.get_data())
+
+    def revise(self, transaction_id: str, operation: ReviseTransaction) -> Transaction:
+        self.response = self.client.post_raw(f"/transactions/{transaction_id}/revise", operation)
+        parser = ResponseParser(self.response)
+
+        return Transaction.from_dict(parser.get_data())

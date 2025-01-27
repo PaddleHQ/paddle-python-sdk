@@ -43,6 +43,7 @@ class Transaction(Entity):
     created_at: datetime
     updated_at: datetime
     billed_at: datetime | None
+    revised_at: datetime | None = None
 
     @staticmethod
     def from_dict(data: dict) -> Transaction:
@@ -69,4 +70,5 @@ class Transaction(Entity):
             billing_period=TimePeriod.from_dict(data["billing_period"]) if data.get("billing_period") else None,
             custom_data=CustomData(data["custom_data"]) if data.get("custom_data") else None,
             checkout=Checkout.from_dict(data["checkout"]) if data.get("checkout") else None,
+            revised_at=datetime.fromisoformat(data["revised_at"]) if data.get("revised_at") else None,
         )

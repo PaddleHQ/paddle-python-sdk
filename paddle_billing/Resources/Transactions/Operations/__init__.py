@@ -7,3 +7,4 @@ from paddle_billing.Resources.Transactions.Operations.PreviewTransactionByCustom
 from paddle_billing.Resources.Transactions.Operations.PreviewTransactionByIP import PreviewTransactionByIP
 from paddle_billing.Resources.Transactions.Operations.UpdateTransaction import UpdateTransaction
 from paddle_billing.Resources.Transactions.Operations.GetTransactionInvoice import GetTransactionInvoice
+from paddle_billing.Resources.Transactions.Operations.ReviseTransaction import ReviseTransaction

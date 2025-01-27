@@ -37,6 +37,7 @@ from paddle_billing.Resources.Transactions.Operations import (
     PreviewTransactionByIP,
     UpdateTransaction,
     GetTransactionInvoice,
+    ReviseTransaction,
 )
 
 from paddle_billing.Resources.Transactions.Operations.Preview import (
@@ -59,6 +60,12 @@ from paddle_billing.Resources.Transactions.Operations.Update import (
     UpdateBillingDetails,
     TransactionUpdateItem,
     TransactionUpdateItemWithPrice,
+)
+
+from paddle_billing.Resources.Transactions.Operations.Revise import (
+    ReviseAddress,
+    ReviseBusiness,
+    ReviseCustomer,
 )
 
 from tests.Utils.ReadsFixture import ReadsFixtures
@@ -670,6 +677,26 @@ class TestTransactionsClient:
             unquote(last_request.url) == expected_url
         ), "The URL does not match the expected URL, verify the query string is correct"
 
+    def test_list_transactions_with_and_without_revised_at(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        expected_url = f"{test_client.base_url}/transactions"
+        mock_requests.get(
+            expected_url, status_code=200, text=ReadsFixtures.read_raw_json_fixture("response/list_default")
+        )
+
+        response = test_client.client.transactions.list()
+
+        assert isinstance(response, TransactionCollection)
+
+        transaction_without_revised_at = response.items[0]
+        assert transaction_without_revised_at.revised_at is None
+
+        transaction_with_revised_at = response.items[5]
+        assert transaction_with_revised_at.revised_at.isoformat() == "2023-07-26T15:35:05.739403+00:00"
+
     @mark.parametrize(
         "transaction_id, includes, expected_response_status, expected_response_body, expected_url",
         [
@@ -1242,3 +1269,98 @@ class TestTransactionsClient:
         assert (
             unquote(last_request.url) == expected_url
         ), "The URL does not match the expected URL, verify the query string is correct"
+
+    @mark.parametrize(
+        "transaction_id, operation, expected_request_body, expected_response_status, expected_response_body, expected_path",
+        [
+            (
+                "txn_01h7zcgmdc6tmwtjehp3sh7azf",
+                ReviseTransaction(
+                    customer=ReviseCustomer(
+                        name="Sam Miller",
+                    ),
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/revise_customer"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/full_entity"),
+                "/transactions/txn_01h7zcgmdc6tmwtjehp3sh7azf/revise",
+            ),
+            (
+                "txn_01h7zcgmdc6tmwtjehp3sh7azf",
+                ReviseTransaction(
+                    address=ReviseAddress(
+                        first_line="3811 Ditmars Blvd",
+                    ),
+                    customer=ReviseCustomer(
+                        name="Sam Miller",
+                    ),
+                    business=ReviseBusiness(
+                        name="Some Business",
+                    ),
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/revise_basic"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/full_entity"),
+                "/transactions/txn_01h7zcgmdc6tmwtjehp3sh7azf/revise",
+            ),
+            (
+                "txn_01h7zcgmdc6tmwtjehp3sh7azf",
+                ReviseTransaction(
+                    address=ReviseAddress(
+                        first_line="3811 Ditmars Blvd",
+                        second_line=None,
+                        city="Some City",
+                        region="Some Region",
+                    ),
+                    customer=ReviseCustomer(
+                        name="Sam Miller",
+                    ),
+                    business=ReviseBusiness(
+                        name="Some Business",
+                        tax_identifier="AB0123456789",
+                    ),
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/revise_full"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/full_entity"),
+                "/transactions/txn_01h7zcgmdc6tmwtjehp3sh7azf/revise",
+            ),
+        ],
+        ids=[
+            "Customer revision",
+            "Basic revision",
+            "Full revision",
+        ],
+    )
+    def test_revise_transaction_uses_expected_payload(
+        self,
+        test_client,
+        mock_requests,
+        transaction_id,
+        operation,
+        expected_request_body,
+        expected_response_status,
+        expected_response_body,
+        expected_path,
+    ):
+        expected_url = f"{test_client.base_url}{expected_path}"
+        mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
+
+        response = test_client.client.transactions.revise(transaction_id, operation)
+        response_json = test_client.client.transactions.response.json()
+        request_json = test_client.client.payload
+        last_request = mock_requests.last_request
+
+        assert isinstance(response, Transaction)
+        assert last_request is not None
+        assert last_request.method == "POST"
+        assert test_client.client.status_code == expected_response_status
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
+        assert loads(request_json) == loads(
+            expected_request_body
+        ), "The request JSON doesn't match the expected fixture JSON"
+        assert response_json == loads(
+            str(expected_response_body)
+        ), "The response JSON doesn't match the expected fixture JSON"

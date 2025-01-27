@@ -47,6 +47,7 @@ class EventTypeName(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     TransactionPastDue: "EventTypeName" = "transaction.past_due"
     TransactionPaymentFailed: "EventTypeName" = "transaction.payment_failed"
     TransactionReady: "EventTypeName" = "transaction.ready"
+    TransactionRevised: "EventTypeName" = "transaction.revised"
     TransactionUpdated: "EventTypeName" = "transaction.updated"
     ReportCreated: "EventTypeName" = "report.created"
     ReportUpdated: "EventTypeName" = "report.updated"

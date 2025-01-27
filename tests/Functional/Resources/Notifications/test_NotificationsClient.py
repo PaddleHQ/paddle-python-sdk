@@ -12,6 +12,7 @@ from paddle_billing.Notifications.Entities.Entity import Entity
 from paddle_billing.Notifications.Entities.Adjustment import Adjustment
 from paddle_billing.Notifications.Entities.Adjustments.AdjustmentTaxRatesUsed import AdjustmentTaxRatesUsed
 from paddle_billing.Notifications.Entities.Business import Business
+from paddle_billing.Notifications.Entities.Transaction import Transaction
 
 from paddle_billing.Resources.Notifications.Operations import ListNotifications
 from paddle_billing.Resources.Shared.Operations import Pager
@@ -142,7 +143,7 @@ class TestNotificationsClient:
             unquote(last_request.url) == expected_url
         ), "The URL does not match the expected URL, verify the query string is correct"
 
-        assert len(response.items) == 7
+        assert len(response.items) == 8
         for notification in response.items:
             assert isinstance(notification, Notification)
             assert isinstance(notification.payload, NotificationEvent)
@@ -195,6 +196,26 @@ class TestNotificationsClient:
         adjustmentWithoutTaxRatesUsed = response.items[6].payload.data
         assert isinstance(adjustmentWithoutTaxRatesUsed, Adjustment)
         assert adjustmentWithoutTaxRatesUsed.tax_rates_used is None
+
+    def test_list_transaction_notification_with_revised_at(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        expected_url = f"{test_client.base_url}/notifications"
+        mock_requests.get(
+            expected_url, status_code=200, text=ReadsFixtures.read_raw_json_fixture("response/list_default")
+        )
+
+        response = test_client.client.notifications.list(ListNotifications())
+
+        transactionRevised = response.items[7].payload
+        assert isinstance(transactionRevised, NotificationEvent)
+
+        transaction = transactionRevised.data
+        assert isinstance(transaction, Transaction)
+
+        assert transaction.revised_at.isoformat() == "2024-04-12T10:18:49.738972+00:00"
 
     @mark.parametrize(
         "notification_id, expected_response_status, expected_response_body, expected_url",
