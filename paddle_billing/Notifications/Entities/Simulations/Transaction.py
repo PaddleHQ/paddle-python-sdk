@@ -44,6 +44,7 @@ class Transaction(SimulationEntity):
     created_at: datetime | Undefined = Undefined()
     updated_at: datetime | Undefined = Undefined()
     billed_at: datetime | None | Undefined = Undefined()
+    revised_at: datetime | None | Undefined = Undefined()
 
     @staticmethod
     def from_dict(data: dict) -> Transaction:
@@ -95,5 +96,10 @@ class Transaction(SimulationEntity):
             ),
             checkout=(
                 Checkout.from_dict(data["checkout"]) if data.get("checkout") else data.get("checkout", Undefined())
+            ),
+            revised_at=(
+                datetime.fromisoformat(data["revised_at"])
+                if data.get("revised_at")
+                else data.get("revised_at", Undefined())
             ),
         )

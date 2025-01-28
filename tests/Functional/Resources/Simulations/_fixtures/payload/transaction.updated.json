@@ -249,6 +249,7 @@
     "created_at": "2024-04-12T07:40:38.007040Z",
     "invoice_id": "inv_01hv8m0nn5nbvdejcvv9cpg8jf",
     "updated_at": "2024-04-12T10:00:03.871169Z",
+    "revised_at": null,
     "business_id": null,
     "custom_data": null,
     "customer_id": "ctm_01hv6y1jedq4p1n0yqn5ba3ky4",

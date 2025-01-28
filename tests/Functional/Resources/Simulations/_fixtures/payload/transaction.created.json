@@ -252,6 +252,7 @@
     "created_at": "2024-04-12T10:12:33.201400Z",
     "invoice_id": null,
     "updated_at": "2024-04-12T10:12:33.201400Z",
+    "revised_at": null,
     "business_id": null,
     "custom_data": null,
     "customer_id": null,
