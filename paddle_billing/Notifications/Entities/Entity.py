@@ -36,7 +36,7 @@ class Entity(ABC, EntityDict):
             return UndefinedEntity(data)
 
         if not issubclass(entity_class, Entity):
-            raise ValueError(f"Event type '{entity_class_name}' is not of NotificationEntity")
+            raise ValueError(f"Event type '{entity_class_name}' is not of Entity")
 
         return instantiated_class
 

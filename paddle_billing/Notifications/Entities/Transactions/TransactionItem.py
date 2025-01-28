@@ -4,11 +4,13 @@ from dataclasses import dataclass
 from paddle_billing.Notifications.Entities.Price import Price
 
 from paddle_billing.Notifications.Entities.Shared.Proration import Proration
+from paddle_billing.Json import json_exclude
 
 
 @dataclass
+@json_exclude(["price_id"])
 class TransactionItem:
-    price_id: str | None
+    price_id: str | None  # Deprecated: price_id is no longer returned on transaction items.
     price: Price
     quantity: int
     proration: Proration | None

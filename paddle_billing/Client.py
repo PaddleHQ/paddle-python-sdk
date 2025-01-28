@@ -1,15 +1,13 @@
-from json import dumps as json_dumps, JSONEncoder
+from json import dumps as json_dumps
 from logging import Logger, getLogger
 from requests import Response, RequestException, Session
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 from urllib.parse import urljoin, urlencode
 from uuid import uuid4
-from dataclasses import fields, is_dataclass
+from paddle_billing.Json import PayloadEncoder
 
 from paddle_billing.Operation import Operation
-from paddle_billing.FiltersUndefined import FiltersUndefined
-from paddle_billing.Undefined import Undefined
 from paddle_billing.HasParameters import HasParameters
 from paddle_billing.Options import Options
 from paddle_billing.ResponseParser import ResponseParser
@@ -33,26 +31,12 @@ from paddle_billing.Resources.Prices.PricesClient import PricesClient
 from paddle_billing.Resources.PricingPreviews.PricingPreviewsClient import PricingPreviewsClient
 from paddle_billing.Resources.Products.ProductsClient import ProductsClient
 from paddle_billing.Resources.Reports.ReportsClient import ReportsClient
+from paddle_billing.Resources.Simulations.SimulationsClient import SimulationsClient
+from paddle_billing.Resources.SimulationRuns.SimulationRunsClient import SimulationRunsClient
+from paddle_billing.Resources.SimulationRunEvents.SimulationRunEventsClient import SimulationRunEventsClient
+from paddle_billing.Resources.SimulationTypes.SimulationTypesClient import SimulationTypesClient
 from paddle_billing.Resources.Subscriptions.SubscriptionsClient import SubscriptionsClient
 from paddle_billing.Resources.Transactions.TransactionsClient import TransactionsClient
-
-
-class PayloadEncoder(JSONEncoder):
-    def default(self, z):
-        if isinstance(z, Undefined):
-            return None
-
-        if hasattr(z, "to_json") and callable(z.to_json):
-            return z.to_json()
-
-        if is_dataclass(z):
-            data = {}
-            for field in fields(z):
-                data[field.name] = getattr(z, field.name)
-
-            return FiltersUndefined.filter_undefined_values(data)
-
-        return super().default(z)
 
 
 class Client:
@@ -98,6 +82,10 @@ class Client:
         self.pricing_previews = PricingPreviewsClient(self)
         self.products = ProductsClient(self)
         self.reports = ReportsClient(self)
+        self.simulations = SimulationsClient(self)
+        self.simulation_runs = SimulationRunsClient(self)
+        self.simulation_run_events = SimulationRunEventsClient(self)
+        self.simulation_types = SimulationTypesClient(self)
         self.subscriptions = SubscriptionsClient(self)
         self.transactions = TransactionsClient(self)
         self.ip_addresses = IPAddressesClient(self)
