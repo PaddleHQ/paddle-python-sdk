@@ -58,6 +58,7 @@ class Transaction(Entity):
     customer: Customer | None = None
     discount: Discount | None = None
     available_payment_methods: list[PaymentMethodType] | None = None
+    revised_at: datetime | None = None
 
     @staticmethod
     def from_dict(data: dict) -> Transaction:
@@ -95,4 +96,5 @@ class Transaction(Entity):
                 if data.get("adjustment_totals")
                 else None
             ),
+            revised_at=datetime.fromisoformat(data["revised_at"]) if data.get("revised_at") else None,
         )
