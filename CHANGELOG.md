@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-python-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## 1.6.0 - 2025-02-10
+
+### Added
+
+- Added `PreviewTransaction` operation to support transaction previews without location information.
+
+### Fixed
+
+- Transaction preview `currency_code` can now be set to `null`.
+
 ## 1.5.0 - 2025-01-28
 
 ### Added

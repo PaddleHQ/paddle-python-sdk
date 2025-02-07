@@ -32,6 +32,7 @@ from paddle_billing.Resources.Transactions.Operations import (
     ListTransactions,
     TransactionIncludes,
     TransactionOrigin,
+    PreviewTransaction,
     PreviewTransactionByAddress,
     PreviewTransactionByCustomer,
     PreviewTransactionByIP,
@@ -841,6 +842,95 @@ class TestTransactionsClient:
         "operation, expected_request_body, expected_response_status, expected_response_body, expected_url",
         [
             (
+                PreviewTransaction(
+                    items=[
+                        TransactionItemPreviewWithPriceId(
+                            price_id="pri_01he5kxqey1k8ankgef29cj4bv",
+                            quantity=1,
+                            include_in_totals=True,
+                        )
+                    ],
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/preview_default_basic"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/preview_entity"),
+                "/transactions/preview",
+            ),
+            (
+                PreviewTransaction(
+                    customer_id="ctm_01h844q4mznqpgqgm6evgw1w63",
+                    currency_code=CurrencyCode.USD,
+                    discount_id="dsc_01gtgztp8fpchantd5g1wrksa3",
+                    ignore_trials=True,
+                    items=[
+                        TransactionItemPreviewWithNonCatalogPrice(
+                            quantity=20,
+                            include_in_totals=True,
+                            price=TransactionNonCatalogPrice(
+                                description="Annual (per seat)",
+                                name="Annual (per seat)",
+                                billing_cycle=Duration(Interval.Year, 1),
+                                trial_period=None,
+                                tax_mode=TaxMode.AccountSetting,
+                                unit_price=Money("30000", CurrencyCode.USD),
+                                unit_price_overrides=[],
+                                quantity=PriceQuantity(minimum=10, maximum=999),
+                                custom_data=None,
+                                product_id="pro_01gsz4t5hdjse780zja8vvr7jg",
+                            ),
+                        ),
+                        TransactionItemPreviewWithNonCatalogPrice(
+                            quantity=20,
+                            include_in_totals=True,
+                            price=TransactionNonCatalogPriceWithProduct(
+                                description="Annual (per seat)",
+                                name="Annual (per seat)",
+                                billing_cycle=Duration(Interval.Year, 1),
+                                trial_period=None,
+                                tax_mode=TaxMode.AccountSetting,
+                                unit_price=Money("30000", CurrencyCode.USD),
+                                unit_price_overrides=[],
+                                quantity=PriceQuantity(minimum=10, maximum=999),
+                                custom_data=None,
+                                product=TransactionNonCatalogProduct(
+                                    name="Analytics addon",
+                                    description="Some Description",
+                                    image_url="https://paddle.s3.amazonaws.com/user/165798/97dRpA6SXzcE6ekK9CAr_analytics.png",
+                                    tax_category=TaxCategory.Standard,
+                                    custom_data=CustomData({"key": "value"}),
+                                ),
+                            ),
+                        ),
+                        TransactionItemPreviewWithNonCatalogPrice(
+                            quantity=20,
+                            price=TransactionNonCatalogPrice(
+                                description="Annual (per seat)",
+                                unit_price=Money("30000", CurrencyCode.USD),
+                                product_id="pro_01gsz4t5hdjse780zja8vvr7jg",
+                            ),
+                        ),
+                        TransactionItemPreviewWithNonCatalogPrice(
+                            quantity=20,
+                            price=TransactionNonCatalogPriceWithProduct(
+                                description="Annual (per seat)",
+                                unit_price=Money("30000", CurrencyCode.USD),
+                                product=TransactionNonCatalogProduct(
+                                    name="Analytics addon",
+                                    description="Some Description",
+                                    image_url="https://paddle.s3.amazonaws.com/user/165798/97dRpA6SXzcE6ekK9CAr_analytics.png",
+                                    tax_category=TaxCategory.Standard,
+                                    custom_data=CustomData({"key": "value"}),
+                                ),
+                            ),
+                        ),
+                    ],
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/preview_default_full"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/preview_entity"),
+                "/transactions/preview",
+            ),
+            (
                 PreviewTransactionByAddress(
                     address=AddressPreview(
                         postal_code="12345",
@@ -1123,6 +1213,8 @@ class TestTransactionsClient:
             ),
         ],
         ids=[
+            "Basic transaction preview with no location information",
+            "Full transaction preview with no location information",
             "Basic transaction preview by address",
             "Full transaction preview by address",
             "Basic transaction preview by customer",
