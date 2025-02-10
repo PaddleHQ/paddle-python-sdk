@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 from paddle_billing.Operation import Operation
 from paddle_billing.Undefined import Undefined
-from paddle_billing.Entities.Shared import AddressPreview, CurrencyCode
+from paddle_billing.Entities.Shared import CurrencyCode
 from paddle_billing.Resources.Transactions.Operations.Preview import (
     TransactionItemPreviewWithPriceId,
     TransactionItemPreviewWithNonCatalogPrice,
@@ -10,8 +10,7 @@ from paddle_billing.Resources.Transactions.Operations.Preview import (
 
 
 @dataclass
-class PreviewTransactionByAddress(Operation):
-    address: AddressPreview
+class PreviewTransaction(Operation):
     items: list[TransactionItemPreviewWithPriceId | TransactionItemPreviewWithNonCatalogPrice]
     customer_id: str | None | Undefined = Undefined()
     currency_code: CurrencyCode | None | Undefined = Undefined()

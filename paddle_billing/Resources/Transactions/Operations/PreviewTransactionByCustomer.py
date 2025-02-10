@@ -15,6 +15,6 @@ class PreviewTransactionByCustomer(Operation):
     customer_id: str
     items: list[TransactionItemPreviewWithPriceId | TransactionItemPreviewWithNonCatalogPrice]
     business_id: str | None | Undefined = Undefined()
-    currency_code: CurrencyCode | Undefined = Undefined()
+    currency_code: CurrencyCode | None | Undefined = Undefined()
     discount_id: str | None | Undefined = Undefined()
     ignore_trials: bool | Undefined = Undefined()

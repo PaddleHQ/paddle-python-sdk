@@ -14,6 +14,6 @@ class PreviewTransactionByIP(Operation):
     customer_ip_address: str
     items: list[TransactionItemPreviewWithPriceId | TransactionItemPreviewWithNonCatalogPrice]
     customer_id: str | None | Undefined = Undefined()
-    currency_code: CurrencyCode | Undefined = Undefined()
+    currency_code: CurrencyCode | None | Undefined = Undefined()
     discount_id: str | None | Undefined = Undefined()
     ignore_trials: bool | Undefined = Undefined()
