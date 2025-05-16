@@ -1,0 +1,17 @@
+{
+  "typeCheckingMode": "basic",
+  // "reportGeneralTypeIssues": false,
+  "reportUnknownVariableType": false,
+  "reportUnknownMemberType": false,
+  "reportUntypedFunctionDecorator": false,
+  "reportMissingTypeStubs": false,
+  "reportArgumentType": false,
+  "reportAssignmentType": false,
+  "reportAttributeAccessIssue": false,
+  "reportOperatorIssue": false,
+  "reportOptionalMemberAccess": false,
+  "reportOptionalSubscript": false,
+  "reportCallIssue": false,
+  "reportReturnType": false,
+  "reportOptionalIterable": false
+}
