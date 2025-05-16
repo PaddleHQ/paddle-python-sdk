@@ -1,6 +1,9 @@
+from typing import Any
+
+
 class FiltersNone:
     @staticmethod
-    def filter_none_values(input_dict) -> dict:
+    def filter_none_values(input_dict) -> dict[str, Any]:
         """
         This method filters out values that are None from the given list
         """

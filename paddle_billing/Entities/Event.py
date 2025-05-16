@@ -2,6 +2,7 @@ from __future__ import annotations
 from abc import ABC
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Entities.Entity import Entity
 from paddle_billing.Entities.Events import EventTypeName
@@ -18,7 +19,7 @@ class Event(Entity, ABC):
     data: NotificationEntity | UndefinedEntity
 
     @staticmethod
-    def from_dict(data: dict) -> Event:
+    def from_dict(data: dict[str, Any]) -> Event:
         return Event(
             data["event_id"],
             EventTypeName(data["event_type"]),

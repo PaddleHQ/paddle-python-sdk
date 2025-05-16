@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Undefined import Undefined
 from paddle_billing.Notifications.Entities.Shared import CountryCode, CustomData, ImportMeta, Status
@@ -25,7 +26,7 @@ class Address(SimulationEntity):
     customer_id: str | None | Undefined = Undefined()
 
     @staticmethod
-    def from_dict(data: dict) -> Address:
+    def from_dict(data: dict[str, Any]) -> Address:
         return Address(
             id=data.get("id", Undefined()),
             customer_id=data.get("customer_id", Undefined()),

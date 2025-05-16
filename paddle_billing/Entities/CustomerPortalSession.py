@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Entities.Entity import Entity
 from paddle_billing.Entities.CustomerPortalSessions import CustomerPortalSessionUrls
@@ -14,7 +15,7 @@ class CustomerPortalSession(Entity):
     created_at: datetime
 
     @staticmethod
-    def from_dict(data: dict) -> CustomerPortalSession:
+    def from_dict(data: dict[str, Any]) -> CustomerPortalSession:
         return CustomerPortalSession(
             id=data["id"],
             customer_id=data["customer_id"],

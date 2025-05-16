@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Any
 
 
 @dataclass
@@ -10,7 +11,7 @@ class UnitTotals:
     total: str
 
     @staticmethod
-    def from_dict(data: dict) -> UnitTotals:
+    def from_dict(data: dict[str, Any]) -> UnitTotals:
         return UnitTotals(
             subtotal=data["subtotal"],
             discount=data["discount"],

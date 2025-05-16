@@ -27,7 +27,7 @@ class ListSimulationRuns(HasParameters):
                     field_name, field_type.__name__, invalid_items
                 )
 
-    def get_parameters(self) -> dict:
+    def get_parameters(self) -> dict[str, str]:
         parameters = {}
         if self.pager:
             parameters.update(self.pager.get_parameters())

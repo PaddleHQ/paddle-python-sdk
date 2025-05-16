@@ -16,7 +16,7 @@ class ListNotificationSettings(HasParameters):
         self.active = active
         self.traffic_source = traffic_source
 
-    def get_parameters(self) -> dict:
+    def get_parameters(self) -> dict[str, str]:
         parameters = {}
         if self.pager:
             parameters.update(self.pager.get_parameters())

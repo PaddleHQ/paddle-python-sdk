@@ -12,9 +12,9 @@ class ListDiscounts(HasParameters):
     def __init__(
         self,
         pager: Pager | None = None,
-        ids: list[str] = None,
-        statuses: list[Status] = None,
-        codes: list[str] = None,
+        ids: list[str] | None = None,
+        statuses: list[Status] | None = None,
+        codes: list[str] | None = None,
     ):
         self.pager = pager
         self.ids = ids if ids is not None else []
@@ -33,7 +33,7 @@ class ListDiscounts(HasParameters):
                     field_name, field_type.__name__, invalid_items
                 )
 
-    def get_parameters(self) -> dict:
+    def get_parameters(self) -> dict[str, str]:
         parameters = {}
         if self.pager:
             parameters.update(self.pager.get_parameters())

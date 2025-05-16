@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Any
 
 from paddle_billing.Entities.Entity import Entity
 from paddle_billing.Entities.EventType import EventType
@@ -20,7 +21,7 @@ class NotificationSetting(Entity):
     traffic_source: NotificationSettingTrafficSource
 
     @staticmethod
-    def from_dict(data: dict) -> NotificationSetting:
+    def from_dict(data: dict[str, Any]) -> NotificationSetting:
         return NotificationSetting(
             id=data["id"],
             description=data["description"],

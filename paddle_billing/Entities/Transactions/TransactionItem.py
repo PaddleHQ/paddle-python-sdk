@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Any
 
 from paddle_billing.Entities.Price import Price
 
@@ -13,7 +14,7 @@ class TransactionItem:
     proration: Proration | None
 
     @staticmethod
-    def from_dict(data: dict) -> TransactionItem:
+    def from_dict(data: dict[str, Any]) -> TransactionItem:
         return TransactionItem(
             price=Price.from_dict(data["price"]),
             quantity=data["quantity"],

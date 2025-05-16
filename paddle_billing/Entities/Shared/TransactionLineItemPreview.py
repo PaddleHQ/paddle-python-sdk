@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Any
 
 from paddle_billing.Entities.Shared.TransactionPreviewProduct import TransactionPreviewProduct
 from paddle_billing.Entities.Shared.Totals import Totals
@@ -18,7 +19,7 @@ class TransactionLineItemPreview:
     proration: Proration | None
 
     @staticmethod
-    def from_dict(data: dict) -> TransactionLineItemPreview:
+    def from_dict(data: dict[str, Any]) -> TransactionLineItemPreview:
         return TransactionLineItemPreview(
             price_id=data.get("price_id"),
             quantity=data["quantity"],

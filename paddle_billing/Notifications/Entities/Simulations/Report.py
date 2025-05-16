@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Undefined import Undefined
 from paddle_billing.Notifications.Entities.Reports import ReportFilter, ReportStatus, ReportType
@@ -19,7 +20,7 @@ class Report(SimulationEntity):
     updated_at: datetime | Undefined = Undefined()
 
     @staticmethod
-    def from_dict(data: dict) -> Report:
+    def from_dict(data: dict[str, Any]) -> Report:
         return Report(
             id=data.get("id", Undefined()),
             status=ReportStatus(data["status"]) if data.get("status") else Undefined(),

@@ -3,6 +3,7 @@ from abc import ABC
 from dataclasses import dataclass
 from datetime import datetime
 import json
+from typing import Any
 
 from paddle_billing.Entities.Entity import Entity
 from paddle_billing.Entities.Events import EventTypeName
@@ -22,7 +23,7 @@ class NotificationEvent(Entity, ABC):
     data: NotificationEntity | UndefinedEntity
 
     @staticmethod
-    def from_dict(data: dict) -> NotificationEvent:
+    def from_dict(data: dict[str, Any]) -> NotificationEvent:
         return NotificationEvent(
             data["notification_id"],
             data["event_id"],

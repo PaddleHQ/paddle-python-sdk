@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Any
 
 from paddle_billing.Entities.CustomerPortalSessions.CustomerPortalSessionGeneralUrl import (
     CustomerPortalSessionGeneralUrl,
@@ -15,7 +16,7 @@ class CustomerPortalSessionUrls:
     subscriptions: list[CustomerPortalSessionSubscriptionUrl]
 
     @staticmethod
-    def from_dict(data: dict) -> CustomerPortalSessionUrls:
+    def from_dict(data: dict[str, Any]) -> CustomerPortalSessionUrls:
         return CustomerPortalSessionUrls(
             general=CustomerPortalSessionGeneralUrl.from_dict(data["general"]),
             subscriptions=[

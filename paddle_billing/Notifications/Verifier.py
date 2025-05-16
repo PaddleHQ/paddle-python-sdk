@@ -49,4 +49,7 @@ class Verifier:
         elif hasattr(request, "data"):
             raw_body = request.data.decode("utf-8")
 
+        if not isinstance(raw_body, str):
+            raise ValueError("raw_body is not instance of str.")
+
         return self.paddle_signature.verify(signature_header, raw_body, secrets)

@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Any
 
 from paddle_billing.Entities.Shared.TransactionDetailsPreview import TransactionDetailsPreview
 from paddle_billing.Entities.Shared.TimePeriod import TimePeriod
@@ -14,7 +15,7 @@ class SubscriptionNextTransaction:
     adjustments: list[SubscriptionAdjustmentPreview]
 
     @staticmethod
-    def from_dict(data: dict) -> SubscriptionNextTransaction:
+    def from_dict(data: dict[str, Any]) -> SubscriptionNextTransaction:
         return SubscriptionNextTransaction(
             billing_period=TimePeriod.from_dict(data["billing_period"]),
             details=TransactionDetailsPreview.from_dict(data["details"]),

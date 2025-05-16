@@ -22,7 +22,9 @@ class CreateAdjustmentsReport(CreateReport):
     )
 
     @staticmethod
-    def get_allowed_filters() -> tuple:
+    def get_allowed_filters() -> (
+        tuple[AdjustmentActionFilter, AdjustmentStatusFilter, CurrencyCodeFilter, UpdatedAtFilter]
+    ):
         return (
             AdjustmentActionFilter,
             AdjustmentStatusFilter,

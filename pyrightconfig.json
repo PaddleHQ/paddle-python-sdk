@@ -1,6 +1,6 @@
 {
   "typeCheckingMode": "basic",
-  // "reportArgumentType": false,
+  "reportMissingTypeArgument": true,
   "reportAssignmentType": false,
   "reportAttributeAccessIssue": false,
   "reportOperatorIssue": false,

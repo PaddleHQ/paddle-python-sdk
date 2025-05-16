@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Entities.Entity import Entity
 from paddle_billing.Entities.Shared import (
@@ -24,7 +25,7 @@ class PaymentMethod(Entity):
     updated_at: datetime
 
     @staticmethod
-    def from_dict(data: dict) -> PaymentMethod:
+    def from_dict(data: dict[str, Any]) -> PaymentMethod:
         return PaymentMethod(
             id=data["id"],
             customer_id=data["customer_id"],

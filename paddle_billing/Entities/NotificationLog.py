@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Entities.Entity import Entity
 
@@ -14,7 +15,7 @@ class NotificationLog(Entity):
     attempted_at: datetime
 
     @staticmethod
-    def from_dict(data: dict) -> NotificationLog:
+    def from_dict(data: dict[str, Any]) -> NotificationLog:
         return NotificationLog(
             id=data["id"],
             response_code=data["response_code"],

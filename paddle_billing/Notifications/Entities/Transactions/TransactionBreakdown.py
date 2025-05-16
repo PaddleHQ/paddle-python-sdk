@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Any
 
 
 @dataclass
@@ -9,7 +10,7 @@ class TransactionBreakdown:
     chargeback: str
 
     @staticmethod
-    def from_dict(data: dict) -> TransactionBreakdown:
+    def from_dict(data: dict[str, Any]) -> TransactionBreakdown:
         return TransactionBreakdown(
             credit=data["credit"],
             refund=data["refund"],

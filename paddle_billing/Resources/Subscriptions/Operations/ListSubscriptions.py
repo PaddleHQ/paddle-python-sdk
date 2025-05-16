@@ -45,8 +45,8 @@ class ListSubscriptions(HasParameters):
                     field_name, field_type.__name__, invalid_items
                 )
 
-    def get_parameters(self) -> dict:
-        parameters = self.pager.get_parameters() if self.pager else {}
+    def get_parameters(self) -> dict[str, str]:
+        parameters: dict[str, str | None] = self.pager.get_parameters() if self.pager else {}
         parameters.update(
             {
                 "address_id": ",".join(self.address_ids),

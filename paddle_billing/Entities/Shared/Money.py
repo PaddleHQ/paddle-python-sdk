@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Any
 
 from paddle_billing.Entities.Shared.CurrencyCode import CurrencyCode
 
@@ -20,7 +21,7 @@ class Money:
             raise ValueError("Money amount should not contain decimals or commas")
 
     @staticmethod
-    def from_dict(data: dict) -> Money:
+    def from_dict(data: dict[str, Any]) -> Money:
         return Money(
             amount=data["amount"],
             currency_code=CurrencyCode(data["currency_code"]) if data.get("currency_code") else None,

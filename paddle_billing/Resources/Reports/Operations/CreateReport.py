@@ -34,5 +34,5 @@ class CreateReport(Operation, ABC):
 
     @staticmethod
     @abstractmethod
-    def get_allowed_filters() -> tuple:
+    def get_allowed_filters() -> tuple[Any]:
         pass

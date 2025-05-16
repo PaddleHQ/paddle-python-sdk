@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Any
 
 from paddle_billing.Notifications.Entities.Entity import Entity
 from paddle_billing.Notifications.Entities.Payouts import PayoutStatus
@@ -14,7 +15,7 @@ class Payout(Entity):
     status: PayoutStatus
 
     @staticmethod
-    def from_dict(data: dict) -> Payout:
+    def from_dict(data: dict[str, Any]) -> Payout:
         return Payout(
             amount=data["amount"],
             id=data["id"],

@@ -9,7 +9,7 @@ from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import Inv
 class ListCreditBalances(HasParameters):
     def __init__(
         self,
-        currency_code: list[CurrencyCode] = None,
+        currency_code: list[CurrencyCode] | None = None,
     ):
         self.currency_code = currency_code if currency_code is not None else []
 
@@ -21,7 +21,7 @@ class ListCreditBalances(HasParameters):
                     field_name, field_type.__name__, invalid_items
                 )
 
-    def get_parameters(self) -> dict:
+    def get_parameters(self) -> dict[str, str]:
         parameters = {}
         if self.currency_code:
             parameters["currency_code"] = ",".join(map(enum_stringify, self.currency_code))

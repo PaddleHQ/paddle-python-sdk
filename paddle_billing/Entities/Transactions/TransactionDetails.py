@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Any
 
 from paddle_billing.Entities.Shared.TaxRatesUsed import TaxRatesUsed
 from paddle_billing.Entities.Shared.TransactionPayoutTotals import TransactionPayoutTotals
@@ -20,7 +21,7 @@ class TransactionDetails:
     lineItems: list[TransactionLineItem]
 
     @staticmethod
-    def from_dict(data: dict) -> TransactionDetails:
+    def from_dict(data: dict[str, Any]) -> TransactionDetails:
         return TransactionDetails(
             totals=TransactionTotals.from_dict(data["totals"]),
             tax_rates_used=[TaxRatesUsed.from_dict(tax_rate_used) for tax_rate_used in data["tax_rates_used"]],

@@ -19,7 +19,7 @@ class CreateDiscountsReport(CreateReport):
     filters: list[DiscountStatusFilter | DiscountTypeFilter | UpdatedAtFilter] = field(default_factory=list)
 
     @staticmethod
-    def get_allowed_filters() -> tuple:
+    def get_allowed_filters() -> tuple[DiscountStatusFilter, DiscountTypeFilter, UpdatedAtFilter]:
         return (
             DiscountStatusFilter,
             DiscountTypeFilter,

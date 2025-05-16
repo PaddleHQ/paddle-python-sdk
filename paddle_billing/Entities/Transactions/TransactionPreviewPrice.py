@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Entities.Entity import Entity
 from paddle_billing.Entities.Shared import (
@@ -22,7 +23,7 @@ class TransactionPreviewPrice(Entity):
     product_id: str | None
     name: str | None
     description: str
-    type: CatalogType
+    type: CatalogType | None
     billing_cycle: Duration | None
     trial_period: Duration | None
     tax_mode: TaxMode
@@ -36,7 +37,7 @@ class TransactionPreviewPrice(Entity):
     updated_at: datetime
 
     @staticmethod
-    def from_dict(data: dict) -> TransactionPreviewPrice:
+    def from_dict(data: dict[str, Any]) -> TransactionPreviewPrice:
         return TransactionPreviewPrice(
             id=data.get("id"),
             product_id=data.get("product_id"),

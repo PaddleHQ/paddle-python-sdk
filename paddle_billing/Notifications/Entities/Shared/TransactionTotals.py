@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Any
 
 from paddle_billing.Notifications.Entities.Shared.CurrencyCode import CurrencyCode
 
@@ -19,7 +20,7 @@ class TransactionTotals:
     credit_to_balance: str
 
     @staticmethod
-    def from_dict(data: dict) -> TransactionTotals:
+    def from_dict(data: dict[str, Any]) -> TransactionTotals:
         return TransactionTotals(
             subtotal=data["subtotal"],
             discount=data["discount"],

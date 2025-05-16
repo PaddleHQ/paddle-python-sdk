@@ -55,8 +55,8 @@ class ListTransactions(HasParameters):
                     field_name, field_type.__name__, invalid_items
                 )
 
-    def get_parameters(self) -> dict:
-        parameters = {}
+    def get_parameters(self) -> dict[str, str]:
+        parameters: dict[str, str] = {}
         if self.pager:
             parameters.update(self.pager.get_parameters())
 

@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Undefined import Undefined
 from paddle_billing.Notifications.Entities.Adjustments import AdjustmentItem, AdjustmentTaxRatesUsed
@@ -35,7 +36,7 @@ class Adjustment(SimulationEntity):
     type: AdjustmentActionType | None | Undefined = Undefined()
 
     @staticmethod
-    def from_dict(data: dict) -> Adjustment:
+    def from_dict(data: dict[str, Any]) -> Adjustment:
         return Adjustment(
             id=data.get("id", Undefined()),
             action=Action(data["action"]) if data.get("action") else Undefined(),

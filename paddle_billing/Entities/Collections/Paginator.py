@@ -18,7 +18,7 @@ class Paginator:
     def has_more(self) -> bool:
         return self._pagination.has_more
 
-    def next_page(self) -> "Collection":
+    def next_page(self) -> "Collection":  # type: ignore
         response = self._client.get_raw(self._pagination.next)
         response_parser = ResponseParser(response)
 

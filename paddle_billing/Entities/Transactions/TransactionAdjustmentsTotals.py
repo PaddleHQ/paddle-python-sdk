@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Any
 
 from paddle_billing.Entities.Shared.CurrencyCode import CurrencyCode
 
@@ -17,7 +18,7 @@ class TransactionAdjustmentsTotals:
     currency_code: CurrencyCode
 
     @staticmethod
-    def from_dict(data: dict) -> TransactionAdjustmentsTotals:
+    def from_dict(data: dict[str, Any]) -> TransactionAdjustmentsTotals:
         return TransactionAdjustmentsTotals(
             subtotal=data["subtotal"],
             tax=data["tax"],

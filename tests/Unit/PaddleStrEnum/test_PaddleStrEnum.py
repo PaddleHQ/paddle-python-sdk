@@ -29,7 +29,7 @@ def test_dataclass_asdict_returns_expected_paddle_str_enum_value():
     class TestDataclass:
         country_code: TestCountryCodesEnum = None
 
-        def get_parameters(self) -> dict:
+        def get_parameters(self) -> dict[str, str]:
             return asdict(self)
 
     test_dataclass = TestDataclass(TestCountryCodesEnum.CA)

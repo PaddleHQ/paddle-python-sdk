@@ -1,4 +1,5 @@
 from __future__ import annotations
+from typing import Any
 from dataclasses import dataclass
 from abc import ABC
 from paddle_billing.Notifications.Entities.UndefinedEntity import UndefinedEntity
@@ -8,7 +9,7 @@ from importlib import import_module
 @dataclass
 class SimulationEntity(ABC):
     @staticmethod
-    def from_dict_for_event_type(data: dict, event_type: str) -> SimulationEntity | UndefinedEntity:
+    def from_dict_for_event_type(data: dict[str, Any], event_type: str) -> SimulationEntity | UndefinedEntity:
         entity_class_name = SimulationEntity._resolve_event_class_name(event_type)
 
         entity_class = None
@@ -26,7 +27,7 @@ class SimulationEntity(ABC):
         if not instantiated_class:
             return UndefinedEntity(data)
 
-        if not issubclass(entity_class, SimulationEntity):
+        if type(entity_class) is not type or not issubclass(entity_class, SimulationEntity):
             raise ValueError(f"Event type '{entity_class_name}' is not of SimulationEntity")
 
         return instantiated_class

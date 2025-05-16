@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Entities.Entity import Entity
 from paddle_billing.Entities.Shared import (
@@ -46,7 +47,7 @@ class SubscriptionPreview(Entity):
     current_billing_period: TimePeriod | None
     billing_cycle: Duration
     scheduled_change: SubscriptionScheduledChange | None
-    management_urls: SubscriptionManagementUrls
+    management_urls: SubscriptionManagementUrls | None
     items: list[SubscriptionItem]
     custom_data: CustomData | None
     immediate_transaction: SubscriptionNextTransaction | None
@@ -56,7 +57,7 @@ class SubscriptionPreview(Entity):
     import_meta: ImportMeta | None
 
     @staticmethod
-    def from_dict(data: dict) -> SubscriptionPreview:
+    def from_dict(data: dict[str, Any]) -> SubscriptionPreview:
         return SubscriptionPreview(
             status=SubscriptionStatus(data["status"]),
             customer_id=data["customer_id"],

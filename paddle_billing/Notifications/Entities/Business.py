@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Notifications.Entities.Entity import Entity
 from paddle_billing.Notifications.Entities.Businesses import BusinessesContacts
@@ -22,7 +23,7 @@ class Business(Entity):
     customer_id: str | None = None
 
     @staticmethod
-    def from_dict(data: dict) -> Business:
+    def from_dict(data: dict[str, Any]) -> Business:
         return Business(
             id=data["id"],
             customer_id=data.get("customer_id"),
