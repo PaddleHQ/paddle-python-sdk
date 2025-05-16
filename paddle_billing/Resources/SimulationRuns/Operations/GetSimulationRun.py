@@ -7,7 +7,7 @@ from paddle_billing.Resources.SimulationRuns.Operations.SimulationRunInclude imp
 class GetSimulationRun(HasParameters):
     def __init__(
         self,
-        includes: list[SimulationRunInclude] = None,
+        includes: list[SimulationRunInclude] | None = None,
     ):
         self.includes = includes if includes is not None else []
 

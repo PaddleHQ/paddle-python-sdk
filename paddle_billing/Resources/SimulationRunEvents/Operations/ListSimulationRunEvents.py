@@ -7,7 +7,7 @@ class ListSimulationRunEvents(HasParameters):
     def __init__(
         self,
         pager: Pager | None = None,
-        ids: list[str] = None,
+        ids: list[str] | None = None,
     ):
         self.pager = pager
         self.ids = ids if ids is not None else []

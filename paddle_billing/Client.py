@@ -47,9 +47,9 @@ class Client:
     def __init__(
         self,
         api_key: str,
-        options: Options = None,
-        http_client: Session = None,
-        logger: Logger = None,
+        options: Options | None = None,
+        http_client: Session | None = None,
+        logger: Logger | None = None,
         retry_count: int = 3,
         use_api_version: int = 1,
         timeout: float = 60.0,
@@ -167,7 +167,7 @@ class Client:
 
         return uri
 
-    def get_raw(self, url: str, parameters: HasParameters | dict = None) -> Response:
+    def get_raw(self, url: str, parameters: HasParameters | dict | None = None) -> Response:
         url = Client.format_uri_parameters(url, parameters) if parameters else url
 
         return self._make_request("GET", url, None)

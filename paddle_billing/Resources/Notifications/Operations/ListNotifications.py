@@ -13,9 +13,9 @@ class ListNotifications(HasParameters):
     def __init__(
         self,
         pager: Pager | None = None,
-        notification_setting_ids: list[str] = None,
+        notification_setting_ids: list[str] | None = None,
         search: str | None = None,
-        statuses: list[NotificationStatus] = None,
+        statuses: list[NotificationStatus] | None = None,
         filter: str | None = None,
         end: DateTime | None = None,
         start: DateTime | None = None,

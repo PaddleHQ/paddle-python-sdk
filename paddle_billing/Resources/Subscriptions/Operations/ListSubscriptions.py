@@ -13,13 +13,13 @@ class ListSubscriptions(HasParameters):
     def __init__(
         self,
         pager: Pager | None = None,
-        address_ids: list[str] = None,
+        address_ids: list[str] | None = None,
         collection_mode: CollectionMode | None = None,
-        customer_ids: list[str] = None,
-        ids: list[str] = None,
-        price_ids: list[str] = None,
-        scheduled_change_actions: list[SubscriptionScheduledChangeAction] = None,
-        statuses: list[SubscriptionStatus] = None,
+        customer_ids: list[str] | None = None,
+        ids: list[str] | None = None,
+        price_ids: list[str] | None = None,
+        scheduled_change_actions: list[SubscriptionScheduledChangeAction] | None = None,
+        statuses: list[SubscriptionStatus] | None = None,
     ):
         self.pager = pager
         self.collection_mode = collection_mode

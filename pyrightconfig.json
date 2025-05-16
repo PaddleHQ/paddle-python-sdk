@@ -1,11 +1,6 @@
 {
   "typeCheckingMode": "basic",
-  // "reportGeneralTypeIssues": false,
-  "reportUnknownVariableType": false,
-  "reportUnknownMemberType": false,
-  "reportUntypedFunctionDecorator": false,
-  "reportMissingTypeStubs": false,
-  "reportArgumentType": false,
+  // "reportArgumentType": false,
   "reportAssignmentType": false,
   "reportAttributeAccessIssue": false,
   "reportOperatorIssue": false,

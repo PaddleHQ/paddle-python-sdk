@@ -30,8 +30,8 @@ class PaddleStrEnumMeta(type):
 
 
 class PaddleStrEnum:
-    value = None
-    name = None
+    value: str
+    name: str | None = None
 
     _members = None
     _iter_index = 0

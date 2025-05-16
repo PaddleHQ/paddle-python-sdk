@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
 from abc import ABC, abstractmethod
+from typing import Any
 
 from paddle_billing.Operation import Operation
 
@@ -23,8 +24,8 @@ class CreateReport(Operation, ABC):
 
             raise InvalidArgumentException.array_contains_invalid_types("filters", allowed_type_names, invalid_items)
 
-    def to_json(self) -> dict:
-        parameters = {"type": self.type}
+    def to_json(self) -> dict[str, Any]:
+        parameters: dict[str, Any] = {"type": self.type}
 
         if self.filters is not None and self.filters != []:
             parameters.update({"filters": [filter_ for filter_ in self.filters]})

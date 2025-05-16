@@ -12,7 +12,7 @@ class ListReports(HasParameters):
     def __init__(
         self,
         pager: Pager | None = None,
-        statuses: list[ReportStatus] = None,
+        statuses: list[ReportStatus] | None = None,
     ):
         self.pager = pager
         self.statuses = statuses if statuses is not None else []

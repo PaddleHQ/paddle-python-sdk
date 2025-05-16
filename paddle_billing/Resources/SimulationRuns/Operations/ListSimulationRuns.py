@@ -9,8 +9,8 @@ class ListSimulationRuns(HasParameters):
     def __init__(
         self,
         pager: Pager | None = None,
-        ids: list[str] = None,
-        includes: list[SimulationRunInclude] = None,
+        ids: list[str] | None = None,
+        includes: list[SimulationRunInclude] | None = None,
     ):
         self.pager = pager
         self.ids = ids if ids is not None else []

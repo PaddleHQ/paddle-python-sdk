@@ -7,8 +7,8 @@ class ListPaymentMethods(HasParameters):
     def __init__(
         self,
         pager: Pager | None = None,
-        address_ids: list[str] = None,
-        supports_checkout: bool = None,
+        address_ids: list[str] | None = None,
+        supports_checkout: bool | None = None,
     ):
         self.pager = pager
         self.address_ids = address_ids

@@ -12,9 +12,9 @@ class ListSimulations(HasParameters):
     def __init__(
         self,
         pager: Pager | None = None,
-        notification_setting_ids: list[str] = None,
-        ids: list[str] = None,
-        statuses: list[SimulationStatus] = None,
+        notification_setting_ids: list[str] | None = None,
+        ids: list[str] | None = None,
+        statuses: list[SimulationStatus] | None = None,
     ):
         self.pager = pager
         self.ids = ids if ids is not None else []

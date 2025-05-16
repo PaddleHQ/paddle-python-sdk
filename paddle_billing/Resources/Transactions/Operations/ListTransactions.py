@@ -18,13 +18,13 @@ class ListTransactions(HasParameters):
         collection_mode: CollectionMode | None = None,
         created_at: DateComparison | None = None,
         updated_at: DateComparison | None = None,
-        customer_ids: list[str] = None,
-        ids: list[str] = None,
-        includes: list[Includes] = None,
-        invoice_numbers: list[str] = None,
-        statuses: list[TransactionStatus] = None,
-        subscription_ids: list[str] = None,
-        origins: list[Origin] = None,
+        customer_ids: list[str] | None = None,
+        ids: list[str] | None = None,
+        includes: list[Includes] | None = None,
+        invoice_numbers: list[str] | None = None,
+        statuses: list[TransactionStatus] | None = None,
+        subscription_ids: list[str] | None = None,
+        origins: list[Origin] | None = None,
     ):
         self.pager = pager
         self.billed_at = billed_at
