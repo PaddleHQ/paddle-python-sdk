@@ -36,7 +36,7 @@ class Entity(ABC, EntityDict):
         if not instantiated_class:
             return UndefinedEntity(data)
 
-        if type(entity_class) is not type or not issubclass(entity_class, Entity):
+        if entity_class is None or not issubclass(entity_class, Entity):
             raise ValueError(f"Event type '{entity_class_name}' is not of Entity")
 
         return instantiated_class

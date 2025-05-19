@@ -28,12 +28,10 @@ class ResponseParser:
         return self.body.get("data", []) if self.body else []
 
     def get_list(self) -> list[Any]:
-        data = self.body.get("data", []) if self.body else []
-        return data
+        return self.get_data()
 
     def get_dict(self) -> dict[str, Any]:
-        data = self.body.get("data", []) if self.body else []
-        return data
+        return self.get_data()
 
     def get_error(self) -> ApiError | None:
         return self.error

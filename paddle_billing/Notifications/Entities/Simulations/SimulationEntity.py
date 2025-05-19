@@ -27,7 +27,7 @@ class SimulationEntity(ABC):
         if not instantiated_class:
             return UndefinedEntity(data)
 
-        if type(entity_class) is not type or not issubclass(entity_class, SimulationEntity):
+        if entity_class is None or not issubclass(entity_class, SimulationEntity):
             raise ValueError(f"Event type '{entity_class_name}' is not of SimulationEntity")
 
         return instantiated_class
