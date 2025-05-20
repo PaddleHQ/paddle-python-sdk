@@ -1,3 +1,5 @@
+from typing import Any
+
 from paddle_billing.Exceptions.SdkException import SdkException
 
 
@@ -8,7 +10,7 @@ class InvalidArgumentException(SdkException):
         return InvalidArgumentException(message)
 
     @staticmethod
-    def array_contains_invalid_types(field, expected_types: list[str] | str, given: list = None):
+    def array_contains_invalid_types(field, expected_types: list[str] | str, given: list[Any] | None = None):
         if isinstance(expected_types, list):
             expected_types_str = "', '".join(expected_types)
             message = f"Expected '{field}' to only contain types '{expected_types_str}'"

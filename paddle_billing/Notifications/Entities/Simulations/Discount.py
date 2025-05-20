@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Undefined import Undefined
 from paddle_billing.Notifications.Entities.Discounts import DiscountStatus, DiscountType
@@ -25,11 +26,11 @@ class Discount(SimulationEntity):
     expires_at: datetime | None | Undefined = Undefined()
     import_meta: ImportMeta | None | Undefined = Undefined()
     maximum_recurring_intervals: int | None | Undefined = Undefined()
-    restrict_to: list | None | Undefined = Undefined()
+    restrict_to: list[Any] | None | Undefined = Undefined()
     usage_limit: int | None | Undefined = Undefined()
 
     @staticmethod
-    def from_dict(data: dict) -> Discount:
+    def from_dict(data: dict[str, Any]) -> Discount:
         return Discount(
             amount=data.get("amount", Undefined()),
             code=data.get("code", Undefined()),

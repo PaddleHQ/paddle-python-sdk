@@ -18,13 +18,13 @@ class ListTransactions(HasParameters):
         collection_mode: CollectionMode | None = None,
         created_at: DateComparison | None = None,
         updated_at: DateComparison | None = None,
-        customer_ids: list[str] = None,
-        ids: list[str] = None,
-        includes: list[Includes] = None,
-        invoice_numbers: list[str] = None,
-        statuses: list[TransactionStatus] = None,
-        subscription_ids: list[str] = None,
-        origins: list[Origin] = None,
+        customer_ids: list[str] | None = None,
+        ids: list[str] | None = None,
+        includes: list[Includes] | None = None,
+        invoice_numbers: list[str] | None = None,
+        statuses: list[TransactionStatus] | None = None,
+        subscription_ids: list[str] | None = None,
+        origins: list[Origin] | None = None,
     ):
         self.pager = pager
         self.billed_at = billed_at
@@ -55,8 +55,8 @@ class ListTransactions(HasParameters):
                     field_name, field_type.__name__, invalid_items
                 )
 
-    def get_parameters(self) -> dict:
-        parameters = {}
+    def get_parameters(self) -> dict[str, str]:
+        parameters: dict[str, str] = {}
         if self.pager:
             parameters.update(self.pager.get_parameters())
 

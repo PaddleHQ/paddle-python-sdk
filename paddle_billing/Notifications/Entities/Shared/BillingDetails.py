@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Any
 
 from paddle_billing.Notifications.Entities.Shared.Duration import Duration
 
@@ -12,7 +13,7 @@ class BillingDetails:
     additional_information: str | None = None
 
     @staticmethod
-    def from_dict(data: dict) -> BillingDetails:
+    def from_dict(data: dict[str, Any]) -> BillingDetails:
         return BillingDetails(
             enable_checkout=data["enable_checkout"],
             payment_terms=Duration.from_dict(data["payment_terms"]),

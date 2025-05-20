@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Entities.Entity import Entity
 from paddle_billing.Entities.Adjustments import AdjustmentItem, AdjustmentTaxRatesUsed
@@ -34,7 +35,7 @@ class Adjustment(Entity):
     type: AdjustmentActionType
 
     @staticmethod
-    def from_dict(data: dict) -> Adjustment:
+    def from_dict(data: dict[str, Any]) -> Adjustment:
         return Adjustment(
             id=data["id"],
             action=Action(data["action"]),

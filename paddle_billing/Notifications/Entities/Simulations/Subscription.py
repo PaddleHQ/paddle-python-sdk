@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Undefined import Undefined
 from paddle_billing.Notifications.Entities.Shared import (
@@ -47,7 +48,7 @@ class Subscription(SimulationEntity):
     started_at: datetime | None | Undefined = Undefined()
 
     @staticmethod
-    def from_dict(data: dict) -> Subscription:
+    def from_dict(data: dict[str, Any]) -> Subscription:
         return Subscription(
             id=data.get("id", Undefined()),
             status=SubscriptionStatus(data["status"]) if data.get("status") else Undefined(),

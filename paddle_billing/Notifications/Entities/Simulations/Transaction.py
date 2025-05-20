@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Undefined import Undefined
 from paddle_billing.Notifications.Entities.Shared import (
@@ -47,7 +48,7 @@ class Transaction(SimulationEntity):
     revised_at: datetime | None | Undefined = Undefined()
 
     @staticmethod
-    def from_dict(data: dict) -> Transaction:
+    def from_dict(data: dict[str, Any]) -> Transaction:
         return Transaction(
             address_id=data.get("address_id", Undefined()),
             business_id=data.get("business_id", Undefined()),

@@ -1,7 +1,10 @@
-class CustomData:
-    data: dict | list  # JSON serializable Python types
+from typing import Any
 
-    def __init__(self, data: dict | list):
+
+class CustomData:
+    data: dict[str, Any] | list[Any]  # JSON serializable Python types
+
+    def __init__(self, data: dict[str, Any] | list[Any]):
         self.data = data
 
     def to_json(self):

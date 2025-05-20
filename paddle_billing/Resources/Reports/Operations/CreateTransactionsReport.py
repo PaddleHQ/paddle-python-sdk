@@ -23,7 +23,11 @@ class CreateTransactionsReport(CreateReport):
     ] = field(default_factory=list)
 
     @staticmethod
-    def get_allowed_filters() -> tuple:
+    def get_allowed_filters() -> (
+        tuple[
+            CollectionModeFilter, CurrencyCodeFilter, TransactionOriginFilter, TransactionStatusFilter, UpdatedAtFilter
+        ]
+    ):
         return (
             CollectionModeFilter,
             CurrencyCodeFilter,

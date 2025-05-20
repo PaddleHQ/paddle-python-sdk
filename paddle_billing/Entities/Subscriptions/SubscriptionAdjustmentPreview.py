@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Any
 
 from paddle_billing.Entities.Shared import AdjustmentTotals
 
@@ -13,7 +14,7 @@ class SubscriptionAdjustmentPreview:
     totals: AdjustmentTotals
 
     @staticmethod
-    def from_dict(data: dict) -> SubscriptionAdjustmentPreview:
+    def from_dict(data: dict[str, Any]) -> SubscriptionAdjustmentPreview:
         return SubscriptionAdjustmentPreview(
             transaction_id=data["transaction_id"],
             items=[SubscriptionAdjustmentItem.from_dict(item) for item in data["items"]],

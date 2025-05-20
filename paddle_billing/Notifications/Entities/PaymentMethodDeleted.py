@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Notifications.Entities.Entity import Entity
 from paddle_billing.Notifications.Entities.Shared import (
@@ -22,7 +23,7 @@ class PaymentMethodDeleted(Entity):
     deletion_reason: SavedPaymentMethodDeletionReason
 
     @staticmethod
-    def from_dict(data: dict) -> PaymentMethodDeleted:
+    def from_dict(data: dict[str, Any]) -> PaymentMethodDeleted:
         return PaymentMethodDeleted(
             id=data["id"],
             customer_id=data["customer_id"],

@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Any
 
 from paddle_billing.Entities.Transactions.TransactionCardType import TransactionCardType
 
@@ -13,7 +14,7 @@ class Card:
     cardholder_name: str | None
 
     @staticmethod
-    def from_dict(data: dict) -> Card:
+    def from_dict(data: dict[str, Any]) -> Card:
         return Card(
             type=TransactionCardType(data["type"]),
             last4=data["last4"],

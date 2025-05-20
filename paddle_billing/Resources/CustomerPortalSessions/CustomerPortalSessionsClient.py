@@ -21,4 +21,4 @@ class CustomerPortalSessionsClient:
         self.response = self.client.post_raw(f"/customers/{customer_id}/portal-sessions", operation)
         parser = ResponseParser(self.response)
 
-        return CustomerPortalSession.from_dict(parser.get_data())
+        return CustomerPortalSession.from_dict(parser.get_dict())

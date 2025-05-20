@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 
 @dataclass
@@ -10,7 +11,7 @@ class SubscriptionDiscount:
     ends_at: datetime | None
 
     @staticmethod
-    def from_dict(data: dict) -> SubscriptionDiscount:
+    def from_dict(data: dict[str, Any]) -> SubscriptionDiscount:
         return SubscriptionDiscount(
             id=data["id"],
             starts_at=datetime.fromisoformat(data["starts_at"]) if data.get("starts_at") else None,

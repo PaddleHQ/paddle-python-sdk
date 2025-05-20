@@ -13,7 +13,7 @@ class EventsClient:
         self.client = client
         self.response = None
 
-    def list(self, operation: ListEvents = None) -> EventCollection:
+    def list(self, operation: ListEvents | None = None) -> EventCollection:
         if operation is None:
             operation = ListEvents()
 
@@ -21,5 +21,5 @@ class EventsClient:
         parser = ResponseParser(self.response)
 
         return EventCollection.from_list(
-            parser.get_data(), Paginator(self.client, parser.get_pagination(), EventCollection)
+            parser.get_list(), Paginator(self.client, parser.get_pagination(), EventCollection)
         )

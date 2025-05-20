@@ -15,7 +15,7 @@ class SimulationsClient:
         self.client = client
         self.response = None
 
-    def list(self, operation: ListSimulations = None) -> SimulationCollection:
+    def list(self, operation: ListSimulations | None = None) -> SimulationCollection:
         if operation is None:
             operation = ListSimulations()
 
@@ -23,23 +23,23 @@ class SimulationsClient:
         parser = ResponseParser(self.response)
 
         return SimulationCollection.from_list(
-            parser.get_data(), Paginator(self.client, parser.get_pagination(), SimulationCollection)
+            parser.get_list(), Paginator(self.client, parser.get_pagination(), SimulationCollection)
         )
 
     def get(self, simulation_id: str) -> Simulation:
         self.response = self.client.get_raw(f"/simulations/{simulation_id}")
         parser = ResponseParser(self.response)
 
-        return Simulation.from_dict(parser.get_data())
+        return Simulation.from_dict(parser.get_dict())
 
     def create(self, operation: CreateSimulation) -> Simulation:
         self.response = self.client.post_raw("/simulations", operation)
         parser = ResponseParser(self.response)
 
-        return Simulation.from_dict(parser.get_data())
+        return Simulation.from_dict(parser.get_dict())
 
     def update(self, simulation_id: str, operation: UpdateSimulation) -> Simulation:
         self.response = self.client.patch_raw(f"/simulations/{simulation_id}", operation)
         parser = ResponseParser(self.response)
 
-        return Simulation.from_dict(parser.get_data())
+        return Simulation.from_dict(parser.get_dict())

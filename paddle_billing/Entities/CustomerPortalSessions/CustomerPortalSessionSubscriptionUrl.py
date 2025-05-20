@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Any
 
 
 @dataclass
@@ -9,7 +10,7 @@ class CustomerPortalSessionSubscriptionUrl:
     update_subscription_payment_method: str
 
     @staticmethod
-    def from_dict(data: dict) -> CustomerPortalSessionSubscriptionUrl:
+    def from_dict(data: dict[str, Any]) -> CustomerPortalSessionSubscriptionUrl:
         return CustomerPortalSessionSubscriptionUrl(
             id=data["id"],
             cancel_subscription=data["cancel_subscription"],

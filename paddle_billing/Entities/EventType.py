@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Any
 
 from paddle_billing.Entities.Entity import Entity
 from paddle_billing.Entities.Events import EventTypeName
@@ -10,10 +11,10 @@ class EventType(Entity):
     name: EventTypeName
     description: str
     group: str
-    available_versions: list
+    available_versions: list[Any]
 
     @staticmethod
-    def from_dict(data: dict) -> EventType:
+    def from_dict(data: dict[str, Any]) -> EventType:
         return EventType(
             name=EventTypeName(data["name"]),
             description=data["description"],

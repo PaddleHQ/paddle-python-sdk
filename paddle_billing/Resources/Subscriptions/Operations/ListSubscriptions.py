@@ -13,13 +13,13 @@ class ListSubscriptions(HasParameters):
     def __init__(
         self,
         pager: Pager | None = None,
-        address_ids: list[str] = None,
+        address_ids: list[str] | None = None,
         collection_mode: CollectionMode | None = None,
-        customer_ids: list[str] = None,
-        ids: list[str] = None,
-        price_ids: list[str] = None,
-        scheduled_change_actions: list[SubscriptionScheduledChangeAction] = None,
-        statuses: list[SubscriptionStatus] = None,
+        customer_ids: list[str] | None = None,
+        ids: list[str] | None = None,
+        price_ids: list[str] | None = None,
+        scheduled_change_actions: list[SubscriptionScheduledChangeAction] | None = None,
+        statuses: list[SubscriptionStatus] | None = None,
     ):
         self.pager = pager
         self.collection_mode = collection_mode
@@ -45,8 +45,8 @@ class ListSubscriptions(HasParameters):
                     field_name, field_type.__name__, invalid_items
                 )
 
-    def get_parameters(self) -> dict:
-        parameters = self.pager.get_parameters() if self.pager else {}
+    def get_parameters(self) -> dict[str, str]:
+        parameters: dict[str, str | None] = self.pager.get_parameters() if self.pager else {}
         parameters.update(
             {
                 "address_id": ",".join(self.address_ids),

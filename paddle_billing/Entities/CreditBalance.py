@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Any
 
 from paddle_billing.Entities.Entity import Entity
 from paddle_billing.Entities.Shared import CurrencyCode
@@ -13,7 +14,7 @@ class CreditBalance(Entity):
     balance: AdjustmentCustomerBalance
 
     @staticmethod
-    def from_dict(data: dict) -> CreditBalance:
+    def from_dict(data: dict[str, Any]) -> CreditBalance:
         return CreditBalance(
             customer_id=data["customer_id"],
             currency_code=CurrencyCode(data["currency_code"]),

@@ -2,6 +2,7 @@ from __future__ import annotations
 from .Entity import Entity
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Entities.Discounts import DiscountStatus, DiscountType
 from paddle_billing.Entities.Shared import CurrencyCode, ImportMeta, CustomData
@@ -29,7 +30,7 @@ class Discount(Entity):
     custom_data: CustomData | None
 
     @staticmethod
-    def from_dict(data: dict) -> Discount:
+    def from_dict(data: dict[str, Any]) -> Discount:
         return Discount(
             id=data["id"],
             status=DiscountStatus(data["status"]),

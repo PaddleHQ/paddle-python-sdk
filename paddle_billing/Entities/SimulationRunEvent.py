@@ -2,6 +2,7 @@ from __future__ import annotations
 from abc import ABC
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Entities.Entity import Entity
 from paddle_billing.Entities.Events import EventTypeName
@@ -27,7 +28,7 @@ class SimulationRunEvent(Entity, ABC):
     updated_at: datetime
 
     @staticmethod
-    def from_dict(data: dict) -> SimulationRunEvent:
+    def from_dict(data: dict[str, Any]) -> SimulationRunEvent:
         return SimulationRunEvent(
             id=data["id"],
             status=SimulationRunEventStatus(data["status"]),

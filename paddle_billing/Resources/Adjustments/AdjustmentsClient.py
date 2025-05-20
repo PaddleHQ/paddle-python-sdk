@@ -17,7 +17,7 @@ class AdjustmentsClient:
         self.client = client
         self.response = None
 
-    def list(self, operation: ListAdjustments = None) -> AdjustmentCollection:
+    def list(self, operation: ListAdjustments | None = None) -> AdjustmentCollection:
         if operation is None:
             operation = ListAdjustments()
 
@@ -25,17 +25,17 @@ class AdjustmentsClient:
         parser = ResponseParser(self.response)
 
         return AdjustmentCollection.from_list(
-            parser.get_data(), Paginator(self.client, parser.get_pagination(), AdjustmentCollection)
+            parser.get_list(), Paginator(self.client, parser.get_pagination(), AdjustmentCollection)
         )
 
     def create(self, operation: CreateAdjustment) -> Adjustment:
         self.response = self.client.post_raw("/adjustments", operation)
         parser = ResponseParser(self.response)
 
-        return Adjustment.from_dict(parser.get_data())
+        return Adjustment.from_dict(parser.get_dict())
 
-    def get_credit_note(self, adjustment_id: str, operation: GetCreditNote = None) -> AdjustmentCreditNote:
+    def get_credit_note(self, adjustment_id: str, operation: GetCreditNote | None = None) -> AdjustmentCreditNote:
         self.response = self.client.get_raw(f"/adjustments/{adjustment_id}/credit-note", operation)
         parser = ResponseParser(self.response)
 
-        return AdjustmentCreditNote.from_dict(parser.get_data())
+        return AdjustmentCreditNote.from_dict(parser.get_dict())

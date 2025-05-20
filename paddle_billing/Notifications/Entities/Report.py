@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Notifications.Entities.Entity import Entity
 from paddle_billing.Notifications.Entities.Reports import ReportFilter, ReportStatus, ReportType
@@ -18,7 +19,7 @@ class Report(Entity):
     updated_at: datetime
 
     @staticmethod
-    def from_dict(data: dict) -> Report:
+    def from_dict(data: dict[str, Any]) -> Report:
         return Report(
             id=data["id"],
             status=ReportStatus(data["status"]),

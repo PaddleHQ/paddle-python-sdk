@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Entities.Shared.ErrorCode import ErrorCode
 from paddle_billing.Entities.Shared.MethodDetails import MethodDetails
@@ -20,7 +21,7 @@ class TransactionPaymentAttempt:
     captured_at: datetime | None
 
     @staticmethod
-    def from_dict(data: dict) -> TransactionPaymentAttempt:
+    def from_dict(data: dict[str, Any]) -> TransactionPaymentAttempt:
         return TransactionPaymentAttempt(
             payment_attempt_id=data["payment_attempt_id"],
             payment_method_id=data.get("payment_method_id"),

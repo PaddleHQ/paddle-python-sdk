@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Any
 
 from paddle_billing.Entities.Price import Price
 from paddle_billing.Entities.Product import Product
@@ -23,7 +24,7 @@ class PricePreviewLineItem:
     discounts: list[PricePreviewDiscounts]
 
     @staticmethod
-    def from_dict(data: dict) -> PricePreviewLineItem:
+    def from_dict(data: dict[str, Any]) -> PricePreviewLineItem:
         return PricePreviewLineItem(
             price=Price.from_dict(data["price"]),
             quantity=data["quantity"],

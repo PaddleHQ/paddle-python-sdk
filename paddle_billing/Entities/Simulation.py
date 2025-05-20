@@ -2,6 +2,7 @@ from __future__ import annotations
 from abc import ABC
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Entities.Entity import Entity
 from paddle_billing.Entities.Events import EventTypeName
@@ -24,7 +25,7 @@ class Simulation(Entity, ABC):
     updated_at: datetime
 
     @staticmethod
-    def from_dict(data: dict) -> Simulation:
+    def from_dict(data: dict[str, Any]) -> Simulation:
         type = EventTypeName(data["type"])
         if not type.is_known():
             type = SimulationScenarioType(data["type"])

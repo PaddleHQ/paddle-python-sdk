@@ -2,6 +2,7 @@ from json import dumps as json_dumps
 from logging import Logger, getLogger
 from requests import Response, RequestException, Session
 from requests.adapters import HTTPAdapter
+from typing import Any
 from urllib3.util.retry import Retry
 from urllib.parse import urljoin, urlencode
 from uuid import uuid4
@@ -47,9 +48,9 @@ class Client:
     def __init__(
         self,
         api_key: str,
-        options: Options = None,
-        http_client: Session = None,
-        logger: Logger = None,
+        options: Options | None = None,
+        http_client: Session | None = None,
+        logger: Logger | None = None,
         retry_count: int = 3,
         use_api_version: int = 1,
         timeout: float = 60.0,
@@ -110,7 +111,7 @@ class Client:
         self.log.debug(f"Response: {response.status_code} {response.text}")
 
     @staticmethod
-    def serialize_json_payload(payload: dict | Operation) -> str:
+    def serialize_json_payload(payload: dict[str, Any] | Operation) -> str:
         json_payload = json_dumps(payload, cls=PayloadEncoder)
         final_json = json_payload if json_payload != "[]" else "{}"
 
@@ -120,7 +121,7 @@ class Client:
         self,
         method: str,
         url: str,
-        payload: dict | Operation | None = None,
+        payload: dict[str, Any] | Operation | None = None,
     ) -> Response:
         """
         Makes an actual API call to Paddle
@@ -157,7 +158,7 @@ class Client:
             raise
 
     @staticmethod
-    def format_uri_parameters(uri: str, parameters: HasParameters | dict) -> str:
+    def format_uri_parameters(uri: str, parameters: HasParameters | dict[str, str]) -> str:
         if isinstance(parameters, HasParameters):
             parameters = parameters.get_parameters()
 
@@ -167,19 +168,22 @@ class Client:
 
         return uri
 
-    def get_raw(self, url: str, parameters: HasParameters | dict = None) -> Response:
+    def get_raw(self, url: str, parameters: HasParameters | dict[str, str] | None = None) -> Response:
         url = Client.format_uri_parameters(url, parameters) if parameters else url
 
         return self._make_request("GET", url, None)
 
     def post_raw(
-        self, url: str, payload: dict | Operation | None = None, parameters: HasParameters | dict | None = None
+        self,
+        url: str,
+        payload: dict[str, str] | Operation | None = None,
+        parameters: HasParameters | dict[str, str] | None = None,
     ) -> Response:
         url = Client.format_uri_parameters(url, parameters) if parameters else url
 
         return self._make_request("POST", url, payload)
 
-    def patch_raw(self, url: str, payload: dict | Operation | None) -> Response:
+    def patch_raw(self, url: str, payload: dict[str, str] | Operation | None) -> Response:
         return self._make_request("PATCH", url, payload)
 
     def delete_raw(self, url: str) -> Response:

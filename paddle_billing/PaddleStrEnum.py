@@ -1,3 +1,6 @@
+from typing import Any
+
+
 def _is_dunder(name):
     """
     Returns True if a __dunder__ name, False otherwise.
@@ -30,15 +33,15 @@ class PaddleStrEnumMeta(type):
 
 
 class PaddleStrEnum:
-    value = None
-    name = None
+    value: str
+    name: str | None = None
 
     _members = None
     _iter_index = 0
 
     _unknown_name = "Undefined"
 
-    def __init__(self, value) -> None:
+    def __init__(self, value: Any) -> None:
         members = self.members()
         try:
             search = list(members.values()).index(value)
@@ -52,7 +55,7 @@ class PaddleStrEnum:
         self._iter_index = 0
         return self
 
-    def __next__(self) -> tuple:
+    def __next__(self) -> tuple[str, "PaddleStrEnum"]:
         members = self.members()
 
         if self._iter_index >= len(members):
@@ -80,7 +83,7 @@ class PaddleStrEnum:
         return False
 
     @classmethod
-    def members(cls) -> dict:
+    def members(cls) -> dict[str, Any]:
         if not cls._members:
             members = dict(filter(lambda item: not item[0].startswith("__"), cls.__dict__.items()))
             cls._members = dict(zip(members.keys(), members.values()))

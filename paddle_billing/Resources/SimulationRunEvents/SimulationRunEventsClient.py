@@ -16,7 +16,7 @@ class SimulationRunEventsClient:
         self.response = None
 
     def list(
-        self, simulation_id: str, simulation_run_id: str, operation: ListSimulationRunEvents = None
+        self, simulation_id: str, simulation_run_id: str, operation: ListSimulationRunEvents | None = None
     ) -> SimulationRunEventCollection:
         if operation is None:
             operation = ListSimulationRunEvents()
@@ -25,7 +25,7 @@ class SimulationRunEventsClient:
         parser = ResponseParser(self.response)
 
         return SimulationRunEventCollection.from_list(
-            parser.get_data(), Paginator(self.client, parser.get_pagination(), SimulationRunEventCollection)
+            parser.get_list(), Paginator(self.client, parser.get_pagination(), SimulationRunEventCollection)
         )
 
     def get(self, simulation_id: str, simulation_run_id: str, simulation_event_id: str) -> SimulationRunEvent:
@@ -34,7 +34,7 @@ class SimulationRunEventsClient:
         )
         parser = ResponseParser(self.response)
 
-        return SimulationRunEvent.from_dict(parser.get_data())
+        return SimulationRunEvent.from_dict(parser.get_dict())
 
     def replay(self, simulation_id: str, simulation_run_id: str, simulation_event_id: str) -> SimulationRunEvent:
         self.response = self.client.post_raw(
@@ -42,4 +42,4 @@ class SimulationRunEventsClient:
         )
         parser = ResponseParser(self.response)
 
-        return SimulationRunEvent.from_dict(parser.get_data())
+        return SimulationRunEvent.from_dict(parser.get_dict())

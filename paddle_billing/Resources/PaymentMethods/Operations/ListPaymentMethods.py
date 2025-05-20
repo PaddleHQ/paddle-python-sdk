@@ -7,8 +7,8 @@ class ListPaymentMethods(HasParameters):
     def __init__(
         self,
         pager: Pager | None = None,
-        address_ids: list[str] = None,
-        supports_checkout: bool = None,
+        address_ids: list[str] | None = None,
+        supports_checkout: bool | None = None,
     ):
         self.pager = pager
         self.address_ids = address_ids
@@ -20,7 +20,7 @@ class ListPaymentMethods(HasParameters):
             if invalid_items:
                 raise InvalidArgumentException.array_contains_invalid_types("ids", str.__name__, invalid_items)
 
-    def get_parameters(self) -> dict:
+    def get_parameters(self) -> dict[str, str]:
         parameters = {}
         if self.pager:
             parameters.update(self.pager.get_parameters())

@@ -1,6 +1,7 @@
 from __future__ import annotations
 from abc import ABC
 from dataclasses import dataclass
+from typing import Any
 
 from paddle_billing.Entities.Entity import Entity
 from paddle_billing.Entities.Events import EventTypeName
@@ -17,7 +18,7 @@ class SimulationType(Entity, ABC):
     events: list[EventTypeName]
 
     @staticmethod
-    def from_dict(data: dict) -> SimulationType:
+    def from_dict(data: dict[str, Any]) -> SimulationType:
         return SimulationType(
             name=data["name"],
             label=data["label"],

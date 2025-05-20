@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from paddle_billing.Notifications.Requests import Headers
+from paddle_billing.Notifications.Requests.Headers import Headers
 
 
 class Request:

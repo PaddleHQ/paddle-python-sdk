@@ -13,9 +13,9 @@ class ListNotifications(HasParameters):
     def __init__(
         self,
         pager: Pager | None = None,
-        notification_setting_ids: list[str] = None,
+        notification_setting_ids: list[str] | None = None,
         search: str | None = None,
-        statuses: list[NotificationStatus] = None,
+        statuses: list[NotificationStatus] | None = None,
         filter: str | None = None,
         end: DateTime | None = None,
         start: DateTime | None = None,
@@ -39,7 +39,7 @@ class ListNotifications(HasParameters):
                     field_name, field_type.__name__, invalid_items
                 )
 
-    def get_parameters(self) -> dict:
+    def get_parameters(self) -> dict[str, str]:
         parameters = {}
         if self.pager:
             parameters.update(self.pager.get_parameters())

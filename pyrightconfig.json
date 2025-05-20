@@ -1,0 +1,12 @@
+{
+  "typeCheckingMode": "basic",
+  "reportMissingTypeArgument": true,
+  "reportAssignmentType": false,
+  "reportAttributeAccessIssue": false,
+  "reportOperatorIssue": false,
+  "reportOptionalMemberAccess": false,
+  "reportOptionalSubscript": false,
+  "reportCallIssue": false,
+  "reportReturnType": false,
+  "reportOptionalIterable": false
+}

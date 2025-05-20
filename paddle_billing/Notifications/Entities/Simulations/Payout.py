@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Any
 
 from paddle_billing.Undefined import Undefined
 from paddle_billing.Notifications.Entities.Payouts import PayoutStatus
@@ -15,7 +16,7 @@ class Payout(SimulationEntity):
     status: PayoutStatus | Undefined = Undefined()
 
     @staticmethod
-    def from_dict(data: dict) -> Payout:
+    def from_dict(data: dict[str, Any]) -> Payout:
         return Payout(
             amount=data.get("amount", Undefined()),
             id=data.get("id", Undefined()),

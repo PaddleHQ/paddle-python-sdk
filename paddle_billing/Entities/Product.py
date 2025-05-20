@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Entities.Entity import Entity
 from paddle_billing.Entities.Shared import CatalogType, CustomData, ImportMeta, Status, TaxCategory
@@ -22,7 +23,7 @@ class Product(Entity):
     type: CatalogType | None = None
 
     @staticmethod
-    def from_dict(data: dict) -> Product:
+    def from_dict(data: dict[str, Any]) -> Product:
         return Product(
             description=data.get("description"),
             id=data["id"],

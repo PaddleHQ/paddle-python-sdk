@@ -29,7 +29,9 @@ class CreateProductsAndPricesReport(CreateReport):
     ] = field(default_factory=list)
 
     @staticmethod
-    def get_allowed_filters() -> tuple:
+    def get_allowed_filters() -> (
+        tuple[PriceStatusFilter, PriceTypeFilter, PriceUpdatedAtFilter, ProductStatusFilter, ProductUpdatedAtFilter]
+    ):
         return (
             PriceStatusFilter,
             PriceTypeFilter,

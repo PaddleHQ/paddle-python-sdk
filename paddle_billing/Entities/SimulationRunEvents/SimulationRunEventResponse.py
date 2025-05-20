@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Any
 
 from paddle_billing.Entities.Entity import Entity
 
@@ -10,7 +11,7 @@ class SimulationRunEventResponse(Entity):
     status_code: int
 
     @staticmethod
-    def from_dict(data: dict) -> SimulationRunEventResponse:
+    def from_dict(data: dict[str, Any]) -> SimulationRunEventResponse:
         return SimulationRunEventResponse(
             body=data["body"],
             status_code=data["status_code"],

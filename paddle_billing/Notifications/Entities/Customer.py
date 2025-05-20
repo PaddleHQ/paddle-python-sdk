@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Notifications.Entities.Entity import Entity
 from paddle_billing.Notifications.Entities.Shared import CustomData, ImportMeta, Status
@@ -20,7 +21,7 @@ class Customer(Entity):
     import_meta: ImportMeta | None = None
 
     @staticmethod
-    def from_dict(data: dict) -> Customer:
+    def from_dict(data: dict[str, Any]) -> Customer:
         return Customer(
             id=data["id"],
             name=data.get("name"),

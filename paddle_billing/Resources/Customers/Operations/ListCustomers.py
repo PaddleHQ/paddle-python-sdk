@@ -12,10 +12,10 @@ class ListCustomers(HasParameters):
     def __init__(
         self,
         pager: Pager | None = None,
-        ids: list[str] = None,
-        statuses: list[Status] = None,
+        ids: list[str] | None = None,
+        statuses: list[Status] | None = None,
         search: str | None = None,
-        emails: list[str] = None,
+        emails: list[str] | None = None,
     ):
         self.pager = pager
         self.search = search
@@ -35,7 +35,7 @@ class ListCustomers(HasParameters):
                     field_name, field_type.__name__, invalid_items
                 )
 
-    def get_parameters(self) -> dict:
+    def get_parameters(self) -> dict[str, str]:
         parameters = {}
         if self.pager:
             parameters.update(self.pager.get_parameters())

@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Undefined import Undefined
 from paddle_billing.Notifications.Entities.Shared import CatalogType, CustomData, ImportMeta, Status, TaxCategory
@@ -22,7 +23,7 @@ class Product(SimulationEntity):
     updated_at: datetime | None | Undefined = Undefined()
 
     @staticmethod
-    def from_dict(data: dict) -> Product:
+    def from_dict(data: dict[str, Any]) -> Product:
         return Product(
             description=data.get("description", Undefined()),
             id=data.get("id", Undefined()),

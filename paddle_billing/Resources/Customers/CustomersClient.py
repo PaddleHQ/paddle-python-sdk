@@ -27,7 +27,7 @@ class CustomersClient:
         self.client = client
         self.response = None
 
-    def list(self, operation: ListCustomers = None) -> CustomerCollection:
+    def list(self, operation: ListCustomers | None = None) -> CustomerCollection:
         if operation is None:
             operation = ListCustomers()
 
@@ -35,41 +35,41 @@ class CustomersClient:
         parser = ResponseParser(self.response)
 
         return CustomerCollection.from_list(
-            parser.get_data(), Paginator(self.client, parser.get_pagination(), CustomerCollection)
+            parser.get_list(), Paginator(self.client, parser.get_pagination(), CustomerCollection)
         )
 
     def get(self, customer_id: str) -> Customer:
         self.response = self.client.get_raw(f"/customers/{customer_id}")
         parser = ResponseParser(self.response)
 
-        return Customer.from_dict(parser.get_data())
+        return Customer.from_dict(parser.get_dict())
 
     def create(self, operation: CreateCustomer) -> Customer:
         self.response = self.client.post_raw("/customers", operation)
         parser = ResponseParser(self.response)
 
-        return Customer.from_dict(parser.get_data())
+        return Customer.from_dict(parser.get_dict())
 
     def update(self, customer_id: str, operation: UpdateCustomer) -> Customer:
         self.response = self.client.patch_raw(f"/customers/{customer_id}", operation)
         parser = ResponseParser(self.response)
 
-        return Customer.from_dict(parser.get_data())
+        return Customer.from_dict(parser.get_dict())
 
     def archive(self, customer_id: str) -> Customer:
         return self.update(customer_id, UpdateCustomer(status=Status.Archived))
 
-    def credit_balances(self, customer_id: str, operation: ListCreditBalances = None) -> CreditBalanceCollection:
+    def credit_balances(self, customer_id: str, operation: ListCreditBalances | None = None) -> CreditBalanceCollection:
         if operation is None:
             operation = ListCreditBalances()
 
         self.response = self.client.get_raw(f"/customers/{customer_id}/credit-balances", operation)
         parser = ResponseParser(self.response)
 
-        return CreditBalanceCollection.from_list(parser.get_data())
+        return CreditBalanceCollection.from_list(parser.get_list())
 
     def create_auth_token(self, customer_id: str) -> CustomerAuthToken:
         self.response = self.client.post_raw(f"/customers/{customer_id}/auth-token")
         parser = ResponseParser(self.response)
 
-        return CustomerAuthToken.from_dict(parser.get_data())
+        return CustomerAuthToken.from_dict(parser.get_dict())
