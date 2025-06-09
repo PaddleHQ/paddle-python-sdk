@@ -35,9 +35,12 @@
         "total": "100",
         "earnings": "87",
         "subtotal": "92",
-        "currency_code": "USD"
+        "currency_code": "USD",
+        "chargeback_fee": null
     },
     "transaction_id": "txn_01hvcc93znj3mpqt1tenkjb04y",
     "subscription_id": "sub_01hvccbx32q2gb40sqx7n42430",
-    "credit_applied_to_balance": null
+    "credit_applied_to_balance": null,
+    "tax_rates_used": null,
+    "type": null
 }

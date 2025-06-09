@@ -4,7 +4,7 @@
     "email": "jo@example.com",
     "locale": "en",
     "status": "active",
-    "created_at": "2024-04-11T15:57:24.813Z",
+    "created_at": "2024-04-11T15:57:24.813000Z",
     "updated_at": "2024-04-11T15:59:56.658719Z",
     "custom_data": null,
     "import_meta": null,
