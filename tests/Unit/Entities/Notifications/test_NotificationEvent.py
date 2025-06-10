@@ -1,7 +1,8 @@
-from json import loads
+from json import dumps, loads
 from pytest import mark
 from importlib import import_module
 
+from paddle_billing.Json import PayloadEncoder
 from paddle_billing.Entities.Notifications import NotificationEvent
 
 from paddle_billing.Notifications.Entities.Subscription import Subscription
@@ -119,9 +120,11 @@ class TestNotificationEvent:
         imported_module = import_module(f"{entity_module_path}.{entity_name}")
         entity_class = getattr(imported_module, entity_name)
 
+        json_data = loads(ReadsFixtures.read_raw_json_fixture(f"notification/entity/{event_type}"))
+
         notification_event = NotificationEvent.from_dict(
             {
-                "data": loads(ReadsFixtures.read_raw_json_fixture(f"notification/entity/{event_type}")),
+                "data": json_data,
                 "notification_id": "ntf_01h8bkrfe7w1vwf8xmytwn51e7",
                 "event_type": event_type,
                 "event_id": "evt_01h8bzakzx3hm2fmen703n5q45",
@@ -136,6 +139,7 @@ class TestNotificationEvent:
         assert notification_event.occurred_at.isoformat() == "2023-08-21T11:57:47.390028+00:00"
         assert isinstance(notification_event.data.to_dict(), dict)
         assert notification_event.data.to_dict()["id"] is not None
+        assert dumps(notification_event.data, cls=PayloadEncoder, sort_keys=True) == dumps(json_data, sort_keys=True)
 
     def test_subscription_created_notification_event_transaction_id(self):
         notification_event = NotificationEvent.from_dict(
@@ -149,6 +153,7 @@ class TestNotificationEvent:
         )
 
         assert isinstance(notification_event.data, SubscriptionCreated)
+
         assert notification_event.data.transaction_id == "txn_01hv8wptq8987qeep44cyrewp9"
         assert isinstance(notification_event.data.to_dict(), dict)
         assert notification_event.data.to_dict()["transaction_id"] == "txn_01hv8wptq8987qeep44cyrewp9"
@@ -195,9 +200,11 @@ class TestNotificationEvent:
         assert not hasattr(notification_event.data, "transaction_id")
 
     def test_unknown_event_type_is_handled(self):
+        json_data = loads(ReadsFixtures.read_raw_json_fixture("notification/entity/address.created"))
+
         notification_event = NotificationEvent.from_dict(
             {
-                "data": loads(ReadsFixtures.read_raw_json_fixture("notification/entity/address.created")),
+                "data": json_data,
                 "notification_id": "ntf_01h8bkrfe7w1vwf8xmytwn51e7",
                 "event_type": "some_unknown_entity.created",
                 "event_id": "evt_01h8bzakzx3hm2fmen703n5q45",
@@ -211,6 +218,10 @@ class TestNotificationEvent:
         assert notification_event.occurred_at.isoformat() == "2023-08-21T11:57:47.390028+00:00"
         assert isinstance(notification_event.data, UndefinedEntity)
         assert notification_event.data.to_dict()["id"] == "add_01hv8gq3318ktkfengj2r75gfx"
+
+        assert dumps(notification_event.data, cls=PayloadEncoder, sort_keys=True) == dumps(
+            json_data, sort_keys=True, cls=PayloadEncoder
+        )
 
     def test_subscription_notification_event_with_null_discount(self):
         notification_event = NotificationEvent.from_dict(

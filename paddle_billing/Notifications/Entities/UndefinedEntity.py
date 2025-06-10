@@ -10,5 +10,8 @@ class UndefinedEntity(EntityDict):
     ):
         self._data = data
 
+    def to_json(self) -> dict[Any, Any]:
+        return self.to_dict()
+
     def to_dict(self) -> dict[Any, Any]:
         return self._data

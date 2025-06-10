@@ -77,19 +77,19 @@
                 },
                 "status": "active",
                 "import_meta": null,
-                "created_at": "2024-04-08T16:22:16.024Z",
-                "updated_at": "2024-04-08T16:27:59.074Z"
+                "created_at": "2024-04-08T16:22:16.024000Z",
+                "updated_at": "2024-04-08T16:27:59.074000Z"
             },
             "status": "trialing",
             "quantity": 10,
             "recurring": true,
-            "created_at": "2024-04-12T11:30:29.648Z",
-            "updated_at": "2024-04-12T11:30:29.648Z",
+            "created_at": "2024-04-12T11:30:29.648000Z",
+            "updated_at": "2024-04-12T11:30:29.648000Z",
             "trial_dates": {
-                "ends_at": "2024-04-26T11:30:29.637Z",
-                "starts_at": "2024-04-12T11:30:29.637Z"
+                "ends_at": "2024-04-26T11:30:29.637000Z",
+                "starts_at": "2024-04-12T11:30:29.637000Z"
             },
-            "next_billed_at": "2024-04-26T11:30:29.637Z",
+            "next_billed_at": "2024-04-26T11:30:29.637000Z",
             "previously_billed_at": null
         }
     ],
@@ -97,9 +97,9 @@
     "discount": null,
     "paused_at": null,
     "address_id": "add_01hv8gq3318ktkfengj2r75gfx",
-    "created_at": "2024-04-12T11:30:29.648Z",
-    "started_at": "2024-04-12T11:30:29.637Z",
-    "updated_at": "2024-04-12T11:30:29.648Z",
+    "created_at": "2024-04-12T11:30:29.648000Z",
+    "started_at": "2024-04-12T11:30:29.637000Z",
+    "updated_at": "2024-04-12T11:30:29.648000Z",
     "business_id": null,
     "canceled_at": null,
     "custom_data": null,
@@ -110,13 +110,13 @@
         "frequency": 1
     },
     "currency_code": "USD",
-    "next_billed_at": "2024-04-26T11:30:29.637Z",
+    "next_billed_at": "2024-04-26T11:30:29.637000Z",
     "billing_details": null,
     "collection_mode": "automatic",
     "first_billed_at": null,
     "scheduled_change": null,
     "current_billing_period": {
-        "ends_at": "2024-04-26T11:30:29.637Z",
-        "starts_at": "2024-04-12T11:30:29.637Z"
+        "ends_at": "2024-04-26T11:30:29.637000Z",
+        "starts_at": "2024-04-12T11:30:29.637000Z"
     }
 }
