@@ -6,11 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-python-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
-## [Unreleased]
+## 1.6.1 - 2025-06-10
 
 ### Fixed
 - Fixed JSON encoding of undefined notification entities
   - `paddle_billing.Notifications.Entities.UndefinedEntity` now implements `to_json` and can be encoded using `paddle_billing.Json.PayloadEncoder`
+- Improved type hints throughout SDK
 
 ## 1.6.0 - 2025-02-10
 
