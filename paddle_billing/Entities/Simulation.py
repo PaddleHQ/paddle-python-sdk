@@ -8,6 +8,7 @@ from paddle_billing.Entities.Entity import Entity
 from paddle_billing.Entities.Events import EventTypeName
 from paddle_billing.Entities.Simulations import SimulationScenarioType, SimulationStatus
 
+from paddle_billing.Entities.Simulations.Config import SimulationConfig
 from paddle_billing.Notifications.Entities.Simulations.SimulationEntity import SimulationEntity
 from paddle_billing.Notifications.Entities.UndefinedEntity import UndefinedEntity
 
@@ -23,6 +24,7 @@ class Simulation(Entity, ABC):
     last_run_at: datetime | None
     created_at: datetime
     updated_at: datetime
+    config: SimulationConfig | None
 
     @staticmethod
     def from_dict(data: dict[str, Any]) -> Simulation:
@@ -44,4 +46,5 @@ class Simulation(Entity, ABC):
             last_run_at=datetime.fromisoformat(data["last_run_at"]) if data.get("last_run_at") else None,
             created_at=datetime.fromisoformat(data["created_at"]),
             updated_at=datetime.fromisoformat(data["updated_at"]),
+            config=(SimulationConfig.from_dict(data["config"]) if data.get("config") else None),
         )
