@@ -1,5 +1,4 @@
 from __future__ import annotations
-from abc import ABC
 from dataclasses import dataclass
 from typing import Any
 
@@ -12,7 +11,7 @@ from paddle_billing.Entities.Simulations.Config.Options import (
 
 
 @dataclass
-class SubscriptionCreationOptions(Entity, ABC):
+class SubscriptionCreationOptions(Entity):
     customer_simulated_as: CustomerSimulatedAs
     business_simulated_as: BusinessSimulatedAs
     discount_simulated_as: DiscountSimulatedAs

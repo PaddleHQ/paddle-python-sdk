@@ -1,5 +1,4 @@
 from __future__ import annotations
-from abc import ABC
 from dataclasses import dataclass
 from typing import Any
 
@@ -7,7 +6,7 @@ from paddle_billing.Entities.Entity import Entity
 
 
 @dataclass
-class SubscriptionCreationItem(Entity, ABC):
+class SubscriptionCreationItem(Entity):
     price_id: str
     quantity: str
 

@@ -1,5 +1,4 @@
 from __future__ import annotations
-from abc import ABC
 from dataclasses import dataclass
 from typing import Any
 
@@ -8,7 +7,7 @@ from paddle_billing.Entities.Simulations.Config.Options import EffectiveFrom
 
 
 @dataclass
-class SubscriptionCancellationOptions(Entity, ABC):
+class SubscriptionCancellationOptions(Entity):
     effective_from: EffectiveFrom
     has_past_due_transaction: bool
 

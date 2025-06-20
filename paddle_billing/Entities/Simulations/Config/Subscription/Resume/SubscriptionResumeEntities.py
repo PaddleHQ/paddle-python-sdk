@@ -1,5 +1,4 @@
 from __future__ import annotations
-from abc import ABC
 from dataclasses import dataclass
 from typing import Any
 
@@ -7,7 +6,7 @@ from paddle_billing.Entities.Entity import Entity
 
 
 @dataclass
-class SubscriptionResumeEntities(Entity, ABC):
+class SubscriptionResumeEntities(Entity):
     subscription_id: str | None
 
     @staticmethod
