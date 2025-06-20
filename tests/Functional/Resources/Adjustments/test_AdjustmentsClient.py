@@ -5,7 +5,14 @@ from urllib.parse import unquote
 from paddle_billing.Entities.Adjustment import Adjustment, AdjustmentTaxRatesUsed
 from paddle_billing.Entities.Collections import AdjustmentCollection
 from paddle_billing.Entities.AdjustmentCreditNote import AdjustmentCreditNote
-from paddle_billing.Entities.Shared import Action, AdjustmentActionType, AdjustmentStatus, AdjustmentType, Disposition
+from paddle_billing.Entities.Shared import (
+    Action,
+    AdjustmentActionType,
+    AdjustmentStatus,
+    AdjustmentTaxMode,
+    AdjustmentType,
+    Disposition,
+)
 
 from paddle_billing.Resources.Adjustments.Operations import (
     CreateAdjustment,
@@ -45,6 +52,7 @@ class TestAdjustmentsClient:
                     ],
                     "error",
                     "txn_01h8bxpvx398a7zbawb77y0kp5",
+                    tax_mode=AdjustmentTaxMode.Internal,
                 ),
                 ReadsFixtures.read_raw_json_fixture("request/create_full"),
                 200,
@@ -113,6 +121,56 @@ class TestAdjustmentsClient:
                 ReadsFixtures.read_raw_json_fixture("response/minimal_entity"),
                 "/adjustments",
             ),
+            (
+                CreateAdjustment.full(
+                    Action.Refund,
+                    "error",
+                    "txn_01h8bxpvx398a7zbawb77y0kp5",
+                    AdjustmentTaxMode.External,
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/create_type_full_external_tax_mode"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/minimal_entity"),
+                "/adjustments",
+            ),
+            (
+                CreateAdjustment.full(
+                    Action.Refund,
+                    "error",
+                    "txn_01h8bxpvx398a7zbawb77y0kp5",
+                    AdjustmentTaxMode.Internal,
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/create_type_full_internal_tax_mode"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/minimal_entity"),
+                "/adjustments",
+            ),
+            (
+                CreateAdjustment.partial(
+                    Action.Refund,
+                    [CreateAdjustmentItem("txnitm_01h8bxryv3065dyh6103p3yg28", AdjustmentType.Partial, "100")],
+                    "error",
+                    "txn_01h8bxpvx398a7zbawb77y0kp5",
+                    AdjustmentTaxMode.External,
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/create_type_partial_external_tax_mode"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/minimal_entity"),
+                "/adjustments",
+            ),
+            (
+                CreateAdjustment.partial(
+                    Action.Refund,
+                    [CreateAdjustmentItem("txnitm_01h8bxryv3065dyh6103p3yg28", AdjustmentType.Partial, "100")],
+                    "error",
+                    "txn_01h8bxpvx398a7zbawb77y0kp5",
+                    AdjustmentTaxMode.Internal,
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/create_type_partial_internal_tax_mode"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/minimal_entity"),
+                "/adjustments",
+            ),
         ],
         ids=[
             "Create adjustment with basic data",
@@ -122,6 +180,10 @@ class TestAdjustmentsClient:
             "Create full adjustment with no items",
             "Create full adjustment with None items",
             "Create full adjustment with Undefined items",
+            "Full type with external tax mode",
+            "Full type with internal tax mode",
+            "Partial type with external tax mode",
+            "Partial type with internal tax mode",
         ],
     )
     def test_create_adjustment_uses_expected_payload(
