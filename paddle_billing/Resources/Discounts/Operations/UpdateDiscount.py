@@ -23,3 +23,4 @@ class UpdateDiscount(Operation):
     status: DiscountStatus | Undefined = Undefined()
     custom_data: CustomData | None | Undefined = Undefined()
     mode: DiscountMode | None | Undefined = Undefined()
+    discount_group_id: str | None | Undefined = Undefined()

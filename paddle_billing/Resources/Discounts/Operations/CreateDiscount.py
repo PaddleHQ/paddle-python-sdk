@@ -22,3 +22,4 @@ class CreateDiscount(Operation):
     expires_at: DateTime | None | Undefined = Undefined()
     custom_data: CustomData | None | Undefined = Undefined()
     mode: DiscountMode | None | Undefined = Undefined()
+    discount_group_id: str | None | Undefined = Undefined()
