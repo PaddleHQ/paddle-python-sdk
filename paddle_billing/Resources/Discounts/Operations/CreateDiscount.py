@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from paddle_billing.Operation import Operation
 from paddle_billing.Undefined import Undefined
 from paddle_billing.Entities.DateTime import DateTime
-from paddle_billing.Entities.Discounts import DiscountType
+from paddle_billing.Entities.Discounts import DiscountMode, DiscountType
 from paddle_billing.Entities.Shared import CurrencyCode, CustomData
 
 
@@ -21,3 +21,4 @@ class CreateDiscount(Operation):
     restrict_to: list[str] | None | Undefined = Undefined()
     expires_at: DateTime | None | Undefined = Undefined()
     custom_data: CustomData | None | Undefined = Undefined()
+    mode: DiscountMode | None | Undefined = Undefined()

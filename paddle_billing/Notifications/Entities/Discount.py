@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Notifications.Entities.Discounts import DiscountStatus, DiscountType
+from paddle_billing.Notifications.Entities.Discounts import DiscountMode, DiscountStatus, DiscountType
 from paddle_billing.Notifications.Entities.Entity import Entity
 from paddle_billing.Notifications.Entities.Shared import CurrencyCode, CustomData, ImportMeta
 
@@ -27,6 +27,7 @@ class Discount(Entity):
     maximum_recurring_intervals: int | None = None
     restrict_to: list[Any] | None = None
     usage_limit: int | None = None
+    mode: DiscountMode | None = None
 
     @staticmethod
     def from_dict(data: dict[str, Any]) -> Discount:
@@ -48,4 +49,5 @@ class Discount(Entity):
             custom_data=CustomData(data["custom_data"]) if data.get("custom_data") else None,
             expires_at=datetime.fromisoformat(data["expires_at"]) if data.get("expires_at") else None,
             import_meta=ImportMeta.from_dict(data["import_meta"]) if data.get("import_meta") else None,
+            mode=DiscountMode(data["mode"]) if data.get("mode") else None,
         )

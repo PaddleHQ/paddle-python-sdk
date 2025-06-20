@@ -2,6 +2,7 @@
     "id": "dsc_01hv6scyf7qdnzcdq01t2y8dx4",
     "code": "SPRINGSALE",
     "type": "percentage",
+    "mode": null,
     "recur": true,
     "amount": "10",
     "status": "active",
