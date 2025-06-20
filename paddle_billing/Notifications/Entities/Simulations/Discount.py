@@ -30,6 +30,7 @@ class Discount(SimulationEntity):
     restrict_to: list[Any] | None | Undefined = Undefined()
     usage_limit: int | None | Undefined = Undefined()
     mode: DiscountMode | None | Undefined = Undefined()
+    discount_group_id: str | None | Undefined = Undefined()
 
     @staticmethod
     def from_dict(data: dict[str, Any]) -> Discount:
@@ -68,4 +69,5 @@ class Discount(SimulationEntity):
                 else data.get("import_meta", Undefined())
             ),
             mode=DiscountMode(data["mode"]) if data.get("mode") else Undefined(),
+            discount_group_id=data.get("discount_group_id", Undefined()),
         )

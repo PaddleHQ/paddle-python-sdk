@@ -268,6 +268,18 @@ class TestDiscountsClient:
                 ReadsFixtures.read_raw_json_fixture("response/list_default"),
                 "/discounts?code=ABCDE12345,54321EDCBA",
             ),
+            (
+                ListDiscounts(discount_group_ids=["dsg_01gtf15svsqzgp9325ss4ebmwt"]),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/list_default"),
+                "/discounts?discount_group_id=dsg_01gtf15svsqzgp9325ss4ebmwt",
+            ),
+            (
+                ListDiscounts(discount_group_ids=["dsg_01gtf15svsqzgp9325ss4ebmwt", "dsg_02gtf15svsqzgp9325ss4ebmwt"]),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/list_default"),
+                "/discounts?discount_group_id=dsg_01gtf15svsqzgp9325ss4ebmwt,dsg_02gtf15svsqzgp9325ss4ebmwt",
+            ),
         ],
         ids=[
             "List discounts without pagination",
@@ -278,6 +290,8 @@ class TestDiscountsClient:
             "List discounts filtered by multiple ids",
             "List discounts filtered by discount id",
             "List discounts filtered by multiple discount ids",
+            "List discounts filtered by group id",
+            "List discounts filtered by multiple group ids",
         ],
     )
     def test_list_discounts_returns_expected_response(

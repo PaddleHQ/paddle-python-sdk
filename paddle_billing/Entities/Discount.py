@@ -29,6 +29,7 @@ class Discount(Entity):
     import_meta: ImportMeta | None
     custom_data: CustomData | None
     mode: DiscountMode
+    discount_group_id: str | None
 
     @staticmethod
     def from_dict(data: dict[str, Any]) -> Discount:
@@ -52,4 +53,5 @@ class Discount(Entity):
             import_meta=ImportMeta.from_dict(data["import_meta"]) if data.get("import_meta") else None,
             custom_data=CustomData(data["custom_data"]) if data.get("custom_data") else None,
             mode=DiscountMode(data["mode"]),
+            discount_group_id=data.get("discount_group_id"),
         )

@@ -28,6 +28,7 @@ class Discount(Entity):
     restrict_to: list[Any] | None = None
     usage_limit: int | None = None
     mode: DiscountMode | None = None
+    discount_group_id: str | None = None
 
     @staticmethod
     def from_dict(data: dict[str, Any]) -> Discount:
@@ -50,4 +51,5 @@ class Discount(Entity):
             expires_at=datetime.fromisoformat(data["expires_at"]) if data.get("expires_at") else None,
             import_meta=ImportMeta.from_dict(data["import_meta"]) if data.get("import_meta") else None,
             mode=DiscountMode(data["mode"]) if data.get("mode") else None,
+            discount_group_id=data.get("discount_group_id"),
         )
