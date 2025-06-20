@@ -9,7 +9,7 @@ from paddle_billing.Notifications.Entities.Simulations import Address
 from paddle_billing.Notifications.Entities.Simulations.SimulationEntity import SimulationEntity
 from paddle_billing.Notifications.Entities.Simulations.Adjustment import Adjustment
 from paddle_billing.Entities.Events import EventTypeName
-from paddle_billing.Entities.Shared import (
+from paddle_billing.Notifications.Entities.Shared import (
     CountryCode,
     CustomData,
     ImportMeta,
@@ -130,6 +130,11 @@ class TestSimulationsClient:
             ("address.updated", "Address"),
             ("adjustment.created", "Adjustment"),
             ("adjustment.updated", "Adjustment"),
+            ("api_key.created", "ApiKey"),
+            ("api_key.expired", "ApiKey"),
+            ("api_key.expiring", "ApiKey"),
+            ("api_key.revoked", "ApiKey"),
+            ("api_key.updated", "ApiKey"),
             ("business.created", "Business"),
             ("business.imported", "Business"),
             ("business.updated", "Business"),
@@ -177,6 +182,11 @@ class TestSimulationsClient:
             "address.updated",
             "adjustment.created",
             "adjustment.updated",
+            "api_key.created",
+            "api_key.expired",
+            "api_key.expiring",
+            "api_key.revoked",
+            "api_key.updated",
             "business.created",
             "business.imported",
             "business.updated",
