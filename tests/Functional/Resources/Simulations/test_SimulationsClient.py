@@ -3,6 +3,7 @@ from pytest import mark
 from urllib.parse import unquote
 from datetime import datetime
 
+from paddle_billing.Client import PayloadEncoder
 from paddle_billing.Entities.Collections import SimulationCollection
 from paddle_billing.Entities.Simulation import Simulation, SimulationScenarioType, SimulationStatus
 from paddle_billing.Entities.Simulations.Config.Options import (
@@ -976,6 +977,7 @@ class TestSimulationsClient:
         assert response_json == loads(
             str(expected_response_body)
         ), "The response JSON doesn't match the expected fixture JSON"
+        assert loads(PayloadEncoder().encode(response)) == loads(expected_response_body)["data"]
 
     @mark.parametrize(
         "type, config, expected_request_config, expected_response_body",
@@ -1330,3 +1332,4 @@ class TestSimulationsClient:
         assert response_json == loads(
             str(expected_response_body)
         ), "The response JSON doesn't match the expected fixture JSON"
+        assert loads(PayloadEncoder().encode(response)) == loads(expected_response_body)["data"]
