@@ -21,6 +21,7 @@ from paddle_billing.Notifications.Entities.Shared.Duration import Duration
 from paddle_billing.Notifications.Entities.Shared.ErrorCode import ErrorCode
 from paddle_billing.Notifications.Entities.Shared.ImportMeta import ImportMeta
 from paddle_billing.Notifications.Entities.Shared.Interval import Interval
+from paddle_billing.Notifications.Entities.Shared.KoreaLocalPaymentMethodType import KoreaLocalPaymentMethodType
 from paddle_billing.Notifications.Entities.Shared.MethodDetails import MethodDetails
 from paddle_billing.Notifications.Entities.Shared.Money import Money
 from paddle_billing.Notifications.Entities.Shared.Original import Original

@@ -6,6 +6,7 @@ from typing import Any
 from paddle_billing.Entities.Entity import Entity
 from paddle_billing.Entities.Shared import (
     Card,
+    PaymentMethodUnderlyingDetails,
     Paypal,
     SavedPaymentMethodOrigin,
     SavedPaymentMethodType,
@@ -23,6 +24,7 @@ class PaymentMethod(Entity):
     origin: SavedPaymentMethodOrigin
     saved_at: datetime
     updated_at: datetime
+    underlying_details: PaymentMethodUnderlyingDetails | None
 
     @staticmethod
     def from_dict(data: dict[str, Any]) -> PaymentMethod:
@@ -33,6 +35,11 @@ class PaymentMethod(Entity):
             type=SavedPaymentMethodType(data["type"]),
             card=Card.from_dict(data["card"]) if data.get("card") else None,
             paypal=Paypal.from_dict(data["paypal"]) if data.get("paypal") else None,
+            underlying_details=(
+                PaymentMethodUnderlyingDetails.from_dict(data["underlying_details"])
+                if data.get("underlying_details")
+                else None
+            ),
             origin=SavedPaymentMethodOrigin(data["origin"]),
             saved_at=datetime.fromisoformat(data["saved_at"]),
             updated_at=datetime.fromisoformat(data["updated_at"]),

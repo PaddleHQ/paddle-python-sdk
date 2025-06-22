@@ -261,7 +261,8 @@
                     "expiry_month": 1,
                     "cardholder_name": "Michael McGovern"
                 },
-                "type": "card"
+                "type": "card",
+                "underlying_details": null
             },
             "payment_method_id": "paymtd_01hv8wx2mka7dfsqjjsxh1ne7z",
             "payment_attempt_id": "8f72cfa6-26b4-4a57-91dc-8f2708f7822d",

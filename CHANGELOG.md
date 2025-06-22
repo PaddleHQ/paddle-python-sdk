@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-python-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## [Unreleased]
+
+### Added
+
+- Added support for Korean local payment methods, see [related changelog](https://developer.paddle.com/changelog/2024/korean-payment-methods?utm_source=dx&utm_medium=paddle-python-sdk).
+
 ## 1.6.1 - 2025-06-10
 
 ### Fixed

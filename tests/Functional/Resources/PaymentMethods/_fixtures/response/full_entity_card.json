@@ -14,7 +14,8 @@
       "paypal": null,
       "origin": "subscription",
       "saved_at": "2024-05-03T11:50:23.422Z",
-      "updated_at": "2024-05-04T11:50:23.422Z"
+      "updated_at": "2024-05-04T11:50:23.422Z",
+      "underlying_details": null
     },
     "meta": {
       "request_id": "03dae283-b7e9-47dc-b8c0-229576d90139"

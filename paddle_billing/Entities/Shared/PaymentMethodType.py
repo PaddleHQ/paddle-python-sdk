@@ -8,6 +8,7 @@ class PaymentMethodType(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     Card: "PaymentMethodType" = "card"
     GooglePay: "PaymentMethodType" = "google_pay"
     Ideal: "PaymentMethodType" = "ideal"
+    KoreaLocal: "PaymentMethodType" = "korea_local"
     Offline: "PaymentMethodType" = "offline"
     Paypal: "PaymentMethodType" = "paypal"
     Unknown: "PaymentMethodType" = "unknown"
