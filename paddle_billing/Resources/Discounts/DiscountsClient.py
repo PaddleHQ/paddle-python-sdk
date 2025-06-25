@@ -4,7 +4,7 @@ from paddle_billing.Entities.Collections import Paginator, DiscountCollection
 from paddle_billing.Entities.Discount import Discount
 from paddle_billing.Entities.Discounts import DiscountStatus
 
-from paddle_billing.Resources.Discounts.Operations import CreateDiscount, ListDiscounts, UpdateDiscount
+from paddle_billing.Resources.Discounts.Operations import CreateDiscount, GetDiscount, ListDiscounts, UpdateDiscount
 
 from typing import TYPE_CHECKING
 
@@ -28,8 +28,11 @@ class DiscountsClient:
             parser.get_list(), Paginator(self.client, parser.get_pagination(), DiscountCollection)
         )
 
-    def get(self, discount_id: str) -> Discount:
-        self.response = self.client.get_raw(f"/discounts/{discount_id}")
+    def get(self, discount_id: str, operation: GetDiscount | None = None) -> Discount:
+        if operation is None:
+            operation = GetDiscount()
+
+        self.response = self.client.get_raw(f"/discounts/{discount_id}", operation.get_parameters())
         parser = ResponseParser(self.response)
 
         return Discount.from_dict(parser.get_dict())
