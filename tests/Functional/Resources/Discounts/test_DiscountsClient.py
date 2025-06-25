@@ -4,7 +4,7 @@ from urllib.parse import unquote
 
 from paddle_billing.Entities.Collections import DiscountCollection
 from paddle_billing.Entities.DateTime import DateTime
-from paddle_billing.Entities.Discount import Discount
+from paddle_billing.Entities.Discount import Discount, DiscountMode
 from paddle_billing.Entities.Discounts import DiscountStatus, DiscountType
 from paddle_billing.Entities.Shared import CurrencyCode, Status, CustomData
 
@@ -46,6 +46,8 @@ class TestDiscountsClient:
                     restrict_to=["pro_01gsz4t5hdjse780zja8vvr7jg", "pro_01gsz4s0w61y0pp88528f1wvvb"],
                     expires_at=DateTime("2025-01-01 10:00:00"),
                     custom_data=CustomData({"key": "value"}),
+                    mode=DiscountMode.Standard,
+                    discount_group_id="dsg_01gtf15svsqzgp9325ss4ebmwt",
                 ),
                 ReadsFixtures.read_raw_json_fixture("request/create_full"),
                 200,
@@ -152,6 +154,8 @@ class TestDiscountsClient:
                         "pro_01gsz4s0w61y0pp88528f1wvvb",
                     ],
                     custom_data=CustomData({"key": "value"}),
+                    mode=DiscountMode.Custom,
+                    discount_group_id="dsg_01gtf15svsqzgp9325ss4ebmwt",
                 ),
                 ReadsFixtures.read_raw_json_fixture("request/update_full"),
                 200,
@@ -266,6 +270,18 @@ class TestDiscountsClient:
                 ReadsFixtures.read_raw_json_fixture("response/list_default"),
                 "/discounts?code=ABCDE12345,54321EDCBA",
             ),
+            (
+                ListDiscounts(discount_group_ids=["dsg_01gtf15svsqzgp9325ss4ebmwt"]),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/list_default"),
+                "/discounts?discount_group_id=dsg_01gtf15svsqzgp9325ss4ebmwt",
+            ),
+            (
+                ListDiscounts(discount_group_ids=["dsg_01gtf15svsqzgp9325ss4ebmwt", "dsg_02gtf15svsqzgp9325ss4ebmwt"]),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/list_default"),
+                "/discounts?discount_group_id=dsg_01gtf15svsqzgp9325ss4ebmwt,dsg_02gtf15svsqzgp9325ss4ebmwt",
+            ),
         ],
         ids=[
             "List discounts without pagination",
@@ -276,6 +292,8 @@ class TestDiscountsClient:
             "List discounts filtered by multiple ids",
             "List discounts filtered by discount id",
             "List discounts filtered by multiple discount ids",
+            "List discounts filtered by group id",
+            "List discounts filtered by multiple group ids",
         ],
     )
     def test_list_discounts_returns_expected_response(

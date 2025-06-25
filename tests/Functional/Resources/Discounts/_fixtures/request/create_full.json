@@ -2,6 +2,7 @@
     "description": "Nonprofit discount",
     "enabled_for_checkout": true,
     "type": "percentage",
+    "mode": "standard",
     "amount": "10",
     "recur": true,
     "currency_code": "USD",
@@ -15,5 +16,6 @@
     "expires_at": "2025-01-01T10:00:00.000000Z",
     "custom_data": {
         "key": "value"
-    }
+    },
+    "discount_group_id": "dsg_01gtf15svsqzgp9325ss4ebmwt"
 }
