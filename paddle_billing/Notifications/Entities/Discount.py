@@ -1,8 +1,9 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
-from paddle_billing.Notifications.Entities.Discounts import DiscountStatus, DiscountType
+from paddle_billing.Notifications.Entities.Discounts import DiscountMode, DiscountStatus, DiscountType
 from paddle_billing.Notifications.Entities.Entity import Entity
 from paddle_billing.Notifications.Entities.Shared import CurrencyCode, CustomData, ImportMeta
 
@@ -24,11 +25,13 @@ class Discount(Entity):
     expires_at: datetime | None = None
     import_meta: ImportMeta | None = None
     maximum_recurring_intervals: int | None = None
-    restrict_to: list | None = None
+    restrict_to: list[Any] | None = None
     usage_limit: int | None = None
+    mode: DiscountMode | None = None
+    discount_group_id: str | None = None
 
     @staticmethod
-    def from_dict(data: dict) -> Discount:
+    def from_dict(data: dict[str, Any]) -> Discount:
         return Discount(
             amount=data["amount"],
             code=data.get("code"),
@@ -47,4 +50,6 @@ class Discount(Entity):
             custom_data=CustomData(data["custom_data"]) if data.get("custom_data") else None,
             expires_at=datetime.fromisoformat(data["expires_at"]) if data.get("expires_at") else None,
             import_meta=ImportMeta.from_dict(data["import_meta"]) if data.get("import_meta") else None,
+            mode=DiscountMode(data["mode"]) if data.get("mode") else None,
+            discount_group_id=data.get("discount_group_id"),
         )

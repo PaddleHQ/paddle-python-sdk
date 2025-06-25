@@ -1,20 +1,21 @@
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 
+from paddle_billing.Operation import Operation
 from paddle_billing.Undefined import Undefined
 
 from paddle_billing.Entities.Subscriptions import (
     SubscriptionEffectiveFrom,
-    SubscriptionItems,
-    SubscriptionItemsWithPrice,
     SubscriptionOnPaymentFailure,
+)
+
+from paddle_billing.Resources.Subscriptions.Operations.Charge import (
+    SubscriptionChargeItem,
+    SubscriptionChargeItemWithPrice,
 )
 
 
 @dataclass
-class PreviewOneTimeCharge:
+class PreviewOneTimeCharge(Operation):
     effective_from: SubscriptionEffectiveFrom
-    items: list[SubscriptionItems | SubscriptionItemsWithPrice]
+    items: list[SubscriptionChargeItem | SubscriptionChargeItemWithPrice]
     on_payment_failure: SubscriptionOnPaymentFailure | Undefined = Undefined()
-
-    def get_parameters(self) -> dict:
-        return asdict(self)

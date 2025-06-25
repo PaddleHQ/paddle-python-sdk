@@ -1,5 +1,6 @@
 import json
 from requests import Response
+from typing import cast, Any
 
 from paddle_billing.Entities.Shared import Pagination
 
@@ -23,8 +24,14 @@ class ResponseParser:
         if self.body and "error" in self.body:
             self.error = self.parse_errors()
 
-    def get_data(self) -> list | dict:
+    def get_data(self) -> list[Any] | dict[str, Any]:
         return self.body.get("data", []) if self.body else []
+
+    def get_list(self) -> list[Any]:
+        return self.get_data()
+
+    def get_dict(self) -> dict[str, Any]:
+        return self.get_data()
 
     def get_error(self) -> ApiError | None:
         return self.error
@@ -34,10 +41,10 @@ class ResponseParser:
         pagination = meta.get("pagination", {}) if meta else {}
 
         return Pagination(
-            per_page=pagination.get("per_page"),
-            next=pagination.get("next"),
-            has_more=pagination.get("has_more"),
-            estimated_total=pagination.get("estimated_total"),
+            per_page=cast(int, pagination.get("per_page")),
+            next=cast(str, pagination.get("next")),
+            has_more=cast(bool, pagination.get("has_more")),
+            estimated_total=cast(int, pagination.get("estimated_total")),
         )
 
     def parse_errors(self) -> ApiError | None:

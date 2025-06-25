@@ -1,5 +1,6 @@
 from __future__ import annotations
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
+from typing import Any
 
 from paddle_billing.Notifications.Entities.Reports import ReportFilterName, ReportFilterOperator
 
@@ -8,11 +9,8 @@ from paddle_billing.Notifications.Entities.Reports import ReportFilterName, Repo
 class ReportFilter:
     name: ReportFilterName
     operator: ReportFilterOperator | None
-    value: list | str
+    value: list[Any] | str
 
     @staticmethod
-    def from_dict(data: dict) -> ReportFilter:
+    def from_dict(data: dict[str, Any]) -> ReportFilter:
         return ReportFilter(**data)
-
-    def get_parameters(self) -> dict:
-        return asdict(self)

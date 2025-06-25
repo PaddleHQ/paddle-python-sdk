@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Any
 
 from paddle_billing.Notifications.Entities.Shared.CountryCode import CountryCode
 from paddle_billing.Notifications.Entities.Shared.Money import Money
@@ -11,7 +12,7 @@ class UnitPriceOverride:
     unit_price: Money
 
     @staticmethod
-    def from_dict(data: dict) -> UnitPriceOverride:
+    def from_dict(data: dict[str, Any]) -> UnitPriceOverride:
         return UnitPriceOverride(
             country_codes=[CountryCode(code) for code in data["country_codes"]],
             unit_price=Money.from_dict(data["unit_price"]),

@@ -12,11 +12,11 @@ class ListAdjustments(HasParameters):
     def __init__(
         self,
         pager: Pager | None = None,
-        ids: list[str] = None,
-        statuses: list[AdjustmentStatus] = None,
-        customer_ids: list[str] = None,
-        transaction_ids: list[str] = None,
-        subscription_ids: list[str] = None,
+        ids: list[str] | None = None,
+        statuses: list[AdjustmentStatus] | None = None,
+        customer_ids: list[str] | None = None,
+        transaction_ids: list[str] | None = None,
+        subscription_ids: list[str] | None = None,
         action: Action | None = None,
     ):
         self.pager = pager
@@ -41,7 +41,7 @@ class ListAdjustments(HasParameters):
                     field_name, field_type.__name__, invalid_items
                 )
 
-    def get_parameters(self) -> dict:
+    def get_parameters(self) -> dict[str, str]:
         parameters = {}
         if self.pager:
             parameters.update(self.pager.get_parameters())

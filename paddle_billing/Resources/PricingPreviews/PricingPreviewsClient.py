@@ -14,7 +14,7 @@ class PricingPreviewsClient:
         self.response = None
 
     def preview_prices(self, operation: PreviewPrice) -> PricePreview:
-        self.response = self.client.post_raw("/pricing-preview", operation.get_parameters())
+        self.response = self.client.post_raw("/pricing-preview", operation)
         parser = ResponseParser(self.response)
 
-        return PricePreview.from_dict(parser.get_data())
+        return PricePreview.from_dict(parser.get_dict())

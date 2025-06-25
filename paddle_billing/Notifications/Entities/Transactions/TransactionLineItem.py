@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Any
 
 from paddle_billing.Notifications.Entities.Product import Product
 
@@ -20,7 +21,7 @@ class TransactionLineItem:
     product: Product
 
     @staticmethod
-    def from_dict(data: dict) -> TransactionLineItem:
+    def from_dict(data: dict[str, Any]) -> TransactionLineItem:
         return TransactionLineItem(
             id=data["id"],
             price_id=data["price_id"],

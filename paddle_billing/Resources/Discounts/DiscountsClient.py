@@ -17,7 +17,7 @@ class DiscountsClient:
         self.client = client
         self.response = None
 
-    def list(self, operation: ListDiscounts = None) -> DiscountCollection:
+    def list(self, operation: ListDiscounts | None = None) -> DiscountCollection:
         if operation is None:
             operation = ListDiscounts()
 
@@ -25,26 +25,26 @@ class DiscountsClient:
         parser = ResponseParser(self.response)
 
         return DiscountCollection.from_list(
-            parser.get_data(), Paginator(self.client, parser.get_pagination(), DiscountCollection)
+            parser.get_list(), Paginator(self.client, parser.get_pagination(), DiscountCollection)
         )
 
     def get(self, discount_id: str) -> Discount:
         self.response = self.client.get_raw(f"/discounts/{discount_id}")
         parser = ResponseParser(self.response)
 
-        return Discount.from_dict(parser.get_data())
+        return Discount.from_dict(parser.get_dict())
 
     def create(self, operation: CreateDiscount) -> Discount:
-        self.response = self.client.post_raw("/discounts", operation.get_parameters())
+        self.response = self.client.post_raw("/discounts", operation)
         parser = ResponseParser(self.response)
 
-        return Discount.from_dict(parser.get_data())
+        return Discount.from_dict(parser.get_dict())
 
     def update(self, discount_id: str, operation: UpdateDiscount) -> Discount:
-        self.response = self.client.patch_raw(f"/discounts/{discount_id}", operation.get_parameters())
+        self.response = self.client.patch_raw(f"/discounts/{discount_id}", operation)
         parser = ResponseParser(self.response)
 
-        return Discount.from_dict(parser.get_data())
+        return Discount.from_dict(parser.get_dict())
 
     def archive(self, discount_id: str) -> Discount:
         return self.update(discount_id, UpdateDiscount(status=DiscountStatus.Archived))

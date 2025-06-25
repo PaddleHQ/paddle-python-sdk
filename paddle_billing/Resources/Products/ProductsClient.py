@@ -19,7 +19,7 @@ class ProductsClient:
         self.client = client
         self.response = None
 
-    def list(self, operation: ListProducts = None) -> ProductCollection:
+    def list(self, operation: ListProducts | None = None) -> ProductCollection:
         if operation is None:
             operation = ListProducts()
 
@@ -27,7 +27,7 @@ class ProductsClient:
         parser = ResponseParser(self.response)
 
         return ProductCollection.from_list(
-            parser.get_data(), Paginator(self.client, parser.get_pagination(), ProductCollection)
+            parser.get_list(), Paginator(self.client, parser.get_pagination(), ProductCollection)
         )
 
     def get(self, product_id: str, includes=None) -> Product | Product:
@@ -49,19 +49,19 @@ class ProductsClient:
         self.response = self.client.get_raw(f"/products/{product_id}", params)
         parser = ResponseParser(self.response)
 
-        return Product.from_dict(parser.get_data())
+        return Product.from_dict(parser.get_dict())
 
     def create(self, operation: CreateProduct) -> Product:
-        self.response = self.client.post_raw("/products", operation.get_parameters())
+        self.response = self.client.post_raw("/products", operation)
         parser = ResponseParser(self.response)
 
-        return Product.from_dict(parser.get_data())
+        return Product.from_dict(parser.get_dict())
 
     def update(self, product_id: str, operation: UpdateProduct) -> Product:
-        self.response = self.client.patch_raw(f"/products/{product_id}", operation.get_parameters())
+        self.response = self.client.patch_raw(f"/products/{product_id}", operation)
         parser = ResponseParser(self.response)
 
-        return Product.from_dict(parser.get_data())
+        return Product.from_dict(parser.get_dict())
 
     def archive(self, product_id: str) -> Product:
         return self.update(product_id, UpdateProduct(status=Status.Archived))

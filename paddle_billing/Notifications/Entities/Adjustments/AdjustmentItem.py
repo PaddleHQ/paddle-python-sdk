@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Any
 
 from paddle_billing.Notifications.Entities.Shared import AdjustmentItemTotals, AdjustmentType, Proration
 
@@ -14,7 +15,7 @@ class AdjustmentItem:
     totals: AdjustmentItemTotals
 
     @staticmethod
-    def from_dict(data: dict) -> AdjustmentItem:
+    def from_dict(data: dict[str, Any]) -> AdjustmentItem:
         return AdjustmentItem(
             id=data["id"],
             item_id=data["item_id"],

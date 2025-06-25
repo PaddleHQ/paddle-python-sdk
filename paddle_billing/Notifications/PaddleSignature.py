@@ -26,7 +26,7 @@ class PaddleSignature:
         return "ts"
 
     @staticmethod
-    def parse(signature_header: str) -> tuple:
+    def parse(signature_header: str) -> tuple[int, dict[str, list[str]]]:
         """
         Parse the Paddle-Signature header to extract the timestamp and signature
 
@@ -62,7 +62,9 @@ class PaddleSignature:
 
         return compare_digest(generated_signature, signature)
 
-    def __do_verify(self, timestamp: str, signatures: list[str], raw_body: str, secret_key: Secret) -> bool:
+    def __do_verify(
+        self, timestamp: int, signatures: list[str], raw_body: str, secret_key: Secret | list[Secret]
+    ) -> bool:
         """
         Verifies an individual secret key against a Paddle-Signature header.
         Called by PaddleSignature.verify()

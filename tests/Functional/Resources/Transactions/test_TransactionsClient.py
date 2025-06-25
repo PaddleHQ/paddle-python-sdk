@@ -27,30 +27,47 @@ from paddle_billing.Entities.Shared import (
     Disposition,
 )
 
-from paddle_billing.Entities.Transactions import (
-    TransactionCreateItem,
-    TransactionCreateItemWithPrice,
-    TransactionNonCatalogPrice,
-    TransactionNonCatalogPriceWithProduct,
-    TransactionNonCatalogProduct,
-    TransactionItemPreviewWithNonCatalogPrice,
-    TransactionItemPreviewWithPriceId,
-)
-
 from paddle_billing.Resources.Transactions.Operations import (
     CreateTransaction,
     ListTransactions,
     TransactionIncludes,
     TransactionOrigin,
+    PreviewTransaction,
     PreviewTransactionByAddress,
     PreviewTransactionByCustomer,
     PreviewTransactionByIP,
     UpdateTransaction,
     GetTransactionInvoice,
+    ReviseTransaction,
 )
 
-from paddle_billing.Resources.Transactions.Operations.Create import CreateBillingDetails
-from paddle_billing.Resources.Transactions.Operations.Update import UpdateBillingDetails
+from paddle_billing.Resources.Transactions.Operations.Preview import (
+    TransactionItemPreviewWithNonCatalogPrice,
+    TransactionItemPreviewWithPriceId,
+)
+
+from paddle_billing.Resources.Transactions.Operations.Price import (
+    TransactionNonCatalogPrice,
+    TransactionNonCatalogPriceWithProduct,
+    TransactionNonCatalogProduct,
+)
+
+from paddle_billing.Resources.Transactions.Operations.Create import (
+    CreateBillingDetails,
+    TransactionCreateItem,
+    TransactionCreateItemWithPrice,
+)
+from paddle_billing.Resources.Transactions.Operations.Update import (
+    UpdateBillingDetails,
+    TransactionUpdateItem,
+    TransactionUpdateItemWithPrice,
+)
+
+from paddle_billing.Resources.Transactions.Operations.Revise import (
+    ReviseAddress,
+    ReviseBusiness,
+    ReviseCustomer,
+)
 
 from tests.Utils.ReadsFixture import ReadsFixtures
 
@@ -127,6 +144,7 @@ class TestTransactionsClient:
                 CreateTransaction(
                     items=[
                         TransactionCreateItemWithPrice(
+                            quantity=20,
                             price=TransactionNonCatalogPrice(
                                 description="Annual (per seat)",
                                 name="Annual (per seat)",
@@ -135,11 +153,53 @@ class TestTransactionsClient:
                                 tax_mode=TaxMode.AccountSetting,
                                 unit_price=Money("30000", CurrencyCode.USD),
                                 unit_price_overrides=[],
-                                quantity=PriceQuantity(10, 999),
+                                quantity=PriceQuantity(minimum=10, maximum=999),
                                 custom_data=None,
                                 product_id="pro_01gsz4t5hdjse780zja8vvr7jg",
                             ),
+                        ),
+                        TransactionCreateItemWithPrice(
                             quantity=20,
+                            price=TransactionNonCatalogPriceWithProduct(
+                                description="Annual (per seat)",
+                                name="Annual (per seat)",
+                                billing_cycle=Duration(Interval.Year, 1),
+                                trial_period=None,
+                                tax_mode=TaxMode.AccountSetting,
+                                unit_price=Money("30000", CurrencyCode.USD),
+                                unit_price_overrides=[],
+                                quantity=PriceQuantity(minimum=10, maximum=999),
+                                custom_data=None,
+                                product=TransactionNonCatalogProduct(
+                                    name="Analytics addon",
+                                    description="Some Description",
+                                    image_url="https://paddle.s3.amazonaws.com/user/165798/97dRpA6SXzcE6ekK9CAr_analytics.png",
+                                    tax_category=TaxCategory.Standard,
+                                    custom_data=CustomData({"key": "value"}),
+                                ),
+                            ),
+                        ),
+                        TransactionCreateItemWithPrice(
+                            quantity=20,
+                            price=TransactionNonCatalogPrice(
+                                description="Annual (per seat)",
+                                unit_price=Money("30000", CurrencyCode.USD),
+                                product_id="pro_01gsz4t5hdjse780zja8vvr7jg",
+                            ),
+                        ),
+                        TransactionCreateItemWithPrice(
+                            quantity=20,
+                            price=TransactionNonCatalogPriceWithProduct(
+                                description="Annual (per seat)",
+                                unit_price=Money("30000", CurrencyCode.USD),
+                                product=TransactionNonCatalogProduct(
+                                    name="Analytics addon",
+                                    description="Some Description",
+                                    image_url="https://paddle.s3.amazonaws.com/user/165798/97dRpA6SXzcE6ekK9CAr_analytics.png",
+                                    tax_category=TaxCategory.Standard,
+                                    custom_data=CustomData({"key": "value"}),
+                                ),
+                            ),
                         ),
                     ],
                 ),
@@ -324,12 +384,84 @@ class TestTransactionsClient:
                 ReadsFixtures.read_raw_json_fixture("response/full_entity"),
                 "/transactions/txn_01h7zcgmdc6tmwtjehp3sh7azf",
             ),
+            (
+                "txn_01h7zcgmdc6tmwtjehp3sh7azf",
+                UpdateTransaction(
+                    items=[
+                        TransactionUpdateItem("pri_01gsz91wy9k1yn7kx82aafwvea", 1),
+                        TransactionUpdateItem("pri_01gsz91wy9k1yn7kx82bafwvea", 5),
+                        TransactionUpdateItemWithPrice(
+                            TransactionNonCatalogPrice(
+                                description="some description",
+                                name="some name",
+                                product_id="pro_01gsz4t5hdjse780zja8vvr7jg",
+                                tax_mode=TaxMode.AccountSetting,
+                                unit_price=Money("1", CurrencyCode.GBP),
+                                unit_price_overrides=list(),
+                                quantity=PriceQuantity(1, 3),
+                                custom_data=CustomData({"key": "value"}),
+                                billing_cycle=Duration(Interval.Day, 1),
+                                trial_period=Duration(Interval.Day, 2),
+                            ),
+                            2,
+                        ),
+                        TransactionUpdateItemWithPrice(
+                            TransactionNonCatalogPriceWithProduct(
+                                description="some description",
+                                name="some name",
+                                product=TransactionNonCatalogProduct(
+                                    name="some name",
+                                    description="some description",
+                                    tax_category=TaxCategory.DigitalGoods,
+                                    image_url="https://www.example.com/image.jpg",
+                                    custom_data=CustomData({"key": "value"}),
+                                ),
+                                tax_mode=TaxMode.AccountSetting,
+                                unit_price=Money("1", CurrencyCode.GBP),
+                                unit_price_overrides=list(),
+                                quantity=PriceQuantity(1, 3),
+                                custom_data=CustomData({"key": "value"}),
+                                billing_cycle=Duration(Interval.Day, 1),
+                                trial_period=Duration(Interval.Day, 2),
+                            ),
+                            2,
+                        ),
+                        TransactionUpdateItemWithPrice(
+                            quantity=20,
+                            price=TransactionNonCatalogPrice(
+                                description="Annual (per seat)",
+                                unit_price=Money("30000", CurrencyCode.USD),
+                                product_id="pro_01gsz4t5hdjse780zja8vvr7jg",
+                            ),
+                        ),
+                        TransactionUpdateItemWithPrice(
+                            quantity=20,
+                            price=TransactionNonCatalogPriceWithProduct(
+                                description="Annual (per seat)",
+                                unit_price=Money("30000", CurrencyCode.USD),
+                                product=TransactionNonCatalogProduct(
+                                    name="Analytics addon",
+                                    description="Some Description",
+                                    image_url="https://paddle.s3.amazonaws.com/user/165798/97dRpA6SXzcE6ekK9CAr_analytics.png",
+                                    tax_category=TaxCategory.Standard,
+                                    custom_data=CustomData({"key": "value"}),
+                                ),
+                            ),
+                        ),
+                    ],
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/update_full_items"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/full_entity"),
+                "/transactions/txn_01h7zcgmdc6tmwtjehp3sh7azf",
+            ),
         ],
         ids=[
             "Update transaction with single new value",
             "Update transaction with partial new values",
             "Create transaction with minimal billing details",
             "Create transaction with full billing details",
+            "Create transaction with items",
         ],
     )
     def test_update_transaction_uses_expected_payload(
@@ -546,6 +678,26 @@ class TestTransactionsClient:
             unquote(last_request.url) == expected_url
         ), "The URL does not match the expected URL, verify the query string is correct"
 
+    def test_list_transactions_with_and_without_revised_at(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        expected_url = f"{test_client.base_url}/transactions"
+        mock_requests.get(
+            expected_url, status_code=200, text=ReadsFixtures.read_raw_json_fixture("response/list_default")
+        )
+
+        response = test_client.client.transactions.list()
+
+        assert isinstance(response, TransactionCollection)
+
+        transaction_without_revised_at = response.items[0]
+        assert transaction_without_revised_at.revised_at is None
+
+        transaction_with_revised_at = response.items[5]
+        assert transaction_with_revised_at.revised_at.isoformat() == "2023-07-26T15:35:05.739403+00:00"
+
     @mark.parametrize(
         "transaction_id, includes, expected_response_status, expected_response_body, expected_url",
         [
@@ -690,6 +842,95 @@ class TestTransactionsClient:
         "operation, expected_request_body, expected_response_status, expected_response_body, expected_url",
         [
             (
+                PreviewTransaction(
+                    items=[
+                        TransactionItemPreviewWithPriceId(
+                            price_id="pri_01he5kxqey1k8ankgef29cj4bv",
+                            quantity=1,
+                            include_in_totals=True,
+                        )
+                    ],
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/preview_default_basic"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/preview_entity"),
+                "/transactions/preview",
+            ),
+            (
+                PreviewTransaction(
+                    customer_id="ctm_01h844q4mznqpgqgm6evgw1w63",
+                    currency_code=CurrencyCode.USD,
+                    discount_id="dsc_01gtgztp8fpchantd5g1wrksa3",
+                    ignore_trials=True,
+                    items=[
+                        TransactionItemPreviewWithNonCatalogPrice(
+                            quantity=20,
+                            include_in_totals=True,
+                            price=TransactionNonCatalogPrice(
+                                description="Annual (per seat)",
+                                name="Annual (per seat)",
+                                billing_cycle=Duration(Interval.Year, 1),
+                                trial_period=None,
+                                tax_mode=TaxMode.AccountSetting,
+                                unit_price=Money("30000", CurrencyCode.USD),
+                                unit_price_overrides=[],
+                                quantity=PriceQuantity(minimum=10, maximum=999),
+                                custom_data=None,
+                                product_id="pro_01gsz4t5hdjse780zja8vvr7jg",
+                            ),
+                        ),
+                        TransactionItemPreviewWithNonCatalogPrice(
+                            quantity=20,
+                            include_in_totals=True,
+                            price=TransactionNonCatalogPriceWithProduct(
+                                description="Annual (per seat)",
+                                name="Annual (per seat)",
+                                billing_cycle=Duration(Interval.Year, 1),
+                                trial_period=None,
+                                tax_mode=TaxMode.AccountSetting,
+                                unit_price=Money("30000", CurrencyCode.USD),
+                                unit_price_overrides=[],
+                                quantity=PriceQuantity(minimum=10, maximum=999),
+                                custom_data=None,
+                                product=TransactionNonCatalogProduct(
+                                    name="Analytics addon",
+                                    description="Some Description",
+                                    image_url="https://paddle.s3.amazonaws.com/user/165798/97dRpA6SXzcE6ekK9CAr_analytics.png",
+                                    tax_category=TaxCategory.Standard,
+                                    custom_data=CustomData({"key": "value"}),
+                                ),
+                            ),
+                        ),
+                        TransactionItemPreviewWithNonCatalogPrice(
+                            quantity=20,
+                            price=TransactionNonCatalogPrice(
+                                description="Annual (per seat)",
+                                unit_price=Money("30000", CurrencyCode.USD),
+                                product_id="pro_01gsz4t5hdjse780zja8vvr7jg",
+                            ),
+                        ),
+                        TransactionItemPreviewWithNonCatalogPrice(
+                            quantity=20,
+                            price=TransactionNonCatalogPriceWithProduct(
+                                description="Annual (per seat)",
+                                unit_price=Money("30000", CurrencyCode.USD),
+                                product=TransactionNonCatalogProduct(
+                                    name="Analytics addon",
+                                    description="Some Description",
+                                    image_url="https://paddle.s3.amazonaws.com/user/165798/97dRpA6SXzcE6ekK9CAr_analytics.png",
+                                    tax_category=TaxCategory.Standard,
+                                    custom_data=CustomData({"key": "value"}),
+                                ),
+                            ),
+                        ),
+                    ],
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/preview_default_full"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/preview_entity"),
+                "/transactions/preview",
+            ),
+            (
                 PreviewTransactionByAddress(
                     address=AddressPreview(
                         postal_code="12345",
@@ -748,6 +989,28 @@ class TestTransactionsClient:
                                 unit_price_overrides=[],
                                 quantity=PriceQuantity(minimum=10, maximum=999),
                                 custom_data=None,
+                                product=TransactionNonCatalogProduct(
+                                    name="Analytics addon",
+                                    description="Some Description",
+                                    image_url="https://paddle.s3.amazonaws.com/user/165798/97dRpA6SXzcE6ekK9CAr_analytics.png",
+                                    tax_category=TaxCategory.Standard,
+                                    custom_data=CustomData({"key": "value"}),
+                                ),
+                            ),
+                        ),
+                        TransactionItemPreviewWithNonCatalogPrice(
+                            quantity=20,
+                            price=TransactionNonCatalogPrice(
+                                description="Annual (per seat)",
+                                unit_price=Money("30000", CurrencyCode.USD),
+                                product_id="pro_01gsz4t5hdjse780zja8vvr7jg",
+                            ),
+                        ),
+                        TransactionItemPreviewWithNonCatalogPrice(
+                            quantity=20,
+                            price=TransactionNonCatalogPriceWithProduct(
+                                description="Annual (per seat)",
+                                unit_price=Money("30000", CurrencyCode.USD),
                                 product=TransactionNonCatalogProduct(
                                     name="Analytics addon",
                                     description="Some Description",
@@ -828,6 +1091,28 @@ class TestTransactionsClient:
                                 ),
                             ),
                         ),
+                        TransactionItemPreviewWithNonCatalogPrice(
+                            quantity=20,
+                            price=TransactionNonCatalogPrice(
+                                description="Annual (per seat)",
+                                unit_price=Money("30000", CurrencyCode.USD),
+                                product_id="pro_01gsz4t5hdjse780zja8vvr7jg",
+                            ),
+                        ),
+                        TransactionItemPreviewWithNonCatalogPrice(
+                            quantity=20,
+                            price=TransactionNonCatalogPriceWithProduct(
+                                description="Annual (per seat)",
+                                unit_price=Money("30000", CurrencyCode.USD),
+                                product=TransactionNonCatalogProduct(
+                                    name="Analytics addon",
+                                    description="Some Description",
+                                    image_url="https://paddle.s3.amazonaws.com/user/165798/97dRpA6SXzcE6ekK9CAr_analytics.png",
+                                    tax_category=TaxCategory.Standard,
+                                    custom_data=CustomData({"key": "value"}),
+                                ),
+                            ),
+                        ),
                     ],
                 ),
                 ReadsFixtures.read_raw_json_fixture("request/preview_by_customer_full"),
@@ -897,6 +1182,28 @@ class TestTransactionsClient:
                                 ),
                             ),
                         ),
+                        TransactionItemPreviewWithNonCatalogPrice(
+                            quantity=20,
+                            price=TransactionNonCatalogPrice(
+                                description="Annual (per seat)",
+                                unit_price=Money("30000", CurrencyCode.USD),
+                                product_id="pro_01gsz4t5hdjse780zja8vvr7jg",
+                            ),
+                        ),
+                        TransactionItemPreviewWithNonCatalogPrice(
+                            quantity=20,
+                            price=TransactionNonCatalogPriceWithProduct(
+                                description="Annual (per seat)",
+                                unit_price=Money("30000", CurrencyCode.USD),
+                                product=TransactionNonCatalogProduct(
+                                    name="Analytics addon",
+                                    description="Some Description",
+                                    image_url="https://paddle.s3.amazonaws.com/user/165798/97dRpA6SXzcE6ekK9CAr_analytics.png",
+                                    tax_category=TaxCategory.Standard,
+                                    custom_data=CustomData({"key": "value"}),
+                                ),
+                            ),
+                        ),
                     ],
                 ),
                 ReadsFixtures.read_raw_json_fixture("request/preview_by_ip_full"),
@@ -906,6 +1213,8 @@ class TestTransactionsClient:
             ),
         ],
         ids=[
+            "Basic transaction preview with no location information",
+            "Full transaction preview with no location information",
             "Basic transaction preview by address",
             "Full transaction preview by address",
             "Basic transaction preview by customer",
@@ -945,6 +1254,36 @@ class TestTransactionsClient:
         assert response_json == loads(
             str(expected_response_body)
         ), "The response JSON doesn't match the expected fixture JSON"
+
+    def test_preview_transaction_handles_null_ids(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        operation = PreviewTransactionByCustomer(
+            address_id="add_01hv8h6jj90jjz0d71m6hj4r9z",
+            customer_id="ctm_01h844q4mznqpgqgm6evgw1w63",
+            items=[
+                TransactionItemPreviewWithPriceId(
+                    price_id="pri_01he5kxqey1k8ankgef29cj4bv",
+                    quantity=1,
+                    include_in_totals=True,
+                )
+            ],
+        )
+        expected_response_body = ReadsFixtures.read_raw_json_fixture("response/preview_entity")
+        expected_path = "/transactions/preview"
+
+        expected_url = f"{test_client.base_url}{expected_path}"
+        mock_requests.post(expected_url, status_code=200, text=expected_response_body)
+
+        response = test_client.client.transactions.preview(operation)
+
+        assert isinstance(response, TransactionPreview)
+        assert response.items[2].price.id is None
+        assert response.items[2].price.product_id is None
+        assert response.details.line_items[0].price_id is None
+        assert response.details.line_items[0].product.id is None
 
     def test_get_transaction_invoice_pdf_returns_expected_response(self, test_client, mock_requests):
         transaction_id = "txn_01hen7bxc1p8ep4yk7n5jbzk9r"
@@ -1022,3 +1361,98 @@ class TestTransactionsClient:
         assert (
             unquote(last_request.url) == expected_url
         ), "The URL does not match the expected URL, verify the query string is correct"
+
+    @mark.parametrize(
+        "transaction_id, operation, expected_request_body, expected_response_status, expected_response_body, expected_path",
+        [
+            (
+                "txn_01h7zcgmdc6tmwtjehp3sh7azf",
+                ReviseTransaction(
+                    customer=ReviseCustomer(
+                        name="Sam Miller",
+                    ),
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/revise_customer"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/full_entity"),
+                "/transactions/txn_01h7zcgmdc6tmwtjehp3sh7azf/revise",
+            ),
+            (
+                "txn_01h7zcgmdc6tmwtjehp3sh7azf",
+                ReviseTransaction(
+                    address=ReviseAddress(
+                        first_line="3811 Ditmars Blvd",
+                    ),
+                    customer=ReviseCustomer(
+                        name="Sam Miller",
+                    ),
+                    business=ReviseBusiness(
+                        name="Some Business",
+                    ),
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/revise_basic"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/full_entity"),
+                "/transactions/txn_01h7zcgmdc6tmwtjehp3sh7azf/revise",
+            ),
+            (
+                "txn_01h7zcgmdc6tmwtjehp3sh7azf",
+                ReviseTransaction(
+                    address=ReviseAddress(
+                        first_line="3811 Ditmars Blvd",
+                        second_line=None,
+                        city="Some City",
+                        region="Some Region",
+                    ),
+                    customer=ReviseCustomer(
+                        name="Sam Miller",
+                    ),
+                    business=ReviseBusiness(
+                        name="Some Business",
+                        tax_identifier="AB0123456789",
+                    ),
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/revise_full"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/full_entity"),
+                "/transactions/txn_01h7zcgmdc6tmwtjehp3sh7azf/revise",
+            ),
+        ],
+        ids=[
+            "Customer revision",
+            "Basic revision",
+            "Full revision",
+        ],
+    )
+    def test_revise_transaction_uses_expected_payload(
+        self,
+        test_client,
+        mock_requests,
+        transaction_id,
+        operation,
+        expected_request_body,
+        expected_response_status,
+        expected_response_body,
+        expected_path,
+    ):
+        expected_url = f"{test_client.base_url}{expected_path}"
+        mock_requests.post(expected_url, status_code=expected_response_status, text=expected_response_body)
+
+        response = test_client.client.transactions.revise(transaction_id, operation)
+        response_json = test_client.client.transactions.response.json()
+        request_json = test_client.client.payload
+        last_request = mock_requests.last_request
+
+        assert isinstance(response, Transaction)
+        assert last_request is not None
+        assert last_request.method == "POST"
+        assert test_client.client.status_code == expected_response_status
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
+        assert loads(request_json) == loads(
+            expected_request_body
+        ), "The request JSON doesn't match the expected fixture JSON"
+        assert response_json == loads(
+            str(expected_response_body)
+        ), "The response JSON doesn't match the expected fixture JSON"

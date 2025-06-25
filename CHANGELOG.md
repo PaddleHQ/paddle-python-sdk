@@ -6,6 +6,148 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-python-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## [Unreleased]
+
+### Added
+
+- Added support for `balance` reports, see [related changelog](https://developer.paddle.com/changelog/2025/balance-reports?utm_source=dx&utm_medium=paddle-python-sdk).
+- Added support for API key events, see [related changelog](https://developer.paddle.com/changelog/2025/api-key-improvements?utm_source=dx&utm_medium=paddle-python-sdk).
+- Added support for discount mode
+- Added support for discount group resources, see [related changelog](https://developer.paddle.com/changelog/2025/discount-groups?utm_source=dx&utm_medium=paddle-python-sdk).
+- Added `tax_mode` to adjustment create operation
+- Support for simulation scenario configuration, see [related changelog](https://developer.paddle.com/changelog/2025/webhook-simulator-scenario-configuration?utm_source=dx&utm_medium=paddle-python-sdk)
+
+## 1.6.1 - 2025-06-10
+
+### Fixed
+- Fixed JSON encoding of undefined notification entities
+  - `paddle_billing.Notifications.Entities.UndefinedEntity` now implements `to_json` and can be encoded using `paddle_billing.Json.PayloadEncoder`
+- Improved type hints throughout SDK
+
+## 1.6.0 - 2025-02-10
+
+### Added
+
+- Added `PreviewTransaction` operation to support transaction previews without location information.
+
+### Fixed
+
+- Transaction preview `currency_code` can now be set to `null`.
+
+## 1.5.0 - 2025-01-28
+
+### Added
+
+- Added `transactions.revise` operation to revise a transaction and added `revised_at` to `Transaction` entity, see [related changelog](https://developer.paddle.com/changelog/2024/revise-transaction-customer-information?utm_source=dx&utm_medium=paddle-python-sdk).
+- Added support for `transaction.revised` notification, see [related changelog](https://developer.paddle.com/changelog/2024/revise-transaction-customer-information?utm_source=dx&utm_medium=paddle-python-sdk).
+- Added simulation API support [related changelog](https://developer.paddle.com/changelog/2024/webhook-simulator?utm_source=dx&utm_medium=paddle-python-sdk)
+  - `Client.simulations.create`
+  - `Client.simulations.update`
+  - `Client.simulations.get`
+  - `Client.simulations.list`
+  - `Client.simulation_runs.create`
+  - `Client.simulation_runs.get`
+  - `Client.simulation_runs.list`
+  - `Client.simulation_run_events.replay`
+  - `Client.simulation_run_events.get`
+  - `Client.simulation_run_events.list`
+  - `Client.simulation_types.list`
+
+## 1.4.0 - 2024-12-19
+
+### Added
+
+- Added `on_resume` support to subscription resume and pause operations
+
+## 1.3.1 - 2024-12-17
+
+### Fixed
+
+- Adjustment type in responses is now the correct type
+
+## 1.3.0 - 2024-12-17
+
+### Added
+
+- Support for adjustment type, see [related changelog](https://developer.paddle.com/changelog/2024/refund-credit-full-total?utm_source=dx&utm_medium=paddle-python-sdk)
+- Added Vietnamese Dong (`VND`) as a supported currency for payments [related changelog](https://developer.paddle.com/changelog/2024/vietnamese-dong-vnd-supported-currency?utm_source=dx&utm_medium=paddle-python-sdk)
+
+## 1.2.2 - 2024-12-17
+
+### Fixed
+
+- Subscription discount now supports null `starts_at`
+
+## 1.2.1 - 2024-12-04
+
+### Fixed
+
+- Subscription IDs can be omitted when creating customer portal sessions
+- Customer portal session customer ID will always be returned as string
+- `Client.notifications.replay` now calls correct endpoint
+
+## 1.2.0 - 2024-12-03
+
+### Added
+
+- Support for customer portal sessions, see [related changelog](https://developer.paddle.com/changelog/2024/customer-portal-sessions?utm_source=dx&utm_medium=paddle-python-sdk)
+  - `Client.customer_portal_sessions.create`
+
+## 1.1.2 - 2024-11-20
+
+### Fixed
+- `paddle_billing.Notifications.Entities.Subscription` and `paddle_billing.Notifications.Entities.SubscriptionCreated` `current_billing_period` would return `None` if `billing_details` was `None`. `current_billing_period` will now return `TimePeriod` when set.
+
+### Added
+
+- Added missing `traffic_source` property to `paddle_billing.Entities.NotificationSetting` entity
+
+## 1.1.1 - 2024-11-14
+
+### Fixed
+
+- `paddle_billing.Entities.PaymentMethod` `type` property is required
+
+## 1.1.0 - 2024-11-14
+
+### Added
+
+- Support for saved payment methods, see [related changelog](https://developer.paddle.com/changelog/2024/saved-payment-methods?utm_source=dx&utm_medium=paddle-python-sdk)
+  - `Client.payment_methods.list`
+  - `Client.payment_methods.get`
+  - `Client.payment_methods.delete`
+  - `Client.customers.create_auth_token`
+
+## 1.0.0 - 2024-11-11
+
+### Changed
+
+- `paddle_billing.Resources.Discounts.Operations.CreateDiscount` `expires_at` is now `paddle_billing.Entities.DateTime`
+- `paddle_billing.Resources.Discounts.Operations.UpdateDiscount` `expires_at` is now `paddle_billing.Entities.DateTime`
+- Transaction and Subscription operation items now allow optional properties to be omitted.
+  - The following property types have changed (See UPGRADING.md for further details)
+    - `paddle_billing.Resources.Subscriptions.Operations`:
+      - `UpdateSubscription.items`
+      - `PreviewUpdateSubscription.items`
+      - `CreateOneTimeCharge.items`
+      - `PreviewOneTimeCharge.items`
+    - `paddle_billing.Resources.Transactions.Operations`:
+      - `CreateTransaction.items`
+      - `UpdateTransaction.items`
+      - `PreviewTransactionByAddress.items`
+      - `PreviewTransactionByCustomer.items`
+      - `PreviewTransactionByIP.items`
+- Transaction and Subscription preview responses now support preview products and prices without IDs (see UPGRADING.md for further details)
+
+### Removed
+- `get_parameters()` method on request operation classes is now removed or replaced by `to_json()` (see UPGRADING.md for further details)
+
+## 0.3.2 - 2024-11-07
+
+### Fixed
+
+- `paddle_billing.Entities.Shared.TransactionLineItemPreview` `proration` can now be None
+
 ## 0.3.1 - 2024-10-14
 
 ### Fixed

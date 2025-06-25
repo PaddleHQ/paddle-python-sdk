@@ -10,13 +10,16 @@ from paddle_billing.Entities.Shared import (
     TimePeriod,
     TransactionStatus,
 )
-from paddle_billing.Entities.Transactions import TransactionCreateItem, TransactionCreateItemWithPrice
-from paddle_billing.Resources.Transactions.Operations.Update import UpdateBillingDetails
+from paddle_billing.Resources.Transactions.Operations.Update import (
+    TransactionUpdateItem,
+    TransactionUpdateItemWithPrice,
+    UpdateBillingDetails,
+)
 
 
 @dataclass
 class UpdateTransaction(Operation):
-    items: list[TransactionCreateItem | TransactionCreateItemWithPrice] = Undefined()
+    items: list[TransactionUpdateItem | TransactionUpdateItemWithPrice] = Undefined()
     status: TransactionStatus | Undefined = Undefined()
     customer_id: str | None | Undefined = Undefined()
     address_id: str | None | Undefined = Undefined()

@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Entities.Entity import Entity
 from paddle_billing.Entities.Shared import (
@@ -14,10 +15,6 @@ from paddle_billing.Entities.Shared import (
     TaxMode,
     UnitPriceOverride,
 )
-
-from paddle_billing.Logger import get_logger
-
-log = get_logger()
 
 
 @dataclass
@@ -41,7 +38,7 @@ class Price(Entity):
     updated_at: datetime
 
     @staticmethod
-    def from_dict(data: dict) -> Price:
+    def from_dict(data: dict[str, Any]) -> Price:
         return Price(
             id=data["id"],
             product_id=data["product_id"],

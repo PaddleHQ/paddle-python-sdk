@@ -13,7 +13,7 @@ class NotificationLogsClient:
         self.client = client
         self.response = None
 
-    def list(self, notification_id: str, operation: ListNotificationLogs = None) -> NotificationLogCollection:
+    def list(self, notification_id: str, operation: ListNotificationLogs | None = None) -> NotificationLogCollection:
         if operation is None:
             operation = ListNotificationLogs()
 
@@ -21,5 +21,5 @@ class NotificationLogsClient:
         parser = ResponseParser(self.response)
 
         return NotificationLogCollection.from_list(
-            parser.get_data(), Paginator(self.client, parser.get_pagination(), NotificationLogCollection)
+            parser.get_list(), Paginator(self.client, parser.get_pagination(), NotificationLogCollection)
         )

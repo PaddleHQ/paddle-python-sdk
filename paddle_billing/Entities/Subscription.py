@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Entities.Entity import Entity
 
@@ -54,7 +55,7 @@ class Subscription(Entity):
     custom_data: CustomData | None = None
 
     @staticmethod
-    def from_dict(data: dict) -> Subscription:
+    def from_dict(data: dict[str, Any]) -> Subscription:
         return Subscription(
             id=data["id"],
             status=SubscriptionStatus(data["status"]),

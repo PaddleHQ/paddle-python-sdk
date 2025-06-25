@@ -10,7 +10,7 @@ class GetTransactionInvoice(HasParameters):
     ):
         self.disposition = disposition
 
-    def get_parameters(self) -> dict:
+    def get_parameters(self) -> dict[str, str]:
         parameters = {}
 
         if self.disposition:

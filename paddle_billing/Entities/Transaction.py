@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Entities.Adjustment import Adjustment
 from paddle_billing.Entities.Entity import Entity
@@ -53,14 +54,15 @@ class Transaction(Entity):
     billed_at: datetime | None
     address: Address | None = None
     adjustments: list[Adjustment] | None = None
-    adjustment_totals: list[TransactionAdjustmentsTotals] | None = None
+    adjustment_totals: TransactionAdjustmentsTotals | None = None
     business: Business | None = None
     customer: Customer | None = None
     discount: Discount | None = None
     available_payment_methods: list[PaymentMethodType] | None = None
+    revised_at: datetime | None = None
 
     @staticmethod
-    def from_dict(data: dict) -> Transaction:
+    def from_dict(data: dict[str, Any]) -> Transaction:
         return Transaction(
             address_id=data.get("address_id"),
             business_id=data.get("business_id"),
@@ -95,4 +97,5 @@ class Transaction(Entity):
                 if data.get("adjustment_totals")
                 else None
             ),
+            revised_at=datetime.fromisoformat(data["revised_at"]) if data.get("revised_at") else None,
         )

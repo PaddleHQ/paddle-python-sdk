@@ -28,7 +28,7 @@ class NotificationSettingsClient:
         parser = ResponseParser(self.response)
 
         return NotificationSettingCollection.from_list(
-            parser.get_data(),
+            parser.get_list(),
             Paginator(self.client, parser.get_pagination(), NotificationSettingCollection),
         )
 
@@ -36,21 +36,19 @@ class NotificationSettingsClient:
         self.response = self.client.get_raw(f"/notification-settings/{notification_setting_id}")
         parser = ResponseParser(self.response)
 
-        return NotificationSetting.from_dict(parser.get_data())
+        return NotificationSetting.from_dict(parser.get_dict())
 
     def create(self, operation: CreateNotificationSetting) -> NotificationSetting:
-        self.response = self.client.post_raw("/notification-settings", operation.get_parameters())
+        self.response = self.client.post_raw("/notification-settings", operation)
         parser = ResponseParser(self.response)
 
-        return NotificationSetting.from_dict(parser.get_data())
+        return NotificationSetting.from_dict(parser.get_dict())
 
     def update(self, notification_setting_id: str, operation: UpdateNotificationSetting) -> NotificationSetting:
-        self.response = self.client.patch_raw(
-            f"/notification-settings/{notification_setting_id}", operation.get_parameters()
-        )
+        self.response = self.client.patch_raw(f"/notification-settings/{notification_setting_id}", operation)
         parser = ResponseParser(self.response)
 
-        return NotificationSetting.from_dict(parser.get_data())
+        return NotificationSetting.from_dict(parser.get_dict())
 
     def delete(self, notification_setting_id: str) -> None:
         self.client.delete_raw(f"/notification-settings/{notification_setting_id}")

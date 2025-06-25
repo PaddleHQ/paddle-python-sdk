@@ -17,7 +17,7 @@ class AddressesClient:
         self.client = client
         self.response = None
 
-    def list(self, customer_id: str, operation: ListAddresses = None) -> AddressCollection:
+    def list(self, customer_id: str, operation: ListAddresses | None = None) -> AddressCollection:
         if operation is None:
             operation = ListAddresses()
 
@@ -25,28 +25,26 @@ class AddressesClient:
         parser = ResponseParser(self.response)
 
         return AddressCollection.from_list(
-            parser.get_data(), Paginator(self.client, parser.get_pagination(), AddressCollection)
+            parser.get_list(), Paginator(self.client, parser.get_pagination(), AddressCollection)
         )
 
     def get(self, customer_id: str, address_id: str) -> Address:
         self.response = self.client.get_raw(f"/customers/{customer_id}/addresses/{address_id}")
         parser = ResponseParser(self.response)
 
-        return Address.from_dict(parser.get_data())
+        return Address.from_dict(parser.get_dict())
 
     def create(self, customer_id: str, operation: CreateAddress) -> Address:
-        self.response = self.client.post_raw(f"/customers/{customer_id}/addresses", operation.get_parameters())
+        self.response = self.client.post_raw(f"/customers/{customer_id}/addresses", operation)
         parser = ResponseParser(self.response)
 
-        return Address.from_dict(parser.get_data())
+        return Address.from_dict(parser.get_dict())
 
     def update(self, customer_id: str, address_id: str, operation: UpdateAddress) -> Address:
-        self.response = self.client.patch_raw(
-            f"/customers/{customer_id}/addresses/{address_id}", operation.get_parameters()
-        )
+        self.response = self.client.patch_raw(f"/customers/{customer_id}/addresses/{address_id}", operation)
         parser = ResponseParser(self.response)
 
-        return Address.from_dict(parser.get_data())
+        return Address.from_dict(parser.get_dict())
 
     def archive(self, customer_id: str, address_id: str) -> Address:
         return self.update(customer_id, address_id, UpdateAddress(status=Status.Archived))

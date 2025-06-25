@@ -1,12 +1,15 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Notifications.Entities.Entity import Entity
 from paddle_billing.Notifications.Entities.Shared import CatalogType, CustomData, ImportMeta, Status, TaxCategory
+from paddle_billing.Json import json_exclude
 
 
 @dataclass
+@json_exclude(["prices"])
 class Product(Entity):
     id: str
     name: str
@@ -16,13 +19,13 @@ class Product(Entity):
     image_url: str | None
     custom_data: CustomData | None = None
     import_meta: ImportMeta | None = None
-    prices: list[Price] | None = None
+    prices: list[Price] | None = None  # Deprecated: prices are not included in product notifications.
     type: CatalogType | None = None
     created_at: datetime | None = None
     updated_at: datetime | None = None
 
     @staticmethod
-    def from_dict(data: dict) -> Product:
+    def from_dict(data: dict[str, Any]) -> Product:
         return Product(
             description=data.get("description"),
             id=data["id"],

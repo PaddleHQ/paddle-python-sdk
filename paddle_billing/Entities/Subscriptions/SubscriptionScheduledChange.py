@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Entities.Subscriptions.SubscriptionScheduledChangeAction import SubscriptionScheduledChangeAction
 
@@ -12,7 +13,7 @@ class SubscriptionScheduledChange:
     resume_at: datetime | None
 
     @staticmethod
-    def from_dict(data: dict) -> SubscriptionScheduledChange:
+    def from_dict(data: dict[str, Any]) -> SubscriptionScheduledChange:
         return SubscriptionScheduledChange(
             action=SubscriptionScheduledChangeAction(data["action"]),
             effective_at=datetime.fromisoformat(data["effective_at"]),

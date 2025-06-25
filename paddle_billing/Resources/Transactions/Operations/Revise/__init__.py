@@ -1,0 +1,3 @@
+from paddle_billing.Resources.Transactions.Operations.Revise.ReviseAddress import ReviseAddress
+from paddle_billing.Resources.Transactions.Operations.Revise.ReviseBusiness import ReviseBusiness
+from paddle_billing.Resources.Transactions.Operations.Revise.ReviseCustomer import ReviseCustomer

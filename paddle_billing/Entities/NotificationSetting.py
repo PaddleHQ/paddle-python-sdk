@@ -1,9 +1,10 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Any
 
 from paddle_billing.Entities.Entity import Entity
 from paddle_billing.Entities.EventType import EventType
-from paddle_billing.Entities.NotificationSettings import NotificationSettingType
+from paddle_billing.Entities.NotificationSettings import NotificationSettingType, NotificationSettingTrafficSource
 
 
 @dataclass
@@ -17,9 +18,10 @@ class NotificationSetting(Entity):
     include_sensitive_fields: bool
     subscribed_events: list[EventType]
     endpoint_secret_key: str
+    traffic_source: NotificationSettingTrafficSource
 
     @staticmethod
-    def from_dict(data: dict) -> NotificationSetting:
+    def from_dict(data: dict[str, Any]) -> NotificationSetting:
         return NotificationSetting(
             id=data["id"],
             description=data["description"],
@@ -30,4 +32,5 @@ class NotificationSetting(Entity):
             include_sensitive_fields=data["include_sensitive_fields"],
             subscribed_events=[EventType.from_dict(event) for event in data.get("subscribed_events", [])],
             endpoint_secret_key=data["endpoint_secret_key"],
+            traffic_source=NotificationSettingTrafficSource(data["traffic_source"]),
         )

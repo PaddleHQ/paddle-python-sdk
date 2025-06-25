@@ -2,8 +2,9 @@ from __future__ import annotations
 from .Entity import Entity
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
-from paddle_billing.Entities.Discounts import DiscountStatus, DiscountType
+from paddle_billing.Entities.Discounts import DiscountMode, DiscountStatus, DiscountType
 from paddle_billing.Entities.Shared import CurrencyCode, ImportMeta, CustomData
 
 
@@ -27,9 +28,11 @@ class Discount(Entity):
     updated_at: datetime
     import_meta: ImportMeta | None
     custom_data: CustomData | None
+    mode: DiscountMode
+    discount_group_id: str | None
 
     @staticmethod
-    def from_dict(data: dict) -> Discount:
+    def from_dict(data: dict[str, Any]) -> Discount:
         return Discount(
             id=data["id"],
             status=DiscountStatus(data["status"]),
@@ -49,4 +52,6 @@ class Discount(Entity):
             expires_at=datetime.fromisoformat(data["expires_at"]) if data.get("expires_at") else None,
             import_meta=ImportMeta.from_dict(data["import_meta"]) if data.get("import_meta") else None,
             custom_data=CustomData(data["custom_data"]) if data.get("custom_data") else None,
+            mode=DiscountMode(data["mode"]),
+            discount_group_id=data.get("discount_group_id"),
         )

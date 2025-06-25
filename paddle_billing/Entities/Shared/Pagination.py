@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Any
 
 
 @dataclass
@@ -10,7 +11,7 @@ class Pagination:
     estimated_total: int
 
     @staticmethod
-    def from_dict(data: dict) -> Pagination:
+    def from_dict(data: dict[str, Any]) -> Pagination:
         return Pagination(
             per_page=data["per_page"],
             next=data["next"],

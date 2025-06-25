@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Any
 
 from paddle_billing.Entities.Shared import CurrencyCode
 
@@ -13,7 +14,7 @@ class SubscriptionResult:
     currency_code: CurrencyCode
 
     @staticmethod
-    def from_dict(data: dict) -> SubscriptionResult:
+    def from_dict(data: dict[str, Any]) -> SubscriptionResult:
         return SubscriptionResult(
             action=SubscriptionResultAction(data["action"]),
             amount=data["amount"],

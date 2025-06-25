@@ -100,7 +100,8 @@
                     "available_versions": [1]
                 }
             ],
-            "endpoint_secret_key": "pdl_ntfset_01gkpjp8bkm3tm53kdgkx6sms7_6h3qd3uFSi9YCD3OLYAShQI90XTI5vEI"
+            "endpoint_secret_key": "pdl_ntfset_01gkpjp8bkm3tm53kdgkx6sms7_6h3qd3uFSi9YCD3OLYAShQI90XTI5vEI",
+            "traffic_source": "all"
         },
         {
             "id": "ntfset_01gkpop8bkm3tm53itgkx6klk7",
@@ -202,7 +203,27 @@
                     "available_versions": [1]
                 }
             ],
-            "endpoint_secret_key": "ntfset_01gkpop8bkm3tm53itgkx6klk7_6h3qd3uFSi9YCD3OLYAShQI90XTI5vEI"
+            "endpoint_secret_key": "ntfset_01gkpop8bkm3tm53itgkx6klk7_6h3qd3uFSi9YCD3OLYAShQI90XTI5vEI",
+            "traffic_source": "platform"
+        },
+        {
+            "id": "ntfset_02gkpop8bkm3tm53itgkx6klk7",
+            "description": "Discord notifications",
+            "type": "url",
+            "destination": "https://hooks.discord.com/example",
+            "active": true,
+            "api_version": 1,
+            "include_sensitive_fields": false,
+            "subscribed_events": [
+                {
+                    "name": "transaction.billed",
+                    "description": "Occurs when a transaction is billed.",
+                    "group": "Transaction",
+                    "available_versions": [1]
+                }
+            ],
+            "endpoint_secret_key": "ntfset_02gkpop8bkm3tm53itgkx6klk7_6h3qd3uFSi9YCD3OLYAShQI90XTI5vEI",
+            "traffic_source": "simulation"
         }
     ],
     "meta": {

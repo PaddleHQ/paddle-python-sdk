@@ -1,5 +1,6 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
+from typing import Any
 from dataclasses import asdict, dataclass
 from importlib import import_module
 from paddle_billing.Notifications.Entities.EntityDict import EntityDict
@@ -10,14 +11,14 @@ from paddle_billing.Notifications.Entities.UndefinedEntity import UndefinedEntit
 class Entity(ABC, EntityDict):
     @staticmethod
     @abstractmethod
-    def from_dict(data: dict):
+    def from_dict(data: dict[str, Any]):
         """
         A static factory for the entity that conforms to the Paddle API.
         """
         pass
 
     @staticmethod
-    def from_dict_for_event_type(data: dict, event_type: str) -> Entity | UndefinedEntity:
+    def from_dict_for_event_type(data: dict[str, Any], event_type: str) -> Entity | UndefinedEntity:
         entity_class_name = Entity._resolve_event_class_name(event_type)
 
         entity_class = None
@@ -35,8 +36,8 @@ class Entity(ABC, EntityDict):
         if not instantiated_class:
             return UndefinedEntity(data)
 
-        if not issubclass(entity_class, Entity):
-            raise ValueError(f"Event type '{entity_class_name}' is not of NotificationEntity")
+        if entity_class is None or not issubclass(entity_class, Entity):
+            raise ValueError(f"Event type '{entity_class_name}' is not of Entity")
 
         return instantiated_class
 
@@ -44,10 +45,12 @@ class Entity(ABC, EntityDict):
     def _resolve_event_class_name(event_type) -> str:
         if event_type == "subscription.created":
             return "SubscriptionCreated"
+        if event_type == "payment_method.deleted":
+            return "PaymentMethodDeleted"
 
         event_entity = event_type.split(".")[0] or ""
 
-        return event_entity.lower().title()
+        return event_entity.lower().title().replace("_", "")
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, Any]:
         return asdict(self)

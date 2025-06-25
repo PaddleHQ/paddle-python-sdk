@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Notifications.Entities.Entity import Entity
 from paddle_billing.Notifications.Entities.Shared import (
@@ -47,7 +48,7 @@ class SubscriptionCreated(Entity):
     transaction_id: str | None = None
 
     @staticmethod
-    def from_dict(data: dict) -> SubscriptionCreated:
+    def from_dict(data: dict[str, Any]) -> SubscriptionCreated:
         return SubscriptionCreated(
             id=data["id"],
             transaction_id=data.get("transaction_id"),
@@ -71,7 +72,7 @@ class SubscriptionCreated(Entity):
             paused_at=datetime.fromisoformat(data["paused_at"]) if data.get("paused_at") else None,
             started_at=datetime.fromisoformat(data["started_at"]) if data.get("started_at") else None,
             current_billing_period=(
-                TimePeriod.from_dict(data["current_billing_period"]) if data.get("billing_details") else None
+                TimePeriod.from_dict(data["current_billing_period"]) if data.get("current_billing_period") else None
             ),
             scheduled_change=(
                 SubscriptionScheduledChange.from_dict(data["scheduled_change"])

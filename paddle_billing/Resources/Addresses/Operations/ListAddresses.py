@@ -27,7 +27,7 @@ class ListAddresses(HasParameters):
         if any(not isinstance(status, Status) for status in self.statuses):
             raise InvalidArgumentException.array_contains_invalid_types("statuses", Status.__name__)
 
-    def get_parameters(self) -> dict:
+    def get_parameters(self) -> dict[str, str]:
         parameters = {}
         if self.pager:
             parameters.update(self.pager.get_parameters())

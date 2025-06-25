@@ -5,7 +5,7 @@ from urllib.parse import unquote
 from paddle_billing.Entities.Collections import NotificationSettingCollection
 from paddle_billing.Entities.Events import EventTypeName
 from paddle_billing.Entities.NotificationSetting import NotificationSetting
-from paddle_billing.Entities.NotificationSettings import NotificationSettingType
+from paddle_billing.Entities.NotificationSettings import NotificationSettingType, NotificationSettingTrafficSource
 
 from paddle_billing.Resources.Shared.Operations import Pager
 
@@ -71,10 +71,61 @@ class TestNotificationSettingsClient:
                 ReadsFixtures.read_raw_json_fixture("response/full_entity"),
                 "/notification-settings",
             ),
+            (
+                CreateNotificationSetting(
+                    description="Slack notifications",
+                    type=NotificationSettingType.Url,
+                    destination="https://hooks.slack.com/example",
+                    include_sensitive_fields=False,
+                    subscribed_events=[
+                        EventTypeName.TransactionCreated,
+                    ],
+                    traffic_source=NotificationSettingTrafficSource.All,
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/create_traffic_all"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/minimal_entity"),
+                "/notification-settings",
+            ),
+            (
+                CreateNotificationSetting(
+                    description="Slack notifications",
+                    type=NotificationSettingType.Url,
+                    destination="https://hooks.slack.com/example",
+                    include_sensitive_fields=False,
+                    subscribed_events=[
+                        EventTypeName.TransactionCreated,
+                    ],
+                    traffic_source=NotificationSettingTrafficSource.Platform,
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/create_traffic_platform"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/minimal_entity"),
+                "/notification-settings",
+            ),
+            (
+                CreateNotificationSetting(
+                    description="Slack notifications",
+                    type=NotificationSettingType.Url,
+                    destination="https://hooks.slack.com/example",
+                    include_sensitive_fields=False,
+                    subscribed_events=[
+                        EventTypeName.TransactionCreated,
+                    ],
+                    traffic_source=NotificationSettingTrafficSource.Simulation,
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/create_traffic_simulation"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/minimal_entity"),
+                "/notification-settings",
+            ),
         ],
         ids=[
             "Create notification-setting with basic data",
             "Create notification-setting with full data",
+            "Create notification-setting for all traffic",
+            "Create notification-setting for platform traffic",
+            "Create notification-setting for simulation traffic",
         ],
     )
     def test_create_notification_setting_uses_expected_payload(
@@ -158,11 +209,44 @@ class TestNotificationSettingsClient:
                 ReadsFixtures.read_raw_json_fixture("response/full_entity"),
                 "/notification-settings/ntfset_01gkpjp8bkm3tm53kdgkx6sms7",
             ),
+            (
+                "ntfset_01gkpjp8bkm3tm53kdgkx6sms7",
+                UpdateNotificationSetting(
+                    traffic_source=NotificationSettingTrafficSource.All,
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/update_traffic_all"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/full_entity"),
+                "/notification-settings/ntfset_01gkpjp8bkm3tm53kdgkx6sms7",
+            ),
+            (
+                "ntfset_01gkpjp8bkm3tm53kdgkx6sms7",
+                UpdateNotificationSetting(
+                    traffic_source=NotificationSettingTrafficSource.Platform,
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/update_traffic_platform"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/full_entity"),
+                "/notification-settings/ntfset_01gkpjp8bkm3tm53kdgkx6sms7",
+            ),
+            (
+                "ntfset_01gkpjp8bkm3tm53kdgkx6sms7",
+                UpdateNotificationSetting(
+                    traffic_source=NotificationSettingTrafficSource.Simulation,
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/update_traffic_simulation"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/full_entity"),
+                "/notification-settings/ntfset_01gkpjp8bkm3tm53kdgkx6sms7",
+            ),
         ],
         ids=[
             "Update notification setting with basic data",
             "Update notification setting with partial data",
             "Update notification setting with full data",
+            "Create notification-setting for all traffic",
+            "Create notification-setting for platform traffic",
+            "Create notification-setting for simulation traffic",
         ],
     )
     def test_update_notification_setting_uses_expected_payload(
@@ -272,6 +356,24 @@ class TestNotificationSettingsClient:
                 ),
                 "/notification-settings?after=ntfset_01gkpjp8bkm3tm53kdgkx6sms7&order_by=id[desc]&per_page=100",
             ),
+            (
+                ListNotificationSettings(
+                    traffic_source=NotificationSettingTrafficSource.All,
+                ),
+                "/notification-settings?traffic_source=all",
+            ),
+            (
+                ListNotificationSettings(
+                    traffic_source=NotificationSettingTrafficSource.Platform,
+                ),
+                "/notification-settings?traffic_source=platform",
+            ),
+            (
+                ListNotificationSettings(
+                    traffic_source=NotificationSettingTrafficSource.Simulation,
+                ),
+                "/notification-settings?traffic_source=simulation",
+            ),
         ],
         ids=[
             "List all notification-settings",
@@ -279,6 +381,9 @@ class TestNotificationSettingsClient:
             "List inactive notification-settings",
             "List notification-settings with pagination",
             "List notification-settings with pagination after",
+            "List notification-settings for all traffic",
+            "List notification-settings for platform traffic",
+            "List notification-settings for simulation traffic",
         ],
     )
     def test_list_notification_settings_hits_expected_url(
@@ -331,6 +436,24 @@ class TestNotificationSettingsClient:
 
         assert len(allNotificationSettings) == 2
 
+    def test_list_notification_entities_have_traffic_source(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        mock_requests.get(
+            f"{test_client.base_url}/notification-settings",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture("response/list_default"),
+        )
+
+        response = test_client.client.notification_settings.list()
+
+        assert isinstance(response, NotificationSettingCollection)
+        assert response.items[0].traffic_source == NotificationSettingTrafficSource.All
+        assert response.items[1].traffic_source == NotificationSettingTrafficSource.Platform
+        assert response.items[2].traffic_source == NotificationSettingTrafficSource.Simulation
+
     @mark.parametrize(
         "notification_setting_id, expected_response_status, expected_response_body, expected_url",
         [
@@ -369,6 +492,9 @@ class TestNotificationSettingsClient:
         assert response_json == loads(
             str(expected_response_body)
         ), "The response JSON generated by ResponseParser() doesn't match the expected fixture JSON"
+
+        assert response.type == NotificationSettingType.Url
+        assert response.traffic_source == NotificationSettingTrafficSource.Platform
 
     @mark.parametrize(
         "notification_setting_id, expected_response_status, expected_path",

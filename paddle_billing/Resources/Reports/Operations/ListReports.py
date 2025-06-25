@@ -12,7 +12,7 @@ class ListReports(HasParameters):
     def __init__(
         self,
         pager: Pager | None = None,
-        statuses: list[ReportStatus] = None,
+        statuses: list[ReportStatus] | None = None,
     ):
         self.pager = pager
         self.statuses = statuses if statuses is not None else []
@@ -25,7 +25,7 @@ class ListReports(HasParameters):
                     field_name, field_type.__name__, invalid_items
                 )
 
-    def get_parameters(self) -> dict:
+    def get_parameters(self) -> dict[str, str]:
         parameters = {}
         if self.pager:
             parameters.update(self.pager.get_parameters())

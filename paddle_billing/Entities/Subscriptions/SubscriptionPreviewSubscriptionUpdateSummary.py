@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Any
 
 from paddle_billing.Entities.Subscriptions.SubscriptionCharge import SubscriptionCharge
 from paddle_billing.Entities.Subscriptions.SubscriptionCredit import SubscriptionCredit
@@ -13,7 +14,7 @@ class SubscriptionPreviewSubscriptionUpdateSummary:
     result: SubscriptionResult
 
     @staticmethod
-    def from_dict(data: dict) -> SubscriptionPreviewSubscriptionUpdateSummary:
+    def from_dict(data: dict[str, Any]) -> SubscriptionPreviewSubscriptionUpdateSummary:
         return SubscriptionPreviewSubscriptionUpdateSummary(
             credit=SubscriptionCredit.from_dict(data["credit"]),
             charge=SubscriptionCharge.from_dict(data["charge"]),

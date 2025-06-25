@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Any
 
 from paddle_billing.Entities.Entity import Entity
 from paddle_billing.Entities.Shared import AddressPreview, CurrencyCode, PaymentMethodType
@@ -19,7 +20,7 @@ class PricePreview(Entity):
     available_payment_methods: list[PaymentMethodType]
 
     @staticmethod
-    def from_dict(data: dict) -> PricePreview:
+    def from_dict(data: dict[str, Any]) -> PricePreview:
         return PricePreview(
             customer_id=data.get("customer_id"),
             address_id=data.get("address_id"),

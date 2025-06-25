@@ -13,12 +13,12 @@ class ListProducts(HasParameters):
     def __init__(
         self,
         pager: Pager | None = None,
-        includes: list[ProductIncludes] = None,
-        ids: list[str] = None,
-        types: list[CatalogType] = None,
-        product_ids: list[str] = None,
-        statuses: list[Status] = None,
-        tax_categories: list[TaxCategory] = None,
+        includes: list[ProductIncludes] | None = None,
+        ids: list[str] | None = None,
+        types: list[CatalogType] | None = None,
+        product_ids: list[str] | None = None,
+        statuses: list[Status] | None = None,
+        tax_categories: list[TaxCategory] | None = None,
     ):
         self.pager = pager
         self.includes = includes if includes is not None else []
@@ -42,7 +42,7 @@ class ListProducts(HasParameters):
                     field_name, field_type.__name__, invalid_items
                 )
 
-    def get_parameters(self) -> dict:
+    def get_parameters(self) -> dict[str, str]:
         parameters = {}
         if self.pager:
             parameters.update(self.pager.get_parameters())

@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Notifications.Entities.Entity import Entity
 from paddle_billing.Notifications.Entities.Shared import (
@@ -14,10 +15,6 @@ from paddle_billing.Notifications.Entities.Shared import (
     TaxMode,
     UnitPriceOverride,
 )
-
-from paddle_billing.Logger import get_logger
-
-log = get_logger()
 
 
 @dataclass
@@ -40,7 +37,7 @@ class Price(Entity):
     updated_at: datetime | None
 
     @classmethod
-    def from_dict(cls, data: dict) -> Price:
+    def from_dict(cls, data: dict[str, Any]) -> Price:
         return Price(
             id=data["id"],
             product_id=data["product_id"],
@@ -61,7 +58,3 @@ class Price(Entity):
             created_at=datetime.fromisoformat(data["created_at"]) if data.get("created_at") else None,
             updated_at=datetime.fromisoformat(data["updated_at"]) if data.get("updated_at") else None,
         )
-
-
-# Prevents circular import
-from paddle_billing.Entities.Product import Product  # noqa E402

@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 from paddle_billing.Notifications.Entities.Entity import Entity
 from paddle_billing.Notifications.Entities.Shared import (
@@ -43,9 +44,10 @@ class Transaction(Entity):
     created_at: datetime
     updated_at: datetime
     billed_at: datetime | None
+    revised_at: datetime | None = None
 
     @staticmethod
-    def from_dict(data: dict) -> Transaction:
+    def from_dict(data: dict[str, Any]) -> Transaction:
         return Transaction(
             address_id=data.get("address_id"),
             business_id=data.get("business_id"),
@@ -69,4 +71,5 @@ class Transaction(Entity):
             billing_period=TimePeriod.from_dict(data["billing_period"]) if data.get("billing_period") else None,
             custom_data=CustomData(data["custom_data"]) if data.get("custom_data") else None,
             checkout=Checkout.from_dict(data["checkout"]) if data.get("checkout") else None,
+            revised_at=datetime.fromisoformat(data["revised_at"]) if data.get("revised_at") else None,
         )

@@ -19,7 +19,7 @@ class PricesClient:
         self.client = client
         self.response = None
 
-    def list(self, operation: ListPrices = None) -> PriceCollection:
+    def list(self, operation: ListPrices | None = None) -> PriceCollection:
         if operation is None:
             operation = ListPrices()
 
@@ -27,7 +27,7 @@ class PricesClient:
         parser = ResponseParser(self.response)
 
         return PriceCollection.from_list(
-            parser.get_data(), Paginator(self.client, parser.get_pagination(), PriceCollection)
+            parser.get_list(), Paginator(self.client, parser.get_pagination(), PriceCollection)
         )
 
     def get(self, price_id: str, includes=None) -> Price:
@@ -44,19 +44,19 @@ class PricesClient:
         self.response = self.client.get_raw(f"/prices/{price_id}", params)
         parser = ResponseParser(self.response)
 
-        return Price.from_dict(parser.get_data())
+        return Price.from_dict(parser.get_dict())
 
     def create(self, operation: CreatePrice) -> Price:
-        self.response = self.client.post_raw("/prices", operation.get_parameters())
+        self.response = self.client.post_raw("/prices", operation)
         parser = ResponseParser(self.response)
 
-        return Price.from_dict(parser.get_data())
+        return Price.from_dict(parser.get_dict())
 
     def update(self, price_id: str, operation: UpdatePrice) -> Price:
-        self.response = self.client.patch_raw(f"/prices/{price_id}", operation.get_parameters())
+        self.response = self.client.patch_raw(f"/prices/{price_id}", operation)
         parser = ResponseParser(self.response)
 
-        return Price.from_dict(parser.get_data())
+        return Price.from_dict(parser.get_dict())
 
     def archive(self, price_id: str) -> Price:
         return self.update(price_id, UpdatePrice(status=Status.Archived))

@@ -1,4 +1,7 @@
-def recursively_remove_key(data: list | dict | None, key_to_remove: str):
+from typing import Any
+
+
+def recursively_remove_key(data: list[Any] | dict[Any, Any] | None, key_to_remove: str):
     """Remove key recursively from a dict or list"""
 
     if data is None:

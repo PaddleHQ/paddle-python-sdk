@@ -6,7 +6,14 @@ from paddle_billing.Entities.Event import Event
 
 from paddle_billing.Notifications.Entities.Subscription import Subscription
 from paddle_billing.Notifications.Entities.SubscriptionCreated import SubscriptionCreated
+from paddle_billing.Notifications.Entities.PaymentMethodDeleted import PaymentMethodDeleted
 from paddle_billing.Notifications.Entities.UndefinedEntity import UndefinedEntity
+
+from paddle_billing.Notifications.Entities.Shared import (
+    SavedPaymentMethodDeletionReason,
+    SavedPaymentMethodType,
+    SavedPaymentMethodOrigin,
+)
 
 from tests.Utils.ReadsFixture import ReadsFixtures
 
@@ -20,6 +27,11 @@ class TestEvent:
             ("address.updated", "Address"),
             ("adjustment.created", "Adjustment"),
             ("adjustment.updated", "Adjustment"),
+            ("api_key.created", "ApiKey"),
+            ("api_key.expired", "ApiKey"),
+            ("api_key.expiring", "ApiKey"),
+            ("api_key.revoked", "ApiKey"),
+            ("api_key.updated", "ApiKey"),
             ("business.created", "Business"),
             ("business.imported", "Business"),
             ("business.updated", "Business"),
@@ -29,6 +41,9 @@ class TestEvent:
             ("discount.created", "Discount"),
             ("discount.imported", "Discount"),
             ("discount.updated", "Discount"),
+            ("discount_group.created", "DiscountGroup"),
+            ("payment_method.deleted", "PaymentMethodDeleted"),
+            ("payment_method.saved", "PaymentMethod"),
             ("payout.created", "Payout"),
             ("payout.paid", "Payout"),
             ("price.created", "Price"),
@@ -64,6 +79,11 @@ class TestEvent:
             "address.updated",
             "adjustment.created",
             "adjustment.updated",
+            "api_key.created",
+            "api_key.expired",
+            "api_key.expiring",
+            "api_key.revoked",
+            "api_key.updated",
             "business.created",
             "business.imported",
             "business.updated",
@@ -73,6 +93,9 @@ class TestEvent:
             "discount.created",
             "discount.imported",
             "discount.updated",
+            "discount_group.created",
+            "payment_method.deleted",
+            "payment_method.saved",
             "payout.created",
             "payout.paid",
             "price.created",
@@ -199,3 +222,26 @@ class TestEvent:
         assert event.occurred_at.isoformat() == "2023-08-21T11:57:47.390028+00:00"
         assert isinstance(event.data, UndefinedEntity)
         assert event.data.to_dict()["id"] == "add_01hv8gq3318ktkfengj2r75gfx"
+
+    def test_payment_method_deleted(self):
+        event = Event.from_dict(
+            {
+                "data": loads(ReadsFixtures.read_raw_json_fixture("notification/entity/payment_method.deleted")),
+                "event_type": "payment_method.deleted",
+                "event_id": "evt_01h8bzakzx3hm2fmen703n5q45",
+                "occurred_at": "2023-08-21T11:57:47.390028Z",
+            }
+        )
+
+        assert event.event_id == "evt_01h8bzakzx3hm2fmen703n5q45"
+        assert event.event_type == "payment_method.deleted"
+        assert event.occurred_at.isoformat() == "2023-08-21T11:57:47.390028+00:00"
+        assert isinstance(event.data, PaymentMethodDeleted)
+        assert event.data.id == "paymtd_01hs8zx6x377xfsfrt2bqsevbw"
+        assert event.data.customer_id == "ctm_01hv6y1jedq4p1n0yqn5ba3ky4"
+        assert event.data.address_id == "add_01hv8gq3318ktkfengj2r75gfx"
+        assert event.data.type == SavedPaymentMethodType.Card
+        assert event.data.origin == SavedPaymentMethodOrigin.SavedDuringPurchase
+        assert event.data.saved_at.isoformat() == "2024-05-02T02:55:25.198953+00:00"
+        assert event.data.updated_at.isoformat() == "2024-05-03T12:24:18.826338+00:00"
+        assert event.data.deletion_reason == SavedPaymentMethodDeletionReason.ReplacedByNewerVersion

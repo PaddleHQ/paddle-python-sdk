@@ -1,15 +1,14 @@
-from json import dumps as json_dumps, JSONEncoder
+from json import dumps as json_dumps
 from logging import Logger, getLogger
 from requests import Response, RequestException, Session
 from requests.adapters import HTTPAdapter
+from typing import Any
 from urllib3.util.retry import Retry
 from urllib.parse import urljoin, urlencode
 from uuid import uuid4
-from dataclasses import fields, is_dataclass
+from paddle_billing.Json import PayloadEncoder
 
 from paddle_billing.Operation import Operation
-from paddle_billing.FiltersUndefined import FiltersUndefined
-from paddle_billing.Undefined import Undefined
 from paddle_billing.HasParameters import HasParameters
 from paddle_billing.Options import Options
 from paddle_billing.ResponseParser import ResponseParser
@@ -20,6 +19,8 @@ from paddle_billing.Resources.Addresses.AddressesClient import AddressesClient
 from paddle_billing.Resources.Adjustments.AdjustmentsClient import AdjustmentsClient
 from paddle_billing.Resources.Businesses.BusinessesClient import BusinessesClient
 from paddle_billing.Resources.Customers.CustomersClient import CustomersClient
+from paddle_billing.Resources.CustomerPortalSessions.CustomerPortalSessionsClient import CustomerPortalSessionsClient
+from paddle_billing.Resources.DiscountGroups.DiscountGroupsClient import DiscountGroupsClient
 from paddle_billing.Resources.Discounts.DiscountsClient import DiscountsClient
 from paddle_billing.Resources.Events.EventsClient import EventsClient
 from paddle_billing.Resources.EventTypes.EventTypesClient import EventTypesClient
@@ -27,30 +28,17 @@ from paddle_billing.Resources.IPAddresses.IPAddressesClient import IPAddressesCl
 from paddle_billing.Resources.Notifications.NotificationsClient import NotificationsClient
 from paddle_billing.Resources.NotificationLogs.NotificationLogsClient import NotificationLogsClient
 from paddle_billing.Resources.NotificationSettings.NotificationSettingsClient import NotificationSettingsClient
+from paddle_billing.Resources.PaymentMethods.PaymentMethodsClient import PaymentMethodsClient
 from paddle_billing.Resources.Prices.PricesClient import PricesClient
 from paddle_billing.Resources.PricingPreviews.PricingPreviewsClient import PricingPreviewsClient
 from paddle_billing.Resources.Products.ProductsClient import ProductsClient
 from paddle_billing.Resources.Reports.ReportsClient import ReportsClient
+from paddle_billing.Resources.Simulations.SimulationsClient import SimulationsClient
+from paddle_billing.Resources.SimulationRuns.SimulationRunsClient import SimulationRunsClient
+from paddle_billing.Resources.SimulationRunEvents.SimulationRunEventsClient import SimulationRunEventsClient
+from paddle_billing.Resources.SimulationTypes.SimulationTypesClient import SimulationTypesClient
 from paddle_billing.Resources.Subscriptions.SubscriptionsClient import SubscriptionsClient
 from paddle_billing.Resources.Transactions.TransactionsClient import TransactionsClient
-
-
-class PayloadEncoder(JSONEncoder):
-    def default(self, z):
-        if is_dataclass(z):
-            data = {}
-            for field in fields(z):
-                data[field.name] = getattr(z, field.name)
-
-            return FiltersUndefined.filter_undefined_values(data)
-
-        if isinstance(z, Undefined):
-            return None
-
-        if hasattr(z, "to_json") and callable(z.to_json):
-            return z.to_json()
-
-        return super().default(z)
 
 
 class Client:
@@ -61,9 +49,9 @@ class Client:
     def __init__(
         self,
         api_key: str,
-        options: Options = None,
-        http_client: Session = None,
-        logger: Logger = None,
+        options: Options | None = None,
+        http_client: Session | None = None,
+        logger: Logger | None = None,
         retry_count: int = 3,
         use_api_version: int = 1,
         timeout: float = 60.0,
@@ -84,16 +72,23 @@ class Client:
         self.adjustments = AdjustmentsClient(self)
         self.businesses = BusinessesClient(self)
         self.customers = CustomersClient(self)
+        self.customer_portal_sessions = CustomerPortalSessionsClient(self)
         self.discounts = DiscountsClient(self)
+        self.discount_groups = DiscountGroupsClient(self)
         self.events = EventsClient(self)
         self.event_types = EventTypesClient(self)
         self.notifications = NotificationsClient(self)
         self.notification_logs = NotificationLogsClient(self)
         self.notification_settings = NotificationSettingsClient(self)
+        self.payment_methods = PaymentMethodsClient(self)
         self.prices = PricesClient(self)
         self.pricing_previews = PricingPreviewsClient(self)
         self.products = ProductsClient(self)
         self.reports = ReportsClient(self)
+        self.simulations = SimulationsClient(self)
+        self.simulation_runs = SimulationRunsClient(self)
+        self.simulation_run_events = SimulationRunEventsClient(self)
+        self.simulation_types = SimulationTypesClient(self)
         self.subscriptions = SubscriptionsClient(self)
         self.transactions = TransactionsClient(self)
         self.ip_addresses = IPAddressesClient(self)
@@ -118,7 +113,7 @@ class Client:
         self.log.debug(f"Response: {response.status_code} {response.text}")
 
     @staticmethod
-    def serialize_json_payload(payload: dict | Operation) -> str:
+    def serialize_json_payload(payload: dict[str, Any] | Operation) -> str:
         json_payload = json_dumps(payload, cls=PayloadEncoder)
         final_json = json_payload if json_payload != "[]" else "{}"
 
@@ -128,7 +123,7 @@ class Client:
         self,
         method: str,
         url: str,
-        payload: dict | Operation | None = None,
+        payload: dict[str, Any] | Operation | None = None,
     ) -> Response:
         """
         Makes an actual API call to Paddle
@@ -165,7 +160,7 @@ class Client:
             raise
 
     @staticmethod
-    def format_uri_parameters(uri: str, parameters: HasParameters | dict) -> str:
+    def format_uri_parameters(uri: str, parameters: HasParameters | dict[str, str]) -> str:
         if isinstance(parameters, HasParameters):
             parameters = parameters.get_parameters()
 
@@ -175,25 +170,22 @@ class Client:
 
         return uri
 
-    def get_raw(self, url: str, parameters: HasParameters | dict = None) -> Response:
+    def get_raw(self, url: str, parameters: HasParameters | dict[str, str] | None = None) -> Response:
         url = Client.format_uri_parameters(url, parameters) if parameters else url
 
         return self._make_request("GET", url, None)
 
     def post_raw(
-        self, url: str, payload: dict | Operation | None = None, parameters: HasParameters | dict | None = None
+        self,
+        url: str,
+        payload: dict[str, str] | Operation | None = None,
+        parameters: HasParameters | dict[str, str] | None = None,
     ) -> Response:
-        if isinstance(payload, dict):
-            payload = FiltersUndefined.filter_undefined_values(payload)  # Strip Undefined items from the dict
-
         url = Client.format_uri_parameters(url, parameters) if parameters else url
 
         return self._make_request("POST", url, payload)
 
-    def patch_raw(self, url: str, payload: dict | Operation | None) -> Response:
-        if isinstance(payload, dict):
-            payload = FiltersUndefined.filter_undefined_values(payload)  # Strip Undefined items from the dict
-
+    def patch_raw(self, url: str, payload: dict[str, str] | Operation | None) -> Response:
         return self._make_request("PATCH", url, payload)
 
     def delete_raw(self, url: str) -> Response:
@@ -206,7 +198,7 @@ class Client:
                 "Authorization": f"Bearer {self.__api_key}",
                 "Content-Type": "application/json",
                 "Paddle-Version": str(self.use_api_version),
-                "User-Agent": "PaddleSDK/python 0.2.2",
+                "User-Agent": "PaddleSDK/python 1.6.1",
             }
         )
 

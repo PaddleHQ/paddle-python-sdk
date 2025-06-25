@@ -1,16 +1,13 @@
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 
+from paddle_billing.Operation import Operation
 from paddle_billing.Entities.DateTime import DateTime
-from paddle_billing.Entities.Subscriptions import SubscriptionEffectiveFrom
+from paddle_billing.Entities.Subscriptions import SubscriptionEffectiveFrom, SubscriptionOnResume
+from paddle_billing.Undefined import Undefined
 
 
 @dataclass
-class PauseSubscription:
+class PauseSubscription(Operation):
     effective_from: SubscriptionEffectiveFrom | None = None
     resume_at: DateTime | None = None
-
-    def get_parameters(self) -> dict:
-        parameters = asdict(self)
-        parameters["resume_at"] = self.resume_at.format() if isinstance(self.resume_at, DateTime) else self.resume_at
-
-        return parameters
+    on_resume: SubscriptionOnResume | Undefined = Undefined()
