@@ -16,6 +16,7 @@ class EventTypeName(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     DiscountCreated: "EventTypeName" = "discount.created"
     DiscountImported: "EventTypeName" = "discount.imported"
     DiscountUpdated: "EventTypeName" = "discount.updated"
+    DiscountGroupCreated: "EventTypeName" = "discount_group.created"
     InvoiceCanceled: "EventTypeName" = "invoice.canceled"
     InvoiceCreated: "EventTypeName" = "invoice.created"
     InvoiceIssued: "EventTypeName" = "invoice.issued"

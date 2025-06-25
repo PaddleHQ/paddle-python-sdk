@@ -20,6 +20,7 @@ from paddle_billing.Resources.Adjustments.AdjustmentsClient import AdjustmentsCl
 from paddle_billing.Resources.Businesses.BusinessesClient import BusinessesClient
 from paddle_billing.Resources.Customers.CustomersClient import CustomersClient
 from paddle_billing.Resources.CustomerPortalSessions.CustomerPortalSessionsClient import CustomerPortalSessionsClient
+from paddle_billing.Resources.DiscountGroups.DiscountGroupsClient import DiscountGroupsClient
 from paddle_billing.Resources.Discounts.DiscountsClient import DiscountsClient
 from paddle_billing.Resources.Events.EventsClient import EventsClient
 from paddle_billing.Resources.EventTypes.EventTypesClient import EventTypesClient
@@ -73,6 +74,7 @@ class Client:
         self.customers = CustomersClient(self)
         self.customer_portal_sessions = CustomerPortalSessionsClient(self)
         self.discounts = DiscountsClient(self)
+        self.discount_groups = DiscountGroupsClient(self)
         self.events = EventsClient(self)
         self.event_types = EventTypesClient(self)
         self.notifications = NotificationsClient(self)

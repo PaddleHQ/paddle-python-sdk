@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
+from paddle_billing.Notifications.Entities.Discount import DiscountMode
 from paddle_billing.Undefined import Undefined
 from paddle_billing.Notifications.Entities.Discounts import DiscountStatus, DiscountType
 from paddle_billing.Notifications.Entities.Shared import CurrencyCode, CustomData, ImportMeta
@@ -28,6 +29,8 @@ class Discount(SimulationEntity):
     maximum_recurring_intervals: int | None | Undefined = Undefined()
     restrict_to: list[Any] | None | Undefined = Undefined()
     usage_limit: int | None | Undefined = Undefined()
+    mode: DiscountMode | None | Undefined = Undefined()
+    discount_group_id: str | None | Undefined = Undefined()
 
     @staticmethod
     def from_dict(data: dict[str, Any]) -> Discount:
@@ -65,4 +68,6 @@ class Discount(SimulationEntity):
                 if isinstance(data.get("import_meta"), dict)
                 else data.get("import_meta", Undefined())
             ),
+            mode=DiscountMode(data["mode"]) if data.get("mode") else Undefined(),
+            discount_group_id=data.get("discount_group_id", Undefined()),
         )
