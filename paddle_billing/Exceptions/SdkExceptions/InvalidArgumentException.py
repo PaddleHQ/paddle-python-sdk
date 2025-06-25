@@ -22,3 +22,7 @@ class InvalidArgumentException(SdkException):
             message += f" ('{invalid_type_list}' given)"
 
         return InvalidArgumentException(message)
+
+    @staticmethod
+    def incompatible_arguments(incompatible_field: str, field: str):
+        return InvalidArgumentException(f"'{incompatible_field}' is not compatible with '{field}'")
