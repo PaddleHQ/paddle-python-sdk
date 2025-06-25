@@ -8,3 +8,4 @@ class ReportType(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     ProductsPrices: "ReportType" = "products_prices"
     Transactions: "ReportType" = "transactions"
     TransactionLineItems: "ReportType" = "transaction_line_items"
+    Balance: "ReportType" = "balance"

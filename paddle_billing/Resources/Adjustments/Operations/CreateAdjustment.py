@@ -4,7 +4,7 @@ from paddle_billing.Undefined import Undefined
 
 from paddle_billing.Operation import Operation
 
-from paddle_billing.Entities.Shared import Action, AdjustmentActionType
+from paddle_billing.Entities.Shared import Action, AdjustmentActionType, AdjustmentTaxMode
 
 from paddle_billing.Resources.Adjustments.Operations import CreateAdjustmentItem
 
@@ -18,6 +18,7 @@ class CreateAdjustment(Operation):
     reason: str
     transaction_id: str
     type: AdjustmentActionType | Undefined = Undefined()
+    tax_mode: AdjustmentTaxMode | Undefined = Undefined()
 
     def __post_init__(self):
         if self.type != AdjustmentActionType.Full and (
@@ -33,6 +34,7 @@ class CreateAdjustment(Operation):
         action: Action,
         reason: str,
         transaction_id: str,
+        tax_mode: AdjustmentTaxMode | Undefined = Undefined(),
     ) -> "CreateAdjustment":
         return CreateAdjustment(
             action=action,
@@ -40,6 +42,7 @@ class CreateAdjustment(Operation):
             transaction_id=transaction_id,
             items=Undefined(),
             type=AdjustmentActionType.Full,
+            tax_mode=tax_mode,
         )
 
     @staticmethod
@@ -48,6 +51,7 @@ class CreateAdjustment(Operation):
         items: list[CreateAdjustmentItem],
         reason: str,
         transaction_id: str,
+        tax_mode: AdjustmentTaxMode | Undefined = Undefined(),
     ) -> "CreateAdjustment":
         return CreateAdjustment(
             action=action,
@@ -55,4 +59,5 @@ class CreateAdjustment(Operation):
             transaction_id=transaction_id,
             items=items,
             type=AdjustmentActionType.Partial,
+            tax_mode=tax_mode,
         )

@@ -7,6 +7,7 @@ from paddle_billing.Entities.Report import Report
 from paddle_billing.Entities.ReportCSV import ReportCSV
 from paddle_billing.Entities.Reports import (
     AdjustmentsReportType,
+    BalanceReportType,
     DiscountsReportType,
     ProductsPricesReportType,
     ReportFilter,
@@ -56,6 +57,7 @@ from paddle_billing.Entities.Discounts import (
 
 from paddle_billing.Resources.Reports.Operations import (
     CreateAdjustmentsReport,
+    CreateBalanceReport,
     CreateDiscountsReport,
     CreateProductsAndPricesReport,
     CreateTransactionsReport,
@@ -140,6 +142,17 @@ class TestReportsClient:
                 ReadsFixtures.read_raw_json_fixture("request/create_products_prices_full"),
                 ProductsPricesReportType,
             ),
+            (
+                CreateBalanceReport(
+                    type=BalanceReportType.Balance,
+                    filters=[
+                        UpdatedAtFilter.gte(DateTime("2023-12-30")),
+                        UpdatedAtFilter.lt(DateTime("2024-12-30T12:30:01.123456Z")),
+                    ],
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/create_balance_full"),
+                BalanceReportType,
+            ),
         ],
         ids=[
             "Create transaction report with basic data",
@@ -148,6 +161,7 @@ class TestReportsClient:
             "Create adjustment report with filters",
             "Create discount report with filters",
             "Create products and prices report with filters",
+            "Create balance report with filters",
         ],
     )
     def test_create_report_uses_expected_payload(

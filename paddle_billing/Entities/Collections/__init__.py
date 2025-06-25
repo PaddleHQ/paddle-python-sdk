@@ -5,6 +5,7 @@ from paddle_billing.Entities.Collections.Collection import Collection
 from paddle_billing.Entities.Collections.CreditBalanceCollection import CreditBalanceCollection
 from paddle_billing.Entities.Collections.CustomerCollection import CustomerCollection
 from paddle_billing.Entities.Collections.DiscountCollection import DiscountCollection
+from paddle_billing.Entities.Collections.DiscountGroupCollection import DiscountGroupCollection
 from paddle_billing.Entities.Collections.EventCollection import EventCollection
 from paddle_billing.Entities.Collections.EventTypeCollection import EventTypeCollection
 from paddle_billing.Entities.Collections.NotificationCollection import NotificationCollection
