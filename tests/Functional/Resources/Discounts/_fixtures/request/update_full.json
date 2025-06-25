@@ -2,6 +2,7 @@
     "description": "Nonprofit discount",
     "enabled_for_checkout": true,
     "type": "percentage",
+    "mode": "custom",
     "amount": "10",
     "recur": true,
     "currency_code": "USD",
@@ -16,5 +17,6 @@
     "status": "active",
     "custom_data": {
         "key": "value"
-    }
+    },
+    "discount_group_id": "dsg_01gtf15svsqzgp9325ss4ebmwt"
 }
