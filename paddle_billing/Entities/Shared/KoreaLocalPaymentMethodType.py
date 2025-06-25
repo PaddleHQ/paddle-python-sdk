@@ -28,4 +28,5 @@ class KoreaLocalPaymentMethodType(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     Shinhyup: "KoreaLocalPaymentMethodType" = "shinhyup"
     Suhyup: "KoreaLocalPaymentMethodType" = "suhyup"
     TossBank: "KoreaLocalPaymentMethodType" = "tossbank"
+    Unknown: "KoreaLocalPaymentMethodType" = "unknown"
     Woori: "KoreaLocalPaymentMethodType" = "woori"
