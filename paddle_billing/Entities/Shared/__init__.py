@@ -24,6 +24,8 @@ from paddle_billing.Entities.Shared.Duration import Duration
 from paddle_billing.Entities.Shared.ErrorCode import ErrorCode
 from paddle_billing.Entities.Shared.ImportMeta import ImportMeta
 from paddle_billing.Entities.Shared.Interval import Interval
+from paddle_billing.Entities.Shared.KoreaLocalPaymentMethodType import KoreaLocalPaymentMethodType
+from paddle_billing.Entities.Shared.KoreaLocalUnderlyingDetails import KoreaLocalUnderlyingDetails
 from paddle_billing.Entities.Shared.Meta import Meta
 from paddle_billing.Entities.Shared.MetaPaginated import MetaPaginated
 from paddle_billing.Entities.Shared.MethodDetails import MethodDetails
@@ -32,6 +34,7 @@ from paddle_billing.Entities.Shared.Original import Original
 from paddle_billing.Entities.Shared.Pagination import Pagination
 from paddle_billing.Entities.Shared.PaymentAttemptStatus import PaymentAttemptStatus
 from paddle_billing.Entities.Shared.PaymentMethodType import PaymentMethodType
+from paddle_billing.Entities.Shared.PaymentMethodUnderlyingDetails import PaymentMethodUnderlyingDetails
 from paddle_billing.Entities.Shared.PayoutTotalsAdjustment import PayoutTotalsAdjustment
 from paddle_billing.Entities.Shared.Paypal import Paypal
 from paddle_billing.Entities.Shared.PriceQuantity import PriceQuantity

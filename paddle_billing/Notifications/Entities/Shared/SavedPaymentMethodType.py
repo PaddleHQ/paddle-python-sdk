@@ -6,4 +6,5 @@ class SavedPaymentMethodType(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     ApplePay: "SavedPaymentMethodType" = "apple_pay"
     Card: "SavedPaymentMethodType" = "card"
     GooglePay: "SavedPaymentMethodType" = "google_pay"
+    KoreaLocal: "SavedPaymentMethodType" = "korea_local"
     Paypal: "SavedPaymentMethodType" = "paypal"
