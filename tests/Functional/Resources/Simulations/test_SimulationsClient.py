@@ -3,13 +3,21 @@ from pytest import mark
 from urllib.parse import unquote
 from datetime import datetime
 
+from paddle_billing.Client import PayloadEncoder
 from paddle_billing.Entities.Collections import SimulationCollection
 from paddle_billing.Entities.Simulation import Simulation, SimulationScenarioType, SimulationStatus
+from paddle_billing.Entities.Simulations.Config.Options import (
+    BusinessSimulatedAs,
+    CustomerSimulatedAs,
+    DiscountSimulatedAs,
+    DunningExhaustedAction,
+    EffectiveFrom,
+)
 from paddle_billing.Notifications.Entities.Simulations import Address
 from paddle_billing.Notifications.Entities.Simulations.SimulationEntity import SimulationEntity
 from paddle_billing.Notifications.Entities.Simulations.Adjustment import Adjustment
 from paddle_billing.Entities.Events import EventTypeName
-from paddle_billing.Entities.Shared import (
+from paddle_billing.Notifications.Entities.Shared import (
     CountryCode,
     CustomData,
     ImportMeta,
@@ -19,6 +27,32 @@ from paddle_billing.Entities.Shared import (
 from paddle_billing.Resources.Simulations.Operations import CreateSimulation, ListSimulations, UpdateSimulation
 from paddle_billing.Resources.Shared.Operations import Pager
 
+from paddle_billing.Resources.Simulations.Operations.Config.Subscription.Cancellation import (
+    SubscriptionCancellationConfigCreate,
+    SubscriptionCancellationEntitiesCreate,
+    SubscriptionCancellationOptionsCreate,
+)
+from paddle_billing.Resources.Simulations.Operations.Config.Subscription.Creation import (
+    SubscriptionCreationConfigCreate,
+    SubscriptionCreationEntitiesCreate,
+    SubscriptionCreationOptionsCreate,
+    SubscriptionCreationItemCreate,
+)
+from paddle_billing.Resources.Simulations.Operations.Config.Subscription.Pause import (
+    SubscriptionPauseConfigCreate,
+    SubscriptionPauseEntitiesCreate,
+    SubscriptionPauseOptionsCreate,
+)
+from paddle_billing.Resources.Simulations.Operations.Config.Subscription.Renewal import (
+    SubscriptionRenewalConfigCreate,
+    SubscriptionRenewalEntitiesCreate,
+    SubscriptionRenewalOptionsCreate,
+)
+from paddle_billing.Resources.Simulations.Operations.Config.Subscription.Resume import (
+    SubscriptionResumeConfigCreate,
+    SubscriptionResumeEntitiesCreate,
+    SubscriptionResumeOptionsCreate,
+)
 from tests.Utils.ReadsFixture import ReadsFixtures
 
 
@@ -229,6 +263,7 @@ class TestSimulationsClient:
         entity_data = ReadsFixtures.read_json_fixture(f"payload/{event_type}")
         payload = SimulationEntity.from_dict_for_event_type(entity_data, event_type)
         assert payload.__class__.__name__ == entity_name
+        assert isinstance(payload, SimulationEntity)
 
         operation = CreateSimulation(
             notification_setting_id="ntfset_01j82d983j814ypzx7m1fw2jpz",
@@ -289,6 +324,7 @@ class TestSimulationsClient:
 
         # Check partial payloads are accepted.
         partial_payload = SimulationEntity.from_dict_for_event_type({"id": entity_data["id"]}, event_type)
+        assert isinstance(partial_payload, SimulationEntity)
 
         partial_operation = CreateSimulation(
             notification_setting_id="ntfset_01j82d983j814ypzx7m1fw2jpz",
@@ -353,7 +389,7 @@ class TestSimulationsClient:
                 ReadsFixtures.read_raw_json_fixture("request/update_single"),
                 200,
                 ReadsFixtures.read_raw_json_fixture("response/full_entity"),
-                "/simulations/pro_01h7zcgmdc6tmwtjehp3sh7azf",
+                "/simulations/ntfsim_01j82g2mggsgjpb3mjg0xq6p5k",
             ),
             (
                 UpdateSimulation(
@@ -363,7 +399,7 @@ class TestSimulationsClient:
                 ReadsFixtures.read_raw_json_fixture("request/update_partial"),
                 200,
                 ReadsFixtures.read_raw_json_fixture("response/full_entity"),
-                "/simulations/pro_01h7zcgmdc6tmwtjehp3sh7azf",
+                "/simulations/ntfsim_01j82g2mggsgjpb3mjg0xq6p5k",
             ),
             (
                 UpdateSimulation(
@@ -376,7 +412,7 @@ class TestSimulationsClient:
                 ReadsFixtures.read_raw_json_fixture("request/update_full"),
                 200,
                 ReadsFixtures.read_raw_json_fixture("response/full_entity_adjustment_updated"),
-                "/simulations/pro_01h7zcgmdc6tmwtjehp3sh7azf",
+                "/simulations/ntfsim_01j82g2mggsgjpb3mjg0xq6p5k",
             ),
         ],
         ids=[
@@ -398,7 +434,7 @@ class TestSimulationsClient:
         expected_url = f"{test_client.base_url}{expected_path}"
         mock_requests.patch(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        response = test_client.client.simulations.update("pro_01h7zcgmdc6tmwtjehp3sh7azf", operation)
+        response = test_client.client.simulations.update("ntfsim_01j82g2mggsgjpb3mjg0xq6p5k", operation)
         response_json = test_client.client.simulations.response.json()
         request_json = test_client.client.payload
         last_request = mock_requests.last_request
@@ -587,3 +623,713 @@ class TestSimulationsClient:
         assert address.updated_at.isoformat() == "2024-04-12T06:42:58.785000+00:00"
         assert address.custom_data is None
         assert address.import_meta is None
+
+    @mark.parametrize(
+        "type, config, expected_request_config, expected_response_body",
+        [
+            (
+                SimulationScenarioType.SubscriptionCreation,
+                SubscriptionCreationConfigCreate(
+                    entities=SubscriptionCreationEntitiesCreate(
+                        customer_id="ctm_01h04vsc0qhwtsbsxh3422wjs4",
+                        address_id="add_01h04vsc0qhwtsbsxh3422wjs4",
+                        business_id="biz_01h04vsc0qhwtsbsxh3422wjs4",
+                        payment_method_id="paymtd_01h04vsc0qhwtsbsxh3422wjs4",
+                        discount_id="dsc_01h04vsc0qhwtsbsxh3422wjs4",
+                        transaction_id="txn_01h04vsc0qhwtsbsxh3422wjs4",
+                    ),
+                    options=SubscriptionCreationOptionsCreate(
+                        customer_simulated_as=CustomerSimulatedAs.New,
+                        business_simulated_as=BusinessSimulatedAs.New,
+                        discount_simulated_as=DiscountSimulatedAs.NotProvided,
+                    ),
+                ),
+                ReadsFixtures.read_json_fixture("config/subscription_creation_txn_id"),
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_subscription_creation_txn_id"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionCreation,
+                SubscriptionCreationConfigCreate(
+                    entities=SubscriptionCreationEntitiesCreate(
+                        customer_id="ctm_01h04vsc0qhwtsbsxh3422wjs4",
+                        address_id="add_01h04vsc0qhwtsbsxh3422wjs4",
+                        business_id="biz_01h04vsc0qhwtsbsxh3422wjs4",
+                        payment_method_id="paymtd_01h04vsc0qhwtsbsxh3422wjs4",
+                        discount_id="dsc_01h04vsc0qhwtsbsxh3422wjs4",
+                        items=[
+                            SubscriptionCreationItemCreate(
+                                price_id="pri_01h04vsc0qhwtsbsxh3422wjs4",
+                                quantity=1,
+                            ),
+                        ],
+                    ),
+                    options=SubscriptionCreationOptionsCreate(
+                        customer_simulated_as=CustomerSimulatedAs.New,
+                        business_simulated_as=BusinessSimulatedAs.New,
+                        discount_simulated_as=DiscountSimulatedAs.NotProvided,
+                    ),
+                ),
+                ReadsFixtures.read_json_fixture("config/subscription_creation_new_customer"),
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_subscription_creation"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionCreation,
+                SubscriptionCreationConfigCreate(
+                    entities=SubscriptionCreationEntitiesCreate(
+                        customer_id="ctm_01h04vsc0qhwtsbsxh3422wjs4",
+                        address_id="add_01h04vsc0qhwtsbsxh3422wjs4",
+                        business_id="biz_01h04vsc0qhwtsbsxh3422wjs4",
+                        payment_method_id="paymtd_01h04vsc0qhwtsbsxh3422wjs4",
+                        discount_id="dsc_01h04vsc0qhwtsbsxh3422wjs4",
+                        items=[
+                            SubscriptionCreationItemCreate(
+                                price_id="pri_01h04vsc0qhwtsbsxh3422wjs4",
+                                quantity=1,
+                            ),
+                        ],
+                    ),
+                    options=SubscriptionCreationOptionsCreate(
+                        customer_simulated_as=CustomerSimulatedAs.ExistingEmailMatched,
+                        business_simulated_as=BusinessSimulatedAs.NotProvided,
+                        discount_simulated_as=DiscountSimulatedAs.EnteredByCustomer,
+                    ),
+                ),
+                ReadsFixtures.read_json_fixture("config/subscription_creation_matching_customer"),
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_subscription_creation"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionCreation,
+                SubscriptionCreationConfigCreate(
+                    entities=SubscriptionCreationEntitiesCreate(
+                        customer_id="ctm_01h04vsc0qhwtsbsxh3422wjs4",
+                        address_id="add_01h04vsc0qhwtsbsxh3422wjs4",
+                        business_id="biz_01h04vsc0qhwtsbsxh3422wjs4",
+                        payment_method_id="paymtd_01h04vsc0qhwtsbsxh3422wjs4",
+                        discount_id="dsc_01h04vsc0qhwtsbsxh3422wjs4",
+                        items=[
+                            SubscriptionCreationItemCreate(
+                                price_id="pri_01h04vsc0qhwtsbsxh3422wjs4",
+                                quantity=1,
+                            ),
+                        ],
+                    ),
+                    options=SubscriptionCreationOptionsCreate(
+                        customer_simulated_as=CustomerSimulatedAs.ExistingDetailsPrefilled,
+                        business_simulated_as=BusinessSimulatedAs.ExistingDetailsPrefilled,
+                        discount_simulated_as=DiscountSimulatedAs.NotProvided,
+                    ),
+                ),
+                ReadsFixtures.read_json_fixture("config/subscription_creation_prefilled_customer"),
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_subscription_creation"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionCreation,
+                SubscriptionCreationConfigCreate(
+                    entities=SubscriptionCreationEntitiesCreate(),
+                    options=SubscriptionCreationOptionsCreate(),
+                ),
+                {
+                    "subscription_creation": {
+                        "entities": {},
+                        "options": {},
+                    }
+                },
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_subscription_creation"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionRenewal,
+                SubscriptionRenewalConfigCreate(
+                    entities=SubscriptionRenewalEntitiesCreate(
+                        subscription_id="sub_01h04vsc0qhwtsbsxh3422wjs4",
+                    ),
+                    options=SubscriptionRenewalOptionsCreate.for_successful_payment(),
+                ),
+                ReadsFixtures.read_json_fixture("config/subscription_renewal_success"),
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_renewal_success"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionRenewal,
+                SubscriptionRenewalConfigCreate(
+                    entities=SubscriptionRenewalEntitiesCreate(),
+                ),
+                {
+                    "subscription_renewal": {
+                        "entities": {},
+                    }
+                },
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_renewal_success"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionRenewal,
+                SubscriptionRenewalConfigCreate(
+                    entities=SubscriptionRenewalEntitiesCreate(
+                        subscription_id="sub_01h04vsc0qhwtsbsxh3422wjs4",
+                    ),
+                    options=SubscriptionRenewalOptionsCreate.for_failed_payment(
+                        dunning_exhausted_action=DunningExhaustedAction.SubscriptionCanceled,
+                    ),
+                ),
+                ReadsFixtures.read_json_fixture("config/subscription_renewal_failed"),
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_renewal_failed"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionRenewal,
+                SubscriptionRenewalConfigCreate(
+                    entities=SubscriptionRenewalEntitiesCreate(
+                        subscription_id="sub_01h04vsc0qhwtsbsxh3422wjs4",
+                    ),
+                    options=SubscriptionRenewalOptionsCreate.for_recovered_updated_payment_method(),
+                ),
+                ReadsFixtures.read_json_fixture("config/subscription_renewal_recovered"),
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_renewal_recovered"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionRenewal,
+                SubscriptionRenewalConfigCreate(
+                    entities=SubscriptionRenewalEntitiesCreate(
+                        subscription_id="sub_01h04vsc0qhwtsbsxh3422wjs4",
+                    ),
+                    options=SubscriptionRenewalOptionsCreate.for_recovered_existing_payment_method(),
+                ),
+                ReadsFixtures.read_json_fixture("config/subscription_renewal_recovered_existing"),
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_renewal_recovered_existing"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionResume,
+                SubscriptionResumeConfigCreate(
+                    entities=SubscriptionResumeEntitiesCreate(
+                        subscription_id="sub_01h04vsc0qhwtsbsxh3422wjs4",
+                    ),
+                    options=SubscriptionResumeOptionsCreate.for_successful_payment(),
+                ),
+                ReadsFixtures.read_json_fixture("config/subscription_resume_success"),
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_resume_success"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionResume,
+                SubscriptionResumeConfigCreate(
+                    entities=SubscriptionResumeEntitiesCreate(),
+                ),
+                {
+                    "subscription_resume": {
+                        "entities": {},
+                    }
+                },
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_resume_success"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionResume,
+                SubscriptionResumeConfigCreate(
+                    entities=SubscriptionResumeEntitiesCreate(
+                        subscription_id="sub_01h04vsc0qhwtsbsxh3422wjs4",
+                    ),
+                    options=SubscriptionResumeOptionsCreate.for_failed_payment(
+                        dunning_exhausted_action=DunningExhaustedAction.SubscriptionPaused,
+                    ),
+                ),
+                ReadsFixtures.read_json_fixture("config/subscription_resume_failed"),
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_resume_failed"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionResume,
+                SubscriptionResumeConfigCreate(
+                    entities=SubscriptionResumeEntitiesCreate(
+                        subscription_id="sub_01h04vsc0qhwtsbsxh3422wjs4",
+                    ),
+                    options=SubscriptionResumeOptionsCreate.for_recovered_updated_payment_method(),
+                ),
+                ReadsFixtures.read_json_fixture("config/subscription_resume_recovered"),
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_resume_recovered"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionResume,
+                SubscriptionResumeConfigCreate(
+                    entities=SubscriptionResumeEntitiesCreate(
+                        subscription_id="sub_01h04vsc0qhwtsbsxh3422wjs4",
+                    ),
+                    options=SubscriptionResumeOptionsCreate.for_recovered_existing_payment_method(),
+                ),
+                ReadsFixtures.read_json_fixture("config/subscription_resume_recovered_existing"),
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_resume_recovered_existing"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionPause,
+                SubscriptionPauseConfigCreate(
+                    entities=SubscriptionPauseEntitiesCreate(),
+                    options=SubscriptionPauseOptionsCreate(),
+                ),
+                {
+                    "subscription_pause": {
+                        "entities": {},
+                        "options": {},
+                    }
+                },
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_pause"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionPause,
+                SubscriptionPauseConfigCreate(
+                    entities=SubscriptionPauseEntitiesCreate(
+                        subscription_id="sub_01h04vsc0qhwtsbsxh3422wjs4",
+                    ),
+                    options=SubscriptionPauseOptionsCreate(
+                        effective_from=EffectiveFrom.NextBillingPeriod,
+                        has_past_due_transaction=False,
+                    ),
+                ),
+                ReadsFixtures.read_json_fixture("config/subscription_pause"),
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_pause"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionCancellation,
+                SubscriptionCancellationConfigCreate(
+                    entities=SubscriptionCancellationEntitiesCreate(),
+                    options=SubscriptionCancellationOptionsCreate(),
+                ),
+                {
+                    "subscription_cancellation": {
+                        "entities": {},
+                        "options": {},
+                    }
+                },
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_cancel"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionCancellation,
+                SubscriptionCancellationConfigCreate(
+                    entities=SubscriptionCancellationEntitiesCreate(
+                        subscription_id="sub_01h04vsc0qhwtsbsxh3422wjs4",
+                    ),
+                    options=SubscriptionCancellationOptionsCreate(
+                        effective_from=EffectiveFrom.NextBillingPeriod,
+                        has_past_due_transaction=False,
+                    ),
+                ),
+                ReadsFixtures.read_json_fixture("config/subscription_cancel"),
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_cancel"),
+            ),
+        ],
+        ids=[
+            "Subscription creation simulation - transaction ID and new customer",
+            "Subscription creation simulation - items and new customer",
+            "Subscription creation simulation - matching customer",
+            "Subscription creation simulation - prefilled customer",
+            "Subscription creation simulation - minimal",
+            "Subscription renewal simulation with success outcome",
+            "Subscription renewal simulation with success outcome - minimal",
+            "Subscription renewal simulation with failed outcome",
+            "Subscription renewal simulation with recovered updated payment method",
+            "Subscription renewal simulation with recovered existing payment method",
+            "Subscription resume simulation with success outcome",
+            "Subscription resume simulation with success outcome - minimal",
+            "Subscription resume simulation with failed outcome",
+            "Subscription resume simulation with recovered updated payment method",
+            "Subscription resume simulation with recovered existing payment method",
+            "Subscription pause simulation",
+            "Subscription pause simulation - minimal",
+            "Subscription cancellation simulation",
+            "Subscription cancellation simulation - minimal",
+        ],
+    )
+    def test_create_simulation_uses_expected_config(
+        self,
+        test_client,
+        mock_requests,
+        type: SimulationScenarioType,
+        config,
+        expected_request_config,
+        expected_response_body,
+    ):
+        operation = CreateSimulation(
+            notification_setting_id="ntfset_01j82d983j814ypzx7m1fw2jpz",
+            type=type,
+            name="Scenario Create",
+            config=config,
+        )
+
+        expected_request_body = dumps(
+            {
+                "name": "Scenario Create",
+                "type": type.value,
+                "notification_setting_id": "ntfset_01j82d983j814ypzx7m1fw2jpz",
+                "config": expected_request_config,
+            }
+        )
+
+        expected_url = f"{test_client.base_url}/simulations"
+        mock_requests.post(expected_url, status_code=201, text=expected_response_body)
+
+        response = test_client.client.simulations.create(operation)
+        response_json = test_client.client.simulations.response.json()
+        request_json = test_client.client.payload
+        last_request = mock_requests.last_request
+
+        assert isinstance(response, Simulation)
+        assert last_request is not None
+        assert last_request.method == "POST"
+        assert test_client.client.status_code == 201
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
+        assert loads(request_json) == loads(
+            expected_request_body
+        ), "The request JSON doesn't match the expected fixture JSON"
+        assert response_json == loads(
+            str(expected_response_body)
+        ), "The response JSON doesn't match the expected fixture JSON"
+        assert loads(PayloadEncoder().encode(response)) == loads(expected_response_body)["data"]
+
+    @mark.parametrize(
+        "type, config, expected_request_config, expected_response_body",
+        [
+            (
+                SimulationScenarioType.SubscriptionCreation,
+                SubscriptionCreationConfigCreate(
+                    entities=SubscriptionCreationEntitiesCreate(
+                        customer_id="ctm_01h04vsc0qhwtsbsxh3422wjs4",
+                        address_id="add_01h04vsc0qhwtsbsxh3422wjs4",
+                        business_id="biz_01h04vsc0qhwtsbsxh3422wjs4",
+                        payment_method_id="paymtd_01h04vsc0qhwtsbsxh3422wjs4",
+                        discount_id="dsc_01h04vsc0qhwtsbsxh3422wjs4",
+                        transaction_id="txn_01h04vsc0qhwtsbsxh3422wjs4",
+                    ),
+                    options=SubscriptionCreationOptionsCreate(
+                        customer_simulated_as=CustomerSimulatedAs.New,
+                        business_simulated_as=BusinessSimulatedAs.New,
+                        discount_simulated_as=DiscountSimulatedAs.NotProvided,
+                    ),
+                ),
+                ReadsFixtures.read_json_fixture("config/subscription_creation_txn_id"),
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_subscription_creation_txn_id"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionCreation,
+                SubscriptionCreationConfigCreate(
+                    entities=SubscriptionCreationEntitiesCreate(
+                        customer_id="ctm_01h04vsc0qhwtsbsxh3422wjs4",
+                        address_id="add_01h04vsc0qhwtsbsxh3422wjs4",
+                        business_id="biz_01h04vsc0qhwtsbsxh3422wjs4",
+                        payment_method_id="paymtd_01h04vsc0qhwtsbsxh3422wjs4",
+                        discount_id="dsc_01h04vsc0qhwtsbsxh3422wjs4",
+                        items=[
+                            SubscriptionCreationItemCreate(
+                                price_id="pri_01h04vsc0qhwtsbsxh3422wjs4",
+                                quantity=1,
+                            ),
+                        ],
+                    ),
+                    options=SubscriptionCreationOptionsCreate(
+                        customer_simulated_as=CustomerSimulatedAs.New,
+                        business_simulated_as=BusinessSimulatedAs.New,
+                        discount_simulated_as=DiscountSimulatedAs.NotProvided,
+                    ),
+                ),
+                ReadsFixtures.read_json_fixture("config/subscription_creation_new_customer"),
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_subscription_creation"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionCreation,
+                SubscriptionCreationConfigCreate(
+                    entities=SubscriptionCreationEntitiesCreate(
+                        customer_id="ctm_01h04vsc0qhwtsbsxh3422wjs4",
+                        address_id="add_01h04vsc0qhwtsbsxh3422wjs4",
+                        business_id="biz_01h04vsc0qhwtsbsxh3422wjs4",
+                        payment_method_id="paymtd_01h04vsc0qhwtsbsxh3422wjs4",
+                        discount_id="dsc_01h04vsc0qhwtsbsxh3422wjs4",
+                        items=[
+                            SubscriptionCreationItemCreate(
+                                price_id="pri_01h04vsc0qhwtsbsxh3422wjs4",
+                                quantity=1,
+                            ),
+                        ],
+                    ),
+                    options=SubscriptionCreationOptionsCreate(
+                        customer_simulated_as=CustomerSimulatedAs.ExistingEmailMatched,
+                        business_simulated_as=BusinessSimulatedAs.NotProvided,
+                        discount_simulated_as=DiscountSimulatedAs.EnteredByCustomer,
+                    ),
+                ),
+                ReadsFixtures.read_json_fixture("config/subscription_creation_matching_customer"),
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_subscription_creation"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionCreation,
+                SubscriptionCreationConfigCreate(
+                    entities=SubscriptionCreationEntitiesCreate(
+                        customer_id="ctm_01h04vsc0qhwtsbsxh3422wjs4",
+                        address_id="add_01h04vsc0qhwtsbsxh3422wjs4",
+                        business_id="biz_01h04vsc0qhwtsbsxh3422wjs4",
+                        payment_method_id="paymtd_01h04vsc0qhwtsbsxh3422wjs4",
+                        discount_id="dsc_01h04vsc0qhwtsbsxh3422wjs4",
+                        items=[
+                            SubscriptionCreationItemCreate(
+                                price_id="pri_01h04vsc0qhwtsbsxh3422wjs4",
+                                quantity=1,
+                            ),
+                        ],
+                    ),
+                    options=SubscriptionCreationOptionsCreate(
+                        customer_simulated_as=CustomerSimulatedAs.ExistingDetailsPrefilled,
+                        business_simulated_as=BusinessSimulatedAs.ExistingDetailsPrefilled,
+                        discount_simulated_as=DiscountSimulatedAs.NotProvided,
+                    ),
+                ),
+                ReadsFixtures.read_json_fixture("config/subscription_creation_prefilled_customer"),
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_subscription_creation"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionCreation,
+                SubscriptionCreationConfigCreate(
+                    entities=SubscriptionCreationEntitiesCreate(),
+                    options=SubscriptionCreationOptionsCreate(),
+                ),
+                {
+                    "subscription_creation": {
+                        "entities": {},
+                        "options": {},
+                    }
+                },
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_subscription_creation"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionRenewal,
+                SubscriptionRenewalConfigCreate(
+                    entities=SubscriptionRenewalEntitiesCreate(
+                        subscription_id="sub_01h04vsc0qhwtsbsxh3422wjs4",
+                    ),
+                    options=SubscriptionRenewalOptionsCreate.for_successful_payment(),
+                ),
+                ReadsFixtures.read_json_fixture("config/subscription_renewal_success"),
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_renewal_success"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionRenewal,
+                SubscriptionRenewalConfigCreate(
+                    entities=SubscriptionRenewalEntitiesCreate(),
+                ),
+                {
+                    "subscription_renewal": {
+                        "entities": {},
+                    }
+                },
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_renewal_success"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionRenewal,
+                SubscriptionRenewalConfigCreate(
+                    entities=SubscriptionRenewalEntitiesCreate(
+                        subscription_id="sub_01h04vsc0qhwtsbsxh3422wjs4",
+                    ),
+                    options=SubscriptionRenewalOptionsCreate.for_failed_payment(
+                        dunning_exhausted_action=DunningExhaustedAction.SubscriptionCanceled,
+                    ),
+                ),
+                ReadsFixtures.read_json_fixture("config/subscription_renewal_failed"),
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_renewal_failed"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionRenewal,
+                SubscriptionRenewalConfigCreate(
+                    entities=SubscriptionRenewalEntitiesCreate(
+                        subscription_id="sub_01h04vsc0qhwtsbsxh3422wjs4",
+                    ),
+                    options=SubscriptionRenewalOptionsCreate.for_recovered_updated_payment_method(),
+                ),
+                ReadsFixtures.read_json_fixture("config/subscription_renewal_recovered"),
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_renewal_recovered"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionRenewal,
+                SubscriptionRenewalConfigCreate(
+                    entities=SubscriptionRenewalEntitiesCreate(
+                        subscription_id="sub_01h04vsc0qhwtsbsxh3422wjs4",
+                    ),
+                    options=SubscriptionRenewalOptionsCreate.for_recovered_existing_payment_method(),
+                ),
+                ReadsFixtures.read_json_fixture("config/subscription_renewal_recovered_existing"),
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_renewal_recovered_existing"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionResume,
+                SubscriptionResumeConfigCreate(
+                    entities=SubscriptionResumeEntitiesCreate(
+                        subscription_id="sub_01h04vsc0qhwtsbsxh3422wjs4",
+                    ),
+                    options=SubscriptionResumeOptionsCreate.for_successful_payment(),
+                ),
+                ReadsFixtures.read_json_fixture("config/subscription_resume_success"),
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_resume_success"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionResume,
+                SubscriptionResumeConfigCreate(
+                    entities=SubscriptionResumeEntitiesCreate(),
+                ),
+                {
+                    "subscription_resume": {
+                        "entities": {},
+                    }
+                },
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_resume_success"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionResume,
+                SubscriptionResumeConfigCreate(
+                    entities=SubscriptionResumeEntitiesCreate(
+                        subscription_id="sub_01h04vsc0qhwtsbsxh3422wjs4",
+                    ),
+                    options=SubscriptionResumeOptionsCreate.for_failed_payment(
+                        dunning_exhausted_action=DunningExhaustedAction.SubscriptionPaused,
+                    ),
+                ),
+                ReadsFixtures.read_json_fixture("config/subscription_resume_failed"),
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_resume_failed"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionResume,
+                SubscriptionResumeConfigCreate(
+                    entities=SubscriptionResumeEntitiesCreate(
+                        subscription_id="sub_01h04vsc0qhwtsbsxh3422wjs4",
+                    ),
+                    options=SubscriptionResumeOptionsCreate.for_recovered_updated_payment_method(),
+                ),
+                ReadsFixtures.read_json_fixture("config/subscription_resume_recovered"),
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_resume_recovered"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionResume,
+                SubscriptionResumeConfigCreate(
+                    entities=SubscriptionResumeEntitiesCreate(
+                        subscription_id="sub_01h04vsc0qhwtsbsxh3422wjs4",
+                    ),
+                    options=SubscriptionResumeOptionsCreate.for_recovered_existing_payment_method(),
+                ),
+                ReadsFixtures.read_json_fixture("config/subscription_resume_recovered_existing"),
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_resume_recovered_existing"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionPause,
+                SubscriptionPauseConfigCreate(
+                    entities=SubscriptionPauseEntitiesCreate(),
+                    options=SubscriptionPauseOptionsCreate(),
+                ),
+                {
+                    "subscription_pause": {
+                        "entities": {},
+                        "options": {},
+                    }
+                },
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_pause"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionPause,
+                SubscriptionPauseConfigCreate(
+                    entities=SubscriptionPauseEntitiesCreate(
+                        subscription_id="sub_01h04vsc0qhwtsbsxh3422wjs4",
+                    ),
+                    options=SubscriptionPauseOptionsCreate(
+                        effective_from=EffectiveFrom.NextBillingPeriod,
+                        has_past_due_transaction=False,
+                    ),
+                ),
+                ReadsFixtures.read_json_fixture("config/subscription_pause"),
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_pause"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionCancellation,
+                SubscriptionCancellationConfigCreate(
+                    entities=SubscriptionCancellationEntitiesCreate(),
+                    options=SubscriptionCancellationOptionsCreate(),
+                ),
+                {
+                    "subscription_cancellation": {
+                        "entities": {},
+                        "options": {},
+                    }
+                },
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_cancel"),
+            ),
+            (
+                SimulationScenarioType.SubscriptionCancellation,
+                SubscriptionCancellationConfigCreate(
+                    entities=SubscriptionCancellationEntitiesCreate(
+                        subscription_id="sub_01h04vsc0qhwtsbsxh3422wjs4",
+                    ),
+                    options=SubscriptionCancellationOptionsCreate(
+                        effective_from=EffectiveFrom.NextBillingPeriod,
+                        has_past_due_transaction=False,
+                    ),
+                ),
+                ReadsFixtures.read_json_fixture("config/subscription_cancel"),
+                ReadsFixtures.read_raw_json_fixture("response/full_entity_config_cancel"),
+            ),
+        ],
+        ids=[
+            "Subscription creation simulation - transaction ID and new customer",
+            "Subscription creation simulation - items and new customer",
+            "Subscription creation simulation - matching customer",
+            "Subscription creation simulation - prefilled customer",
+            "Subscription creation simulation - minimal",
+            "Subscription renewal simulation with success outcome",
+            "Subscription renewal simulation with success outcome - minimal",
+            "Subscription renewal simulation with failed outcome",
+            "Subscription renewal simulation with recovered updated payment method",
+            "Subscription renewal simulation with recovered existing payment method",
+            "Subscription resume simulation with success outcome",
+            "Subscription resume simulation with success outcome - minimal",
+            "Subscription resume simulation with failed outcome",
+            "Subscription resume simulation with recovered updated payment method",
+            "Subscription resume simulation with recovered existing payment method",
+            "Subscription pause simulation",
+            "Subscription pause simulation - minimal",
+            "Subscription cancellation simulation",
+            "Subscription cancellation simulation - minimal",
+        ],
+    )
+    def test_update_simulation_uses_expected_config(
+        self,
+        test_client,
+        mock_requests,
+        type: SimulationScenarioType,
+        config,
+        expected_request_config,
+        expected_response_body,
+    ):
+        operation = CreateSimulation(
+            notification_setting_id="ntfset_01j82d983j814ypzx7m1fw2jpz",
+            type=type,
+            name="Scenario Create",
+            config=config,
+        )
+
+        expected_request_body = dumps(
+            {
+                "name": "Scenario Create",
+                "type": type.value,
+                "notification_setting_id": "ntfset_01j82d983j814ypzx7m1fw2jpz",
+                "config": expected_request_config,
+            }
+        )
+
+        expected_url = f"{test_client.base_url}/simulations/ntfsim_01j82g2mggsgjpb3mjg0xq6p5k"
+        mock_requests.patch(expected_url, status_code=200, text=expected_response_body)
+
+        response = test_client.client.simulations.update("ntfsim_01j82g2mggsgjpb3mjg0xq6p5k", operation)
+        response_json = test_client.client.simulations.response.json()
+        request_json = test_client.client.payload
+        last_request = mock_requests.last_request
+
+        assert isinstance(response, Simulation)
+        assert last_request is not None
+        assert last_request.method == "PATCH"
+        assert test_client.client.status_code == 200
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
+        assert loads(request_json) == loads(
+            expected_request_body
+        ), "The request JSON doesn't match the expected fixture JSON"
+        assert response_json == loads(
+            str(expected_response_body)
+        ), "The response JSON doesn't match the expected fixture JSON"
+        assert loads(PayloadEncoder().encode(response)) == loads(expected_response_body)["data"]
