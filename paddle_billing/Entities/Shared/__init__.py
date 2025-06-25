@@ -3,6 +3,7 @@ from paddle_billing.Entities.Shared.AddressPreview import AddressPreview
 from paddle_billing.Entities.Shared.AdjustmentActionType import AdjustmentActionType
 from paddle_billing.Entities.Shared.AdjustmentItemTotals import AdjustmentItemTotals
 from paddle_billing.Entities.Shared.AdjustmentStatus import AdjustmentStatus
+from paddle_billing.Entities.Shared.AdjustmentTaxMode import AdjustmentTaxMode
 from paddle_billing.Entities.Shared.AdjustmentTotals import AdjustmentTotals
 from paddle_billing.Entities.Shared.AdjustmentType import AdjustmentType
 from paddle_billing.Entities.Shared.BillingDetails import BillingDetails
