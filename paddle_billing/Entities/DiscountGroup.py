@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-from paddle_billing.Entities.DiscountGroups import DiscountGroupStatus
 from .Entity import Entity
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
+from paddle_billing.Entities.DiscountGroups import DiscountGroupStatus
 from paddle_billing.Entities.Shared import ImportMeta
 
 
