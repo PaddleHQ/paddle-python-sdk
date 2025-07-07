@@ -1,6 +1,7 @@
 from paddle_billing.Notifications.Entities.Simulations.Address import Address
 from paddle_billing.Notifications.Entities.Simulations.Adjustment import Adjustment
 from paddle_billing.Notifications.Entities.Simulations.Business import Business
+from paddle_billing.Notifications.Entities.Simulations.ClientToken import ClientToken
 from paddle_billing.Notifications.Entities.Simulations.Customer import Customer
 from paddle_billing.Notifications.Entities.Simulations.Discount import Discount
 from paddle_billing.Notifications.Entities.Simulations.PaymentMethod import PaymentMethod
