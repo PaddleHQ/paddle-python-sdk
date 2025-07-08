@@ -10,7 +10,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 
 ### Added
 
-- Added support for client tokens
+- Added support for client tokens see [related changelog](https://developer.paddle.com/changelog/2025/client-side-token-api?utm_source=dx&utm_medium=paddle-python-sdk)
 
 ## 1.7.0 - 2025-06-27
 
