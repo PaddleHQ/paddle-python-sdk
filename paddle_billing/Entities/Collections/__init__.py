@@ -1,6 +1,7 @@
 from paddle_billing.Entities.Collections.AddressCollection import AddressCollection
 from paddle_billing.Entities.Collections.AdjustmentCollection import AdjustmentCollection
 from paddle_billing.Entities.Collections.BusinessCollection import BusinessCollection
+from paddle_billing.Entities.Collections.ClientTokenCollection import ClientTokenCollection
 from paddle_billing.Entities.Collections.Collection import Collection
 from paddle_billing.Entities.Collections.CreditBalanceCollection import CreditBalanceCollection
 from paddle_billing.Entities.Collections.CustomerCollection import CustomerCollection

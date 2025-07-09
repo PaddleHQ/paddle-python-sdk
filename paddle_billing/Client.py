@@ -18,6 +18,7 @@ from paddle_billing.Logger.NullHandler import NullHandler
 from paddle_billing.Resources.Addresses.AddressesClient import AddressesClient
 from paddle_billing.Resources.Adjustments.AdjustmentsClient import AdjustmentsClient
 from paddle_billing.Resources.Businesses.BusinessesClient import BusinessesClient
+from paddle_billing.Resources.ClientTokens.ClientTokensClient import ClientTokensClient
 from paddle_billing.Resources.Customers.CustomersClient import CustomersClient
 from paddle_billing.Resources.CustomerPortalSessions.CustomerPortalSessionsClient import CustomerPortalSessionsClient
 from paddle_billing.Resources.DiscountGroups.DiscountGroupsClient import DiscountGroupsClient
@@ -71,6 +72,7 @@ class Client:
         self.addresses = AddressesClient(self)
         self.adjustments = AdjustmentsClient(self)
         self.businesses = BusinessesClient(self)
+        self.client_tokens = ClientTokensClient(self)
         self.customers = CustomersClient(self)
         self.customer_portal_sessions = CustomerPortalSessionsClient(self)
         self.discounts = DiscountsClient(self)
