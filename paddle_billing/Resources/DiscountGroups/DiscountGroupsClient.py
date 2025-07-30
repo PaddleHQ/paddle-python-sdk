@@ -1,4 +1,8 @@
-from paddle_billing.Resources.DiscountGroups.Operations import CreateDiscountGroup, ListDiscountGroups
+from paddle_billing.Resources.DiscountGroups.Operations import (
+    CreateDiscountGroup,
+    ListDiscountGroups,
+    UpdateDiscountGroup,
+)
 from paddle_billing.ResponseParser import ResponseParser
 
 from paddle_billing.Entities.Collections import Paginator, DiscountGroupCollection
@@ -26,8 +30,20 @@ class DiscountGroupsClient:
             parser.get_list(), Paginator(self.client, parser.get_pagination(), DiscountGroupCollection)
         )
 
+    def get(self, discount_group_id: str) -> DiscountGroup:
+        self.response = self.client.get_raw(f"/discount-groups/{discount_group_id}")
+        parser = ResponseParser(self.response)
+
+        return DiscountGroup.from_dict(parser.get_dict())
+
     def create(self, operation: CreateDiscountGroup) -> DiscountGroup:
         self.response = self.client.post_raw("/discount-groups", operation)
+        parser = ResponseParser(self.response)
+
+        return DiscountGroup.from_dict(parser.get_dict())
+
+    def update(self, discount_group_id: str, operation: UpdateDiscountGroup) -> DiscountGroup:
+        self.response = self.client.patch_raw(f"/discount-groups/{discount_group_id}", operation)
         parser = ResponseParser(self.response)
 
         return DiscountGroup.from_dict(parser.get_dict())

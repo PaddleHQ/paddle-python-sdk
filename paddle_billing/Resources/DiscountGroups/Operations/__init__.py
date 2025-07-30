@@ -1,2 +1,3 @@
 from paddle_billing.Resources.DiscountGroups.Operations.CreateDiscountGroup import CreateDiscountGroup
 from paddle_billing.Resources.DiscountGroups.Operations.ListDiscountGroups import ListDiscountGroups
+from paddle_billing.Resources.DiscountGroups.Operations.UpdateDiscountGroup import UpdateDiscountGroup
