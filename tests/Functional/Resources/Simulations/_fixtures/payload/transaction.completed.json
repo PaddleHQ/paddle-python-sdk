@@ -231,7 +231,9 @@
             "subtotal": "59900",
             "grand_total": "65215",
             "currency_code": "USD",
-            "credit_to_balance": "0"
+            "credit_to_balance": "0",
+            "exchange_rate": "0.70194147",
+            "fee_rate": "0"
         },
         "tax_rates_used": [
             {
