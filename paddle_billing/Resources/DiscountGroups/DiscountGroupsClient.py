@@ -6,7 +6,7 @@ from paddle_billing.Resources.DiscountGroups.Operations import (
 from paddle_billing.ResponseParser import ResponseParser
 
 from paddle_billing.Entities.Collections import Paginator, DiscountGroupCollection
-from paddle_billing.Entities.DiscountGroup import DiscountGroup
+from paddle_billing.Entities.DiscountGroup import DiscountGroup, DiscountGroupStatus
 
 from typing import TYPE_CHECKING
 
@@ -47,3 +47,6 @@ class DiscountGroupsClient:
         parser = ResponseParser(self.response)
 
         return DiscountGroup.from_dict(parser.get_dict())
+
+    def archive(self, discount_group_id: str) -> DiscountGroup:
+        return self.update(discount_group_id, UpdateDiscountGroup(status=DiscountGroupStatus.Archived))
