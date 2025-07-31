@@ -10,6 +10,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 
 ### Added
 
+- Added support to fetch and update discount groups see [related changelog](https://developer.paddle.com/changelog/2025/discount-groups-new-api-operations?utm_source=dx&utm_medium=paddle-python-sdk)
 - Added `exchange_rate` and `fee_rate` to `TransactionPayoutTotals`
 - Added `exchange_rate` to `TransactionPayoutTotalsAdjusted`
 
