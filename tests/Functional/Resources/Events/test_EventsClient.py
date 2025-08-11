@@ -3,7 +3,7 @@ from pytest import mark
 from urllib.parse import unquote
 
 from paddle_billing.Entities.Collections import EventCollection
-from paddle_billing.Entities.Event import Event
+from paddle_billing.Entities.Event import Event, EventTypeName
 
 from paddle_billing.Resources.Events.Operations import ListEvents
 from paddle_billing.Resources.Shared.Operations import Pager
@@ -37,11 +37,35 @@ class TestEventsClient:
                 ReadsFixtures.read_raw_json_fixture("response/list_default"),
                 "/events?after=evt_01h83xenpcfjyhkqr4x214m02x&order_by=id[asc]&per_page=50",
             ),
+            (
+                ListEvents(
+                    pager=Pager(after="evt_01h83xenpcfjyhkqr4x214m02x"),
+                    event_types=[EventTypeName.AddressCreated, EventTypeName.TransactionCompleted],
+                ),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/list_default"),
+                "/events?after=evt_01h83xenpcfjyhkqr4x214m02x&order_by=id[asc]&per_page=50&event_type=address.created,transaction.completed",
+            ),
+            (
+                ListEvents(event_types=[EventTypeName.AddressCreated, EventTypeName.TransactionCompleted]),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/list_default"),
+                "/events?event_type=address.created,transaction.completed",
+            ),
+            (
+                ListEvents(event_types=[EventTypeName.ApiKeyCreated]),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/list_default"),
+                "/events?event_type=api_key.created",
+            ),
         ],
         ids=[
             "List events",
             "List paginated events",
             "List paginated events after specified event id",
+            "List paginated events with event type filter",
+            "List events with event type filter",
+            "List events with single event type filter",
         ],
     )
     def test_list_events_returns_expected_response(
