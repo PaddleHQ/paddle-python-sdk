@@ -2,7 +2,7 @@ from json import loads
 from pytest import mark
 from urllib.parse import unquote
 
-from build.lib.paddle_billing.Json import PayloadEncoder
+from paddle_billing.Json import PayloadEncoder
 from paddle_billing.Entities.Collections import DiscountCollection
 from paddle_billing.Entities.DateTime import DateTime
 from paddle_billing.Entities.Discount import Discount, DiscountMode
