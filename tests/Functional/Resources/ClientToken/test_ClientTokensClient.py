@@ -2,7 +2,7 @@ from json import loads
 from pytest import mark
 from urllib.parse import unquote
 
-from build.lib.paddle_billing.Json import PayloadEncoder
+from paddle_billing.Json import PayloadEncoder
 from paddle_billing.Entities.Collections import ClientTokenCollection
 from paddle_billing.Entities.ClientToken import ClientToken
 from paddle_billing.Entities.ClientTokens import ClientTokenStatus

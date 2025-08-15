@@ -1,6 +1,6 @@
 from pytest import raises
 
-from build.lib.paddle_billing.Resources.Events.Operations import ListEvents
+from paddle_billing.Resources.Events.Operations import ListEvents
 
 from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 
