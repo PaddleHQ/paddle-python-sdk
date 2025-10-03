@@ -148,7 +148,8 @@
           "grand_total": "901387",
           "fee": null,
           "earnings": null,
-          "currency_code": "USD"
+          "currency_code": "USD",
+          "retained_fee": "0"
         },
         "payout_totals": null,
         "adjusted_payout_totals": null,
@@ -397,7 +398,8 @@
           "grand_total": "72479",
           "fee": null,
           "earnings": null,
-          "currency_code": "USD"
+          "currency_code": "USD",
+          "retained_fee": "0"
         },
         "payout_totals": null,
         "adjusted_payout_totals": null,
@@ -646,7 +648,8 @@
           "grand_total": "59900",
           "fee": null,
           "earnings": null,
-          "currency_code": "USD"
+          "currency_code": "USD",
+          "retained_fee": "0"
         },
         "payout_totals": null,
         "adjusted_payout_totals": null,
@@ -851,7 +854,8 @@
           "grand_total": "40000",
           "fee": "2050",
           "earnings": "37950",
-          "currency_code": "USD"
+          "currency_code": "USD",
+          "retained_fee": "0"
         },
         "payout_totals": {
           "subtotal": "40000",
@@ -878,8 +882,9 @@
             "original": null
           },
           "earnings": "37950",
-          "currency_code": "USD",
-          "exchange_rate": "0.70194147"
+          "currency_code": "USD", 
+          "exchange_rate": "0.70194147",
+          "retained_fee": "0"
         },
         "line_items": [
           {
@@ -1057,7 +1062,8 @@
           "grand_total": "5000",
           "fee": null,
           "earnings": null,
-          "currency_code": "USD"
+          "currency_code": "USD",
+          "retained_fee": "0"
         },
         "payout_totals": null,
         "adjusted_payout_totals": null,
@@ -1214,7 +1220,8 @@
           "grand_total": "43549",
           "fee": null,
           "earnings": null,
-          "currency_code": "USD"
+          "currency_code": "USD",
+          "retained_fee": "0"
         },
         "payout_totals": null,
         "adjusted_payout_totals": null,

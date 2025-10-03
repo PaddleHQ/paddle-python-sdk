@@ -237,7 +237,8 @@
             "earnings": "0",
             "subtotal": "2537910",
             "grand_total": "2763149",
-            "currency_code": "USD"
+            "currency_code": "USD",
+            "retained_fee": "0"
         }
     },
     "checkout": {
