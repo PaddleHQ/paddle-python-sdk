@@ -19,6 +19,8 @@ class TestClient:
             "expected_reason",
             "expected_response_body",
             "expected_exception",
+            "headers",
+            "expected_retry_after",
         ],
         [
             (
@@ -35,6 +37,8 @@ class TestClient:
                     "meta": {"request_id": "f00bb3ca-399d-4686-889c-50b028f4c912"},
                 },
                 ApiError,
+                {},
+                None,
             ),
             (
                 404,
@@ -49,6 +53,8 @@ class TestClient:
                     "meta": {"request_id": "f00bb3ca-399d-4686-889c-50b028f4c912"},
                 },
                 ApiError,
+                {},
+                None,
             ),
             (
                 400,
@@ -63,12 +69,31 @@ class TestClient:
                     "meta": {"request_id": "f00bb3ca-399d-4686-889c-50b028f4c912"},
                 },
                 AddressApiError,
+                {},
+                None,
+            ),
+            (
+                429,
+                "Too Many Requests",
+                {
+                    "error": {
+                        "type": "request_error",
+                        "code": "too_many_requests",
+                        "detail": "IP address exceeded the allowed rate limit. Retry after the number of seconds in the Retry-After header.",
+                        "documentation_url": "https://developer.paddle.com/errors/shared/too_many_requests",
+                    },
+                    "meta": {"request_id": "f00bb3ca-399d-4686-889c-50b028f4c912"},
+                },
+                ApiError,
+                {"Retry-After": "42"},
+                42,
             ),
         ],
         ids=[
             "Returns bad_request response",
             "Returns not_found response",
             "Returns address_location_not_allowed response",
+            "Returns too_many_requests response",
         ],
     )
     def test_post_raw_returns_error_response(
@@ -80,6 +105,8 @@ class TestClient:
         expected_reason,
         expected_response_body,
         expected_exception,
+        headers,
+        expected_retry_after,
     ):
         expected_request_url = f"{test_client.base_url}/some/url"
         expected_request_body = {"some_property": "some value"}
@@ -88,6 +115,7 @@ class TestClient:
             status_code=expected_response_status,
             text=dumps(expected_response_body),
             reason=expected_reason,
+            headers=headers,
         )
 
         with raises(expected_exception) as exception_info:
@@ -111,6 +139,7 @@ class TestClient:
         assert api_error.error_code == expected_response_body["error"]["code"]
         assert api_error.detail == expected_response_body["error"]["detail"]
         assert api_error.docs_url == expected_response_body["error"]["documentation_url"]
+        assert api_error.retry_after == expected_retry_after
 
         if "errors" in expected_response_body["error"]:
             assert len(api_error.field_errors) == len(expected_response_body["error"]["errors"])
