@@ -1,0 +1,15 @@
+{
+  "customer_ip_address": "203.0.113.0",
+  "items": [
+    {
+      "price_id": "pri_01he5kxqey1k8ankgef29cj4bv",
+      "quantity": 1,
+      "include_in_totals": true
+    }
+  ],
+  "discount": {
+    "amount": "5",
+    "description": "Black Friday",
+    "type": "percentage"
+  }
+}

@@ -9,6 +9,7 @@ from paddle_billing.Entities.TransactionData import TransactionData
 from paddle_billing.Entities.TransactionPreview import TransactionPreview
 from paddle_billing.Resources.Shared.Operations import Comparator, DateComparison, Pager
 from paddle_billing.Entities.Discount import Discount, DiscountStatus
+from paddle_billing.Entities.Discounts.DiscountType import DiscountType
 
 from paddle_billing.Entities.Shared import (
     AddressPreview,
@@ -57,6 +58,7 @@ from paddle_billing.Resources.Transactions.Operations.Create import (
     TransactionCreateItem,
     TransactionCreateItemWithPrice,
 )
+from paddle_billing.Resources.Transactions.Operations.Discount import TransactionNonCatalogDiscount
 from paddle_billing.Resources.Transactions.Operations.Update import (
     UpdateBillingDetails,
     TransactionUpdateItem,
@@ -256,6 +258,37 @@ class TestTransactionsClient:
                 ReadsFixtures.read_raw_json_fixture("response/full_entity"),
                 "/transactions",
             ),
+            (
+                CreateTransaction(
+                    items=[TransactionCreateItem(price_id="pri_01he5kxqey1k8ankgef29cj4bv", quantity=1)],
+                    discount=TransactionNonCatalogDiscount(amount="10", description="Promo", type="percentage"),
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/create_with_noncatalog_discount_minimal"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/minimal_entity"),
+                "/transactions",
+            ),
+            (
+                CreateTransaction(
+                    items=[TransactionCreateItem(price_id="pri_01he5kxqey1k8ankgef29cj4bv", quantity=1)],
+                    discount=TransactionNonCatalogDiscount(
+                        amount="500",
+                        description="Black Friday",
+                        type="flat",
+                        recur=True,
+                        maximum_recurring_intervals=3,
+                        custom_data=CustomData({"source": "bf2025"}),
+                        restrict_to=[
+                            "pro_01gsz4t5hdjse780zja8vvr7jg",
+                            "pro_01gsz4s0w61y0pp88528f1wvvb",
+                        ],
+                    ),
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/create_with_noncatalog_discount_full"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/minimal_entity"),
+                "/transactions",
+            ),
         ],
         ids=[
             "Create transaction with basic data",
@@ -263,6 +296,8 @@ class TestTransactionsClient:
             "Create transaction with manual collection mode",
             "Create transaction with minimal billing details",
             "Create transaction with full billing details",
+            "Create transaction with non-catalog discount minimal",
+            "Create transaction with non-catalog discount full",
         ],
     )
     def test_create_transaction_uses_expected_payload(
@@ -455,6 +490,41 @@ class TestTransactionsClient:
                 ReadsFixtures.read_raw_json_fixture("response/full_entity"),
                 "/transactions/txn_01h7zcgmdc6tmwtjehp3sh7azf",
             ),
+            (
+                "txn_01h7zcgmdc6tmwtjehp3sh7azf",
+                UpdateTransaction(
+                    discount=TransactionNonCatalogDiscount(
+                        amount="10",
+                        description="Promo",
+                        type=DiscountType.Percentage,
+                    )
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/update_with_noncatalog_discount_minimal"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/full_entity"),
+                "/transactions/txn_01h7zcgmdc6tmwtjehp3sh7azf",
+            ),
+            (
+                "txn_01h7zcgmdc6tmwtjehp3sh7azf",
+                UpdateTransaction(
+                    discount=TransactionNonCatalogDiscount(
+                        amount="500",
+                        description="Black Friday",
+                        type=DiscountType.Flat,
+                        recur=True,
+                        maximum_recurring_intervals=3,
+                        custom_data=CustomData({"source": "bf2025"}),
+                        restrict_to=[
+                            "pro_01gsz4t5hdjse780zja8vvr7jg",
+                            "pro_01gsz4s0w61y0pp88528f1wvvb",
+                        ],
+                    )
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/update_with_noncatalog_discount_full"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/full_entity"),
+                "/transactions/txn_01h7zcgmdc6tmwtjehp3sh7azf",
+            ),
         ],
         ids=[
             "Update transaction with single new value",
@@ -462,6 +532,8 @@ class TestTransactionsClient:
             "Create transaction with minimal billing details",
             "Create transaction with full billing details",
             "Create transaction with items",
+            "Update with non-catalog discount minimal",
+            "Update with non-catalog discount full",
         ],
     )
     def test_update_transaction_uses_expected_payload(
@@ -1137,6 +1209,196 @@ class TestTransactionsClient:
                 "/transactions/preview",
             ),
             (
+                PreviewTransactionByAddress(
+                    address=AddressPreview(
+                        postal_code="12345",
+                        country_code=CountryCode.US,
+                    ),
+                    items=[
+                        TransactionItemPreviewWithPriceId(
+                            price_id="pri_01he5kxqey1k8ankgef29cj4bv",
+                            quantity=1,
+                            include_in_totals=True,
+                        )
+                    ],
+                    discount=TransactionNonCatalogDiscount(amount="5", description="Black Friday", type="percentage"),
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/preview_by_address_with_noncatalog_discount_minimal"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/preview_entity"),
+                "/transactions/preview",
+            ),
+            (
+                PreviewTransactionByAddress(
+                    address=AddressPreview(
+                        postal_code="12345",
+                        country_code=CountryCode.US,
+                    ),
+                    items=[
+                        TransactionItemPreviewWithPriceId(
+                            price_id="pri_01he5kxqey1k8ankgef29cj4bv",
+                            quantity=1,
+                            include_in_totals=True,
+                        )
+                    ],
+                    discount=TransactionNonCatalogDiscount(
+                        amount="500",
+                        description="Black Friday",
+                        type="flat",
+                        recur=True,
+                        maximum_recurring_intervals=3,
+                        custom_data=CustomData({"source": "bf2025"}),
+                        restrict_to=[
+                            "pro_01gsz4t5hdjse780zja8vvr7jg",
+                            "pro_01gsz4s0w61y0pp88528f1wvvb",
+                        ],
+                    ),
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/preview_by_address_with_noncatalog_discount_full"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/preview_entity"),
+                "/transactions/preview",
+            ),
+            (
+                PreviewTransactionByCustomer(
+                    address_id="add_01hv8h6jj90jjz0d71m6hj4r9z",
+                    customer_id="ctm_01h844q4mznqpgqgm6evgw1w63",
+                    items=[
+                        TransactionItemPreviewWithPriceId(
+                            price_id="pri_01he5kxqey1k8ankgef29cj4bv",
+                            quantity=1,
+                            include_in_totals=True,
+                        )
+                    ],
+                    discount=TransactionNonCatalogDiscount(amount="5", description="Black Friday", type="percentage"),
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/preview_by_customer_with_noncatalog_discount_minimal"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/preview_entity"),
+                "/transactions/preview",
+            ),
+            (
+                PreviewTransactionByCustomer(
+                    address_id="add_01hv8h6jj90jjz0d71m6hj4r9z",
+                    customer_id="ctm_01h844q4mznqpgqgm6evgw1w63",
+                    business_id="biz_01hv8j0z17hv4ew8teebwjmfcb",
+                    currency_code=CurrencyCode.USD,
+                    items=[
+                        TransactionItemPreviewWithPriceId(
+                            price_id="pri_01he5kxqey1k8ankgef29cj4bv",
+                            quantity=1,
+                            include_in_totals=True,
+                        )
+                    ],
+                    discount=TransactionNonCatalogDiscount(
+                        amount="500",
+                        description="Black Friday",
+                        type="flat",
+                        recur=True,
+                        maximum_recurring_intervals=3,
+                        custom_data=CustomData({"source": "bf2025"}),
+                        restrict_to=[
+                            "pro_01gsz4t5hdjse780zja8vvr7jg",
+                            "pro_01gsz4s0w61y0pp88528f1wvvb",
+                        ],
+                    ),
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/preview_by_customer_with_noncatalog_discount_full"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/preview_entity"),
+                "/transactions/preview",
+            ),
+            (
+                PreviewTransactionByIP(
+                    customer_ip_address="203.0.113.0",
+                    items=[
+                        TransactionItemPreviewWithPriceId(
+                            price_id="pri_01he5kxqey1k8ankgef29cj4bv",
+                            quantity=1,
+                            include_in_totals=True,
+                        )
+                    ],
+                    discount=TransactionNonCatalogDiscount(amount="5", description="Black Friday", type="percentage"),
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/preview_by_ip_with_noncatalog_discount_minimal"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/preview_entity"),
+                "/transactions/preview",
+            ),
+            (
+                PreviewTransactionByIP(
+                    customer_ip_address="203.0.113.0",
+                    customer_id="ctm_01h844q4mznqpgqgm6evgw1w63",
+                    currency_code=CurrencyCode.USD,
+                    items=[
+                        TransactionItemPreviewWithPriceId(
+                            price_id="pri_01he5kxqey1k8ankgef29cj4bv",
+                            quantity=1,
+                            include_in_totals=True,
+                        )
+                    ],
+                    discount=TransactionNonCatalogDiscount(
+                        amount="500",
+                        description="Black Friday",
+                        type="flat",
+                        recur=True,
+                        maximum_recurring_intervals=3,
+                        custom_data=CustomData({"source": "bf2025"}),
+                        restrict_to=[
+                            "pro_01gsz4t5hdjse780zja8vvr7jg",
+                            "pro_01gsz4s0w61y0pp88528f1wvvb",
+                        ],
+                    ),
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/preview_by_ip_with_noncatalog_discount_full"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/preview_entity"),
+                "/transactions/preview",
+            ),
+            (
+                PreviewTransaction(
+                    items=[
+                        TransactionItemPreviewWithPriceId(
+                            price_id="pri_01he5kxqey1k8ankgef29cj4bv",
+                            quantity=1,
+                            include_in_totals=True,
+                        )
+                    ],
+                    discount=TransactionNonCatalogDiscount(amount="5", description="Black Friday", type="percentage"),
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/preview_with_noncatalog_discount_minimal"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/preview_entity"),
+                "/transactions/preview",
+            ),
+            (
+                PreviewTransaction(
+                    items=[
+                        TransactionItemPreviewWithPriceId(
+                            price_id="pri_01he5kxqey1k8ankgef29cj4bv",
+                            quantity=1,
+                            include_in_totals=True,
+                        )
+                    ],
+                    discount=TransactionNonCatalogDiscount(
+                        amount="500",
+                        description="Black Friday",
+                        type="flat",
+                        recur=True,
+                        maximum_recurring_intervals=3,
+                        custom_data=CustomData({"source": "bf2025"}),
+                        restrict_to=[
+                            "pro_01gsz4t5hdjse780zja8vvr7jg",
+                            "pro_01gsz4s0w61y0pp88528f1wvvb",
+                        ],
+                    ),
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/preview_with_noncatalog_discount_full"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/preview_entity"),
+                "/transactions/preview",
+            ),
+            (
                 PreviewTransactionByIP(
                     customer_ip_address="203.0.113.0",
                     customer_id="ctm_01h844q4mznqpgqgm6evgw1w63",
@@ -1221,6 +1483,14 @@ class TestTransactionsClient:
             "Full transaction preview by customer",
             "Basic transaction preview by IP",
             "Full transaction preview by IP",
+            "Preview by address with non-catalog discount minimal",
+            "Preview by address with non-catalog discount full",
+            "Preview by customer with non-catalog discount minimal",
+            "Preview by customer with non-catalog discount full",
+            "Preview by IP with non-catalog discount minimal",
+            "Preview by IP with non-catalog discount full",
+            "Preview transaction with non-catalog discount minimal",
+            "Preview transaction with non-catalog discount full",
         ],
     )
     def test_preview_transaction_returns_expected_response(
