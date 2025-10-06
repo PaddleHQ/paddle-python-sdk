@@ -141,6 +141,22 @@ paddle = Client('PADDLE_API_SECRET_KEY')
 deleted_product = paddle.products.delete('PRODUCT_ID')
 ```
 
+### Error Handling
+
+If a request fails, Paddle raises an `ApiError` that contains the same information as [errors returned by the API](https://developer.paddle.com/api-reference/about/errors?utm_source=dx&utm_medium=paddle-python-sdk). You can use the `code` attribute to search an error in [the error reference](https://developer.paddle.com/errors/overview?utm_source=dx&utm_medium=paddle-python-sdk) and to handle the error in your app. Validation errors also return an array of `errors` that tell you which fields failed validation. The `retry_after` property will be set for `too_many_requests` errors.
+
+This example shows how to handle an error with the code `conflict`:
+
+```python
+from paddle_billing.Exceptions.ApiError import ApiError
+
+try:
+    # Call functions from the SDK
+except ApiError as error:
+    # error.error_code will always follow the error code defined in our documentation
+    if error.error_code == 'conflict':
+        # Handle Conflict error
+```
 
 ## Resources
 

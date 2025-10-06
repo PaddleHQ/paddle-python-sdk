@@ -32,6 +32,7 @@ except ApiError as error:
     print(f"detail: {error.detail}")
     print(f"field_errors: {error.field_errors}")
     print(f"response.status_code: {error.response.status_code}")
+    print(f"retry_after: {error.retry_after}")
 except Exception as error:
     log.error(f"We received an error listing products: {error}")
 
