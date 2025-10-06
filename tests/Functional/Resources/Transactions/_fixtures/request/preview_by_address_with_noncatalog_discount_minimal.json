@@ -1,0 +1,18 @@
+{
+  "address": {
+    "postal_code": "12345",
+    "country_code": "US"
+  },
+  "items": [
+    {
+      "price_id": "pri_01he5kxqey1k8ankgef29cj4bv",
+      "quantity": 1,
+      "include_in_totals": true
+    }
+  ],
+  "discount": {
+    "amount": "5",
+    "description": "Black Friday",
+    "type": "percentage"
+  }
+}

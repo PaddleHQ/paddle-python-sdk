@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-python-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## [Unreleased]
+
+### Added
+
+- Non-catalog discounts on Transactions, see [changelog](https://developer.paddle.com/changelog/2025/custom-discounts?utm_source=dx&utm_medium=paddle-python-sdk)
+- Support `retained_fee` field on totals objects to show the fees retained by Paddle for the adjustment.
+- Added support for new payment methods `blik`, `mb_way`, `pix` and `upi`. See [related changelog](https://developer.paddle.com/changelog/2025/blik-mbway-payment-methods?utm_source=dx&utm_medium=paddle-python-sdk).
+- `ApiError` will now have `retry_after` property set for [too_many_requests](https://developer.paddle.com/errors/shared/too_many_requests?utm_source=dx&utm_medium=paddle-python-sdk) errors
+
 ## 1.10.0 - 2025-08-15
 
 ### Added

@@ -30,7 +30,8 @@
                 "total": "100",
                 "fee": "5",
                 "earnings": "87",
-                "currency_code": "USD"
+                "currency_code": "USD",
+                "retained_fee": "0"
             },
             "payout_totals": {
                 "subtotal": "92",
@@ -38,7 +39,8 @@
                 "total": "100",
                 "fee": "5",
                 "earnings": "87",
-                "currency_code": "USD"
+                "currency_code": "USD",
+                "retained_fee": "0"
             },
             "created_at": "2023-08-21T13:57:15.489634Z",
             "updated_at": "2023-08-21T13:57:15.489634Z",
@@ -90,7 +92,8 @@
                 "total": "163297",
                 "fee": "8215",
                 "earnings": "141771",
-                "currency_code": "USD"
+                "currency_code": "USD",
+                "retained_fee": "0"
             },
             "payout_totals": {
                 "subtotal": "149986",
@@ -98,7 +101,8 @@
                 "total": "163297",
                 "fee": "8215",
                 "earnings": "141771",
-                "currency_code": "USD"
+                "currency_code": "USD",
+                "retained_fee": "0"
             },
             "created_at": "2023-08-21T11:25:13.138521Z",
             "updated_at": "2023-08-21T11:25:13.138521Z",
@@ -150,7 +154,8 @@
                 "total": "71984",
                 "fee": "3631",
                 "earnings": "56356",
-                "currency_code": "USD"
+                "currency_code": "USD",
+                "retained_fee": "0"
             },
             "payout_totals": {
                 "subtotal": "59987",
@@ -158,7 +163,8 @@
                 "total": "71984",
                 "fee": "3631",
                 "earnings": "56356",
-                "currency_code": "USD"
+                "currency_code": "USD",
+                "retained_fee": "0"
             },
             "created_at": "2023-08-11T14:46:04.811464Z",
             "updated_at": "2023-08-11T14:46:05.13404Z",
@@ -210,7 +216,8 @@
                 "total": "35986",
                 "fee": "1837",
                 "earnings": "28151",
-                "currency_code": "USD"
+                "currency_code": "USD",
+                "retained_fee": "0"
             },
             "payout_totals": {
                 "subtotal": "29988",
@@ -218,7 +225,8 @@
                 "total": "35986",
                 "fee": "1837",
                 "earnings": "28151",
-                "currency_code": "USD"
+                "currency_code": "USD",
+                "retained_fee": "0"
             },
             "created_at": "2023-08-11T14:15:01.225381Z",
             "updated_at": "2023-08-11T14:15:03.54843Z",
@@ -288,7 +296,8 @@
                 "total": "76990",
                 "fee": "3897",
                 "earnings": "66094",
-                "currency_code": "AUD"
+                "currency_code": "AUD",
+                "retained_fee": "0"
             },
             "payout_totals": {
                 "subtotal": "45120",
@@ -296,7 +305,8 @@
                 "total": "49633",
                 "fee": "2512",
                 "earnings": "42608",
-                "currency_code": "USD"
+                "currency_code": "USD",
+                "retained_fee": "0"
             },
             "created_at": "2023-06-30T13:46:24.240375Z",
             "updated_at": "2023-06-30T13:46:24.240376Z",

@@ -239,7 +239,8 @@
             "earnings": "0",
             "subtotal": "47924",
             "grand_total": "57509",
-            "currency_code": "GBP"
+            "currency_code": "GBP",
+            "retained_fee": "0"
         },
         "adjusted_payout_totals": null
     },

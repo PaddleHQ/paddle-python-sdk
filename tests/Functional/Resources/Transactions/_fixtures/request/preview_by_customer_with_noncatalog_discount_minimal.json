@@ -1,0 +1,16 @@
+{
+  "address_id": "add_01hv8h6jj90jjz0d71m6hj4r9z",
+  "customer_id": "ctm_01h844q4mznqpgqgm6evgw1w63",
+  "items": [
+    {
+      "price_id": "pri_01he5kxqey1k8ankgef29cj4bv",
+      "quantity": 1,
+      "include_in_totals": true
+    }
+  ],
+  "discount": {
+    "amount": "5",
+    "description": "Black Friday",
+    "type": "percentage"
+  }
+}

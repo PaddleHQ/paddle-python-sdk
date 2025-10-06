@@ -7,6 +7,9 @@ from paddle_billing.Resources.Transactions.Operations.Preview import (
     TransactionItemPreviewWithPriceId,
     TransactionItemPreviewWithNonCatalogPrice,
 )
+from paddle_billing.Resources.Transactions.Operations.Discount.TransactionNonCatalogDiscount import (
+    TransactionNonCatalogDiscount,
+)
 
 
 @dataclass
@@ -18,3 +21,4 @@ class PreviewTransactionByCustomer(Operation):
     currency_code: CurrencyCode | None | Undefined = Undefined()
     discount_id: str | None | Undefined = Undefined()
     ignore_trials: bool | Undefined = Undefined()
+    discount: TransactionNonCatalogDiscount | None | Undefined = Undefined()

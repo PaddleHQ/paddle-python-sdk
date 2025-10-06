@@ -1,0 +1,27 @@
+{
+  "address_id": "add_01hv8h6jj90jjz0d71m6hj4r9z",
+  "customer_id": "ctm_01h844q4mznqpgqgm6evgw1w63",
+  "business_id": "biz_01hv8j0z17hv4ew8teebwjmfcb",
+  "currency_code": "USD",
+  "items": [
+    {
+      "price_id": "pri_01he5kxqey1k8ankgef29cj4bv",
+      "quantity": 1,
+      "include_in_totals": true
+    }
+  ],
+  "discount": {
+    "amount": "500",
+    "description": "Black Friday",
+    "type": "flat",
+    "recur": true,
+    "maximum_recurring_intervals": 3,
+    "custom_data": {
+      "source": "bf2025"
+    },
+    "restrict_to": [
+      "pro_01gsz4t5hdjse780zja8vvr7jg",
+      "pro_01gsz4s0w61y0pp88528f1wvvb"
+    ]
+  }
+}
