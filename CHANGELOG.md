@@ -11,7 +11,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 ### Added
 
 - Support `retained_fee` field on totals objects to show the fees retained by Paddle for the adjustment.
-
+- Added support for new payment methods `blik`, `mb_way`, `pix` and `upi`. See [related changelog](https://developer.paddle.com/changelog/2025/blik-mbway-payment-methods?utm_source=dx&utm_medium=paddle-python-sdk).
 
 ## 1.10.0 - 2025-08-15
 
