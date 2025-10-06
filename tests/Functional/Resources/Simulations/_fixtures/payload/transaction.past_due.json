@@ -203,7 +203,8 @@
             "earnings": "0",
             "subtotal": "40000",
             "grand_total": "43549",
-            "currency_code": "USD"
+            "currency_code": "USD",
+            "retained_fee": "0"
         },
         "adjusted_payout_totals": null
     },

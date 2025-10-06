@@ -28,7 +28,8 @@
     "total": "100",
     "fee": "5",
     "earnings": "87",
-    "currency_code": "USD"
+    "currency_code": "USD",
+    "retained_fee": "0"
   },
   "payout_totals": {
     "chargeback_fee": {
@@ -43,7 +44,8 @@
     "total": "100",
     "fee": "5",
     "earnings": "87",
-    "currency_code": "USD"
+    "currency_code": "USD",
+    "retained_fee": "0"
   },
   "created_at": "2024-04-15T08:48:20.239695Z",
   "updated_at": "2024-04-15T08:48:20.239695Z"

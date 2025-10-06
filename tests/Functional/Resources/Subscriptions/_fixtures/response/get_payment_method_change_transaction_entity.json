@@ -97,7 +97,8 @@
         "grand_total": "0",
         "fee": "0",
         "earnings": "0",
-        "currency_code": "USD"
+        "currency_code": "USD",
+        "retained_fee": "0"
       },
       "payout_totals": null,
       "adjusted_payout_totals": null,

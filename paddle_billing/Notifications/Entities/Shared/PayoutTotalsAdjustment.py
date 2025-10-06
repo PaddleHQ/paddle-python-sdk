@@ -15,6 +15,7 @@ class PayoutTotalsAdjustment:
     chargeback_fee: ChargebackFee | None
     earnings: str
     currency_code: CurrencyCodePayouts
+    retained_fee: str | None
 
     @staticmethod
     def from_dict(data: dict[str, Any]) -> PayoutTotalsAdjustment:
@@ -26,4 +27,5 @@ class PayoutTotalsAdjustment:
             chargeback_fee=ChargebackFee.from_dict(data["chargeback_fee"]) if data.get("chargeback_fee") else None,
             earnings=data["earnings"],
             currency_code=CurrencyCodePayouts(data["currency_code"]),
+            retained_fee=data.get("retained_fee"),
         )

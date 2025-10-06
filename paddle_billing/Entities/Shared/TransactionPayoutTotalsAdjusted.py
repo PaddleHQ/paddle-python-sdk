@@ -16,6 +16,7 @@ class TransactionPayoutTotalsAdjusted:
     earnings: str
     currency_code: CurrencyCodePayouts
     exchange_rate: str
+    retained_fee: str
 
     @staticmethod
     def from_dict(data: dict[str, Any]) -> TransactionPayoutTotalsAdjusted:
@@ -28,4 +29,5 @@ class TransactionPayoutTotalsAdjusted:
             earnings=data["earnings"],
             currency_code=CurrencyCodePayouts(data["currency_code"]),
             exchange_rate=data["exchange_rate"],
+            retained_fee=data["retained_fee"],
         )
