@@ -15,6 +15,9 @@ from paddle_billing.Resources.Transactions.Operations.Update import (
     TransactionUpdateItemWithPrice,
     UpdateBillingDetails,
 )
+from paddle_billing.Resources.Transactions.Operations.Discount.TransactionNonCatalogDiscount import (
+    TransactionNonCatalogDiscount,
+)
 
 
 @dataclass
@@ -31,3 +34,4 @@ class UpdateTransaction(Operation):
     billing_details: UpdateBillingDetails | None | Undefined = Undefined()
     billing_period: TimePeriod | None | Undefined = Undefined()
     checkout: Checkout | None | Undefined = Undefined()
+    discount: TransactionNonCatalogDiscount | None | Undefined = Undefined()
