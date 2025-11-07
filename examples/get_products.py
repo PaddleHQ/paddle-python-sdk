@@ -5,6 +5,7 @@ from sys import exit  # You should use classes/functions that returns instead of
 from paddle_billing import Client, Environment, Options
 
 from paddle_billing.Exceptions.ApiError import ApiError
+from paddle_billing.Resources.Products.Operations import ListProducts, ProductIncludes
 
 log = getLogger("my_app")
 
@@ -23,7 +24,8 @@ paddle = Client(api_key, options=Options(environment), logger=log)
 
 products = None
 try:
-    products = paddle.products.list()
+    # Get product list with prices included.
+    products = paddle.products.list(ListProducts(includes=[ProductIncludes.Prices]))
 except ApiError as error:
     log.error(error)
     # Your additional logic that can handle Paddle's hints about what went wrong.
@@ -48,3 +50,6 @@ if not len(products.items):
 for product in products:
     print(f"Product's id: {product.id}")
     # Your additional logic for using each product
+
+    for price in product.prices:
+        print(f"Price's id: {price.id}")
