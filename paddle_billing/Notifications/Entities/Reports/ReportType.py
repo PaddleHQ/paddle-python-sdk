@@ -9,3 +9,4 @@ class ReportType(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     Transactions: "ReportType" = "transactions"
     TransactionLineItems: "ReportType" = "transaction_line_items"
     Balance: "ReportType" = "balance"
+    PayoutReconciliation: "ReportType" = "payout_reconciliation"

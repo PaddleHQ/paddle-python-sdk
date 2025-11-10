@@ -14,6 +14,7 @@ class Payout(SimulationEntity):
     currency_code: CurrencyCodePayouts | Undefined = Undefined()
     id: str | Undefined = Undefined()
     status: PayoutStatus | Undefined = Undefined()
+    remittance_reference: str | Undefined = Undefined()
 
     @staticmethod
     def from_dict(data: dict[str, Any]) -> Payout:
@@ -22,4 +23,5 @@ class Payout(SimulationEntity):
             id=data.get("id", Undefined()),
             status=PayoutStatus(data["status"]) if data.get("status") else Undefined(),
             currency_code=CurrencyCodePayouts(data["currency_code"]) if data.get("currency_code") else Undefined(),
+            remittance_reference=data.get("remittance_reference", Undefined()),
         )

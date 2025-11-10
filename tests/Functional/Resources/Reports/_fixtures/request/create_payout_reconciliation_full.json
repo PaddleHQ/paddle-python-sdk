@@ -1,0 +1,22 @@
+{
+    "type": "payout_reconciliation",
+    "filters": [
+        {
+            "name": "remittance_reference",
+            "operator": null,
+            "value": [
+                "some-reference"
+            ]
+        },
+        {
+            "name": "transaction_updated_at",
+            "operator": "gte",
+            "value": "2023-12-30T00:00:00.000000Z"
+        },
+        {
+            "name": "transaction_updated_at",
+            "operator": "lt",
+            "value": "2024-12-30T12:30:01.123456Z"
+        }
+    ]
+}

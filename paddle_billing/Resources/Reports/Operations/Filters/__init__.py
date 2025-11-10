@@ -10,6 +10,8 @@ from paddle_billing.Resources.Reports.Operations.Filters.PriceUpdatedAtFilter im
 from paddle_billing.Resources.Reports.Operations.Filters.ProductStatusFilter import ProductStatusFilter
 from paddle_billing.Resources.Reports.Operations.Filters.ProductTypeFilter import ProductTypeFilter
 from paddle_billing.Resources.Reports.Operations.Filters.ProductUpdatedAtFilter import ProductUpdatedAtFilter
+from paddle_billing.Resources.Reports.Operations.Filters.RemittanceReferenceFilter import RemittanceReferenceFilter
 from paddle_billing.Resources.Reports.Operations.Filters.TransactionOriginFilter import TransactionOriginFilter
 from paddle_billing.Resources.Reports.Operations.Filters.TransactionStatusFilter import TransactionStatusFilter
+from paddle_billing.Resources.Reports.Operations.Filters.TransactionUpdatedAtFilter import TransactionUpdatedAtFilter
 from paddle_billing.Resources.Reports.Operations.Filters.UpdatedAtFilter import UpdatedAtFilter
