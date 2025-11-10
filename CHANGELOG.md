@@ -12,6 +12,9 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 
 - Support for payout reconciliation reports and `remittance_reference`, see [changelog](https://developer.paddle.com/changelog/2025/payout-reconciliation-report)
 
+### Fixed
+- Fixed `ReportsClient.create()` operation type
+
 ## 1.11.0 - 2025-10-07
 
 ### Added
