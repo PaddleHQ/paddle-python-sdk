@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-python-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## [Unreleased]
+
+### Added
+
+- Support for payout reconciliation reports and `remittance_reference`, see [changelog](https://developer.paddle.com/changelog/2025/payout-reconciliation-report?utm_source=dx&utm_medium=paddle-python-sdk)
+- Added `location` value for `price.tax_mode`, see [changelog](https://developer.paddle.com/changelog/2025/default-automatic-tax-setting?utm_source=dx&utm_medium=paddle-python-sdk)
+
+### Fixed
+- Fixed `ReportsClient.create()` operation type
+
 ## 1.11.0 - 2025-10-07
 
 ### Added

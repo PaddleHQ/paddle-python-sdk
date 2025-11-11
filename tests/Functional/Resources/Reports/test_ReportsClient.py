@@ -9,6 +9,7 @@ from paddle_billing.Entities.Reports import (
     AdjustmentsReportType,
     BalanceReportType,
     DiscountsReportType,
+    PayoutReconciliationReportType,
     ProductsPricesReportType,
     ReportFilter,
     ReportFilterName,
@@ -32,8 +33,10 @@ from paddle_billing.Resources.Reports.Operations.Filters import (
     ProductStatusFilter,
     ProductTypeFilter,
     ProductUpdatedAtFilter,
+    RemittanceReferenceFilter,
     TransactionOriginFilter,
     TransactionStatusFilter,
+    TransactionUpdatedAtFilter,
     UpdatedAtFilter,
 )
 
@@ -59,6 +62,7 @@ from paddle_billing.Resources.Reports.Operations import (
     CreateAdjustmentsReport,
     CreateBalanceReport,
     CreateDiscountsReport,
+    CreatePayoutReconciliationReport,
     CreateProductsAndPricesReport,
     CreateTransactionsReport,
     ListReports,
@@ -153,6 +157,23 @@ class TestReportsClient:
                 ReadsFixtures.read_raw_json_fixture("request/create_balance_full"),
                 BalanceReportType,
             ),
+            (
+                CreatePayoutReconciliationReport(type=PayoutReconciliationReportType.PayoutReconciliation),
+                ReadsFixtures.read_raw_json_fixture("request/create_payout_reconciliation_basic"),
+                PayoutReconciliationReportType,
+            ),
+            (
+                CreatePayoutReconciliationReport(
+                    type=PayoutReconciliationReportType.PayoutReconciliation,
+                    filters=[
+                        RemittanceReferenceFilter(["some-reference"]),
+                        TransactionUpdatedAtFilter.gte(DateTime("2023-12-30")),
+                        TransactionUpdatedAtFilter.lt(DateTime("2024-12-30T12:30:01.123456Z")),
+                    ],
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/create_payout_reconciliation_full"),
+                PayoutReconciliationReportType,
+            ),
         ],
         ids=[
             "Create transaction report with basic data",
@@ -162,6 +183,8 @@ class TestReportsClient:
             "Create discount report with filters",
             "Create products and prices report with filters",
             "Create balance report with filters",
+            "Create payout reconciliation report with basic data",
+            "Create payout reconciliation report with filters",
         ],
     )
     def test_create_report_uses_expected_payload(

@@ -13,6 +13,7 @@ class Payout(Entity):
     currency_code: CurrencyCodePayouts
     id: str
     status: PayoutStatus
+    remittance_reference: str | None
 
     @staticmethod
     def from_dict(data: dict[str, Any]) -> Payout:
@@ -21,4 +22,5 @@ class Payout(Entity):
             id=data["id"],
             status=PayoutStatus(data["status"]),
             currency_code=CurrencyCodePayouts(data["currency_code"]),
+            remittance_reference=data.get("remittance_reference"),
         )
