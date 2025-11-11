@@ -35,6 +35,8 @@ from paddle_billing.Entities.Shared.Pagination import Pagination
 from paddle_billing.Entities.Shared.PaymentAttemptStatus import PaymentAttemptStatus
 from paddle_billing.Entities.Shared.PaymentMethodType import PaymentMethodType
 from paddle_billing.Entities.Shared.PaymentMethodUnderlyingDetails import PaymentMethodUnderlyingDetails
+from paddle_billing.Entities.Shared.SouthKoreaLocalCard import SouthKoreaLocalCard
+from paddle_billing.Entities.Shared.SouthKoreaLocalCardType import SouthKoreaLocalCardType
 from paddle_billing.Entities.Shared.PayoutTotalsAdjustment import PayoutTotalsAdjustment
 from paddle_billing.Entities.Shared.Paypal import Paypal
 from paddle_billing.Entities.Shared.PriceQuantity import PriceQuantity
