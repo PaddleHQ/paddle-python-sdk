@@ -12,6 +12,7 @@
         "cardholder_name": "Sam Miller"
       },
       "paypal": null,
+      "south_korea_local_card": null,
       "origin": "subscription",
       "saved_at": "2024-05-03T11:50:23.422Z",
       "updated_at": "2024-05-04T11:50:23.422Z",

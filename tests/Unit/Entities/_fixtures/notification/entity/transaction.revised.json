@@ -290,6 +290,7 @@
                     "cardholder_name": "Michael McGovern"
                 },
                 "type": "card",
+                "south_korea_local_card": null,
                 "underlying_details": null
             },
             "payment_method_id": "paymtd_01hv8x1tpjfnttxddw73xnqx6s",
@@ -311,6 +312,7 @@
                     "cardholder_name": "Michael McGovern"
                 },
                 "type": "card",
+                "south_korea_local_card": null,
                 "underlying_details": null
             },
             "payment_method_id": "paymtd_01hv8wx2mka7dfsqjjsxh1ne7z",

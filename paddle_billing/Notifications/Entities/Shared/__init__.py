@@ -27,6 +27,8 @@ from paddle_billing.Notifications.Entities.Shared.Money import Money
 from paddle_billing.Notifications.Entities.Shared.Original import Original
 from paddle_billing.Notifications.Entities.Shared.PaymentAttemptStatus import PaymentAttemptStatus
 from paddle_billing.Notifications.Entities.Shared.PaymentMethodType import PaymentMethodType
+from paddle_billing.Notifications.Entities.Shared.SouthKoreaLocalCard import SouthKoreaLocalCard
+from paddle_billing.Notifications.Entities.Shared.SouthKoreaLocalCardType import SouthKoreaLocalCardType
 from paddle_billing.Notifications.Entities.Shared.PayoutTotalsAdjustment import PayoutTotalsAdjustment
 from paddle_billing.Notifications.Entities.Shared.Paypal import Paypal
 from paddle_billing.Notifications.Entities.Shared.PriceQuantity import PriceQuantity

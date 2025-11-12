@@ -10,6 +10,7 @@ from paddle_billing.Entities.Shared import (
     Paypal,
     SavedPaymentMethodOrigin,
     SavedPaymentMethodType,
+    SouthKoreaLocalCard,
 )
 
 
@@ -24,7 +25,8 @@ class PaymentMethod(Entity):
     origin: SavedPaymentMethodOrigin
     saved_at: datetime
     updated_at: datetime
-    underlying_details: PaymentMethodUnderlyingDetails | None
+    underlying_details: PaymentMethodUnderlyingDetails | None  # deprecated
+    south_korea_local_card: SouthKoreaLocalCard | None
 
     @staticmethod
     def from_dict(data: dict[str, Any]) -> PaymentMethod:
@@ -43,4 +45,9 @@ class PaymentMethod(Entity):
             origin=SavedPaymentMethodOrigin(data["origin"]),
             saved_at=datetime.fromisoformat(data["saved_at"]),
             updated_at=datetime.fromisoformat(data["updated_at"]),
+            south_korea_local_card=(
+                SouthKoreaLocalCard.from_dict(data["south_korea_local_card"])
+                if data.get("south_korea_local_card")
+                else None
+            ),
         )
