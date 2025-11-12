@@ -9,6 +9,7 @@
         "email": "sam@example.com",
         "reference": "some-reference"
       },
+      "south_korea_local_card": null,
       "origin": "saved_during_purchase",
       "saved_at": "2024-05-03T11:50:23.422Z",
       "updated_at": "2024-05-04T11:50:23.422Z"
