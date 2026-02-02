@@ -17,3 +17,4 @@ class SavedPaymentMethodType(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     SamsungPay: "SavedPaymentMethodType" = "samsung_pay"
     SouthKoreaLocalCard: "SavedPaymentMethodType" = "south_korea_local_card"
     Upi: "SavedPaymentMethodType" = "upi"
+    WechatPay: "SavedPaymentMethodType" = "wechat_pay"
