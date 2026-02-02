@@ -3,7 +3,6 @@ from paddle_billing.Entities.Transactions.TransactionBreakdown import Transactio
 from paddle_billing.Entities.Transactions.TransactionCardType import TransactionCardType
 from paddle_billing.Entities.Shared.TimePeriod import TimePeriod
 
-
 # These cause circular imports
 # from paddle_billing.Entities.Transactions.TransactionDetails                        import TransactionDetails
 # from paddle_billing.Entities.Transactions.TransactionItem                           import TransactionItem

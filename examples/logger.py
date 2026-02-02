@@ -3,7 +3,6 @@ import logging
 from os import getenv
 from paddle_billing import Client, Environment, Options
 
-
 # Verify your Paddle API key was provided by a PADDLE_SECRET_API_KEY environment variable
 # It is strongly advised that you do not include secrets in your source code
 # Use environment variables, and/or secrets management like Vault to obtain your secrets

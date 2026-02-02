@@ -1,6 +1,5 @@
 from setuptools import setup, find_packages
 
-
 setup(
     version="1.12.0",
     author="Paddle and contributors",

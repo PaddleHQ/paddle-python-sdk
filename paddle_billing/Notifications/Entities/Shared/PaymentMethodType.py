@@ -21,4 +21,5 @@ class PaymentMethodType(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     SouthKoreaLocalCard: "PaymentMethodType" = "south_korea_local_card"
     Unknown: "PaymentMethodType" = "unknown"
     Upi: "PaymentMethodType" = "upi"
+    WechatPay: "PaymentMethodType" = "wechat_pay"
     WireTransfer: "PaymentMethodType" = "wire_transfer"
