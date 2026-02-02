@@ -59,7 +59,6 @@ from paddle_billing.Entities.Shared.TransactionTotalsAdjusted import Transaction
 from paddle_billing.Entities.Shared.UnitPriceOverride import UnitPriceOverride
 from paddle_billing.Entities.Shared.UnitTotals import UnitTotals
 
-
 # These two cause circular imports
 # from paddle_billing.Entities.Shared.TransactionDetailsPreview  import TransactionDetailsPreview
 # from paddle_billing.Entities.Shared.TransactionLineItemPreview import TransactionLineItemPreview

@@ -9,7 +9,6 @@ from paddle_billing.Resources.Shared.Operations import Pager
 
 from tests.Utils.ReadsFixture import ReadsFixtures
 
-
 # The notification id to use for these tests
 TEST_ID = "ntf_01hher6hqs35t9dzq84g3ggqvh"
 
