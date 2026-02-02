@@ -11,6 +11,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 ### Added
 
 - Added support for `wechat_pay` payment method type. See [related changelog](https://developer.paddle.com/changelog/2025/wechat-pay-payment-method?utm_source=dx&utm_medium=paddle-python-sdk)
+- Added `grand_total_tax` to transaction totals and adjusted totals. See [related changelog](https://developer.paddle.com/changelog/2026/grand-total-tax-field?utm_source=dx&utm_medium=paddle-python-sdk)
 
 ## 1.12.0 - 2025-11-12
 

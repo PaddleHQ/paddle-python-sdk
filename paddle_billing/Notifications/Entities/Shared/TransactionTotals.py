@@ -18,6 +18,7 @@ class TransactionTotals:
     earnings: str | None
     currency_code: CurrencyCode
     credit_to_balance: str
+    grand_total_tax: str | None
 
     @staticmethod
     def from_dict(data: dict[str, Any]) -> TransactionTotals:
@@ -33,4 +34,5 @@ class TransactionTotals:
             earnings=data.get("earnings"),
             currency_code=CurrencyCode(data["currency_code"]),
             credit_to_balance=data["credit_to_balance"],
+            grand_total_tax=data.get("grand_total_tax"),
         )
