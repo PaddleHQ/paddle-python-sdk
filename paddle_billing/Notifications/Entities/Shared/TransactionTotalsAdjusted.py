@@ -15,6 +15,7 @@ class TransactionTotalsAdjusted:
     earnings: str | None
     currency_code: CurrencyCode
     retained_fee: str | None
+    grand_total_tax: str | None
 
     @staticmethod
     def from_dict(data: dict[str, Any]) -> TransactionTotalsAdjusted:
@@ -27,4 +28,5 @@ class TransactionTotalsAdjusted:
             earnings=data.get("earnings"),
             currency_code=CurrencyCode(data["currency_code"]),
             retained_fee=data.get("retained_fee"),
+            grand_total_tax=data.get("grand_total_tax"),
         )

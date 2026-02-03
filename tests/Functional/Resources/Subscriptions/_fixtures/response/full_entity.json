@@ -162,7 +162,8 @@
         "grand_total": "194341",
         "earnings": null,
         "currency_code": "USD",
-        "exchange_rate": "1"
+        "exchange_rate": "1",
+        "grand_total_tax": "15841"
       },
       "line_items": [
         {
@@ -245,7 +246,8 @@
           "grand_total": "194341",
           "earnings": null,
           "currency_code": "USD",
-          "exchange_rate": "1"
+          "exchange_rate": "1",
+          "grand_total_tax": "15841"
         },
         "line_items": [
           {
