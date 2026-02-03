@@ -10,6 +10,7 @@ class EventTypeName(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     ApiKeyCreated: "EventTypeName" = "api_key.created"
     ApiKeyExpired: "EventTypeName" = "api_key.expired"
     ApiKeyExpiring: "EventTypeName" = "api_key.expiring"
+    ApiKeyExposureCreated: "EventTypeName" = "api_key_exposure.created"
     ApiKeyRevoked: "EventTypeName" = "api_key.revoked"
     ApiKeyUpdated: "EventTypeName" = "api_key.updated"
     BusinessCreated: "EventTypeName" = "business.created"
