@@ -14,6 +14,10 @@ from paddle_billing.Resources.Reports.Operations.Filters.Filter import Filter
 
 @dataclass
 class CreateBalanceReport(CreateReport):
+    """
+    Deprecated: Use CreatePayoutReconciliationReport instead.
+    """
+
     type: BalanceReportType
     filters: list[UpdatedAtFilter] = field(default_factory=list)
 
