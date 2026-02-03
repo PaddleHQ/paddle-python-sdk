@@ -20,6 +20,7 @@ class TransactionPayoutTotals:
     credit_to_balance: str
     exchange_rate: str | None
     fee_rate: str | None
+    grand_total_tax: str | None
 
     @staticmethod
     def from_dict(data: dict[str, Any]) -> TransactionPayoutTotals:
@@ -37,4 +38,5 @@ class TransactionPayoutTotals:
             credit_to_balance=data["credit_to_balance"],
             exchange_rate=data.get("exchange_rate"),
             fee_rate=data.get("fee_rate"),
+            grand_total_tax=data.get("grand_total_tax"),
         )

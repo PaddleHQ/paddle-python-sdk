@@ -52,7 +52,8 @@
           "grand_total": "50000",
           "earnings": null,
           "currency_code": "USD",
-          "exchange_rate": "1"
+          "exchange_rate": "1",
+          "grand_total_tax": "8333"
         },
         "line_items": [
           {
@@ -127,7 +128,7 @@
           }
         ]
       },
-      "adjustments":  [
+      "adjustments": [
         {
           "transaction_id": "txn_01h8bxpvx398a7zbawb77y0kp5",
           "items": [

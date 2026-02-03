@@ -72,7 +72,8 @@
         "credit_to_balance": "0",
         "balance": "0",
         "earnings": null,
-        "currency_code": "USD"
+        "currency_code": "USD",
+        "grand_total_tax": "0"
       },
       "adjusted_totals": {
         "subtotal": "0",
@@ -82,7 +83,8 @@
         "fee": "0",
         "earnings": "0",
         "currency_code": "USD",
-        "retained_fee": "0"
+        "retained_fee": "0",
+        "grand_total_tax": "0"
       },
       "payout_totals": null,
       "adjusted_payout_totals": null,
