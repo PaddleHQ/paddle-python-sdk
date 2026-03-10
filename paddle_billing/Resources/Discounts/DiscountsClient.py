@@ -1,6 +1,6 @@
 from paddle_billing.ResponseParser import ResponseParser
 
-from paddle_billing.Entities.Collections import Paginator, DiscountCollection
+from paddle_billing.Entities.Collections import DiscountCollection
 from paddle_billing.Entities.Discount import Discount
 from paddle_billing.Entities.Discounts import DiscountStatus
 
@@ -21,33 +21,34 @@ class DiscountsClient:
         if operation is None:
             operation = ListDiscounts()
 
-        self.response = self.client.get_raw("/discounts", operation.get_parameters())
-        parser = ResponseParser(self.response)
-
-        return DiscountCollection.from_list(
-            parser.get_list(), Paginator(self.client, parser.get_pagination(), DiscountCollection)
-        )
+        def parse(response):
+            self.response = response
+            parser = ResponseParser(response)
+            return DiscountCollection.from_list(
+                parser.get_list(), self.client._make_paginator(parser.get_pagination(), DiscountCollection)
+            )
+        return self.client._get("/discounts", operation.get_parameters(), parse)
 
     def get(self, discount_id: str, operation: GetDiscount | None = None) -> Discount:
         if operation is None:
             operation = GetDiscount()
 
-        self.response = self.client.get_raw(f"/discounts/{discount_id}", operation.get_parameters())
-        parser = ResponseParser(self.response)
-
-        return Discount.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Discount.from_dict(ResponseParser(response).get_dict())
+        return self.client._get(f"/discounts/{discount_id}", operation.get_parameters(), parse)
 
     def create(self, operation: CreateDiscount) -> Discount:
-        self.response = self.client.post_raw("/discounts", operation)
-        parser = ResponseParser(self.response)
-
-        return Discount.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Discount.from_dict(ResponseParser(response).get_dict())
+        return self.client._post("/discounts", operation, parse)
 
     def update(self, discount_id: str, operation: UpdateDiscount) -> Discount:
-        self.response = self.client.patch_raw(f"/discounts/{discount_id}", operation)
-        parser = ResponseParser(self.response)
-
-        return Discount.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Discount.from_dict(ResponseParser(response).get_dict())
+        return self.client._patch(f"/discounts/{discount_id}", operation, parse)
 
     def archive(self, discount_id: str) -> Discount:
         return self.update(discount_id, UpdateDiscount(status=DiscountStatus.Archived))

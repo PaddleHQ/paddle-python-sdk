@@ -3,7 +3,7 @@ from paddle_billing.ResponseParser import ResponseParser
 from paddle_billing.Entities.Transaction import Transaction
 from paddle_billing.Entities.TransactionData import TransactionData
 from paddle_billing.Entities.TransactionPreview import TransactionPreview
-from paddle_billing.Entities.Collections import Paginator, TransactionCollection
+from paddle_billing.Entities.Collections import TransactionCollection
 
 from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 
@@ -35,11 +35,13 @@ class TransactionsClient:
         if operation is None:
             operation = ListTransactions()
 
-        self.response = self.client.get_raw("/transactions", operation.get_parameters())
-        parser = ResponseParser(self.response)
-        return TransactionCollection.from_list(
-            parser.get_list(), Paginator(self.client, parser.get_pagination(), TransactionCollection)
-        )
+        def parse(response):
+            self.response = response
+            parser = ResponseParser(response)
+            return TransactionCollection.from_list(
+                parser.get_list(), self.client._make_paginator(parser.get_pagination(), TransactionCollection)
+            )
+        return self.client._get("/transactions", operation.get_parameters(), parse)
 
     def get(self, transaction_id: str, includes=None) -> Transaction:
         if includes is None:
@@ -52,9 +54,11 @@ class TransactionsClient:
             )
 
         params = {"include": ",".join(include.value for include in includes)} if includes else {}
-        self.response = self.client.get_raw(f"/transactions/{transaction_id}", params)
-        parser = ResponseParser(self.response)
-        return Transaction.from_dict(parser.get_dict())
+
+        def parse(response):
+            self.response = response
+            return Transaction.from_dict(ResponseParser(response).get_dict())
+        return self.client._get(f"/transactions/{transaction_id}", params, parse)
 
     def create(self, operation: CreateTransaction, includes=None) -> Transaction:
         if includes is None:
@@ -67,16 +71,17 @@ class TransactionsClient:
             )
 
         params = {"include": ",".join(include.value for include in includes)} if includes else {}
-        self.response = self.client.post_raw("/transactions", operation, params)
-        parser = ResponseParser(self.response)
 
-        return Transaction.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Transaction.from_dict(ResponseParser(response).get_dict())
+        return self.client._post("/transactions", operation, parse, params)
 
     def update(self, transaction_id: str, operation: UpdateTransaction) -> Transaction:
-        self.response = self.client.patch_raw(f"/transactions/{transaction_id}", operation)
-        parser = ResponseParser(self.response)
-
-        return Transaction.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Transaction.from_dict(ResponseParser(response).get_dict())
+        return self.client._patch(f"/transactions/{transaction_id}", operation, parse)
 
     def preview(
         self,
@@ -84,19 +89,19 @@ class TransactionsClient:
             PreviewTransaction | PreviewTransactionByAddress | PreviewTransactionByCustomer | PreviewTransactionByIP
         ),
     ) -> TransactionPreview:
-        self.response = self.client.post_raw("/transactions/preview", operation)
-        parser = ResponseParser(self.response)
-
-        return TransactionPreview.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return TransactionPreview.from_dict(ResponseParser(response).get_dict())
+        return self.client._post("/transactions/preview", operation, parse)
 
     def get_invoice_pdf(self, transaction_id: str, operation: GetTransactionInvoice | None = None) -> TransactionData:
-        self.response = self.client.get_raw(f"/transactions/{transaction_id}/invoice", operation)
-        parser = ResponseParser(self.response)
-
-        return TransactionData.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return TransactionData.from_dict(ResponseParser(response).get_dict())
+        return self.client._get(f"/transactions/{transaction_id}/invoice", operation, parse)
 
     def revise(self, transaction_id: str, operation: ReviseTransaction) -> Transaction:
-        self.response = self.client.post_raw(f"/transactions/{transaction_id}/revise", operation)
-        parser = ResponseParser(self.response)
-
-        return Transaction.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Transaction.from_dict(ResponseParser(response).get_dict())
+        return self.client._post(f"/transactions/{transaction_id}/revise", operation, parse)

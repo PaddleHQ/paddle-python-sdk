@@ -15,40 +15,43 @@ from paddle_billing.ResponseParser import ResponseParser
 
 from paddle_billing.Logger.NullHandler import NullHandler
 
-from paddle_billing.Resources.Addresses.AsyncAddressesClient import AsyncAddressesClient
-from paddle_billing.Resources.Adjustments.AsyncAdjustmentsClient import AsyncAdjustmentsClient
-from paddle_billing.Resources.Businesses.AsyncBusinessesClient import AsyncBusinessesClient
-from paddle_billing.Resources.ClientTokens.AsyncClientTokensClient import AsyncClientTokensClient
-from paddle_billing.Resources.Customers.AsyncCustomersClient import AsyncCustomersClient
-from paddle_billing.Resources.CustomerPortalSessions.AsyncCustomerPortalSessionsClient import (
-    AsyncCustomerPortalSessionsClient,
-)
-from paddle_billing.Resources.DiscountGroups.AsyncDiscountGroupsClient import AsyncDiscountGroupsClient
-from paddle_billing.Resources.Discounts.AsyncDiscountsClient import AsyncDiscountsClient
-from paddle_billing.Resources.Events.AsyncEventsClient import AsyncEventsClient
-from paddle_billing.Resources.EventTypes.AsyncEventTypesClient import AsyncEventTypesClient
-from paddle_billing.Resources.IPAddresses.AsyncIPAddressesClient import AsyncIPAddressesClient
-from paddle_billing.Resources.Notifications.AsyncNotificationsClient import AsyncNotificationsClient
-from paddle_billing.Resources.NotificationLogs.AsyncNotificationLogsClient import AsyncNotificationLogsClient
-from paddle_billing.Resources.NotificationSettings.AsyncNotificationSettingsClient import (
-    AsyncNotificationSettingsClient,
-)
-from paddle_billing.Resources.PaymentMethods.AsyncPaymentMethodsClient import AsyncPaymentMethodsClient
-from paddle_billing.Resources.Prices.AsyncPricesClient import AsyncPricesClient
-from paddle_billing.Resources.PricingPreviews.AsyncPricingPreviewsClient import AsyncPricingPreviewsClient
-from paddle_billing.Resources.Products.AsyncProductsClient import AsyncProductsClient
-from paddle_billing.Resources.Reports.AsyncReportsClient import AsyncReportsClient
-from paddle_billing.Resources.Simulations.AsyncSimulationsClient import AsyncSimulationsClient
-from paddle_billing.Resources.SimulationRuns.AsyncSimulationRunsClient import AsyncSimulationRunsClient
-from paddle_billing.Resources.SimulationRunEvents.AsyncSimulationRunEventsClient import AsyncSimulationRunEventsClient
-from paddle_billing.Resources.SimulationTypes.AsyncSimulationTypesClient import AsyncSimulationTypesClient
-from paddle_billing.Resources.Subscriptions.AsyncSubscriptionsClient import AsyncSubscriptionsClient
-from paddle_billing.Resources.Transactions.AsyncTransactionsClient import AsyncTransactionsClient
+from paddle_billing.Resources.Addresses.AddressesClient import AddressesClient
+from paddle_billing.Resources.Adjustments.AdjustmentsClient import AdjustmentsClient
+from paddle_billing.Resources.Businesses.BusinessesClient import BusinessesClient
+from paddle_billing.Resources.ClientTokens.ClientTokensClient import ClientTokensClient
+from paddle_billing.Resources.Customers.CustomersClient import CustomersClient
+from paddle_billing.Resources.CustomerPortalSessions.CustomerPortalSessionsClient import CustomerPortalSessionsClient
+from paddle_billing.Resources.DiscountGroups.DiscountGroupsClient import DiscountGroupsClient
+from paddle_billing.Resources.Discounts.DiscountsClient import DiscountsClient
+from paddle_billing.Resources.Events.EventsClient import EventsClient
+from paddle_billing.Resources.EventTypes.EventTypesClient import EventTypesClient
+from paddle_billing.Resources.IPAddresses.IPAddressesClient import IPAddressesClient
+from paddle_billing.Resources.Notifications.NotificationsClient import NotificationsClient
+from paddle_billing.Resources.NotificationLogs.NotificationLogsClient import NotificationLogsClient
+from paddle_billing.Resources.NotificationSettings.NotificationSettingsClient import NotificationSettingsClient
+from paddle_billing.Resources.PaymentMethods.PaymentMethodsClient import PaymentMethodsClient
+from paddle_billing.Resources.Prices.PricesClient import PricesClient
+from paddle_billing.Resources.PricingPreviews.PricingPreviewsClient import PricingPreviewsClient
+from paddle_billing.Resources.Products.ProductsClient import ProductsClient
+from paddle_billing.Resources.Reports.ReportsClient import ReportsClient
+from paddle_billing.Resources.Simulations.SimulationsClient import SimulationsClient
+from paddle_billing.Resources.SimulationRuns.SimulationRunsClient import SimulationRunsClient
+from paddle_billing.Resources.SimulationRunEvents.SimulationRunEventsClient import SimulationRunEventsClient
+from paddle_billing.Resources.SimulationTypes.SimulationTypesClient import SimulationTypesClient
+from paddle_billing.Resources.Subscriptions.SubscriptionsClient import SubscriptionsClient
+from paddle_billing.Resources.Transactions.TransactionsClient import TransactionsClient
 
 
 class AsyncClient:
     """
     Async client for making API requests using Python's httpx library.
+
+    Resource client methods return coroutines when called on this client, so
+    all resource method calls must be awaited:
+
+        product = await client.products.get("pro_123")
+        async for product in await client.products.list():
+            ...
     """
 
     def __init__(
@@ -72,32 +75,33 @@ class AsyncClient:
         self.payload = None  # Used by pytest
         self.status_code = None  # Used by pytest
 
-        # Initialize the various clients
-        self.addresses = AsyncAddressesClient(self)
-        self.adjustments = AsyncAdjustmentsClient(self)
-        self.businesses = AsyncBusinessesClient(self)
-        self.client_tokens = AsyncClientTokensClient(self)
-        self.customers = AsyncCustomersClient(self)
-        self.customer_portal_sessions = AsyncCustomerPortalSessionsClient(self)
-        self.discounts = AsyncDiscountsClient(self)
-        self.discount_groups = AsyncDiscountGroupsClient(self)
-        self.events = AsyncEventsClient(self)
-        self.event_types = AsyncEventTypesClient(self)
-        self.notifications = AsyncNotificationsClient(self)
-        self.notification_logs = AsyncNotificationLogsClient(self)
-        self.notification_settings = AsyncNotificationSettingsClient(self)
-        self.payment_methods = AsyncPaymentMethodsClient(self)
-        self.prices = AsyncPricesClient(self)
-        self.pricing_previews = AsyncPricingPreviewsClient(self)
-        self.products = AsyncProductsClient(self)
-        self.reports = AsyncReportsClient(self)
-        self.simulations = AsyncSimulationsClient(self)
-        self.simulation_runs = AsyncSimulationRunsClient(self)
-        self.simulation_run_events = AsyncSimulationRunEventsClient(self)
-        self.simulation_types = AsyncSimulationTypesClient(self)
-        self.subscriptions = AsyncSubscriptionsClient(self)
-        self.transactions = AsyncTransactionsClient(self)
-        self.ip_addresses = AsyncIPAddressesClient(self)
+        # Resource clients are shared with the sync Client — the async dispatch
+        # methods below (_get, _post, _patch, _delete) make their calls awaitable.
+        self.addresses = AddressesClient(self)
+        self.adjustments = AdjustmentsClient(self)
+        self.businesses = BusinessesClient(self)
+        self.client_tokens = ClientTokensClient(self)
+        self.customers = CustomersClient(self)
+        self.customer_portal_sessions = CustomerPortalSessionsClient(self)
+        self.discounts = DiscountsClient(self)
+        self.discount_groups = DiscountGroupsClient(self)
+        self.events = EventsClient(self)
+        self.event_types = EventTypesClient(self)
+        self.notifications = NotificationsClient(self)
+        self.notification_logs = NotificationLogsClient(self)
+        self.notification_settings = NotificationSettingsClient(self)
+        self.payment_methods = PaymentMethodsClient(self)
+        self.prices = PricesClient(self)
+        self.pricing_previews = PricingPreviewsClient(self)
+        self.products = ProductsClient(self)
+        self.reports = ReportsClient(self)
+        self.simulations = SimulationsClient(self)
+        self.simulation_runs = SimulationRunsClient(self)
+        self.simulation_run_events = SimulationRunEventsClient(self)
+        self.simulation_types = SimulationTypesClient(self)
+        self.subscriptions = SubscriptionsClient(self)
+        self.transactions = TransactionsClient(self)
+        self.ip_addresses = IPAddressesClient(self)
 
     async def __aenter__(self):
         return self
@@ -110,20 +114,11 @@ class AsyncClient:
 
     @staticmethod
     def null_logger() -> Logger:
-        """
-        Create a logger instance that logs everything to nowhere
-        """
-
         null_logger = getLogger("null_async_logger")
         null_logger.addHandler(NullHandler())
-
         return null_logger
 
     async def _logging_hook(self, response: httpx.Response) -> None:
-        """
-        httpx event hook for logging requests and responses
-        """
-
         self.log.info(f"Request: {response.request.method} {response.request.url}")
         await response.aread()
         self.log.debug(f"Response: {response.status_code} {response.text}")
@@ -131,9 +126,7 @@ class AsyncClient:
     @staticmethod
     def serialize_json_payload(payload: dict[str, Any] | Operation) -> str:
         json_payload = json_dumps(payload, cls=PayloadEncoder)
-        final_json = json_payload if json_payload != "[]" else "{}"
-
-        return final_json
+        return json_payload if json_payload != "[]" else "{}"
 
     async def _make_request(
         self,
@@ -141,9 +134,6 @@ class AsyncClient:
         url: str,
         payload: dict[str, Any] | Operation | None = None,
     ) -> httpx.Response:
-        """
-        Makes an actual API call to Paddle
-        """
         if isinstance(url, str):
             url = urljoin(self.options.environment.base_url, url)
 
@@ -166,8 +156,8 @@ class AsyncClient:
                     continue
 
                 response.raise_for_status()
-
                 return response
+
             except httpx.HTTPStatusError as e:
                 self.status_code = e.response.status_code
 
@@ -184,6 +174,7 @@ class AsyncClient:
                     raise api_error
 
                 raise
+
             except httpx.RequestError as e:
                 if self.log:
                     self.log.error(f"Request failed: {e}.")
@@ -203,12 +194,10 @@ class AsyncClient:
         query = urlencode(parameters)
         uri += "&" if "?" in uri else "?"
         uri += query
-
         return uri
 
     async def get_raw(self, url: str, parameters: HasParameters | dict[str, str] | None = None) -> httpx.Response:
         url = AsyncClient.format_uri_parameters(url, parameters) if parameters else url
-
         return await self._make_request("GET", url, None)
 
     async def post_raw(
@@ -218,7 +207,6 @@ class AsyncClient:
         parameters: HasParameters | dict[str, str] | None = None,
     ) -> httpx.Response:
         url = AsyncClient.format_uri_parameters(url, parameters) if parameters else url
-
         return await self._make_request("POST", url, payload)
 
     async def patch_raw(self, url: str, payload: dict[str, str] | Operation | None) -> httpx.Response:
@@ -226,6 +214,31 @@ class AsyncClient:
 
     async def delete_raw(self, url: str) -> httpx.Response:
         return await self._make_request("DELETE", url)
+
+    # --- Dispatch methods called by resource clients ---
+    # Because these are `async def`, resource client methods that call them
+    # return coroutines and must be awaited by callers.
+
+    async def _get(self, url: str, params=None, parse_fn=None):
+        response = await self.get_raw(url, params)
+        return parse_fn(response) if parse_fn else response
+
+    async def _post(self, url: str, payload=None, parse_fn=None, params=None):
+        response = await self.post_raw(url, payload, params)
+        return parse_fn(response) if parse_fn else response
+
+    async def _patch(self, url: str, payload=None, parse_fn=None):
+        response = await self.patch_raw(url, payload)
+        return parse_fn(response) if parse_fn else response
+
+    async def _delete(self, url: str, parse_fn=None):
+        response = await self.delete_raw(url)
+        return parse_fn(response) if parse_fn else response
+
+    def _make_paginator(self, pagination, mapper):
+        from paddle_billing.Entities.Collections.AsyncPaginator import AsyncPaginator
+
+        return AsyncPaginator(self, pagination, mapper)
 
     def build_async_client(self) -> httpx.AsyncClient:
         headers = {

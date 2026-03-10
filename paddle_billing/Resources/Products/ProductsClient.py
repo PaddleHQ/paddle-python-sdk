@@ -1,6 +1,6 @@
 from paddle_billing.ResponseParser import ResponseParser
 
-from paddle_billing.Entities.Collections import Paginator, ProductCollection
+from paddle_billing.Entities.Collections import ProductCollection
 from paddle_billing.Entities.Product import Product
 from paddle_billing.Entities.Shared import Status
 
@@ -23,12 +23,13 @@ class ProductsClient:
         if operation is None:
             operation = ListProducts()
 
-        self.response = self.client.get_raw("/products", operation.get_parameters())
-        parser = ResponseParser(self.response)
-
-        return ProductCollection.from_list(
-            parser.get_list(), Paginator(self.client, parser.get_pagination(), ProductCollection)
-        )
+        def parse(response):
+            self.response = response
+            parser = ResponseParser(response)
+            return ProductCollection.from_list(
+                parser.get_list(), self.client._make_paginator(parser.get_pagination(), ProductCollection)
+            )
+        return self.client._get("/products", operation.get_parameters(), parse)
 
     def get(self, product_id: str, includes=None) -> Product | Product:
         if product_id is None:
@@ -46,22 +47,23 @@ class ProductsClient:
             )
 
         params = {"include": ",".join(include.value for include in includes)} if includes else {}
-        self.response = self.client.get_raw(f"/products/{product_id}", params)
-        parser = ResponseParser(self.response)
 
-        return Product.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Product.from_dict(ResponseParser(response).get_dict())
+        return self.client._get(f"/products/{product_id}", params, parse)
 
     def create(self, operation: CreateProduct) -> Product:
-        self.response = self.client.post_raw("/products", operation)
-        parser = ResponseParser(self.response)
-
-        return Product.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Product.from_dict(ResponseParser(response).get_dict())
+        return self.client._post("/products", operation, parse)
 
     def update(self, product_id: str, operation: UpdateProduct) -> Product:
-        self.response = self.client.patch_raw(f"/products/{product_id}", operation)
-        parser = ResponseParser(self.response)
-
-        return Product.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Product.from_dict(ResponseParser(response).get_dict())
+        return self.client._patch(f"/products/{product_id}", operation, parse)
 
     def archive(self, product_id: str) -> Product:
         return self.update(product_id, UpdateProduct(status=Status.Archived))

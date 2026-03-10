@@ -1,7 +1,7 @@
 from paddle_billing.ResponseParser import ResponseParser
 
 from paddle_billing.Entities.SimulationRun import SimulationRun
-from paddle_billing.Entities.Collections import Paginator, SimulationRunCollection
+from paddle_billing.Entities.Collections import SimulationRunCollection
 from paddle_billing.Resources.SimulationRuns.Operations import GetSimulationRun, ListSimulationRuns
 
 from typing import TYPE_CHECKING
@@ -19,12 +19,13 @@ class SimulationRunsClient:
         if operation is None:
             operation = ListSimulationRuns()
 
-        self.response = self.client.get_raw(f"/simulations/{simulation_id}/runs", operation)
-        parser = ResponseParser(self.response)
-
-        return SimulationRunCollection.from_list(
-            parser.get_list(), Paginator(self.client, parser.get_pagination(), SimulationRunCollection)
-        )
+        def parse(response):
+            self.response = response
+            parser = ResponseParser(response)
+            return SimulationRunCollection.from_list(
+                parser.get_list(), self.client._make_paginator(parser.get_pagination(), SimulationRunCollection)
+            )
+        return self.client._get(f"/simulations/{simulation_id}/runs", operation, parse)
 
     def get(
         self, simulation_id: str, simulation_run_id: str, operation: GetSimulationRun | None = None
@@ -32,13 +33,13 @@ class SimulationRunsClient:
         if operation is None:
             operation = GetSimulationRun()
 
-        self.response = self.client.get_raw(f"/simulations/{simulation_id}/runs/{simulation_run_id}", operation)
-        parser = ResponseParser(self.response)
-
-        return SimulationRun.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return SimulationRun.from_dict(ResponseParser(response).get_dict())
+        return self.client._get(f"/simulations/{simulation_id}/runs/{simulation_run_id}", operation, parse)
 
     def create(self, simulation_id: str) -> SimulationRun:
-        self.response = self.client.post_raw(f"/simulations/{simulation_id}/runs")
-        parser = ResponseParser(self.response)
-
-        return SimulationRun.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return SimulationRun.from_dict(ResponseParser(response).get_dict())
+        return self.client._post(f"/simulations/{simulation_id}/runs", None, parse)

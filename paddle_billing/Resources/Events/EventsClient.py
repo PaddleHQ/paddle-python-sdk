@@ -1,5 +1,5 @@
 from paddle_billing.ResponseParser import ResponseParser
-from paddle_billing.Entities.Collections import EventCollection, Paginator
+from paddle_billing.Entities.Collections import EventCollection
 from paddle_billing.Resources.Events.Operations import ListEvents
 
 from typing import TYPE_CHECKING
@@ -17,9 +17,10 @@ class EventsClient:
         if operation is None:
             operation = ListEvents()
 
-        self.response = self.client.get_raw("/events", operation.get_parameters())
-        parser = ResponseParser(self.response)
-
-        return EventCollection.from_list(
-            parser.get_list(), Paginator(self.client, parser.get_pagination(), EventCollection)
-        )
+        def parse(response):
+            self.response = response
+            parser = ResponseParser(response)
+            return EventCollection.from_list(
+                parser.get_list(), self.client._make_paginator(parser.get_pagination(), EventCollection)
+            )
+        return self.client._get("/events", operation.get_parameters(), parse)

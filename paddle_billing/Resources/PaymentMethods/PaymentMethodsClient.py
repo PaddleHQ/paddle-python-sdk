@@ -2,7 +2,6 @@ from paddle_billing.ResponseParser import ResponseParser
 
 from paddle_billing.Entities.Collections import (
     PaymentMethodCollection,
-    Paginator,
 )
 from paddle_billing.Entities.PaymentMethod import PaymentMethod
 
@@ -25,21 +24,22 @@ class PaymentMethodsClient:
         if operation is None:
             operation = ListPaymentMethods()
 
-        self.response = self.client.get_raw(f"/customers/{customer_id}/payment-methods", operation)
-        parser = ResponseParser(self.response)
-
-        return PaymentMethodCollection.from_list(
-            parser.get_list(),
-            Paginator(self.client, parser.get_pagination(), PaymentMethodCollection),
-        )
+        def parse(response):
+            self.response = response
+            parser = ResponseParser(response)
+            return PaymentMethodCollection.from_list(
+                parser.get_list(),
+                self.client._make_paginator(parser.get_pagination(), PaymentMethodCollection),
+            )
+        return self.client._get(f"/customers/{customer_id}/payment-methods", operation, parse)
 
     def get(self, customer_id: str, payment_method_id: str) -> PaymentMethod:
-        self.response = self.client.get_raw(f"/customers/{customer_id}/payment-methods/{payment_method_id}")
-        parser = ResponseParser(self.response)
-
-        return PaymentMethod.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return PaymentMethod.from_dict(ResponseParser(response).get_dict())
+        return self.client._get(f"/customers/{customer_id}/payment-methods/{payment_method_id}", None, parse)
 
     def delete(self, customer_id: str, payment_method_id: str) -> None:
-        self.response = self.client.delete_raw(f"/customers/{customer_id}/payment-methods/{payment_method_id}")
+        self.client._delete(f"/customers/{customer_id}/payment-methods/{payment_method_id}")
 
         return None

@@ -1,7 +1,7 @@
 from paddle_billing.ResponseParser import ResponseParser
 
 from paddle_billing.Entities.Price import Price
-from paddle_billing.Entities.Collections import Paginator, PriceCollection
+from paddle_billing.Entities.Collections import PriceCollection
 from paddle_billing.Entities.Shared import Status
 
 from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
@@ -23,12 +23,13 @@ class PricesClient:
         if operation is None:
             operation = ListPrices()
 
-        self.response = self.client.get_raw("/prices", operation.get_parameters())
-        parser = ResponseParser(self.response)
-
-        return PriceCollection.from_list(
-            parser.get_list(), Paginator(self.client, parser.get_pagination(), PriceCollection)
-        )
+        def parse(response):
+            self.response = response
+            parser = ResponseParser(response)
+            return PriceCollection.from_list(
+                parser.get_list(), self.client._make_paginator(parser.get_pagination(), PriceCollection)
+            )
+        return self.client._get("/prices", operation.get_parameters(), parse)
 
     def get(self, price_id: str, includes=None) -> Price:
         if includes is None:
@@ -41,22 +42,23 @@ class PricesClient:
             )
 
         params = {"include": ",".join(include.value for include in includes)} if includes else {}
-        self.response = self.client.get_raw(f"/prices/{price_id}", params)
-        parser = ResponseParser(self.response)
 
-        return Price.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Price.from_dict(ResponseParser(response).get_dict())
+        return self.client._get(f"/prices/{price_id}", params, parse)
 
     def create(self, operation: CreatePrice) -> Price:
-        self.response = self.client.post_raw("/prices", operation)
-        parser = ResponseParser(self.response)
-
-        return Price.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Price.from_dict(ResponseParser(response).get_dict())
+        return self.client._post("/prices", operation, parse)
 
     def update(self, price_id: str, operation: UpdatePrice) -> Price:
-        self.response = self.client.patch_raw(f"/prices/{price_id}", operation)
-        parser = ResponseParser(self.response)
-
-        return Price.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Price.from_dict(ResponseParser(response).get_dict())
+        return self.client._patch(f"/prices/{price_id}", operation, parse)
 
     def archive(self, price_id: str) -> Price:
         return self.update(price_id, UpdatePrice(status=Status.Archived))

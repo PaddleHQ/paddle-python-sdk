@@ -1,22 +1,18 @@
-import inspect
-
 from abc import ABC, abstractmethod
 from collections.abc import AsyncIterator, Iterator
 from typing import TypeVar, Generic
-
-from paddle_billing.Entities.Collections.Paginator import Paginator
 
 T = TypeVar("T")
 
 
 class Collection(ABC, Generic[T], Iterator[T], AsyncIterator[T]):
-    def __init__(self, items, paginator: Paginator | None = None):
+    def __init__(self, items, paginator=None):
         self.items = items
         self.paginator = paginator
         self._pointer = 0
 
     @abstractmethod
-    def from_list(self, data, paginator: Paginator | None = None):
+    def from_list(self, data, paginator=None):
         pass
 
     def __iter__(self) -> Iterator[T]:
@@ -53,8 +49,7 @@ class Collection(ABC, Generic[T], Iterator[T], AsyncIterator[T]):
             return result
 
         if self.paginator and self.paginator.has_more:
-            next_page = self.paginator.next_page()
-            new_collection = await next_page if inspect.isawaitable(next_page) else next_page
+            new_collection = await self.paginator.next_page()
             self.items.extend(new_collection.items)  # Append new items
             self.paginator = new_collection.paginator
 

@@ -193,6 +193,27 @@ class Client:
     def delete_raw(self, url: str) -> Response:
         return self._make_request("DELETE", url)
 
+    def _get(self, url: str, params=None, parse_fn=None):
+        response = self.get_raw(url, params)
+        return parse_fn(response) if parse_fn else response
+
+    def _post(self, url: str, payload=None, parse_fn=None, params=None):
+        response = self.post_raw(url, payload, params)
+        return parse_fn(response) if parse_fn else response
+
+    def _patch(self, url: str, payload=None, parse_fn=None):
+        response = self.patch_raw(url, payload)
+        return parse_fn(response) if parse_fn else response
+
+    def _delete(self, url: str, parse_fn=None):
+        response = self.delete_raw(url)
+        return parse_fn(response) if parse_fn else response
+
+    def _make_paginator(self, pagination, mapper):
+        from paddle_billing.Entities.Collections.Paginator import Paginator
+
+        return Paginator(self, pagination, mapper)
+
     def build_request_session(self) -> Session:
         session = Session()
         session.headers.update(

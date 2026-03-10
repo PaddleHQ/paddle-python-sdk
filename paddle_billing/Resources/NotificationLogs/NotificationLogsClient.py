@@ -1,5 +1,5 @@
 from paddle_billing.ResponseParser import ResponseParser
-from paddle_billing.Entities.Collections import Paginator, NotificationLogCollection
+from paddle_billing.Entities.Collections import NotificationLogCollection
 from paddle_billing.Resources.NotificationLogs.Operations import ListNotificationLogs
 
 from typing import TYPE_CHECKING
@@ -17,9 +17,10 @@ class NotificationLogsClient:
         if operation is None:
             operation = ListNotificationLogs()
 
-        self.response = self.client.get_raw(f"/notifications/{notification_id}/logs", operation.get_parameters())
-        parser = ResponseParser(self.response)
-
-        return NotificationLogCollection.from_list(
-            parser.get_list(), Paginator(self.client, parser.get_pagination(), NotificationLogCollection)
-        )
+        def parse(response):
+            self.response = response
+            parser = ResponseParser(response)
+            return NotificationLogCollection.from_list(
+                parser.get_list(), self.client._make_paginator(parser.get_pagination(), NotificationLogCollection)
+            )
+        return self.client._get(f"/notifications/{notification_id}/logs", operation.get_parameters(), parse)

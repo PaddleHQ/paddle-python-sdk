@@ -1,7 +1,6 @@
 from paddle_billing.ResponseParser import ResponseParser
 
 from paddle_billing.Entities.Collections import (
-    Paginator,
     CreditBalanceCollection,
     CustomerCollection,
 )
@@ -31,30 +30,31 @@ class CustomersClient:
         if operation is None:
             operation = ListCustomers()
 
-        self.response = self.client.get_raw("/customers", operation.get_parameters())
-        parser = ResponseParser(self.response)
-
-        return CustomerCollection.from_list(
-            parser.get_list(), Paginator(self.client, parser.get_pagination(), CustomerCollection)
-        )
+        def parse(response):
+            self.response = response
+            parser = ResponseParser(response)
+            return CustomerCollection.from_list(
+                parser.get_list(), self.client._make_paginator(parser.get_pagination(), CustomerCollection)
+            )
+        return self.client._get("/customers", operation.get_parameters(), parse)
 
     def get(self, customer_id: str) -> Customer:
-        self.response = self.client.get_raw(f"/customers/{customer_id}")
-        parser = ResponseParser(self.response)
-
-        return Customer.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Customer.from_dict(ResponseParser(response).get_dict())
+        return self.client._get(f"/customers/{customer_id}", None, parse)
 
     def create(self, operation: CreateCustomer) -> Customer:
-        self.response = self.client.post_raw("/customers", operation)
-        parser = ResponseParser(self.response)
-
-        return Customer.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Customer.from_dict(ResponseParser(response).get_dict())
+        return self.client._post("/customers", operation, parse)
 
     def update(self, customer_id: str, operation: UpdateCustomer) -> Customer:
-        self.response = self.client.patch_raw(f"/customers/{customer_id}", operation)
-        parser = ResponseParser(self.response)
-
-        return Customer.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Customer.from_dict(ResponseParser(response).get_dict())
+        return self.client._patch(f"/customers/{customer_id}", operation, parse)
 
     def archive(self, customer_id: str) -> Customer:
         return self.update(customer_id, UpdateCustomer(status=Status.Archived))
@@ -63,13 +63,14 @@ class CustomersClient:
         if operation is None:
             operation = ListCreditBalances()
 
-        self.response = self.client.get_raw(f"/customers/{customer_id}/credit-balances", operation)
-        parser = ResponseParser(self.response)
-
-        return CreditBalanceCollection.from_list(parser.get_list())
+        def parse(response):
+            self.response = response
+            parser = ResponseParser(response)
+            return CreditBalanceCollection.from_list(parser.get_list())
+        return self.client._get(f"/customers/{customer_id}/credit-balances", operation, parse)
 
     def create_auth_token(self, customer_id: str) -> CustomerAuthToken:
-        self.response = self.client.post_raw(f"/customers/{customer_id}/auth-token")
-        parser = ResponseParser(self.response)
-
-        return CustomerAuthToken.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return CustomerAuthToken.from_dict(ResponseParser(response).get_dict())
+        return self.client._post(f"/customers/{customer_id}/auth-token", None, parse)

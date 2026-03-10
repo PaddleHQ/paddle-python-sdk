@@ -2,7 +2,7 @@ from paddle_billing.ResponseParser import ResponseParser
 
 from paddle_billing.Entities.Adjustment import Adjustment
 from paddle_billing.Entities.AdjustmentCreditNote import AdjustmentCreditNote
-from paddle_billing.Entities.Collections import Paginator, AdjustmentCollection
+from paddle_billing.Entities.Collections import AdjustmentCollection
 
 from paddle_billing.Resources.Adjustments.Operations import CreateAdjustment, GetCreditNote, ListAdjustments
 
@@ -21,21 +21,22 @@ class AdjustmentsClient:
         if operation is None:
             operation = ListAdjustments()
 
-        self.response = self.client.get_raw("/adjustments", operation.get_parameters())
-        parser = ResponseParser(self.response)
-
-        return AdjustmentCollection.from_list(
-            parser.get_list(), Paginator(self.client, parser.get_pagination(), AdjustmentCollection)
-        )
+        def parse(response):
+            self.response = response
+            parser = ResponseParser(response)
+            return AdjustmentCollection.from_list(
+                parser.get_list(), self.client._make_paginator(parser.get_pagination(), AdjustmentCollection)
+            )
+        return self.client._get("/adjustments", operation.get_parameters(), parse)
 
     def create(self, operation: CreateAdjustment) -> Adjustment:
-        self.response = self.client.post_raw("/adjustments", operation)
-        parser = ResponseParser(self.response)
-
-        return Adjustment.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Adjustment.from_dict(ResponseParser(response).get_dict())
+        return self.client._post("/adjustments", operation, parse)
 
     def get_credit_note(self, adjustment_id: str, operation: GetCreditNote | None = None) -> AdjustmentCreditNote:
-        self.response = self.client.get_raw(f"/adjustments/{adjustment_id}/credit-note", operation)
-        parser = ResponseParser(self.response)
-
-        return AdjustmentCreditNote.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return AdjustmentCreditNote.from_dict(ResponseParser(response).get_dict())
+        return self.client._get(f"/adjustments/{adjustment_id}/credit-note", operation, parse)

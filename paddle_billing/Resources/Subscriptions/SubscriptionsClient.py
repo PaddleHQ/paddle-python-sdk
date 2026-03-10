@@ -3,7 +3,7 @@ from paddle_billing.ResponseParser import ResponseParser
 from paddle_billing.Entities.Subscription import Subscription
 from paddle_billing.Entities.SubscriptionPreview import SubscriptionPreview
 from paddle_billing.Entities.Transaction import Transaction
-from paddle_billing.Entities.Collections import Paginator, SubscriptionCollection
+from paddle_billing.Entities.Collections import SubscriptionCollection
 
 from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 
@@ -34,12 +34,13 @@ class SubscriptionsClient:
         if operation is None:
             operation = ListSubscriptions()
 
-        self.response = self.client.get_raw("/subscriptions", operation.get_parameters())
-        parser = ResponseParser(self.response)
-
-        return SubscriptionCollection.from_list(
-            parser.get_list(), Paginator(self.client, parser.get_pagination(), SubscriptionCollection)
-        )
+        def parse(response):
+            self.response = response
+            parser = ResponseParser(response)
+            return SubscriptionCollection.from_list(
+                parser.get_list(), self.client._make_paginator(parser.get_pagination(), SubscriptionCollection)
+            )
+        return self.client._get("/subscriptions", operation.get_parameters(), parse)
 
     def get(self, subscription_id: str, includes=None) -> Subscription:
         if includes is None:
@@ -52,61 +53,62 @@ class SubscriptionsClient:
             )
 
         params = {"include": ",".join(include.value for include in includes)} if includes else {}
-        self.response = self.client.get_raw(f"/subscriptions/{subscription_id}", params)
-        parser = ResponseParser(self.response)
 
-        return Subscription.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Subscription.from_dict(ResponseParser(response).get_dict())
+        return self.client._get(f"/subscriptions/{subscription_id}", params, parse)
 
     def update(self, subscription_id: str, operation: UpdateSubscription) -> Subscription:
-        self.response = self.client.patch_raw(f"/subscriptions/{subscription_id}", operation)
-        parser = ResponseParser(self.response)
-
-        return Subscription.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Subscription.from_dict(ResponseParser(response).get_dict())
+        return self.client._patch(f"/subscriptions/{subscription_id}", operation, parse)
 
     def pause(self, subscription_id: str, operation: PauseSubscription) -> Subscription:
-        self.response = self.client.post_raw(f"/subscriptions/{subscription_id}/pause", operation)
-        parser = ResponseParser(self.response)
-
-        return Subscription.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Subscription.from_dict(ResponseParser(response).get_dict())
+        return self.client._post(f"/subscriptions/{subscription_id}/pause", operation, parse)
 
     def resume(self, subscription_id: str, operation: ResumeSubscription) -> Subscription:
-        self.response = self.client.post_raw(f"/subscriptions/{subscription_id}/resume", operation)
-        parser = ResponseParser(self.response)
-
-        return Subscription.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Subscription.from_dict(ResponseParser(response).get_dict())
+        return self.client._post(f"/subscriptions/{subscription_id}/resume", operation, parse)
 
     def cancel(self, subscription_id: str, operation: CancelSubscription) -> Subscription:
-        self.response = self.client.post_raw(f"/subscriptions/{subscription_id}/cancel", operation)
-        parser = ResponseParser(self.response)
-
-        return Subscription.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Subscription.from_dict(ResponseParser(response).get_dict())
+        return self.client._post(f"/subscriptions/{subscription_id}/cancel", operation, parse)
 
     def get_payment_method_change_transaction(self, subscription_id: str) -> Transaction:
-        self.response = self.client.get_raw(f"/subscriptions/{subscription_id}/update-payment-method-transaction")
-        parser = ResponseParser(self.response)
-
-        return Transaction.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Transaction.from_dict(ResponseParser(response).get_dict())
+        return self.client._get(f"/subscriptions/{subscription_id}/update-payment-method-transaction", None, parse)
 
     def activate(self, subscription_id: str) -> Subscription:
-        self.response = self.client.post_raw(f"/subscriptions/{subscription_id}/activate")
-        parser = ResponseParser(self.response)
-
-        return Subscription.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Subscription.from_dict(ResponseParser(response).get_dict())
+        return self.client._post(f"/subscriptions/{subscription_id}/activate", None, parse)
 
     def create_one_time_charge(self, subscription_id: str, operation: CreateOneTimeCharge) -> Subscription:
-        self.response = self.client.post_raw(f"/subscriptions/{subscription_id}/charge", operation)
-        parser = ResponseParser(self.response)
-
-        return Subscription.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Subscription.from_dict(ResponseParser(response).get_dict())
+        return self.client._post(f"/subscriptions/{subscription_id}/charge", operation, parse)
 
     def preview_update(self, subscription_id: str, operation: PreviewUpdateSubscription) -> SubscriptionPreview:
-        self.response = self.client.patch_raw(f"/subscriptions/{subscription_id}/preview", operation)
-        parser = ResponseParser(self.response)
-
-        return SubscriptionPreview.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return SubscriptionPreview.from_dict(ResponseParser(response).get_dict())
+        return self.client._patch(f"/subscriptions/{subscription_id}/preview", operation, parse)
 
     def preview_one_time_charge(self, subscription_id: str, operation: PreviewOneTimeCharge) -> SubscriptionPreview:
-        self.response = self.client.post_raw(f"/subscriptions/{subscription_id}/charge/preview", operation)
-        parser = ResponseParser(self.response)
-
-        return SubscriptionPreview.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return SubscriptionPreview.from_dict(ResponseParser(response).get_dict())
+        return self.client._post(f"/subscriptions/{subscription_id}/charge/preview", operation, parse)

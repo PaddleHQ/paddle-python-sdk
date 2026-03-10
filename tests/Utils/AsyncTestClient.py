@@ -43,6 +43,6 @@ class AsyncTestClient:
         return AsyncClient(**config)
 
 
-@fixture(autouse=True)
+@fixture
 def async_test_client(test_logger):
     return AsyncTestClient(environment=Environment.SANDBOX, logger=test_logger)

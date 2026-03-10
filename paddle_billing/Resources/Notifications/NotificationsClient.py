@@ -1,6 +1,6 @@
 from paddle_billing.ResponseParser import ResponseParser
 
-from paddle_billing.Entities.Collections import NotificationCollection, Paginator
+from paddle_billing.Entities.Collections import NotificationCollection
 from paddle_billing.Entities.Notification import Notification
 
 from paddle_billing.Resources.Notifications.Operations import ListNotifications
@@ -20,22 +20,24 @@ class NotificationsClient:
         if operation is None:
             operation = ListNotifications()
 
-        self.response = self.client.get_raw("/notifications", operation.get_parameters())
-        parser = ResponseParser(self.response)
-
-        return NotificationCollection.from_list(
-            parser.get_list(), Paginator(self.client, parser.get_pagination(), NotificationCollection)
-        )
+        def parse(response):
+            self.response = response
+            parser = ResponseParser(response)
+            return NotificationCollection.from_list(
+                parser.get_list(), self.client._make_paginator(parser.get_pagination(), NotificationCollection)
+            )
+        return self.client._get("/notifications", operation.get_parameters(), parse)
 
     def get(self, notification_id: str) -> Notification:
-        self.response = self.client.get_raw(f"/notifications/{notification_id}")
-        parser = ResponseParser(self.response)
-
-        return Notification.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Notification.from_dict(ResponseParser(response).get_dict())
+        return self.client._get(f"/notifications/{notification_id}", None, parse)
 
     def replay(self, notification_id: str) -> str:
-        self.response = self.client.post_raw(f"/notifications/{notification_id}/replay")
-        parser = ResponseParser(self.response)
-        data = parser.get_data()
-
-        return data.get("notification_id", "")
+        def parse(response):
+            self.response = response
+            parser = ResponseParser(response)
+            data = parser.get_data()
+            return data.get("notification_id", "")
+        return self.client._post(f"/notifications/{notification_id}/replay", None, parse)

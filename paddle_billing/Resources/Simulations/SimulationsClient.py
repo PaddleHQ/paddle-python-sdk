@@ -1,7 +1,7 @@
 from paddle_billing.ResponseParser import ResponseParser
 
 from paddle_billing.Entities.Simulation import Simulation
-from paddle_billing.Entities.Collections import Paginator, SimulationCollection
+from paddle_billing.Entities.Collections import SimulationCollection
 from paddle_billing.Resources.Simulations.Operations import CreateSimulation, ListSimulations, UpdateSimulation
 
 from typing import TYPE_CHECKING
@@ -19,27 +19,28 @@ class SimulationsClient:
         if operation is None:
             operation = ListSimulations()
 
-        self.response = self.client.get_raw("/simulations", operation.get_parameters())
-        parser = ResponseParser(self.response)
-
-        return SimulationCollection.from_list(
-            parser.get_list(), Paginator(self.client, parser.get_pagination(), SimulationCollection)
-        )
+        def parse(response):
+            self.response = response
+            parser = ResponseParser(response)
+            return SimulationCollection.from_list(
+                parser.get_list(), self.client._make_paginator(parser.get_pagination(), SimulationCollection)
+            )
+        return self.client._get("/simulations", operation.get_parameters(), parse)
 
     def get(self, simulation_id: str) -> Simulation:
-        self.response = self.client.get_raw(f"/simulations/{simulation_id}")
-        parser = ResponseParser(self.response)
-
-        return Simulation.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Simulation.from_dict(ResponseParser(response).get_dict())
+        return self.client._get(f"/simulations/{simulation_id}", None, parse)
 
     def create(self, operation: CreateSimulation) -> Simulation:
-        self.response = self.client.post_raw("/simulations", operation)
-        parser = ResponseParser(self.response)
-
-        return Simulation.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Simulation.from_dict(ResponseParser(response).get_dict())
+        return self.client._post("/simulations", operation, parse)
 
     def update(self, simulation_id: str, operation: UpdateSimulation) -> Simulation:
-        self.response = self.client.patch_raw(f"/simulations/{simulation_id}", operation)
-        parser = ResponseParser(self.response)
-
-        return Simulation.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Simulation.from_dict(ResponseParser(response).get_dict())
+        return self.client._patch(f"/simulations/{simulation_id}", operation, parse)

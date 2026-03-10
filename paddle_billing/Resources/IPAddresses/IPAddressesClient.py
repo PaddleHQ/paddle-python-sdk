@@ -14,7 +14,7 @@ class IPAddressesClient:
         self.response = None
 
     def get_ip_addresses(self) -> IPAddresses:
-        self.response = self.client.get_raw("/ips")
-        parser = ResponseParser(self.response)
-
-        return IPAddresses.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return IPAddresses.from_dict(ResponseParser(response).get_dict())
+        return self.client._get("/ips", None, parse)

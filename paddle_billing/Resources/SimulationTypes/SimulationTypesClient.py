@@ -13,7 +13,8 @@ class SimulationTypesClient:
         self.response = None
 
     def list(self) -> SimulationTypeCollection:
-        self.response = self.client.get_raw("/simulation-types")
-        parser = ResponseParser(self.response)
-
-        return SimulationTypeCollection.from_list(parser.get_list())
+        def parse(response):
+            self.response = response
+            parser = ResponseParser(response)
+            return SimulationTypeCollection.from_list(parser.get_list())
+        return self.client._get("/simulation-types", None, parse)

@@ -18,7 +18,7 @@ class CustomerPortalSessionsClient:
         self.response = None
 
     def create(self, customer_id: str, operation: CreateCustomerPortalSession) -> CustomerPortalSession:
-        self.response = self.client.post_raw(f"/customers/{customer_id}/portal-sessions", operation)
-        parser = ResponseParser(self.response)
-
-        return CustomerPortalSession.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return CustomerPortalSession.from_dict(ResponseParser(response).get_dict())
+        return self.client._post(f"/customers/{customer_id}/portal-sessions", operation, parse)

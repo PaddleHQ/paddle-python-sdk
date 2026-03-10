@@ -1,7 +1,7 @@
 from paddle_billing.ResponseParser import ResponseParser
 
 from paddle_billing.Entities.Address import Address
-from paddle_billing.Entities.Collections import Paginator, AddressCollection
+from paddle_billing.Entities.Collections import AddressCollection
 from paddle_billing.Entities.Shared import Status
 
 from paddle_billing.Resources.Addresses.Operations import CreateAddress, ListAddresses, UpdateAddress
@@ -21,30 +21,31 @@ class AddressesClient:
         if operation is None:
             operation = ListAddresses()
 
-        self.response = self.client.get_raw(f"/customers/{customer_id}/addresses", operation.get_parameters())
-        parser = ResponseParser(self.response)
-
-        return AddressCollection.from_list(
-            parser.get_list(), Paginator(self.client, parser.get_pagination(), AddressCollection)
-        )
+        def parse(response):
+            self.response = response
+            parser = ResponseParser(response)
+            return AddressCollection.from_list(
+                parser.get_list(), self.client._make_paginator(parser.get_pagination(), AddressCollection)
+            )
+        return self.client._get(f"/customers/{customer_id}/addresses", operation.get_parameters(), parse)
 
     def get(self, customer_id: str, address_id: str) -> Address:
-        self.response = self.client.get_raw(f"/customers/{customer_id}/addresses/{address_id}")
-        parser = ResponseParser(self.response)
-
-        return Address.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Address.from_dict(ResponseParser(response).get_dict())
+        return self.client._get(f"/customers/{customer_id}/addresses/{address_id}", None, parse)
 
     def create(self, customer_id: str, operation: CreateAddress) -> Address:
-        self.response = self.client.post_raw(f"/customers/{customer_id}/addresses", operation)
-        parser = ResponseParser(self.response)
-
-        return Address.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Address.from_dict(ResponseParser(response).get_dict())
+        return self.client._post(f"/customers/{customer_id}/addresses", operation, parse)
 
     def update(self, customer_id: str, address_id: str, operation: UpdateAddress) -> Address:
-        self.response = self.client.patch_raw(f"/customers/{customer_id}/addresses/{address_id}", operation)
-        parser = ResponseParser(self.response)
-
-        return Address.from_dict(parser.get_dict())
+        def parse(response):
+            self.response = response
+            return Address.from_dict(ResponseParser(response).get_dict())
+        return self.client._patch(f"/customers/{customer_id}/addresses/{address_id}", operation, parse)
 
     def archive(self, customer_id: str, address_id: str) -> Address:
         return self.update(customer_id, address_id, UpdateAddress(status=Status.Archived))
