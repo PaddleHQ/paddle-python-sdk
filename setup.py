@@ -26,7 +26,9 @@ setup(
         "dev": [
             "pytest>=7.4.4,<9.1.0",
             "pytest-cov>=4.1,<7.1",
+            "pytest-asyncio>=0.23.0",
             "requests-mock~=1.11.0",
+            "respx>=0.21.0",
             "setuptools>=69.0.3",
             "pre-commit>=3.8.0",
             "black>=24.8.0",
@@ -36,5 +38,6 @@ setup(
     install_requires=[
         "requests>=2.31",
         "urllib3>=1.26.18",
+        "httpx>=0.27.0",
     ],
 )

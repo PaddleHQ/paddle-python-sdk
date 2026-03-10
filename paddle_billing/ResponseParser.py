@@ -1,6 +1,9 @@
 import json
 from requests import Response
-from typing import cast, Any
+from typing import cast, Any, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from httpx import Response as HttpxResponse
 
 from paddle_billing.Entities.Shared import Pagination
 
@@ -8,7 +11,7 @@ from paddle_billing.Exceptions.ApiError import ApiError
 
 
 class ResponseParser:
-    def __init__(self, response: Response):
+    def __init__(self, response: "Response | HttpxResponse"):
         self.body = None
         self.error = None
         self.response = response
