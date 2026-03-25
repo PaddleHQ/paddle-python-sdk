@@ -12,7 +12,7 @@ updates:
     reviewers:
       - "@PaddleHQ/developer-experience"
     labels:
-      - "release:patch"
+      - "norelease"
 #    ignore:
 #      - dependency-name: "setuptools"
 #        versions: ["69.0.3"]
