@@ -39,6 +39,7 @@ from paddle_billing.Resources.SimulationRuns.SimulationRunsClient import Simulat
 from paddle_billing.Resources.SimulationRunEvents.SimulationRunEventsClient import SimulationRunEventsClient
 from paddle_billing.Resources.SimulationTypes.SimulationTypesClient import SimulationTypesClient
 from paddle_billing.Resources.Subscriptions.SubscriptionsClient import SubscriptionsClient
+from paddle_billing.Resources.Metrics.MetricsClient import MetricsClient
 from paddle_billing.Resources.Transactions.TransactionsClient import TransactionsClient
 
 
@@ -94,6 +95,7 @@ class Client:
         self.subscriptions = SubscriptionsClient(self)
         self.transactions = TransactionsClient(self)
         self.ip_addresses = IPAddressesClient(self)
+        self.metrics = MetricsClient(self)
 
     @staticmethod
     def null_logger() -> Logger:
@@ -200,7 +202,7 @@ class Client:
                 "Authorization": f"Bearer {self.__api_key}",
                 "Content-Type": "application/json",
                 "Paddle-Version": str(self.use_api_version),
-                "User-Agent": "PaddleSDK/python 1.13.1",
+                "User-Agent": "PaddleSDK/python 1.14.0",
             }
         )
 

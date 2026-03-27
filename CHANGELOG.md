@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-python-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## 1.14.0 - 2026-03-30
+
+### Added
+
+- Added support for metrics endpoints. See [related changelog](https://developer.paddle.com/changelog/2026/metrics-api?utm_source=dx&utm_medium=paddle-python-sdk)
+  - `Client.metrics.get_monthly_recurring_revenue`
+  - `Client.metrics.get_monthly_recurring_revenue_change`
+  - `Client.metrics.get_active_subscribers`
+  - `Client.metrics.get_revenue`
+  - `Client.metrics.get_refunds`
+  - `Client.metrics.get_chargebacks`
+  - `Client.metrics.get_checkout_conversion`
+
 ## 1.13.1 - 2026-03-25
 
 ### Added

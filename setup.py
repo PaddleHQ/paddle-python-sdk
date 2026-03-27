@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    version="1.13.1",
+    version="1.14.0",
     author="Paddle and contributors",
     author_email="team-dx@paddle.com",
     description="Paddle's Python SDK for Paddle Billing",
