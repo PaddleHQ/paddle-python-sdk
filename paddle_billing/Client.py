@@ -104,7 +104,8 @@ class Client:
         """
 
         null_logger = getLogger("null_logger")
-        null_logger.addHandler(NullHandler())
+        if not null_logger.handlers:
+            null_logger.addHandler(NullHandler())
 
         return null_logger
 
@@ -202,7 +203,7 @@ class Client:
                 "Authorization": f"Bearer {self.__api_key}",
                 "Content-Type": "application/json",
                 "Paddle-Version": str(self.use_api_version),
-                "User-Agent": "PaddleSDK/python 1.14.0",
+                "User-Agent": "PaddleSDK/python 1.14.1",
             }
         )
 
