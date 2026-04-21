@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-python-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## 1.14.1 - 2026-04-21
+
+### Fixed
+
+- Fixed a handler leak in `Client.null_logger()` where a new `NullHandler` was attached to the shared `"null_logger"` logger on every `Client` instantiation. The `NullHandler` is now only attached when the logger has no handlers configured.
+
 ## 1.14.0 - 2026-03-30
 
 ### Added
