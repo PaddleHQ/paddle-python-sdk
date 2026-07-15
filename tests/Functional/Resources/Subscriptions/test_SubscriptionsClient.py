@@ -24,6 +24,10 @@ from paddle_billing.Entities.Shared import (
 )
 
 from paddle_billing.Entities.Subscriptions import (
+    SubscriptionConsentRequirement,
+    SubscriptionConsentRequirementStatus,
+    SubscriptionConsentRequirementType,
+    SubscriptionDiscountType,
     SubscriptionEffectiveFrom,
     SubscriptionOnPaymentFailure,
     SubscriptionOnResume,
@@ -33,7 +37,7 @@ from paddle_billing.Entities.Subscriptions import (
     SubscriptionStatus,
 )
 
-from paddle_billing.Resources.Shared.Operations import Pager
+from paddle_billing.Resources.Shared.Operations import Comparator, DateComparison, Pager
 from paddle_billing.Resources.Subscriptions.Operations import (
     CancelSubscription,
     CreateOneTimeCharge,
@@ -328,6 +332,20 @@ class TestSubscriptionsClient:
                 ReadsFixtures.read_raw_json_fixture("response/list_default"),
                 "/subscriptions?scheduled_change_action=pause,cancel",
             ),
+            (
+                ListSubscriptions(next_billed_at=DateComparison(DateTime("2023-11-06 14:00:00").as_datetime)),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/list_default"),
+                "/subscriptions?next_billed_at=2023-11-06T14:00:00.000000Z",
+            ),
+            (
+                ListSubscriptions(
+                    next_billed_at=DateComparison(DateTime("2023-11-06 14:00:00").as_datetime, Comparator.GT)
+                ),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/list_default"),
+                "/subscriptions?next_billed_at[GT]=2023-11-06T14:00:00.000000Z",
+            ),
         ],
         ids=[
             "List subscriptions without pagination",
@@ -343,6 +361,8 @@ class TestSubscriptionsClient:
             "List subscriptions filtered by multiple price_ids",
             "List subscriptions with scheduled_change_actions",
             "List subscriptions with multiple scheduled_change_actions",
+            "List subscriptions filtered by next_billed_at without a comparator",
+            "List subscriptions filtered by next_billed_at with a comparator",
         ],
     )
     def test_list_subscriptions_returns_expected_response(
@@ -390,8 +410,10 @@ class TestSubscriptionsClient:
         assert response.items[1].discount is None
         assert response.items[2].discount.starts_at is None
         assert response.items[2].discount.ends_at is None
+        assert response.items[2].discount.type == SubscriptionDiscountType.Recurring
         assert response.items[3].discount.starts_at.isoformat() == "2024-04-12T10:18:47.635628+00:00"
         assert response.items[3].discount.ends_at.isoformat() == "2024-05-12T10:18:47.635628+00:00"
+        assert response.items[3].discount.type == SubscriptionDiscountType.Recurring
 
     @mark.parametrize(
         "subscription_id, includes, expected_response_status, expected_response_body, expected_url",
@@ -475,6 +497,32 @@ class TestSubscriptionsClient:
         response = test_client.client.subscriptions.get("sub_01h7zcgmdc6tmwtjehp3sh7azf")
 
         assert isinstance(response, Subscription)
+
+    def test_get_subscription_returns_consent_requirements(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        expected_url = f"{test_client.base_url}/subscriptions/sub_01h7zcgmdc6tmwtjehp3sh7azf"
+        mock_requests.get(
+            expected_url, status_code=200, text=ReadsFixtures.read_raw_json_fixture("response/full_entity")
+        )
+
+        response = test_client.client.subscriptions.get("sub_01h7zcgmdc6tmwtjehp3sh7azf")
+
+        assert isinstance(response, Subscription)
+        assert len(response.consent_requirements) == 1
+
+        consent_requirement = response.consent_requirements[0]
+        assert isinstance(consent_requirement, SubscriptionConsentRequirement)
+        assert consent_requirement.id == "subcr_01j3g2y5g0f5q9k2h1n8x7e6d5"
+        assert consent_requirement.requirement == SubscriptionConsentRequirementType.TrialEnding
+        assert consent_requirement.status == SubscriptionConsentRequirementStatus.Pending
+        assert consent_requirement.created_at.isoformat() == "2026-06-01T00:00:00+00:00"
+        assert consent_requirement.consent_period.starts_at.isoformat() == "2026-06-01T00:00:00+00:00"
+        assert consent_requirement.consent_period.ends_at.isoformat() == "2026-06-15T00:00:00+00:00"
+        assert consent_requirement.granted_at is None
+        assert consent_requirement.voided_at is None
 
         recurring_transaction_proration = response.recurring_transaction_details.line_items[0].proration
         assert recurring_transaction_proration is not None

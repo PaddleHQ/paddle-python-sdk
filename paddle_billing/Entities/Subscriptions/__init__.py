@@ -1,8 +1,16 @@
 from paddle_billing.Entities.Subscriptions.SubscriptionAdjustmentItem import SubscriptionAdjustmentItem
 from paddle_billing.Entities.Subscriptions.SubscriptionAdjustmentPreview import SubscriptionAdjustmentPreview
 from paddle_billing.Entities.Subscriptions.SubscriptionCharge import SubscriptionCharge
+from paddle_billing.Entities.Subscriptions.SubscriptionConsentRequirement import SubscriptionConsentRequirement
+from paddle_billing.Entities.Subscriptions.SubscriptionConsentRequirementStatus import (
+    SubscriptionConsentRequirementStatus,
+)
+from paddle_billing.Entities.Subscriptions.SubscriptionConsentRequirementType import (
+    SubscriptionConsentRequirementType,
+)
 from paddle_billing.Entities.Subscriptions.SubscriptionCredit import SubscriptionCredit
 from paddle_billing.Entities.Subscriptions.SubscriptionDiscount import SubscriptionDiscount
+from paddle_billing.Entities.Subscriptions.SubscriptionDiscountType import SubscriptionDiscountType
 from paddle_billing.Entities.Subscriptions.SubscriptionEffectiveFrom import SubscriptionEffectiveFrom
 from paddle_billing.Entities.Subscriptions.SubscriptionItem import SubscriptionItem
 from paddle_billing.Entities.Subscriptions.SubscriptionItemStatus import SubscriptionItemStatus
