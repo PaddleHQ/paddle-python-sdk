@@ -51,7 +51,10 @@
             },
             "trial_period": {
               "frequency": 14,
-              "interval": "day"
+              "interval": "day",
+              "requires_payment_method": true,
+              "unit_price": null,
+              "unit_price_overrides": []
             },
             "unit_price": {
               "amount": "3000",

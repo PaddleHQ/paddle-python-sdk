@@ -32,6 +32,7 @@ from paddle_billing.Notifications.Entities.Shared.SouthKoreaLocalCardType import
 from paddle_billing.Notifications.Entities.Shared.PayoutTotalsAdjustment import PayoutTotalsAdjustment
 from paddle_billing.Notifications.Entities.Shared.Paypal import Paypal
 from paddle_billing.Notifications.Entities.Shared.PriceQuantity import PriceQuantity
+from paddle_billing.Notifications.Entities.Shared.PriceTrialPeriod import PriceTrialPeriod
 from paddle_billing.Notifications.Entities.Shared.Proration import Proration
 from paddle_billing.Notifications.Entities.Shared.SavedPaymentMethodDeletionReason import (
     SavedPaymentMethodDeletionReason,

@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-python-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## Unreleased
+
+### Added
+
+- Added paid trials support: `requires_payment_method`, `unit_price`, and `unit_price_overrides` on price `trial_period`. See [related changelog](https://developer.paddle.com/changelog/2026/paid-trials?utm_source=dx&utm_medium=paddle-python-sdk)
+
+### Changed
+
+- `trial_period` fields are now typed as `PriceTrialPeriod` (subclass of `Duration`, backwards compatible)
+
 ## 1.14.1 - 2026-04-21
 
 ### Fixed
