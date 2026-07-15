@@ -1,15 +1,21 @@
-from json import loads
+from json import dumps, loads
 from pytest import mark
 from urllib.parse import unquote
 
-from paddle_billing.Entities.Collections import SubscriptionCollection
+from paddle_billing.Json import PayloadEncoder
+
+from paddle_billing.Entities.Collections import SubscriptionCollection, SubscriptionHistoryCollection
 from paddle_billing.Entities.DateTime import DateTime
 from paddle_billing.Entities.Subscription import Subscription
 from paddle_billing.Entities.SubscriptionPreview import SubscriptionPreview
 from paddle_billing.Entities.Transaction import Transaction
 from paddle_billing.Entities.Discount import Discount, DiscountStatus
 
+from paddle_billing.Notifications.Entities.UndefinedEntity import UndefinedEntity
+
 from paddle_billing.Entities.Shared import (
+    ActionSource,
+    ActorType,
     CollectionMode,
     CurrencyCode,
     CustomData,
@@ -37,10 +43,17 @@ from paddle_billing.Entities.Subscriptions import (
     SubscriptionStatus,
 )
 
+from paddle_billing.Entities.Subscriptions.History import (
+    SubscriptionHistoryAction,
+    SubscriptionHistoryDetailSubscriptionActivated,
+    SubscriptionHistoryReason,
+)
+
 from paddle_billing.Resources.Shared.Operations import Comparator, DateComparison, Pager
 from paddle_billing.Resources.Subscriptions.Operations import (
     CancelSubscription,
     CreateOneTimeCharge,
+    ListSubscriptionHistory,
     ListSubscriptions,
     PauseSubscription,
     PreviewOneTimeCharge,
@@ -414,6 +427,167 @@ class TestSubscriptionsClient:
         assert response.items[3].discount.starts_at.isoformat() == "2024-04-12T10:18:47.635628+00:00"
         assert response.items[3].discount.ends_at.isoformat() == "2024-05-12T10:18:47.635628+00:00"
         assert response.items[3].discount.type == SubscriptionDiscountType.Recurring
+
+    @mark.parametrize(
+        "subscription_id, operation, expected_response_body, expected_url",
+        [
+            (
+                "sub_01hv959anj4zrw503h2acawb3p",
+                None,
+                ReadsFixtures.read_raw_json_fixture("response/list_history_default"),
+                "/subscriptions/sub_01hv959anj4zrw503h2acawb3p/history",
+            ),
+            (
+                "sub_01hv959anj4zrw503h2acawb3p",
+                ListSubscriptionHistory(),
+                ReadsFixtures.read_raw_json_fixture("response/list_history_default"),
+                "/subscriptions/sub_01hv959anj4zrw503h2acawb3p/history",
+            ),
+            (
+                "sub_01hv959anj4zrw503h2acawb3p",
+                ListSubscriptionHistory(pager=Pager()),
+                ReadsFixtures.read_raw_json_fixture("response/list_history_default"),
+                "/subscriptions/sub_01hv959anj4zrw503h2acawb3p/history?order_by=id[asc]&per_page=50",
+            ),
+            (
+                "sub_01hv959anj4zrw503h2acawb3p",
+                ListSubscriptionHistory(
+                    actions=[
+                        SubscriptionHistoryAction.SubscriptionRenewed,
+                        SubscriptionHistoryAction.SubscriptionPaused,
+                    ],
+                    sources=[ActionSource.Api, ActionSource.Dashboard],
+                    actor_types=[ActorType.ApiKey],
+                    actor_ids=["apikey_01h8441jn5pcwrfhwh78jqt8hl"],
+                    reasons=[SubscriptionHistoryReason.CustomerRequest],
+                    occurred_at=DateComparison(DateTime("2026-06-01 00:00:00"), Comparator.GTE),
+                ),
+                ReadsFixtures.read_raw_json_fixture("response/list_history_default"),
+                "/subscriptions/sub_01hv959anj4zrw503h2acawb3p/history"
+                "?occurred_at[GTE]=2026-06-01T00:00:00.000000Z"
+                "&action=subscription_renewed,subscription_paused"
+                "&source=api,dashboard"
+                "&actor_type=api_key"
+                "&actor_id=apikey_01h8441jn5pcwrfhwh78jqt8hl"
+                "&reason=customer_request",
+            ),
+        ],
+        ids=[
+            "List subscription history without an operation",
+            "List subscription history without filters",
+            "List subscription history with default pagination",
+            "List subscription history with filters",
+        ],
+    )
+    def test_list_subscription_history_returns_expected_response(
+        self,
+        test_client,
+        mock_requests,
+        subscription_id,
+        operation,
+        expected_response_body,
+        expected_url,
+    ):
+        expected_url = f"{test_client.base_url}{expected_url}"
+        mock_requests.get(expected_url, status_code=200, text=expected_response_body)
+
+        response = test_client.client.subscriptions.list_history(subscription_id, operation)
+        response_json = test_client.client.subscriptions.response.json()
+        last_request = mock_requests.last_request
+
+        assert isinstance(response, SubscriptionHistoryCollection)
+        assert last_request is not None
+        assert last_request.method == "GET"
+        assert test_client.client.status_code == 200
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
+        assert response_json == loads(
+            str(expected_response_body)
+        ), "The response JSON generated by ResponseParser() doesn't match the expected fixture JSON"
+
+    def test_list_subscription_history_round_trips_through_payload_encoder(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        expected_response_body = ReadsFixtures.read_raw_json_fixture("response/list_history_default")
+        mock_requests.get(
+            f"{test_client.base_url}/subscriptions/sub_01hv959anj4zrw503h2acawb3p/history",
+            status_code=200,
+            text=expected_response_body,
+        )
+
+        response = test_client.client.subscriptions.list_history("sub_01hv959anj4zrw503h2acawb3p")
+
+        assert isinstance(response, SubscriptionHistoryCollection)
+        assert loads(dumps(response.items, cls=PayloadEncoder)) == loads(expected_response_body)["data"]
+
+    def test_list_subscription_history_hydrates_unknown_action_as_undefined_entity(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        mock_requests.get(
+            f"{test_client.base_url}/subscriptions/sub_01hv959anj4zrw503h2acawb3p/history",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture("response/list_history_default"),
+        )
+
+        response = test_client.client.subscriptions.list_history("sub_01hv959anj4zrw503h2acawb3p")
+
+        unrecognised_entry = response.items[-1]
+        assert isinstance(unrecognised_entry.detail, UndefinedEntity)
+        assert unrecognised_entry.detail.to_dict() == {
+            "action": "subscription_something_new",
+            "some_field": "some_value",
+        }
+
+    def test_list_subscription_history_hydrates_known_action_as_typed_detail(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        mock_requests.get(
+            f"{test_client.base_url}/subscriptions/sub_01hv959anj4zrw503h2acawb3p/history",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture("response/list_history_default"),
+        )
+
+        response = test_client.client.subscriptions.list_history("sub_01hv959anj4zrw503h2acawb3p")
+
+        activated_entry = response.items[1]
+        assert isinstance(activated_entry.detail, SubscriptionHistoryDetailSubscriptionActivated)
+        assert activated_entry.detail.action == SubscriptionHistoryAction.SubscriptionActivated
+        assert activated_entry.detail.transaction_id == "txn_01h89231k3a1q8mn6p4r5s7t9v"
+
+    def test_list_subscription_history_can_paginate(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        mock_requests.get(
+            f"{test_client.base_url}/subscriptions/sub_01hv959anj4zrw503h2acawb3p/history",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture("response/list_history_paginated_page_one"),
+        )
+
+        mock_requests.get(
+            f"{test_client.base_url}/subscriptions/sub_01hv959anj4zrw503h2acawb3p/history"
+            "?after=subhis_02paga0a4m6v7w8x9y0z1a2b3c",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture("response/list_history_paginated_page_two"),
+        )
+
+        response = test_client.client.subscriptions.list_history("sub_01hv959anj4zrw503h2acawb3p")
+
+        assert isinstance(response, SubscriptionHistoryCollection)
+
+        all_entries = []
+        for entry in response:
+            all_entries.append(entry)
+
+        assert len(all_entries) == 4
 
     @mark.parametrize(
         "subscription_id, includes, expected_response_status, expected_response_body, expected_url",
