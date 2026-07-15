@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-python-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## Unreleased
+
+### Added
+
+- Added support for checkout domains. See [related changelog](https://developer.paddle.com/changelog/2026/checkout-domains-api?utm_source=dx&utm_medium=paddle-python-sdk)
+  - `Client.checkout_domains.list`
+  - `Client.checkout_domains.get`
+  - `Client.checkout_domains.delete`
+  - `Client.checkout_domains.verify_payment_method`
+
 ## 1.14.1 - 2026-04-21
 
 ### Fixed
