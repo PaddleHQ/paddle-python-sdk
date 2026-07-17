@@ -46,6 +46,38 @@ from paddle_billing.Entities.Subscriptions import (
 from paddle_billing.Entities.Subscriptions.History import (
     SubscriptionHistoryAction,
     SubscriptionHistoryDetailSubscriptionActivated,
+    SubscriptionHistoryDetailSubscriptionAddressUpdated,
+    SubscriptionHistoryDetailSubscriptionBillingCycleUpdated,
+    SubscriptionHistoryDetailSubscriptionBillingDateUpdated,
+    SubscriptionHistoryDetailSubscriptionBillingDetailsUpdated,
+    SubscriptionHistoryDetailSubscriptionBusinessAdded,
+    SubscriptionHistoryDetailSubscriptionBusinessRemoved,
+    SubscriptionHistoryDetailSubscriptionBusinessUpdated,
+    SubscriptionHistoryDetailSubscriptionCanceled,
+    SubscriptionHistoryDetailSubscriptionCollectionModeUpdated,
+    SubscriptionHistoryDetailSubscriptionConsentRequirementGranted,
+    SubscriptionHistoryDetailSubscriptionCreated,
+    SubscriptionHistoryDetailSubscriptionCurrencyUpdated,
+    SubscriptionHistoryDetailSubscriptionCustomDataUpdated,
+    SubscriptionHistoryDetailSubscriptionCustomerUpdated,
+    SubscriptionHistoryDetailSubscriptionDiscountAdded,
+    SubscriptionHistoryDetailSubscriptionDiscountExpired,
+    SubscriptionHistoryDetailSubscriptionDiscountRemoved,
+    SubscriptionHistoryDetailSubscriptionItemAdded,
+    SubscriptionHistoryDetailSubscriptionItemQuantityUpdated,
+    SubscriptionHistoryDetailSubscriptionItemRemoved,
+    SubscriptionHistoryDetailSubscriptionOneOffChargeApplied,
+    SubscriptionHistoryDetailSubscriptionPastDue,
+    SubscriptionHistoryDetailSubscriptionPaused,
+    SubscriptionHistoryDetailSubscriptionPaymentAttempted,
+    SubscriptionHistoryDetailSubscriptionPaymentMethodAdded,
+    SubscriptionHistoryDetailSubscriptionPaymentMethodRemoved,
+    SubscriptionHistoryDetailSubscriptionPaymentMethodUpdated,
+    SubscriptionHistoryDetailSubscriptionRenewed,
+    SubscriptionHistoryDetailSubscriptionResumed,
+    SubscriptionHistoryDetailSubscriptionScheduledChangeAdded,
+    SubscriptionHistoryDetailSubscriptionScheduledChangeRemoved,
+    SubscriptionHistoryDetailSubscriptionScheduledChangeUpdated,
     SubscriptionHistoryReason,
 )
 
@@ -84,6 +116,42 @@ from paddle_billing.Resources.Subscriptions.Operations.Price import (
 from paddle_billing.Resources.Subscriptions.Operations.Update import UpdateBillingDetails
 
 from tests.Utils.ReadsFixture import ReadsFixtures
+
+SUBSCRIPTION_HISTORY_DETAIL_TYPES = {
+    "subscription_activated": SubscriptionHistoryDetailSubscriptionActivated,
+    "subscription_address_updated": SubscriptionHistoryDetailSubscriptionAddressUpdated,
+    "subscription_billing_cycle_updated": SubscriptionHistoryDetailSubscriptionBillingCycleUpdated,
+    "subscription_billing_date_updated": SubscriptionHistoryDetailSubscriptionBillingDateUpdated,
+    "subscription_billing_details_updated": SubscriptionHistoryDetailSubscriptionBillingDetailsUpdated,
+    "subscription_business_added": SubscriptionHistoryDetailSubscriptionBusinessAdded,
+    "subscription_business_removed": SubscriptionHistoryDetailSubscriptionBusinessRemoved,
+    "subscription_business_updated": SubscriptionHistoryDetailSubscriptionBusinessUpdated,
+    "subscription_canceled": SubscriptionHistoryDetailSubscriptionCanceled,
+    "subscription_collection_mode_updated": SubscriptionHistoryDetailSubscriptionCollectionModeUpdated,
+    "subscription_consent_requirement_granted": SubscriptionHistoryDetailSubscriptionConsentRequirementGranted,
+    "subscription_created": SubscriptionHistoryDetailSubscriptionCreated,
+    "subscription_currency_updated": SubscriptionHistoryDetailSubscriptionCurrencyUpdated,
+    "subscription_custom_data_updated": SubscriptionHistoryDetailSubscriptionCustomDataUpdated,
+    "subscription_customer_updated": SubscriptionHistoryDetailSubscriptionCustomerUpdated,
+    "subscription_discount_added": SubscriptionHistoryDetailSubscriptionDiscountAdded,
+    "subscription_discount_expired": SubscriptionHistoryDetailSubscriptionDiscountExpired,
+    "subscription_discount_removed": SubscriptionHistoryDetailSubscriptionDiscountRemoved,
+    "subscription_item_added": SubscriptionHistoryDetailSubscriptionItemAdded,
+    "subscription_item_quantity_updated": SubscriptionHistoryDetailSubscriptionItemQuantityUpdated,
+    "subscription_item_removed": SubscriptionHistoryDetailSubscriptionItemRemoved,
+    "subscription_one_off_charge_applied": SubscriptionHistoryDetailSubscriptionOneOffChargeApplied,
+    "subscription_past_due": SubscriptionHistoryDetailSubscriptionPastDue,
+    "subscription_paused": SubscriptionHistoryDetailSubscriptionPaused,
+    "subscription_payment_attempted": SubscriptionHistoryDetailSubscriptionPaymentAttempted,
+    "subscription_payment_method_added": SubscriptionHistoryDetailSubscriptionPaymentMethodAdded,
+    "subscription_payment_method_removed": SubscriptionHistoryDetailSubscriptionPaymentMethodRemoved,
+    "subscription_payment_method_updated": SubscriptionHistoryDetailSubscriptionPaymentMethodUpdated,
+    "subscription_renewed": SubscriptionHistoryDetailSubscriptionRenewed,
+    "subscription_resumed": SubscriptionHistoryDetailSubscriptionResumed,
+    "subscription_scheduled_change_added": SubscriptionHistoryDetailSubscriptionScheduledChangeAdded,
+    "subscription_scheduled_change_removed": SubscriptionHistoryDetailSubscriptionScheduledChangeRemoved,
+    "subscription_scheduled_change_updated": SubscriptionHistoryDetailSubscriptionScheduledChangeUpdated,
+}
 
 
 class TestSubscriptionsClient:
@@ -560,6 +628,67 @@ class TestSubscriptionsClient:
         assert isinstance(activated_entry.detail, SubscriptionHistoryDetailSubscriptionActivated)
         assert activated_entry.detail.action == SubscriptionHistoryAction.SubscriptionActivated
         assert activated_entry.detail.transaction_id == "txn_01h89231k3a1q8mn6p4r5s7t9v"
+
+    @mark.parametrize(
+        "action, expected_detail_class",
+        list(SUBSCRIPTION_HISTORY_DETAIL_TYPES.items()),
+        ids=list(SUBSCRIPTION_HISTORY_DETAIL_TYPES.keys()),
+    )
+    def test_list_subscription_history_hydrates_action_as_typed_detail(
+        self,
+        test_client,
+        mock_requests,
+        action,
+        expected_detail_class,
+    ):
+        mock_requests.get(
+            f"{test_client.base_url}/subscriptions/sub_01hv959anj4zrw503h2acawb3p/history",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture("response/list_history_all_actions"),
+        )
+
+        response = test_client.client.subscriptions.list_history("sub_01hv959anj4zrw503h2acawb3p")
+
+        entry = next((item for item in response.items if item.detail.action.value == action), None)
+
+        assert entry is not None, f"Fixture list_history_all_actions is missing an entry for {action}"
+        assert isinstance(entry.detail, expected_detail_class)
+        assert entry.detail.action == SubscriptionHistoryAction(action)
+
+    def test_list_subscription_history_covers_every_known_action(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        mock_requests.get(
+            f"{test_client.base_url}/subscriptions/sub_01hv959anj4zrw503h2acawb3p/history",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture("response/list_history_all_actions"),
+        )
+
+        response = test_client.client.subscriptions.list_history("sub_01hv959anj4zrw503h2acawb3p")
+
+        assert set(SUBSCRIPTION_HISTORY_DETAIL_TYPES) == set(
+            SubscriptionHistoryAction.members().values()
+        ), "Every action defined on SubscriptionHistoryAction must be covered by the fixture and this test"
+        assert {item.detail.action.value for item in response.items} == set(SUBSCRIPTION_HISTORY_DETAIL_TYPES)
+
+    def test_list_subscription_history_all_actions_round_trip_through_payload_encoder(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        expected_response_body = ReadsFixtures.read_raw_json_fixture("response/list_history_all_actions")
+        mock_requests.get(
+            f"{test_client.base_url}/subscriptions/sub_01hv959anj4zrw503h2acawb3p/history",
+            status_code=200,
+            text=expected_response_body,
+        )
+
+        response = test_client.client.subscriptions.list_history("sub_01hv959anj4zrw503h2acawb3p")
+
+        assert isinstance(response, SubscriptionHistoryCollection)
+        assert loads(dumps(response.items, cls=PayloadEncoder)) == loads(expected_response_body)["data"]
 
     def test_list_subscription_history_can_paginate(
         self,
