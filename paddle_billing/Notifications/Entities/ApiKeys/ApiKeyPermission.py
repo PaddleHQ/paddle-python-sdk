@@ -30,5 +30,6 @@ class ApiKeyPermission(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     ReportWrite: "ApiKeyPermission" = "report.write"
     SubscriptionRead: "ApiKeyPermission" = "subscription.read"
     SubscriptionWrite: "ApiKeyPermission" = "subscription.write"
+    SubscriptionHistoryRead: "ApiKeyPermission" = "subscription_history.read"
     TransactionRead: "ApiKeyPermission" = "transaction.read"
     TransactionWrite: "ApiKeyPermission" = "transaction.write"

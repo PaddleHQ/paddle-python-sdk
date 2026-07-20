@@ -9,6 +9,7 @@
         "business.read",
         "customer.read",
         "subscription.read",
+        "subscription_history.read",
         "transaction.read"
     ],
     "expires_at": "2025-06-26T06:58:38.517522Z",
