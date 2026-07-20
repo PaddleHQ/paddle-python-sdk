@@ -25,6 +25,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 - Added `type` to subscription `discount`
 - Added `consent_requirements` to subscriptions
 - Added `next_billed_at` filter to list subscriptions operation
+- Added `checkout_domain.read`, `checkout_domain.write`, `client_token.read`, `client_token.write`, `metrics.read`, and `subscription_history.read` to `ApiKeyPermission` (permissions on `api_key.*` events)
 
 ### Changed
 
