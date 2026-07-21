@@ -1,5 +1,7 @@
 from paddle_billing.Resources.Reports.Operations.Filters.AdjustmentActionFilter import AdjustmentActionFilter
 from paddle_billing.Resources.Reports.Operations.Filters.AdjustmentStatusFilter import AdjustmentStatusFilter
+from paddle_billing.Resources.Reports.Operations.Filters.BalanceMovementDateFilter import BalanceMovementDateFilter
+from paddle_billing.Resources.Reports.Operations.Filters.BalanceMovementTypeFilter import BalanceMovementTypeFilter
 from paddle_billing.Resources.Reports.Operations.Filters.CheckoutCreatedAtFilter import CheckoutCreatedAtFilter
 from paddle_billing.Resources.Reports.Operations.Filters.CollectionModeFilter import CollectionModeFilter
 from paddle_billing.Resources.Reports.Operations.Filters.CurrencyCodeFilter import CurrencyCodeFilter
