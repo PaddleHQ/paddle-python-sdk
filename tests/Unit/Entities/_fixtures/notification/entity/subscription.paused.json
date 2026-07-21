@@ -35,7 +35,7 @@
                 "type": "standard",
                 "tax_category": "standard",
                 "description": "Designed for professional pilots, including all features plus in Basic plus compliance monitoring, route optimization, and third-party integrations.",
-                "image_url": "https:\/\/paddle.s3.amazonaws.com\/user\/165798\/bT1XUOJAQhOUxGs83cbk_pro.png",
+                "image_url": "https://paddle.s3.amazonaws.com/user/165798/bT1XUOJAQhOUxGs83cbk_pro.png",
                 "custom_data": {
                     "features": {
                         "aircraft_performance": true,
@@ -99,7 +99,7 @@
                 "type": "standard",
                 "tax_category": "standard",
                 "description": "Unlock advanced insights into your flight data with enhanced analytics and reporting features. Includes customizable reporting templates and trend analysis across flights.",
-                "image_url": "https:\/\/paddle.s3.amazonaws.com\/user\/165798\/97dRpA6SXzcE6ekK9CAr_analytics.png",
+                "image_url": "https://paddle.s3.amazonaws.com/user/165798/97dRpA6SXzcE6ekK9CAr_analytics.png",
                 "custom_data": null,
                 "status": "active",
                 "import_meta": null,
@@ -119,6 +119,7 @@
     "status": "paused",
     "discount": {
         "id": "dsc_01hv6scyf7qdnzcdq01t2y8dx4",
+        "type": "recurring",
         "starts_at": null,
         "ends_at": null
     },
@@ -129,6 +130,7 @@
     "updated_at": "2024-04-12T12:43:43.219000Z",
     "business_id": null,
     "canceled_at": null,
+    "consent_requirements": [],
     "custom_data": null,
     "customer_id": "ctm_01hv6y1jedq4p1n0yqn5ba3ky4",
     "import_meta": null,

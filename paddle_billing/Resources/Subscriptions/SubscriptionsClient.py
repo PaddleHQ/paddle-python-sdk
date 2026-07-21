@@ -3,7 +3,7 @@ from paddle_billing.ResponseParser import ResponseParser
 from paddle_billing.Entities.Subscription import Subscription
 from paddle_billing.Entities.SubscriptionPreview import SubscriptionPreview
 from paddle_billing.Entities.Transaction import Transaction
-from paddle_billing.Entities.Collections import Paginator, SubscriptionCollection
+from paddle_billing.Entities.Collections import Paginator, SubscriptionCollection, SubscriptionHistoryCollection
 
 from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 
@@ -11,6 +11,7 @@ from paddle_billing.Resources.Subscriptions.Operations import (
     CancelSubscription,
     CreateOneTimeCharge,
     SubscriptionIncludes,
+    ListSubscriptionHistory,
     ListSubscriptions,
     PauseSubscription,
     PreviewOneTimeCharge,
@@ -39,6 +40,19 @@ class SubscriptionsClient:
 
         return SubscriptionCollection.from_list(
             parser.get_list(), Paginator(self.client, parser.get_pagination(), SubscriptionCollection)
+        )
+
+    def list_history(
+        self, subscription_id: str, operation: ListSubscriptionHistory | None = None
+    ) -> SubscriptionHistoryCollection:
+        if operation is None:
+            operation = ListSubscriptionHistory()
+
+        self.response = self.client.get_raw(f"/subscriptions/{subscription_id}/history", operation.get_parameters())
+        parser = ResponseParser(self.response)
+
+        return SubscriptionHistoryCollection.from_list(
+            parser.get_list(), Paginator(self.client, parser.get_pagination(), SubscriptionHistoryCollection)
         )
 
     def get(self, subscription_id: str, includes=None) -> Subscription:

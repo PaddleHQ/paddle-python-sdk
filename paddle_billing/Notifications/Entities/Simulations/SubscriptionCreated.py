@@ -14,6 +14,7 @@ from paddle_billing.Notifications.Entities.Shared import (
     TimePeriod,
 )
 from paddle_billing.Notifications.Entities.Subscriptions import (
+    SubscriptionConsentRequirement,
     SubscriptionDiscount,
     SubscriptionItem,
     SubscriptionScheduledChange,
@@ -37,6 +38,7 @@ class SubscriptionCreated(SimulationEntity):
     billing_details: BillingDetails | None | Undefined = Undefined()
     business_id: str | None | Undefined = Undefined()
     canceled_at: datetime | None | Undefined = Undefined()
+    consent_requirements: list[SubscriptionConsentRequirement] | None | Undefined = Undefined()
     current_billing_period: TimePeriod | None | Undefined = Undefined()
     custom_data: CustomData | None | Undefined = Undefined()
     discount: SubscriptionDiscount | None | Undefined = Undefined()
@@ -76,6 +78,14 @@ class SubscriptionCreated(SimulationEntity):
                 datetime.fromisoformat(data["canceled_at"])
                 if data.get("canceled_at")
                 else data.get("canceled_at", Undefined())
+            ),
+            consent_requirements=(
+                [
+                    SubscriptionConsentRequirement.from_dict(consent_requirement)
+                    for consent_requirement in data["consent_requirements"]
+                ]
+                if isinstance(data.get("consent_requirements"), list)
+                else data.get("consent_requirements", Undefined())
             ),
             custom_data=(
                 CustomData(data["custom_data"])
