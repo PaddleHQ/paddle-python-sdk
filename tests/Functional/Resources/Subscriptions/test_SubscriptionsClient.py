@@ -1729,3 +1729,19 @@ class TestSubscriptionsClient:
         assert response.next_transaction.details.line_items[2].product.id is None
         assert response.recurring_transaction_details.line_items[2].price_id is None
         assert response.recurring_transaction_details.line_items[2].product.id is None
+
+    def test_subscription_preview_tolerates_missing_consent_requirements(self):
+        data = loads(ReadsFixtures.read_raw_json_fixture("response/preview_update_full_entity"))["data"]
+        data.pop("consent_requirements", None)
+
+        preview = SubscriptionPreview.from_dict(data)
+
+        assert preview.consent_requirements == []
+
+    def test_subscription_tolerates_missing_consent_requirements(self):
+        data = loads(ReadsFixtures.read_raw_json_fixture("response/full_entity"))["data"]
+        data.pop("consent_requirements", None)
+
+        subscription = Subscription.from_dict(data)
+
+        assert subscription.consent_requirements == []

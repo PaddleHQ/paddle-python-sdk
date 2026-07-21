@@ -112,7 +112,7 @@ class SubscriptionPreview(Entity):
             ),
             consent_requirements=[
                 SubscriptionConsentRequirement.from_dict(consent_requirement)
-                for consent_requirement in data["consent_requirements"]
+                for consent_requirement in data.get("consent_requirements", [])
             ],
             import_meta=ImportMeta.from_dict(data["import_meta"]) if data.get("import_meta") else None,
         )

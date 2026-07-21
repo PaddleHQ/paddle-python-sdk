@@ -102,6 +102,6 @@ class Subscription(Entity):
             ),
             consent_requirements=[
                 SubscriptionConsentRequirement.from_dict(consent_requirement)
-                for consent_requirement in data["consent_requirements"]
+                for consent_requirement in data.get("consent_requirements", [])
             ],
         )
