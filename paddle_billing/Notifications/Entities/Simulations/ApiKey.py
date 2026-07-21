@@ -20,6 +20,7 @@ class ApiKey(SimulationEntity):
     last_used_at: datetime | None | Undefined = Undefined()
     created_at: datetime | Undefined = Undefined()
     updated_at: datetime | Undefined = Undefined()
+    rotatable: bool | None | Undefined = Undefined()
 
     @staticmethod
     def from_dict(data: dict[str, Any]) -> ApiKey:
@@ -46,4 +47,5 @@ class ApiKey(SimulationEntity):
             ),
             created_at=datetime.fromisoformat(data["created_at"]) if data.get("created_at") else Undefined(),
             updated_at=datetime.fromisoformat(data["updated_at"]) if data.get("updated_at") else Undefined(),
+            rotatable=data.get("rotatable", Undefined()),
         )
