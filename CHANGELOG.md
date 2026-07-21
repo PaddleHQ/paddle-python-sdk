@@ -11,6 +11,15 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 ### Added
 
 - Added paid trials support: `requires_payment_method`, `unit_price`, and `unit_price_overrides` on price `trial_period`. See [related changelog](https://developer.paddle.com/changelog/2026/paid-trials?utm_source=dx&utm_medium=paddle-python-sdk)
+- Added support for checkout domains. See [related changelog](https://developer.paddle.com/changelog/2026/checkout-domains-api?utm_source=dx&utm_medium=paddle-python-sdk)
+  - `Client.checkout_domains.list`
+  - `Client.checkout_domains.get`
+  - `Client.checkout_domains.delete`
+  - `Client.checkout_domains.verify_payment_method`
+- Added support for `checkouts` report type. See [related changelog](https://developer.paddle.com/changelog/2026/checkouts-report?utm_source=dx&utm_medium=paddle-python-sdk)
+- Added `CLP` and `PEN` currency code support. See [related changelog](https://developer.paddle.com/changelog/2026/clp-pen-currencies?utm_source=dx&utm_medium=paddle-python-sdk)
+- Added `rotatable` to api_key events. See [related changelog](https://developer.paddle.com/changelog/2026/aws-secrets-manager-rotation?utm_source=dx&utm_medium=paddle-python-sdk)
+- Added `balance_movement_date` and `balance_movement_type` filters for payout reconciliation reports. See [related changelog](https://developer.paddle.com/changelog/2026/payout-reconciliation-report-filters?utm_source=dx&utm_medium=paddle-python-sdk)
 
 ### Changed
 
