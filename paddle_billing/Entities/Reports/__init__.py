@@ -1,5 +1,6 @@
 from paddle_billing.Entities.Reports.AdjustmentsReportType import AdjustmentsReportType
 from paddle_billing.Entities.Reports.BalanceReportType import BalanceReportType
+from paddle_billing.Entities.Reports.CheckoutsReportType import CheckoutsReportType
 from paddle_billing.Entities.Reports.DiscountsReportType import DiscountsReportType
 from paddle_billing.Entities.Reports.PayoutReconciliationReportType import PayoutReconciliationReportType
 from paddle_billing.Entities.Reports.ProductsPricesReportType import ProductsPricesReportType

@@ -10,6 +10,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 
 ### Added
 
+- Added support for `checkouts` report type. See [related changelog](https://developer.paddle.com/changelog/2026/checkouts-report?utm_source=dx&utm_medium=paddle-python-sdk)
 - Added `CLP` and `PEN` currency code support. See [related changelog](https://developer.paddle.com/changelog/2026/clp-pen-currencies?utm_source=dx&utm_medium=paddle-python-sdk)
 - Added `rotatable` to api_key events. See [related changelog](https://developer.paddle.com/changelog/2026/aws-secrets-manager-rotation?utm_source=dx&utm_medium=paddle-python-sdk)
 
