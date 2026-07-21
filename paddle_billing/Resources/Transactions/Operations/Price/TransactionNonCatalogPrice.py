@@ -3,6 +3,7 @@ from dataclasses import dataclass
 
 from paddle_billing.Undefined import Undefined
 from paddle_billing.Entities.Shared.Duration import Duration
+from paddle_billing.Entities.Shared.PriceTrialPeriod import PriceTrialPeriod
 from paddle_billing.Entities.Shared.TaxMode import TaxMode
 from paddle_billing.Entities.Shared.Money import Money
 from paddle_billing.Entities.Shared.PriceQuantity import PriceQuantity
@@ -17,7 +18,7 @@ class TransactionNonCatalogPrice:
     product_id: str
     name: str | None | Undefined = Undefined()
     billing_cycle: Duration | None | Undefined = Undefined()
-    trial_period: Duration | None | Undefined = Undefined()
+    trial_period: PriceTrialPeriod | None | Undefined = Undefined()
     custom_data: CustomData | None | Undefined = Undefined()
     tax_mode: TaxMode | Undefined = Undefined()
     unit_price_overrides: list[UnitPriceOverride] | Undefined = Undefined()

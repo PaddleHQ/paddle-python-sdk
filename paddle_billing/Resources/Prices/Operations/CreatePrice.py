@@ -8,6 +8,7 @@ from paddle_billing.Entities.Shared import (
     Duration,
     Money,
     PriceQuantity,
+    PriceTrialPeriod,
     TaxMode,
     UnitPriceOverride,
 )
@@ -22,7 +23,7 @@ class CreatePrice(Operation):
     type: CatalogType | None | Undefined = Undefined()
     unit_price_overrides: list[UnitPriceOverride] | Undefined = Undefined()
     tax_mode: TaxMode | Undefined = Undefined()
-    trial_period: Duration | None | Undefined = Undefined()
+    trial_period: PriceTrialPeriod | None | Undefined = Undefined()
     billing_cycle: Duration | None | Undefined = Undefined()
     quantity: PriceQuantity | Undefined = Undefined()
     custom_data: CustomData | Undefined = Undefined()

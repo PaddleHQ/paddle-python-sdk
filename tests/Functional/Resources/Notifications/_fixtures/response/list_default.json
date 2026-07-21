@@ -358,7 +358,10 @@
                 "description": "Annual plan",
                 "trial_period": {
                   "interval": "day",
-                  "frequency": 10
+                  "frequency": 10,
+                  "requires_payment_method": true,
+                  "unit_price": null,
+                  "unit_price_overrides": []
                 },
                 "billing_cycle": {
                   "interval": "year",
@@ -389,7 +392,10 @@
                 "description": "Annual plan",
                 "trial_period": {
                   "interval": "day",
-                  "frequency": 10
+                  "frequency": 10,
+                  "requires_payment_method": true,
+                  "unit_price": null,
+                  "unit_price_overrides": []
                 },
                 "billing_cycle": {
                   "interval": "year",

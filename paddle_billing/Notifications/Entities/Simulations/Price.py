@@ -11,6 +11,7 @@ from paddle_billing.Notifications.Entities.Shared import (
     ImportMeta,
     Money,
     PriceQuantity,
+    PriceTrialPeriod,
     Status,
     TaxMode,
     UnitPriceOverride,
@@ -26,7 +27,7 @@ class Price(SimulationEntity):
     description: str | Undefined = Undefined()
     type: CatalogType | None | Undefined = Undefined()
     billing_cycle: Duration | None | Undefined = Undefined()
-    trial_period: Duration | None | Undefined = Undefined()
+    trial_period: PriceTrialPeriod | None | Undefined = Undefined()
     tax_mode: TaxMode | Undefined = Undefined()
     unit_price: Money | Undefined = Undefined()
     unit_price_overrides: list[UnitPriceOverride] | Undefined = Undefined()
@@ -60,7 +61,7 @@ class Price(SimulationEntity):
                 else data.get("billing_cycle", Undefined())
             ),
             trial_period=(
-                Duration.from_dict(data["trial_period"])
+                PriceTrialPeriod.from_dict(data["trial_period"])
                 if data.get("trial_period")
                 else data.get("trial_period", Undefined())
             ),
