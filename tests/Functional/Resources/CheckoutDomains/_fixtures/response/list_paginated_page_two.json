@@ -1,0 +1,25 @@
+{
+  "data": [
+    {
+      "id": "chedom_01hv8h6jj90jjz0d71m6hj4r9y",
+      "domain": "checkout.example.com",
+      "status": "pending_review",
+      "payment_method_verification": {
+        "apple_pay": {
+          "status": "unverified"
+        }
+      },
+      "created_at": "2024-04-11T06:42:58.785000Z",
+      "updated_at": "2024-04-11T06:42:58.785000Z"
+    }
+  ],
+  "meta": {
+    "request_id": "cf039cbb-6c2a-485d-b244-501894b797a6",
+    "pagination": {
+      "per_page": 1,
+      "next": "https://sandbox-api.paddle.com/checkout-domains?after=chedom_01hv8h6jj90jjz0d71m6hj4r9y",
+      "has_more": false,
+      "estimated_total": 2
+    }
+  }
+}
