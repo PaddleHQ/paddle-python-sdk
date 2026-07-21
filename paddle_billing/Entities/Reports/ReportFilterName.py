@@ -3,8 +3,12 @@ from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 class ReportFilterName(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     Action: "ReportFilterName" = "action"
+    BalanceMovementDate: "ReportFilterName" = "balance_movement_date"
+    BalanceMovementType: "ReportFilterName" = "balance_movement_type"
+    CheckoutCreatedAt: "ReportFilterName" = "checkout_created_at"
     CollectionMode: "ReportFilterName" = "collection_mode"
     CurrencyCode: "ReportFilterName" = "currency_code"
+    CustomerCountryCode: "ReportFilterName" = "customer_country_code"
     Origin: "ReportFilterName" = "origin"
     PriceStatus: "ReportFilterName" = "price_status"
     PriceType: "ReportFilterName" = "price_type"
