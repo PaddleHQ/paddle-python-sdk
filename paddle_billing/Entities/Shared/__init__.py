@@ -1,4 +1,7 @@
 from paddle_billing.Entities.Shared.Action import Action
+from paddle_billing.Entities.Shared.ActionSource import ActionSource
+from paddle_billing.Entities.Shared.Actor import Actor
+from paddle_billing.Entities.Shared.ActorType import ActorType
 from paddle_billing.Entities.Shared.AddressPreview import AddressPreview
 from paddle_billing.Entities.Shared.AdjustmentActionType import AdjustmentActionType
 from paddle_billing.Entities.Shared.AdjustmentItemTotals import AdjustmentItemTotals

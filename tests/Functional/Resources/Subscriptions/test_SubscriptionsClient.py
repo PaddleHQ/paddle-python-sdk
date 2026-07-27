@@ -1,15 +1,21 @@
-from json import loads
+from json import dumps, loads
 from pytest import mark
 from urllib.parse import unquote
 
-from paddle_billing.Entities.Collections import SubscriptionCollection
+from paddle_billing.Json import PayloadEncoder
+
+from paddle_billing.Entities.Collections import SubscriptionCollection, SubscriptionHistoryCollection
 from paddle_billing.Entities.DateTime import DateTime
 from paddle_billing.Entities.Subscription import Subscription
 from paddle_billing.Entities.SubscriptionPreview import SubscriptionPreview
 from paddle_billing.Entities.Transaction import Transaction
 from paddle_billing.Entities.Discount import Discount, DiscountStatus
 
+from paddle_billing.Notifications.Entities.UndefinedEntity import UndefinedEntity
+
 from paddle_billing.Entities.Shared import (
+    ActionSource,
+    ActorType,
     CollectionMode,
     CurrencyCode,
     CustomData,
@@ -24,6 +30,10 @@ from paddle_billing.Entities.Shared import (
 )
 
 from paddle_billing.Entities.Subscriptions import (
+    SubscriptionConsentRequirement,
+    SubscriptionConsentRequirementStatus,
+    SubscriptionConsentRequirementType,
+    SubscriptionDiscountType,
     SubscriptionEffectiveFrom,
     SubscriptionOnPaymentFailure,
     SubscriptionOnResume,
@@ -33,10 +43,49 @@ from paddle_billing.Entities.Subscriptions import (
     SubscriptionStatus,
 )
 
-from paddle_billing.Resources.Shared.Operations import Pager
+from paddle_billing.Entities.Subscriptions.History import (
+    SubscriptionHistoryAction,
+    SubscriptionHistoryDetailSubscriptionActivated,
+    SubscriptionHistoryDetailSubscriptionAddressUpdated,
+    SubscriptionHistoryDetailSubscriptionBillingCycleUpdated,
+    SubscriptionHistoryDetailSubscriptionBillingDateUpdated,
+    SubscriptionHistoryDetailSubscriptionBillingDetailsUpdated,
+    SubscriptionHistoryDetailSubscriptionBusinessAdded,
+    SubscriptionHistoryDetailSubscriptionBusinessRemoved,
+    SubscriptionHistoryDetailSubscriptionBusinessUpdated,
+    SubscriptionHistoryDetailSubscriptionCanceled,
+    SubscriptionHistoryDetailSubscriptionCollectionModeUpdated,
+    SubscriptionHistoryDetailSubscriptionConsentRequirementGranted,
+    SubscriptionHistoryDetailSubscriptionCreated,
+    SubscriptionHistoryDetailSubscriptionCurrencyUpdated,
+    SubscriptionHistoryDetailSubscriptionCustomDataUpdated,
+    SubscriptionHistoryDetailSubscriptionCustomerUpdated,
+    SubscriptionHistoryDetailSubscriptionDiscountAdded,
+    SubscriptionHistoryDetailSubscriptionDiscountExpired,
+    SubscriptionHistoryDetailSubscriptionDiscountRemoved,
+    SubscriptionHistoryDetailSubscriptionItemAdded,
+    SubscriptionHistoryDetailSubscriptionItemQuantityUpdated,
+    SubscriptionHistoryDetailSubscriptionItemRemoved,
+    SubscriptionHistoryDetailSubscriptionOneOffChargeApplied,
+    SubscriptionHistoryDetailSubscriptionPastDue,
+    SubscriptionHistoryDetailSubscriptionPaused,
+    SubscriptionHistoryDetailSubscriptionPaymentAttempted,
+    SubscriptionHistoryDetailSubscriptionPaymentMethodAdded,
+    SubscriptionHistoryDetailSubscriptionPaymentMethodRemoved,
+    SubscriptionHistoryDetailSubscriptionPaymentMethodUpdated,
+    SubscriptionHistoryDetailSubscriptionRenewed,
+    SubscriptionHistoryDetailSubscriptionResumed,
+    SubscriptionHistoryDetailSubscriptionScheduledChangeAdded,
+    SubscriptionHistoryDetailSubscriptionScheduledChangeRemoved,
+    SubscriptionHistoryDetailSubscriptionScheduledChangeUpdated,
+    SubscriptionHistoryReason,
+)
+
+from paddle_billing.Resources.Shared.Operations import Comparator, DateComparison, Pager
 from paddle_billing.Resources.Subscriptions.Operations import (
     CancelSubscription,
     CreateOneTimeCharge,
+    ListSubscriptionHistory,
     ListSubscriptions,
     PauseSubscription,
     PreviewOneTimeCharge,
@@ -67,6 +116,42 @@ from paddle_billing.Resources.Subscriptions.Operations.Price import (
 from paddle_billing.Resources.Subscriptions.Operations.Update import UpdateBillingDetails
 
 from tests.Utils.ReadsFixture import ReadsFixtures
+
+SUBSCRIPTION_HISTORY_DETAIL_TYPES = {
+    "subscription_activated": SubscriptionHistoryDetailSubscriptionActivated,
+    "subscription_address_updated": SubscriptionHistoryDetailSubscriptionAddressUpdated,
+    "subscription_billing_cycle_updated": SubscriptionHistoryDetailSubscriptionBillingCycleUpdated,
+    "subscription_billing_date_updated": SubscriptionHistoryDetailSubscriptionBillingDateUpdated,
+    "subscription_billing_details_updated": SubscriptionHistoryDetailSubscriptionBillingDetailsUpdated,
+    "subscription_business_added": SubscriptionHistoryDetailSubscriptionBusinessAdded,
+    "subscription_business_removed": SubscriptionHistoryDetailSubscriptionBusinessRemoved,
+    "subscription_business_updated": SubscriptionHistoryDetailSubscriptionBusinessUpdated,
+    "subscription_canceled": SubscriptionHistoryDetailSubscriptionCanceled,
+    "subscription_collection_mode_updated": SubscriptionHistoryDetailSubscriptionCollectionModeUpdated,
+    "subscription_consent_requirement_granted": SubscriptionHistoryDetailSubscriptionConsentRequirementGranted,
+    "subscription_created": SubscriptionHistoryDetailSubscriptionCreated,
+    "subscription_currency_updated": SubscriptionHistoryDetailSubscriptionCurrencyUpdated,
+    "subscription_custom_data_updated": SubscriptionHistoryDetailSubscriptionCustomDataUpdated,
+    "subscription_customer_updated": SubscriptionHistoryDetailSubscriptionCustomerUpdated,
+    "subscription_discount_added": SubscriptionHistoryDetailSubscriptionDiscountAdded,
+    "subscription_discount_expired": SubscriptionHistoryDetailSubscriptionDiscountExpired,
+    "subscription_discount_removed": SubscriptionHistoryDetailSubscriptionDiscountRemoved,
+    "subscription_item_added": SubscriptionHistoryDetailSubscriptionItemAdded,
+    "subscription_item_quantity_updated": SubscriptionHistoryDetailSubscriptionItemQuantityUpdated,
+    "subscription_item_removed": SubscriptionHistoryDetailSubscriptionItemRemoved,
+    "subscription_one_off_charge_applied": SubscriptionHistoryDetailSubscriptionOneOffChargeApplied,
+    "subscription_past_due": SubscriptionHistoryDetailSubscriptionPastDue,
+    "subscription_paused": SubscriptionHistoryDetailSubscriptionPaused,
+    "subscription_payment_attempted": SubscriptionHistoryDetailSubscriptionPaymentAttempted,
+    "subscription_payment_method_added": SubscriptionHistoryDetailSubscriptionPaymentMethodAdded,
+    "subscription_payment_method_removed": SubscriptionHistoryDetailSubscriptionPaymentMethodRemoved,
+    "subscription_payment_method_updated": SubscriptionHistoryDetailSubscriptionPaymentMethodUpdated,
+    "subscription_renewed": SubscriptionHistoryDetailSubscriptionRenewed,
+    "subscription_resumed": SubscriptionHistoryDetailSubscriptionResumed,
+    "subscription_scheduled_change_added": SubscriptionHistoryDetailSubscriptionScheduledChangeAdded,
+    "subscription_scheduled_change_removed": SubscriptionHistoryDetailSubscriptionScheduledChangeRemoved,
+    "subscription_scheduled_change_updated": SubscriptionHistoryDetailSubscriptionScheduledChangeUpdated,
+}
 
 
 class TestSubscriptionsClient:
@@ -328,6 +413,20 @@ class TestSubscriptionsClient:
                 ReadsFixtures.read_raw_json_fixture("response/list_default"),
                 "/subscriptions?scheduled_change_action=pause,cancel",
             ),
+            (
+                ListSubscriptions(next_billed_at=DateComparison(DateTime("2023-11-06 14:00:00").as_datetime)),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/list_default"),
+                "/subscriptions?next_billed_at=2023-11-06T14:00:00.000000Z",
+            ),
+            (
+                ListSubscriptions(
+                    next_billed_at=DateComparison(DateTime("2023-11-06 14:00:00").as_datetime, Comparator.GT)
+                ),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/list_default"),
+                "/subscriptions?next_billed_at[GT]=2023-11-06T14:00:00.000000Z",
+            ),
         ],
         ids=[
             "List subscriptions without pagination",
@@ -343,6 +442,8 @@ class TestSubscriptionsClient:
             "List subscriptions filtered by multiple price_ids",
             "List subscriptions with scheduled_change_actions",
             "List subscriptions with multiple scheduled_change_actions",
+            "List subscriptions filtered by next_billed_at without a comparator",
+            "List subscriptions filtered by next_billed_at with a comparator",
         ],
     )
     def test_list_subscriptions_returns_expected_response(
@@ -390,8 +491,232 @@ class TestSubscriptionsClient:
         assert response.items[1].discount is None
         assert response.items[2].discount.starts_at is None
         assert response.items[2].discount.ends_at is None
+        assert response.items[2].discount.type == SubscriptionDiscountType.Recurring
         assert response.items[3].discount.starts_at.isoformat() == "2024-04-12T10:18:47.635628+00:00"
         assert response.items[3].discount.ends_at.isoformat() == "2024-05-12T10:18:47.635628+00:00"
+        assert response.items[3].discount.type == SubscriptionDiscountType.Recurring
+
+    @mark.parametrize(
+        "subscription_id, operation, expected_response_body, expected_url",
+        [
+            (
+                "sub_01hv959anj4zrw503h2acawb3p",
+                None,
+                ReadsFixtures.read_raw_json_fixture("response/list_history_default"),
+                "/subscriptions/sub_01hv959anj4zrw503h2acawb3p/history",
+            ),
+            (
+                "sub_01hv959anj4zrw503h2acawb3p",
+                ListSubscriptionHistory(),
+                ReadsFixtures.read_raw_json_fixture("response/list_history_default"),
+                "/subscriptions/sub_01hv959anj4zrw503h2acawb3p/history",
+            ),
+            (
+                "sub_01hv959anj4zrw503h2acawb3p",
+                ListSubscriptionHistory(pager=Pager()),
+                ReadsFixtures.read_raw_json_fixture("response/list_history_default"),
+                "/subscriptions/sub_01hv959anj4zrw503h2acawb3p/history?order_by=id[asc]&per_page=50",
+            ),
+            (
+                "sub_01hv959anj4zrw503h2acawb3p",
+                ListSubscriptionHistory(
+                    actions=[
+                        SubscriptionHistoryAction.SubscriptionRenewed,
+                        SubscriptionHistoryAction.SubscriptionPaused,
+                    ],
+                    sources=[ActionSource.Api, ActionSource.Dashboard],
+                    actor_types=[ActorType.ApiKey],
+                    actor_ids=["apikey_01h8441jn5pcwrfhwh78jqt8hl"],
+                    reasons=[SubscriptionHistoryReason.CustomerRequest],
+                    occurred_at=DateComparison(DateTime("2026-06-01 00:00:00"), Comparator.GTE),
+                ),
+                ReadsFixtures.read_raw_json_fixture("response/list_history_default"),
+                "/subscriptions/sub_01hv959anj4zrw503h2acawb3p/history"
+                "?occurred_at[GTE]=2026-06-01T00:00:00.000000Z"
+                "&action=subscription_renewed,subscription_paused"
+                "&source=api,dashboard"
+                "&actor_type=api_key"
+                "&actor_id=apikey_01h8441jn5pcwrfhwh78jqt8hl"
+                "&reason=customer_request",
+            ),
+        ],
+        ids=[
+            "List subscription history without an operation",
+            "List subscription history without filters",
+            "List subscription history with default pagination",
+            "List subscription history with filters",
+        ],
+    )
+    def test_list_subscription_history_returns_expected_response(
+        self,
+        test_client,
+        mock_requests,
+        subscription_id,
+        operation,
+        expected_response_body,
+        expected_url,
+    ):
+        expected_url = f"{test_client.base_url}{expected_url}"
+        mock_requests.get(expected_url, status_code=200, text=expected_response_body)
+
+        response = test_client.client.subscriptions.list_history(subscription_id, operation)
+        response_json = test_client.client.subscriptions.response.json()
+        last_request = mock_requests.last_request
+
+        assert isinstance(response, SubscriptionHistoryCollection)
+        assert last_request is not None
+        assert last_request.method == "GET"
+        assert test_client.client.status_code == 200
+        assert (
+            unquote(last_request.url) == expected_url
+        ), "The URL does not match the expected URL, verify the query string is correct"
+        assert response_json == loads(
+            str(expected_response_body)
+        ), "The response JSON generated by ResponseParser() doesn't match the expected fixture JSON"
+
+    def test_list_subscription_history_round_trips_through_payload_encoder(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        expected_response_body = ReadsFixtures.read_raw_json_fixture("response/list_history_default")
+        mock_requests.get(
+            f"{test_client.base_url}/subscriptions/sub_01hv959anj4zrw503h2acawb3p/history",
+            status_code=200,
+            text=expected_response_body,
+        )
+
+        response = test_client.client.subscriptions.list_history("sub_01hv959anj4zrw503h2acawb3p")
+
+        assert isinstance(response, SubscriptionHistoryCollection)
+        assert loads(dumps(response.items, cls=PayloadEncoder)) == loads(expected_response_body)["data"]
+
+    def test_list_subscription_history_hydrates_unknown_action_as_undefined_entity(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        mock_requests.get(
+            f"{test_client.base_url}/subscriptions/sub_01hv959anj4zrw503h2acawb3p/history",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture("response/list_history_default"),
+        )
+
+        response = test_client.client.subscriptions.list_history("sub_01hv959anj4zrw503h2acawb3p")
+
+        unrecognised_entry = response.items[-1]
+        assert isinstance(unrecognised_entry.detail, UndefinedEntity)
+        assert unrecognised_entry.detail.to_dict() == {
+            "action": "subscription_something_new",
+            "some_field": "some_value",
+        }
+
+    def test_list_subscription_history_hydrates_known_action_as_typed_detail(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        mock_requests.get(
+            f"{test_client.base_url}/subscriptions/sub_01hv959anj4zrw503h2acawb3p/history",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture("response/list_history_default"),
+        )
+
+        response = test_client.client.subscriptions.list_history("sub_01hv959anj4zrw503h2acawb3p")
+
+        activated_entry = response.items[1]
+        assert isinstance(activated_entry.detail, SubscriptionHistoryDetailSubscriptionActivated)
+        assert activated_entry.detail.action == SubscriptionHistoryAction.SubscriptionActivated
+        assert activated_entry.detail.transaction_id == "txn_01h89231k3a1q8mn6p4r5s7t9v"
+
+    @mark.parametrize(
+        "action, expected_detail_class",
+        list(SUBSCRIPTION_HISTORY_DETAIL_TYPES.items()),
+        ids=list(SUBSCRIPTION_HISTORY_DETAIL_TYPES.keys()),
+    )
+    def test_list_subscription_history_hydrates_action_as_typed_detail(
+        self,
+        test_client,
+        mock_requests,
+        action,
+        expected_detail_class,
+    ):
+        mock_requests.get(
+            f"{test_client.base_url}/subscriptions/sub_01hv959anj4zrw503h2acawb3p/history",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture("response/list_history_all_actions"),
+        )
+
+        response = test_client.client.subscriptions.list_history("sub_01hv959anj4zrw503h2acawb3p")
+
+        entry = next((item for item in response.items if item.detail.action.value == action), None)
+
+        assert entry is not None, f"Fixture list_history_all_actions is missing an entry for {action}"
+        assert isinstance(entry.detail, expected_detail_class)
+        assert entry.detail.action == SubscriptionHistoryAction(action)
+
+    def test_list_subscription_history_covers_every_known_action(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        mock_requests.get(
+            f"{test_client.base_url}/subscriptions/sub_01hv959anj4zrw503h2acawb3p/history",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture("response/list_history_all_actions"),
+        )
+
+        response = test_client.client.subscriptions.list_history("sub_01hv959anj4zrw503h2acawb3p")
+
+        assert set(SUBSCRIPTION_HISTORY_DETAIL_TYPES) == set(
+            SubscriptionHistoryAction.members().values()
+        ), "Every action defined on SubscriptionHistoryAction must be covered by the fixture and this test"
+        assert {item.detail.action.value for item in response.items} == set(SUBSCRIPTION_HISTORY_DETAIL_TYPES)
+
+    def test_list_subscription_history_all_actions_round_trip_through_payload_encoder(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        expected_response_body = ReadsFixtures.read_raw_json_fixture("response/list_history_all_actions")
+        mock_requests.get(
+            f"{test_client.base_url}/subscriptions/sub_01hv959anj4zrw503h2acawb3p/history",
+            status_code=200,
+            text=expected_response_body,
+        )
+
+        response = test_client.client.subscriptions.list_history("sub_01hv959anj4zrw503h2acawb3p")
+
+        assert isinstance(response, SubscriptionHistoryCollection)
+        assert loads(dumps(response.items, cls=PayloadEncoder)) == loads(expected_response_body)["data"]
+
+    def test_list_subscription_history_can_paginate(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        mock_requests.get(
+            f"{test_client.base_url}/subscriptions/sub_01hv959anj4zrw503h2acawb3p/history",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture("response/list_history_paginated_page_one"),
+        )
+
+        mock_requests.get(
+            f"{test_client.base_url}/subscriptions/sub_01hv959anj4zrw503h2acawb3p/history"
+            "?after=subhis_02paga0a4m6v7w8x9y0z1a2b3c",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture("response/list_history_paginated_page_two"),
+        )
+
+        response = test_client.client.subscriptions.list_history("sub_01hv959anj4zrw503h2acawb3p")
+
+        assert isinstance(response, SubscriptionHistoryCollection)
+
+        all_entries = []
+        for entry in response:
+            all_entries.append(entry)
+
+        assert len(all_entries) == 4
 
     @mark.parametrize(
         "subscription_id, includes, expected_response_status, expected_response_body, expected_url",
@@ -475,6 +800,32 @@ class TestSubscriptionsClient:
         response = test_client.client.subscriptions.get("sub_01h7zcgmdc6tmwtjehp3sh7azf")
 
         assert isinstance(response, Subscription)
+
+    def test_get_subscription_returns_consent_requirements(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        expected_url = f"{test_client.base_url}/subscriptions/sub_01h7zcgmdc6tmwtjehp3sh7azf"
+        mock_requests.get(
+            expected_url, status_code=200, text=ReadsFixtures.read_raw_json_fixture("response/full_entity")
+        )
+
+        response = test_client.client.subscriptions.get("sub_01h7zcgmdc6tmwtjehp3sh7azf")
+
+        assert isinstance(response, Subscription)
+        assert len(response.consent_requirements) == 1
+
+        consent_requirement = response.consent_requirements[0]
+        assert isinstance(consent_requirement, SubscriptionConsentRequirement)
+        assert consent_requirement.id == "subcr_01j3g2y5g0f5q9k2h1n8x7e6d5"
+        assert consent_requirement.requirement == SubscriptionConsentRequirementType.TrialEnding
+        assert consent_requirement.status == SubscriptionConsentRequirementStatus.Pending
+        assert consent_requirement.created_at.isoformat() == "2026-06-01T00:00:00+00:00"
+        assert consent_requirement.consent_period.starts_at.isoformat() == "2026-06-01T00:00:00+00:00"
+        assert consent_requirement.consent_period.ends_at.isoformat() == "2026-06-15T00:00:00+00:00"
+        assert consent_requirement.granted_at is None
+        assert consent_requirement.voided_at is None
 
         recurring_transaction_proration = response.recurring_transaction_details.line_items[0].proration
         assert recurring_transaction_proration is not None
@@ -1378,3 +1729,19 @@ class TestSubscriptionsClient:
         assert response.next_transaction.details.line_items[2].product.id is None
         assert response.recurring_transaction_details.line_items[2].price_id is None
         assert response.recurring_transaction_details.line_items[2].product.id is None
+
+    def test_subscription_preview_tolerates_missing_consent_requirements(self):
+        data = loads(ReadsFixtures.read_raw_json_fixture("response/preview_update_full_entity"))["data"]
+        data.pop("consent_requirements", None)
+
+        preview = SubscriptionPreview.from_dict(data)
+
+        assert preview.consent_requirements == []
+
+    def test_subscription_tolerates_missing_consent_requirements(self):
+        data = loads(ReadsFixtures.read_raw_json_fixture("response/full_entity"))["data"]
+        data.pop("consent_requirements", None)
+
+        subscription = Subscription.from_dict(data)
+
+        assert subscription.consent_requirements == []

@@ -18,6 +18,7 @@
         "next_billed_at": "2023-12-24T14:11:11.447004Z",
         "paused_at": null,
         "canceled_at": null,
+        "consent_requirements": [],
         "discount": null,
         "collection_mode": "automatic",
         "billing_details": null,

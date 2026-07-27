@@ -62,7 +62,7 @@
                 "type": "standard",
                 "tax_category": "standard",
                 "description": "Essential tools for student pilots to manage flight logs, analyze performance, and plan routes, and ensure compliance. Valid student pilot certificate from the FAA required.",
-                "image_url": "https:\/\/paddle.s3.amazonaws.com\/user\/165798\/bT1XUOJAQhOUxGs83cbk_pro.png",
+                "image_url": "https://paddle.s3.amazonaws.com/user/165798/bT1XUOJAQhOUxGs83cbk_pro.png",
                 "custom_data": {
                     "features": {
                         "aircraft_performance": true,
@@ -105,6 +105,7 @@
     "updated_at": "2024-04-12T11:30:29.648000Z",
     "business_id": null,
     "canceled_at": null,
+    "consent_requirements": [],
     "custom_data": null,
     "customer_id": "ctm_01hv6y1jedq4p1n0yqn5ba3ky4",
     "import_meta": null,

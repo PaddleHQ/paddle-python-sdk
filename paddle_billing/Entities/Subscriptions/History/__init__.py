@@ -1,0 +1,123 @@
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistory import SubscriptionHistory
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryAction import SubscriptionHistoryAction
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryCanceledEffectiveFrom import (
+    SubscriptionHistoryCanceledEffectiveFrom,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetail import (
+    SubscriptionHistoryDetail,
+    SubscriptionHistoryDetailUnion,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailItem import SubscriptionHistoryDetailItem
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionActivated import (
+    SubscriptionHistoryDetailSubscriptionActivated,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionAddressUpdated import (
+    SubscriptionHistoryDetailSubscriptionAddressUpdated,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionBillingCycleUpdated import (
+    SubscriptionHistoryDetailSubscriptionBillingCycleUpdated,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionBillingDateUpdated import (
+    SubscriptionHistoryDetailSubscriptionBillingDateUpdated,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionBillingDetailsUpdated import (
+    SubscriptionHistoryDetailSubscriptionBillingDetailsUpdated,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionBusinessAdded import (
+    SubscriptionHistoryDetailSubscriptionBusinessAdded,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionBusinessRemoved import (
+    SubscriptionHistoryDetailSubscriptionBusinessRemoved,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionBusinessUpdated import (
+    SubscriptionHistoryDetailSubscriptionBusinessUpdated,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionCanceled import (
+    SubscriptionHistoryDetailSubscriptionCanceled,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionCollectionModeUpdated import (
+    SubscriptionHistoryDetailSubscriptionCollectionModeUpdated,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionConsentRequirementGranted import (  # noqa: E501
+    SubscriptionHistoryDetailSubscriptionConsentRequirementGranted,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionCreated import (
+    SubscriptionHistoryDetailSubscriptionCreated,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionCurrencyUpdated import (
+    SubscriptionHistoryDetailSubscriptionCurrencyUpdated,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionCustomDataUpdated import (
+    SubscriptionHistoryDetailSubscriptionCustomDataUpdated,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionCustomerUpdated import (
+    SubscriptionHistoryDetailSubscriptionCustomerUpdated,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionDiscountAdded import (
+    SubscriptionHistoryDetailSubscriptionDiscountAdded,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionDiscountExpired import (
+    SubscriptionHistoryDetailSubscriptionDiscountExpired,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionDiscountRemoved import (
+    SubscriptionHistoryDetailSubscriptionDiscountRemoved,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionItemAdded import (
+    SubscriptionHistoryDetailSubscriptionItemAdded,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionItemQuantityUpdated import (
+    SubscriptionHistoryDetailSubscriptionItemQuantityUpdated,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionItemRemoved import (
+    SubscriptionHistoryDetailSubscriptionItemRemoved,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionOneOffChargeApplied import (
+    SubscriptionHistoryDetailSubscriptionOneOffChargeApplied,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionPastDue import (
+    SubscriptionHistoryDetailSubscriptionPastDue,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionPaused import (
+    SubscriptionHistoryDetailSubscriptionPaused,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionPaymentAttempted import (
+    SubscriptionHistoryDetailSubscriptionPaymentAttempted,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionPaymentMethodAdded import (
+    SubscriptionHistoryDetailSubscriptionPaymentMethodAdded,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionPaymentMethodRemoved import (
+    SubscriptionHistoryDetailSubscriptionPaymentMethodRemoved,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionPaymentMethodUpdated import (
+    SubscriptionHistoryDetailSubscriptionPaymentMethodUpdated,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionRenewed import (
+    SubscriptionHistoryDetailSubscriptionRenewed,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionResumed import (
+    SubscriptionHistoryDetailSubscriptionResumed,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionScheduledChangeAdded import (
+    SubscriptionHistoryDetailSubscriptionScheduledChangeAdded,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionScheduledChangeRemoved import (
+    SubscriptionHistoryDetailSubscriptionScheduledChangeRemoved,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubscriptionScheduledChangeUpdated import (
+    SubscriptionHistoryDetailSubscriptionScheduledChangeUpdated,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDiscount import SubscriptionHistoryDiscount
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryItemUpdateSummary import (
+    SubscriptionHistoryItemUpdateSummary,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryOneOffChargeAppliedEffectiveFrom import (
+    SubscriptionHistoryOneOffChargeAppliedEffectiveFrom,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryPausedEffectiveFrom import (
+    SubscriptionHistoryPausedEffectiveFrom,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryPaymentAttemptedOperation import (
+    SubscriptionHistoryPaymentAttemptedOperation,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryReason import SubscriptionHistoryReason

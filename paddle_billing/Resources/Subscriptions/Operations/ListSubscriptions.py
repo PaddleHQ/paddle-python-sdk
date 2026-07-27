@@ -6,7 +6,7 @@ from paddle_billing.Entities.Subscriptions import SubscriptionStatus, Subscripti
 
 from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 
-from paddle_billing.Resources.Shared.Operations import Pager
+from paddle_billing.Resources.Shared.Operations import DateComparison, Pager
 
 
 class ListSubscriptions(HasParameters):
@@ -17,12 +17,14 @@ class ListSubscriptions(HasParameters):
         collection_mode: CollectionMode | None = None,
         customer_ids: list[str] | None = None,
         ids: list[str] | None = None,
+        next_billed_at: DateComparison | None = None,
         price_ids: list[str] | None = None,
         scheduled_change_actions: list[SubscriptionScheduledChangeAction] | None = None,
         statuses: list[SubscriptionStatus] | None = None,
     ):
         self.pager = pager
         self.collection_mode = collection_mode
+        self.next_billed_at = next_billed_at
         self.address_ids = address_ids if address_ids is not None else []
         self.customer_ids = customer_ids if customer_ids is not None else []
         self.ids = ids if ids is not None else []
@@ -47,6 +49,10 @@ class ListSubscriptions(HasParameters):
 
     def get_parameters(self) -> dict[str, str]:
         parameters: dict[str, str | None] = self.pager.get_parameters() if self.pager else {}
+
+        if self.next_billed_at is not None:
+            parameters[f"next_billed_at{self.next_billed_at.comparator}"] = self.next_billed_at.formatted()
+
         parameters.update(
             {
                 "address_id": ",".join(self.address_ids),

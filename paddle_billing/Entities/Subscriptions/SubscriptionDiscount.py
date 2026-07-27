@@ -3,10 +3,13 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
+from paddle_billing.Entities.Subscriptions.SubscriptionDiscountType import SubscriptionDiscountType
+
 
 @dataclass
 class SubscriptionDiscount:
     id: str
+    type: SubscriptionDiscountType
     starts_at: datetime | None
     ends_at: datetime | None
 
@@ -14,6 +17,7 @@ class SubscriptionDiscount:
     def from_dict(data: dict[str, Any]) -> SubscriptionDiscount:
         return SubscriptionDiscount(
             id=data["id"],
+            type=SubscriptionDiscountType(data["type"]),
             starts_at=datetime.fromisoformat(data["starts_at"]) if data.get("starts_at") else None,
             ends_at=datetime.fromisoformat(data["ends_at"]) if data.get("ends_at") else None,
         )

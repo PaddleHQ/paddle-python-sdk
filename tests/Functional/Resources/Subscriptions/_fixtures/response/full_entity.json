@@ -13,6 +13,20 @@
     "next_billed_at": "2024-03-08T11:02:03.946454Z",
     "paused_at": null,
     "canceled_at": null,
+    "consent_requirements": [
+      {
+        "id": "subcr_01j3g2y5g0f5q9k2h1n8x7e6d5",
+        "requirement": "trial_ending",
+        "status": "pending",
+        "created_at": "2026-06-01T00:00:00Z",
+        "consent_period": {
+          "starts_at": "2026-06-01T00:00:00Z",
+          "ends_at": "2026-06-15T00:00:00Z"
+        },
+        "granted_at": null,
+        "voided_at": null
+      }
+    ],
     "collection_mode": "automatic",
     "billing_details": null,
     "current_billing_period": {
