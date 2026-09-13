@@ -198,3 +198,8 @@ class TestClient:
 
         assert isinstance(exception, RequestException)
         assert str(exception) == "Some Connection Error"
+
+    def test_client_retries_transient_status_codes(self, test_client):
+        adapter = test_client.client.client.get_adapter("https://api.paddle.com")
+
+        assert adapter.max_retries.status_forcelist == [429, 500, 502, 503, 504, 520, 521, 522, 523, 524]
