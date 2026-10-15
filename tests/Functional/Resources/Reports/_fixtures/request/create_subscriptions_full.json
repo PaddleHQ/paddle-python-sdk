@@ -1,0 +1,39 @@
+{
+    "type": "subscriptions",
+    "filters": [
+        {
+            "name": "subscription_status",
+            "operator": null,
+            "value": [
+                "active",
+                "past_due"
+            ]
+        },
+        {
+            "name": "subscription_created_at",
+            "operator": "gte",
+            "value": "2023-12-30T00:00:00.000000Z"
+        },
+        {
+            "name": "subscription_created_at",
+            "operator": "lt",
+            "value": "2024-12-30T12:30:01.123456Z"
+        },
+        {
+            "name": "customer_country_code",
+            "operator": null,
+            "value": [
+                "US",
+                "GB"
+            ]
+        },
+        {
+            "name": "subscription_scheduled_change_action",
+            "operator": null,
+            "value": [
+                "cancel",
+                "none"
+            ]
+        }
+    ]
+}
