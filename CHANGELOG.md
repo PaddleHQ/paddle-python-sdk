@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-python-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## Unreleased
+
+### Added
+
+- Added `paypal` to transaction payment `method_details`, showing the PayPal account used for a payment attempt
+- Added `view_subscription` to subscription `management_urls` and customer portal session subscription `urls`
+- Added `blocked_by_policy`, `declined_not_retryable`, `preferred_network_not_supported`, and `prepaid_card_not_supported` to `ErrorCode`
+- Added `eu_withdrawal` to `SubscriptionHistoryReason`
+
 ## 1.15.0 - 2026-07-28
 
 ### Added

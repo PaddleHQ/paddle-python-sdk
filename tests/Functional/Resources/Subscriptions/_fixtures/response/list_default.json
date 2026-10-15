@@ -98,7 +98,8 @@
       "custom_data": null,
       "management_urls": {
         "update_payment_method": "https://sandbox-buyer-portal.paddle.com/subscriptions/sub_01hp4894h0dpdrfk9dx775gny7/update-payment-method",
-        "cancel": "https://sandbox-buyer-portal.paddle.com/subscriptions/sub_01hp4894h0dpdrfk9dx775gny7/cancel"
+        "cancel": "https://sandbox-buyer-portal.paddle.com/subscriptions/sub_01hp4894h0dpdrfk9dx775gny7/cancel",
+        "view_subscription": "https://sandbox-buyer-portal.paddle.com/subscriptions/sub_01hp4894h0dpdrfk9dx775gny7"
       },
       "discount": null,
       "import_meta": null
@@ -236,7 +237,8 @@
       "custom_data": null,
       "management_urls": {
         "update_payment_method": "https://sandbox-buyer-portal.paddle.com/subscriptions/sub_01hp46z4qkjs68yfsnv0hs2sd2/update-payment-method",
-        "cancel": "https://sandbox-buyer-portal.paddle.com/subscriptions/sub_01hp46z4qkjs68yfsnv0hs2sd2/cancel"
+        "cancel": "https://sandbox-buyer-portal.paddle.com/subscriptions/sub_01hp46z4qkjs68yfsnv0hs2sd2/cancel",
+        "view_subscription": "https://sandbox-buyer-portal.paddle.com/subscriptions/sub_01hp46z4qkjs68yfsnv0hs2sd2"
       },
       "discount": null,
       "import_meta": null
@@ -327,7 +329,8 @@
       "custom_data": null,
       "management_urls": {
         "update_payment_method": null,
-        "cancel": "https://sandbox-buyer-portal.paddle.com/subscriptions/sub_01hp463gxfvndqjjyqn2n7tkth/cancel"
+        "cancel": "https://sandbox-buyer-portal.paddle.com/subscriptions/sub_01hp463gxfvndqjjyqn2n7tkth/cancel",
+        "view_subscription": "https://sandbox-buyer-portal.paddle.com/subscriptions/sub_01hp463gxfvndqjjyqn2n7tkth"
       },
       "discount": {
         "id": "dsc_01hv6scyf7qdnzcdq01t2y8dx4",
@@ -477,7 +480,8 @@
       "custom_data": null,
       "management_urls": {
         "update_payment_method": "https://buyer-portal.paddle.com/subscriptions/sub_01hn0epy6nc46wt9hw92pp2kmt/update-payment-method",
-        "cancel": "https://buyer-portal.paddle.com/subscriptions/sub_01hn0epy6nc46wt9hw92pp2kmt/cancel"
+        "cancel": "https://buyer-portal.paddle.com/subscriptions/sub_01hn0epy6nc46wt9hw92pp2kmt/cancel",
+        "view_subscription": "https://buyer-portal.paddle.com/subscriptions/sub_01hn0epy6nc46wt9hw92pp2kmt"
       },
       "discount": {
         "id": "dsc_01hv6scyf7qdnzcdq01t2y8dx4",
