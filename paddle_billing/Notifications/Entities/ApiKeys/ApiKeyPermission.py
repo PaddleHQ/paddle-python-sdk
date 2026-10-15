@@ -38,3 +38,4 @@ class ApiKeyPermission(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     SubscriptionHistoryRead: "ApiKeyPermission" = "subscription_history.read"
     TransactionRead: "ApiKeyPermission" = "transaction.read"
     TransactionWrite: "ApiKeyPermission" = "transaction.write"
+    VerificationRead: "ApiKeyPermission" = "verification.read"
