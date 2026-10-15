@@ -13,6 +13,9 @@ from paddle_billing.Entities.Reports import (
     DiscountsReportType,
     PayoutReconciliationReportType,
     ProductsPricesReportType,
+    SubscriptionScheduledChangeActionFilterValue,
+    SubscriptionStatusFilterValue,
+    SubscriptionsReportType,
     ReportFilter,
     ReportFilterName,
     ReportFilterOperator,
@@ -39,6 +42,9 @@ from paddle_billing.Resources.Reports.Operations.Filters import (
     ProductStatusFilter,
     ProductTypeFilter,
     ProductUpdatedAtFilter,
+    SubscriptionCreatedAtFilter,
+    SubscriptionScheduledChangeActionFilter,
+    SubscriptionStatusFilter,
     RemittanceReferenceFilter,
     TransactionOriginFilter,
     TransactionStatusFilter,
@@ -72,6 +78,7 @@ from paddle_billing.Resources.Reports.Operations import (
     CreateDiscountsReport,
     CreatePayoutReconciliationReport,
     CreateProductsAndPricesReport,
+    CreateSubscriptionsReport,
     CreateTransactionsReport,
     ListReports,
 )
@@ -200,6 +207,32 @@ class TestReportsClient:
                 CheckoutsReportType,
             ),
             (
+                CreateSubscriptionsReport(type=SubscriptionsReportType.Subscriptions),
+                ReadsFixtures.read_raw_json_fixture("request/create_subscriptions_basic"),
+                SubscriptionsReportType,
+            ),
+            (
+                CreateSubscriptionsReport(
+                    type=SubscriptionsReportType.Subscriptions,
+                    filters=[
+                        SubscriptionStatusFilter(
+                            [SubscriptionStatusFilterValue.Active, SubscriptionStatusFilterValue.PastDue]
+                        ),
+                        SubscriptionCreatedAtFilter.gte(DateTime("2023-12-30")),
+                        SubscriptionCreatedAtFilter.lt(DateTime("2024-12-30T12:30:01.123456Z")),
+                        CustomerCountryCodeFilter([CountryCode.US, CountryCode.GB]),
+                        SubscriptionScheduledChangeActionFilter(
+                            [
+                                SubscriptionScheduledChangeActionFilterValue.Cancel,
+                                SubscriptionScheduledChangeActionFilterValue.NoChange,
+                            ]
+                        ),
+                    ],
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/create_subscriptions_full"),
+                SubscriptionsReportType,
+            ),
+            (
                 CreatePayoutReconciliationReport(
                     type=PayoutReconciliationReportType.PayoutReconciliation,
                     filters=[
@@ -230,6 +263,8 @@ class TestReportsClient:
             "Create payout reconciliation report with filters",
             "Create checkouts report with basic data",
             "Create checkouts report with filters",
+            "Create subscriptions report with basic data",
+            "Create subscriptions report with filters",
             "Create payout reconciliation report with balance movement filters",
         ],
     )
