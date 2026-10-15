@@ -5,6 +5,7 @@ from importlib import import_module
 from paddle_billing.Json import PayloadEncoder
 from paddle_billing.Entities.Notifications import NotificationEvent
 
+from paddle_billing.Notifications.Entities.ApiKey import ApiKey
 from paddle_billing.Notifications.Entities.Shared import ErrorCode, PaymentMethodType, TransactionPaypal
 from paddle_billing.Notifications.Entities.Subscription import Subscription
 from paddle_billing.Notifications.Entities.SubscriptionCreated import SubscriptionCreated
@@ -314,3 +315,25 @@ class TestNotificationEvent:
         assert isinstance(payment.method_details.paypal, TransactionPaypal)
         assert payment.method_details.paypal.email == "john.doe@example.com"
         assert payment.method_details.paypal.reference == "B-5X123456AB123456C"
+
+    @mark.parametrize(
+        "event_type, expected_exposed_at",
+        [
+            ("api_key.created", None),
+            ("api_key.revoked", "2025-04-01T06:58:38.517522+00:00"),
+        ],
+    )
+    def test_api_key_notification_event_exposed_at(self, event_type, expected_exposed_at):
+        notification_event = NotificationEvent.from_dict(
+            {
+                "data": loads(ReadsFixtures.read_raw_json_fixture(f"notification/entity/{event_type}")),
+                "notification_id": "ntf_01h8bkrfe7w1vwf8xmytwn51e7",
+                "event_type": event_type,
+                "event_id": "evt_01h8bzakzx3hm2fmen703n5q45",
+                "occurred_at": "2023-08-21T11:57:47.390028Z",
+            }
+        )
+
+        assert isinstance(notification_event.data, ApiKey)
+        exposed_at = notification_event.data.exposed_at
+        assert (exposed_at.isoformat() if exposed_at else None) == expected_exposed_at

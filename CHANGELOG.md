@@ -14,6 +14,8 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 - Added `view_subscription` to subscription `management_urls` and customer portal session subscription `urls`
 - Added `blocked_by_policy`, `declined_not_retryable`, `preferred_network_not_supported`, and `prepaid_card_not_supported` to `ErrorCode`
 - Added `eu_withdrawal` to `SubscriptionHistoryReason`
+- Added `ids` filter to list checkout domains operation
+- Added `exposed_at` to api_key events
 
 ## 1.15.0 - 2026-07-28
 
