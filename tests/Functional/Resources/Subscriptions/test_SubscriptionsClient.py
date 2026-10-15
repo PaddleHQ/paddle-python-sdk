@@ -1762,3 +1762,11 @@ class TestSubscriptionsClient:
         subscription = Subscription.from_dict(data)
 
         assert subscription.consent_requirements == []
+
+    def test_subscription_tolerates_missing_view_subscription(self):
+        data = loads(ReadsFixtures.read_raw_json_fixture("response/full_entity"))["data"]
+        data["management_urls"].pop("view_subscription", None)
+
+        subscription = Subscription.from_dict(data)
+
+        assert subscription.management_urls.view_subscription is None

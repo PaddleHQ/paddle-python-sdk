@@ -15,7 +15,7 @@ class MethodDetails:
     card: Card | None
     underlying_details: PaymentMethodUnderlyingDetails | None  # deprecated
     south_korea_local_card: SouthKoreaLocalCard | None
-    paypal: TransactionPaypal | None
+    paypal: TransactionPaypal | None = None
 
     @staticmethod
     def from_dict(data: dict[str, Any]) -> MethodDetails:
