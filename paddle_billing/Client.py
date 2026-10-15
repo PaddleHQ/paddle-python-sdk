@@ -20,6 +20,8 @@ from paddle_billing.Resources.Adjustments.AdjustmentsClient import AdjustmentsCl
 from paddle_billing.Resources.Businesses.BusinessesClient import BusinessesClient
 from paddle_billing.Resources.CheckoutDomains.CheckoutDomainsClient import CheckoutDomainsClient
 from paddle_billing.Resources.ClientTokens.ClientTokensClient import ClientTokensClient
+from paddle_billing.Resources.Countries.CountriesClient import CountriesClient
+from paddle_billing.Resources.Currencies.CurrenciesClient import CurrenciesClient
 from paddle_billing.Resources.Customers.CustomersClient import CustomersClient
 from paddle_billing.Resources.CustomerPortalSessions.CustomerPortalSessionsClient import CustomerPortalSessionsClient
 from paddle_billing.Resources.DiscountGroups.DiscountGroupsClient import DiscountGroupsClient
@@ -42,6 +44,7 @@ from paddle_billing.Resources.SimulationTypes.SimulationTypesClient import Simul
 from paddle_billing.Resources.Subscriptions.SubscriptionsClient import SubscriptionsClient
 from paddle_billing.Resources.Metrics.MetricsClient import MetricsClient
 from paddle_billing.Resources.Transactions.TransactionsClient import TransactionsClient
+from paddle_billing.Resources.Verifications.VerificationsClient import VerificationsClient
 
 
 class Client:
@@ -76,6 +79,8 @@ class Client:
         self.businesses = BusinessesClient(self)
         self.checkout_domains = CheckoutDomainsClient(self)
         self.client_tokens = ClientTokensClient(self)
+        self.countries = CountriesClient(self)
+        self.currencies = CurrenciesClient(self)
         self.customers = CustomersClient(self)
         self.customer_portal_sessions = CustomerPortalSessionsClient(self)
         self.discounts = DiscountsClient(self)
@@ -96,6 +101,7 @@ class Client:
         self.simulation_types = SimulationTypesClient(self)
         self.subscriptions = SubscriptionsClient(self)
         self.transactions = TransactionsClient(self)
+        self.verifications = VerificationsClient(self)
         self.ip_addresses = IPAddressesClient(self)
         self.metrics = MetricsClient(self)
 
