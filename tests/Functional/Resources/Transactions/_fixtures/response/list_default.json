@@ -985,7 +985,8 @@
               "expiry_year": 2024,
               "cardholder_name": "Joe Bloggs"
             },
-            "south_korea_local_card": null
+            "south_korea_local_card": null,
+            "paypal": null
           },
           "created_at": "2023-08-18T21:13:07.18821Z",
           "captured_at": "2023-08-18T21:13:09.477933Z"
@@ -1006,7 +1007,8 @@
               "expiry_year": 2024,
               "cardholder_name": "Joe Bloggs"
             },
-            "south_korea_local_card": null
+            "south_korea_local_card": null,
+            "paypal": null
           },
           "created_at": "2023-08-18T21:13:07.18821Z",
           "captured_at": "2023-08-18T21:13:09.477933Z"
