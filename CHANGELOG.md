@@ -10,7 +10,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 
 ### Added
 
-- Added `filter`, `start` (sent as `from`), and `end` (sent as `to`) parameters to list events operation
+- Added `filter`, `start` (sent as `from`), and `end` (sent as `to`) parameters to list events operation. See [related changelog](https://developer.paddle.com/changelog/2026/event-notification-log-filtering?utm_source=dx&utm_medium=paddle-python-sdk)
 
 ## 1.15.0 - 2026-07-28
 
