@@ -10,8 +10,8 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 
 ### Added
 
-- Added `paypal` to transaction payment `method_details`, showing the PayPal account used for a payment attempt
-- Added `view_subscription` to subscription `management_urls` and customer portal session subscription `urls`
+- Added `paypal` to transaction payment `method_details`, showing the PayPal account used for a payment attempt. See [related changelog](https://developer.paddle.com/changelog/2026/paypal-transaction-payments?utm_source=dx&utm_medium=paddle-python-sdk)
+- Added `view_subscription` to subscription `management_urls` and customer portal session subscription `urls`. See [related changelog](https://developer.paddle.com/changelog/2026/view-subscription-customer-portal-link?utm_source=dx&utm_medium=paddle-python-sdk)
 - Added `blocked_by_policy`, `declined_not_retryable`, `preferred_network_not_supported`, and `prepaid_card_not_supported` to `ErrorCode`
 - Added `eu_withdrawal` to `SubscriptionHistoryReason`
 - Added `ids` filter to list checkout domains operation
