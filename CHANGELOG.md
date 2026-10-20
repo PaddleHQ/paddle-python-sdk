@@ -10,7 +10,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 
 ### Added
 
-- Added support for metrics explore
+- Added support for metrics explore. See [related changelog](https://developer.paddle.com/changelog/2026/explore-metrics-api?utm_source=dx&utm_medium=paddle-python-sdk)
   - `Client.metrics.list_explore_entities`
   - `Client.metrics.run_explore_query`
 
