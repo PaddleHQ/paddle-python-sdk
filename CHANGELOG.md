@@ -10,7 +10,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 
 ### Added
 
-- Added support for `subscriptions` report type
+- Added support for `subscriptions` report type. See [related changelog](https://developer.paddle.com/changelog/2026/subscriptions-report?utm_source=dx&utm_medium=paddle-python-sdk) and [scheduled change filter changelog](https://developer.paddle.com/changelog/2026/subscriptions-report-scheduled-change-filter?utm_source=dx&utm_medium=paddle-python-sdk)
 
 ## 1.15.0 - 2026-07-28
 
