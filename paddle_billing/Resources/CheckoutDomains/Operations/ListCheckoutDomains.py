@@ -14,13 +14,16 @@ class ListCheckoutDomains(HasParameters):
         pager: Pager | None = None,
         domain: str | None = None,
         statuses: list[CheckoutDomainStatus] | None = None,
+        ids: list[str] | None = None,
     ):
         self.pager = pager
         self.domain = domain
         self.statuses = statuses if statuses is not None else []
+        self.ids = ids if ids is not None else []
 
         # Validation
         for field_name, field_value, field_type in [
+            ("ids", self.ids, str),
             ("statuses", self.statuses, CheckoutDomainStatus),
         ]:
             invalid_items = [item for item in field_value if not isinstance(item, field_type)]
@@ -33,6 +36,8 @@ class ListCheckoutDomains(HasParameters):
         parameters = {}
         if self.pager:
             parameters.update(self.pager.get_parameters())
+        if self.ids:
+            parameters["id"] = ",".join(self.ids)
         if self.domain:
             parameters["domain"] = self.domain
         if self.statuses:

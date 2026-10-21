@@ -539,7 +539,8 @@
                 "expiry_month": 1,
                 "cardholder_name": "Michael"
               },
-              "type": "card"
+              "type": "card",
+              "paypal": null
             },
             "payment_attempt_id": "afa07161-601d-4a65-8c1a-6993ae1ae027",
             "payment_method_id": "paymtd_01hkm9xwqpbbpr1ksmvg3sx3v1",
@@ -873,7 +874,8 @@
                 "expiry_month": 1,
                 "cardholder_name": "Michael"
               },
-              "type": "card"
+              "type": "card",
+              "paypal": null
             },
             "payment_attempt_id": "afa07161-601d-4a65-8c1a-6993ae1ae027",
             "payment_method_id": "paymtd_01hkm9xwqpbbpr1ksmvg3sx3v1",
@@ -1207,7 +1209,8 @@
                 "expiry_month": 1,
                 "cardholder_name": "Michael"
               },
-              "type": "card"
+              "type": "card",
+              "paypal": null
             },
             "payment_attempt_id": "afa07161-601d-4a65-8c1a-6993ae1ae027",
             "payment_method_id": "paymtd_01hkm9xwqpbbpr1ksmvg3sx3v1",
@@ -2558,7 +2561,8 @@
                 "expiry_month": 1,
                 "cardholder_name": "Michael McGovern"
               },
-              "type": "card"
+              "type": "card",
+              "paypal": null
             },
             "payment_attempt_id": "0bec49bd-dd4d-45e3-a91e-46992b09c5e2",
             "payment_method_id": "paymtd_01hkm9xwqpbbpr1ksmvg3sx3v1",
@@ -2578,7 +2582,8 @@
                 "expiry_month": 1,
                 "cardholder_name": "Michael McGovern"
               },
-              "type": "card"
+              "type": "card",
+              "paypal": null
             },
             "payment_attempt_id": "0bec49bd-dd4d-45e3-a91e-46992b09c5e2",
             "payment_method_id": null,
@@ -2927,7 +2932,8 @@
                 "expiry_month": 1,
                 "cardholder_name": "Michael McGovern"
               },
-              "type": "card"
+              "type": "card",
+              "paypal": null
             },
             "payment_attempt_id": "0bec49bd-dd4d-45e3-a91e-46992b09c5e2",
             "payment_method_id": "paymtd_01hkm9xwqpbbpr1ksmvg3sx3v1",

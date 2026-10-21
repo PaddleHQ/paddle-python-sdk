@@ -27,6 +27,11 @@ class TestCheckoutDomainsClient:
             ),
             (ListCheckoutDomains(domain="example.com"), 200, "/checkout-domains?domain=example.com"),
             (
+                ListCheckoutDomains(ids=["chedom_01hv8h6jj90jjz0d71m6hj4r9z", "chedom_01hv8h6jj90jjz0d71m6hj4r9y"]),
+                200,
+                "/checkout-domains?id=chedom_01hv8h6jj90jjz0d71m6hj4r9z,chedom_01hv8h6jj90jjz0d71m6hj4r9y",
+            ),
+            (
                 ListCheckoutDomains(statuses=[CheckoutDomainStatus.Approved]),
                 200,
                 "/checkout-domains?status=approved",
@@ -42,6 +47,7 @@ class TestCheckoutDomainsClient:
             "List checkout domains with default pagination",
             "List paginated checkout domains after specified id",
             "List checkout domains filtered by domain",
+            "List checkout domains filtered by ids",
             "List checkout domains filtered by status",
             "List checkout domains filtered by multiple statuses",
         ],

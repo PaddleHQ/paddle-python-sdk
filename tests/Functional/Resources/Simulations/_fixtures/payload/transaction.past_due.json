@@ -230,7 +230,8 @@
         },
         "type": "card",
         "south_korea_local_card": null,
-        "underlying_details": null
+        "underlying_details": null,
+        "paypal": null
       },
       "payment_method_id": "paymtd_01hv8x1tpjfnttxddw73xnqx6s",
       "payment_attempt_id": "ff8123f6-9cfc-4f04-9984-75e4ad04b169",
