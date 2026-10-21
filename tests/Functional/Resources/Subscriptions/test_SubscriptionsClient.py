@@ -801,6 +801,23 @@ class TestSubscriptionsClient:
 
         assert isinstance(response, Subscription)
 
+    def test_get_subscription_returns_management_urls(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        expected_url = f"{test_client.base_url}/subscriptions/sub_01h7zcgmdc6tmwtjehp3sh7azf"
+        mock_requests.get(
+            expected_url, status_code=200, text=ReadsFixtures.read_raw_json_fixture("response/full_entity")
+        )
+
+        response = test_client.client.subscriptions.get("sub_01h7zcgmdc6tmwtjehp3sh7azf")
+
+        assert (
+            response.management_urls.view_subscription
+            == "https://buyer-portal.paddle.com/subscriptions/sub_01hp463gxfvndqjjyqn2n7tkth"
+        )
+
     def test_get_subscription_returns_consent_requirements(
         self,
         test_client,
@@ -1745,3 +1762,11 @@ class TestSubscriptionsClient:
         subscription = Subscription.from_dict(data)
 
         assert subscription.consent_requirements == []
+
+    def test_subscription_tolerates_missing_view_subscription(self):
+        data = loads(ReadsFixtures.read_raw_json_fixture("response/full_entity"))["data"]
+        data["management_urls"].pop("view_subscription", None)
+
+        subscription = Subscription.from_dict(data)
+
+        assert subscription.management_urls.view_subscription is None

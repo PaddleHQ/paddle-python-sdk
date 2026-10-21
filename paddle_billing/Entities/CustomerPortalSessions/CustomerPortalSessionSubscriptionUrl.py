@@ -8,6 +8,7 @@ class CustomerPortalSessionSubscriptionUrl:
     id: str
     cancel_subscription: str
     update_subscription_payment_method: str
+    view_subscription: str | None = None
 
     @staticmethod
     def from_dict(data: dict[str, Any]) -> CustomerPortalSessionSubscriptionUrl:
@@ -15,4 +16,5 @@ class CustomerPortalSessionSubscriptionUrl:
             id=data["id"],
             cancel_subscription=data["cancel_subscription"],
             update_subscription_payment_method=data["update_subscription_payment_method"],
+            view_subscription=data.get("view_subscription"),
         )
