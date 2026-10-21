@@ -13,6 +13,14 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 - Added support for metrics explore. See [related changelog](https://developer.paddle.com/changelog/2026/explore-metrics-api?utm_source=dx&utm_medium=paddle-python-sdk)
   - `Client.metrics.list_explore_entities`
   - `Client.metrics.run_explore_query`
+- Added support for `subscriptions` report type. See [related changelog](https://developer.paddle.com/changelog/2026/subscriptions-report?utm_source=dx&utm_medium=paddle-python-sdk) and [scheduled change filter changelog](https://developer.paddle.com/changelog/2026/subscriptions-report-scheduled-change-filter?utm_source=dx&utm_medium=paddle-python-sdk)
+- Added `filter`, `start` (sent as `from`), and `end` (sent as `to`) parameters to list events operation. See [related changelog](https://developer.paddle.com/changelog/2026/event-notification-log-filtering?utm_source=dx&utm_medium=paddle-python-sdk)
+- Added `paypal` to transaction payment `method_details`, showing the PayPal account used for a payment attempt. See [related changelog](https://developer.paddle.com/changelog/2026/paypal-transaction-payments?utm_source=dx&utm_medium=paddle-python-sdk)
+- Added `view_subscription` to subscription `management_urls` and customer portal session subscription `urls`. See [related changelog](https://developer.paddle.com/changelog/2026/view-subscription-customer-portal-link?utm_source=dx&utm_medium=paddle-python-sdk)
+- Added `blocked_by_policy`, `declined_not_retryable`, `preferred_network_not_supported`, and `prepaid_card_not_supported` to `ErrorCode`
+- Added `eu_withdrawal` to `SubscriptionHistoryReason`
+- Added `ids` filter to list checkout domains operation
+- Added `exposed_at` to api_key events
 
 ## 1.15.0 - 2026-07-28
 

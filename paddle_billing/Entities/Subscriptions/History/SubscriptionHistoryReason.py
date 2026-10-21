@@ -8,3 +8,4 @@ class SubscriptionHistoryReason(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     SellerRequest: "SubscriptionHistoryReason" = "seller_request"
     CustomerRequest: "SubscriptionHistoryReason" = "customer_request"
     Chargeback: "SubscriptionHistoryReason" = "chargeback"
+    EuWithdrawal: "SubscriptionHistoryReason" = "eu_withdrawal"
