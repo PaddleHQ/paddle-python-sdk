@@ -6,6 +6,7 @@ from paddle_billing.Notifications.Entities.Shared.Card import Card
 from paddle_billing.Notifications.Entities.Shared.PaymentMethodType import PaymentMethodType
 from paddle_billing.Notifications.Entities.Shared.PaymentMethodUnderlyingDetails import PaymentMethodUnderlyingDetails
 from paddle_billing.Notifications.Entities.Shared.SouthKoreaLocalCard import SouthKoreaLocalCard
+from paddle_billing.Notifications.Entities.Shared.TransactionPaypal import TransactionPaypal
 
 
 @dataclass
@@ -14,6 +15,7 @@ class MethodDetails:
     card: Card | None
     underlying_details: PaymentMethodUnderlyingDetails | None  # deprecated
     south_korea_local_card: SouthKoreaLocalCard | None
+    paypal: TransactionPaypal | None = None
 
     @staticmethod
     def from_dict(data: dict[str, Any]) -> MethodDetails:
@@ -30,4 +32,5 @@ class MethodDetails:
                 if data.get("south_korea_local_card")
                 else None
             ),
+            TransactionPaypal.from_dict(data["paypal"]) if data.get("paypal") else None,
         )
