@@ -10,6 +10,9 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 
 ### Added
 
+- Added support for metrics explore. See [related changelog](https://developer.paddle.com/changelog/2026/explore-metrics-api?utm_source=dx&utm_medium=paddle-python-sdk)
+  - `Client.metrics.list_explore_entities`
+  - `Client.metrics.run_explore_query`
 - Added support for `subscriptions` report type. See [related changelog](https://developer.paddle.com/changelog/2026/subscriptions-report?utm_source=dx&utm_medium=paddle-python-sdk) and [scheduled change filter changelog](https://developer.paddle.com/changelog/2026/subscriptions-report-scheduled-change-filter?utm_source=dx&utm_medium=paddle-python-sdk)
 - Added `filter`, `start` (sent as `from`), and `end` (sent as `to`) parameters to list events operation. See [related changelog](https://developer.paddle.com/changelog/2026/event-notification-log-filtering?utm_source=dx&utm_medium=paddle-python-sdk)
 - Added `paypal` to transaction payment `method_details`, showing the PayPal account used for a payment attempt. See [related changelog](https://developer.paddle.com/changelog/2026/paypal-transaction-payments?utm_source=dx&utm_medium=paddle-python-sdk)
