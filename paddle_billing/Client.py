@@ -18,7 +18,10 @@ from paddle_billing.Logger.NullHandler import NullHandler
 from paddle_billing.Resources.Addresses.AddressesClient import AddressesClient
 from paddle_billing.Resources.Adjustments.AdjustmentsClient import AdjustmentsClient
 from paddle_billing.Resources.Businesses.BusinessesClient import BusinessesClient
+from paddle_billing.Resources.CheckoutDomains.CheckoutDomainsClient import CheckoutDomainsClient
 from paddle_billing.Resources.ClientTokens.ClientTokensClient import ClientTokensClient
+from paddle_billing.Resources.Countries.CountriesClient import CountriesClient
+from paddle_billing.Resources.Currencies.CurrenciesClient import CurrenciesClient
 from paddle_billing.Resources.Customers.CustomersClient import CustomersClient
 from paddle_billing.Resources.CustomerPortalSessions.CustomerPortalSessionsClient import CustomerPortalSessionsClient
 from paddle_billing.Resources.DiscountGroups.DiscountGroupsClient import DiscountGroupsClient
@@ -41,6 +44,7 @@ from paddle_billing.Resources.SimulationTypes.SimulationTypesClient import Simul
 from paddle_billing.Resources.Subscriptions.SubscriptionsClient import SubscriptionsClient
 from paddle_billing.Resources.Metrics.MetricsClient import MetricsClient
 from paddle_billing.Resources.Transactions.TransactionsClient import TransactionsClient
+from paddle_billing.Resources.Verifications.VerificationsClient import VerificationsClient
 
 
 class Client:
@@ -73,7 +77,10 @@ class Client:
         self.addresses = AddressesClient(self)
         self.adjustments = AdjustmentsClient(self)
         self.businesses = BusinessesClient(self)
+        self.checkout_domains = CheckoutDomainsClient(self)
         self.client_tokens = ClientTokensClient(self)
+        self.countries = CountriesClient(self)
+        self.currencies = CurrenciesClient(self)
         self.customers = CustomersClient(self)
         self.customer_portal_sessions = CustomerPortalSessionsClient(self)
         self.discounts = DiscountsClient(self)
@@ -94,6 +101,7 @@ class Client:
         self.simulation_types = SimulationTypesClient(self)
         self.subscriptions = SubscriptionsClient(self)
         self.transactions = TransactionsClient(self)
+        self.verifications = VerificationsClient(self)
         self.ip_addresses = IPAddressesClient(self)
         self.metrics = MetricsClient(self)
 
@@ -104,7 +112,8 @@ class Client:
         """
 
         null_logger = getLogger("null_logger")
-        null_logger.addHandler(NullHandler())
+        if not null_logger.handlers:
+            null_logger.addHandler(NullHandler())
 
         return null_logger
 
@@ -202,7 +211,7 @@ class Client:
                 "Authorization": f"Bearer {self.__api_key}",
                 "Content-Type": "application/json",
                 "Paddle-Version": str(self.use_api_version),
-                "User-Agent": "PaddleSDK/python 1.14.0",
+                "User-Agent": "PaddleSDK/python 1.15.0",
             }
         )
 

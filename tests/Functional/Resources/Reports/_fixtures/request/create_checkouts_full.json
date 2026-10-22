@@ -1,0 +1,23 @@
+{
+    "type": "checkouts",
+    "filters": [
+        {
+            "name": "checkout_created_at",
+            "operator": "gte",
+            "value": "2023-12-30T00:00:00.000000Z"
+        },
+        {
+            "name": "checkout_created_at",
+            "operator": "lt",
+            "value": "2024-12-30T12:30:01.123456Z"
+        },
+        {
+            "name": "customer_country_code",
+            "operator": null,
+            "value": [
+                "US",
+                "GB"
+            ]
+        }
+    ]
+}

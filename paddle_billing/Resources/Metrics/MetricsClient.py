@@ -1,14 +1,20 @@
 from paddle_billing.ResponseParser import ResponseParser
 
+from paddle_billing.Entities.Metrics.MetricEntityDefinition import MetricEntityDefinition
 from paddle_billing.Entities.Metrics.MetricsActiveSubscribers import MetricsActiveSubscribers
 from paddle_billing.Entities.Metrics.MetricsChargebacks import MetricsChargebacks
 from paddle_billing.Entities.Metrics.MetricsCheckoutConversion import MetricsCheckoutConversion
+from paddle_billing.Entities.Metrics.MetricsExploreResponse import MetricsExploreResponse
 from paddle_billing.Entities.Metrics.MetricsMonthlyRecurringRevenue import MetricsMonthlyRecurringRevenue
 from paddle_billing.Entities.Metrics.MetricsMonthlyRecurringRevenueChange import MetricsMonthlyRecurringRevenueChange
 from paddle_billing.Entities.Metrics.MetricsRefunds import MetricsRefunds
 from paddle_billing.Entities.Metrics.MetricsRevenue import MetricsRevenue
 
-from paddle_billing.Resources.Metrics.Operations import GetMetrics
+from paddle_billing.Resources.Metrics.Operations import (
+    GetMetrics,
+    ListExploreMetricEntities,
+    RunExploreMetricsQuery,
+)
 
 from typing import TYPE_CHECKING
 
@@ -62,3 +68,18 @@ class MetricsClient:
         parser = ResponseParser(self.response)
 
         return MetricsCheckoutConversion.from_dict(parser.get_dict())
+
+    def list_explore_entities(self, operation: ListExploreMetricEntities | None = None) -> list[MetricEntityDefinition]:
+        if operation is None:
+            operation = ListExploreMetricEntities()
+
+        self.response = self.client.get_raw("/metrics/explore/entities", operation.get_parameters())
+        parser = ResponseParser(self.response)
+
+        return [MetricEntityDefinition.from_dict(entity) for entity in parser.get_list()]
+
+    def run_explore_query(self, operation: RunExploreMetricsQuery, after: str | None = None) -> MetricsExploreResponse:
+        parameters = {"after": after} if after else None
+        self.response = self.client.post_raw("/metrics/explore", operation, parameters)
+
+        return MetricsExploreResponse.from_dict(self.response.json())

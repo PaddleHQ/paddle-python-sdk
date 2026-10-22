@@ -10,7 +10,10 @@
     },
     "trial_period": {
       "interval": "week",
-      "frequency": 1
+      "frequency": 1,
+      "requires_payment_method": true,
+      "unit_price": null,
+      "unit_price_overrides": []
     },
     "tax_mode": "account_setting",
     "unit_price": {

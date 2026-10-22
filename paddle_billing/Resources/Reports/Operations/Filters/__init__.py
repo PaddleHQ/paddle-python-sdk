@@ -1,7 +1,11 @@
 from paddle_billing.Resources.Reports.Operations.Filters.AdjustmentActionFilter import AdjustmentActionFilter
 from paddle_billing.Resources.Reports.Operations.Filters.AdjustmentStatusFilter import AdjustmentStatusFilter
+from paddle_billing.Resources.Reports.Operations.Filters.BalanceMovementDateFilter import BalanceMovementDateFilter
+from paddle_billing.Resources.Reports.Operations.Filters.BalanceMovementTypeFilter import BalanceMovementTypeFilter
+from paddle_billing.Resources.Reports.Operations.Filters.CheckoutCreatedAtFilter import CheckoutCreatedAtFilter
 from paddle_billing.Resources.Reports.Operations.Filters.CollectionModeFilter import CollectionModeFilter
 from paddle_billing.Resources.Reports.Operations.Filters.CurrencyCodeFilter import CurrencyCodeFilter
+from paddle_billing.Resources.Reports.Operations.Filters.CustomerCountryCodeFilter import CustomerCountryCodeFilter
 from paddle_billing.Resources.Reports.Operations.Filters.DiscountStatusFilter import DiscountStatusFilter
 from paddle_billing.Resources.Reports.Operations.Filters.DiscountTypeFilter import DiscountTypeFilter
 from paddle_billing.Resources.Reports.Operations.Filters.PriceStatusFilter import PriceStatusFilter
@@ -11,6 +15,11 @@ from paddle_billing.Resources.Reports.Operations.Filters.ProductStatusFilter imp
 from paddle_billing.Resources.Reports.Operations.Filters.ProductTypeFilter import ProductTypeFilter
 from paddle_billing.Resources.Reports.Operations.Filters.ProductUpdatedAtFilter import ProductUpdatedAtFilter
 from paddle_billing.Resources.Reports.Operations.Filters.RemittanceReferenceFilter import RemittanceReferenceFilter
+from paddle_billing.Resources.Reports.Operations.Filters.SubscriptionCreatedAtFilter import SubscriptionCreatedAtFilter
+from paddle_billing.Resources.Reports.Operations.Filters.SubscriptionScheduledChangeActionFilter import (
+    SubscriptionScheduledChangeActionFilter,
+)
+from paddle_billing.Resources.Reports.Operations.Filters.SubscriptionStatusFilter import SubscriptionStatusFilter
 from paddle_billing.Resources.Reports.Operations.Filters.TransactionOriginFilter import TransactionOriginFilter
 from paddle_billing.Resources.Reports.Operations.Filters.TransactionStatusFilter import TransactionStatusFilter
 from paddle_billing.Resources.Reports.Operations.Filters.TransactionUpdatedAtFilter import TransactionUpdatedAtFilter

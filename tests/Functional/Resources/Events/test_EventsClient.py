@@ -3,6 +3,7 @@ from pytest import mark
 from urllib.parse import unquote
 
 from paddle_billing.Entities.Collections import EventCollection
+from paddle_billing.Entities.DateTime import DateTime
 from paddle_billing.Entities.Event import Event, EventTypeName
 
 from paddle_billing.Resources.Events.Operations import ListEvents
@@ -58,6 +59,35 @@ class TestEventsClient:
                 ReadsFixtures.read_raw_json_fixture("response/list_default"),
                 "/events?event_type=api_key.created",
             ),
+            (
+                ListEvents(filter="txn_01h83xenpcfjyhkqr4x214m02x"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/list_default"),
+                "/events?filter=txn_01h83xenpcfjyhkqr4x214m02x",
+            ),
+            (
+                ListEvents(start=DateTime("2023-12-24T00:00:00.000Z")),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/list_default"),
+                "/events?from=2023-12-24T00:00:00.000000Z",
+            ),
+            (
+                ListEvents(end=DateTime("2023-12-25T00:00:00.000Z")),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/list_default"),
+                "/events?to=2023-12-25T00:00:00.000000Z",
+            ),
+            (
+                ListEvents(
+                    event_types=[EventTypeName.AddressCreated],
+                    filter="txn_01h83xenpcfjyhkqr4x214m02x",
+                    start=DateTime("2023-12-24T00:00:00.000Z"),
+                    end=DateTime("2023-12-25T00:00:00.000Z"),
+                ),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/list_default"),
+                "/events?event_type=address.created&filter=txn_01h83xenpcfjyhkqr4x214m02x&to=2023-12-25T00:00:00.000000Z&from=2023-12-24T00:00:00.000000Z",
+            ),
         ],
         ids=[
             "List events",
@@ -66,6 +96,10 @@ class TestEventsClient:
             "List paginated events with event type filter",
             "List events with event type filter",
             "List events with single event type filter",
+            "List events with filter",
+            "List events with start",
+            "List events with end",
+            "List events with event type, filter, start and end",
         ],
     )
     def test_list_events_returns_expected_response(

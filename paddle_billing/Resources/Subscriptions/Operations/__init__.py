@@ -1,6 +1,7 @@
 from paddle_billing.Resources.Subscriptions.Operations.CancelSubscription import CancelSubscription
 from paddle_billing.Resources.Subscriptions.Operations.CreateOneTimeCharge import CreateOneTimeCharge
 from paddle_billing.Resources.Subscriptions.Operations.Get.Includes import Includes as SubscriptionIncludes
+from paddle_billing.Resources.Subscriptions.Operations.ListSubscriptionHistory import ListSubscriptionHistory
 from paddle_billing.Resources.Subscriptions.Operations.ListSubscriptions import ListSubscriptions
 from paddle_billing.Resources.Subscriptions.Operations.PauseSubscription import PauseSubscription
 from paddle_billing.Resources.Subscriptions.Operations.PreviewOneTimeCharge import PreviewOneTimeCharge

@@ -11,6 +11,7 @@ from paddle_billing.Notifications.Entities.Shared import (
     ImportMeta,
     Money,
     PriceQuantity,
+    PriceTrialPeriod,
     Status,
     TaxMode,
     UnitPriceOverride,
@@ -25,7 +26,7 @@ class Price(Entity):
     description: str
     type: CatalogType | None
     billing_cycle: Duration | None
-    trial_period: Duration | None
+    trial_period: PriceTrialPeriod | None
     tax_mode: TaxMode
     unit_price: Money
     unit_price_overrides: list[UnitPriceOverride]
@@ -52,7 +53,7 @@ class Price(Entity):
             ],
             type=CatalogType(data.get("type")) if data.get("type") else None,
             billing_cycle=Duration.from_dict(data["billing_cycle"]) if data.get("billing_cycle") else None,
-            trial_period=Duration.from_dict(data["trial_period"]) if data.get("trial_period") else None,
+            trial_period=PriceTrialPeriod.from_dict(data["trial_period"]) if data.get("trial_period") else None,
             custom_data=CustomData(data["custom_data"]) if data.get("custom_data") else None,
             import_meta=ImportMeta.from_dict(data["import_meta"]) if data.get("import_meta") else None,
             created_at=datetime.fromisoformat(data["created_at"]) if data.get("created_at") else None,

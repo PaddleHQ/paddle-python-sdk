@@ -18,6 +18,7 @@ from paddle_billing.Entities.Shared import (
     CurrencyCode,
     CustomData,
     Duration,
+    ErrorCode,
     Interval,
     Money,
     PaymentMethodType,
@@ -26,6 +27,7 @@ from paddle_billing.Entities.Shared import (
     TransactionStatus,
     TaxMode,
     Disposition,
+    TransactionPaypal,
 )
 
 from paddle_billing.Resources.Transactions.Operations import (
@@ -909,6 +911,29 @@ class TestTransactionsClient:
 
         payment_without_payment_method_id = response.payments[1]
         assert payment_without_payment_method_id.payment_method_id is None
+
+    def test_get_transaction_returns_paypal_method_details(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        mock_requests.get(
+            f"{test_client.base_url}/transactions/txn_01hen7bxc1p8ep4yk7n5jbzk9r",
+            status_code=200,
+            text=ReadsFixtures.read_raw_json_fixture("response/full_entity"),
+        )
+
+        response = test_client.client.transactions.get("txn_01hen7bxc1p8ep4yk7n5jbzk9r")
+
+        card_payment = response.payments[0]
+        assert card_payment.method_details.paypal is None
+
+        paypal_payment = response.payments[2]
+        assert paypal_payment.error_code == ErrorCode.BlockedByPolicy
+        assert paypal_payment.method_details.type == PaymentMethodType.Paypal
+        assert isinstance(paypal_payment.method_details.paypal, TransactionPaypal)
+        assert paypal_payment.method_details.paypal.email == "john.doe@example.com"
+        assert paypal_payment.method_details.paypal.reference is None
 
     @mark.parametrize(
         "operation, expected_request_body, expected_response_status, expected_response_body, expected_url",

@@ -1,0 +1,30 @@
+{
+    "data": [
+        {
+            "id": "slrvrf_01jjr5d4c14h4y3lqlk9bedkw6",
+            "status": "canceled",
+            "verification_type": "domain",
+            "created_at": "2025-03-10T10:30:00.00Z",
+            "updated_at": "2025-03-10T10:30:00.00Z",
+            "steps": [
+                {
+                    "id": "slrvrfstp_01jjr5d4c14h4y3lqlk9bedkw12",
+                    "key": "domain_review",
+                    "status": "canceled",
+                    "expires_at": null,
+                    "created_at": "2025-03-10T10:30:00.00Z",
+                    "updated_at": "2025-03-10T10:30:00.00Z"
+                }
+            ]
+        }
+    ],
+    "meta": {
+        "request_id": "f2c1a7e6-9b34-4d05-8a71-3e5c0d9b64af",
+        "pagination": {
+            "per_page": 1,
+            "next": "https://sandbox-api.paddle.com/verifications",
+            "has_more": false,
+            "estimated_total": 2
+        }
+    }
+}

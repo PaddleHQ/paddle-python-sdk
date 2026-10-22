@@ -1,3 +1,4 @@
+from paddle_billing.Entities.DateTime import DateTime
 from paddle_billing.Entities.Events.EventTypeName import EventTypeName
 from paddle_billing.EnumStringify import enum_stringify
 from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
@@ -6,8 +7,18 @@ from paddle_billing.Resources.Shared.Operations import Pager
 
 
 class ListEvents(HasParameters):
-    def __init__(self, pager: Pager | None = None, event_types: list[EventTypeName] | None = None):
+    def __init__(
+        self,
+        pager: Pager | None = None,
+        event_types: list[EventTypeName] | None = None,
+        filter: str | None = None,
+        end: DateTime | None = None,
+        start: DateTime | None = None,
+    ):
         self.pager = pager
+        self.filter = filter
+        self.end = end
+        self.start = start
         self.event_types = event_types if event_types is not None else []
 
         for field_name, field_value, field_type in [
@@ -25,5 +36,11 @@ class ListEvents(HasParameters):
             parameters.update(self.pager.get_parameters())
         if self.event_types:
             parameters["event_type"] = ",".join(map(enum_stringify, self.event_types))
+        if self.filter:
+            parameters["filter"] = self.filter
+        if self.end:
+            parameters["to"] = self.end.format()
+        if self.start:
+            parameters["from"] = self.start.format()
 
         return parameters

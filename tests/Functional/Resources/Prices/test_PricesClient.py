@@ -12,6 +12,7 @@ from paddle_billing.Entities.Shared import (
     Interval,
     Money,
     PriceQuantity,
+    PriceTrialPeriod,
     Status,
     TaxMode,
     UnitPriceOverride,
@@ -61,10 +62,34 @@ class TestPricesClient:
                 ReadsFixtures.read_raw_json_fixture("response/full_entity"),
                 "/prices",
             ),
+            (
+                CreatePrice(
+                    description="Monthly (per seat) with paid trial",
+                    product_id="pro_01gsz4t5hdjse780zja8vvr7jg",
+                    unit_price=Money("1000", CurrencyCode.USD),
+                    trial_period=PriceTrialPeriod(
+                        interval=Interval.Day,
+                        frequency=14,
+                        requires_payment_method=True,
+                        unit_price=Money("100", CurrencyCode.USD),
+                        unit_price_overrides=[
+                            UnitPriceOverride(
+                                country_codes=[CountryCode.GB],
+                                unit_price=Money("90", CurrencyCode.GBP),
+                            ),
+                        ],
+                    ),
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/create_paid_trial"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/paid_trial_entity"),
+                "/prices",
+            ),
         ],
         ids=[
             "Create price with basic data",
             "Create price with full data",
+            "Create price with paid trial",
         ],
     )
     def test_create_price_uses_expected_payload(

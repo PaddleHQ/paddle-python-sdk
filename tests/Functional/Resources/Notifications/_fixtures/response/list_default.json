@@ -358,7 +358,10 @@
                 "description": "Annual plan",
                 "trial_period": {
                   "interval": "day",
-                  "frequency": 10
+                  "frequency": 10,
+                  "requires_payment_method": true,
+                  "unit_price": null,
+                  "unit_price_overrides": []
                 },
                 "billing_cycle": {
                   "interval": "year",
@@ -389,7 +392,10 @@
                 "description": "Annual plan",
                 "trial_period": {
                   "interval": "day",
-                  "frequency": 10
+                  "frequency": 10,
+                  "requires_payment_method": true,
+                  "unit_price": null,
+                  "unit_price_overrides": []
                 },
                 "billing_cycle": {
                   "interval": "year",
@@ -427,6 +433,7 @@
           "updated_at": "2023-08-18T13:15:46.864163Z",
           "business_id": null,
           "canceled_at": null,
+          "consent_requirements": [],
           "custom_data": null,
           "customer_id": "ctm_01h84cjfwmdph1k8kgsyjt3k7g",
           "billing_cycle": {
@@ -901,7 +908,8 @@
                   "expiry_month": 1,
                   "cardholder_name": "Michael McGovern"
                 },
-                "type": "card"
+                "type": "card",
+                "paypal": null
               },
               "payment_method_id": "paymtd_01hv8x1tpjfnttxddw73xnqx6s",
               "payment_attempt_id": "937640dd-e3dc-40df-a16c-bb75aafd8f71",
@@ -921,7 +929,8 @@
                   "expiry_month": 1,
                   "cardholder_name": "Michael McGovern"
                 },
-                "type": "card"
+                "type": "card",
+                "paypal": null
               },
               "payment_method_id": "paymtd_01hv8wx2mka7dfsqjjsxh1ne7z",
               "payment_attempt_id": "8f72cfa6-26b4-4a57-91dc-8f2708f7822d",
