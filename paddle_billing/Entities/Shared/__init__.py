@@ -17,6 +17,7 @@ from paddle_billing.Entities.Shared.Checkout import Checkout
 from paddle_billing.Entities.Shared.CollectionMode import CollectionMode
 from paddle_billing.Entities.Shared.Contacts import Contacts
 from paddle_billing.Entities.Shared.CountryCode import CountryCode
+from paddle_billing.Entities.Shared.CountryCodeIso3 import CountryCodeIso3
 from paddle_billing.Entities.Shared.CurrencyCode import CurrencyCode
 from paddle_billing.Entities.Shared.CurrencyCodeAdjustments import CurrencyCodeAdjustments
 from paddle_billing.Entities.Shared.CurrencyCodePayouts import CurrencyCodePayouts
@@ -55,6 +56,7 @@ from paddle_billing.Entities.Shared.TaxRatesUsed import TaxRatesUsed
 from paddle_billing.Entities.Shared.TimePeriod import TimePeriod
 from paddle_billing.Entities.Shared.Totals import Totals
 from paddle_billing.Entities.Shared.TransactionOrigin import TransactionOrigin
+from paddle_billing.Entities.Shared.TransactionPaypal import TransactionPaypal
 from paddle_billing.Entities.Shared.TransactionPaymentAttempt import TransactionPaymentAttempt
 from paddle_billing.Entities.Shared.TransactionPayoutTotals import TransactionPayoutTotals
 from paddle_billing.Entities.Shared.TransactionPayoutTotalsAdjusted import TransactionPayoutTotalsAdjusted

@@ -7,5 +7,6 @@ from paddle_billing.Resources.Reports.Operations.CreatePayoutReconciliationRepor
 )
 from paddle_billing.Resources.Reports.Operations.CreateProductsAndPricesReport import CreateProductsAndPricesReport
 from paddle_billing.Resources.Reports.Operations.CreateReport import CreateReport
+from paddle_billing.Resources.Reports.Operations.CreateSubscriptionsReport import CreateSubscriptionsReport
 from paddle_billing.Resources.Reports.Operations.CreateTransactionsReport import CreateTransactionsReport
 from paddle_billing.Resources.Reports.Operations.ListReports import ListReports
