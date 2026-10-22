@@ -1,5 +1,9 @@
 from dataclasses import asdict, dataclass, is_dataclass
 
+import pytest
+
+from paddle_billing.Entities.Shared.CurrencyCode import CurrencyCode
+from paddle_billing.Notifications.Entities.Shared.CurrencyCode import CurrencyCode as NotificationCurrencyCode
 from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
 
 
@@ -67,3 +71,11 @@ def test_paddle_str_enum_gracefully_handles_missing_values():
     assert TestCountryCodesEnum.France.value == "france"
     assert TestCountryCodesEnum.France.name == "Undefined"
     assert not TestCountryCodesEnum.France.is_known()
+
+
+@pytest.mark.parametrize("currency_code", ["CLP", "PEN"])
+def test_currency_code_knows_clp_and_pen(currency_code):
+    assert CurrencyCode(currency_code).is_known()
+    assert CurrencyCode(currency_code).name == currency_code
+    assert NotificationCurrencyCode(currency_code).is_known()
+    assert NotificationCurrencyCode(currency_code).name == currency_code

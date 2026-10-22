@@ -6,6 +6,55 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-python-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## Unreleased
+
+### Added
+
+- Added support for verifications
+  - `Client.verifications.list`
+  - `Client.verifications.get`
+- Added support for countries
+  - `Client.countries.list`
+- Added support for currencies
+  - `Client.currencies.list`
+- Added `verification.read` to `ApiKeyPermission` (permissions on `api_key.*` events)
+- Added support for metrics explore. See [related changelog](https://developer.paddle.com/changelog/2026/explore-metrics-api?utm_source=dx&utm_medium=paddle-python-sdk)
+  - `Client.metrics.list_explore_entities`
+  - `Client.metrics.run_explore_query`
+- Added support for `subscriptions` report type. See [related changelog](https://developer.paddle.com/changelog/2026/subscriptions-report?utm_source=dx&utm_medium=paddle-python-sdk) and [scheduled change filter changelog](https://developer.paddle.com/changelog/2026/subscriptions-report-scheduled-change-filter?utm_source=dx&utm_medium=paddle-python-sdk)
+- Added `filter`, `start` (sent as `from`), and `end` (sent as `to`) parameters to list events operation. See [related changelog](https://developer.paddle.com/changelog/2026/event-notification-log-filtering?utm_source=dx&utm_medium=paddle-python-sdk)
+- Added `paypal` to transaction payment `method_details`, showing the PayPal account used for a payment attempt. See [related changelog](https://developer.paddle.com/changelog/2026/paypal-transaction-payments?utm_source=dx&utm_medium=paddle-python-sdk)
+- Added `view_subscription` to subscription `management_urls` and customer portal session subscription `urls`. See [related changelog](https://developer.paddle.com/changelog/2026/view-subscription-customer-portal-link?utm_source=dx&utm_medium=paddle-python-sdk)
+- Added `blocked_by_policy`, `declined_not_retryable`, `preferred_network_not_supported`, and `prepaid_card_not_supported` to `ErrorCode`
+- Added `eu_withdrawal` to `SubscriptionHistoryReason`
+- Added `ids` filter to list checkout domains operation
+- Added `exposed_at` to api_key events
+
+## 1.15.0 - 2026-07-28
+
+### Added
+
+- Added paid trials support: `requires_payment_method`, `unit_price`, and `unit_price_overrides` on price `trial_period`. See [related changelog](https://developer.paddle.com/changelog/2026/paid-trials?utm_source=dx&utm_medium=paddle-python-sdk)
+- Added support for checkout domains. See [related changelog](https://developer.paddle.com/changelog/2026/checkout-domains-api?utm_source=dx&utm_medium=paddle-python-sdk)
+  - `Client.checkout_domains.list`
+  - `Client.checkout_domains.get`
+  - `Client.checkout_domains.delete`
+  - `Client.checkout_domains.verify_payment_method`
+- Added support for `checkouts` report type. See [related changelog](https://developer.paddle.com/changelog/2026/checkouts-report?utm_source=dx&utm_medium=paddle-python-sdk)
+- Added `CLP` and `PEN` currency code support. See [related changelog](https://developer.paddle.com/changelog/2026/clp-pen-currencies?utm_source=dx&utm_medium=paddle-python-sdk)
+- Added `rotatable` to api_key events. See [related changelog](https://developer.paddle.com/changelog/2026/aws-secrets-manager-rotation?utm_source=dx&utm_medium=paddle-python-sdk)
+- Added `balance_movement_date` and `balance_movement_type` filters for payout reconciliation reports. See [related changelog](https://developer.paddle.com/changelog/2026/payout-reconciliation-report-filters?utm_source=dx&utm_medium=paddle-python-sdk)
+- Added support for subscription history. See [related changelog](https://developer.paddle.com/changelog/2026/subscription-history?utm_source=dx&utm_medium=paddle-python-sdk)
+  - `Client.subscriptions.list_history`
+- Added `type` to subscription `discount`
+- Added `consent_requirements` to subscriptions
+- Added `next_billed_at` filter to list subscriptions operation
+- Added `checkout_domain.read`, `checkout_domain.write`, `client_token.read`, `client_token.write`, `metrics.read`, and `subscription_history.read` to `ApiKeyPermission` (permissions on `api_key.*` events)
+
+### Changed
+
+- `trial_period` fields are now typed as `PriceTrialPeriod` (subclass of `Duration`, backwards compatible)
+
 ## 1.14.1 - 2026-04-21
 
 ### Fixed

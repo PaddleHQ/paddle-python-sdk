@@ -1,0 +1,24 @@
+{
+    "type": "payout_reconciliation",
+    "filters": [
+        {
+            "name": "balance_movement_type",
+            "operator": null,
+            "value": [
+                "sale",
+                "chargeback",
+                "credit"
+            ]
+        },
+        {
+            "name": "balance_movement_date",
+            "operator": "gte",
+            "value": "2023-12-30T00:00:00.000000Z"
+        },
+        {
+            "name": "balance_movement_date",
+            "operator": "lt",
+            "value": "2024-12-30T12:30:01.123456Z"
+        }
+    ]
+}

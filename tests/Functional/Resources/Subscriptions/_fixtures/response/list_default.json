@@ -14,6 +14,7 @@
       "next_billed_at": "2024-02-22T11:40:06.048Z",
       "paused_at": null,
       "canceled_at": null,
+      "consent_requirements": [],
       "collection_mode": "automatic",
       "billing_details": null,
       "current_billing_period": {
@@ -51,7 +52,10 @@
             },
             "trial_period": {
               "frequency": 14,
-              "interval": "day"
+              "interval": "day",
+              "requires_payment_method": true,
+              "unit_price": null,
+              "unit_price_overrides": []
             },
             "unit_price": {
               "amount": "3000",
@@ -94,7 +98,8 @@
       "custom_data": null,
       "management_urls": {
         "update_payment_method": "https://sandbox-buyer-portal.paddle.com/subscriptions/sub_01hp4894h0dpdrfk9dx775gny7/update-payment-method",
-        "cancel": "https://sandbox-buyer-portal.paddle.com/subscriptions/sub_01hp4894h0dpdrfk9dx775gny7/cancel"
+        "cancel": "https://sandbox-buyer-portal.paddle.com/subscriptions/sub_01hp4894h0dpdrfk9dx775gny7/cancel",
+        "view_subscription": "https://sandbox-buyer-portal.paddle.com/subscriptions/sub_01hp4894h0dpdrfk9dx775gny7"
       },
       "discount": null,
       "import_meta": null
@@ -113,6 +118,7 @@
       "next_billed_at": null,
       "paused_at": null,
       "canceled_at": "2024-03-08T11:21:37.227055Z",
+      "consent_requirements": [],
       "collection_mode": "automatic",
       "billing_details": null,
       "current_billing_period": null,
@@ -231,7 +237,8 @@
       "custom_data": null,
       "management_urls": {
         "update_payment_method": "https://sandbox-buyer-portal.paddle.com/subscriptions/sub_01hp46z4qkjs68yfsnv0hs2sd2/update-payment-method",
-        "cancel": "https://sandbox-buyer-portal.paddle.com/subscriptions/sub_01hp46z4qkjs68yfsnv0hs2sd2/cancel"
+        "cancel": "https://sandbox-buyer-portal.paddle.com/subscriptions/sub_01hp46z4qkjs68yfsnv0hs2sd2/cancel",
+        "view_subscription": "https://sandbox-buyer-portal.paddle.com/subscriptions/sub_01hp46z4qkjs68yfsnv0hs2sd2"
       },
       "discount": null,
       "import_meta": null
@@ -250,6 +257,7 @@
       "next_billed_at": "2025-02-08T11:15:15.565Z",
       "paused_at": null,
       "canceled_at": null,
+      "consent_requirements": [],
       "collection_mode": "manual",
       "billing_details": {
         "enable_checkout": false,
@@ -321,10 +329,12 @@
       "custom_data": null,
       "management_urls": {
         "update_payment_method": null,
-        "cancel": "https://sandbox-buyer-portal.paddle.com/subscriptions/sub_01hp463gxfvndqjjyqn2n7tkth/cancel"
+        "cancel": "https://sandbox-buyer-portal.paddle.com/subscriptions/sub_01hp463gxfvndqjjyqn2n7tkth/cancel",
+        "view_subscription": "https://sandbox-buyer-portal.paddle.com/subscriptions/sub_01hp463gxfvndqjjyqn2n7tkth"
       },
       "discount": {
         "id": "dsc_01hv6scyf7qdnzcdq01t2y8dx4",
+        "type": "recurring",
         "starts_at": null,
         "ends_at": null
       },
@@ -344,6 +354,7 @@
       "next_billed_at": null,
       "paused_at": null,
       "canceled_at": null,
+      "consent_requirements": [],
       "collection_mode": "automatic",
       "billing_details": null,
       "current_billing_period": {
@@ -469,10 +480,12 @@
       "custom_data": null,
       "management_urls": {
         "update_payment_method": "https://buyer-portal.paddle.com/subscriptions/sub_01hn0epy6nc46wt9hw92pp2kmt/update-payment-method",
-        "cancel": "https://buyer-portal.paddle.com/subscriptions/sub_01hn0epy6nc46wt9hw92pp2kmt/cancel"
+        "cancel": "https://buyer-portal.paddle.com/subscriptions/sub_01hn0epy6nc46wt9hw92pp2kmt/cancel",
+        "view_subscription": "https://buyer-portal.paddle.com/subscriptions/sub_01hn0epy6nc46wt9hw92pp2kmt"
       },
       "discount": {
         "id": "dsc_01hv6scyf7qdnzcdq01t2y8dx4",
+        "type": "recurring",
         "starts_at": "2024-04-12T10:18:47.635628Z",
         "ends_at": "2024-05-12T10:18:47.635628Z"
       },

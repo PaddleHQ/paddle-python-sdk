@@ -7,10 +7,15 @@ from paddle_billing.Entities.Report import Report
 from paddle_billing.Entities.ReportCSV import ReportCSV
 from paddle_billing.Entities.Reports import (
     AdjustmentsReportType,
+    BalanceMovementType,
     BalanceReportType,
+    CheckoutsReportType,
     DiscountsReportType,
     PayoutReconciliationReportType,
     ProductsPricesReportType,
+    SubscriptionScheduledChangeActionFilterValue,
+    SubscriptionStatusFilterValue,
+    SubscriptionsReportType,
     ReportFilter,
     ReportFilterName,
     ReportFilterOperator,
@@ -23,8 +28,12 @@ from paddle_billing.Entities.DateTime import DateTime
 from paddle_billing.Resources.Reports.Operations.Filters import (
     AdjustmentActionFilter,
     AdjustmentStatusFilter,
+    BalanceMovementDateFilter,
+    BalanceMovementTypeFilter,
+    CheckoutCreatedAtFilter,
     CollectionModeFilter,
     CurrencyCodeFilter,
+    CustomerCountryCodeFilter,
     DiscountStatusFilter,
     DiscountTypeFilter,
     PriceStatusFilter,
@@ -33,6 +42,9 @@ from paddle_billing.Resources.Reports.Operations.Filters import (
     ProductStatusFilter,
     ProductTypeFilter,
     ProductUpdatedAtFilter,
+    SubscriptionCreatedAtFilter,
+    SubscriptionScheduledChangeActionFilter,
+    SubscriptionStatusFilter,
     RemittanceReferenceFilter,
     TransactionOriginFilter,
     TransactionStatusFilter,
@@ -45,6 +57,7 @@ from paddle_billing.Entities.Shared import (
     Action,
     CatalogType,
     CollectionMode,
+    CountryCode,
     CurrencyCode,
     TransactionOrigin,
     TransactionStatus,
@@ -61,9 +74,11 @@ from paddle_billing.Entities.Discounts import (
 from paddle_billing.Resources.Reports.Operations import (
     CreateAdjustmentsReport,
     CreateBalanceReport,
+    CreateCheckoutsReport,
     CreateDiscountsReport,
     CreatePayoutReconciliationReport,
     CreateProductsAndPricesReport,
+    CreateSubscriptionsReport,
     CreateTransactionsReport,
     ListReports,
 )
@@ -174,6 +189,67 @@ class TestReportsClient:
                 ReadsFixtures.read_raw_json_fixture("request/create_payout_reconciliation_full"),
                 PayoutReconciliationReportType,
             ),
+            (
+                CreateCheckoutsReport(type=CheckoutsReportType.Checkouts),
+                ReadsFixtures.read_raw_json_fixture("request/create_checkouts_basic"),
+                CheckoutsReportType,
+            ),
+            (
+                CreateCheckoutsReport(
+                    type=CheckoutsReportType.Checkouts,
+                    filters=[
+                        CheckoutCreatedAtFilter.gte(DateTime("2023-12-30")),
+                        CheckoutCreatedAtFilter.lt(DateTime("2024-12-30T12:30:01.123456Z")),
+                        CustomerCountryCodeFilter([CountryCode.US, CountryCode.GB]),
+                    ],
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/create_checkouts_full"),
+                CheckoutsReportType,
+            ),
+            (
+                CreateSubscriptionsReport(type=SubscriptionsReportType.Subscriptions),
+                ReadsFixtures.read_raw_json_fixture("request/create_subscriptions_basic"),
+                SubscriptionsReportType,
+            ),
+            (
+                CreateSubscriptionsReport(
+                    type=SubscriptionsReportType.Subscriptions,
+                    filters=[
+                        SubscriptionStatusFilter(
+                            [SubscriptionStatusFilterValue.Active, SubscriptionStatusFilterValue.PastDue]
+                        ),
+                        SubscriptionCreatedAtFilter.gte(DateTime("2023-12-30")),
+                        SubscriptionCreatedAtFilter.lt(DateTime("2024-12-30T12:30:01.123456Z")),
+                        CustomerCountryCodeFilter([CountryCode.US, CountryCode.GB]),
+                        SubscriptionScheduledChangeActionFilter(
+                            [
+                                SubscriptionScheduledChangeActionFilterValue.Cancel,
+                                SubscriptionScheduledChangeActionFilterValue.NoChange,
+                            ]
+                        ),
+                    ],
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/create_subscriptions_full"),
+                SubscriptionsReportType,
+            ),
+            (
+                CreatePayoutReconciliationReport(
+                    type=PayoutReconciliationReportType.PayoutReconciliation,
+                    filters=[
+                        BalanceMovementTypeFilter(
+                            [
+                                BalanceMovementType.Sale,
+                                BalanceMovementType.Chargeback,
+                                BalanceMovementType.Credit,
+                            ]
+                        ),
+                        BalanceMovementDateFilter.gte(DateTime("2023-12-30")),
+                        BalanceMovementDateFilter.lt(DateTime("2024-12-30T12:30:01.123456Z")),
+                    ],
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/create_payout_reconciliation_balance_movement"),
+                PayoutReconciliationReportType,
+            ),
         ],
         ids=[
             "Create transaction report with basic data",
@@ -185,6 +261,11 @@ class TestReportsClient:
             "Create balance report with filters",
             "Create payout reconciliation report with basic data",
             "Create payout reconciliation report with filters",
+            "Create checkouts report with basic data",
+            "Create checkouts report with filters",
+            "Create subscriptions report with basic data",
+            "Create subscriptions report with filters",
+            "Create payout reconciliation report with balance movement filters",
         ],
     )
     def test_create_report_uses_expected_payload(

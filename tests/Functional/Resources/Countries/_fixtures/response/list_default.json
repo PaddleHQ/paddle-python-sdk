@@ -1,0 +1,43 @@
+{
+    "data": [
+        {
+            "iso": "US",
+            "iso3": "USA",
+            "name": "UNITED STATES",
+            "printable_name": "United States",
+            "uses_postal_code": true,
+            "transaction_currency": "USD",
+            "payout_currency": "USD",
+            "allow_sales": true,
+            "has_regions": false,
+            "tax_mode": "external"
+        },
+        {
+            "iso": "GB",
+            "iso3": "GBR",
+            "name": "UNITED KINGDOM",
+            "printable_name": "United Kingdom",
+            "uses_postal_code": true,
+            "transaction_currency": "GBP",
+            "payout_currency": "GBP",
+            "allow_sales": true,
+            "has_regions": false,
+            "tax_mode": "internal"
+        },
+        {
+            "iso": "RU",
+            "iso3": "RUS",
+            "name": "RUSSIAN FEDERATION",
+            "printable_name": "Russian Federation",
+            "uses_postal_code": true,
+            "transaction_currency": "USD",
+            "payout_currency": "USD",
+            "allow_sales": false,
+            "has_regions": true,
+            "tax_mode": "internal"
+        }
+    ],
+    "meta": {
+        "request_id": "0968f849-046a-4de6-a9c8-34d22aecd514"
+    }
+}

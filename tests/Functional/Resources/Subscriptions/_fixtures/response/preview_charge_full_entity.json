@@ -12,6 +12,7 @@
     "next_billed_at": "2024-03-08T11:17:08.807055Z",
     "paused_at": null,
     "canceled_at": null,
+    "consent_requirements": [],
     "collection_mode": "automatic",
     "billing_details": null,
     "current_billing_period": {
@@ -620,7 +621,8 @@
     "custom_data": null,
     "management_urls": {
       "update_payment_method": "https://buyer-portal.paddle.com/subscriptions/sub_01hp46z4qkjs68yfsnv0hs2sd2/update-payment-method",
-      "cancel": "https://buyer-portal.paddle.com/subscriptions/sub_01hp46z4qkjs68yfsnv0hs2sd2/cancel"
+      "cancel": "https://buyer-portal.paddle.com/subscriptions/sub_01hp46z4qkjs68yfsnv0hs2sd2/cancel",
+      "view_subscription": "https://buyer-portal.paddle.com/subscriptions/sub_01hp46z4qkjs68yfsnv0hs2sd2"
     },
     "discount": null,
     "update_summary": {

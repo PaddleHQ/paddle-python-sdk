@@ -17,6 +17,7 @@ from paddle_billing.Entities.Shared import (
 from paddle_billing.Entities.Shared.TransactionDetailsPreview import TransactionDetailsPreview
 
 from paddle_billing.Entities.Subscriptions import (
+    SubscriptionConsentRequirement,
     SubscriptionDiscount,
     SubscriptionItem,
     SubscriptionManagementUrls,
@@ -54,6 +55,7 @@ class SubscriptionPreview(Entity):
     next_transaction: SubscriptionNextTransaction | None
     recurring_transaction_details: TransactionDetailsPreview | None
     update_summary: SubscriptionPreviewSubscriptionUpdateSummary | None
+    consent_requirements: list[SubscriptionConsentRequirement]
     import_meta: ImportMeta | None
 
     @staticmethod
@@ -108,5 +110,9 @@ class SubscriptionPreview(Entity):
                 if data.get("update_summary")
                 else None
             ),
+            consent_requirements=[
+                SubscriptionConsentRequirement.from_dict(consent_requirement)
+                for consent_requirement in data.get("consent_requirements", [])
+            ],
             import_meta=ImportMeta.from_dict(data["import_meta"]) if data.get("import_meta") else None,
         )

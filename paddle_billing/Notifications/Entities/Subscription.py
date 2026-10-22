@@ -14,6 +14,7 @@ from paddle_billing.Notifications.Entities.Shared import (
     TimePeriod,
 )
 from paddle_billing.Notifications.Entities.Subscriptions import (
+    SubscriptionConsentRequirement,
     SubscriptionDiscount,
     SubscriptionItem,
     SubscriptionScheduledChange,
@@ -36,6 +37,7 @@ class Subscription(Entity):
     billing_details: BillingDetails | None = None
     business_id: str | None = None
     canceled_at: datetime | None = None
+    consent_requirements: list[SubscriptionConsentRequirement] | None = None
     current_billing_period: TimePeriod | None = None
     custom_data: CustomData | None = None
     discount: SubscriptionDiscount | None = None
@@ -62,6 +64,14 @@ class Subscription(Entity):
             items=[SubscriptionItem.from_dict(item) for item in data["items"]],
             billing_details=BillingDetails.from_dict(data["billing_details"]) if data.get("billing_details") else None,
             canceled_at=datetime.fromisoformat(data["canceled_at"]) if data.get("canceled_at") else None,
+            consent_requirements=(
+                [
+                    SubscriptionConsentRequirement.from_dict(consent_requirement)
+                    for consent_requirement in data["consent_requirements"]
+                ]
+                if data.get("consent_requirements") is not None
+                else None
+            ),
             custom_data=CustomData(data["custom_data"]) if data.get("custom_data") else None,
             discount=SubscriptionDiscount.from_dict(data["discount"]) if data.get("discount") else None,
             first_billed_at=datetime.fromisoformat(data["first_billed_at"]) if data.get("first_billed_at") else None,
