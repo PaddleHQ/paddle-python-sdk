@@ -18,6 +18,7 @@ class TestApiKeyPermission:
             ("client_token.write", "ClientTokenWrite"),
             ("metrics.read", "MetricsRead"),
             ("subscription_history.read", "SubscriptionHistoryRead"),
+            ("verification.read", "VerificationRead"),
         ],
     )
     def test_permission_is_known(self, value, expected_name):

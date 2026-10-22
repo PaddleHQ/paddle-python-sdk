@@ -17,6 +17,7 @@ from paddle_billing.Entities.Shared.Checkout import Checkout
 from paddle_billing.Entities.Shared.CollectionMode import CollectionMode
 from paddle_billing.Entities.Shared.Contacts import Contacts
 from paddle_billing.Entities.Shared.CountryCode import CountryCode
+from paddle_billing.Entities.Shared.CountryCodeIso3 import CountryCodeIso3
 from paddle_billing.Entities.Shared.CurrencyCode import CurrencyCode
 from paddle_billing.Entities.Shared.CurrencyCodeAdjustments import CurrencyCodeAdjustments
 from paddle_billing.Entities.Shared.CurrencyCodePayouts import CurrencyCodePayouts
