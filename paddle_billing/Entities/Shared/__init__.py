@@ -56,6 +56,7 @@ from paddle_billing.Entities.Shared.TaxRatesUsed import TaxRatesUsed
 from paddle_billing.Entities.Shared.TimePeriod import TimePeriod
 from paddle_billing.Entities.Shared.Totals import Totals
 from paddle_billing.Entities.Shared.TransactionOrigin import TransactionOrigin
+from paddle_billing.Entities.Shared.TransactionPaypal import TransactionPaypal
 from paddle_billing.Entities.Shared.TransactionPaymentAttempt import TransactionPaymentAttempt
 from paddle_billing.Entities.Shared.TransactionPayoutTotals import TransactionPayoutTotals
 from paddle_billing.Entities.Shared.TransactionPayoutTotalsAdjusted import TransactionPayoutTotalsAdjusted

@@ -20,6 +20,7 @@ class ApiKey(Entity):
     created_at: datetime
     updated_at: datetime
     rotatable: bool | None = None
+    exposed_at: datetime | None = None
 
     @staticmethod
     def from_dict(data: dict[str, Any]) -> ApiKey:
@@ -35,4 +36,5 @@ class ApiKey(Entity):
             created_at=datetime.fromisoformat(data["created_at"]),
             updated_at=datetime.fromisoformat(data["updated_at"]),
             rotatable=data.get("rotatable"),
+            exposed_at=datetime.fromisoformat(data["exposed_at"]) if data.get("exposed_at") else None,
         )
