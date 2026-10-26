@@ -56,9 +56,8 @@ class PaddleSignature:
         return hmac_new(secret_key.encode("utf-8"), data, sha256)
 
     def __do_comparison(self, generated_signature: str, signature: str) -> bool:
-        self.log.debug(
-            f"Comparing received Paddle signature '{signature}' to our calculated signature: '{generated_signature}'"
-        )
+        # Never log either signature: the calculated one is a valid signature for an attacker-chosen body
+        self.log.debug("Comparing received Paddle signature to our calculated signature")
 
         return compare_digest(generated_signature, signature)
 

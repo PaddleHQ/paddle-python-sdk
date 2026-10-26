@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-python-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## 1.16.1 - 2026-10-26
+
+### Fixed
+
+- Webhook signature verification no longer writes the received or calculated signature to the debug log
+- `Verifier.verify()` now rejects webhooks whose timestamp is more than `maximum_variance` seconds in the future, as well as in the past
+
 ## 1.16.0 - 2026-10-23
 
 ### Added
