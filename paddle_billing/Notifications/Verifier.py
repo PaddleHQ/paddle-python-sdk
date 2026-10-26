@@ -37,9 +37,14 @@ class Verifier:
             return False
 
         timestamp, signature = PaddleSignature.parse(signature_header)
-        if verify_time_drift and self.maximum_variance > 0 and time() > int(timestamp + self.maximum_variance):
-            self.log.critical("Too much time has elapsed between the request and this process")
-            return False
+        if verify_time_drift and self.maximum_variance > 0:
+            now = time()
+            if now > int(timestamp + self.maximum_variance):
+                self.log.critical("Too much time has elapsed between the request and this process")
+                return False
+            if int(timestamp - self.maximum_variance) > now:
+                self.log.critical("The request timestamp is too far in the future")
+                return False
 
         raw_body = None
         if hasattr(request, "body"):

@@ -1,3 +1,6 @@
+import logging
+from time import time
+
 from pytest import mark
 
 from paddle_billing.Notifications import PaddleSignature, Verifier, Secret
@@ -57,3 +60,35 @@ class TestVerifier:
 
         integrity_check = Verifier().verify(request, Secret(secret))
         assert integrity_check is True
+
+    @staticmethod
+    def _signed_request(secret: str, body: str, timestamp: int) -> FakeRequest:
+        signature = PaddleSignature.calculate_hmac(secret, f"{timestamp}:{body}".encode("utf-8")).hexdigest()
+
+        return FakeRequest({PaddleSignature().HEADER: f"ts={timestamp};h1={signature}"}, body)
+
+    @mark.parametrize(
+        "offset, expected",
+        [(0, True), (-60, False), (60, False), (315360000, False)],
+        ids=["Current timestamp", "Old timestamp", "Future timestamp", "Far future timestamp"],
+    )
+    def test_verify_rejects_timestamps_outside_maximum_variance(self, monkeypatch, offset, expected):
+        monkeypatch.delenv("TEST_MODE", raising=False)
+        secret = "pdl_ntfset_01hs0t3tw21j988db1pam5xg8m_GrOWLNef+vmtjJYq4mSnHNzvc8uWoJ1I"
+        request = self._signed_request(secret, '{"event_type":"transaction.completed"}', int(time()) + offset)
+
+        assert Verifier().verify(request, Secret(secret)) is expected
+
+    def test_verify_does_not_log_signatures(self, monkeypatch, caplog):
+        monkeypatch.setenv("TEST_MODE", "1")
+        caplog.set_level(logging.DEBUG, logger="paddle_billing")
+        secret = "pdl_ntfset_01hs0t3tw21j988db1pam5xg8m_GrOWLNef+vmtjJYq4mSnHNzvc8uWoJ1I"
+        body = '{"event_type":"transaction.completed"}'
+        timestamp = int(time())
+        received_signature = "f" * 64
+        calculated_signature = PaddleSignature.calculate_hmac(secret, f"{timestamp}:{body}".encode("utf-8")).hexdigest()
+        request = FakeRequest({PaddleSignature().HEADER: f"ts={timestamp};h1={received_signature}"}, body)
+
+        assert Verifier().verify(request, Secret(secret)) is False
+        assert calculated_signature not in caplog.text
+        assert received_signature not in caplog.text
