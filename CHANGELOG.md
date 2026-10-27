@@ -6,6 +6,34 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-python-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## Unreleased
+
+### Added
+
+- Added support for account settings. See [related changelog](https://developer.paddle.com/changelog/2026/account-settings-api?utm_source=dx&utm_medium=paddle-python-sdk)
+  - `Client.account.get`
+  - `Client.account.update`
+  - `Client.api_root.get`
+  - `Client.settings.get_balance_currency`
+  - `Client.settings.update_balance_currency`
+  - `Client.settings.get_checkout_features`
+  - `Client.settings.update_checkout_features`
+  - `Client.settings.get_checkout_payment_method_settings`
+  - `Client.settings.update_checkout_payment_method_settings`
+  - `Client.settings.get_checkout_recovery`
+  - `Client.settings.update_checkout_recovery`
+  - `Client.settings.get_checkout_styles_overlay`
+  - `Client.settings.update_checkout_styles_overlay`
+  - `Client.settings.get_checkout_url`
+  - `Client.settings.update_checkout_url`
+  - `Client.settings.get_currency_conversions`
+  - `Client.settings.update_currency_conversions`
+  - `Client.settings.get_statement_descriptor_settings`
+  - `Client.settings.update_statement_descriptor_settings`
+  - `Client.settings.get_tax_settings`
+  - `Client.settings.update_tax_settings`
+- Added `account.read`, `account.write`, `balance_currency.read`, `balance_currency.write`, `checkout_settings.read`, `checkout_settings.write`, `currency_conversion.read`, `currency_conversion.write`, `statement_descriptor.read`, `statement_descriptor.write`, `tax_settings.read`, and `tax_settings.write` to `ApiKeyPermission` (permissions on `api_key.*` events)
+
 ## 1.16.1 - 2026-10-26
 
 ### Fixed

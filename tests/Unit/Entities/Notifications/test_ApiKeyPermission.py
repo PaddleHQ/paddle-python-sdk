@@ -12,6 +12,18 @@ class TestApiKeyPermission:
     @mark.parametrize(
         "value, expected_name",
         [
+            ("account.read", "AccountRead"),
+            ("account.write", "AccountWrite"),
+            ("balance_currency.read", "BalanceCurrencyRead"),
+            ("balance_currency.write", "BalanceCurrencyWrite"),
+            ("checkout_settings.read", "CheckoutSettingsRead"),
+            ("checkout_settings.write", "CheckoutSettingsWrite"),
+            ("currency_conversion.read", "CurrencyConversionRead"),
+            ("currency_conversion.write", "CurrencyConversionWrite"),
+            ("statement_descriptor.read", "StatementDescriptorRead"),
+            ("statement_descriptor.write", "StatementDescriptorWrite"),
+            ("tax_settings.read", "TaxSettingsRead"),
+            ("tax_settings.write", "TaxSettingsWrite"),
             ("checkout_domain.read", "CheckoutDomainRead"),
             ("checkout_domain.write", "CheckoutDomainWrite"),
             ("client_token.read", "ClientTokenRead"),
