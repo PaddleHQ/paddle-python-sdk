@@ -15,8 +15,10 @@ from paddle_billing.ResponseParser import ResponseParser
 
 from paddle_billing.Logger.NullHandler import NullHandler
 
+from paddle_billing.Resources.Account.AccountClient import AccountClient
 from paddle_billing.Resources.Addresses.AddressesClient import AddressesClient
 from paddle_billing.Resources.Adjustments.AdjustmentsClient import AdjustmentsClient
+from paddle_billing.Resources.APIRoot.APIRootClient import APIRootClient
 from paddle_billing.Resources.Businesses.BusinessesClient import BusinessesClient
 from paddle_billing.Resources.CheckoutDomains.CheckoutDomainsClient import CheckoutDomainsClient
 from paddle_billing.Resources.ClientTokens.ClientTokensClient import ClientTokensClient
@@ -37,6 +39,7 @@ from paddle_billing.Resources.Prices.PricesClient import PricesClient
 from paddle_billing.Resources.PricingPreviews.PricingPreviewsClient import PricingPreviewsClient
 from paddle_billing.Resources.Products.ProductsClient import ProductsClient
 from paddle_billing.Resources.Reports.ReportsClient import ReportsClient
+from paddle_billing.Resources.Settings.SettingsClient import SettingsClient
 from paddle_billing.Resources.Simulations.SimulationsClient import SimulationsClient
 from paddle_billing.Resources.SimulationRuns.SimulationRunsClient import SimulationRunsClient
 from paddle_billing.Resources.SimulationRunEvents.SimulationRunEventsClient import SimulationRunEventsClient
@@ -74,8 +77,10 @@ class Client:
         self.status_code = None  # Used by pytest
 
         # Initialize the various clients
+        self.account = AccountClient(self)
         self.addresses = AddressesClient(self)
         self.adjustments = AdjustmentsClient(self)
+        self.api_root = APIRootClient(self)
         self.businesses = BusinessesClient(self)
         self.checkout_domains = CheckoutDomainsClient(self)
         self.client_tokens = ClientTokensClient(self)
@@ -95,6 +100,7 @@ class Client:
         self.pricing_previews = PricingPreviewsClient(self)
         self.products = ProductsClient(self)
         self.reports = ReportsClient(self)
+        self.settings = SettingsClient(self)
         self.simulations = SimulationsClient(self)
         self.simulation_runs = SimulationRunsClient(self)
         self.simulation_run_events = SimulationRunEventsClient(self)
