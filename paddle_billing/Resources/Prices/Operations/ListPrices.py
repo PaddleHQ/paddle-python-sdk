@@ -1,7 +1,7 @@
 from paddle_billing.EnumStringify import enum_stringify
 from paddle_billing.HasParameters import HasParameters
 
-from paddle_billing.Entities.Shared import CatalogType, Status
+from paddle_billing.Entities.Shared import CatalogType, Interval, Status
 
 from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 
@@ -19,9 +19,13 @@ class ListPrices(HasParameters):
         product_ids: list[str] | None = None,
         statuses: list[Status] | None = None,
         recurring: bool | None = None,
+        billing_cycle_interval: Interval | None = None,
+        billing_cycle_frequency: int | None = None,
     ):
         self.pager = pager
         self.recurring = recurring
+        self.billing_cycle_interval = billing_cycle_interval
+        self.billing_cycle_frequency = billing_cycle_frequency
         self.includes = includes if includes is not None else []
         self.ids = ids if ids is not None else []
         self.types = types if types is not None else []
@@ -46,6 +50,10 @@ class ListPrices(HasParameters):
         parameters = {}
         if self.pager:
             parameters.update(self.pager.get_parameters())
+        if self.billing_cycle_frequency is not None:
+            parameters["billing_cycle.frequency"] = str(self.billing_cycle_frequency)
+        if self.billing_cycle_interval is not None:
+            parameters["billing_cycle.interval"] = enum_stringify(self.billing_cycle_interval)
         if self.ids:
             parameters["id"] = ",".join(self.ids)
         if self.includes:

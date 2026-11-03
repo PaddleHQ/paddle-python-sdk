@@ -33,6 +33,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
   - `Client.settings.get_tax_settings`
   - `Client.settings.update_tax_settings`
 - Added `account.read`, `account.write`, `balance_currency.read`, `balance_currency.write`, `checkout_settings.read`, `checkout_settings.write`, `currency_conversion.read`, `currency_conversion.write`, `statement_descriptor.read`, `statement_descriptor.write`, `tax_settings.read`, and `tax_settings.write` to `ApiKeyPermission` (permissions on `api_key.*` events)
+- Added `billing_cycle_interval` (sent as `billing_cycle.interval`) and `billing_cycle_frequency` (sent as `billing_cycle.frequency`) parameters to list prices operation
 
 ## 1.16.1 - 2026-10-26
 
