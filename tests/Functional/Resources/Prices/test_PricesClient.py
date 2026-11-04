@@ -260,6 +260,24 @@ class TestPricesClient:
                 ReadsFixtures.read_raw_json_fixture("response/list_default"),
                 "/prices?include=product",
             ),
+            (
+                ListPrices(billing_cycle_interval=Interval.Month),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/list_default"),
+                "/prices?billing_cycle.interval=month",
+            ),
+            (
+                ListPrices(billing_cycle_frequency=3),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/list_default"),
+                "/prices?billing_cycle.frequency=3",
+            ),
+            (
+                ListPrices(billing_cycle_interval=Interval.Year, billing_cycle_frequency=1),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/list_default"),
+                "/prices?billing_cycle.frequency=1&billing_cycle.interval=year",
+            ),
         ],
         ids=[
             "List prices without pagination",
@@ -272,6 +290,9 @@ class TestPricesClient:
             "List prices filtered by multiple product ids",
             "List prices filtered by recurring prices",
             "List prices with includes",
+            "List prices filtered by billing cycle interval",
+            "List prices filtered by billing cycle frequency",
+            "List prices filtered by billing cycle interval and frequency",
         ],
     )
     def test_list_prices_returns_expected_response(
