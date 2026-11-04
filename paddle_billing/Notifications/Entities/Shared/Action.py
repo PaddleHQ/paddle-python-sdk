@@ -8,3 +8,4 @@ class Action(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     Chargeback: "Action" = "chargeback"
     ChargebackReverse: "Action" = "chargeback_reverse"
     ChargebackWarning: "Action" = "chargeback_warning"
+    ChargebackWarningReverse: "Action" = "chargeback_warning_reverse"

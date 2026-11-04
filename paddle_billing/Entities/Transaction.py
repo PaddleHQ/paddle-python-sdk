@@ -60,9 +60,16 @@ class Transaction(Entity):
     discount: Discount | None = None
     available_payment_methods: list[PaymentMethodType] | None = None
     revised_at: datetime | None = None
+    adjustments_totals: TransactionAdjustmentsTotals | None = None
 
     @staticmethod
     def from_dict(data: dict[str, Any]) -> Transaction:
+        adjustments_totals = (
+            TransactionAdjustmentsTotals.from_dict(data["adjustments_totals"])
+            if data.get("adjustments_totals")
+            else None
+        )
+
         return Transaction(
             address_id=data.get("address_id"),
             business_id=data.get("business_id"),
@@ -92,10 +99,7 @@ class Transaction(Entity):
             customer=Customer.from_dict(data["customer"]) if data.get("customer") else None,
             discount=Discount.from_dict(data["discount"]) if data.get("discount") else None,
             available_payment_methods=[PaymentMethodType(item) for item in data.get("available_payment_methods", [])],
-            adjustment_totals=(
-                TransactionAdjustmentsTotals.from_dict(data["adjustment_totals"])
-                if data.get("adjustment_totals")
-                else None
-            ),
+            adjustment_totals=adjustments_totals,
             revised_at=datetime.fromisoformat(data["revised_at"]) if data.get("revised_at") else None,
+            adjustments_totals=adjustments_totals,
         )
