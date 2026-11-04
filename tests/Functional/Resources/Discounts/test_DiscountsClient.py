@@ -56,10 +56,24 @@ class TestDiscountsClient:
                 ReadsFixtures.read_raw_json_fixture("response/full_entity"),
                 "/discounts",
             ),
+            (
+                CreateDiscount(
+                    "10",
+                    "Nonprofit discount",
+                    DiscountType.Percentage,
+                    True,
+                    True,
+                ),
+                ReadsFixtures.read_raw_json_fixture("request/create_without_currency_code"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/minimal_entity"),
+                "/discounts",
+            ),
         ],
         ids=[
             "Create discount with basic data",
             "Create discount with full data",
+            "Create discount without currency code",
         ],
     )
     def test_create_discount_uses_expected_payload(
@@ -164,11 +178,20 @@ class TestDiscountsClient:
                 ReadsFixtures.read_raw_json_fixture("response/full_entity"),
                 "/discounts/dsc_01h83xenpcfjyhkqr4x214m02x",
             ),
+            (
+                "dsc_01h83xenpcfjyhkqr4x214m02x",
+                UpdateDiscount(type=DiscountType.Percentage, currency_code=None),
+                ReadsFixtures.read_raw_json_fixture("request/update_null_currency_code"),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/full_entity"),
+                "/discounts/dsc_01h83xenpcfjyhkqr4x214m02x",
+            ),
         ],
         ids=[
             "Update discount with single new value",
             "Update discount with partial new values",
             "Update discount with completely new values",
+            "Update discount with null currency code",
         ],
     )
     def test_update_discount_uses_expected_payload(
