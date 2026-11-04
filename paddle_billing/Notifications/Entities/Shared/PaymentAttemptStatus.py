@@ -11,3 +11,4 @@ class PaymentAttemptStatus(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     PendingNoActionRequired: "PaymentAttemptStatus" = "pending_no_action_required"
     Created: "PaymentAttemptStatus" = "created"
     Unknown: "PaymentAttemptStatus" = "unknown"
+    Dropped: "PaymentAttemptStatus" = "dropped"

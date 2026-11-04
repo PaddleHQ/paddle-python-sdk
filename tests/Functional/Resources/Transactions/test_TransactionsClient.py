@@ -1,4 +1,4 @@
-from json import loads
+from json import dumps, loads
 from pytest import mark
 from urllib.parse import unquote
 
@@ -1751,3 +1751,34 @@ class TestTransactionsClient:
         assert response_json == loads(
             str(expected_response_body)
         ), "The response JSON doesn't match the expected fixture JSON"
+
+    def test_get_transaction_returns_adjustments_totals(
+        self,
+        test_client,
+        mock_requests,
+    ):
+        transaction_id = "txn_01hen7bxc1p8ep4yk7n5jbzk9r"
+        response_body = loads(ReadsFixtures.read_raw_json_fixture("response/full_entity"))
+        response_body["data"]["adjustments_totals"] = {
+            "subtotal": "100",
+            "tax": "10",
+            "total": "110",
+            "fee": "5",
+            "earnings": "105",
+            "breakdown": {"credit": "0", "refund": "110", "chargeback": "0"},
+            "currency_code": "USD",
+        }
+        mock_requests.get(
+            f"{test_client.base_url}/transactions/{transaction_id}?include=adjustments_totals",
+            status_code=200,
+            text=dumps(response_body),
+        )
+
+        transaction = test_client.client.transactions.get(
+            transaction_id, includes=[TransactionIncludes.AdjustmentsTotals]
+        )
+
+        assert transaction.adjustments_totals is not None
+        assert transaction.adjustments_totals.total == "110"
+        assert transaction.adjustments_totals.breakdown.refund == "110"
+        assert transaction.adjustment_totals == transaction.adjustments_totals

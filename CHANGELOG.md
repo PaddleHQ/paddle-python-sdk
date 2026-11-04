@@ -34,10 +34,18 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
   - `Client.settings.update_tax_settings`
 - Added `account.read`, `account.write`, `balance_currency.read`, `balance_currency.write`, `checkout_settings.read`, `checkout_settings.write`, `currency_conversion.read`, `currency_conversion.write`, `statement_descriptor.read`, `statement_descriptor.write`, `tax_settings.read`, and `tax_settings.write` to `ApiKeyPermission` (permissions on `api_key.*` events)
 - Added `billing_cycle_interval` (sent as `billing_cycle.interval`) and `billing_cycle_frequency` (sent as `billing_cycle.frequency`) parameters to list prices operation
+- Added `dropped` to `PaymentAttemptStatus`, in both API and webhook entities
+- Added `chargeback_warning_reverse` to the webhook adjustment `Action`
+- Added `adjustments_totals` to `Transaction`, matching the API field name
 
 ### Fixed
 
+- `Transaction` now reads `adjustments_totals` when transactions are requested with the `adjustments_totals` include. It previously read `adjustment_totals`, so the totals were always `None`
 - `currency_code` is now optional and nullable when creating or updating a discount, matching the API where `currency_code` is only required for `flat` and `flat_per_seat` discount types
+
+### Deprecated
+
+- `Transaction.adjustment_totals` is deprecated, use `Transaction.adjustments_totals` instead. Both return the same value
 
 ## 1.16.1 - 2026-10-26
 
