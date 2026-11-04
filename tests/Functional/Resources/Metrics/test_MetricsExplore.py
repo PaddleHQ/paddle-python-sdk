@@ -6,6 +6,7 @@ from paddle_billing.Entities.Metrics import (
     MetricEntityDefinition,
     MetricsAggregation,
     MetricsBucketInterval,
+    MetricsExplore,
     MetricsExploreResponse,
     MetricsFieldType,
     MetricsFilterOperator,
@@ -15,6 +16,7 @@ from paddle_billing.Entities.Shared import CurrencyCode
 from paddle_billing.Resources.Metrics.Operations import (
     ExploreFilter,
     ExploreMeasure,
+    ExploreMetrics,
     ExploreOrderBy,
     ListExploreMetricEntities,
     RunExploreMetricsQuery,
@@ -187,3 +189,98 @@ class TestMetricsExploreQuery:
         assert second.data.series[0].dimensions == {"product": "pro_01h1vjfevh5etwq3rb416a23h3"}
         assert second.has_more is False
         assert second.next_cursor is None
+
+    def test_explore_sends_full_body_and_parses_flat_response(self, test_client, mock_requests):
+        body = ReadsFixtures.read_raw_json_fixture("response/explore")
+        url = f"{test_client.base_url}/metrics/explore"
+        mock_requests.post(url, status_code=200, text=body)
+
+        result = test_client.client.metrics.explore(
+            ExploreMetrics(
+                entity=MetricEntity.TransactionsCompleted,
+                date_from=datetime(2026, 5, 1, tzinfo=timezone.utc),
+                date_to=date(2026, 8, 1),
+                measures=[ExploreMeasure(field="gross_revenue", agg=MetricsAggregation.Sum)],
+                interval=MetricsBucketInterval.Month,
+                dimensions=["product"],
+                order_by=[ExploreOrderBy(field="gross_revenue", dir=MetricsSortDirection.Desc)],
+                per_page=5,
+            )
+        )
+
+        request = mock_requests.last_request
+        assert request.method == "POST"
+        assert request.url == url
+        assert loads(request.text) == {
+            "entity": "transactions.completed",
+            "from": "2026-05-01T00:00:00.000000Z",
+            "to": "2026-08-01",
+            "measures": [{"field": "gross_revenue", "agg": "sum"}],
+            "interval": "month",
+            "dimensions": ["product"],
+            "order_by": [{"field": "gross_revenue", "dir": "desc"}],
+            "per_page": 5,
+        }
+
+        assert isinstance(result, MetricsExplore)
+        assert result.entity == MetricEntity.TransactionsCompleted
+        assert result.interval == MetricsBucketInterval.Month
+        assert result.currency_code == CurrencyCode.USD
+        assert result.starts_at == datetime(2026, 5, 1, tzinfo=timezone.utc)
+        assert result.ends_at == datetime(2026, 8, 1, tzinfo=timezone.utc)
+        assert result.updated_at == datetime(2026, 8, 1, 3, tzinfo=timezone.utc)
+        assert result.fields.measures[0].name == "sum_gross_revenue"
+        assert result.series[0].dimensions == {"product": "pro_01h1vjfevh5etwq3rb416a23h2"}
+        assert result.series[0].timeseries[2].measures == {"sum_gross_revenue": "142000"}
+
+        assert result.pagination.per_page == 5
+        assert result.pagination.has_more is True
+        assert result.pagination.estimated_total == 42
+        assert result.pagination.next == f"https://api.paddle.com/metrics/explore?after={FIRST_CURSOR}"
+        assert result.pagination.after == FIRST_CURSOR
+
+    def test_explore_follows_pagination_after(self, test_client, mock_requests):
+        first_page = ReadsFixtures.read_raw_json_fixture("response/explore")
+        last_page = ReadsFixtures.read_raw_json_fixture("response/explore_last_page")
+        url = f"{test_client.base_url}/metrics/explore"
+        mock_requests.post(url, status_code=200, text=first_page)
+        mock_requests.post(f"{url}?after={FIRST_CURSOR}", status_code=200, text=last_page)
+
+        operation = ExploreMetrics(
+            entity=MetricEntity.TransactionsCompleted,
+            date_from="2026-05-01",
+            date_to="2026-08-01",
+            measures=[ExploreMeasure(field="gross_revenue", agg=MetricsAggregation.Sum)],
+            dimensions=["product"],
+        )
+
+        first = test_client.client.metrics.explore(operation)
+        assert mock_requests.last_request.url == url
+
+        second = test_client.client.metrics.explore(operation, after=first.pagination.after)
+
+        assert mock_requests.last_request.url == f"{url}?after={FIRST_CURSOR}"
+        assert second.series[0].dimensions == {"product": "pro_01h1vjfevh5etwq3rb416a23h3"}
+        assert second.pagination.has_more is False
+        assert second.pagination.after is None
+
+    def test_explore_accepts_deprecated_run_explore_metrics_query(self, test_client, mock_requests):
+        body = ReadsFixtures.read_raw_json_fixture("response/explore")
+        mock_requests.post(f"{test_client.base_url}/metrics/explore", status_code=200, text=body)
+
+        result = test_client.client.metrics.explore(
+            RunExploreMetricsQuery(
+                entity=MetricEntity.Checkouts,
+                date_from="2026-05-01",
+                date_to="2026-08-01",
+                measures=[ExploreMeasure(field="count")],
+            )
+        )
+
+        assert isinstance(result, MetricsExplore)
+        assert loads(mock_requests.last_request.text) == {
+            "entity": "checkouts",
+            "from": "2026-05-01",
+            "to": "2026-08-01",
+            "measures": [{"field": "count"}],
+        }

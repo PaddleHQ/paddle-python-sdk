@@ -27,3 +27,5 @@ from paddle_billing.Entities.Metrics.MetricsExploreDataPoint import MetricsExplo
 from paddle_billing.Entities.Metrics.MetricsExploreSeries import MetricsExploreSeries
 from paddle_billing.Entities.Metrics.MetricsExploreData import MetricsExploreData
 from paddle_billing.Entities.Metrics.MetricsExploreResponse import MetricsExploreResponse
+from paddle_billing.Entities.Metrics.MetricsExplorePagination import MetricsExplorePagination
+from paddle_billing.Entities.Metrics.MetricsExplore import MetricsExplore

@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-python-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## Unreleased
+
+### Added
+
+- Added `Client.metrics.explore` to run a metrics explore query. It returns a `MetricsExplore` with the result fields at the top level (`entity`, `interval`, `currency_code`, `starts_at`, `ends_at`, `updated_at`, `fields` and `series`) and `pagination`
+  - `pagination` is a `MetricsExplorePagination` with `per_page`, `next`, `has_more`, `estimated_total` and `after`
+  - `after` is the cursor for the next page, parsed from `next`. It is `None` once `has_more` is false. Pass it to `explore` to fetch the next page
+- Added the `ExploreMetrics` operation for `Client.metrics.explore`
+
+### Deprecated
+
+- `Client.metrics.run_explore_query` is deprecated, use `Client.metrics.explore` instead. It still returns `MetricsExploreResponse`, with the result under `data`
+- `RunExploreMetricsQuery` is deprecated, use `ExploreMetrics` instead. Both can be passed to `Client.metrics.explore`
+
 ## 1.17.0 - 2026-11-04
 
 ### Added
