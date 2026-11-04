@@ -14,7 +14,7 @@ class UpdateDiscount(Operation):
     type: DiscountType | Undefined = Undefined()
     enabled_for_checkout: bool | Undefined = Undefined()
     recur: bool | Undefined = Undefined()
-    currency_code: CurrencyCode | Undefined = Undefined()
+    currency_code: CurrencyCode | None | Undefined = Undefined()
     code: str | None | Undefined = Undefined()
     maximum_recurring_intervals: int | None | Undefined = Undefined()
     usage_limit: int | None | Undefined = Undefined()
