@@ -35,6 +35,10 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 - Added `account.read`, `account.write`, `balance_currency.read`, `balance_currency.write`, `checkout_settings.read`, `checkout_settings.write`, `currency_conversion.read`, `currency_conversion.write`, `statement_descriptor.read`, `statement_descriptor.write`, `tax_settings.read`, and `tax_settings.write` to `ApiKeyPermission` (permissions on `api_key.*` events)
 - Added `billing_cycle_interval` (sent as `billing_cycle.interval`) and `billing_cycle_frequency` (sent as `billing_cycle.frequency`) parameters to list prices operation
 
+### Fixed
+
+- `currency_code` is now optional and nullable when creating or updating a discount, matching the API where `currency_code` is only required for `flat` and `flat_per_seat` discount types
+
 ## 1.16.1 - 2026-10-26
 
 ### Fixed

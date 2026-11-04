@@ -14,7 +14,7 @@ class CreateDiscount(Operation):
     type: DiscountType
     enabled_for_checkout: bool
     recur: bool
-    currency_code: CurrencyCode
+    currency_code: CurrencyCode | None | Undefined = Undefined()
     code: str | None | Undefined = Undefined()
     maximum_recurring_intervals: int | None | Undefined = Undefined()
     usage_limit: int | None | Undefined = Undefined()
