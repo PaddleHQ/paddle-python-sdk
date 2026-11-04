@@ -54,7 +54,7 @@ class Transaction(Entity):
     billed_at: datetime | None
     address: Address | None = None
     adjustments: list[Adjustment] | None = None
-    adjustment_totals: TransactionAdjustmentsTotals | None = None
+    adjustment_totals: TransactionAdjustmentsTotals | None = None  # Deprecated: use adjustments_totals.
     business: Business | None = None
     customer: Customer | None = None
     discount: Discount | None = None
