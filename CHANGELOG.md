@@ -41,14 +41,11 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 ### Fixed
 
 - `Transaction` now reads `adjustments_totals` when transactions are requested with the `adjustments_totals` include. It previously read `adjustment_totals`, so the totals were always `None`
+- `currency_code` is now optional and nullable when creating or updating a discount, matching the API where `currency_code` is only required for `flat` and `flat_per_seat` discount types
 
 ### Deprecated
 
 - `Transaction.adjustment_totals` is deprecated, use `Transaction.adjustments_totals` instead. Both return the same value
-
-### Fixed
-
-- `currency_code` is now optional and nullable when creating or updating a discount, matching the API where `currency_code` is only required for `flat` and `flat_per_seat` discount types
 
 ## 1.16.1 - 2026-10-26
 
