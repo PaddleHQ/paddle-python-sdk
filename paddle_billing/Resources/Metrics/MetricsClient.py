@@ -4,6 +4,7 @@ from paddle_billing.Entities.Metrics.MetricEntityDefinition import MetricEntityD
 from paddle_billing.Entities.Metrics.MetricsActiveSubscribers import MetricsActiveSubscribers
 from paddle_billing.Entities.Metrics.MetricsChargebacks import MetricsChargebacks
 from paddle_billing.Entities.Metrics.MetricsCheckoutConversion import MetricsCheckoutConversion
+from paddle_billing.Entities.Metrics.MetricsExplore import MetricsExplore
 from paddle_billing.Entities.Metrics.MetricsExploreResponse import MetricsExploreResponse
 from paddle_billing.Entities.Metrics.MetricsMonthlyRecurringRevenue import MetricsMonthlyRecurringRevenue
 from paddle_billing.Entities.Metrics.MetricsMonthlyRecurringRevenueChange import MetricsMonthlyRecurringRevenueChange
@@ -11,6 +12,7 @@ from paddle_billing.Entities.Metrics.MetricsRefunds import MetricsRefunds
 from paddle_billing.Entities.Metrics.MetricsRevenue import MetricsRevenue
 
 from paddle_billing.Resources.Metrics.Operations import (
+    ExploreMetrics,
     GetMetrics,
     ListExploreMetricEntities,
     RunExploreMetricsQuery,
@@ -78,7 +80,17 @@ class MetricsClient:
 
         return [MetricEntityDefinition.from_dict(entity) for entity in parser.get_list()]
 
+    def explore(self, operation: ExploreMetrics, after: str | None = None) -> MetricsExplore:
+        """Pass the previous result's `pagination.after` as `after` to fetch the next page."""
+        parameters = {"after": after} if after else None
+        self.response = self.client.post_raw("/metrics/explore", operation, parameters)
+
+        return MetricsExplore.from_dict(self.response.json())
+
     def run_explore_query(self, operation: RunExploreMetricsQuery, after: str | None = None) -> MetricsExploreResponse:
+        """
+        Deprecated: Use explore() instead.
+        """
         parameters = {"after": after} if after else None
         self.response = self.client.post_raw("/metrics/explore", operation, parameters)
 

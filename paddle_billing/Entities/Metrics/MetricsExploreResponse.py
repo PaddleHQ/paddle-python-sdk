@@ -9,6 +9,10 @@ from paddle_billing.Entities.Shared import MetaPaginated
 
 @dataclass
 class MetricsExploreResponse:
+    """
+    Deprecated: Returned by the deprecated run_explore_query(). Use explore(), which returns MetricsExplore.
+    """
+
     data: MetricsExploreData
     meta: MetaPaginated
 
