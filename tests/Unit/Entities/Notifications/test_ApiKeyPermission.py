@@ -14,6 +14,7 @@ class TestApiKeyPermission:
         [
             ("account.read", "AccountRead"),
             ("account.write", "AccountWrite"),
+            ("api_key.read", "ApiKeyRead"),
             ("balance_currency.read", "BalanceCurrencyRead"),
             ("balance_currency.write", "BalanceCurrencyWrite"),
             ("checkout_settings.read", "CheckoutSettingsRead"),
