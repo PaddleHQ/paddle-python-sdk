@@ -8,6 +8,7 @@ class ApiKeyPermission(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
     AddressWrite: "ApiKeyPermission" = "address.write"
     AdjustmentRead: "ApiKeyPermission" = "adjustment.read"
     AdjustmentWrite: "ApiKeyPermission" = "adjustment.write"
+    ApiKeyRead: "ApiKeyPermission" = "api_key.read"
     BalanceCurrencyRead: "ApiKeyPermission" = "balance_currency.read"
     BalanceCurrencyWrite: "ApiKeyPermission" = "balance_currency.write"
     BusinessRead: "ApiKeyPermission" = "business.read"

@@ -19,6 +19,7 @@ from paddle_billing.Resources.Account.AccountClient import AccountClient
 from paddle_billing.Resources.Addresses.AddressesClient import AddressesClient
 from paddle_billing.Resources.Adjustments.AdjustmentsClient import AdjustmentsClient
 from paddle_billing.Resources.APIRoot.APIRootClient import APIRootClient
+from paddle_billing.Resources.ApiKeys.ApiKeysClient import ApiKeysClient
 from paddle_billing.Resources.Businesses.BusinessesClient import BusinessesClient
 from paddle_billing.Resources.CheckoutDomains.CheckoutDomainsClient import CheckoutDomainsClient
 from paddle_billing.Resources.ClientTokens.ClientTokensClient import ClientTokensClient
@@ -81,6 +82,7 @@ class Client:
         self.addresses = AddressesClient(self)
         self.adjustments = AdjustmentsClient(self)
         self.api_root = APIRootClient(self)
+        self.api_keys = ApiKeysClient(self)
         self.businesses = BusinessesClient(self)
         self.checkout_domains = CheckoutDomainsClient(self)
         self.client_tokens = ClientTokensClient(self)
