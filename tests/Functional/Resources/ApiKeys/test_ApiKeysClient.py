@@ -16,12 +16,6 @@ from paddle_billing.Resources.Shared.Operations import Pager
 
 from tests.Utils.ReadsFixture import ReadsFixtures
 
-NEW_API_KEY = "pdl_live_apikey_01kjnm4a3w4jqdbtqvb2jwjdf7_somesecret_abc"
-
-
-def read_rotation_created_fixture(name: str) -> str:
-    return ReadsFixtures.read_raw_json_fixture(f"response/{name}").replace("<api_key>", NEW_API_KEY)
-
 
 class TestApiKeysClient:
     @mark.parametrize(
@@ -314,7 +308,7 @@ class TestApiKeysClient:
                     new_key_expires_at=datetime(2026, 11, 2, tzinfo=timezone.utc),
                 ),
                 ReadsFixtures.read_raw_json_fixture("request/create_rotation_full"),
-                read_rotation_created_fixture("rotation_created_entity"),
+                ReadsFixtures.read_raw_json_fixture("response/rotation_created_entity"),
             ),
             (
                 CreateApiKeyRotation(
@@ -322,12 +316,12 @@ class TestApiKeysClient:
                     new_key_expires_at=DateTime("2026-11-02T00:00:00.000000Z"),
                 ),
                 ReadsFixtures.read_raw_json_fixture("request/create_rotation_full"),
-                read_rotation_created_fixture("rotation_created_entity"),
+                ReadsFixtures.read_raw_json_fixture("response/rotation_created_entity"),
             ),
             (
                 CreateApiKeyRotation(grace_period_seconds=0),
                 ReadsFixtures.read_raw_json_fixture("request/create_rotation_minimal"),
-                read_rotation_created_fixture("rotation_created_minimal_entity"),
+                ReadsFixtures.read_raw_json_fixture("response/rotation_created_minimal_entity"),
             ),
         ],
         ids=[
@@ -361,5 +355,5 @@ class TestApiKeysClient:
         assert response_json == loads(expected_response_body)
         assert loads(PayloadEncoder().encode(response)) == loads(expected_response_body)["data"]
         assert response.status == ApiKeyRotationStatus.Pending
-        assert response.new_key == NEW_API_KEY
+        assert response.new_key == "pdl_live_apikey_01kjnm4a3w4jqdbtqvb2jwjdf7_somesecret_abc"
         assert response.expires_at is None
