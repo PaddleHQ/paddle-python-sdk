@@ -16,8 +16,7 @@ from paddle_billing.Resources.Shared.Operations import Pager
 
 from tests.Utils.ReadsFixture import ReadsFixtures
 
-# Built from parts so the source never holds a string that secret scanners read as a live API key.
-NEW_API_KEY = "_".join(["pdl", "live", "apikey", "01kjnm4a3w4jqdbtqvb2jwjdf7", "exampleSecret"])
+NEW_API_KEY = "pdl_live_apikey_01kjnm4a3w4jqdbtqvb2jwjdf7_somesecret_abc"
 
 
 def read_rotation_created_fixture(name: str) -> str:
