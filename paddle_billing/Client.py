@@ -1,4 +1,5 @@
 from json import dumps as json_dumps
+from re import compile as re_compile
 from logging import Logger, getLogger
 from requests import Response, RequestException, Session
 from requests.adapters import HTTPAdapter
@@ -125,13 +126,17 @@ class Client:
 
         return null_logger
 
+    # A rotation's new_key is the full secret, and the API returns it only once.
+    _SECRET_RESPONSE_FIELDS = re_compile(r'("new_key"\s*:\s*)"[^"]*"')
+
     def logging_hook(self, response, *args, **kwargs):
         """
-        Requests logs were redirected here and to our custom logger which filters out sensitive data
+        Requests logs were redirected here and to our custom logger, with secrets redacted from response bodies
         """
 
         self.log.info(f"Request: {response.request.method} {response.request.url}")
-        self.log.debug(f"Response: {response.status_code} {response.text}")
+        body = self._SECRET_RESPONSE_FIELDS.sub(r'\1"[REDACTED]"', response.text)
+        self.log.debug(f"Response: {response.status_code} {body}")
 
     @staticmethod
     def serialize_json_payload(payload: dict[str, Any] | Operation) -> str:
