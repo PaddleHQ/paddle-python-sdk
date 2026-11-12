@@ -355,5 +355,5 @@ class TestApiKeysClient:
         assert response_json == loads(expected_response_body)
         assert loads(PayloadEncoder().encode(response)) == loads(expected_response_body)["data"]
         assert response.status == ApiKeyRotationStatus.Pending
-        assert response.new_key == "pdl_live_apikey_01kjnm4a3w4jqdbtqvb2jwjdf7_somesecret_abc"
+        assert response.new_key == "pdl_live_apikey_01jkdpbhazdpn3wpcya45as9tg_somesecret_abc"
         assert response.expires_at is None
