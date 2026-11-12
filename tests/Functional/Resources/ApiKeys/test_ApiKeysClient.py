@@ -1,6 +1,8 @@
+import logging
+
 from datetime import datetime, timezone
 from json import loads
-from pytest import mark
+from pytest import mark, raises
 from urllib.parse import unquote
 
 from paddle_billing.Entities.ApiKey import ApiKey
@@ -9,6 +11,7 @@ from paddle_billing.Entities.ApiKeyRotationCreated import ApiKeyRotationCreated
 from paddle_billing.Entities.ApiKeys import ApiKeyPermission, ApiKeyRotationStatus, ApiKeyStatus
 from paddle_billing.Entities.DateTime import DateTime
 from paddle_billing.Entities.Collections import ApiKeyCollection, ApiKeyRotationCollection
+from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 from paddle_billing.Json import PayloadEncoder
 
 from paddle_billing.Resources.ApiKeys.Operations import CreateApiKeyRotation, ListApiKeyRotations, ListApiKeys
@@ -200,11 +203,25 @@ class TestApiKeysClient:
                 ReadsFixtures.read_raw_json_fixture("response/list_rotations_page_one"),
                 "/api-keys/apikey_01jkdpbhazdpn3wpcya45as9tg/rotations?after=apkrot_01kjnm4a3w4jqdbtqvb2jwjdf7&order_by=id[asc]&per_page=50",
             ),
+            (
+                ListApiKeyRotations(ids=["apkrot_01kjnm4a3w4jqdbtqvb2jwjdf7"]),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/list_rotations_page_one"),
+                "/api-keys/apikey_01jkdpbhazdpn3wpcya45as9tg/rotations?id=apkrot_01kjnm4a3w4jqdbtqvb2jwjdf7",
+            ),
+            (
+                ListApiKeyRotations(ids=["apkrot_01kjnm4a3w4jqdbtqvb2jwjdf7", "apkrot_01kjnm4a3w4jqdbtqvb2jwjdf8"]),
+                200,
+                ReadsFixtures.read_raw_json_fixture("response/list_rotations_page_one"),
+                "/api-keys/apikey_01jkdpbhazdpn3wpcya45as9tg/rotations?id=apkrot_01kjnm4a3w4jqdbtqvb2jwjdf7,apkrot_01kjnm4a3w4jqdbtqvb2jwjdf8",
+            ),
         ],
         ids=[
             "List API key rotations without pagination",
             "List API key rotations with default pagination",
             "List paginated API key rotations after specified rotation id",
+            "List API key rotations filtered by a single id",
+            "List API key rotations filtered by multiple ids",
         ],
     )
     def test_list_api_key_rotations_returns_expected_response(
@@ -357,3 +374,33 @@ class TestApiKeysClient:
         assert response.status == ApiKeyRotationStatus.Pending
         assert response.new_key == "pdl_live_apikey_01jkdpbhazdpn3wpcya45as9tg_somesecret_abc"
         assert response.expires_at is None
+
+    def test_list_api_key_rotations_rejects_non_string_ids(self):
+        with raises(InvalidArgumentException):
+            ListApiKeyRotations(ids=[123])
+
+    def test_create_api_key_rotation_keeps_new_key_out_of_logs_and_repr(
+        self, test_client, mock_requests, test_logger, test_log_handler
+    ):
+        new_key = "pdl_live_apikey_01jkdpbhazdpn3wpcya45as9tg_somesecret_abc"
+        previous_level = test_logger.level
+        test_logger.setLevel(logging.DEBUG)
+        mock_requests.post(
+            f"{test_client.base_url}/api-keys/apikey_01jkdpbhazdpn3wpcya45as9tg/rotations",
+            status_code=201,
+            text=ReadsFixtures.read_raw_json_fixture("response/rotation_created_entity"),
+        )
+
+        try:
+            response = test_client.client.api_keys.create_rotation(
+                "apikey_01jkdpbhazdpn3wpcya45as9tg", CreateApiKeyRotation(grace_period_seconds=3600)
+            )
+        finally:
+            test_logger.setLevel(previous_level)
+
+        log_text = "\n".join(record.getMessage() for record in test_log_handler.get_logs())
+        assert '"new_key": "[REDACTED]"' in log_text
+        assert new_key not in log_text
+        assert new_key not in repr(response)
+        assert new_key not in str(response)
+        assert response.new_key == new_key

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any
 
@@ -12,7 +12,8 @@ from paddle_billing.Entities.ApiKeys import ApiKeyRotationStatus
 class ApiKeyRotationCreated(Entity):
     id: str
     api_key_id: str
-    new_key: str  # The unredacted new key. It is only returned when the rotation is created.
+    # The unredacted new key, only returned when the rotation is created. Kept out of repr so it isn't printed or logged.
+    new_key: str = field(repr=False)
     grace_period_seconds: int
     new_key_expires_at: datetime | None
     expires_at: datetime | None
