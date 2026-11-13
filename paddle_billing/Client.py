@@ -83,7 +83,7 @@ class Client:
         self.addresses = AddressesClient(self)
         self.adjustments = AdjustmentsClient(self)
         self.api_root = APIRootClient(self)
-        self.api_keys = ApiKeysClient(self, Client._rotatable_api_key_id(api_key))
+        self.api_keys = ApiKeysClient(self, Client._get_api_key_id(api_key))
         self.businesses = BusinessesClient(self)
         self.checkout_domains = CheckoutDomainsClient(self)
         self.client_tokens = ClientTokensClient(self)
@@ -115,7 +115,7 @@ class Client:
         self.metrics = MetricsClient(self)
 
     @staticmethod
-    def _rotatable_api_key_id(api_key: str) -> str | None:
+    def _get_api_key_id(api_key: str) -> str | None:
         """Reads the ID from an API key. Returns None for keys without one, such as legacy API keys, which can't be rotated."""
         match = re_compile(r"^pdl_\w+?_apikey_([a-z\d]{26})_").match(api_key or "")
 
