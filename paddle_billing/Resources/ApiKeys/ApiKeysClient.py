@@ -37,7 +37,7 @@ class ApiKeysClient:
 
         return ApiKey.from_dict(parser.get_dict())
 
-    def list_current_key_rotations(self, operation: ListApiKeyRotations | None = None) -> ApiKeyRotationCollection:
+    def list_rotations_for_current_key(self, operation: ListApiKeyRotations | None = None) -> ApiKeyRotationCollection:
         """
         Lists rotations of the API key this client is authenticated with. A key can only list its own rotations.
 
@@ -55,7 +55,7 @@ class ApiKeysClient:
             parser.get_list(), Paginator(self.client, parser.get_pagination(), ApiKeyRotationCollection)
         )
 
-    def get_current_key_rotation(self, rotation_id: str) -> ApiKeyRotation:
+    def get_rotation_for_current_key(self, rotation_id: str) -> ApiKeyRotation:
         """
         Gets a rotation of the API key this client is authenticated with. A key can only get its own rotations.
 
@@ -66,7 +66,7 @@ class ApiKeysClient:
 
         return ApiKeyRotation.from_dict(parser.get_dict())
 
-    def rotate_current_key(self, operation: CreateApiKeyRotation) -> ApiKeyRotationCreated:
+    def create_rotation_for_current_key(self, operation: CreateApiKeyRotation) -> ApiKeyRotationCreated:
         """
         Rotates the API key this client is authenticated with. A key can only rotate itself.
         To rotate another key, create a client with that key's secret.
