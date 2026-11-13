@@ -1,4 +1,5 @@
 from json import dumps as json_dumps
+from re import compile as re_compile
 from logging import Logger, getLogger
 from requests import Response, RequestException, Session
 from requests.adapters import HTTPAdapter
@@ -19,6 +20,7 @@ from paddle_billing.Resources.Account.AccountClient import AccountClient
 from paddle_billing.Resources.Addresses.AddressesClient import AddressesClient
 from paddle_billing.Resources.Adjustments.AdjustmentsClient import AdjustmentsClient
 from paddle_billing.Resources.APIRoot.APIRootClient import APIRootClient
+from paddle_billing.Resources.ApiKeys.ApiKeysClient import ApiKeysClient
 from paddle_billing.Resources.Businesses.BusinessesClient import BusinessesClient
 from paddle_billing.Resources.CheckoutDomains.CheckoutDomainsClient import CheckoutDomainsClient
 from paddle_billing.Resources.ClientTokens.ClientTokensClient import ClientTokensClient
@@ -81,6 +83,7 @@ class Client:
         self.addresses = AddressesClient(self)
         self.adjustments = AdjustmentsClient(self)
         self.api_root = APIRootClient(self)
+        self.api_keys = ApiKeysClient(self, Client._get_api_key_id(api_key))
         self.businesses = BusinessesClient(self)
         self.checkout_domains = CheckoutDomainsClient(self)
         self.client_tokens = ClientTokensClient(self)
@@ -112,6 +115,13 @@ class Client:
         self.metrics = MetricsClient(self)
 
     @staticmethod
+    def _get_api_key_id(api_key: str) -> str | None:
+        """Reads the ID from an API key. Returns None for keys without one, such as legacy API keys, which can't be rotated."""
+        match = re_compile(r"^pdl_\w+?_apikey_([a-z\d]{26})_").match(api_key or "")
+
+        return f"apikey_{match.group(1)}" if match else None
+
+    @staticmethod
     def null_logger() -> Logger:
         """
         Create a logger instance that logs everything to nowhere
@@ -123,13 +133,17 @@ class Client:
 
         return null_logger
 
+    # A rotation's new_key is the full secret, and the API returns it only once.
+    _SECRET_RESPONSE_FIELDS = re_compile(r'("new_key"\s*:\s*)"[^"]*"')
+
     def logging_hook(self, response, *args, **kwargs):
         """
-        Requests logs were redirected here and to our custom logger which filters out sensitive data
+        Requests logs were redirected here and to our custom logger, with secrets redacted from response bodies
         """
 
         self.log.info(f"Request: {response.request.method} {response.request.url}")
-        self.log.debug(f"Response: {response.status_code} {response.text}")
+        body = self._SECRET_RESPONSE_FIELDS.sub(r'\1"[REDACTED]"', response.text)
+        self.log.debug(f"Response: {response.status_code} {body}")
 
     @staticmethod
     def serialize_json_payload(payload: dict[str, Any] | Operation) -> str:

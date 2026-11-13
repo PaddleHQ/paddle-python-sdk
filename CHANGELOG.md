@@ -6,6 +6,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-python-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## Unreleased
+
+### Added
+
+- Added support for API keys and API key rotations
+  - `Client.api_keys.list`
+  - `Client.api_keys.get`
+  - `Client.api_keys.create_rotation_for_current_key`
+  - `Client.api_keys.list_rotations_for_current_key`
+  - `Client.api_keys.get_rotation_for_current_key`
+- The rotation methods act on the API key the client is authenticated with, as a key can only manage its own rotations. To rotate another key, create a client with that key's secret
+- `Client.api_keys.create_rotation_for_current_key` returns an `ApiKeyRotationCreated`, whose `new_key` is the full new key. It is only returned when the rotation is created. `get_rotation_for_current_key` and `list_rotations_for_current_key` return an `ApiKeyRotation` with a redacted `new_key`
+- Added the `ListApiKeys`, `ListApiKeyRotations` and `CreateApiKeyRotation` operations
+- `ListApiKeyRotations` can filter by rotation `ids`
+- `ApiKeyRotationCreated.new_key` is left out of `repr()`, and the client's debug log redacts `new_key` in response bodies
+- Added `ApiKeyRotationStatus` enum (`pending`, `completed`, `canceled` and `expired`), imported from `paddle_billing.Entities.ApiKeys` or `paddle_billing.Notifications.Entities.ApiKeys`
+- Added `api_key.read` to `ApiKeyPermission`
+- Added the `api_key_rotation.created` and `api_key_rotation.updated` events, with `ApiKeyRotationCreated` and `ApiKeyRotationUpdated` notification events and an `ApiKeyRotation` notification entity (it has no `new_key`)
+  - Added `ApiKeyRotationCreated` and `ApiKeyRotationUpdated` to `EventTypeName`
+  - Added the `ApiKeyRotation` simulation entity so these events can be simulated
+
 ## 1.18.0 - 2026-11-05
 
 ### Added

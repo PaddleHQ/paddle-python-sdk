@@ -1,5 +1,7 @@
 from paddle_billing.Entities.Collections.AddressCollection import AddressCollection
 from paddle_billing.Entities.Collections.AdjustmentCollection import AdjustmentCollection
+from paddle_billing.Entities.Collections.ApiKeyCollection import ApiKeyCollection
+from paddle_billing.Entities.Collections.ApiKeyRotationCollection import ApiKeyRotationCollection
 from paddle_billing.Entities.Collections.BusinessCollection import BusinessCollection
 from paddle_billing.Entities.Collections.CheckoutDomainCollection import CheckoutDomainCollection
 from paddle_billing.Entities.Collections.ClientTokenCollection import ClientTokenCollection
