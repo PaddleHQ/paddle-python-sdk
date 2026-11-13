@@ -13,10 +13,11 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 - Added support for API keys and API key rotations
   - `Client.api_keys.list`
   - `Client.api_keys.get`
-  - `Client.api_keys.list_rotations`
-  - `Client.api_keys.get_rotation`
-  - `Client.api_keys.create_rotation`
-- `Client.api_keys.create_rotation` returns an `ApiKeyRotationCreated`, whose `new_key` is the full new key. It is only returned when the rotation is created. `get_rotation` and `list_rotations` return an `ApiKeyRotation` with a redacted `new_key`
+  - `Client.api_keys.rotate_current_key`
+  - `Client.api_keys.list_current_key_rotations`
+  - `Client.api_keys.get_current_key_rotation`
+- The rotation methods act on the API key the client is authenticated with, as a key can only manage its own rotations. To rotate another key, create a client with that key's secret
+- `Client.api_keys.rotate_current_key` returns an `ApiKeyRotationCreated`, whose `new_key` is the full new key. It is only returned when the rotation is created. `get_current_key_rotation` and `list_current_key_rotations` return an `ApiKeyRotation` with a redacted `new_key`
 - Added the `ListApiKeys`, `ListApiKeyRotations` and `CreateApiKeyRotation` operations
 - `ListApiKeyRotations` can filter by rotation `ids`
 - `ApiKeyRotationCreated.new_key` is left out of `repr()`, and the client's debug log redacts `new_key` in response bodies
