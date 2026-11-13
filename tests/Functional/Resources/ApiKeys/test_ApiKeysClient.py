@@ -2,7 +2,7 @@ import logging
 
 from datetime import datetime, timezone
 from json import loads
-from pytest import mark, raises
+from pytest import fixture, mark, raises
 from urllib.parse import unquote
 
 from paddle_billing.Entities.ApiKey import ApiKey
@@ -12,12 +12,22 @@ from paddle_billing.Entities.ApiKeys import ApiKeyPermission, ApiKeyRotationStat
 from paddle_billing.Entities.DateTime import DateTime
 from paddle_billing.Entities.Collections import ApiKeyCollection, ApiKeyRotationCollection
 from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
+from paddle_billing import Environment
 from paddle_billing.Json import PayloadEncoder
 
 from paddle_billing.Resources.ApiKeys.Operations import CreateApiKeyRotation, ListApiKeyRotations, ListApiKeys
 from paddle_billing.Resources.Shared.Operations import Pager
 
 from tests.Utils.ReadsFixture import ReadsFixtures
+from tests.Utils.TestClient import TestClient
+
+CLIENT_API_KEY = "pdl_sdbx_apikey_01jkdpbhazdpn3wpcya45as9tg_clientsecret_abc"
+
+
+@fixture
+def test_client(test_logger):
+    # Rotation methods read the key ID from the client's API key
+    return TestClient(api_secret_key=CLIENT_API_KEY, environment=Environment.SANDBOX, logger=test_logger)
 
 
 class TestApiKeysClient:
@@ -236,7 +246,7 @@ class TestApiKeysClient:
         expected_url = f"{test_client.base_url}{expected_url}"
         mock_requests.get(expected_url, status_code=expected_response_status, text=expected_response_body)
 
-        response = test_client.client.api_keys.list_rotations("apikey_01jkdpbhazdpn3wpcya45as9tg", operation)
+        response = test_client.client.api_keys.list_current_key_rotations(operation)
         last_request = mock_requests.last_request
 
         assert isinstance(response, ApiKeyRotationCollection)
@@ -257,7 +267,7 @@ class TestApiKeysClient:
             text=ReadsFixtures.read_raw_json_fixture("response/list_rotations_page_one"),
         )
 
-        response = test_client.client.api_keys.list_rotations("apikey_01jkdpbhazdpn3wpcya45as9tg")
+        response = test_client.client.api_keys.list_current_key_rotations()
         completed, pending = response.items
 
         assert completed.status == ApiKeyRotationStatus.Completed
@@ -285,7 +295,7 @@ class TestApiKeysClient:
             text=ReadsFixtures.read_raw_json_fixture("response/list_rotations_page_two"),
         )
 
-        response = test_client.client.api_keys.list_rotations("apikey_01jkdpbhazdpn3wpcya45as9tg")
+        response = test_client.client.api_keys.list_current_key_rotations()
 
         assert isinstance(response, ApiKeyRotationCollection)
         rotations = [rotation for rotation in response]
@@ -300,9 +310,7 @@ class TestApiKeysClient:
         )
         mock_requests.get(expected_url, status_code=200, text=expected_response_body)
 
-        response = test_client.client.api_keys.get_rotation(
-            "apikey_01jkdpbhazdpn3wpcya45as9tg", "apkrot_01kjnm4a3w4jqdbtqvb2jwjdf7"
-        )
+        response = test_client.client.api_keys.get_current_key_rotation("apkrot_01kjnm4a3w4jqdbtqvb2jwjdf7")
         response_json = test_client.client.api_keys.response.json()
         last_request = mock_requests.last_request
 
@@ -358,7 +366,7 @@ class TestApiKeysClient:
         expected_url = f"{test_client.base_url}/api-keys/apikey_01jkdpbhazdpn3wpcya45as9tg/rotations"
         mock_requests.post(expected_url, status_code=201, text=expected_response_body)
 
-        response = test_client.client.api_keys.create_rotation("apikey_01jkdpbhazdpn3wpcya45as9tg", operation)
+        response = test_client.client.api_keys.rotate_current_key(operation)
         response_json = test_client.client.api_keys.response.json()
         request_json = test_client.client.payload
         last_request = mock_requests.last_request
@@ -392,9 +400,7 @@ class TestApiKeysClient:
         )
 
         try:
-            response = test_client.client.api_keys.create_rotation(
-                "apikey_01jkdpbhazdpn3wpcya45as9tg", CreateApiKeyRotation(grace_period_seconds=3600)
-            )
+            response = test_client.client.api_keys.rotate_current_key(CreateApiKeyRotation(grace_period_seconds=3600))
         finally:
             test_logger.setLevel(previous_level)
 
@@ -404,3 +410,33 @@ class TestApiKeysClient:
         assert new_key not in repr(response)
         assert new_key not in str(response)
         assert response.new_key == new_key
+
+    def test_current_key_rotations_authenticate_with_the_client_api_key(self, test_client, mock_requests):
+        mock_requests.post(
+            f"{test_client.base_url}/api-keys/apikey_01jkdpbhazdpn3wpcya45as9tg/rotations",
+            status_code=201,
+            text=ReadsFixtures.read_raw_json_fixture("response/rotation_created_entity"),
+        )
+
+        test_client.client.api_keys.rotate_current_key(CreateApiKeyRotation(grace_period_seconds=3600))
+
+        assert mock_requests.last_request.headers["Authorization"] == f"Bearer {CLIENT_API_KEY}"
+
+    @mark.parametrize(
+        "call",
+        [
+            lambda api_keys: api_keys.rotate_current_key(CreateApiKeyRotation(grace_period_seconds=3600)),
+            lambda api_keys: api_keys.list_current_key_rotations(),
+            lambda api_keys: api_keys.get_current_key_rotation("apkrot_01kjnm4a3w4jqdbtqvb2jwjdf7"),
+        ],
+        ids=["Rotate", "List", "Get"],
+    )
+    def test_current_key_rotations_fail_when_the_client_api_key_cannot_be_rotated(
+        self, test_logger, mock_requests, call
+    ):
+        client = TestClient(api_secret_key="API_KEY_PLACEHOLDER", logger=test_logger).client
+
+        with raises(InvalidArgumentException):
+            call(client.api_keys)
+
+        assert mock_requests.call_count == 0
