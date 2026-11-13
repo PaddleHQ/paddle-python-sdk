@@ -47,7 +47,7 @@ class ApiKeysClient:
             operation = ListApiKeyRotations()
 
         self.response = self.client.get_raw(
-            f"/api-keys/{self._require_current_api_key_id()}/rotations", operation.get_parameters()
+            f"/api-keys/{self._get_current_api_key_id()}/rotations", operation.get_parameters()
         )
         parser = ResponseParser(self.response)
 
@@ -61,7 +61,7 @@ class ApiKeysClient:
 
         Raises InvalidArgumentException if the client's API key can't be rotated, such as a legacy API key.
         """
-        self.response = self.client.get_raw(f"/api-keys/{self._require_current_api_key_id()}/rotations/{rotation_id}")
+        self.response = self.client.get_raw(f"/api-keys/{self._get_current_api_key_id()}/rotations/{rotation_id}")
         parser = ResponseParser(self.response)
 
         return ApiKeyRotation.from_dict(parser.get_dict())
@@ -73,12 +73,12 @@ class ApiKeysClient:
 
         Raises InvalidArgumentException if the client's API key can't be rotated, such as a legacy API key.
         """
-        self.response = self.client.post_raw(f"/api-keys/{self._require_current_api_key_id()}/rotations", operation)
+        self.response = self.client.post_raw(f"/api-keys/{self._get_current_api_key_id()}/rotations", operation)
         parser = ResponseParser(self.response)
 
         return ApiKeyRotationCreated.from_dict(parser.get_dict())
 
-    def _require_current_api_key_id(self) -> str:
+    def _get_current_api_key_id(self) -> str:
         if self._current_api_key_id is None:
             raise InvalidArgumentException("the client's API key can't be rotated, as it isn't a rotatable API key")
 

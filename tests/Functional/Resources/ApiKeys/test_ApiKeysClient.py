@@ -13,6 +13,7 @@ from paddle_billing.Entities.DateTime import DateTime
 from paddle_billing.Entities.Collections import ApiKeyCollection, ApiKeyRotationCollection
 from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 from paddle_billing import Environment
+from paddle_billing.Exceptions.ApiError import ApiError
 from paddle_billing.Json import PayloadEncoder
 
 from paddle_billing.Resources.ApiKeys.Operations import CreateApiKeyRotation, ListApiKeyRotations, ListApiKeys
@@ -441,4 +442,93 @@ class TestApiKeysClient:
         with raises(InvalidArgumentException):
             call(client.api_keys)
 
+        assert mock_requests.call_count == 0
+
+    @mark.parametrize(
+        "call, method, url, status_code, response_fixture",
+        [
+            (
+                lambda api_keys: api_keys.create_rotation_for_current_key(
+                    CreateApiKeyRotation(grace_period_seconds=3600)
+                ),
+                "POST",
+                "/api-keys/apikey_01jkdpbhazdpn3wpcya45as9tg/rotations",
+                201,
+                "response/rotation_created_entity",
+            ),
+            (
+                lambda api_keys: api_keys.list_rotations_for_current_key(),
+                "GET",
+                "/api-keys/apikey_01jkdpbhazdpn3wpcya45as9tg/rotations",
+                200,
+                "response/list_rotations_page_one",
+            ),
+            (
+                lambda api_keys: api_keys.get_rotation_for_current_key("apkrot_01kjnm4a3w4jqdbtqvb2jwjdf7"),
+                "GET",
+                "/api-keys/apikey_01jkdpbhazdpn3wpcya45as9tg/rotations/apkrot_01kjnm4a3w4jqdbtqvb2jwjdf7",
+                200,
+                "response/rotation_entity",
+            ),
+        ],
+        ids=["Rotate", "List", "Get"],
+    )
+    def test_current_key_rotations_keep_the_client_secret_out_of_urls_and_logs(
+        self,
+        test_client,
+        mock_requests,
+        test_logger,
+        test_log_handler,
+        call,
+        method,
+        url,
+        status_code,
+        response_fixture,
+    ):
+        previous_level = test_logger.level
+        test_logger.setLevel(logging.DEBUG)
+        mock_requests.register_uri(
+            method,
+            f"{test_client.base_url}{url}",
+            status_code=status_code,
+            text=ReadsFixtures.read_raw_json_fixture(response_fixture),
+        )
+
+        try:
+            call(test_client.client.api_keys)
+        finally:
+            test_logger.setLevel(previous_level)
+
+        log_text = "\n".join(record.getMessage() for record in test_log_handler.get_logs())
+        assert unquote(mock_requests.last_request.url) == f"{test_client.base_url}{url}"
+        assert "clientsecret" not in mock_requests.last_request.url
+        assert log_text
+        assert "clientsecret" not in log_text
+
+    def test_current_key_rotations_keep_the_client_secret_out_of_failed_request_logs(
+        self, test_client, mock_requests, test_log_handler
+    ):
+        mock_requests.get(
+            f"{test_client.base_url}/api-keys/apikey_01jkdpbhazdpn3wpcya45as9tg/rotations",
+            status_code=403,
+            text='{"error":{"type":"request_error","code":"forbidden","detail":"Forbidden","documentation_url":"https://developer.paddle.com/v1/errors/shared/forbidden"}}',
+        )
+
+        with raises(ApiError) as error:
+            test_client.client.api_keys.list_rotations_for_current_key()
+
+        log_text = "\n".join(record.getMessage() for record in test_log_handler.get_logs())
+        assert "Request failed" in log_text
+        assert "clientsecret" not in log_text
+        assert "clientsecret" not in repr(error.value)
+
+    def test_current_key_rotations_keep_the_client_secret_out_of_the_error_message(self, test_logger, mock_requests):
+        client = TestClient(
+            api_secret_key="pdl_sdbx_apikey_notarotatablekey_clientsecret_abc", logger=test_logger
+        ).client
+
+        with raises(InvalidArgumentException) as error:
+            client.api_keys.create_rotation_for_current_key(CreateApiKeyRotation(grace_period_seconds=3600))
+
+        assert "clientsecret" not in str(error.value)
         assert mock_requests.call_count == 0
