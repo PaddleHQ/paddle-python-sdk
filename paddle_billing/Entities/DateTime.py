@@ -10,7 +10,11 @@ class DateTime:
         if datetime_str == "now":
             self._datetime = datetime.now(timezone.utc)
         else:
-            self._datetime = datetime.fromisoformat(datetime_str).replace(tzinfo=timezone.utc)
+            parsed = datetime.fromisoformat(datetime_str)
+            # Naive values are assumed to be UTC; aware values are converted so the offset is not discarded
+            self._datetime = (
+                parsed.replace(tzinfo=timezone.utc) if parsed.tzinfo is None else parsed.astimezone(timezone.utc)
+            )
 
     @property
     def as_datetime(self):
@@ -28,7 +32,12 @@ class DateTime:
         if isinstance(date, str) and date == "0001-01-01T00:00:00Z":
             return None
 
-        date_str = date if isinstance(date, str) else date.strftime(cls.PADDLE_RFC3339)
+        if isinstance(date, str):
+            date_str = date
+        else:
+            if date.tzinfo is not None:
+                date = date.astimezone(timezone.utc)
+            date_str = date.strftime(cls.PADDLE_RFC3339)
         try:
             return cls(date_str)
         except Exception:
