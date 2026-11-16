@@ -10,7 +10,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 
 ### Added
 
-- Added support for API keys and API key rotations
+- Added support for API keys and API key rotations. See [related changelog](https://developer.paddle.com/changelog/2026/api-keys-read-and-rotate-api?utm_source=dx&utm_medium=paddle-python-sdk)
   - `Client.api_keys.list`
   - `Client.api_keys.get`
   - `Client.api_keys.create_rotation_for_current_key`
