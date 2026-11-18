@@ -114,10 +114,12 @@ class Client:
         self.ip_addresses = IPAddressesClient(self)
         self.metrics = MetricsClient(self)
 
+    _API_KEY_ID = re_compile(r"^pdl_\w+?_apikey_([a-z\d]{26})_")
+
     @staticmethod
     def _get_api_key_id(api_key: str) -> str | None:
         """Reads the ID from an API key. Returns None for keys without one, such as legacy API keys, which can't be rotated."""
-        match = re_compile(r"^pdl_\w+?_apikey_([a-z\d]{26})_").match(api_key or "")
+        match = Client._API_KEY_ID.match(api_key or "")
 
         return f"apikey_{match.group(1)}" if match else None
 
