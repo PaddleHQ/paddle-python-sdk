@@ -69,14 +69,14 @@ class Client:
     ):
         self.__api_key = api_key
         self.retry_count = retry_count
-        self.transaction_id = None
+        self.transaction_id: str | None = None
         self.use_api_version = use_api_version
         self.options = options if options else Options()
         self.log = logger if logger else Client.null_logger()
         self.client = http_client if http_client else self.build_request_session()
         self.timeout = timeout
-        self.payload = None  # Used by pytest
-        self.status_code = None  # Used by pytest
+        self.payload: str | None = None  # Used by pytest
+        self.status_code: int | None = None  # Used by pytest
 
         # Initialize the various clients
         self.account = AccountClient(self)
@@ -138,7 +138,7 @@ class Client:
     # A rotation's new_key is the full secret, and the API returns it only once.
     _SECRET_RESPONSE_FIELDS = re_compile(r'("new_key"\s*:\s*)"[^"]*"')
 
-    def logging_hook(self, response, *args, **kwargs):
+    def logging_hook(self, response: Response, *args: Any, **kwargs: Any) -> None:
         """
         Requests logs were redirected here and to our custom logger, with secrets redacted from response bodies
         """
@@ -250,6 +250,7 @@ class Client:
 
         # Handle logging
         if self.log:
-            session.hooks["response"] = self.logging_hook
+            # requests accepts a bare callable here; its stubs only allow a list
+            session.hooks["response"] = self.logging_hook  # type: ignore[assignment]
 
         return session

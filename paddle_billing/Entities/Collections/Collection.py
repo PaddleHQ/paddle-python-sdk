@@ -41,5 +41,5 @@ class Collection(ABC, Generic[T], Iterator[T]):
     def current(self) -> T:
         return self.items[self._pointer]
 
-    def key(self) -> str:
+    def key(self) -> str | int:
         return getattr(self.items[self._pointer], "id", self._pointer)

@@ -38,6 +38,6 @@ class NotificationsClient:
     def replay(self, notification_id: str) -> str:
         self.response = self.client.post_raw(f"/notifications/{notification_id}/replay")
         parser = ResponseParser(self.response)
-        data = parser.get_data()
+        data = parser.get_dict()
 
         return data.get("notification_id", "")
