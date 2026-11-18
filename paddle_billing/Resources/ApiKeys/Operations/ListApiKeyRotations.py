@@ -1,3 +1,4 @@
+from paddle_billing.FiltersNone import FiltersNone
 from paddle_billing.HasParameters import HasParameters
 
 from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
@@ -21,9 +22,10 @@ class ListApiKeyRotations(HasParameters):
     def get_parameters(self) -> dict[str, str]:
         parameters = {}
         if self.pager:
-            parameters.update(self.pager.get_parameters())
             # The list rotations endpoint doesn't accept order_by.
-            parameters.pop("order_by", None)
+            parameters.update(
+                FiltersNone.filter_none_values({"after": self.pager.after, "per_page": self.pager.per_page})
+            )
         if self.ids:
             parameters["id"] = ",".join(self.ids)
 
