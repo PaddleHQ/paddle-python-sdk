@@ -1,12 +1,11 @@
-# mypy: disable-error-code="assignment"
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class TransactionStatus(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    Draft: "TransactionStatus" = "draft"
-    Ready: "TransactionStatus" = "ready"
-    Billed: "TransactionStatus" = "billed"
-    Paid: "TransactionStatus" = "paid"
-    Completed: "TransactionStatus" = "completed"
-    Canceled: "TransactionStatus" = "canceled"
-    PastDue: "TransactionStatus" = "past_due"
+    Draft: "TransactionStatus" = member("draft")
+    Ready: "TransactionStatus" = member("ready")
+    Billed: "TransactionStatus" = member("billed")
+    Paid: "TransactionStatus" = member("paid")
+    Completed: "TransactionStatus" = member("completed")
+    Canceled: "TransactionStatus" = member("canceled")
+    PastDue: "TransactionStatus" = member("past_due")

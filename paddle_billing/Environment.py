@@ -1,10 +1,9 @@
-# mypy: disable-error-code="assignment"
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class Environment(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    PRODUCTION: "Environment" = "production"
-    SANDBOX: "Environment" = "sandbox"
+    PRODUCTION: "Environment" = member("production")
+    SANDBOX: "Environment" = member("sandbox")
 
     @property
     def base_url(self) -> str:

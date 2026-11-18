@@ -1,18 +1,17 @@
-# mypy: disable-error-code="assignment"
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class CurrencyCodePayouts(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    AUD: "CurrencyCodePayouts" = "AUD"
-    CAD: "CurrencyCodePayouts" = "CAD"
-    CHF: "CurrencyCodePayouts" = "CHF"
-    CNY: "CurrencyCodePayouts" = "CNY"
-    CZK: "CurrencyCodePayouts" = "CZK"
-    DKK: "CurrencyCodePayouts" = "DKK"
-    EUR: "CurrencyCodePayouts" = "EUR"
-    GBP: "CurrencyCodePayouts" = "GBP"
-    HUF: "CurrencyCodePayouts" = "HUF"
-    PLN: "CurrencyCodePayouts" = "PLN"
-    SEK: "CurrencyCodePayouts" = "SEK"
-    USD: "CurrencyCodePayouts" = "USD"
-    ZAR: "CurrencyCodePayouts" = "ZAR"
+    AUD: "CurrencyCodePayouts" = member("AUD")
+    CAD: "CurrencyCodePayouts" = member("CAD")
+    CHF: "CurrencyCodePayouts" = member("CHF")
+    CNY: "CurrencyCodePayouts" = member("CNY")
+    CZK: "CurrencyCodePayouts" = member("CZK")
+    DKK: "CurrencyCodePayouts" = member("DKK")
+    EUR: "CurrencyCodePayouts" = member("EUR")
+    GBP: "CurrencyCodePayouts" = member("GBP")
+    HUF: "CurrencyCodePayouts" = member("HUF")
+    PLN: "CurrencyCodePayouts" = member("PLN")
+    SEK: "CurrencyCodePayouts" = member("SEK")
+    USD: "CurrencyCodePayouts" = member("USD")
+    ZAR: "CurrencyCodePayouts" = member("ZAR")

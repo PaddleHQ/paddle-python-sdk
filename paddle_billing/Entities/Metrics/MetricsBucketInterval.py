@@ -1,8 +1,7 @@
-# mypy: disable-error-code="assignment"
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class MetricsBucketInterval(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    Day: "MetricsBucketInterval" = "day"
-    Week: "MetricsBucketInterval" = "week"
-    Month: "MetricsBucketInterval" = "month"
+    Day: "MetricsBucketInterval" = member("day")
+    Week: "MetricsBucketInterval" = member("week")
+    Month: "MetricsBucketInterval" = member("month")

@@ -1,11 +1,10 @@
-# mypy: disable-error-code="assignment"
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class VerificationStepKey(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    AccountSetup: "VerificationStepKey" = "account_setup"
-    DomainReview: "VerificationStepKey" = "domain_review"
-    BusinessIdentification: "VerificationStepKey" = "business_identification"
-    IdentityVerification: "VerificationStepKey" = "identity_verification"
-    FinalReview: "VerificationStepKey" = "final_review"
-    AutomatedReview: "VerificationStepKey" = "automated_review"
+    AccountSetup: "VerificationStepKey" = member("account_setup")
+    DomainReview: "VerificationStepKey" = member("domain_review")
+    BusinessIdentification: "VerificationStepKey" = member("business_identification")
+    IdentityVerification: "VerificationStepKey" = member("identity_verification")
+    FinalReview: "VerificationStepKey" = member("final_review")
+    AutomatedReview: "VerificationStepKey" = member("automated_review")

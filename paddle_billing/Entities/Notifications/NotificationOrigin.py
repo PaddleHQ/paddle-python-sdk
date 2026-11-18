@@ -1,7 +1,6 @@
-# mypy: disable-error-code="assignment"
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class NotificationOrigin(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    Event: "NotificationOrigin" = "event"
-    Replay: "NotificationOrigin" = "replay"
+    Event: "NotificationOrigin" = member("event")
+    Replay: "NotificationOrigin" = member("replay")

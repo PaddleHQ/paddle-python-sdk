@@ -1,10 +1,9 @@
-# mypy: disable-error-code="assignment"
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class BalanceCurrencyCode(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    AUD: "BalanceCurrencyCode" = "AUD"
-    CAD: "BalanceCurrencyCode" = "CAD"
-    EUR: "BalanceCurrencyCode" = "EUR"
-    GBP: "BalanceCurrencyCode" = "GBP"
-    USD: "BalanceCurrencyCode" = "USD"
+    AUD: "BalanceCurrencyCode" = member("AUD")
+    CAD: "BalanceCurrencyCode" = member("CAD")
+    EUR: "BalanceCurrencyCode" = member("EUR")
+    GBP: "BalanceCurrencyCode" = member("GBP")
+    USD: "BalanceCurrencyCode" = member("USD")

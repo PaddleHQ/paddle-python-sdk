@@ -1,7 +1,6 @@
-# mypy: disable-error-code="assignment"
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class ClientTokenStatus(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    Active: "ClientTokenStatus" = "active"
-    Revoked: "ClientTokenStatus" = "revoked"
+    Active: "ClientTokenStatus" = member("active")
+    Revoked: "ClientTokenStatus" = member("revoked")

@@ -1,27 +1,26 @@
-# mypy: disable-error-code="assignment"
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class ReportFilterName(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    Action: "ReportFilterName" = "action"
-    BalanceMovementDate: "ReportFilterName" = "balance_movement_date"
-    BalanceMovementType: "ReportFilterName" = "balance_movement_type"
-    CheckoutCreatedAt: "ReportFilterName" = "checkout_created_at"
-    CollectionMode: "ReportFilterName" = "collection_mode"
-    CurrencyCode: "ReportFilterName" = "currency_code"
-    CustomerCountryCode: "ReportFilterName" = "customer_country_code"
-    Origin: "ReportFilterName" = "origin"
-    PriceStatus: "ReportFilterName" = "price_status"
-    PriceType: "ReportFilterName" = "price_type"
-    PriceUpdatedAt: "ReportFilterName" = "price_updated_at"
-    ProductStatus: "ReportFilterName" = "product_status"
-    ProductType: "ReportFilterName" = "product_type"
-    ProductUpdatedAt: "ReportFilterName" = "product_updated_at"
-    RemittanceReference: "ReportFilterName" = "remittance_reference"
-    Status: "ReportFilterName" = "status"
-    SubscriptionCreatedAt: "ReportFilterName" = "subscription_created_at"
-    SubscriptionScheduledChangeAction: "ReportFilterName" = "subscription_scheduled_change_action"
-    SubscriptionStatus: "ReportFilterName" = "subscription_status"
-    TransactionUpdatedAt: "ReportFilterName" = "transaction_updated_at"
-    Type: "ReportFilterName" = "type"
-    UpdatedAt: "ReportFilterName" = "updated_at"
+    Action: "ReportFilterName" = member("action")
+    BalanceMovementDate: "ReportFilterName" = member("balance_movement_date")
+    BalanceMovementType: "ReportFilterName" = member("balance_movement_type")
+    CheckoutCreatedAt: "ReportFilterName" = member("checkout_created_at")
+    CollectionMode: "ReportFilterName" = member("collection_mode")
+    CurrencyCode: "ReportFilterName" = member("currency_code")
+    CustomerCountryCode: "ReportFilterName" = member("customer_country_code")
+    Origin: "ReportFilterName" = member("origin")
+    PriceStatus: "ReportFilterName" = member("price_status")
+    PriceType: "ReportFilterName" = member("price_type")
+    PriceUpdatedAt: "ReportFilterName" = member("price_updated_at")
+    ProductStatus: "ReportFilterName" = member("product_status")
+    ProductType: "ReportFilterName" = member("product_type")
+    ProductUpdatedAt: "ReportFilterName" = member("product_updated_at")
+    RemittanceReference: "ReportFilterName" = member("remittance_reference")
+    Status: "ReportFilterName" = member("status")
+    SubscriptionCreatedAt: "ReportFilterName" = member("subscription_created_at")
+    SubscriptionScheduledChangeAction: "ReportFilterName" = member("subscription_scheduled_change_action")
+    SubscriptionStatus: "ReportFilterName" = member("subscription_status")
+    TransactionUpdatedAt: "ReportFilterName" = member("transaction_updated_at")
+    Type: "ReportFilterName" = member("type")
+    UpdatedAt: "ReportFilterName" = member("updated_at")

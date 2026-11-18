@@ -1,26 +1,25 @@
-# mypy: disable-error-code="assignment"
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class ErrorCode(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    AlreadyCanceled: "ErrorCode" = "already_canceled"
-    AlreadyRefunded: "ErrorCode" = "already_refunded"
-    AuthenticationFailed: "ErrorCode" = "authentication_failed"
-    BlockedByPolicy: "ErrorCode" = "blocked_by_policy"
-    BlockedCard: "ErrorCode" = "blocked_card"
-    Canceled: "ErrorCode" = "canceled"
-    Declined: "ErrorCode" = "declined"
-    DeclinedNotRetryable: "ErrorCode" = "declined_not_retryable"
-    ExpiredCard: "ErrorCode" = "expired_card"
-    Fraud: "ErrorCode" = "fraud"
-    InvalidAmount: "ErrorCode" = "invalid_amount"
-    InvalidPaymentDetails: "ErrorCode" = "invalid_payment_details"
-    IssuerUnavailable: "ErrorCode" = "issuer_unavailable"
-    NotEnoughBalance: "ErrorCode" = "not_enough_balance"
-    PreferredNetworkNotSupported: "ErrorCode" = "preferred_network_not_supported"
-    PrepaidCardNotSupported: "ErrorCode" = "prepaid_card_not_supported"
-    PspError: "ErrorCode" = "psp_error"
-    RedactedPaymentMethod: "ErrorCode" = "redacted_payment_method"
-    SystemError: "ErrorCode" = "system_error"
-    TransactionNotPermitted: "ErrorCode" = "transaction_not_permitted"
-    Unknown: "ErrorCode" = "unknown"
+    AlreadyCanceled: "ErrorCode" = member("already_canceled")
+    AlreadyRefunded: "ErrorCode" = member("already_refunded")
+    AuthenticationFailed: "ErrorCode" = member("authentication_failed")
+    BlockedByPolicy: "ErrorCode" = member("blocked_by_policy")
+    BlockedCard: "ErrorCode" = member("blocked_card")
+    Canceled: "ErrorCode" = member("canceled")
+    Declined: "ErrorCode" = member("declined")
+    DeclinedNotRetryable: "ErrorCode" = member("declined_not_retryable")
+    ExpiredCard: "ErrorCode" = member("expired_card")
+    Fraud: "ErrorCode" = member("fraud")
+    InvalidAmount: "ErrorCode" = member("invalid_amount")
+    InvalidPaymentDetails: "ErrorCode" = member("invalid_payment_details")
+    IssuerUnavailable: "ErrorCode" = member("issuer_unavailable")
+    NotEnoughBalance: "ErrorCode" = member("not_enough_balance")
+    PreferredNetworkNotSupported: "ErrorCode" = member("preferred_network_not_supported")
+    PrepaidCardNotSupported: "ErrorCode" = member("prepaid_card_not_supported")
+    PspError: "ErrorCode" = member("psp_error")
+    RedactedPaymentMethod: "ErrorCode" = member("redacted_payment_method")
+    SystemError: "ErrorCode" = member("system_error")
+    TransactionNotPermitted: "ErrorCode" = member("transaction_not_permitted")
+    Unknown: "ErrorCode" = member("unknown")

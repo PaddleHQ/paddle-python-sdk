@@ -1,15 +1,14 @@
-# mypy: disable-error-code="assignment"
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class ReportType(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    Adjustments: "ReportType" = "adjustments"
-    AdjustmentLineItems: "ReportType" = "adjustment_line_items"
-    Discounts: "ReportType" = "discounts"
-    ProductsPrices: "ReportType" = "products_prices"
-    Transactions: "ReportType" = "transactions"
-    TransactionLineItems: "ReportType" = "transaction_line_items"
-    Balance: "ReportType" = "balance"
-    PayoutReconciliation: "ReportType" = "payout_reconciliation"
-    Checkouts: "ReportType" = "checkouts"
-    Subscriptions: "ReportType" = "subscriptions"
+    Adjustments: "ReportType" = member("adjustments")
+    AdjustmentLineItems: "ReportType" = member("adjustment_line_items")
+    Discounts: "ReportType" = member("discounts")
+    ProductsPrices: "ReportType" = member("products_prices")
+    Transactions: "ReportType" = member("transactions")
+    TransactionLineItems: "ReportType" = member("transaction_line_items")
+    Balance: "ReportType" = member("balance")
+    PayoutReconciliation: "ReportType" = member("payout_reconciliation")
+    Checkouts: "ReportType" = member("checkouts")
+    Subscriptions: "ReportType" = member("subscriptions")

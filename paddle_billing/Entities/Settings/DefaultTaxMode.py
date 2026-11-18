@@ -1,8 +1,7 @@
-# mypy: disable-error-code="assignment"
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class DefaultTaxMode(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    Exclusive: "DefaultTaxMode" = "exclusive"
-    Inclusive: "DefaultTaxMode" = "inclusive"
-    Location: "DefaultTaxMode" = "location"
+    Exclusive: "DefaultTaxMode" = member("exclusive")
+    Inclusive: "DefaultTaxMode" = member("inclusive")
+    Location: "DefaultTaxMode" = member("location")

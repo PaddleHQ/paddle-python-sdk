@@ -1,9 +1,8 @@
-# mypy: disable-error-code="assignment"
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class SimulationRunEventStatus(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    Aborted: "SimulationRunEventStatus" = "aborted"
-    Failed: "SimulationRunEventStatus" = "failed"
-    Success: "SimulationRunEventStatus" = "success"
-    Pending: "SimulationRunEventStatus" = "pending"
+    Aborted: "SimulationRunEventStatus" = member("aborted")
+    Failed: "SimulationRunEventStatus" = member("failed")
+    Success: "SimulationRunEventStatus" = member("success")
+    Pending: "SimulationRunEventStatus" = member("pending")

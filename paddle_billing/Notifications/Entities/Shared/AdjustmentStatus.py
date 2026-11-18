@@ -1,9 +1,8 @@
-# mypy: disable-error-code="assignment"
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class AdjustmentStatus(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    PendingApproval: "AdjustmentStatus" = "pending_approval"
-    Approved: "AdjustmentStatus" = "approved"
-    Rejected: "AdjustmentStatus" = "rejected"
-    Reversed: "AdjustmentStatus" = "reversed"
+    PendingApproval: "AdjustmentStatus" = member("pending_approval")
+    Approved: "AdjustmentStatus" = member("approved")
+    Rejected: "AdjustmentStatus" = member("rejected")
+    Reversed: "AdjustmentStatus" = member("reversed")

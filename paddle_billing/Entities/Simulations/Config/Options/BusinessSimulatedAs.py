@@ -1,8 +1,7 @@
-# mypy: disable-error-code="assignment"
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class BusinessSimulatedAs(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    NotProvided: "BusinessSimulatedAs" = "not_provided"
-    New: "BusinessSimulatedAs" = "new"
-    ExistingDetailsPrefilled: "BusinessSimulatedAs" = "existing_details_prefilled"
+    NotProvided: "BusinessSimulatedAs" = member("not_provided")
+    New: "BusinessSimulatedAs" = member("new")
+    ExistingDetailsPrefilled: "BusinessSimulatedAs" = member("existing_details_prefilled")

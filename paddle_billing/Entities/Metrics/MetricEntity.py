@@ -1,10 +1,9 @@
-# mypy: disable-error-code="assignment"
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class MetricEntity(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    TransactionsCompleted: "MetricEntity" = "transactions.completed"
-    AdjustmentsRefunds: "MetricEntity" = "adjustments.refunds"
-    AdjustmentsChargebacks: "MetricEntity" = "adjustments.chargebacks"
-    Checkouts: "MetricEntity" = "checkouts"
-    Subscriptions: "MetricEntity" = "subscriptions"
+    TransactionsCompleted: "MetricEntity" = member("transactions.completed")
+    AdjustmentsRefunds: "MetricEntity" = member("adjustments.refunds")
+    AdjustmentsChargebacks: "MetricEntity" = member("adjustments.chargebacks")
+    Checkouts: "MetricEntity" = member("checkouts")
+    Subscriptions: "MetricEntity" = member("subscriptions")

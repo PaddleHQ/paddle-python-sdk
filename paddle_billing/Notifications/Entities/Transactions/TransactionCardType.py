@@ -1,15 +1,14 @@
-# mypy: disable-error-code="assignment"
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class TransactionCardType(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    AmericanExpress: "TransactionCardType" = "american_express"
-    DinersClub: "TransactionCardType" = "diners_club"
-    Discover: "TransactionCardType" = "discover"
-    Jcb: "TransactionCardType" = "jcb"
-    Mada: "TransactionCardType" = "mada"
-    Maestro: "TransactionCardType" = "maestro"
-    Mastercard: "TransactionCardType" = "mastercard"
-    UnionPay: "TransactionCardType" = "union_pay"
-    Unknown: "TransactionCardType" = "unknown"
-    Visa: "TransactionCardType" = "visa"
+    AmericanExpress: "TransactionCardType" = member("american_express")
+    DinersClub: "TransactionCardType" = member("diners_club")
+    Discover: "TransactionCardType" = member("discover")
+    Jcb: "TransactionCardType" = member("jcb")
+    Mada: "TransactionCardType" = member("mada")
+    Maestro: "TransactionCardType" = member("maestro")
+    Mastercard: "TransactionCardType" = member("mastercard")
+    UnionPay: "TransactionCardType" = member("union_pay")
+    Unknown: "TransactionCardType" = member("unknown")
+    Visa: "TransactionCardType" = member("visa")

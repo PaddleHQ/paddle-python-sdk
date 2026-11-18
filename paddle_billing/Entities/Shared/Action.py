@@ -1,12 +1,11 @@
-# mypy: disable-error-code="assignment"
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class Action(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    Credit: "Action" = "credit"
-    CreditReverse: "Action" = "credit_reverse"
-    Refund: "Action" = "refund"
-    Chargeback: "Action" = "chargeback"
-    ChargebackReverse: "Action" = "chargeback_reverse"
-    ChargebackWarning: "Action" = "chargeback_warning"
-    ChargebackWarningReverse: "Action" = "chargeback_warning_reverse"
+    Credit: "Action" = member("credit")
+    CreditReverse: "Action" = member("credit_reverse")
+    Refund: "Action" = member("refund")
+    Chargeback: "Action" = member("chargeback")
+    ChargebackReverse: "Action" = member("chargeback_reverse")
+    ChargebackWarning: "Action" = member("chargeback_warning")
+    ChargebackWarningReverse: "Action" = member("chargeback_warning_reverse")

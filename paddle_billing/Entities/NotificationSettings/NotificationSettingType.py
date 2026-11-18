@@ -1,7 +1,6 @@
-# mypy: disable-error-code="assignment"
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class NotificationSettingType(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    Email: "NotificationSettingType" = "email"
-    Url: "NotificationSettingType" = "url"
+    Email: "NotificationSettingType" = member("email")
+    Url: "NotificationSettingType" = member("url")

@@ -1,6 +1,5 @@
-# mypy: disable-error-code="assignment"
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class SubscriptionResumeEffectiveFrom(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    Immediately: "SubscriptionResumeEffectiveFrom" = "immediately"
+    Immediately: "SubscriptionResumeEffectiveFrom" = member("immediately")

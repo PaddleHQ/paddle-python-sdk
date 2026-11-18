@@ -1,11 +1,10 @@
-# mypy: disable-error-code="assignment"
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class Origin(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    Api: "Origin" = "api"
-    SubscriptionCharge: "Origin" = "subscription_charge"
-    SubscriptionPaymentMethodChange: "Origin" = "subscription_payment_method_change"
-    SubscriptionRecurring: "Origin" = "subscription_recurring"
-    SubscriptionUpdate: "Origin" = "subscription_update"
-    Web: "Origin" = "web"
+    Api: "Origin" = member("api")
+    SubscriptionCharge: "Origin" = member("subscription_charge")
+    SubscriptionPaymentMethodChange: "Origin" = member("subscription_payment_method_change")
+    SubscriptionRecurring: "Origin" = member("subscription_recurring")
+    SubscriptionUpdate: "Origin" = member("subscription_update")
+    Web: "Origin" = member("web")

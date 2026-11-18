@@ -1,7 +1,6 @@
-# mypy: disable-error-code="assignment"
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class CheckoutDomainPaymentMethodVerificationStatus(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    Verified: "CheckoutDomainPaymentMethodVerificationStatus" = "verified"
-    Unverified: "CheckoutDomainPaymentMethodVerificationStatus" = "unverified"
+    Verified: "CheckoutDomainPaymentMethodVerificationStatus" = member("verified")
+    Unverified: "CheckoutDomainPaymentMethodVerificationStatus" = member("unverified")

@@ -1,8 +1,7 @@
-# mypy: disable-error-code="assignment"
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class MetricsAggregation(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    Count: "MetricsAggregation" = "count"
-    CountDistinct: "MetricsAggregation" = "count_distinct"
-    Sum: "MetricsAggregation" = "sum"
+    Count: "MetricsAggregation" = member("count")
+    CountDistinct: "MetricsAggregation" = member("count_distinct")
+    Sum: "MetricsAggregation" = member("sum")

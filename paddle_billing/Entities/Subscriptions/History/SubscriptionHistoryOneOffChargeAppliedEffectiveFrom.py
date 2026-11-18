@@ -1,7 +1,6 @@
-# mypy: disable-error-code="assignment"
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class SubscriptionHistoryOneOffChargeAppliedEffectiveFrom(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    Immediately: "SubscriptionHistoryOneOffChargeAppliedEffectiveFrom" = "immediately"
-    NextBillingPeriod: "SubscriptionHistoryOneOffChargeAppliedEffectiveFrom" = "next_billing_period"
+    Immediately: "SubscriptionHistoryOneOffChargeAppliedEffectiveFrom" = member("immediately")
+    NextBillingPeriod: "SubscriptionHistoryOneOffChargeAppliedEffectiveFrom" = member("next_billing_period")

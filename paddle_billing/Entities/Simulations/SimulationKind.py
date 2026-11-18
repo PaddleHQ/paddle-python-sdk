@@ -1,7 +1,6 @@
-# mypy: disable-error-code="assignment"
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class SimulationKind(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    Scenario: "SimulationKind" = "scenario"
-    SingleEvent: "SimulationKind" = "single_event"
+    Scenario: "SimulationKind" = member("scenario")
+    SingleEvent: "SimulationKind" = member("single_event")
