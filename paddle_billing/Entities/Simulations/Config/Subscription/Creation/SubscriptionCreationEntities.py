@@ -27,7 +27,5 @@ class SubscriptionCreationEntities(Entity):
             payment_method_id=data.get("payment_method_id"),
             discount_id=data.get("discount_id"),
             transaction_id=data.get("transaction_id"),
-            items=(
-                [SubscriptionCreationItem.from_dict(item) for item in data.get("items")] if data.get("items") else None
-            ),
+            items=([SubscriptionCreationItem.from_dict(item) for item in data["items"]] if data.get("items") else None),
         )

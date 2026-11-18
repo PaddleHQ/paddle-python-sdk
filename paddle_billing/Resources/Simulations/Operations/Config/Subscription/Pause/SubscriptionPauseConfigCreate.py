@@ -4,8 +4,10 @@ from typing import Any
 
 from paddle_billing.FiltersUndefined import FiltersUndefined
 from paddle_billing.Entities.Simulation import SimulationScenarioType
-from paddle_billing.Resources.Simulations.Operations.Config.Subscription.Pause import (
+from paddle_billing.Resources.Simulations.Operations.Config.Subscription.Pause.SubscriptionPauseEntitiesCreate import (
     SubscriptionPauseEntitiesCreate,
+)
+from paddle_billing.Resources.Simulations.Operations.Config.Subscription.Pause.SubscriptionPauseOptionsCreate import (
     SubscriptionPauseOptionsCreate,
 )
 from paddle_billing.Resources.Simulations.Operations.CreateSimulation import SimulationConfigCreate
