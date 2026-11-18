@@ -9,6 +9,7 @@ setup(
     license="Apache-2.0",
     name="paddle-python-sdk",
     packages=find_packages(),
+    package_data={"paddle_billing": ["py.typed"]},
     python_requires=">=3.11",
     url="https://developer.paddle.com/api-reference/overview",
     long_description=open("README.md").read(),
