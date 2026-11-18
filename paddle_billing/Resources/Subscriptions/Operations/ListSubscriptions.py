@@ -1,3 +1,5 @@
+from typing import Any
+
 from paddle_billing.EnumStringify import enum_stringify
 from paddle_billing.HasParameters import HasParameters
 
@@ -33,14 +35,15 @@ class ListSubscriptions(HasParameters):
         self.statuses = statuses if statuses is not None else []
 
         # Validation
-        for field_name, field_value, field_type in [
+        validations: list[tuple[str, list[Any], type]] = [
             ("address_ids", self.address_ids, str),
             ("customer_ids", self.customer_ids, str),
             ("ids", self.ids, str),
             ("price_ids", self.price_ids, str),
             ("scheduled_change_actions", self.scheduled_change_actions, SubscriptionScheduledChangeAction),
             ("statuses", self.statuses, SubscriptionStatus),
-        ]:
+        ]
+        for field_name, field_value, field_type in validations:
             invalid_items = [item for item in field_value if not isinstance(item, field_type)]
             if invalid_items:
                 raise InvalidArgumentException.array_contains_invalid_types(
