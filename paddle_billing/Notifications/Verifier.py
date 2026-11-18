@@ -11,8 +11,8 @@ from paddle_billing.Notifications.PaddleSignature import PaddleSignature
 class Verifier:
     def __init__(self, maximum_variance: int | None = 5):
         """
-        :param maximum_variance: Seconds a webhook's timestamp may differ from now. None or 0 turns off the time drift
-                                 check, which protects against replayed webhooks (NOT RECOMMENDED)
+        :param maximum_variance: Seconds a webhook's timestamp may differ from now. None or 0 disables time drift
+                                 verification (NOT RECOMMENDED, protects against replayed webhooks)
         """
         self.__maximum_variance = maximum_variance
         self.log = get_logger()
@@ -26,7 +26,7 @@ class Verifier:
         """
         :param request:           The request object to verify
         :param secrets:           One or more Secrets to use for verifying the request
-        :param verify_time_drift: Defaults to True. Set False to disable time drift verification (NOT RECOMMENDED, counters MITM attacks)
+        :param verify_time_drift: Defaults to True. Set False to disable time drift verification (NOT RECOMMENDED, protects against replayed webhooks)
         :return:                  True on verification success, False on verification failure
         """
         self.log.info("Attempting to verify the authenticity of a request")
