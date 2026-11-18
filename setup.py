@@ -32,6 +32,7 @@ setup(
             "pre-commit>=3.8.0",
             "black>=24.8.0",
             "flake8>=7.1.1",
+            "mypy>=1.11,<3",
         ],
     },
     install_requires=[
