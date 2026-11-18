@@ -6,7 +6,7 @@ from requests.adapters import HTTPAdapter
 from typing import Any
 from urllib3.util.retry import Retry
 from urllib.parse import urljoin, urlencode
-from uuid import uuid4
+from uuid import UUID, uuid4
 from paddle_billing.Json import PayloadEncoder
 
 from paddle_billing.Operation import Operation
@@ -69,7 +69,7 @@ class Client:
     ):
         self.__api_key = api_key
         self.retry_count = retry_count
-        self.transaction_id: str | None = None
+        self.transaction_id: str | UUID | None = None
         self.use_api_version = use_api_version
         self.options = options if options else Options()
         self.log = logger if logger else Client.null_logger()
