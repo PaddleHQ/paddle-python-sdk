@@ -19,13 +19,13 @@ def type_check(file: Path) -> list[str]:
     return [line for line in stdout.splitlines() if ": error:" in line]
 
 
-@mark.parametrize("usage", ["readme.py", "webhooks.py"])
+@mark.parametrize("usage", ["client_usage.py", "webhooks.py"])
 def test_documented_usage_type_checks(usage):
     assert type_check(USAGE / usage) == []
 
 
 def test_type_checker_rejects_invalid_usage():
-    errors = type_check(USAGE / "rejected.py")
+    errors = type_check(USAGE / "invalid_usage.py")
 
     assert len(errors) == 1, errors
     assert 'Argument 1 to "Client" has incompatible type "int"' in errors[0]
