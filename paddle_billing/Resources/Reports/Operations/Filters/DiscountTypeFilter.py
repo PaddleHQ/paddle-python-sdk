@@ -15,7 +15,7 @@ class DiscountTypeFilter(Filter):
     types: list[DiscountType]
 
     @staticmethod
-    def get_name() -> str:
+    def get_name() -> ReportFilterName:
         return ReportFilterName.Type
 
     def get_value(self) -> list[str]:
