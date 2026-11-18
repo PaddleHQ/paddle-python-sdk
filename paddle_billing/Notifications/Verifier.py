@@ -3,7 +3,7 @@ from time import time
 
 from paddle_billing.Logger import get_logger
 
-from paddle_billing.Notifications.Requests.Request import Request
+from paddle_billing.Notifications.Requests.Request import WebhookRequest
 from paddle_billing.Notifications.Secret import Secret
 from paddle_billing.Notifications.PaddleSignature import PaddleSignature
 
@@ -19,7 +19,7 @@ class Verifier:
     def maximum_variance(self) -> int | None:
         return self.__maximum_variance
 
-    def verify(self, request: Request, secrets: list[Secret] | Secret, verify_time_drift=True):
+    def verify(self, request: WebhookRequest, secrets: list[Secret] | Secret, verify_time_drift=True):
         """
         :param request:           The request object to verify
         :param secrets:           One or more Secrets to use for verifying the request
