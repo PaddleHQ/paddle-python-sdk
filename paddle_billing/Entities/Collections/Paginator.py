@@ -1,6 +1,6 @@
 from paddle_billing.ResponseParser import ResponseParser
 
-from typing import TYPE_CHECKING
+from typing import Any, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from paddle_billing.Client import Client
@@ -18,7 +18,7 @@ class Paginator:
     def has_more(self) -> bool:
         return self._pagination.has_more
 
-    def next_page(self) -> "Collection":
+    def next_page(self) -> "Collection[Any]":
         response = self._client.get_raw(self._pagination.next)
         response_parser = ResponseParser(response)
 

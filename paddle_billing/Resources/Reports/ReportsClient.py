@@ -8,7 +8,7 @@ from paddle_billing.Entities.Collections import Paginator, ReportCollection
 
 from paddle_billing.Resources.Reports.Operations import CreateReport, ListReports
 
-from typing import TYPE_CHECKING
+from typing import Any, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from paddle_billing.Client import Client
@@ -42,7 +42,7 @@ class ReportsClient:
 
         return ReportCSV.from_dict(parser.get_dict())
 
-    def create(self, operation: CreateReport) -> Report:
+    def create(self, operation: CreateReport[Any, Any]) -> Report:
         self.response = self.client.post_raw("/reports", operation)
         parser = ResponseParser(self.response)
 
