@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.Notifications import NotificationPayoutStatus
+from paddle_billing.Entities.Notifications.NotificationPayoutStatus import NotificationPayoutStatus
 from paddle_billing.Entities.Shared import CurrencyCodePayouts
 
 
