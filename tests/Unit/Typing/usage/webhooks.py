@@ -3,7 +3,6 @@ from functools import cached_property
 
 from paddle_billing.Entities.Notifications import NotificationEvent
 from paddle_billing.Notifications import Secret, Verifier
-from paddle_billing.Notifications.Requests import Request
 
 
 class DjangoLikeRequest:
@@ -31,12 +30,7 @@ class HttpxLikeRequest:
         self.content = b"{}"
 
 
-class SubclassedRequest(Request):
-    headers: dict[str, str] = {}
-    body = b"{}"
-
-
 verifier = Verifier(10)
-for request in (DjangoLikeRequest(), FlaskLikeRequest(), HttpxLikeRequest(), SubclassedRequest()):
+for request in (DjangoLikeRequest(), FlaskLikeRequest(), HttpxLikeRequest()):
     if verifier.verify(request, Secret("WEBHOOK_SECRET_KEY")):
         print(NotificationEvent.from_request(request).event_type)

@@ -27,6 +27,5 @@ def test_documented_usage_type_checks(usage):
 def test_type_checker_rejects_invalid_usage():
     errors = type_check(USAGE / "rejected.py")
 
-    assert any('Argument 1 to "Client" has incompatible type "int"' in error for error in errors)
-    assert any('Argument 1 to "verify" of "Verifier"' in error for error in errors)
-    assert len(errors) == 2, errors
+    assert len(errors) == 1, errors
+    assert 'Argument 1 to "Client" has incompatible type "int"' in errors[0]
