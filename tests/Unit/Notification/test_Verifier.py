@@ -92,3 +92,28 @@ class TestVerifier:
         assert Verifier().verify(request, Secret(secret)) is False
         assert calculated_signature not in caplog.text
         assert received_signature not in caplog.text
+
+    @mark.parametrize(
+        "headers, offset, message",
+        [
+            ({}, None, "Unable to extract the 'Paddle-Signature' header from the request"),
+            (None, -60, "Too much time has elapsed between the request and this process"),
+            (None, 60, "The request timestamp is too far in the future"),
+        ],
+        ids=["Missing header", "Expired timestamp", "Future timestamp"],
+    )
+    def test_verify_logs_expected_rejections_as_warning(self, monkeypatch, caplog, headers, offset, message):
+        monkeypatch.delenv("TEST_MODE", raising=False)
+        caplog.set_level(logging.DEBUG, logger="paddle_billing")
+        secret = "pdl_ntfset_01hs0t3tw21j988db1pam5xg8m_GrOWLNef+vmtjJYq4mSnHNzvc8uWoJ1I"
+        if headers is None:
+            request = self._signed_request(secret, "{}", int(time()) + offset)
+        else:
+            request = FakeRequest(headers, "{}")
+
+        assert Verifier().verify(request, Secret(secret)) is False
+
+        rejections = [record for record in caplog.records if record.getMessage() == message]
+        assert len(rejections) == 1
+        assert rejections[0].levelno == logging.WARNING
+        assert not [record for record in caplog.records if record.levelno >= logging.ERROR]

@@ -33,17 +33,17 @@ class Verifier:
 
         signature_header = request.headers.get(PaddleSignature().HEADER, None)
         if not signature_header:
-            self.log.critical(f"Unable to extract the '{PaddleSignature().HEADER}' header from the request")
+            self.log.warning(f"Unable to extract the '{PaddleSignature().HEADER}' header from the request")
             return False
 
         timestamp, signature = PaddleSignature.parse(signature_header)
         if verify_time_drift and self.maximum_variance > 0:
             now = time()
             if now > int(timestamp + self.maximum_variance):
-                self.log.critical("Too much time has elapsed between the request and this process")
+                self.log.warning("Too much time has elapsed between the request and this process")
                 return False
             if int(timestamp - self.maximum_variance) > now:
-                self.log.critical("The request timestamp is too far in the future")
+                self.log.warning("The request timestamp is too far in the future")
                 return False
 
         raw_body = None
