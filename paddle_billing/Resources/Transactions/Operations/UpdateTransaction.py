@@ -22,7 +22,7 @@ from paddle_billing.Resources.Transactions.Operations.Discount.TransactionNonCat
 
 @dataclass
 class UpdateTransaction(Operation):
-    items: list[TransactionUpdateItem | TransactionUpdateItemWithPrice] = Undefined()
+    items: list[TransactionUpdateItem | TransactionUpdateItemWithPrice] | Undefined = Undefined()
     status: TransactionStatus | Undefined = Undefined()
     customer_id: str | None | Undefined = Undefined()
     address_id: str | None | Undefined = Undefined()
