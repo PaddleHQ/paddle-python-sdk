@@ -221,8 +221,13 @@ class Client:
             }
         )
 
-        # Configure retries
-        retries = Retry(total=self.retry_count, backoff_factor=1, status_forcelist=[429, 500, 502, 503, 504])
+        # Configure retries. Only urllib3's idempotent methods (GET, PUT, DELETE, etc.) are retried, never POST or PATCH.
+        # 520-524 are Cloudflare origin errors.
+        retries = Retry(
+            total=self.retry_count,
+            backoff_factor=1,
+            status_forcelist=[429, 500, 502, 503, 504, 520, 521, 522, 523, 524],
+        )
         session.mount("https://", HTTPAdapter(max_retries=retries))
 
         # Handle logging
