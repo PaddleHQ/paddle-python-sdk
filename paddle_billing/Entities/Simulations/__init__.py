@@ -1,3 +1,3 @@
-from paddle_billing.Entities.Simulations.SimulationKind import SimulationKind
-from paddle_billing.Entities.Simulations.SimulationScenarioType import SimulationScenarioType
-from paddle_billing.Entities.Simulations.SimulationStatus import SimulationStatus
+from paddle_billing.Entities.Simulations.SimulationKind import SimulationKind as SimulationKind
+from paddle_billing.Entities.Simulations.SimulationScenarioType import SimulationScenarioType as SimulationScenarioType
+from paddle_billing.Entities.Simulations.SimulationStatus import SimulationStatus as SimulationStatus

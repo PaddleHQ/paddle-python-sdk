@@ -1,1 +1,1 @@
-from paddle_billing.Notifications.Entities.Payouts.PayoutStatus import PayoutStatus
+from paddle_billing.Notifications.Entities.Payouts.PayoutStatus import PayoutStatus as PayoutStatus

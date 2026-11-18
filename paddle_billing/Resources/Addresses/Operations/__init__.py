@@ -1,3 +1,3 @@
-from paddle_billing.Resources.Addresses.Operations.CreateAddress import CreateAddress
-from paddle_billing.Resources.Addresses.Operations.ListAddresses import ListAddresses
-from paddle_billing.Resources.Addresses.Operations.UpdateAddress import UpdateAddress
+from paddle_billing.Resources.Addresses.Operations.CreateAddress import CreateAddress as CreateAddress
+from paddle_billing.Resources.Addresses.Operations.ListAddresses import ListAddresses as ListAddresses
+from paddle_billing.Resources.Addresses.Operations.UpdateAddress import UpdateAddress as UpdateAddress

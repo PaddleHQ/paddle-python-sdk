@@ -1,9 +1,9 @@
 from paddle_billing.Entities.Simulations.Config.Subscription.Pause.SubscriptionPauseConfig import (
-    SubscriptionPauseConfig,
+    SubscriptionPauseConfig as SubscriptionPauseConfig,
 )
 from paddle_billing.Entities.Simulations.Config.Subscription.Pause.SubscriptionPauseEntities import (
-    SubscriptionPauseEntities,
+    SubscriptionPauseEntities as SubscriptionPauseEntities,
 )
 from paddle_billing.Entities.Simulations.Config.Subscription.Pause.SubscriptionPauseOptions import (
-    SubscriptionPauseOptions,
+    SubscriptionPauseOptions as SubscriptionPauseOptions,
 )

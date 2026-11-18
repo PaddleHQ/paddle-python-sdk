@@ -1,3 +1,3 @@
-from paddle_billing.Resources.ClientTokens.Operations.CreateClientToken import CreateClientToken
-from paddle_billing.Resources.ClientTokens.Operations.ListClientTokens import ListClientTokens
-from paddle_billing.Resources.ClientTokens.Operations.UpdateClientToken import UpdateClientToken
+from paddle_billing.Resources.ClientTokens.Operations.CreateClientToken import CreateClientToken as CreateClientToken
+from paddle_billing.Resources.ClientTokens.Operations.ListClientTokens import ListClientTokens as ListClientTokens
+from paddle_billing.Resources.ClientTokens.Operations.UpdateClientToken import UpdateClientToken as UpdateClientToken

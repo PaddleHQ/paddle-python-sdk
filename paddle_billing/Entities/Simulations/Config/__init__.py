@@ -1,1 +1,1 @@
-from paddle_billing.Entities.Simulations.Config.SimulationConfig import SimulationConfig
+from paddle_billing.Entities.Simulations.Config.SimulationConfig import SimulationConfig as SimulationConfig

@@ -1,5 +1,5 @@
-from paddle_billing.Resources.Discounts.Operations.CreateDiscount import CreateDiscount
-from paddle_billing.Resources.Discounts.Operations.ListDiscounts import ListDiscounts
-from paddle_billing.Resources.Discounts.Operations.UpdateDiscount import UpdateDiscount
-from paddle_billing.Resources.Discounts.Operations.GetDiscount import GetDiscount
-from paddle_billing.Resources.Discounts.Operations.DiscountInclude import DiscountInclude
+from paddle_billing.Resources.Discounts.Operations.CreateDiscount import CreateDiscount as CreateDiscount
+from paddle_billing.Resources.Discounts.Operations.ListDiscounts import ListDiscounts as ListDiscounts
+from paddle_billing.Resources.Discounts.Operations.UpdateDiscount import UpdateDiscount as UpdateDiscount
+from paddle_billing.Resources.Discounts.Operations.GetDiscount import GetDiscount as GetDiscount
+from paddle_billing.Resources.Discounts.Operations.DiscountInclude import DiscountInclude as DiscountInclude

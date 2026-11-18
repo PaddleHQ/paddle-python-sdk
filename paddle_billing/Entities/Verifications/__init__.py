@@ -1,4 +1,6 @@
-from paddle_billing.Entities.Verifications.VerificationStatus import VerificationStatus
-from paddle_billing.Entities.Verifications.VerificationStepKey import VerificationStepKey
-from paddle_billing.Entities.Verifications.VerificationStepStatus import VerificationStepStatus
-from paddle_billing.Entities.Verifications.VerificationType import VerificationType
+from paddle_billing.Entities.Verifications.VerificationStatus import VerificationStatus as VerificationStatus
+from paddle_billing.Entities.Verifications.VerificationStepKey import VerificationStepKey as VerificationStepKey
+from paddle_billing.Entities.Verifications.VerificationStepStatus import (
+    VerificationStepStatus as VerificationStepStatus,
+)
+from paddle_billing.Entities.Verifications.VerificationType import VerificationType as VerificationType

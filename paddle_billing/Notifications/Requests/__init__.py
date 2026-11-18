@@ -1,1 +1,1 @@
-from paddle_billing.Notifications.Requests.Request import Request
+from paddle_billing.Notifications.Requests.Request import Request as Request
