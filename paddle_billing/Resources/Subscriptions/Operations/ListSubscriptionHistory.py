@@ -46,7 +46,9 @@ class ListSubscriptionHistory(HasParameters):
                 )
 
     def get_parameters(self) -> dict[str, str]:
-        parameters: dict[str, str | None] = self.pager.get_parameters() if self.pager else {}
+        parameters: dict[str, str | None] = {}
+        if self.pager:
+            parameters.update(self.pager.get_parameters())
 
         if self.occurred_at is not None:
             parameters[f"occurred_at{self.occurred_at.comparator}"] = self.occurred_at.formatted()

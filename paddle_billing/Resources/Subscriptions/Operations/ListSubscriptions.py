@@ -51,7 +51,9 @@ class ListSubscriptions(HasParameters):
                 )
 
     def get_parameters(self) -> dict[str, str]:
-        parameters: dict[str, str | None] = self.pager.get_parameters() if self.pager else {}
+        parameters: dict[str, str | None] = {}
+        if self.pager:
+            parameters.update(self.pager.get_parameters())
 
         if self.next_billed_at is not None:
             parameters[f"next_billed_at{self.next_billed_at.comparator}"] = self.next_billed_at.formatted()

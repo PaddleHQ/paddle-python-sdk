@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Any, Union
+from typing import Any, Union, cast
 
 from paddle_billing.Notifications.Entities.UndefinedEntity import UndefinedEntity
 
@@ -103,7 +103,7 @@ from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailSubs
     SubscriptionHistoryDetailSubscriptionScheduledChangeUpdated,
 )
 
-SubscriptionHistoryDetailUnion = Union[
+_KnownSubscriptionHistoryDetail = Union[
     SubscriptionHistoryDetailSubscriptionActivated,
     SubscriptionHistoryDetailSubscriptionAddressUpdated,
     SubscriptionHistoryDetailSubscriptionBillingCycleUpdated,
@@ -137,8 +137,9 @@ SubscriptionHistoryDetailUnion = Union[
     SubscriptionHistoryDetailSubscriptionScheduledChangeAdded,
     SubscriptionHistoryDetailSubscriptionScheduledChangeRemoved,
     SubscriptionHistoryDetailSubscriptionScheduledChangeUpdated,
-    UndefinedEntity,
 ]
+
+SubscriptionHistoryDetailUnion = Union[_KnownSubscriptionHistoryDetail, UndefinedEntity]
 
 
 class SubscriptionHistoryDetail:
@@ -149,7 +150,7 @@ class SubscriptionHistoryDetail:
     hydrate as an `UndefinedEntity` wrapping the raw dictionary.
     """
 
-    _CLASSES: dict[str, type] = {
+    _CLASSES: dict[str, type[_KnownSubscriptionHistoryDetail]] = {
         "subscription_activated": SubscriptionHistoryDetailSubscriptionActivated,
         "subscription_address_updated": SubscriptionHistoryDetailSubscriptionAddressUpdated,
         "subscription_billing_cycle_updated": SubscriptionHistoryDetailSubscriptionBillingCycleUpdated,
@@ -187,7 +188,7 @@ class SubscriptionHistoryDetail:
 
     @staticmethod
     def from_dict(data: dict[str, Any]) -> SubscriptionHistoryDetailUnion:
-        detail_class = SubscriptionHistoryDetail._CLASSES.get(data.get("action"))
+        detail_class = SubscriptionHistoryDetail._CLASSES.get(cast(str, data.get("action")))
 
         if detail_class is None:
             return UndefinedEntity(data)
