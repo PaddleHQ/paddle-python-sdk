@@ -1,9 +1,16 @@
 from pathlib import Path
 
 from mypy import api
-from pytest import mark
+from pytest import fixture, mark
 
 USAGE = Path(__file__).parent / "usage"
+
+
+@fixture(autouse=True)
+def isolated_mypy(monkeypatch, tmp_path):
+    # Resolve paddle_billing from this checkout and cache outside it, whatever directory pytest runs from.
+    monkeypatch.setenv("MYPYPATH", str(Path(__file__).parents[3]))
+    monkeypatch.setenv("MYPY_CACHE_DIR", str(tmp_path))
 
 
 def type_check(file: Path) -> list[str]:
