@@ -79,6 +79,14 @@ class TestVerifier:
 
         assert Verifier().verify(request, Secret(secret)) is expected
 
+    @mark.parametrize("maximum_variance", [None, 0], ids=["None", "Zero"])
+    def test_verify_skips_time_drift_check_without_maximum_variance(self, monkeypatch, maximum_variance):
+        monkeypatch.delenv("TEST_MODE", raising=False)
+        secret = "pdl_ntfset_01hs0t3tw21j988db1pam5xg8m_GrOWLNef+vmtjJYq4mSnHNzvc8uWoJ1I"
+        request = self._signed_request(secret, '{"event_type":"transaction.completed"}', int(time()) - 3600)
+
+        assert Verifier(maximum_variance).verify(request, Secret(secret)) is True
+
     def test_verify_does_not_log_signatures(self, monkeypatch, caplog):
         monkeypatch.setenv("TEST_MODE", "1")
         caplog.set_level(logging.DEBUG, logger="paddle_billing")

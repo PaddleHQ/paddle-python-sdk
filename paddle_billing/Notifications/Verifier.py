@@ -16,7 +16,7 @@ class Verifier:
         self.paddle_signature = PaddleSignature()
 
     @property
-    def maximum_variance(self) -> int:
+    def maximum_variance(self) -> int | None:
         return self.__maximum_variance
 
     def verify(self, request: Request, secrets: list[Secret] | Secret, verify_time_drift=True):
@@ -37,7 +37,7 @@ class Verifier:
             return False
 
         timestamp, signature = PaddleSignature.parse(signature_header)
-        if verify_time_drift and self.maximum_variance > 0:
+        if verify_time_drift and self.maximum_variance is not None and self.maximum_variance > 0:
             now = time()
             if now > int(timestamp + self.maximum_variance):
                 self.log.warning("Too much time has elapsed between the request and this process")
