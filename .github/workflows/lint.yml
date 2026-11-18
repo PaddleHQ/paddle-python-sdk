@@ -44,3 +44,6 @@ jobs:
 
       - name: Run Flake8
         run: flake8 paddle_billing tests examples
+
+      - name: Run mypy
+        run: mypy paddle_billing
