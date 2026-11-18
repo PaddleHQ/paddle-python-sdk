@@ -206,13 +206,13 @@ class TestApiKeysClient:
                 ListApiKeyRotations(Pager()),
                 200,
                 ReadsFixtures.read_raw_json_fixture("response/list_rotations_page_one"),
-                "/api-keys/apikey_01jkdpbhazdpn3wpcya45as9tg/rotations?per_page=50",
+                "/api-keys/apikey_01jkdpbhazdpn3wpcya45as9tg/rotations?order_by=id[asc]&per_page=50",
             ),
             (
                 ListApiKeyRotations(Pager(after="apkrot_01kjnm4a3w4jqdbtqvb2jwjdf7")),
                 200,
                 ReadsFixtures.read_raw_json_fixture("response/list_rotations_page_one"),
-                "/api-keys/apikey_01jkdpbhazdpn3wpcya45as9tg/rotations?after=apkrot_01kjnm4a3w4jqdbtqvb2jwjdf7&per_page=50",
+                "/api-keys/apikey_01jkdpbhazdpn3wpcya45as9tg/rotations?after=apkrot_01kjnm4a3w4jqdbtqvb2jwjdf7&order_by=id[asc]&per_page=50",
             ),
             (
                 ListApiKeyRotations(ids=["apkrot_01kjnm4a3w4jqdbtqvb2jwjdf7"]),

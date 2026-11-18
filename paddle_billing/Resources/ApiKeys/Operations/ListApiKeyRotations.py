@@ -22,8 +22,6 @@ class ListApiKeyRotations(HasParameters):
         parameters = {}
         if self.pager:
             parameters.update(self.pager.get_parameters())
-            # The list rotations endpoint doesn't accept order_by.
-            parameters.pop("order_by", None)
         if self.ids:
             parameters["id"] = ",".join(self.ids)
 
