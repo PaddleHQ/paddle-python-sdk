@@ -1,3 +1,5 @@
+from requests import Response
+
 from paddle_billing.ResponseParser import ResponseParser
 
 from paddle_billing.Entities.Price import Price
@@ -17,7 +19,7 @@ if TYPE_CHECKING:
 class PricesClient:
     def __init__(self, client: "Client"):
         self.client = client
-        self.response = None
+        self.response: Response | None = None
 
     def list(self, operation: ListPrices | None = None) -> PriceCollection:
         if operation is None:

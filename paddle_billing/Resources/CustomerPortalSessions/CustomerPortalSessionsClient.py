@@ -1,3 +1,5 @@
+from requests import Response
+
 from paddle_billing.ResponseParser import ResponseParser
 
 from paddle_billing.Entities.CustomerPortalSession import CustomerPortalSession
@@ -15,7 +17,7 @@ if TYPE_CHECKING:
 class CustomerPortalSessionsClient:
     def __init__(self, client: "Client"):
         self.client = client
-        self.response = None
+        self.response: Response | None = None
 
     def create(self, customer_id: str, operation: CreateCustomerPortalSession) -> CustomerPortalSession:
         self.response = self.client.post_raw(f"/customers/{customer_id}/portal-sessions", operation)

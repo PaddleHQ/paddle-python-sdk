@@ -1,3 +1,5 @@
+from requests import Response
+
 from paddle_billing.ResponseParser import ResponseParser
 
 from paddle_billing.Entities.Collections import (
@@ -25,7 +27,7 @@ if TYPE_CHECKING:
 class CustomersClient:
     def __init__(self, client: "Client"):
         self.client = client
-        self.response = None
+        self.response: Response | None = None
 
     def list(self, operation: ListCustomers | None = None) -> CustomerCollection:
         if operation is None:
