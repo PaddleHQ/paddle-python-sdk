@@ -22,7 +22,7 @@ class Verifier:
     def maximum_variance(self) -> int | None:
         return self.__maximum_variance
 
-    def verify(self, request: Any, secrets: list[Secret] | Secret, verify_time_drift=True):
+    def verify(self, request: Any, secrets: list[Secret] | Secret, verify_time_drift: bool = True) -> bool:
         """
         :param request:           The request object to verify
         :param secrets:           One or more Secrets to use for verifying the request
