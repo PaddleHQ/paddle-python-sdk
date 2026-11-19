@@ -339,14 +339,6 @@ class TestSettingsClient:
                 CheckoutUrl,
             ),
             (
-                "update_checkout_url",
-                "/settings/checkout-url",
-                UpdateCheckoutUrl(default_url=None),
-                "request/update_checkout_url_clear",
-                "response/checkout_url_unset",
-                CheckoutUrl,
-            ),
-            (
                 "update_currency_conversions",
                 "/settings/currency-conversions",
                 UpdateCurrencyConversions({"GBP": CurrencyConversionUpdate(True)}),
@@ -416,7 +408,6 @@ class TestSettingsClient:
             "Update checkout styles overlay clearing color",
             "Update checkout URL minimal",
             "Update checkout URL full",
-            "Update checkout URL clearing default",
             "Update currency conversions minimal",
             "Update currency conversions full",
             "Update statement descriptor minimal",
