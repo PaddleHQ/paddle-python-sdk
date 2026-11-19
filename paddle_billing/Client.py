@@ -226,6 +226,8 @@ class Client:
         retries = Retry(
             total=self.retry_count,
             backoff_factor=1,
+            # Return the last response once retries run out so the API error (and its Retry-After) is surfaced.
+            raise_on_status=False,
             status_forcelist=[429, 500, 502, 503, 504, 520, 521, 522, 523, 524],
         )
         session.mount("https://", HTTPAdapter(max_retries=retries))
