@@ -19,10 +19,30 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
   - `Client.api_keys.get_rotation_for_current_key`
 - Added `api_key.read` to `ApiKeyPermission`
 - Added `api_key_rotation.created` and `api_key_rotation.updated` events, including simulation payload support
+- Added a `py.typed` marker so type checkers such as mypy and pyright use the SDK's type annotations
+- Added `BodyRequest`, `ContentRequest` and `DataRequest` protocols to `paddle_billing.Notifications.Requests`, for typing your own webhook request objects
+
+### Changed
+
+- If you run mypy over code that uses the SDK, upgrading may report new errors. Before this release mypy treated the SDK as untyped, so values from it were `Any`. It now checks them against the SDK's annotations, for example `client.customers.response` is `Response | None` and API fields that can be `null` are typed as optional. Pyright already read the annotations, so pyright users should see little change
+- Package `__init__` modules now re-export their names explicitly, so imports such as `from paddle_billing import Client` pass pyright and `mypy --strict`. In the five `Operations` packages that define `__all__` (prices, products, adjustments, subscriptions and transactions), `from ... import *` no longer also brings in subpackage modules such as `List` and `Price`
+- `Verifier.verify()` and `NotificationEvent.from_request()` take `Request | BodyRequest | ContentRequest | DataRequest`, so framework request objects such as Django's and Flask's pass type checkers. The `Request` protocol is unchanged
+- `Verifier.verify()` is typed as returning `bool`
+- Corrected type annotations that type checkers will now see, including:
+  - The `response` attribute on resource clients (for example `client.customers.response`) is typed as `Response | None`
+  - `CreateReport` is generic over its report type and filters, and `get_allowed_filters()` returns filter classes
+  - `Paginator.next_page()` returns `Collection[Any]` and `ReportsClient.create()` takes `CreateReport[Any, Any]`
+  - `Collection.key()` returns `str | int`, since it falls back to the item's position when there's no `id`
+  - Operation fields that default to `Undefined()` (for example on `CreateAddress`) include `Undefined` in their type
+  - `Client.transaction_id` accepts a `UUID`
 
 ### Fixed
 
 - `GET` requests that exhaust their retries on a retryable status (429, 5xx) now raise the corresponding `ApiError` (including `retry_after`) instead of a generic `requests.exceptions.RetryError`
+- `Verifier(maximum_variance=None)` no longer raises a `TypeError` on `verify()`. `None` skips the time drift check, like `0`
+- `Verifier.verify()` and `NotificationEvent.from_request()` skip a `body`, `content` or `data` attribute that is `None` and read the next one, instead of raising `AttributeError`
+- `NotificationPayout.from_dict()` no longer raises `TypeError: 'module' object is not callable`
+- Importing `paddle_billing.Notifications.Events.PaymentMethodDeleted` no longer raises an `ImportError`
 
 ## 1.18.0 - 2026-11-05
 
