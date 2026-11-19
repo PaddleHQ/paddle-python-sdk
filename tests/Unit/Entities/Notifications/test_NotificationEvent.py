@@ -1,3 +1,4 @@
+from datetime import datetime, timezone
 from json import dumps, loads
 from pytest import mark
 from importlib import import_module
@@ -6,6 +7,8 @@ from paddle_billing.Json import PayloadEncoder
 from paddle_billing.Entities.Notifications import NotificationEvent
 
 from paddle_billing.Notifications.Entities.ApiKey import ApiKey
+from paddle_billing.Notifications.Entities.ApiKeyRotation import ApiKeyRotation
+from paddle_billing.Notifications.Entities.ApiKeys import ApiKeyRotationStatus
 from paddle_billing.Notifications.Entities.Shared import ErrorCode, PaymentMethodType, TransactionPaypal
 from paddle_billing.Notifications.Entities.Subscription import Subscription
 from paddle_billing.Notifications.Entities.SubscriptionCreated import SubscriptionCreated
@@ -29,6 +32,8 @@ class TestNotificationEvent:
             ("api_key.expiring", "ApiKey"),
             ("api_key_exposure.created", "ApiKeyExposure"),
             ("api_key.revoked", "ApiKey"),
+            ("api_key_rotation.created", "ApiKeyRotation"),
+            ("api_key_rotation.updated", "ApiKeyRotation"),
             ("api_key.updated", "ApiKey"),
             ("business.created", "Business"),
             ("business.imported", "Business"),
@@ -84,6 +89,8 @@ class TestNotificationEvent:
             "api_key.expiring",
             "api_key_exposure.created",
             "api_key.revoked",
+            "api_key_rotation.created",
+            "api_key_rotation.updated",
             "api_key.updated",
             "business.created",
             "business.imported",
@@ -337,3 +344,21 @@ class TestNotificationEvent:
         assert isinstance(notification_event.data, ApiKey)
         exposed_at = notification_event.data.exposed_at
         assert (exposed_at.isoformat() if exposed_at else None) == expected_exposed_at
+
+    def test_api_key_rotation_notification_event_parses_nested_values(self):
+        notification_event = NotificationEvent.from_dict(
+            {
+                "data": loads(ReadsFixtures.read_raw_json_fixture("notification/entity/api_key_rotation.updated")),
+                "notification_id": "ntf_01h8bkrfe7w1vwf8xmytwn51e7",
+                "event_type": "api_key_rotation.updated",
+                "event_id": "evt_01h8bzakzx3hm2fmen703n5q45",
+                "occurred_at": "2023-08-21T11:57:47.390028Z",
+            }
+        )
+
+        assert isinstance(notification_event.data, ApiKeyRotation)
+        assert notification_event.data.api_key_id == "apikey_01jkdpbhazdpn3wpcya45as9tg"
+        assert notification_event.data.status == ApiKeyRotationStatus.Completed
+        assert notification_event.data.grace_period_seconds == 3600
+        assert notification_event.data.new_key_expires_at == datetime(2026, 11, 2, tzinfo=timezone.utc)
+        assert notification_event.data.expires_at == datetime(2025, 8, 19, 14, 10, 2, 114209, tzinfo=timezone.utc)
