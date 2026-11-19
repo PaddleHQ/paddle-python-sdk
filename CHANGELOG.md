@@ -8,6 +8,18 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 
 ## Unreleased
 
+### Added
+
+- Added support for API keys. See [related changelog](https://developer.paddle.com/changelog/2026/api-keys-read-and-rotate-api?utm_source=dx&utm_medium=paddle-python-sdk)
+  - `Client.api_keys.list`
+  - `Client.api_keys.get`
+- Added support for API key rotation. See [related changelog](https://developer.paddle.com/changelog/2026/api-keys-read-and-rotate-api?utm_source=dx&utm_medium=paddle-python-sdk). The rotation methods act on the API key the client is authenticated with, as a key can only manage its own rotations. To rotate another key, create a client with that key's secret. The full `new_key` is only returned on create, so store it securely
+  - `Client.api_keys.create_rotation_for_current_key`
+  - `Client.api_keys.list_rotations_for_current_key`
+  - `Client.api_keys.get_rotation_for_current_key`
+- Added `api_key.read` to `ApiKeyPermission`
+- Added `api_key_rotation.created` and `api_key_rotation.updated` events, including simulation payload support
+
 ### Fixed
 
 - `GET` requests that exhaust their retries on a retryable status (429, 5xx) now raise the corresponding `ApiError` (including `retry_after`) instead of a generic `requests.exceptions.RetryError`
