@@ -1,8 +1,11 @@
+from http.server import BaseHTTPRequestHandler, HTTPServer
 from json import loads, dumps
+from threading import Thread
 from pytest import mark, raises
 from urllib.parse import unquote
 import requests
 
+from paddle_billing import Client
 from paddle_billing.Exceptions.ApiError import ApiError
 from paddle_billing.Exceptions.ApiErrors.AddressApiError import AddressApiError
 
@@ -198,3 +201,48 @@ class TestClient:
 
         assert isinstance(exception, RequestException)
         assert str(exception) == "Some Connection Error"
+
+    def test_get_with_exhausted_retries_raises_api_error_with_retry_after(self):
+        hits = []
+
+        class Handler(BaseHTTPRequestHandler):
+            def do_GET(self):
+                hits.append(1)
+                body = dumps(
+                    {
+                        "error": {
+                            "type": "request_error",
+                            "code": "too_many_requests",
+                            "detail": "Too many requests",
+                            "documentation_url": "https://developer.paddle.com/v1/errors/shared/too_many_requests",
+                        },
+                        "meta": {"request_id": "f00bb3ca-399d-4686-889c-50b028f4c912"},
+                    }
+                ).encode()
+                self.send_response(429)
+                self.send_header("Content-Type", "application/json")
+                self.send_header("Retry-After", "1")
+                self.send_header("Content-Length", str(len(body)))
+                self.end_headers()
+                self.wfile.write(body)
+
+            def log_message(self, *args):
+                pass
+
+        server = HTTPServer(("127.0.0.1", 0), Handler)
+        thread = Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+
+        try:
+            client = Client("key", retry_count=1)
+            # The retry-enabled session is only mounted for https://, so mount it for the local http server too.
+            client.client.mount("http://", client.client.get_adapter("https://"))
+
+            with raises(ApiError) as exception_info:
+                client.get_raw(f"http://127.0.0.1:{server.server_port}/some/url")
+        finally:
+            server.shutdown()
+            server.server_close()
+
+        assert exception_info.value.retry_after == 1
+        assert len(hits) == 2

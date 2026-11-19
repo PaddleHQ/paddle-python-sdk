@@ -20,6 +20,10 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 - Added `api_key.read` to `ApiKeyPermission`
 - Added `api_key_rotation.created` and `api_key_rotation.updated` events, including simulation payload support
 
+### Fixed
+
+- `GET` requests that exhaust their retries on a retryable status (429, 5xx) now raise the corresponding `ApiError` (including `retry_after`) instead of a generic `requests.exceptions.RetryError`
+
 ## 1.18.0 - 2026-11-05
 
 ### Added
