@@ -169,7 +169,7 @@ from paddle_billing.Notifications import Secret, Verifier
 integrity_check = Verifier().verify(request, Secret('WEBHOOK_SECRET_KEY'))
 ```
 
-The `verify()` method accepts the request object from popular frameworks such as Flask and Django. For other frameworks, or to wrap your own request, pass an object that implements the `paddle_billing.Notifications.Requests.Request` protocol.
+The `verify()` method accepts the request object from popular frameworks such as Flask and Django. For other frameworks, or to wrap your own request, pass any object with `headers` and the raw body as `bytes` in a `body`, `content` or `data` attribute. To type your own code, use the matching protocol from `paddle_billing.Notifications.Requests`: `BodyRequest`, `ContentRequest` or `DataRequest`.
 
 Time drift max variance can be adjusted by passing `seconds` to `Verifier()` _(default: 5 seconds)_:
 

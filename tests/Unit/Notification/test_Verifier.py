@@ -125,3 +125,13 @@ class TestVerifier:
         assert len(rejections) == 1
         assert rejections[0].levelno == logging.WARNING
         assert not [record for record in caplog.records if record.levelno >= logging.ERROR]
+
+    def test_verify_skips_none_body_attributes(self):
+        headers = {
+            PaddleSignature().HEADER: "ts=1696195954;h1=d96299976a6eb066f484d7fde011ac56fc32b38fc9940bc419d6e537fdc6ef02",
+        }
+        request = FakeRequest(headers, "hello-world")
+        request.body = None
+        secret = Secret("pdl_ntf_01hbpjmytsa32fhr36nqgc3kgb_WvRO0eL4Bj9rgYYIBZY6wZhG4EHy9jzh")
+
+        assert Verifier(0).verify(request, secret)

@@ -1,11 +1,10 @@
 from os import getenv
 from time import time
-from typing import Any
-
 from paddle_billing.Logger import get_logger
 
 from paddle_billing.Notifications.Secret import Secret
 from paddle_billing.Notifications.PaddleSignature import PaddleSignature
+from paddle_billing.Notifications.Requests import BodyRequest, ContentRequest, DataRequest, Request
 
 
 class Verifier:
@@ -22,7 +21,12 @@ class Verifier:
     def maximum_variance(self) -> int | None:
         return self.__maximum_variance
 
-    def verify(self, request: Any, secrets: list[Secret] | Secret, verify_time_drift: bool = True) -> bool:
+    def verify(
+        self,
+        request: Request | BodyRequest | ContentRequest | DataRequest,
+        secrets: list[Secret] | Secret,
+        verify_time_drift: bool = True,
+    ) -> bool:
         """
         :param request:           The request object to verify
         :param secrets:           One or more Secrets to use for verifying the request
@@ -50,12 +54,12 @@ class Verifier:
                 return False
 
         raw_body = None
-        if hasattr(request, "body"):
-            raw_body = request.body.decode("utf-8")
-        elif hasattr(request, "content"):
-            raw_body = request.content.decode("utf-8")
-        elif hasattr(request, "data"):
-            raw_body = request.data.decode("utf-8")
+        if (body := getattr(request, "body", None)) is not None:
+            raw_body = body.decode("utf-8")
+        elif (content := getattr(request, "content", None)) is not None:
+            raw_body = content.decode("utf-8")
+        elif (data := getattr(request, "data", None)) is not None:
+            raw_body = data.decode("utf-8")
 
         if not isinstance(raw_body, str):
             raise ValueError("raw_body is not instance of str.")

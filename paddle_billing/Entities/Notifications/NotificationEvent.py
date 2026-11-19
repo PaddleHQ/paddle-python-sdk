@@ -3,13 +3,16 @@ from abc import ABC
 from dataclasses import dataclass
 from datetime import datetime
 import json
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from paddle_billing.Entities.Entity import Entity
 from paddle_billing.Entities.Events import EventTypeName
 
 from paddle_billing.Notifications.Entities.Entity import Entity as NotificationEntity
 from paddle_billing.Notifications.Entities.UndefinedEntity import UndefinedEntity
+
+if TYPE_CHECKING:
+    from paddle_billing.Notifications.Requests import BodyRequest, ContentRequest, DataRequest, Request
 
 
 @dataclass
@@ -31,14 +34,14 @@ class NotificationEvent(Entity, ABC):
         )
 
     @staticmethod
-    def from_request(request: Any) -> NotificationEvent:
+    def from_request(request: Request | BodyRequest | ContentRequest | DataRequest) -> NotificationEvent:
         raw_body = None
-        if hasattr(request, "body"):
-            raw_body = request.body.decode("utf-8")
-        elif hasattr(request, "content"):
-            raw_body = request.content.decode("utf-8")
-        elif hasattr(request, "data"):
-            raw_body = request.data.decode("utf-8")
+        if (body := getattr(request, "body", None)) is not None:
+            raw_body = body.decode("utf-8")
+        elif (content := getattr(request, "content", None)) is not None:
+            raw_body = content.decode("utf-8")
+        elif (data := getattr(request, "data", None)) is not None:
+            raw_body = data.decode("utf-8")
         else:
             raise ValueError("Request does not have attr body, content, or data.")
 

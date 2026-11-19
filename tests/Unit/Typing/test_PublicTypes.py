@@ -27,5 +27,6 @@ def test_documented_usage_type_checks(usage):
 def test_type_checker_rejects_invalid_usage():
     errors = type_check(USAGE / "invalid_usage.py")
 
-    assert len(errors) == 1, errors
+    assert len(errors) == 2, errors
     assert 'Argument 1 to "Client" has incompatible type "int"' in errors[0]
+    assert 'Argument 1 to "verify" of "Verifier" has incompatible type "NoBodyRequest"' in errors[1]
