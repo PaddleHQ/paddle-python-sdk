@@ -7,7 +7,6 @@ from urllib.parse import unquote
 
 from paddle_billing.Entities.ApiKey import ApiKey
 from paddle_billing.Entities.ApiKeyRotation import ApiKeyRotation
-from paddle_billing.Entities.ApiKeyRotationCreated import ApiKeyRotationCreated
 from paddle_billing.Entities.ApiKeys import ApiKeyPermission, ApiKeyRotationStatus, ApiKeyStatus
 from paddle_billing.Entities.DateTime import DateTime
 from paddle_billing.Entities.Collections import ApiKeyCollection, ApiKeyRotationCollection
@@ -372,7 +371,7 @@ class TestApiKeysClient:
         request_json = test_client.client.payload
         last_request = mock_requests.last_request
 
-        assert isinstance(response, ApiKeyRotationCreated)
+        assert isinstance(response, ApiKeyRotation)
         assert last_request is not None
         assert last_request.method == "POST"
         assert test_client.client.status_code == 201

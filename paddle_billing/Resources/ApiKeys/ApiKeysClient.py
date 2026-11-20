@@ -3,7 +3,6 @@ from paddle_billing.ResponseParser import ResponseParser
 from paddle_billing.Entities.Collections import Paginator, ApiKeyCollection, ApiKeyRotationCollection
 from paddle_billing.Entities.ApiKey import ApiKey
 from paddle_billing.Entities.ApiKeyRotation import ApiKeyRotation
-from paddle_billing.Entities.ApiKeyRotationCreated import ApiKeyRotationCreated
 
 from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 from paddle_billing.Resources.ApiKeys.Operations import CreateApiKeyRotation, ListApiKeyRotations, ListApiKeys
@@ -66,7 +65,7 @@ class ApiKeysClient:
 
         return ApiKeyRotation.from_dict(parser.get_dict())
 
-    def create_rotation_for_current_key(self, operation: CreateApiKeyRotation) -> ApiKeyRotationCreated:
+    def create_rotation_for_current_key(self, operation: CreateApiKeyRotation) -> ApiKeyRotation:
         """
         Rotates the API key this client is authenticated with. A key can only rotate itself.
         To rotate another key, create a client with that key's secret.
@@ -76,7 +75,7 @@ class ApiKeysClient:
         self.response = self.client.post_raw(f"/api-keys/{self._get_current_api_key_id()}/rotations", operation)
         parser = ResponseParser(self.response)
 
-        return ApiKeyRotationCreated.from_dict(parser.get_dict())
+        return ApiKeyRotation.from_dict(parser.get_dict())
 
     def _get_current_api_key_id(self) -> str:
         if self._current_api_key_id is None:
