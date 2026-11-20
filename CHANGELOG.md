@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-python-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
-## Unreleased
+## 1.19.0 - 2026-11-20
 
 ### Added
 
@@ -20,9 +20,16 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 - Added `api_key.read` to `ApiKeyPermission`
 - Added `api_key_rotation.created` and `api_key_rotation.updated` events, including simulation payload support
 
+### Changed
+
+- `UpdateCheckoutUrl` now requires `default_url` as a non-null `str`. The API no longer accepts `None` or a missing `default_url` when updating the checkout URL, so a default checkout URL can be changed but not cleared
+- `Verifier.verify` now logs expected rejections at `WARNING` instead of `CRITICAL`: a missing `Paddle-Signature` header, a timestamp outside the allowed variance, and a timestamp too far in the future. Messages and return values (`False`) are unchanged. If you alert on `CRITICAL` records from the `paddle_billing` logger to catch these rejections, update that alert to match `WARNING`
+
 ### Fixed
 
-- `GET` requests that exhaust their retries on a retryable status (429, 5xx) now raise the corresponding `ApiError` (including `retry_after`) instead of a generic `requests.exceptions.RetryError`
+- Fixed requests not being retried when Cloudflare returns a 520, 521, 522, 523 or 524 error. These are now retried with backoff for idempotent methods such as `GET`, in the same way as other transient failures
+- `DateTime` now converts timezone-aware values to UTC instead of dropping their offset. For example, `12:00:00+02:00` was previously sent as `12:00:00Z`, two hours late. Naive values are still treated as UTC
+- `GET` and `DELETE` requests that exhaust their retries on a retryable status (429 or 5xx) now raise the error from the last response instead of `requests.exceptions.RetryError`. An API error raises `ApiError`, with `retry_after` set when the response has a `Retry-After` header. A Cloudflare error page with no JSON body raises `requests.HTTPError`. If you catch `RetryError`, catch `ApiError` or `requests.RequestException` instead
 
 ## 1.18.0 - 2026-11-05
 
