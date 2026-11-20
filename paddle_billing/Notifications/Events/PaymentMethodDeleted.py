@@ -3,7 +3,9 @@ from datetime import datetime
 from paddle_billing.Entities.Event import Event
 from paddle_billing.Entities.Events import EventTypeName
 
-from paddle_billing.Notifications.Entities.Customer import PaymentMethod
+from paddle_billing.Notifications.Entities.PaymentMethodDeleted import (
+    PaymentMethodDeleted as PaymentMethodDeletedEntity,
+)
 
 
 class PaymentMethodDeleted(Event):
@@ -12,6 +14,6 @@ class PaymentMethodDeleted(Event):
         event_id: str,
         event_type: EventTypeName,
         occurred_at: datetime,
-        data: PaymentMethod,
+        data: PaymentMethodDeletedEntity,
     ):
         super().__init__(event_id, event_type, occurred_at, data)

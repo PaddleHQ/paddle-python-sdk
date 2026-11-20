@@ -1,1 +1,1 @@
-from paddle_billing.Entities.SimulationRuns.SimulationRunStatus import SimulationRunStatus
+from paddle_billing.Entities.SimulationRuns.SimulationRunStatus import SimulationRunStatus as SimulationRunStatus

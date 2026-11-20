@@ -1,6 +1,6 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class VerificationType(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    Onboarding: "VerificationType" = "onboarding"
-    Domain: "VerificationType" = "domain"
+    Onboarding: "VerificationType" = member("onboarding")
+    Domain: "VerificationType" = member("domain")

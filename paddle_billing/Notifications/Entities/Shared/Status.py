@@ -1,6 +1,6 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class Status(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    Active: "Status" = "active"
-    Archived: "Status" = "archived"
+    Active: "Status" = member("active")
+    Archived: "Status" = member("archived")

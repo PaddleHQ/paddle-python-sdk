@@ -1,7 +1,7 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class SimulationRunStatus(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    Canceled: "SimulationRunStatus" = "canceled"
-    Completed: "SimulationRunStatus" = "completed"
-    Pending: "SimulationRunStatus" = "pending"
+    Canceled: "SimulationRunStatus" = member("canceled")
+    Completed: "SimulationRunStatus" = member("completed")
+    Pending: "SimulationRunStatus" = member("pending")

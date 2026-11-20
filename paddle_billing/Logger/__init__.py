@@ -1,5 +1,5 @@
 import logging
-from paddle_billing.Logger.Formatter import CustomLogger
+from paddle_billing.Logger.Formatter import CustomLogger as CustomLogger
 
 
 def get_logger(

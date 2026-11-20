@@ -1,14 +1,14 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class ActionSource(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    System: "ActionSource" = "system"
-    Api: "ActionSource" = "api"
-    Dashboard: "ActionSource" = "dashboard"
-    CustomerPortal: "ActionSource" = "customer_portal"
-    SupportBot: "ActionSource" = "support_bot"
-    Retain: "ActionSource" = "retain"
-    Checkout: "ActionSource" = "checkout"
-    ExternalProvider: "ActionSource" = "external_provider"
-    PaddleClassic: "ActionSource" = "paddle_classic"
-    Unknown: "ActionSource" = "unknown"
+    System: "ActionSource" = member("system")
+    Api: "ActionSource" = member("api")
+    Dashboard: "ActionSource" = member("dashboard")
+    CustomerPortal: "ActionSource" = member("customer_portal")
+    SupportBot: "ActionSource" = member("support_bot")
+    Retain: "ActionSource" = member("retain")
+    Checkout: "ActionSource" = member("checkout")
+    ExternalProvider: "ActionSource" = member("external_provider")
+    PaddleClassic: "ActionSource" = member("paddle_classic")
+    Unknown: "ActionSource" = member("unknown")

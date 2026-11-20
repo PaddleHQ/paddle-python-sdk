@@ -1,4 +1,5 @@
 from hashlib import sha256
+from typing import cast
 from hmac import HMAC, compare_digest, new as hmac_new
 
 from paddle_billing.Logger import get_logger
@@ -33,23 +34,21 @@ class PaddleSignature:
         :param   signature_header: The Paddle-Signature key=value from the webhook event's headers
         :return:                   A tuple containing (timestamp, signature)
         """
-        components = {
-            PaddleSignature().TIMESTAMP: 0,
-            "hashes": {PaddleSignature().HASH_ALGORITHM_1: []},
-        }
+        timestamp: str | int = 0
+        hashes: dict[str, list[str]] = {PaddleSignature().HASH_ALGORITHM_1: []}
 
         for key_value_pair in signature_header.split(";"):
             if "=" in key_value_pair:
                 key, value = key_value_pair.split("=")
 
                 if key == PaddleSignature().TIMESTAMP:
-                    components[PaddleSignature().TIMESTAMP] = value
+                    timestamp = value
                 elif key == PaddleSignature().HASH_ALGORITHM_1:
-                    components["hashes"][PaddleSignature().HASH_ALGORITHM_1].append(value)
+                    hashes[PaddleSignature().HASH_ALGORITHM_1].append(value)
                 else:
                     raise ValueError("Unrecognized Paddle-Signature key")
 
-        return int(components[PaddleSignature().TIMESTAMP]), components["hashes"]
+        return int(timestamp), hashes
 
     @staticmethod
     def calculate_hmac(secret_key: str, data: bytes) -> HMAC:
@@ -61,9 +60,7 @@ class PaddleSignature:
 
         return compare_digest(generated_signature, signature)
 
-    def __do_verify(
-        self, timestamp: int, signatures: list[str], raw_body: str, secret_key: Secret | list[Secret]
-    ) -> bool:
+    def __do_verify(self, timestamp: int, signatures: list[str], raw_body: str, secret_key: Secret) -> bool:
         """
         Verifies an individual secret key against a Paddle-Signature header.
         Called by PaddleSignature.verify()
@@ -108,10 +105,10 @@ class PaddleSignature:
                 timestamp=timestamp,
                 signatures=signature[PaddleSignature().HASH_ALGORITHM_1],
                 raw_body=raw_body,
-                secret_key=secrets,
+                secret_key=cast(Secret, secrets),
             )
 
-        for secret in secrets:
+        for secret in cast(list[Secret], secrets):
             verification_result = self.__do_verify(
                 timestamp=timestamp,
                 signatures=signature[PaddleSignature().HASH_ALGORITHM_1],

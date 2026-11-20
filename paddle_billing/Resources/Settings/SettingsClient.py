@@ -1,3 +1,5 @@
+from requests import Response
+
 from paddle_billing.ResponseParser import ResponseParser
 
 from paddle_billing.Entities.Settings import (
@@ -33,7 +35,7 @@ if TYPE_CHECKING:
 class SettingsClient:
     def __init__(self, client: "Client"):
         self.client = client
-        self.response = None
+        self.response: Response | None = None
 
     def get_balance_currency(self) -> BalanceCurrency:
         self.response = self.client.get_raw("/settings/balance-currency")

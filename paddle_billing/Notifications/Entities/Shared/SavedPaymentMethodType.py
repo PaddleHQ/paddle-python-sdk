@@ -1,20 +1,20 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class SavedPaymentMethodType(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    Alipay: "SavedPaymentMethodType" = "alipay"
-    ApplePay: "SavedPaymentMethodType" = "apple_pay"
-    Blik: "SavedPaymentMethodType" = "blik"
-    Card: "SavedPaymentMethodType" = "card"
-    GooglePay: "SavedPaymentMethodType" = "google_pay"
-    KakaoPay: "SavedPaymentMethodType" = "kakao_pay"
-    KoreaLocal: "SavedPaymentMethodType" = "korea_local"
-    MbWay: "SavedPaymentMethodType" = "mb_way"
-    NaverPay: "SavedPaymentMethodType" = "naver_pay"
-    Payco: "SavedPaymentMethodType" = "payco"
-    Paypal: "SavedPaymentMethodType" = "paypal"
-    Pix: "SavedPaymentMethodType" = "pix"
-    SamsungPay: "SavedPaymentMethodType" = "samsung_pay"
-    SouthKoreaLocalCard: "SavedPaymentMethodType" = "south_korea_local_card"
-    Upi: "SavedPaymentMethodType" = "upi"
-    WechatPay: "SavedPaymentMethodType" = "wechat_pay"
+    Alipay: "SavedPaymentMethodType" = member("alipay")
+    ApplePay: "SavedPaymentMethodType" = member("apple_pay")
+    Blik: "SavedPaymentMethodType" = member("blik")
+    Card: "SavedPaymentMethodType" = member("card")
+    GooglePay: "SavedPaymentMethodType" = member("google_pay")
+    KakaoPay: "SavedPaymentMethodType" = member("kakao_pay")
+    KoreaLocal: "SavedPaymentMethodType" = member("korea_local")
+    MbWay: "SavedPaymentMethodType" = member("mb_way")
+    NaverPay: "SavedPaymentMethodType" = member("naver_pay")
+    Payco: "SavedPaymentMethodType" = member("payco")
+    Paypal: "SavedPaymentMethodType" = member("paypal")
+    Pix: "SavedPaymentMethodType" = member("pix")
+    SamsungPay: "SavedPaymentMethodType" = member("samsung_pay")
+    SouthKoreaLocalCard: "SavedPaymentMethodType" = member("south_korea_local_card")
+    Upi: "SavedPaymentMethodType" = member("upi")
+    WechatPay: "SavedPaymentMethodType" = member("wechat_pay")

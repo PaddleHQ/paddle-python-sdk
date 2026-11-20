@@ -1,9 +1,9 @@
 from paddle_billing.Resources.Simulations.Operations.Config.Subscription.Cancellation.SubscriptionCancellationConfigCreate import (
-    SubscriptionCancellationConfigCreate,
+    SubscriptionCancellationConfigCreate as SubscriptionCancellationConfigCreate,
 )
 from paddle_billing.Resources.Simulations.Operations.Config.Subscription.Cancellation.SubscriptionCancellationEntitiesCreate import (
-    SubscriptionCancellationEntitiesCreate,
+    SubscriptionCancellationEntitiesCreate as SubscriptionCancellationEntitiesCreate,
 )
 from paddle_billing.Resources.Simulations.Operations.Config.Subscription.Cancellation.SubscriptionCancellationOptionsCreate import (
-    SubscriptionCancellationOptionsCreate,
+    SubscriptionCancellationOptionsCreate as SubscriptionCancellationOptionsCreate,
 )

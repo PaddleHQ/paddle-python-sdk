@@ -6,4 +6,4 @@ from paddle_billing.Entities.Subscriptions import SubscriptionEffectiveFrom
 
 @dataclass
 class CancelSubscription(Operation):
-    effective_from: SubscriptionEffectiveFrom = None
+    effective_from: SubscriptionEffectiveFrom | None = None

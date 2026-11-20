@@ -1,3 +1,5 @@
+from requests import Response
+
 from paddle_billing.ResponseParser import ResponseParser
 from paddle_billing.Entities.PricePreview import PricePreview
 from paddle_billing.Resources.PricingPreviews.Operations import PreviewPrice
@@ -11,7 +13,7 @@ if TYPE_CHECKING:
 class PricingPreviewsClient:
     def __init__(self, client: "Client"):
         self.client = client
-        self.response = None
+        self.response: Response | None = None
 
     def preview_prices(self, operation: PreviewPrice) -> PricePreview:
         self.response = self.client.post_raw("/pricing-preview", operation)

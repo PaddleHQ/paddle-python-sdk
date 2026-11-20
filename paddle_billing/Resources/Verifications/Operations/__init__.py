@@ -1,1 +1,1 @@
-from paddle_billing.Resources.Verifications.Operations.ListVerifications import ListVerifications
+from paddle_billing.Resources.Verifications.Operations.ListVerifications import ListVerifications as ListVerifications

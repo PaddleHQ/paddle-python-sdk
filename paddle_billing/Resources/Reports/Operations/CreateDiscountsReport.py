@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from typing import Type
 
 from paddle_billing.Entities.Reports import DiscountsReportType
 
@@ -8,18 +9,19 @@ from paddle_billing.Resources.Reports.Operations.Filters import (
     UpdatedAtFilter,
 )
 
-from paddle_billing.Resources.Reports.Operations.CreateReport import (
-    CreateReport,
-)
+from paddle_billing.Resources.Reports.Operations.CreateReport import CreateReport
+from paddle_billing.Resources.Reports.Operations.Filters.Filter import Filter
 
 
 @dataclass
-class CreateDiscountsReport(CreateReport):
+class CreateDiscountsReport(
+    CreateReport[DiscountsReportType, DiscountStatusFilter | DiscountTypeFilter | UpdatedAtFilter]
+):
     type: DiscountsReportType
     filters: list[DiscountStatusFilter | DiscountTypeFilter | UpdatedAtFilter] = field(default_factory=list)
 
     @staticmethod
-    def get_allowed_filters() -> tuple[DiscountStatusFilter, DiscountTypeFilter, UpdatedAtFilter]:
+    def get_allowed_filters() -> tuple[Type[Filter], ...]:
         return (
             DiscountStatusFilter,
             DiscountTypeFilter,

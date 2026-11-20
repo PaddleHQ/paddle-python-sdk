@@ -1,9 +1,9 @@
 from paddle_billing.Entities.Simulations.Config.Subscription.Resume.SubscriptionResumeConfig import (
-    SubscriptionResumeConfig,
+    SubscriptionResumeConfig as SubscriptionResumeConfig,
 )
 from paddle_billing.Entities.Simulations.Config.Subscription.Resume.SubscriptionResumeEntities import (
-    SubscriptionResumeEntities,
+    SubscriptionResumeEntities as SubscriptionResumeEntities,
 )
 from paddle_billing.Entities.Simulations.Config.Subscription.Resume.SubscriptionResumeOptions import (
-    SubscriptionResumeOptions,
+    SubscriptionResumeOptions as SubscriptionResumeOptions,
 )

@@ -1,7 +1,7 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class SubscriptionHistoryPaymentAttemptedOperation(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    SubscriptionUpdate: "SubscriptionHistoryPaymentAttemptedOperation" = "subscription_update"
-    SubscriptionOneOffCharge: "SubscriptionHistoryPaymentAttemptedOperation" = "subscription_one_off_charge"
-    SubscriptionActivate: "SubscriptionHistoryPaymentAttemptedOperation" = "subscription_activate"
+    SubscriptionUpdate: "SubscriptionHistoryPaymentAttemptedOperation" = member("subscription_update")
+    SubscriptionOneOffCharge: "SubscriptionHistoryPaymentAttemptedOperation" = member("subscription_one_off_charge")
+    SubscriptionActivate: "SubscriptionHistoryPaymentAttemptedOperation" = member("subscription_activate")

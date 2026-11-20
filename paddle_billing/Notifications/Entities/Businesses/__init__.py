@@ -1,1 +1,1 @@
-from paddle_billing.Notifications.Entities.Businesses.BusinessesContacts import BusinessesContacts
+from paddle_billing.Notifications.Entities.Businesses.BusinessesContacts import BusinessesContacts as BusinessesContacts

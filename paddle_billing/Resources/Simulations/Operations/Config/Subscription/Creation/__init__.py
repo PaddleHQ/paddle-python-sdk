@@ -1,12 +1,12 @@
 from paddle_billing.Resources.Simulations.Operations.Config.Subscription.Creation.SubscriptionCreationConfigCreate import (
-    SubscriptionCreationConfigCreate,
+    SubscriptionCreationConfigCreate as SubscriptionCreationConfigCreate,
 )
 from paddle_billing.Resources.Simulations.Operations.Config.Subscription.Creation.SubscriptionCreationEntitiesCreate import (
-    SubscriptionCreationEntitiesCreate,
+    SubscriptionCreationEntitiesCreate as SubscriptionCreationEntitiesCreate,
 )
 from paddle_billing.Resources.Simulations.Operations.Config.Subscription.Creation.SubscriptionCreationOptionsCreate import (
-    SubscriptionCreationOptionsCreate,
+    SubscriptionCreationOptionsCreate as SubscriptionCreationOptionsCreate,
 )
 from paddle_billing.Resources.Simulations.Operations.Config.Subscription.Creation.SubscriptionCreationItemCreate import (
-    SubscriptionCreationItemCreate,
+    SubscriptionCreationItemCreate as SubscriptionCreationItemCreate,
 )

@@ -1,3 +1,5 @@
+from requests import Response
+
 from paddle_billing.ResponseParser import ResponseParser
 
 from paddle_billing.Entities.Metrics.MetricEntityDefinition import MetricEntityDefinition
@@ -27,7 +29,7 @@ if TYPE_CHECKING:
 class MetricsClient:
     def __init__(self, client: "Client"):
         self.client = client
-        self.response = None
+        self.response: Response | None = None
 
     def get_monthly_recurring_revenue(self, operation: GetMetrics) -> MetricsMonthlyRecurringRevenue:
         self.response = self.client.get_raw("/metrics/monthly-recurring-revenue", operation.get_parameters())

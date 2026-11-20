@@ -1,3 +1,3 @@
-from paddle_billing.Entities.ApiKeys.ApiKeyPermission import ApiKeyPermission
-from paddle_billing.Entities.ApiKeys.ApiKeyRotationStatus import ApiKeyRotationStatus
-from paddle_billing.Entities.ApiKeys.ApiKeyStatus import ApiKeyStatus
+from paddle_billing.Entities.ApiKeys.ApiKeyPermission import ApiKeyPermission as ApiKeyPermission
+from paddle_billing.Entities.ApiKeys.ApiKeyRotationStatus import ApiKeyRotationStatus as ApiKeyRotationStatus
+from paddle_billing.Entities.ApiKeys.ApiKeyStatus import ApiKeyStatus as ApiKeyStatus

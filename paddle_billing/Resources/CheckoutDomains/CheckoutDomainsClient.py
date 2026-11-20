@@ -1,3 +1,5 @@
+from requests import Response
+
 from paddle_billing.ResponseParser import ResponseParser
 
 from paddle_billing.Entities.Collections import CheckoutDomainCollection, Paginator
@@ -14,7 +16,7 @@ if TYPE_CHECKING:
 class CheckoutDomainsClient:
     def __init__(self, client: "Client"):
         self.client = client
-        self.response = None
+        self.response: Response | None = None
 
     def list(self, operation: ListCheckoutDomains | None = None) -> CheckoutDomainCollection:
         if operation is None:

@@ -1,8 +1,8 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class ApiKeyRotationStatus(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    Pending: "ApiKeyRotationStatus" = "pending"
-    Completed: "ApiKeyRotationStatus" = "completed"
-    Canceled: "ApiKeyRotationStatus" = "canceled"
-    Expired: "ApiKeyRotationStatus" = "expired"
+    Pending: "ApiKeyRotationStatus" = member("pending")
+    Completed: "ApiKeyRotationStatus" = member("completed")
+    Canceled: "ApiKeyRotationStatus" = member("canceled")
+    Expired: "ApiKeyRotationStatus" = member("expired")

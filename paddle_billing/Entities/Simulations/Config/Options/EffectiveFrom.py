@@ -1,6 +1,6 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class EffectiveFrom(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    NextBillingPeriod: "EffectiveFrom" = "next_billing_period"
-    Immediately: "EffectiveFrom" = "immediately"
+    NextBillingPeriod: "EffectiveFrom" = member("next_billing_period")
+    Immediately: "EffectiveFrom" = member("immediately")

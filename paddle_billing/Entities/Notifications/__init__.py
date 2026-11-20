@@ -1,5 +1,7 @@
-from paddle_billing.Entities.Notifications.NotificationEvent import NotificationEvent
-from paddle_billing.Entities.Notifications.NotificationOrigin import NotificationOrigin
-from paddle_billing.Entities.Notifications.NotificationPayout import NotificationPayout
-from paddle_billing.Entities.Notifications.NotificationPayoutStatus import NotificationPayoutStatus
-from paddle_billing.Entities.Notifications.NotificationStatus import NotificationStatus
+from paddle_billing.Entities.Notifications.NotificationEvent import NotificationEvent as NotificationEvent
+from paddle_billing.Entities.Notifications.NotificationOrigin import NotificationOrigin as NotificationOrigin
+from paddle_billing.Entities.Notifications.NotificationPayout import NotificationPayout as NotificationPayout
+from paddle_billing.Entities.Notifications.NotificationPayoutStatus import (
+    NotificationPayoutStatus as NotificationPayoutStatus,
+)
+from paddle_billing.Entities.Notifications.NotificationStatus import NotificationStatus as NotificationStatus

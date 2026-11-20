@@ -1,18 +1,22 @@
 from dataclasses import dataclass, field
 from abc import ABC, abstractmethod
-from typing import Any
+from typing import Any, Generic, Type, TypeVar
 
 from paddle_billing.Operation import Operation
 
-from paddle_billing.Entities.Reports import ReportType, ReportFilter
+from paddle_billing.PaddleStrEnum import PaddleStrEnum
+from paddle_billing.Resources.Reports.Operations.Filters.Filter import Filter
 
 from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 
+ReportTypeT = TypeVar("ReportTypeT", bound=PaddleStrEnum)
+FilterT = TypeVar("FilterT", bound=Filter)
+
 
 @dataclass
-class CreateReport(Operation, ABC):
-    type: ReportType
-    filters: list[ReportFilter] = field(default_factory=list)
+class CreateReport(Operation, ABC, Generic[ReportTypeT, FilterT]):
+    type: ReportTypeT
+    filters: list[FilterT] = field(default_factory=list)
 
     def __post_init__(self):
         allowed_types = self.get_allowed_filters()
@@ -34,5 +38,5 @@ class CreateReport(Operation, ABC):
 
     @staticmethod
     @abstractmethod
-    def get_allowed_filters() -> tuple[Any]:
+    def get_allowed_filters() -> tuple[Type[Filter], ...]:
         pass

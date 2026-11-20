@@ -1,3 +1,5 @@
+from requests import Response
+
 from paddle_billing.ResponseParser import ResponseParser
 
 from paddle_billing.Entities.Collections import NotificationCollection, Paginator
@@ -14,7 +16,7 @@ if TYPE_CHECKING:
 class NotificationsClient:
     def __init__(self, client: "Client"):
         self.client = client
-        self.response = None
+        self.response: Response | None = None
 
     def list(self, operation: ListNotifications | None = None) -> NotificationCollection:
         if operation is None:
@@ -36,6 +38,6 @@ class NotificationsClient:
     def replay(self, notification_id: str) -> str:
         self.response = self.client.post_raw(f"/notifications/{notification_id}/replay")
         parser = ResponseParser(self.response)
-        data = parser.get_data()
+        data = parser.get_dict()
 
         return data.get("notification_id", "")

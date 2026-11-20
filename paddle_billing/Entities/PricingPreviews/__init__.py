@@ -1,6 +1,10 @@
-from paddle_billing.Entities.PricingPreviews.PricePreviewDetails import PricePreviewDetails
-from paddle_billing.Entities.PricingPreviews.PricePreviewDiscounts import PricePreviewDiscounts
-from paddle_billing.Entities.PricingPreviews.PricePreviewItem import PricePreviewItem
-from paddle_billing.Entities.PricingPreviews.PricePreviewLineItem import PricePreviewLineItem
-from paddle_billing.Entities.PricingPreviews.PricePreviewTotalsFormatted import PricePreviewTotalsFormatted
-from paddle_billing.Entities.PricingPreviews.PricePreviewUnitTotalsFormatted import PricePreviewUnitTotalsFormatted
+from paddle_billing.Entities.PricingPreviews.PricePreviewDetails import PricePreviewDetails as PricePreviewDetails
+from paddle_billing.Entities.PricingPreviews.PricePreviewDiscounts import PricePreviewDiscounts as PricePreviewDiscounts
+from paddle_billing.Entities.PricingPreviews.PricePreviewItem import PricePreviewItem as PricePreviewItem
+from paddle_billing.Entities.PricingPreviews.PricePreviewLineItem import PricePreviewLineItem as PricePreviewLineItem
+from paddle_billing.Entities.PricingPreviews.PricePreviewTotalsFormatted import (
+    PricePreviewTotalsFormatted as PricePreviewTotalsFormatted,
+)
+from paddle_billing.Entities.PricingPreviews.PricePreviewUnitTotalsFormatted import (
+    PricePreviewUnitTotalsFormatted as PricePreviewUnitTotalsFormatted,
+)

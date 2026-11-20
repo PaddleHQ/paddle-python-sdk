@@ -1,6 +1,6 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class ApiKeyExposureActionTaken(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    Revoked: "ApiKeyExposureActionTaken" = "revoked"
-    None_: "ApiKeyExposureActionTaken" = "none"
+    Revoked: "ApiKeyExposureActionTaken" = member("revoked")
+    None_: "ApiKeyExposureActionTaken" = member("none")

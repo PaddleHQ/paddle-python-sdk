@@ -1,6 +1,12 @@
-from paddle_billing.Notifications.Entities.Transactions.TransactionAdjustmentsTotals import TransactionAdjustmentsTotals
-from paddle_billing.Notifications.Entities.Transactions.TransactionBreakdown import TransactionBreakdown
-from paddle_billing.Notifications.Entities.Transactions.TransactionCardType import TransactionCardType
+from paddle_billing.Notifications.Entities.Transactions.TransactionAdjustmentsTotals import (
+    TransactionAdjustmentsTotals as TransactionAdjustmentsTotals,
+)
+from paddle_billing.Notifications.Entities.Transactions.TransactionBreakdown import (
+    TransactionBreakdown as TransactionBreakdown,
+)
+from paddle_billing.Notifications.Entities.Transactions.TransactionCardType import (
+    TransactionCardType as TransactionCardType,
+)
 
 # These cause circular imports
 # from paddle_billing.Notifications.Entities.Transactions.TransactionDetails  import TransactionDetails

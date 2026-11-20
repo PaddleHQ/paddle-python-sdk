@@ -1,3 +1,5 @@
+from requests import Response
+
 from paddle_billing.ResponseParser import ResponseParser
 
 from paddle_billing.Entities.Collections import NotificationSettingCollection, Paginator
@@ -18,7 +20,7 @@ if TYPE_CHECKING:
 class NotificationSettingsClient:
     def __init__(self, client: "Client"):
         self.client = client
-        self.response = None
+        self.response: Response | None = None
 
     def list(self, operation: ListNotificationSettings | None = None) -> NotificationSettingCollection:
         if operation is None:

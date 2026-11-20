@@ -1,1 +1,3 @@
-from paddle_billing.Entities.Countries.CountryDefinitionTaxMode import CountryDefinitionTaxMode
+from paddle_billing.Entities.Countries.CountryDefinitionTaxMode import (
+    CountryDefinitionTaxMode as CountryDefinitionTaxMode,
+)
