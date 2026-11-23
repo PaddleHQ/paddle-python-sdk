@@ -4,6 +4,8 @@ from typing import Any, Generic, Type, TypeVar
 
 from paddle_billing.Operation import Operation
 
+# Unused here since CreateReport became generic; kept so existing imports from this module still work.
+from paddle_billing.Entities.Reports import ReportType as ReportType, ReportFilter as ReportFilter  # noqa: F401
 from paddle_billing.PaddleStrEnum import PaddleStrEnum
 from paddle_billing.Resources.Reports.Operations.Filters.Filter import Filter
 
