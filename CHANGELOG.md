@@ -25,7 +25,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 ### Changed
 
 - If you run mypy over code that uses the SDK, upgrading may report new errors. Before this release mypy treated the SDK as untyped, so values from it were `Any`. It now checks them against the SDK's annotations, for example `client.customers.response` is `Response | None` and API fields that can be `null` are typed as optional. Pyright already read the annotations, so pyright users should see little change
-- Package `__init__` modules now re-export their names explicitly, so imports such as `from paddle_billing import Client` pass pyright and `mypy --strict`. In the five `Operations` packages that define `__all__` (prices, products, adjustments, subscriptions and transactions), `from ... import *` no longer also brings in subpackage modules such as `List` and `Price`
+- Package `__init__` modules now re-export their names explicitly, so imports such as `from paddle_billing import Client` pass pyright and `mypy --strict`
 - `Verifier.verify()` and `NotificationEvent.from_request()` take `Request | BodyRequest | ContentRequest | DataRequest`, so framework request objects such as Django's and Flask's pass type checkers. The `Request` protocol is unchanged
 - `Verifier.verify()` is typed as returning `bool`
 - Corrected type annotations that type checkers will now see, including:

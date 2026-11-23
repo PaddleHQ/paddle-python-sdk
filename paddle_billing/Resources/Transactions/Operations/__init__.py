@@ -18,16 +18,24 @@ from paddle_billing.Resources.Transactions.Operations.GetTransactionInvoice impo
 )
 from paddle_billing.Resources.Transactions.Operations.ReviseTransaction import ReviseTransaction as ReviseTransaction
 
+# Subpackage modules are listed so `import *` keeps exporting them, as it did before `__all__` was added.
 __all__ = [
+    "Create",
     "CreateTransaction",
+    "Discount",
+    "GetTransactionInvoice",
+    "List",
     "ListTransactions",
-    "TransactionIncludes",
-    "TransactionOrigin",
+    "Preview",
     "PreviewTransaction",
     "PreviewTransactionByAddress",
     "PreviewTransactionByCustomer",
     "PreviewTransactionByIP",
-    "UpdateTransaction",
-    "GetTransactionInvoice",
+    "Price",
+    "Revise",
     "ReviseTransaction",
+    "TransactionIncludes",
+    "TransactionOrigin",
+    "Update",
+    "UpdateTransaction",
 ]

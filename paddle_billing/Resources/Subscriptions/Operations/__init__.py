@@ -26,16 +26,21 @@ from paddle_billing.Resources.Subscriptions.Operations.Update.SubscriptionDiscou
     SubscriptionDiscount as SubscriptionDiscount,
 )
 
+# Subpackage modules are listed so `import *` keeps exporting them, as it did before `__all__` was added.
 __all__ = [
     "CancelSubscription",
+    "Charge",
     "CreateOneTimeCharge",
-    "SubscriptionIncludes",
+    "Get",
     "ListSubscriptionHistory",
     "ListSubscriptions",
     "PauseSubscription",
     "PreviewOneTimeCharge",
     "PreviewUpdateSubscription",
+    "Price",
     "ResumeSubscription",
-    "UpdateSubscription",
     "SubscriptionDiscount",
+    "SubscriptionIncludes",
+    "Update",
+    "UpdateSubscription",
 ]
