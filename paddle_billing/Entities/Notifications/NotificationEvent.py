@@ -11,7 +11,7 @@ from paddle_billing.Entities.Events import EventTypeName
 from paddle_billing.Notifications.Entities.Entity import Entity as NotificationEntity
 from paddle_billing.Notifications.Entities.UndefinedEntity import UndefinedEntity
 
-from paddle_billing.Notifications.Requests import Request
+from paddle_billing.Notifications.Requests import Request as Request
 
 if TYPE_CHECKING:
     from paddle_billing.Notifications.Requests import BodyRequest, ContentRequest, DataRequest
