@@ -19,7 +19,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
   - `Client.api_keys.get_rotation_for_current_key`
 - Added `api_key.read` to `ApiKeyPermission`
 - Added `api_key_rotation.created` and `api_key_rotation.updated` events, including simulation payload support
-- Added a `py.typed` marker, so mypy and pyright check your code against the SDK's type annotations. Package `__init__` modules now re-export their names explicitly, so imports such as `from paddle_billing import Client` pass type checkers
+- Added a `py.typed` marker, so mypy and pyright check your code against the SDK's type annotations.
 - Added `BodyRequest`, `ContentRequest` and `DataRequest` protocols to `paddle_billing.Notifications.Requests`, for typing your own webhook request objects
 
 ### Changed
