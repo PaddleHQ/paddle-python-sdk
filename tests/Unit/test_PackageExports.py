@@ -44,6 +44,12 @@ def plain_sdk_imports(module_file: Path) -> list[str]:
     ]
 
 
+def test_module_files_are_found():
+    assert PACKAGE / "Client.py" in MODULE_FILES
+    assert PACKAGE / "Entities" / "Transaction.py" in MODULE_FILES
+    assert PACKAGE / "Notifications" / "Entities" / "Transaction.py" in MODULE_FILES
+
+
 def test_package_is_marked_as_typed():
     assert (PACKAGE / "py.typed").is_file()
 
