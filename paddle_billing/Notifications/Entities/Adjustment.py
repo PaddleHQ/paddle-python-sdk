@@ -3,15 +3,18 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Notifications.Entities.Adjustments import AdjustmentItem, AdjustmentTaxRatesUsed
-from paddle_billing.Notifications.Entities.Entity import Entity
+from paddle_billing.Notifications.Entities.Adjustments import (
+    AdjustmentItem as AdjustmentItem,
+    AdjustmentTaxRatesUsed as AdjustmentTaxRatesUsed,
+)
+from paddle_billing.Notifications.Entities.Entity import Entity as Entity
 from paddle_billing.Notifications.Entities.Shared import (
-    Action,
-    AdjustmentActionType,
-    AdjustmentStatus,
-    CurrencyCode,
-    PayoutTotalsAdjustment,
-    AdjustmentTotals,
+    Action as Action,
+    AdjustmentActionType as AdjustmentActionType,
+    AdjustmentStatus as AdjustmentStatus,
+    CurrencyCode as CurrencyCode,
+    PayoutTotalsAdjustment as PayoutTotalsAdjustment,
+    AdjustmentTotals as AdjustmentTotals,
 )
 
 

@@ -2,8 +2,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.ApiRoot import RootApi, RootCaller
+from paddle_billing.Entities.Entity import Entity as Entity
+from paddle_billing.Entities.ApiRoot import RootApi as RootApi, RootCaller as RootCaller
 
 
 @dataclass

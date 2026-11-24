@@ -5,6 +5,15 @@ from pytest import mark
 
 PACKAGE = Path(__file__).parents[2] / "paddle_billing"
 INIT_FILES = sorted(PACKAGE.rglob("__init__.py"))
+MODULE_FILES = sorted(
+    f
+    for f in [
+        PACKAGE / "Client.py",
+        *(PACKAGE / "Entities").glob("*.py"),
+        *(PACKAGE / "Notifications/Entities").glob("*.py"),
+    ]
+    if f.name != "__init__.py"
+)
 
 
 def private_imports(init_file: Path) -> list[str]:
@@ -23,6 +32,18 @@ def private_imports(init_file: Path) -> list[str]:
     ]
 
 
+def plain_sdk_imports(module_file: Path) -> list[str]:
+    tree = ast.parse(module_file.read_text())
+
+    return [
+        alias.name
+        for node in tree.body
+        if isinstance(node, ast.ImportFrom) and (node.module or "").startswith("paddle_billing")
+        for alias in node.names
+        if alias.asname is None
+    ]
+
+
 def test_package_is_marked_as_typed():
     assert (PACKAGE / "py.typed").is_file()
 
@@ -31,6 +52,12 @@ def test_package_is_marked_as_typed():
 @mark.parametrize("init_file", INIT_FILES, ids=lambda f: str(f.relative_to(PACKAGE.parent)))
 def test_package_imports_are_explicit_re_exports(init_file):
     assert private_imports(init_file) == []
+
+
+# Users import resource clients from `paddle_billing.Client`, and enums and nested entities from entity modules.
+@mark.parametrize("module_file", MODULE_FILES, ids=lambda f: str(f.relative_to(PACKAGE.parent)))
+def test_module_imports_are_explicit_re_exports(module_file):
+    assert plain_sdk_imports(module_file) == []
 
 
 # The names `import *` gave before these packages defined `__all__`, including subpackage modules.

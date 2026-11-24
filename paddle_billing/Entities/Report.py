@@ -3,8 +3,12 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.Reports import ReportFilter, ReportStatus, ReportType
+from paddle_billing.Entities.Entity import Entity as Entity
+from paddle_billing.Entities.Reports import (
+    ReportFilter as ReportFilter,
+    ReportStatus as ReportStatus,
+    ReportType as ReportType,
+)
 
 
 @dataclass

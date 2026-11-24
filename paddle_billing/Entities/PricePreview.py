@@ -2,9 +2,13 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.Shared import AddressPreview, CurrencyCode, PaymentMethodType
-from paddle_billing.Entities.PricingPreviews import PricePreviewDetails
+from paddle_billing.Entities.Entity import Entity as Entity
+from paddle_billing.Entities.Shared import (
+    AddressPreview as AddressPreview,
+    CurrencyCode as CurrencyCode,
+    PaymentMethodType as PaymentMethodType,
+)
+from paddle_billing.Entities.PricingPreviews import PricePreviewDetails as PricePreviewDetails
 
 
 @dataclass

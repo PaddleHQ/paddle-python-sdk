@@ -4,11 +4,11 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.Events import EventTypeName
-from paddle_billing.Entities.Simulations import SimulationScenarioType
-from paddle_billing.Entities.SimulationRuns import SimulationRunStatus
-from paddle_billing.Entities.SimulationRunEvent import SimulationRunEvent
+from paddle_billing.Entities.Entity import Entity as Entity
+from paddle_billing.Entities.Events import EventTypeName as EventTypeName
+from paddle_billing.Entities.Simulations import SimulationScenarioType as SimulationScenarioType
+from paddle_billing.Entities.SimulationRuns import SimulationRunStatus as SimulationRunStatus
+from paddle_billing.Entities.SimulationRunEvent import SimulationRunEvent as SimulationRunEvent
 
 
 @dataclass

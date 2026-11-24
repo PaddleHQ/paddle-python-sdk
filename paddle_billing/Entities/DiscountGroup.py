@@ -5,8 +5,8 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Entities.DiscountGroups import DiscountGroupStatus
-from paddle_billing.Entities.Shared import ImportMeta
+from paddle_billing.Entities.DiscountGroups import DiscountGroupStatus as DiscountGroupStatus
+from paddle_billing.Entities.Shared import ImportMeta as ImportMeta
 
 
 @dataclass

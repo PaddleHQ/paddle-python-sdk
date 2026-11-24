@@ -2,9 +2,14 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.Countries import CountryDefinitionTaxMode
-from paddle_billing.Entities.Shared import CountryCode, CountryCodeIso3, CurrencyCode, CurrencyCodePayouts
+from paddle_billing.Entities.Entity import Entity as Entity
+from paddle_billing.Entities.Countries import CountryDefinitionTaxMode as CountryDefinitionTaxMode
+from paddle_billing.Entities.Shared import (
+    CountryCode as CountryCode,
+    CountryCodeIso3 as CountryCodeIso3,
+    CurrencyCode as CurrencyCode,
+    CurrencyCodePayouts as CurrencyCodePayouts,
+)
 
 
 @dataclass

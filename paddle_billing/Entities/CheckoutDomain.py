@@ -3,8 +3,11 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.CheckoutDomains import CheckoutDomainPaymentMethodVerification, CheckoutDomainStatus
+from paddle_billing.Entities.Entity import Entity as Entity
+from paddle_billing.Entities.CheckoutDomains import (
+    CheckoutDomainPaymentMethodVerification as CheckoutDomainPaymentMethodVerification,
+    CheckoutDomainStatus as CheckoutDomainStatus,
+)
 
 
 @dataclass

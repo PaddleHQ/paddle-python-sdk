@@ -3,9 +3,12 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.VerificationStep import VerificationStep
-from paddle_billing.Entities.Verifications import VerificationStatus, VerificationType
+from paddle_billing.Entities.Entity import Entity as Entity
+from paddle_billing.Entities.VerificationStep import VerificationStep as VerificationStep
+from paddle_billing.Entities.Verifications import (
+    VerificationStatus as VerificationStatus,
+    VerificationType as VerificationType,
+)
 
 
 @dataclass

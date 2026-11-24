@@ -1,6 +1,6 @@
 from __future__ import annotations
 from typing import Any
-from paddle_billing.Notifications.Entities.EntityDict import EntityDict
+from paddle_billing.Notifications.Entities.EntityDict import EntityDict as EntityDict
 
 
 class UndefinedEntity(EntityDict):

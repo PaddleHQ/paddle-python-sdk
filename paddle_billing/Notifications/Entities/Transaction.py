@@ -3,21 +3,23 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Notifications.Entities.Entity import Entity
+from paddle_billing.Notifications.Entities.Entity import Entity as Entity
 from paddle_billing.Notifications.Entities.Shared import (
-    BillingDetails,
-    Checkout,
-    CollectionMode,
-    CurrencyCode,
-    CustomData,
-    TimePeriod,
-    TransactionOrigin,
-    TransactionPaymentAttempt,
-    TransactionStatus,
+    BillingDetails as BillingDetails,
+    Checkout as Checkout,
+    CollectionMode as CollectionMode,
+    CurrencyCode as CurrencyCode,
+    CustomData as CustomData,
+    TimePeriod as TimePeriod,
+    TransactionOrigin as TransactionOrigin,
+    TransactionPaymentAttempt as TransactionPaymentAttempt,
+    TransactionStatus as TransactionStatus,
 )
 
-from paddle_billing.Notifications.Entities.Transactions.TransactionDetails import TransactionDetails
-from paddle_billing.Notifications.Entities.Transactions.TransactionItem import TransactionItem
+from paddle_billing.Notifications.Entities.Transactions.TransactionDetails import (
+    TransactionDetails as TransactionDetails,
+)
+from paddle_billing.Notifications.Entities.Transactions.TransactionItem import TransactionItem as TransactionItem
 
 
 @dataclass

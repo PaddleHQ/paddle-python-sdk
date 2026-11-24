@@ -4,8 +4,8 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.ApiKeys import ApiKeyRotationStatus
+from paddle_billing.Entities.Entity import Entity as Entity
+from paddle_billing.Entities.ApiKeys import ApiKeyRotationStatus as ApiKeyRotationStatus
 
 
 @dataclass

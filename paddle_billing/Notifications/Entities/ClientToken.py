@@ -4,8 +4,8 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Notifications.Entities.Entity import Entity
-from paddle_billing.Notifications.Entities.ClientTokens import ClientTokenStatus
+from paddle_billing.Notifications.Entities.Entity import Entity as Entity
+from paddle_billing.Notifications.Entities.ClientTokens import ClientTokenStatus as ClientTokenStatus
 
 
 @dataclass

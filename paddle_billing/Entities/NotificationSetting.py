@@ -2,9 +2,12 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.EventType import EventType
-from paddle_billing.Entities.NotificationSettings import NotificationSettingType, NotificationSettingTrafficSource
+from paddle_billing.Entities.Entity import Entity as Entity
+from paddle_billing.Entities.EventType import EventType as EventType
+from paddle_billing.Entities.NotificationSettings import (
+    NotificationSettingType as NotificationSettingType,
+    NotificationSettingTrafficSource as NotificationSettingTrafficSource,
+)
 
 
 @dataclass

@@ -4,13 +4,16 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.Events import EventTypeName
-from paddle_billing.Entities.Simulations import SimulationScenarioType, SimulationStatus
+from paddle_billing.Entities.Entity import Entity as Entity
+from paddle_billing.Entities.Events import EventTypeName as EventTypeName
+from paddle_billing.Entities.Simulations import (
+    SimulationScenarioType as SimulationScenarioType,
+    SimulationStatus as SimulationStatus,
+)
 
-from paddle_billing.Entities.Simulations.Config import SimulationConfig
-from paddle_billing.Notifications.Entities.Simulations.SimulationEntity import SimulationEntity
-from paddle_billing.Notifications.Entities.UndefinedEntity import UndefinedEntity
+from paddle_billing.Entities.Simulations.Config import SimulationConfig as SimulationConfig
+from paddle_billing.Notifications.Entities.Simulations.SimulationEntity import SimulationEntity as SimulationEntity
+from paddle_billing.Notifications.Entities.UndefinedEntity import UndefinedEntity as UndefinedEntity
 
 
 @dataclass

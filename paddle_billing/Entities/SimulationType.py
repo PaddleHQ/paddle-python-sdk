@@ -3,9 +3,9 @@ from abc import ABC
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.Events import EventTypeName
-from paddle_billing.Entities.Simulations import SimulationKind
+from paddle_billing.Entities.Entity import Entity as Entity
+from paddle_billing.Entities.Events import EventTypeName as EventTypeName
+from paddle_billing.Entities.Simulations import SimulationKind as SimulationKind
 
 
 @dataclass

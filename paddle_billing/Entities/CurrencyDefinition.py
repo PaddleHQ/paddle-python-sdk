@@ -2,8 +2,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.Shared import CountryCode, CurrencyCode
+from paddle_billing.Entities.Entity import Entity as Entity
+from paddle_billing.Entities.Shared import CountryCode as CountryCode, CurrencyCode as CurrencyCode
 
 
 @dataclass

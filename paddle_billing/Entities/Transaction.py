@@ -3,29 +3,31 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Entities.Adjustment import Adjustment
-from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.Address import Address
-from paddle_billing.Entities.Business import Business
-from paddle_billing.Entities.Customer import Customer
-from paddle_billing.Entities.Discount import Discount
+from paddle_billing.Entities.Adjustment import Adjustment as Adjustment
+from paddle_billing.Entities.Entity import Entity as Entity
+from paddle_billing.Entities.Address import Address as Address
+from paddle_billing.Entities.Business import Business as Business
+from paddle_billing.Entities.Customer import Customer as Customer
+from paddle_billing.Entities.Discount import Discount as Discount
 
 from paddle_billing.Entities.Shared import (
-    BillingDetails,
-    Checkout,
-    CollectionMode,
-    CurrencyCode,
-    CustomData,
-    PaymentMethodType,
-    TimePeriod,
-    TransactionOrigin,
-    TransactionPaymentAttempt,
-    TransactionStatus,
+    BillingDetails as BillingDetails,
+    Checkout as Checkout,
+    CollectionMode as CollectionMode,
+    CurrencyCode as CurrencyCode,
+    CustomData as CustomData,
+    PaymentMethodType as PaymentMethodType,
+    TimePeriod as TimePeriod,
+    TransactionOrigin as TransactionOrigin,
+    TransactionPaymentAttempt as TransactionPaymentAttempt,
+    TransactionStatus as TransactionStatus,
 )
 
-from paddle_billing.Entities.Transactions.TransactionAdjustmentsTotals import TransactionAdjustmentsTotals
-from paddle_billing.Entities.Transactions.TransactionDetails import TransactionDetails
-from paddle_billing.Entities.Transactions.TransactionItem import TransactionItem
+from paddle_billing.Entities.Transactions.TransactionAdjustmentsTotals import (
+    TransactionAdjustmentsTotals as TransactionAdjustmentsTotals,
+)
+from paddle_billing.Entities.Transactions.TransactionDetails import TransactionDetails as TransactionDetails
+from paddle_billing.Entities.Transactions.TransactionItem import TransactionItem as TransactionItem
 
 
 @dataclass

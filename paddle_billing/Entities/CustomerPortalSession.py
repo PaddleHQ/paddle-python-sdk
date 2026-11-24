@@ -3,8 +3,8 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.CustomerPortalSessions import CustomerPortalSessionUrls
+from paddle_billing.Entities.Entity import Entity as Entity
+from paddle_billing.Entities.CustomerPortalSessions import CustomerPortalSessionUrls as CustomerPortalSessionUrls
 
 
 @dataclass
