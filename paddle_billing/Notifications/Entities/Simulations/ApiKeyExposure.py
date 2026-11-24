@@ -4,12 +4,12 @@ from datetime import datetime
 from typing import Any
 
 from paddle_billing.Notifications.Entities.ApiKeyExposures import (
-    ApiKeyExposureActionTaken,
-    ApiKeyExposureRiskLevel,
-    ApiKeyExposureSource,
+    ApiKeyExposureActionTaken as ApiKeyExposureActionTaken,
+    ApiKeyExposureRiskLevel as ApiKeyExposureRiskLevel,
+    ApiKeyExposureSource as ApiKeyExposureSource,
 )
-from paddle_billing.Notifications.Entities.Simulations.SimulationEntity import SimulationEntity
-from paddle_billing.Undefined import Undefined
+from paddle_billing.Notifications.Entities.Simulations.SimulationEntity import SimulationEntity as SimulationEntity
+from paddle_billing.Undefined import Undefined as Undefined
 
 
 @dataclass

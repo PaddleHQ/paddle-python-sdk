@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from .Entity import Entity
+from .Entity import Entity as Entity
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Any

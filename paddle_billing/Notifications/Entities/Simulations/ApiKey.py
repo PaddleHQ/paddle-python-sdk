@@ -3,9 +3,12 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Notifications.Entities.ApiKeys import ApiKeyPermission, ApiKeyStatus
-from paddle_billing.Notifications.Entities.Simulations.SimulationEntity import SimulationEntity
-from paddle_billing.Undefined import Undefined
+from paddle_billing.Notifications.Entities.ApiKeys import (
+    ApiKeyPermission as ApiKeyPermission,
+    ApiKeyStatus as ApiKeyStatus,
+)
+from paddle_billing.Notifications.Entities.Simulations.SimulationEntity import SimulationEntity as SimulationEntity
+from paddle_billing.Undefined import Undefined as Undefined
 
 
 @dataclass

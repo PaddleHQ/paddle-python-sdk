@@ -1,22 +1,22 @@
 from dataclasses import dataclass
 
-from paddle_billing.Operation import Operation
-from paddle_billing.Undefined import Undefined
+from paddle_billing.Operation import Operation as Operation
+from paddle_billing.Undefined import Undefined as Undefined
 from paddle_billing.Entities.Shared import (
-    Checkout,
-    CollectionMode,
-    CurrencyCode,
-    CustomData,
-    TimePeriod,
-    TransactionStatus,
+    Checkout as Checkout,
+    CollectionMode as CollectionMode,
+    CurrencyCode as CurrencyCode,
+    CustomData as CustomData,
+    TimePeriod as TimePeriod,
+    TransactionStatus as TransactionStatus,
 )
 from paddle_billing.Resources.Transactions.Operations.Update import (
-    TransactionUpdateItem,
-    TransactionUpdateItemWithPrice,
-    UpdateBillingDetails,
+    TransactionUpdateItem as TransactionUpdateItem,
+    TransactionUpdateItemWithPrice as TransactionUpdateItemWithPrice,
+    UpdateBillingDetails as UpdateBillingDetails,
 )
 from paddle_billing.Resources.Transactions.Operations.Discount.TransactionNonCatalogDiscount import (
-    TransactionNonCatalogDiscount,
+    TransactionNonCatalogDiscount as TransactionNonCatalogDiscount,
 )
 
 

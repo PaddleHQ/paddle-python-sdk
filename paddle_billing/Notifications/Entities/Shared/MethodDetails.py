@@ -2,11 +2,13 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Notifications.Entities.Shared.Card import Card
-from paddle_billing.Notifications.Entities.Shared.PaymentMethodType import PaymentMethodType
-from paddle_billing.Notifications.Entities.Shared.PaymentMethodUnderlyingDetails import PaymentMethodUnderlyingDetails
-from paddle_billing.Notifications.Entities.Shared.SouthKoreaLocalCard import SouthKoreaLocalCard
-from paddle_billing.Notifications.Entities.Shared.TransactionPaypal import TransactionPaypal
+from paddle_billing.Notifications.Entities.Shared.Card import Card as Card
+from paddle_billing.Notifications.Entities.Shared.PaymentMethodType import PaymentMethodType as PaymentMethodType
+from paddle_billing.Notifications.Entities.Shared.PaymentMethodUnderlyingDetails import (
+    PaymentMethodUnderlyingDetails as PaymentMethodUnderlyingDetails,
+)
+from paddle_billing.Notifications.Entities.Shared.SouthKoreaLocalCard import SouthKoreaLocalCard as SouthKoreaLocalCard
+from paddle_billing.Notifications.Entities.Shared.TransactionPaypal import TransactionPaypal as TransactionPaypal
 
 
 @dataclass

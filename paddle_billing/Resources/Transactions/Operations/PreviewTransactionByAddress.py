@@ -1,14 +1,14 @@
 from dataclasses import dataclass
 
-from paddle_billing.Operation import Operation
-from paddle_billing.Undefined import Undefined
-from paddle_billing.Entities.Shared import AddressPreview, CurrencyCode
+from paddle_billing.Operation import Operation as Operation
+from paddle_billing.Undefined import Undefined as Undefined
+from paddle_billing.Entities.Shared import AddressPreview as AddressPreview, CurrencyCode as CurrencyCode
 from paddle_billing.Resources.Transactions.Operations.Preview import (
-    TransactionItemPreviewWithPriceId,
-    TransactionItemPreviewWithNonCatalogPrice,
+    TransactionItemPreviewWithPriceId as TransactionItemPreviewWithPriceId,
+    TransactionItemPreviewWithNonCatalogPrice as TransactionItemPreviewWithNonCatalogPrice,
 )
 from paddle_billing.Resources.Transactions.Operations.Discount.TransactionNonCatalogDiscount import (
-    TransactionNonCatalogDiscount,
+    TransactionNonCatalogDiscount as TransactionNonCatalogDiscount,
 )
 
 

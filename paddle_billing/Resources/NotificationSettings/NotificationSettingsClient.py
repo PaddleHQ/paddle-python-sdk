@@ -1,14 +1,17 @@
 from requests import Response
 
-from paddle_billing.ResponseParser import ResponseParser
+from paddle_billing.ResponseParser import ResponseParser as ResponseParser
 
-from paddle_billing.Entities.Collections import NotificationSettingCollection, Paginator
-from paddle_billing.Entities.NotificationSetting import NotificationSetting
+from paddle_billing.Entities.Collections import (
+    NotificationSettingCollection as NotificationSettingCollection,
+    Paginator as Paginator,
+)
+from paddle_billing.Entities.NotificationSetting import NotificationSetting as NotificationSetting
 
 from paddle_billing.Resources.NotificationSettings.Operations import (
-    CreateNotificationSetting,
-    UpdateNotificationSetting,
-    ListNotificationSettings,
+    CreateNotificationSetting as CreateNotificationSetting,
+    UpdateNotificationSetting as UpdateNotificationSetting,
+    ListNotificationSettings as ListNotificationSettings,
 )
 
 from typing import TYPE_CHECKING

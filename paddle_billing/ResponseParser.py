@@ -2,9 +2,9 @@ import json
 from requests import Response
 from typing import cast, Any
 
-from paddle_billing.Entities.Shared import Pagination
+from paddle_billing.Entities.Shared import Pagination as Pagination
 
-from paddle_billing.Exceptions.ApiError import ApiError
+from paddle_billing.Exceptions.ApiError import ApiError as ApiError
 
 
 class ResponseParser:

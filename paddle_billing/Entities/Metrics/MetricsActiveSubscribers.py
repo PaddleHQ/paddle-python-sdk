@@ -3,9 +3,9 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.Metrics.MetricsCountDatapoint import MetricsCountDatapoint
-from paddle_billing.Entities.Metrics.MetricsInterval import MetricsInterval
+from paddle_billing.Entities.Entity import Entity as Entity
+from paddle_billing.Entities.Metrics.MetricsCountDatapoint import MetricsCountDatapoint as MetricsCountDatapoint
+from paddle_billing.Entities.Metrics.MetricsInterval import MetricsInterval as MetricsInterval
 
 
 @dataclass

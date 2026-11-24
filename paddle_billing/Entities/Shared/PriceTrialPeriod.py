@@ -2,11 +2,11 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Shared.Duration import Duration
-from paddle_billing.Entities.Shared.Interval import Interval
-from paddle_billing.Entities.Shared.Money import Money
-from paddle_billing.Entities.Shared.UnitPriceOverride import UnitPriceOverride
-from paddle_billing.Undefined import Undefined
+from paddle_billing.Entities.Shared.Duration import Duration as Duration
+from paddle_billing.Entities.Shared.Interval import Interval as Interval
+from paddle_billing.Entities.Shared.Money import Money as Money
+from paddle_billing.Entities.Shared.UnitPriceOverride import UnitPriceOverride as UnitPriceOverride
+from paddle_billing.Undefined import Undefined as Undefined
 
 
 @dataclass

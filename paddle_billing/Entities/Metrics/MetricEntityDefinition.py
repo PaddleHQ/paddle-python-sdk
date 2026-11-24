@@ -2,11 +2,13 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.Metrics.MetricEntity import MetricEntity
-from paddle_billing.Entities.Metrics.MetricEntityDimension import MetricEntityDimension
-from paddle_billing.Entities.Metrics.MetricEntityMeasure import MetricEntityMeasure
-from paddle_billing.Entities.Metrics.MetricEntityTimeDimension import MetricEntityTimeDimension
+from paddle_billing.Entities.Entity import Entity as Entity
+from paddle_billing.Entities.Metrics.MetricEntity import MetricEntity as MetricEntity
+from paddle_billing.Entities.Metrics.MetricEntityDimension import MetricEntityDimension as MetricEntityDimension
+from paddle_billing.Entities.Metrics.MetricEntityMeasure import MetricEntityMeasure as MetricEntityMeasure
+from paddle_billing.Entities.Metrics.MetricEntityTimeDimension import (
+    MetricEntityTimeDimension as MetricEntityTimeDimension,
+)
 
 
 @dataclass

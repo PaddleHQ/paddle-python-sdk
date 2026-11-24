@@ -1,6 +1,6 @@
 from datetime import date
 
-from paddle_billing.HasParameters import HasParameters
+from paddle_billing.HasParameters import HasParameters as HasParameters
 
 
 class GetMetrics(HasParameters):

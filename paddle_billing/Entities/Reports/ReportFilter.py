@@ -2,8 +2,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Reports.ReportFilterName import ReportFilterName
-from paddle_billing.Entities.Reports.ReportFilterOperator import ReportFilterOperator
+from paddle_billing.Entities.Reports.ReportFilterName import ReportFilterName as ReportFilterName
+from paddle_billing.Entities.Reports.ReportFilterOperator import ReportFilterOperator as ReportFilterOperator
 
 
 @dataclass

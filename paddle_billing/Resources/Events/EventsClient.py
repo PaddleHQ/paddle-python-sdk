@@ -1,8 +1,8 @@
 from requests import Response
 
-from paddle_billing.ResponseParser import ResponseParser
-from paddle_billing.Entities.Collections import EventCollection, Paginator
-from paddle_billing.Resources.Events.Operations import ListEvents
+from paddle_billing.ResponseParser import ResponseParser as ResponseParser
+from paddle_billing.Entities.Collections import EventCollection as EventCollection, Paginator as Paginator
+from paddle_billing.Resources.Events.Operations import ListEvents as ListEvents
 
 from typing import TYPE_CHECKING
 

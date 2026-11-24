@@ -2,11 +2,13 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryAction import SubscriptionHistoryAction
-from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryPausedEffectiveFrom import (
-    SubscriptionHistoryPausedEffectiveFrom,
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryAction import (
+    SubscriptionHistoryAction as SubscriptionHistoryAction,
 )
-from paddle_billing.Entities.Subscriptions.SubscriptionStatus import SubscriptionStatus
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryPausedEffectiveFrom import (
+    SubscriptionHistoryPausedEffectiveFrom as SubscriptionHistoryPausedEffectiveFrom,
+)
+from paddle_billing.Entities.Subscriptions.SubscriptionStatus import SubscriptionStatus as SubscriptionStatus
 
 
 @dataclass

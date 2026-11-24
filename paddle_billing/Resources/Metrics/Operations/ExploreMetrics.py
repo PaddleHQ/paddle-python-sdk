@@ -2,16 +2,16 @@ from dataclasses import dataclass
 from datetime import date, datetime
 from typing import Any
 
-from paddle_billing.Entities.DateTime import DateTime
+from paddle_billing.Entities.DateTime import DateTime as DateTime
 from paddle_billing.Entities.Metrics import (
-    MetricEntity,
-    MetricsAggregation,
-    MetricsBucketInterval,
-    MetricsFilterOperator,
-    MetricsSortDirection,
+    MetricEntity as MetricEntity,
+    MetricsAggregation as MetricsAggregation,
+    MetricsBucketInterval as MetricsBucketInterval,
+    MetricsFilterOperator as MetricsFilterOperator,
+    MetricsSortDirection as MetricsSortDirection,
 )
-from paddle_billing.Operation import Operation
-from paddle_billing.Undefined import Undefined
+from paddle_billing.Operation import Operation as Operation
+from paddle_billing.Undefined import Undefined as Undefined
 
 
 @dataclass

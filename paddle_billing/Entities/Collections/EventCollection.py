@@ -1,9 +1,9 @@
 from __future__ import annotations
 from typing import Any
 
-from paddle_billing.Entities.Collections.Collection import Collection
-from paddle_billing.Entities.Collections.Paginator import Paginator
-from paddle_billing.Entities.Event import Event
+from paddle_billing.Entities.Collections.Collection import Collection as Collection
+from paddle_billing.Entities.Collections.Paginator import Paginator as Paginator
+from paddle_billing.Entities.Event import Event as Event
 
 
 class EventCollection(Collection[Event]):

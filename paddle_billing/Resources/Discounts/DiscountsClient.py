@@ -1,12 +1,17 @@
 from requests import Response
 
-from paddle_billing.ResponseParser import ResponseParser
+from paddle_billing.ResponseParser import ResponseParser as ResponseParser
 
-from paddle_billing.Entities.Collections import Paginator, DiscountCollection
-from paddle_billing.Entities.Discount import Discount
-from paddle_billing.Entities.Discounts import DiscountStatus
+from paddle_billing.Entities.Collections import Paginator as Paginator, DiscountCollection as DiscountCollection
+from paddle_billing.Entities.Discount import Discount as Discount
+from paddle_billing.Entities.Discounts import DiscountStatus as DiscountStatus
 
-from paddle_billing.Resources.Discounts.Operations import CreateDiscount, GetDiscount, ListDiscounts, UpdateDiscount
+from paddle_billing.Resources.Discounts.Operations import (
+    CreateDiscount as CreateDiscount,
+    GetDiscount as GetDiscount,
+    ListDiscounts as ListDiscounts,
+    UpdateDiscount as UpdateDiscount,
+)
 
 from typing import TYPE_CHECKING
 

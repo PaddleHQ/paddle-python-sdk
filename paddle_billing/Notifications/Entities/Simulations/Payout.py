@@ -2,10 +2,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Undefined import Undefined
-from paddle_billing.Notifications.Entities.Payouts import PayoutStatus
-from paddle_billing.Notifications.Entities.Shared import CurrencyCodePayouts
-from paddle_billing.Notifications.Entities.Simulations.SimulationEntity import SimulationEntity
+from paddle_billing.Undefined import Undefined as Undefined
+from paddle_billing.Notifications.Entities.Payouts import PayoutStatus as PayoutStatus
+from paddle_billing.Notifications.Entities.Shared import CurrencyCodePayouts as CurrencyCodePayouts
+from paddle_billing.Notifications.Entities.Simulations.SimulationEntity import SimulationEntity as SimulationEntity
 
 
 @dataclass

@@ -1,14 +1,14 @@
 from __future__ import annotations
 from dataclasses import dataclass
 
-from paddle_billing.Undefined import Undefined
-from paddle_billing.Entities.Shared.Duration import Duration
-from paddle_billing.Entities.Shared.PriceTrialPeriod import PriceTrialPeriod
-from paddle_billing.Entities.Shared.TaxMode import TaxMode
-from paddle_billing.Entities.Shared.Money import Money
-from paddle_billing.Entities.Shared.PriceQuantity import PriceQuantity
-from paddle_billing.Entities.Shared.CustomData import CustomData
-from paddle_billing.Entities.Shared.UnitPriceOverride import UnitPriceOverride
+from paddle_billing.Undefined import Undefined as Undefined
+from paddle_billing.Entities.Shared.Duration import Duration as Duration
+from paddle_billing.Entities.Shared.PriceTrialPeriod import PriceTrialPeriod as PriceTrialPeriod
+from paddle_billing.Entities.Shared.TaxMode import TaxMode as TaxMode
+from paddle_billing.Entities.Shared.Money import Money as Money
+from paddle_billing.Entities.Shared.PriceQuantity import PriceQuantity as PriceQuantity
+from paddle_billing.Entities.Shared.CustomData import CustomData as CustomData
+from paddle_billing.Entities.Shared.UnitPriceOverride import UnitPriceOverride as UnitPriceOverride
 
 
 @dataclass

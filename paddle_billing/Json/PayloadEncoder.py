@@ -3,9 +3,9 @@ from dataclasses import fields, is_dataclass
 from datetime import datetime
 import re
 
-from paddle_billing.Entities.DateTime import DateTime
-from paddle_billing.FiltersUndefined import FiltersUndefined
-from paddle_billing.Undefined import Undefined
+from paddle_billing.Entities.DateTime import DateTime as DateTime
+from paddle_billing.FiltersUndefined import FiltersUndefined as FiltersUndefined
+from paddle_billing.Undefined import Undefined as Undefined
 
 
 class PayloadEncoder(JSONEncoder):

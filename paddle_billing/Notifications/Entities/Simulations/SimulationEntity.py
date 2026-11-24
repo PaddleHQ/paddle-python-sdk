@@ -2,7 +2,7 @@ from __future__ import annotations
 from typing import Any
 from dataclasses import dataclass
 from abc import ABC
-from paddle_billing.Notifications.Entities.UndefinedEntity import UndefinedEntity
+from paddle_billing.Notifications.Entities.UndefinedEntity import UndefinedEntity as UndefinedEntity
 from importlib import import_module
 
 

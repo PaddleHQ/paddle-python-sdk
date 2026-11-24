@@ -1,8 +1,8 @@
 from requests import Response
 
-from paddle_billing.ResponseParser import ResponseParser
+from paddle_billing.ResponseParser import ResponseParser as ResponseParser
 
-from paddle_billing.Entities.RootContext import RootContext
+from paddle_billing.Entities.RootContext import RootContext as RootContext
 
 from typing import TYPE_CHECKING
 

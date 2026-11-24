@@ -4,7 +4,7 @@ from datetime import datetime
 from typing import Any
 
 from paddle_billing.Notifications.Entities.Subscriptions.SubscriptionScheduledChangeAction import (
-    SubscriptionScheduledChangeAction,
+    SubscriptionScheduledChangeAction as SubscriptionScheduledChangeAction,
 )
 
 

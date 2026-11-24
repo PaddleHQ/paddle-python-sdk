@@ -2,8 +2,12 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryAction import SubscriptionHistoryAction
-from paddle_billing.Entities.Subscriptions.SubscriptionScheduledChange import SubscriptionScheduledChange
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryAction import (
+    SubscriptionHistoryAction as SubscriptionHistoryAction,
+)
+from paddle_billing.Entities.Subscriptions.SubscriptionScheduledChange import (
+    SubscriptionScheduledChange as SubscriptionScheduledChange,
+)
 
 
 @dataclass

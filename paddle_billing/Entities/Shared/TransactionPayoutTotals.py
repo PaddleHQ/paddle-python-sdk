@@ -2,7 +2,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Shared.CurrencyCodePayouts import CurrencyCodePayouts
+from paddle_billing.Entities.Shared.CurrencyCodePayouts import CurrencyCodePayouts as CurrencyCodePayouts
 
 
 @dataclass

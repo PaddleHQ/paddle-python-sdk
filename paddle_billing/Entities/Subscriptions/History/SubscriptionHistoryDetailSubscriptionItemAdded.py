@@ -2,14 +2,20 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Price import Price
+from paddle_billing.Entities.Price import Price as Price
 
-from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryAction import SubscriptionHistoryAction
-from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryItemUpdateSummary import (
-    SubscriptionHistoryItemUpdateSummary,
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryAction import (
+    SubscriptionHistoryAction as SubscriptionHistoryAction,
 )
-from paddle_billing.Entities.Subscriptions.SubscriptionOnPaymentFailure import SubscriptionOnPaymentFailure
-from paddle_billing.Entities.Subscriptions.SubscriptionProrationBillingMode import SubscriptionProrationBillingMode
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryItemUpdateSummary import (
+    SubscriptionHistoryItemUpdateSummary as SubscriptionHistoryItemUpdateSummary,
+)
+from paddle_billing.Entities.Subscriptions.SubscriptionOnPaymentFailure import (
+    SubscriptionOnPaymentFailure as SubscriptionOnPaymentFailure,
+)
+from paddle_billing.Entities.Subscriptions.SubscriptionProrationBillingMode import (
+    SubscriptionProrationBillingMode as SubscriptionProrationBillingMode,
+)
 
 
 @dataclass

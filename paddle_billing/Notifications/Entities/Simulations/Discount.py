@@ -3,11 +3,18 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Notifications.Entities.Discount import DiscountMode
-from paddle_billing.Undefined import Undefined
-from paddle_billing.Notifications.Entities.Discounts import DiscountStatus, DiscountType
-from paddle_billing.Notifications.Entities.Shared import CurrencyCode, CustomData, ImportMeta
-from paddle_billing.Notifications.Entities.Simulations.SimulationEntity import SimulationEntity
+from paddle_billing.Notifications.Entities.Discount import DiscountMode as DiscountMode
+from paddle_billing.Undefined import Undefined as Undefined
+from paddle_billing.Notifications.Entities.Discounts import (
+    DiscountStatus as DiscountStatus,
+    DiscountType as DiscountType,
+)
+from paddle_billing.Notifications.Entities.Shared import (
+    CurrencyCode as CurrencyCode,
+    CustomData as CustomData,
+    ImportMeta as ImportMeta,
+)
+from paddle_billing.Notifications.Entities.Simulations.SimulationEntity import SimulationEntity as SimulationEntity
 
 
 @dataclass

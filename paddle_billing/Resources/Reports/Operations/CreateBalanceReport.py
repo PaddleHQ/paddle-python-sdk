@@ -1,14 +1,12 @@
 from dataclasses import dataclass, field
 from typing import Type
 
-from paddle_billing.Entities.Reports import BalanceReportType
+from paddle_billing.Entities.Reports import BalanceReportType as BalanceReportType
 
-from paddle_billing.Resources.Reports.Operations.Filters import (
-    UpdatedAtFilter,
-)
+from paddle_billing.Resources.Reports.Operations.Filters import UpdatedAtFilter as UpdatedAtFilter
 
-from paddle_billing.Resources.Reports.Operations.CreateReport import CreateReport
-from paddle_billing.Resources.Reports.Operations.Filters.Filter import Filter
+from paddle_billing.Resources.Reports.Operations.CreateReport import CreateReport as CreateReport
+from paddle_billing.Resources.Reports.Operations.Filters.Filter import Filter as Filter
 
 
 @dataclass

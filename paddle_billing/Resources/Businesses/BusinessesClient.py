@@ -1,12 +1,16 @@
 from requests import Response
 
-from paddle_billing.ResponseParser import ResponseParser
+from paddle_billing.ResponseParser import ResponseParser as ResponseParser
 
-from paddle_billing.Entities.Business import Business
-from paddle_billing.Entities.Collections import Paginator, BusinessCollection
-from paddle_billing.Entities.Shared import Status
+from paddle_billing.Entities.Business import Business as Business
+from paddle_billing.Entities.Collections import Paginator as Paginator, BusinessCollection as BusinessCollection
+from paddle_billing.Entities.Shared import Status as Status
 
-from paddle_billing.Resources.Businesses.Operations import CreateBusiness, ListBusinesses, UpdateBusiness
+from paddle_billing.Resources.Businesses.Operations import (
+    CreateBusiness as CreateBusiness,
+    ListBusinesses as ListBusinesses,
+    UpdateBusiness as UpdateBusiness,
+)
 
 from typing import TYPE_CHECKING
 

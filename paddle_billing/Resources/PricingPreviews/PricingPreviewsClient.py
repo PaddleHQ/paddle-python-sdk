@@ -1,8 +1,8 @@
 from requests import Response
 
-from paddle_billing.ResponseParser import ResponseParser
-from paddle_billing.Entities.PricePreview import PricePreview
-from paddle_billing.Resources.PricingPreviews.Operations import PreviewPrice
+from paddle_billing.ResponseParser import ResponseParser as ResponseParser
+from paddle_billing.Entities.PricePreview import PricePreview as PricePreview
+from paddle_billing.Resources.PricingPreviews.Operations import PreviewPrice as PreviewPrice
 
 from typing import TYPE_CHECKING
 

@@ -2,7 +2,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Metrics.MetricsFieldType import MetricsFieldType
+from paddle_billing.Entities.Metrics.MetricsFieldType import MetricsFieldType as MetricsFieldType
 
 
 @dataclass

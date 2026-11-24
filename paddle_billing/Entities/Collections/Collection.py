@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from collections.abc import Iterator
 from typing import TypeVar, Generic
 
-from paddle_billing.Entities.Collections.Paginator import Paginator
+from paddle_billing.Entities.Collections.Paginator import Paginator as Paginator
 
 T = TypeVar("T")
 

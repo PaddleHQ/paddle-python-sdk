@@ -3,12 +3,14 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Entities.Metrics.MetricEntity import MetricEntity
-from paddle_billing.Entities.Metrics.MetricsBucketInterval import MetricsBucketInterval
-from paddle_billing.Entities.Metrics.MetricsExploreFields import MetricsExploreFields
-from paddle_billing.Entities.Metrics.MetricsExplorePagination import MetricsExplorePagination
-from paddle_billing.Entities.Metrics.MetricsExploreSeries import MetricsExploreSeries
-from paddle_billing.Entities.Shared import CurrencyCode
+from paddle_billing.Entities.Metrics.MetricEntity import MetricEntity as MetricEntity
+from paddle_billing.Entities.Metrics.MetricsBucketInterval import MetricsBucketInterval as MetricsBucketInterval
+from paddle_billing.Entities.Metrics.MetricsExploreFields import MetricsExploreFields as MetricsExploreFields
+from paddle_billing.Entities.Metrics.MetricsExplorePagination import (
+    MetricsExplorePagination as MetricsExplorePagination,
+)
+from paddle_billing.Entities.Metrics.MetricsExploreSeries import MetricsExploreSeries as MetricsExploreSeries
+from paddle_billing.Entities.Shared import CurrencyCode as CurrencyCode
 
 
 @dataclass

@@ -1,11 +1,11 @@
 from requests import Response
 
-from paddle_billing.ResponseParser import ResponseParser
+from paddle_billing.ResponseParser import ResponseParser as ResponseParser
 
-from paddle_billing.Entities.Collections import NotificationCollection, Paginator
-from paddle_billing.Entities.Notification import Notification
+from paddle_billing.Entities.Collections import NotificationCollection as NotificationCollection, Paginator as Paginator
+from paddle_billing.Entities.Notification import Notification as Notification
 
-from paddle_billing.Resources.Notifications.Operations import ListNotifications
+from paddle_billing.Resources.Notifications.Operations import ListNotifications as ListNotifications
 
 from typing import TYPE_CHECKING
 

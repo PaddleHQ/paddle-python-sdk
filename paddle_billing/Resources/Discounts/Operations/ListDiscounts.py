@@ -1,15 +1,17 @@
 from typing import Any
 
-from paddle_billing.EnumStringify import enum_stringify
-from paddle_billing.HasParameters import HasParameters
+from paddle_billing.EnumStringify import enum_stringify as enum_stringify
+from paddle_billing.HasParameters import HasParameters as HasParameters
 
-from paddle_billing.Entities.Shared import Status
-from paddle_billing.Entities.Discounts.DiscountMode import DiscountMode
+from paddle_billing.Entities.Shared import Status as Status
+from paddle_billing.Entities.Discounts.DiscountMode import DiscountMode as DiscountMode
 
-from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
+from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import (
+    InvalidArgumentException as InvalidArgumentException,
+)
 
-from paddle_billing.Resources.Discounts.Operations.DiscountInclude import DiscountInclude
-from paddle_billing.Resources.Shared.Operations import Pager
+from paddle_billing.Resources.Discounts.Operations.DiscountInclude import DiscountInclude as DiscountInclude
+from paddle_billing.Resources.Shared.Operations import Pager as Pager
 
 
 class ListDiscounts(HasParameters):

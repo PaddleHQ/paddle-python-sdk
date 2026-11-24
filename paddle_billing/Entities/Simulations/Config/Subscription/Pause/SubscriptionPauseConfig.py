@@ -2,12 +2,12 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Entity import Entity
+from paddle_billing.Entities.Entity import Entity as Entity
 from paddle_billing.Entities.Simulations.Config.Subscription.Pause.SubscriptionPauseEntities import (
-    SubscriptionPauseEntities,
+    SubscriptionPauseEntities as SubscriptionPauseEntities,
 )
 from paddle_billing.Entities.Simulations.Config.Subscription.Pause.SubscriptionPauseOptions import (
-    SubscriptionPauseOptions,
+    SubscriptionPauseOptions as SubscriptionPauseOptions,
 )
 
 

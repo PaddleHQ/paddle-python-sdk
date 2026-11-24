@@ -2,7 +2,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Transactions.TransactionCardType import TransactionCardType
+from paddle_billing.Entities.Transactions.TransactionCardType import TransactionCardType as TransactionCardType
 
 
 @dataclass

@@ -2,7 +2,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Settings.CheckoutPaymentMethodSetting import CheckoutPaymentMethodSetting
+from paddle_billing.Entities.Settings.CheckoutPaymentMethodSetting import (
+    CheckoutPaymentMethodSetting as CheckoutPaymentMethodSetting,
+)
 
 
 @dataclass

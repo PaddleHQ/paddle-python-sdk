@@ -2,9 +2,11 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Shared import CurrencyCode
+from paddle_billing.Entities.Shared import CurrencyCode as CurrencyCode
 
-from paddle_billing.Entities.Subscriptions.SubscriptionResultAction import SubscriptionResultAction
+from paddle_billing.Entities.Subscriptions.SubscriptionResultAction import (
+    SubscriptionResultAction as SubscriptionResultAction,
+)
 
 
 @dataclass

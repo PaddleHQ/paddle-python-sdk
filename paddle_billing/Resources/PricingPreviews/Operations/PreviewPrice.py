@@ -1,11 +1,13 @@
 from dataclasses import dataclass
 
-from paddle_billing.Operation import Operation
-from paddle_billing.Undefined import Undefined
-from paddle_billing.Entities.PricingPreviews import PricePreviewItem
-from paddle_billing.Entities.Shared import CurrencyCode, AddressPreview
+from paddle_billing.Operation import Operation as Operation
+from paddle_billing.Undefined import Undefined as Undefined
+from paddle_billing.Entities.PricingPreviews import PricePreviewItem as PricePreviewItem
+from paddle_billing.Entities.Shared import CurrencyCode as CurrencyCode, AddressPreview as AddressPreview
 
-from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
+from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import (
+    InvalidArgumentException as InvalidArgumentException,
+)
 
 
 @dataclass

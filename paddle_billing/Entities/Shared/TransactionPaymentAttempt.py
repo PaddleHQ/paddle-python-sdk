@@ -3,9 +3,9 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Entities.Shared.ErrorCode import ErrorCode
-from paddle_billing.Entities.Shared.MethodDetails import MethodDetails
-from paddle_billing.Entities.Shared.PaymentAttemptStatus import PaymentAttemptStatus
+from paddle_billing.Entities.Shared.ErrorCode import ErrorCode as ErrorCode
+from paddle_billing.Entities.Shared.MethodDetails import MethodDetails as MethodDetails
+from paddle_billing.Entities.Shared.PaymentAttemptStatus import PaymentAttemptStatus as PaymentAttemptStatus
 
 
 @dataclass

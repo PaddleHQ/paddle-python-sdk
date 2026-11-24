@@ -2,7 +2,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Notifications.Entities.Shared.Interval import Interval
+from paddle_billing.Notifications.Entities.Shared.Interval import Interval as Interval
 
 
 @dataclass

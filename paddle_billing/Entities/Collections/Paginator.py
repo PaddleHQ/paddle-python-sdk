@@ -1,4 +1,4 @@
-from paddle_billing.ResponseParser import ResponseParser
+from paddle_billing.ResponseParser import ResponseParser as ResponseParser
 
 from typing import Any, TYPE_CHECKING
 

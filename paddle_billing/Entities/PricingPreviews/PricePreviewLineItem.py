@@ -2,13 +2,17 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Price import Price
-from paddle_billing.Entities.Product import Product
-from paddle_billing.Entities.Shared import Totals, UnitTotals
+from paddle_billing.Entities.Price import Price as Price
+from paddle_billing.Entities.Product import Product as Product
+from paddle_billing.Entities.Shared import Totals as Totals, UnitTotals as UnitTotals
 
-from paddle_billing.Entities.PricingPreviews.PricePreviewDiscounts import PricePreviewDiscounts
-from paddle_billing.Entities.PricingPreviews.PricePreviewTotalsFormatted import PricePreviewTotalsFormatted
-from paddle_billing.Entities.PricingPreviews.PricePreviewUnitTotalsFormatted import PricePreviewUnitTotalsFormatted
+from paddle_billing.Entities.PricingPreviews.PricePreviewDiscounts import PricePreviewDiscounts as PricePreviewDiscounts
+from paddle_billing.Entities.PricingPreviews.PricePreviewTotalsFormatted import (
+    PricePreviewTotalsFormatted as PricePreviewTotalsFormatted,
+)
+from paddle_billing.Entities.PricingPreviews.PricePreviewUnitTotalsFormatted import (
+    PricePreviewUnitTotalsFormatted as PricePreviewUnitTotalsFormatted,
+)
 
 
 @dataclass

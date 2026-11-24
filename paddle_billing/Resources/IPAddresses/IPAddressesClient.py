@@ -1,8 +1,8 @@
 from requests import Response
 
-from paddle_billing.ResponseParser import ResponseParser
+from paddle_billing.ResponseParser import ResponseParser as ResponseParser
 
-from paddle_billing.Entities.IPAddresses import IPAddresses
+from paddle_billing.Entities.IPAddresses import IPAddresses as IPAddresses
 
 from typing import TYPE_CHECKING
 

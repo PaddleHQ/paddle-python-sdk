@@ -1,12 +1,16 @@
 from requests import Response
 
-from paddle_billing.ResponseParser import ResponseParser
+from paddle_billing.ResponseParser import ResponseParser as ResponseParser
 
-from paddle_billing.Entities.Collections import Paginator, ClientTokenCollection
-from paddle_billing.Entities.ClientToken import ClientToken
-from paddle_billing.Entities.ClientTokens import ClientTokenStatus
+from paddle_billing.Entities.Collections import Paginator as Paginator, ClientTokenCollection as ClientTokenCollection
+from paddle_billing.Entities.ClientToken import ClientToken as ClientToken
+from paddle_billing.Entities.ClientTokens import ClientTokenStatus as ClientTokenStatus
 
-from paddle_billing.Resources.ClientTokens.Operations import CreateClientToken, ListClientTokens, UpdateClientToken
+from paddle_billing.Resources.ClientTokens.Operations import (
+    CreateClientToken as CreateClientToken,
+    ListClientTokens as ListClientTokens,
+    UpdateClientToken as UpdateClientToken,
+)
 
 from typing import TYPE_CHECKING
 

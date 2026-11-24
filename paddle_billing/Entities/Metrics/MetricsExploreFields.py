@@ -2,8 +2,12 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Metrics.MetricsExploreFieldDimension import MetricsExploreFieldDimension
-from paddle_billing.Entities.Metrics.MetricsExploreFieldMeasure import MetricsExploreFieldMeasure
+from paddle_billing.Entities.Metrics.MetricsExploreFieldDimension import (
+    MetricsExploreFieldDimension as MetricsExploreFieldDimension,
+)
+from paddle_billing.Entities.Metrics.MetricsExploreFieldMeasure import (
+    MetricsExploreFieldMeasure as MetricsExploreFieldMeasure,
+)
 
 
 @dataclass

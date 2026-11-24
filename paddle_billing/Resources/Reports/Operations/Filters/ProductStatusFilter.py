@@ -1,13 +1,13 @@
 from __future__ import annotations
 from dataclasses import dataclass
 
-from paddle_billing.EnumStringify import enum_stringify
+from paddle_billing.EnumStringify import enum_stringify as enum_stringify
 
-from paddle_billing.Resources.Reports.Operations.Filters.Filter import Filter
+from paddle_billing.Resources.Reports.Operations.Filters.Filter import Filter as Filter
 
-from paddle_billing.Entities.Shared.Status import Status
+from paddle_billing.Entities.Shared.Status import Status as Status
 
-from paddle_billing.Entities.Reports import ReportFilterName
+from paddle_billing.Entities.Reports import ReportFilterName as ReportFilterName
 
 
 @dataclass

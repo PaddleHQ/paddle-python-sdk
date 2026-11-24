@@ -1,4 +1,4 @@
-from paddle_billing.Undefined import Undefined
+from paddle_billing.Undefined import Undefined as Undefined
 from typing import Any
 
 

@@ -1,14 +1,14 @@
 from __future__ import annotations
 
-from paddle_billing.Notifications.Entities.DiscountGroups import DiscountGroupStatus
-from paddle_billing.Notifications.Entities.Simulations.SimulationEntity import SimulationEntity
-from paddle_billing.Undefined import Undefined
+from paddle_billing.Notifications.Entities.DiscountGroups import DiscountGroupStatus as DiscountGroupStatus
+from paddle_billing.Notifications.Entities.Simulations.SimulationEntity import SimulationEntity as SimulationEntity
+from paddle_billing.Undefined import Undefined as Undefined
 
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Entities.Shared import ImportMeta
+from paddle_billing.Entities.Shared import ImportMeta as ImportMeta
 
 
 @dataclass

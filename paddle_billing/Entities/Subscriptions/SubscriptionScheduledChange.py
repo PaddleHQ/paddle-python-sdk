@@ -3,7 +3,9 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Entities.Subscriptions.SubscriptionScheduledChangeAction import SubscriptionScheduledChangeAction
+from paddle_billing.Entities.Subscriptions.SubscriptionScheduledChangeAction import (
+    SubscriptionScheduledChangeAction as SubscriptionScheduledChangeAction,
+)
 
 
 @dataclass

@@ -2,9 +2,11 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Transactions.TransactionPreviewPrice import TransactionPreviewPrice
+from paddle_billing.Entities.Transactions.TransactionPreviewPrice import (
+    TransactionPreviewPrice as TransactionPreviewPrice,
+)
 
-from paddle_billing.Entities.Shared.Proration import Proration
+from paddle_billing.Entities.Shared.Proration import Proration as Proration
 
 
 @dataclass

@@ -1,10 +1,10 @@
 from requests import Response
 
-from paddle_billing.ResponseParser import ResponseParser
+from paddle_billing.ResponseParser import ResponseParser as ResponseParser
 
-from paddle_billing.Entities.AccountDetails import AccountDetails
+from paddle_billing.Entities.AccountDetails import AccountDetails as AccountDetails
 
-from paddle_billing.Resources.Account.Operations import UpdateAccount
+from paddle_billing.Resources.Account.Operations import UpdateAccount as UpdateAccount
 
 from typing import TYPE_CHECKING
 

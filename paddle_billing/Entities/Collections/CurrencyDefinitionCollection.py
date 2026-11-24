@@ -1,9 +1,9 @@
 from __future__ import annotations
 from typing import Any
 
-from paddle_billing.Entities.Collections.Collection import Collection
-from paddle_billing.Entities.Collections.Paginator import Paginator
-from paddle_billing.Entities.CurrencyDefinition import CurrencyDefinition
+from paddle_billing.Entities.Collections.Collection import Collection as Collection
+from paddle_billing.Entities.Collections.Paginator import Paginator as Paginator
+from paddle_billing.Entities.CurrencyDefinition import CurrencyDefinition as CurrencyDefinition
 
 
 class CurrencyDefinitionCollection(Collection[CurrencyDefinition]):

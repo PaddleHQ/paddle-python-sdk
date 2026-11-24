@@ -1,12 +1,12 @@
 from requests import Response
 
-from paddle_billing.ResponseParser import ResponseParser
+from paddle_billing.ResponseParser import ResponseParser as ResponseParser
 
-from paddle_billing.Entities.Report import Report
-from paddle_billing.Entities.ReportCSV import ReportCSV
-from paddle_billing.Entities.Collections import Paginator, ReportCollection
+from paddle_billing.Entities.Report import Report as Report
+from paddle_billing.Entities.ReportCSV import ReportCSV as ReportCSV
+from paddle_billing.Entities.Collections import Paginator as Paginator, ReportCollection as ReportCollection
 
-from paddle_billing.Resources.Reports.Operations import CreateReport, ListReports
+from paddle_billing.Resources.Reports.Operations import CreateReport as CreateReport, ListReports as ListReports
 
 from typing import Any, TYPE_CHECKING
 

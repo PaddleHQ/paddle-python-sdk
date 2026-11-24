@@ -2,7 +2,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Adjustments.AdjustmentTotals import AdjustmentTotals
+from paddle_billing.Entities.Adjustments.AdjustmentTotals import AdjustmentTotals as AdjustmentTotals
 
 
 @dataclass

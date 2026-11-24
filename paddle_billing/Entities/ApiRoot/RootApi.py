@@ -2,7 +2,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.ApiRoot.RootEnvironment import RootEnvironment
+from paddle_billing.Entities.ApiRoot.RootEnvironment import RootEnvironment as RootEnvironment
 
 
 @dataclass

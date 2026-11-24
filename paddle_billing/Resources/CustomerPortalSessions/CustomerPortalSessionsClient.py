@@ -1,11 +1,11 @@
 from requests import Response
 
-from paddle_billing.ResponseParser import ResponseParser
+from paddle_billing.ResponseParser import ResponseParser as ResponseParser
 
-from paddle_billing.Entities.CustomerPortalSession import CustomerPortalSession
+from paddle_billing.Entities.CustomerPortalSession import CustomerPortalSession as CustomerPortalSession
 
 from paddle_billing.Resources.CustomerPortalSessions.Operations import (
-    CreateCustomerPortalSession,
+    CreateCustomerPortalSession as CreateCustomerPortalSession,
 )
 
 from typing import TYPE_CHECKING

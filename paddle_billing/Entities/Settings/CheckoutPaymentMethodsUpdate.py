@@ -1,7 +1,9 @@
 from dataclasses import dataclass
 
-from paddle_billing.Undefined import Undefined
-from paddle_billing.Entities.Settings.CheckoutPaymentMethodSettingUpdate import CheckoutPaymentMethodSettingUpdate
+from paddle_billing.Undefined import Undefined as Undefined
+from paddle_billing.Entities.Settings.CheckoutPaymentMethodSettingUpdate import (
+    CheckoutPaymentMethodSettingUpdate as CheckoutPaymentMethodSettingUpdate,
+)
 
 
 @dataclass

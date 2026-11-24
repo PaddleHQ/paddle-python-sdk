@@ -3,8 +3,8 @@ from dataclasses import dataclass
 from typing import Any
 from urllib.parse import parse_qs, urlparse
 
-from paddle_billing.Entities.Metrics.MetricsExploreData import MetricsExploreData
-from paddle_billing.Entities.Shared import MetaPaginated
+from paddle_billing.Entities.Metrics.MetricsExploreData import MetricsExploreData as MetricsExploreData
+from paddle_billing.Entities.Shared import MetaPaginated as MetaPaginated
 
 
 @dataclass

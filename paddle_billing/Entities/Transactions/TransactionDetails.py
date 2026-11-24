@@ -2,13 +2,17 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Shared.TaxRatesUsed import TaxRatesUsed
-from paddle_billing.Entities.Shared.TransactionPayoutTotals import TransactionPayoutTotals
-from paddle_billing.Entities.Shared.TransactionPayoutTotalsAdjusted import TransactionPayoutTotalsAdjusted
-from paddle_billing.Entities.Shared.TransactionTotals import TransactionTotals
-from paddle_billing.Entities.Shared.TransactionTotalsAdjusted import TransactionTotalsAdjusted
+from paddle_billing.Entities.Shared.TaxRatesUsed import TaxRatesUsed as TaxRatesUsed
+from paddle_billing.Entities.Shared.TransactionPayoutTotals import TransactionPayoutTotals as TransactionPayoutTotals
+from paddle_billing.Entities.Shared.TransactionPayoutTotalsAdjusted import (
+    TransactionPayoutTotalsAdjusted as TransactionPayoutTotalsAdjusted,
+)
+from paddle_billing.Entities.Shared.TransactionTotals import TransactionTotals as TransactionTotals
+from paddle_billing.Entities.Shared.TransactionTotalsAdjusted import (
+    TransactionTotalsAdjusted as TransactionTotalsAdjusted,
+)
 
-from paddle_billing.Entities.Transactions.TransactionLineItem import TransactionLineItem
+from paddle_billing.Entities.Transactions.TransactionLineItem import TransactionLineItem as TransactionLineItem
 
 
 @dataclass

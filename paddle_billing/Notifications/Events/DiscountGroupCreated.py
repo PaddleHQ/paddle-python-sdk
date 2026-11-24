@@ -1,9 +1,9 @@
 from datetime import datetime
 
-from paddle_billing.Entities.Event import Event
-from paddle_billing.Entities.Events import EventTypeName
+from paddle_billing.Entities.Event import Event as Event
+from paddle_billing.Entities.Events import EventTypeName as EventTypeName
 
-from paddle_billing.Notifications.Entities.DiscountGroup import DiscountGroup
+from paddle_billing.Notifications.Entities.DiscountGroup import DiscountGroup as DiscountGroup
 
 
 class DiscountGroupCreated(Event):

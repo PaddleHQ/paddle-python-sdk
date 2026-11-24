@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 
-from paddle_billing.Entities.Settings.CheckoutRecoveryDiscountType import CheckoutRecoveryDiscountType
+from paddle_billing.Entities.Settings.CheckoutRecoveryDiscountType import (
+    CheckoutRecoveryDiscountType as CheckoutRecoveryDiscountType,
+)
 
 
 @dataclass

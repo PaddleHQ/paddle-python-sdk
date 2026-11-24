@@ -1,21 +1,21 @@
 from requests import Response
 
-from paddle_billing.ResponseParser import ResponseParser
+from paddle_billing.ResponseParser import ResponseParser as ResponseParser
 
 from paddle_billing.Entities.Collections import (
-    Paginator,
-    CreditBalanceCollection,
-    CustomerCollection,
+    Paginator as Paginator,
+    CreditBalanceCollection as CreditBalanceCollection,
+    CustomerCollection as CustomerCollection,
 )
-from paddle_billing.Entities.Customer import Customer
-from paddle_billing.Entities.CustomerAuthToken import CustomerAuthToken
-from paddle_billing.Entities.Shared import Status
+from paddle_billing.Entities.Customer import Customer as Customer
+from paddle_billing.Entities.CustomerAuthToken import CustomerAuthToken as CustomerAuthToken
+from paddle_billing.Entities.Shared import Status as Status
 
 from paddle_billing.Resources.Customers.Operations import (
-    CreateCustomer,
-    ListCreditBalances,
-    ListCustomers,
-    UpdateCustomer,
+    CreateCustomer as CreateCustomer,
+    ListCreditBalances as ListCreditBalances,
+    ListCustomers as ListCustomers,
+    UpdateCustomer as UpdateCustomer,
 )
 
 from typing import TYPE_CHECKING

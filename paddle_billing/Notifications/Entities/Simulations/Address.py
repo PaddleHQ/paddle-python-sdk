@@ -3,9 +3,14 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Undefined import Undefined
-from paddle_billing.Notifications.Entities.Shared import CountryCode, CustomData, ImportMeta, Status
-from paddle_billing.Notifications.Entities.Simulations.SimulationEntity import SimulationEntity
+from paddle_billing.Undefined import Undefined as Undefined
+from paddle_billing.Notifications.Entities.Shared import (
+    CountryCode as CountryCode,
+    CustomData as CustomData,
+    ImportMeta as ImportMeta,
+    Status as Status,
+)
+from paddle_billing.Notifications.Entities.Simulations.SimulationEntity import SimulationEntity as SimulationEntity
 
 
 @dataclass

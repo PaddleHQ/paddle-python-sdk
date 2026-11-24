@@ -2,7 +2,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Notifications.Entities.Shared.SouthKoreaLocalCardType import SouthKoreaLocalCardType
+from paddle_billing.Notifications.Entities.Shared.SouthKoreaLocalCardType import (
+    SouthKoreaLocalCardType as SouthKoreaLocalCardType,
+)
 
 
 @dataclass

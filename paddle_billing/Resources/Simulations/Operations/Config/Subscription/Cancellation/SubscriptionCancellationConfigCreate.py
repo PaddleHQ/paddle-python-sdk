@@ -2,16 +2,18 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.FiltersUndefined import FiltersUndefined
-from paddle_billing.Entities.Simulation import SimulationScenarioType
-from paddle_billing.Resources.Simulations.Operations.Config.SimulationConfigCreate import SimulationConfigCreate
+from paddle_billing.FiltersUndefined import FiltersUndefined as FiltersUndefined
+from paddle_billing.Entities.Simulation import SimulationScenarioType as SimulationScenarioType
+from paddle_billing.Resources.Simulations.Operations.Config.SimulationConfigCreate import (
+    SimulationConfigCreate as SimulationConfigCreate,
+)
 from paddle_billing.Resources.Simulations.Operations.Config.Subscription.Cancellation.SubscriptionCancellationEntitiesCreate import (
-    SubscriptionCancellationEntitiesCreate,
+    SubscriptionCancellationEntitiesCreate as SubscriptionCancellationEntitiesCreate,
 )
 from paddle_billing.Resources.Simulations.Operations.Config.Subscription.Cancellation.SubscriptionCancellationOptionsCreate import (
-    SubscriptionCancellationOptionsCreate,
+    SubscriptionCancellationOptionsCreate as SubscriptionCancellationOptionsCreate,
 )
-from paddle_billing.Undefined import Undefined
+from paddle_billing.Undefined import Undefined as Undefined
 
 
 @dataclass

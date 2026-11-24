@@ -1,7 +1,7 @@
-from paddle_billing.FiltersNone import FiltersNone
-from paddle_billing.HasParameters import HasParameters
+from paddle_billing.FiltersNone import FiltersNone as FiltersNone
+from paddle_billing.HasParameters import HasParameters as HasParameters
 
-from paddle_billing.Resources.Shared.Operations.List.OrderBy import OrderBy
+from paddle_billing.Resources.Shared.Operations.List.OrderBy import OrderBy as OrderBy
 
 
 class Pager(HasParameters):

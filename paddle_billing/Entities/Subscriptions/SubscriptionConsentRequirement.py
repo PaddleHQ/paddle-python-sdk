@@ -3,11 +3,13 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Entities.Shared.TimePeriod import TimePeriod
+from paddle_billing.Entities.Shared.TimePeriod import TimePeriod as TimePeriod
 
-from paddle_billing.Entities.Subscriptions.SubscriptionConsentRequirementType import SubscriptionConsentRequirementType
+from paddle_billing.Entities.Subscriptions.SubscriptionConsentRequirementType import (
+    SubscriptionConsentRequirementType as SubscriptionConsentRequirementType,
+)
 from paddle_billing.Entities.Subscriptions.SubscriptionConsentRequirementStatus import (
-    SubscriptionConsentRequirementStatus,
+    SubscriptionConsentRequirementStatus as SubscriptionConsentRequirementStatus,
 )
 
 
