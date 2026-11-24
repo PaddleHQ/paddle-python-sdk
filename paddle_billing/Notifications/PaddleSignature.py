@@ -2,9 +2,9 @@ from hashlib import sha256
 from typing import cast
 from hmac import HMAC, compare_digest, new as hmac_new
 
-from paddle_billing.Logger import get_logger
+from paddle_billing.Logger import get_logger as get_logger
 
-from paddle_billing.Notifications.Secret import Secret
+from paddle_billing.Notifications.Secret import Secret as Secret
 
 
 class PaddleSignature:

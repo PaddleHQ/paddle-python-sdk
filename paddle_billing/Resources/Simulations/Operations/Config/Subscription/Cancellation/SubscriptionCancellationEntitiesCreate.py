@@ -1,7 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 
-from paddle_billing.Undefined import Undefined
+from paddle_billing.Undefined import Undefined as Undefined
 
 
 @dataclass

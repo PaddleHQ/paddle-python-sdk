@@ -5,6 +5,7 @@ from pytest import mark
 
 PACKAGE = Path(__file__).parents[2] / "paddle_billing"
 INIT_FILES = sorted(PACKAGE.rglob("__init__.py"))
+MODULE_FILES = sorted(f for f in PACKAGE.rglob("*.py") if f.name != "__init__.py")
 
 
 def private_imports(init_file: Path) -> list[str]:
@@ -23,6 +24,37 @@ def private_imports(init_file: Path) -> list[str]:
     ]
 
 
+def module_level_statements(body: list[ast.stmt]) -> list[ast.stmt]:
+    # Imports under `if TYPE_CHECKING:` aren't importable at runtime, so they're skipped.
+    statements = []
+    for node in body:
+        statements.append(node)
+        if isinstance(node, ast.If) and "TYPE_CHECKING" not in ast.unparse(node.test):
+            statements += module_level_statements(node.body + node.orelse)
+        elif isinstance(node, ast.Try):
+            handler_bodies = [statement for handler in node.handlers for statement in handler.body]
+            statements += module_level_statements(node.body + handler_bodies + node.orelse + node.finalbody)
+    return statements
+
+
+def plain_sdk_imports(module_file: Path) -> list[str]:
+    tree = ast.parse(module_file.read_text())
+
+    return [
+        alias.name
+        for node in module_level_statements(tree.body)
+        if isinstance(node, ast.ImportFrom) and (node.level > 0 or (node.module or "").startswith("paddle_billing"))
+        for alias in node.names
+        if alias.asname is None or (alias.asname != alias.name and not alias.asname.startswith("_"))
+    ]
+
+
+def test_module_files_are_found():
+    assert PACKAGE / "Client.py" in MODULE_FILES
+    assert PACKAGE / "Entities" / "Subscriptions" / "SubscriptionItem.py" in MODULE_FILES
+    assert PACKAGE / "Resources" / "Prices" / "Operations" / "ListPrices.py" in MODULE_FILES
+
+
 def test_package_is_marked_as_typed():
     assert (PACKAGE / "py.typed").is_file()
 
@@ -31,6 +63,13 @@ def test_package_is_marked_as_typed():
 @mark.parametrize("init_file", INIT_FILES, ids=lambda f: str(f.relative_to(PACKAGE.parent)))
 def test_package_imports_are_explicit_re_exports(init_file):
     assert private_imports(init_file) == []
+
+
+# Any name a module imports could be imported from it before py.typed, so every module re-exports its SDK imports.
+# A renamed import is never public, so its name must start with `_` (assign it to a public name if users need it).
+@mark.parametrize("module_file", MODULE_FILES, ids=lambda f: str(f.relative_to(PACKAGE.parent)))
+def test_module_imports_are_explicit_re_exports(module_file):
+    assert plain_sdk_imports(module_file) == []
 
 
 # The names `import *` gave before these packages defined `__all__`, including subpackage modules.

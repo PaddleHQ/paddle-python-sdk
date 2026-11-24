@@ -1,6 +1,6 @@
 from typing import Any
 
-from paddle_billing.Exceptions.SdkException import SdkException
+from paddle_billing.Exceptions.SdkException import SdkException as SdkException
 
 
 class InvalidArgumentException(SdkException):

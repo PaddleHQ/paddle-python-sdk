@@ -3,14 +3,16 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.Shared import ActionSource, Actor
+from paddle_billing.Entities.Entity import Entity as Entity
+from paddle_billing.Entities.Shared import ActionSource as ActionSource, Actor as Actor
 
 from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetail import (
-    SubscriptionHistoryDetail,
-    SubscriptionHistoryDetailUnion,
+    SubscriptionHistoryDetail as SubscriptionHistoryDetail,
+    SubscriptionHistoryDetailUnion as SubscriptionHistoryDetailUnion,
 )
-from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryReason import SubscriptionHistoryReason
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryReason import (
+    SubscriptionHistoryReason as SubscriptionHistoryReason,
+)
 
 
 @dataclass

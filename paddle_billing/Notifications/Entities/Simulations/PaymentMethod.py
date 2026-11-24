@@ -3,12 +3,12 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Undefined import Undefined
+from paddle_billing.Undefined import Undefined as Undefined
 from paddle_billing.Notifications.Entities.Shared import (
-    SavedPaymentMethodOrigin,
-    SavedPaymentMethodType,
+    SavedPaymentMethodOrigin as SavedPaymentMethodOrigin,
+    SavedPaymentMethodType as SavedPaymentMethodType,
 )
-from paddle_billing.Notifications.Entities.Simulations.SimulationEntity import SimulationEntity
+from paddle_billing.Notifications.Entities.Simulations.SimulationEntity import SimulationEntity as SimulationEntity
 
 
 @dataclass

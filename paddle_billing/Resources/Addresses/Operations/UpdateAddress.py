@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 
-from paddle_billing.Operation import Operation
-from paddle_billing.Undefined import Undefined
-from paddle_billing.Entities.Shared import CountryCode, CustomData, Status
+from paddle_billing.Operation import Operation as Operation
+from paddle_billing.Undefined import Undefined as Undefined
+from paddle_billing.Entities.Shared import CountryCode as CountryCode, CustomData as CustomData, Status as Status
 
 
 @dataclass

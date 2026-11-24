@@ -1,7 +1,7 @@
 from requests import Response
 
-from paddle_billing.ResponseParser import ResponseParser
-from paddle_billing.Entities.Collections import SimulationTypeCollection
+from paddle_billing.ResponseParser import ResponseParser as ResponseParser
+from paddle_billing.Entities.Collections import SimulationTypeCollection as SimulationTypeCollection
 
 from typing import TYPE_CHECKING
 

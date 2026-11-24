@@ -1,16 +1,16 @@
 from dataclasses import dataclass
 
-from paddle_billing.Operation import Operation
-from paddle_billing.Undefined import Undefined
+from paddle_billing.Operation import Operation as Operation
+from paddle_billing.Undefined import Undefined as Undefined
 
 from paddle_billing.Entities.Subscriptions import (
-    SubscriptionEffectiveFrom,
-    SubscriptionOnPaymentFailure,
+    SubscriptionEffectiveFrom as SubscriptionEffectiveFrom,
+    SubscriptionOnPaymentFailure as SubscriptionOnPaymentFailure,
 )
 
 from paddle_billing.Resources.Subscriptions.Operations.Charge import (
-    SubscriptionChargeItem,
-    SubscriptionChargeItemWithPrice,
+    SubscriptionChargeItem as SubscriptionChargeItem,
+    SubscriptionChargeItemWithPrice as SubscriptionChargeItemWithPrice,
 )
 
 

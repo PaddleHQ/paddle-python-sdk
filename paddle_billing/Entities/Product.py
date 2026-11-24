@@ -3,8 +3,14 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.Shared import CatalogType, CustomData, ImportMeta, Status, TaxCategory
+from paddle_billing.Entities.Entity import Entity as Entity
+from paddle_billing.Entities.Shared import (
+    CatalogType as CatalogType,
+    CustomData as CustomData,
+    ImportMeta as ImportMeta,
+    Status as Status,
+    TaxCategory as TaxCategory,
+)
 
 
 @dataclass
@@ -41,4 +47,4 @@ class Product(Entity):
 
 
 # Prevents circular import
-from paddle_billing.Entities.Price import Price  # noqa E402
+from paddle_billing.Entities.Price import Price as Price  # noqa E402

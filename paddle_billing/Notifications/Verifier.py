@@ -1,10 +1,15 @@
 from os import getenv
 from time import time
-from paddle_billing.Logger import get_logger
+from paddle_billing.Logger import get_logger as get_logger
 
-from paddle_billing.Notifications.Secret import Secret
-from paddle_billing.Notifications.PaddleSignature import PaddleSignature
-from paddle_billing.Notifications.Requests import BodyRequest, ContentRequest, DataRequest, Request
+from paddle_billing.Notifications.Secret import Secret as Secret
+from paddle_billing.Notifications.PaddleSignature import PaddleSignature as PaddleSignature
+from paddle_billing.Notifications.Requests import (
+    BodyRequest as BodyRequest,
+    ContentRequest as ContentRequest,
+    DataRequest as DataRequest,
+    Request as Request,
+)
 
 
 class Verifier:

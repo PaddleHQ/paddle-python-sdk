@@ -1,6 +1,8 @@
-from paddle_billing.HasParameters import HasParameters
-from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
-from paddle_billing.Resources.Shared.Operations import Pager
+from paddle_billing.HasParameters import HasParameters as HasParameters
+from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import (
+    InvalidArgumentException as InvalidArgumentException,
+)
+from paddle_billing.Resources.Shared.Operations import Pager as Pager
 
 
 class ListPaymentMethods(HasParameters):

@@ -2,8 +2,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.ApiRoot.RootAuthType import RootAuthType
-from paddle_billing.Entities.ApiRoot.RootCallerAccount import RootCallerAccount
+from paddle_billing.Entities.ApiRoot.RootAuthType import RootAuthType as RootAuthType
+from paddle_billing.Entities.ApiRoot.RootCallerAccount import RootCallerAccount as RootCallerAccount
 
 
 @dataclass

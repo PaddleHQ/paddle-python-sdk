@@ -2,7 +2,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Price import Price
+from paddle_billing.Entities.Price import Price as Price
 
 
 @dataclass

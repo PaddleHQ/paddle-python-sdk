@@ -2,10 +2,14 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Shared.TransactionDetailsPreview import TransactionDetailsPreview
-from paddle_billing.Entities.Shared.TimePeriod import TimePeriod
+from paddle_billing.Entities.Shared.TransactionDetailsPreview import (
+    TransactionDetailsPreview as TransactionDetailsPreview,
+)
+from paddle_billing.Entities.Shared.TimePeriod import TimePeriod as TimePeriod
 
-from paddle_billing.Entities.Subscriptions.SubscriptionAdjustmentPreview import SubscriptionAdjustmentPreview
+from paddle_billing.Entities.Subscriptions.SubscriptionAdjustmentPreview import (
+    SubscriptionAdjustmentPreview as SubscriptionAdjustmentPreview,
+)
 
 
 @dataclass

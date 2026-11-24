@@ -1,7 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
 
-from paddle_billing.Environment import Environment
+from paddle_billing.Environment import Environment as Environment
 
 
 @dataclass

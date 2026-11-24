@@ -1,8 +1,8 @@
 from datetime import datetime
 
-from paddle_billing.Entities.DateTime import DateTime
+from paddle_billing.Entities.DateTime import DateTime as DateTime
 
-from paddle_billing.Resources.Shared.Operations.List.Comparator import Comparator
+from paddle_billing.Resources.Shared.Operations.List.Comparator import Comparator as Comparator
 
 
 class DateComparison:

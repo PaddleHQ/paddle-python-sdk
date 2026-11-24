@@ -1,14 +1,20 @@
 from dataclasses import dataclass
 
-from paddle_billing.Undefined import Undefined
+from paddle_billing.Undefined import Undefined as Undefined
 
-from paddle_billing.Operation import Operation
+from paddle_billing.Operation import Operation as Operation
 
-from paddle_billing.Entities.Shared import Action, AdjustmentActionType, AdjustmentTaxMode
+from paddle_billing.Entities.Shared import (
+    Action as Action,
+    AdjustmentActionType as AdjustmentActionType,
+    AdjustmentTaxMode as AdjustmentTaxMode,
+)
 
-from paddle_billing.Resources.Adjustments.Operations import CreateAdjustmentItem
+from paddle_billing.Resources.Adjustments.Operations import CreateAdjustmentItem as CreateAdjustmentItem
 
-from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
+from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import (
+    InvalidArgumentException as InvalidArgumentException,
+)
 
 
 @dataclass

@@ -4,9 +4,9 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Notifications.Entities.Simulations.SimulationEntity import SimulationEntity
-from paddle_billing.Notifications.Entities.ClientTokens import ClientTokenStatus
-from paddle_billing.Undefined import Undefined
+from paddle_billing.Notifications.Entities.Simulations.SimulationEntity import SimulationEntity as SimulationEntity
+from paddle_billing.Notifications.Entities.ClientTokens import ClientTokenStatus as ClientTokenStatus
+from paddle_billing.Undefined import Undefined as Undefined
 
 
 @dataclass

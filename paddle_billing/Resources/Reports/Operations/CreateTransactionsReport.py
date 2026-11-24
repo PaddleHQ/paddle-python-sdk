@@ -1,18 +1,18 @@
 from dataclasses import dataclass, field
 from typing import Type
 
-from paddle_billing.Entities.Reports import TransactionsReportType
+from paddle_billing.Entities.Reports import TransactionsReportType as TransactionsReportType
 
 from paddle_billing.Resources.Reports.Operations.Filters import (
-    CollectionModeFilter,
-    CurrencyCodeFilter,
-    TransactionOriginFilter,
-    TransactionStatusFilter,
-    UpdatedAtFilter,
+    CollectionModeFilter as CollectionModeFilter,
+    CurrencyCodeFilter as CurrencyCodeFilter,
+    TransactionOriginFilter as TransactionOriginFilter,
+    TransactionStatusFilter as TransactionStatusFilter,
+    UpdatedAtFilter as UpdatedAtFilter,
 )
 
-from paddle_billing.Resources.Reports.Operations.CreateReport import CreateReport
-from paddle_billing.Resources.Reports.Operations.Filters.Filter import Filter
+from paddle_billing.Resources.Reports.Operations.CreateReport import CreateReport as CreateReport
+from paddle_billing.Resources.Reports.Operations.Filters.Filter import Filter as Filter
 
 
 @dataclass

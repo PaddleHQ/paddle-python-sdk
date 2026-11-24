@@ -2,14 +2,16 @@ from dataclasses import dataclass, field
 from abc import ABC, abstractmethod
 from typing import Any, Generic, Type, TypeVar
 
-from paddle_billing.Operation import Operation
+from paddle_billing.Operation import Operation as Operation
 
 # Unused here since CreateReport became generic; kept so existing imports from this module still work.
 from paddle_billing.Entities.Reports import ReportType as ReportType, ReportFilter as ReportFilter  # noqa: F401
-from paddle_billing.PaddleStrEnum import PaddleStrEnum
-from paddle_billing.Resources.Reports.Operations.Filters.Filter import Filter
+from paddle_billing.PaddleStrEnum import PaddleStrEnum as PaddleStrEnum
+from paddle_billing.Resources.Reports.Operations.Filters.Filter import Filter as Filter
 
-from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
+from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import (
+    InvalidArgumentException as InvalidArgumentException,
+)
 
 ReportTypeT = TypeVar("ReportTypeT", bound=PaddleStrEnum)
 FilterT = TypeVar("FilterT", bound=Filter)

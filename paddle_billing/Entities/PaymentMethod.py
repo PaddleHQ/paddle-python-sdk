@@ -3,14 +3,14 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Entities.Entity import Entity
+from paddle_billing.Entities.Entity import Entity as Entity
 from paddle_billing.Entities.Shared import (
-    Card,
-    PaymentMethodUnderlyingDetails,
-    Paypal,
-    SavedPaymentMethodOrigin,
-    SavedPaymentMethodType,
-    SouthKoreaLocalCard,
+    Card as Card,
+    PaymentMethodUnderlyingDetails as PaymentMethodUnderlyingDetails,
+    Paypal as Paypal,
+    SavedPaymentMethodOrigin as SavedPaymentMethodOrigin,
+    SavedPaymentMethodType as SavedPaymentMethodType,
+    SouthKoreaLocalCard as SouthKoreaLocalCard,
 )
 
 

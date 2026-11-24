@@ -3,8 +3,13 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.Shared import CountryCode, CustomData, ImportMeta, Status
+from paddle_billing.Entities.Entity import Entity as Entity
+from paddle_billing.Entities.Shared import (
+    CountryCode as CountryCode,
+    CustomData as CustomData,
+    ImportMeta as ImportMeta,
+    Status as Status,
+)
 
 
 @dataclass

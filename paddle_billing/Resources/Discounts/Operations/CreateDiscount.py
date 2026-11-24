@@ -1,10 +1,10 @@
 from dataclasses import dataclass
 
-from paddle_billing.Operation import Operation
-from paddle_billing.Undefined import Undefined
-from paddle_billing.Entities.DateTime import DateTime
-from paddle_billing.Entities.Discounts import DiscountMode, DiscountType
-from paddle_billing.Entities.Shared import CurrencyCode, CustomData
+from paddle_billing.Operation import Operation as Operation
+from paddle_billing.Undefined import Undefined as Undefined
+from paddle_billing.Entities.DateTime import DateTime as DateTime
+from paddle_billing.Entities.Discounts import DiscountMode as DiscountMode, DiscountType as DiscountType
+from paddle_billing.Entities.Shared import CurrencyCode as CurrencyCode, CustomData as CustomData
 
 
 @dataclass

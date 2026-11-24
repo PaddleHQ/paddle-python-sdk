@@ -2,9 +2,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Subscriptions.SubscriptionCharge import SubscriptionCharge
-from paddle_billing.Entities.Subscriptions.SubscriptionCredit import SubscriptionCredit
-from paddle_billing.Entities.Subscriptions.SubscriptionResult import SubscriptionResult
+from paddle_billing.Entities.Subscriptions.SubscriptionCharge import SubscriptionCharge as SubscriptionCharge
+from paddle_billing.Entities.Subscriptions.SubscriptionCredit import SubscriptionCredit as SubscriptionCredit
+from paddle_billing.Entities.Subscriptions.SubscriptionResult import SubscriptionResult as SubscriptionResult
 
 
 @dataclass

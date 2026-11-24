@@ -1,13 +1,21 @@
 from __future__ import annotations
 
-from .Entity import Entity
+from .Entity import Entity as Entity
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Entities.DiscountGroup import DiscountGroup
-from paddle_billing.Entities.Discounts import DiscountMode, DiscountStatus, DiscountType
-from paddle_billing.Entities.Shared import CurrencyCode, ImportMeta, CustomData
+from paddle_billing.Entities.DiscountGroup import DiscountGroup as DiscountGroup
+from paddle_billing.Entities.Discounts import (
+    DiscountMode as DiscountMode,
+    DiscountStatus as DiscountStatus,
+    DiscountType as DiscountType,
+)
+from paddle_billing.Entities.Shared import (
+    CurrencyCode as CurrencyCode,
+    ImportMeta as ImportMeta,
+    CustomData as CustomData,
+)
 
 
 @dataclass

@@ -1,8 +1,11 @@
 from __future__ import annotations
 from dataclasses import dataclass
 
-from paddle_billing.Entities.Simulations.Config.Options import DunningExhaustedAction, PaymentOutcome
-from paddle_billing.Undefined import Undefined
+from paddle_billing.Entities.Simulations.Config.Options import (
+    DunningExhaustedAction as DunningExhaustedAction,
+    PaymentOutcome as PaymentOutcome,
+)
+from paddle_billing.Undefined import Undefined as Undefined
 
 
 @dataclass

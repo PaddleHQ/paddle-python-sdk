@@ -3,10 +3,13 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.Events import EventTypeName
-from paddle_billing.Entities.Notifications import NotificationOrigin, NotificationStatus
-from paddle_billing.Entities.Notifications.NotificationEvent import NotificationEvent
+from paddle_billing.Entities.Entity import Entity as Entity
+from paddle_billing.Entities.Events import EventTypeName as EventTypeName
+from paddle_billing.Entities.Notifications import (
+    NotificationOrigin as NotificationOrigin,
+    NotificationStatus as NotificationStatus,
+)
+from paddle_billing.Entities.Notifications.NotificationEvent import NotificationEvent as NotificationEvent
 
 
 @dataclass

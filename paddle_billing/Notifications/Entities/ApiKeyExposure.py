@@ -3,11 +3,11 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Notifications.Entities.Entity import Entity
+from paddle_billing.Notifications.Entities.Entity import Entity as Entity
 from paddle_billing.Notifications.Entities.ApiKeyExposures import (
-    ApiKeyExposureActionTaken,
-    ApiKeyExposureRiskLevel,
-    ApiKeyExposureSource,
+    ApiKeyExposureActionTaken as ApiKeyExposureActionTaken,
+    ApiKeyExposureRiskLevel as ApiKeyExposureRiskLevel,
+    ApiKeyExposureSource as ApiKeyExposureSource,
 )
 
 

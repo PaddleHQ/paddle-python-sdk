@@ -1,4 +1,4 @@
-from paddle_billing.Exceptions.FieldError import FieldError
+from paddle_billing.Exceptions.FieldError import FieldError as FieldError
 
 from requests import HTTPError, Response
 

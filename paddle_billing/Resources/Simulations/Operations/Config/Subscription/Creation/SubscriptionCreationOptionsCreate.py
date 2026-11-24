@@ -2,11 +2,11 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from paddle_billing.Entities.Simulations.Config.Options import (
-    BusinessSimulatedAs,
-    CustomerSimulatedAs,
-    DiscountSimulatedAs,
+    BusinessSimulatedAs as BusinessSimulatedAs,
+    CustomerSimulatedAs as CustomerSimulatedAs,
+    DiscountSimulatedAs as DiscountSimulatedAs,
 )
-from paddle_billing.Undefined import Undefined
+from paddle_billing.Undefined import Undefined as Undefined
 
 
 @dataclass

@@ -1,9 +1,9 @@
 from __future__ import annotations
 from typing import Any
 
-from paddle_billing.Entities.Collections.Collection import Collection
-from paddle_billing.Entities.Collections.Paginator import Paginator
-from paddle_billing.Entities.Simulation import Simulation
+from paddle_billing.Entities.Collections.Collection import Collection as Collection
+from paddle_billing.Entities.Collections.Paginator import Paginator as Paginator
+from paddle_billing.Entities.Simulation import Simulation as Simulation
 
 
 class SimulationCollection(Collection[Simulation]):

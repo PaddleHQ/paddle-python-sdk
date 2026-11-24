@@ -2,23 +2,29 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Address import Address
-from paddle_billing.Entities.Business import Business
-from paddle_billing.Entities.Customer import Customer
+from paddle_billing.Entities.Address import Address as Address
+from paddle_billing.Entities.Business import Business as Business
+from paddle_billing.Entities.Customer import Customer as Customer
 
 from paddle_billing.Entities.Shared import (
-    BillingDetails,
-    CollectionMode,
-    CurrencyCode,
-    CustomData,
-    Duration,
-    TimePeriod,
+    BillingDetails as BillingDetails,
+    CollectionMode as CollectionMode,
+    CurrencyCode as CurrencyCode,
+    CustomData as CustomData,
+    Duration as Duration,
+    TimePeriod as TimePeriod,
 )
 
-from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryAction import SubscriptionHistoryAction
-from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailItem import SubscriptionHistoryDetailItem
-from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDiscount import SubscriptionHistoryDiscount
-from paddle_billing.Entities.Subscriptions.SubscriptionStatus import SubscriptionStatus
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryAction import (
+    SubscriptionHistoryAction as SubscriptionHistoryAction,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailItem import (
+    SubscriptionHistoryDetailItem as SubscriptionHistoryDetailItem,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDiscount import (
+    SubscriptionHistoryDiscount as SubscriptionHistoryDiscount,
+)
+from paddle_billing.Entities.Subscriptions.SubscriptionStatus import SubscriptionStatus as SubscriptionStatus
 
 
 @dataclass

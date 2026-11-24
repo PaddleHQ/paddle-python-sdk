@@ -2,9 +2,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.Shared import CurrencyCode
-from paddle_billing.Entities.Adjustments import AdjustmentCustomerBalance
+from paddle_billing.Entities.Entity import Entity as Entity
+from paddle_billing.Entities.Shared import CurrencyCode as CurrencyCode
+from paddle_billing.Entities.Adjustments import AdjustmentCustomerBalance as AdjustmentCustomerBalance
 
 
 @dataclass

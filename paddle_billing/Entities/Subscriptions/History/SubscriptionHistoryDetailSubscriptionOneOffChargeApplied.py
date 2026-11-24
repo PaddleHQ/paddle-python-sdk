@@ -2,12 +2,18 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryAction import SubscriptionHistoryAction
-from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailItem import SubscriptionHistoryDetailItem
-from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryOneOffChargeAppliedEffectiveFrom import (
-    SubscriptionHistoryOneOffChargeAppliedEffectiveFrom,
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryAction import (
+    SubscriptionHistoryAction as SubscriptionHistoryAction,
 )
-from paddle_billing.Entities.Subscriptions.SubscriptionOnPaymentFailure import SubscriptionOnPaymentFailure
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryDetailItem import (
+    SubscriptionHistoryDetailItem as SubscriptionHistoryDetailItem,
+)
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryOneOffChargeAppliedEffectiveFrom import (
+    SubscriptionHistoryOneOffChargeAppliedEffectiveFrom as SubscriptionHistoryOneOffChargeAppliedEffectiveFrom,
+)
+from paddle_billing.Entities.Subscriptions.SubscriptionOnPaymentFailure import (
+    SubscriptionOnPaymentFailure as SubscriptionOnPaymentFailure,
+)
 
 
 @dataclass

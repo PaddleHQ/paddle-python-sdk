@@ -1,6 +1,6 @@
-from paddle_billing.HasParameters import HasParameters
+from paddle_billing.HasParameters import HasParameters as HasParameters
 
-from paddle_billing.Entities.Shared import Disposition
+from paddle_billing.Entities.Shared import Disposition as Disposition
 
 
 class GetCreditNote(HasParameters):

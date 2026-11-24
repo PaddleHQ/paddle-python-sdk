@@ -1,5 +1,5 @@
-from paddle_billing.Entities.Metrics import MetricEntity
-from paddle_billing.HasParameters import HasParameters
+from paddle_billing.Entities.Metrics import MetricEntity as MetricEntity
+from paddle_billing.HasParameters import HasParameters as HasParameters
 
 
 class ListExploreMetricEntities(HasParameters):

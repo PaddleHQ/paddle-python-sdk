@@ -2,12 +2,22 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Entity import Entity
-from paddle_billing.Entities.Simulations.Config.Subscription.Cancellation import SubscriptionCancellationConfig
-from paddle_billing.Entities.Simulations.Config.Subscription.Creation import SubscriptionCreationConfig
-from paddle_billing.Entities.Simulations.Config.Subscription.Pause import SubscriptionPauseConfig
-from paddle_billing.Entities.Simulations.Config.Subscription.Renewal import SubscriptionRenewalConfig
-from paddle_billing.Entities.Simulations.Config.Subscription.Resume import SubscriptionResumeConfig
+from paddle_billing.Entities.Entity import Entity as Entity
+from paddle_billing.Entities.Simulations.Config.Subscription.Cancellation import (
+    SubscriptionCancellationConfig as SubscriptionCancellationConfig,
+)
+from paddle_billing.Entities.Simulations.Config.Subscription.Creation import (
+    SubscriptionCreationConfig as SubscriptionCreationConfig,
+)
+from paddle_billing.Entities.Simulations.Config.Subscription.Pause import (
+    SubscriptionPauseConfig as SubscriptionPauseConfig,
+)
+from paddle_billing.Entities.Simulations.Config.Subscription.Renewal import (
+    SubscriptionRenewalConfig as SubscriptionRenewalConfig,
+)
+from paddle_billing.Entities.Simulations.Config.Subscription.Resume import (
+    SubscriptionResumeConfig as SubscriptionResumeConfig,
+)
 
 
 @dataclass

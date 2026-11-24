@@ -1,16 +1,14 @@
 from requests import Response
 
-from paddle_billing.ResponseParser import ResponseParser
+from paddle_billing.ResponseParser import ResponseParser as ResponseParser
 
 from paddle_billing.Entities.Collections import (
-    PaymentMethodCollection,
-    Paginator,
+    PaymentMethodCollection as PaymentMethodCollection,
+    Paginator as Paginator,
 )
-from paddle_billing.Entities.PaymentMethod import PaymentMethod
+from paddle_billing.Entities.PaymentMethod import PaymentMethod as PaymentMethod
 
-from paddle_billing.Resources.PaymentMethods.Operations import (
-    ListPaymentMethods,
-)
+from paddle_billing.Resources.PaymentMethods.Operations import ListPaymentMethods as ListPaymentMethods
 
 from typing import TYPE_CHECKING
 

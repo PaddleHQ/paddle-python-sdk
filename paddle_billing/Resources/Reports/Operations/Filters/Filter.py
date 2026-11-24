@@ -2,9 +2,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from abc import ABC, abstractmethod
 
-from paddle_billing.Entities.Reports import ReportFilterOperator
+from paddle_billing.Entities.Reports import ReportFilterOperator as ReportFilterOperator
 
-from paddle_billing.Entities.Reports import ReportFilterName
+from paddle_billing.Entities.Reports import ReportFilterName as ReportFilterName
 
 
 @dataclass

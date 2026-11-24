@@ -3,28 +3,30 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Entities.Entity import Entity
+from paddle_billing.Entities.Entity import Entity as Entity
 from paddle_billing.Entities.Shared import (
-    BillingDetails,
-    CollectionMode,
-    CurrencyCode,
-    CustomData,
-    Duration,
-    ImportMeta,
-    TimePeriod,
+    BillingDetails as BillingDetails,
+    CollectionMode as CollectionMode,
+    CurrencyCode as CurrencyCode,
+    CustomData as CustomData,
+    Duration as Duration,
+    ImportMeta as ImportMeta,
+    TimePeriod as TimePeriod,
 )
 
-from paddle_billing.Entities.Shared.TransactionDetailsPreview import TransactionDetailsPreview
+from paddle_billing.Entities.Shared.TransactionDetailsPreview import (
+    TransactionDetailsPreview as TransactionDetailsPreview,
+)
 
 from paddle_billing.Entities.Subscriptions import (
-    SubscriptionConsentRequirement,
-    SubscriptionDiscount,
-    SubscriptionItem,
-    SubscriptionManagementUrls,
-    SubscriptionNextTransaction,
-    SubscriptionPreviewSubscriptionUpdateSummary,
-    SubscriptionScheduledChange,
-    SubscriptionStatus,
+    SubscriptionConsentRequirement as SubscriptionConsentRequirement,
+    SubscriptionDiscount as SubscriptionDiscount,
+    SubscriptionItem as SubscriptionItem,
+    SubscriptionManagementUrls as SubscriptionManagementUrls,
+    SubscriptionNextTransaction as SubscriptionNextTransaction,
+    SubscriptionPreviewSubscriptionUpdateSummary as SubscriptionPreviewSubscriptionUpdateSummary,
+    SubscriptionScheduledChange as SubscriptionScheduledChange,
+    SubscriptionStatus as SubscriptionStatus,
 )
 
 

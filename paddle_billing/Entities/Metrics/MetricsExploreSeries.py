@@ -2,7 +2,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Metrics.MetricsExploreDataPoint import MetricsExploreDataPoint
+from paddle_billing.Entities.Metrics.MetricsExploreDataPoint import MetricsExploreDataPoint as MetricsExploreDataPoint
 
 
 @dataclass

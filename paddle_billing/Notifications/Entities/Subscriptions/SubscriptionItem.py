@@ -3,11 +3,13 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Notifications.Entities.Shared.TimePeriod import TimePeriod
+from paddle_billing.Notifications.Entities.Shared.TimePeriod import TimePeriod as TimePeriod
 
-from paddle_billing.Notifications.Entities.Product import Product
-from paddle_billing.Notifications.Entities.Subscriptions.SubscriptionItemStatus import SubscriptionItemStatus
-from paddle_billing.Notifications.Entities.Subscriptions.SubscriptionPrice import SubscriptionPrice
+from paddle_billing.Notifications.Entities.Product import Product as Product
+from paddle_billing.Notifications.Entities.Subscriptions.SubscriptionItemStatus import (
+    SubscriptionItemStatus as SubscriptionItemStatus,
+)
+from paddle_billing.Notifications.Entities.Subscriptions.SubscriptionPrice import SubscriptionPrice as SubscriptionPrice
 
 
 @dataclass

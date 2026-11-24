@@ -2,7 +2,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Settings.CheckoutRecoveryDiscountType import CheckoutRecoveryDiscountType
+from paddle_billing.Entities.Settings.CheckoutRecoveryDiscountType import (
+    CheckoutRecoveryDiscountType as CheckoutRecoveryDiscountType,
+)
 
 
 @dataclass

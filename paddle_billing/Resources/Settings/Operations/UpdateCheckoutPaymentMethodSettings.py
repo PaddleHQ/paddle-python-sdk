@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
-from paddle_billing.Operation import Operation
-from paddle_billing.Entities.Settings import CheckoutPaymentMethodsUpdate
+from paddle_billing.Operation import Operation as Operation
+from paddle_billing.Entities.Settings import CheckoutPaymentMethodsUpdate as CheckoutPaymentMethodsUpdate
 
 
 @dataclass

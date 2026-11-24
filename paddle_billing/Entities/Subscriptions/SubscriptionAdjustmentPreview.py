@@ -2,9 +2,11 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Shared import AdjustmentTotals
+from paddle_billing.Entities.Shared import AdjustmentTotals as AdjustmentTotals
 
-from paddle_billing.Entities.Subscriptions.SubscriptionAdjustmentItem import SubscriptionAdjustmentItem
+from paddle_billing.Entities.Subscriptions.SubscriptionAdjustmentItem import (
+    SubscriptionAdjustmentItem as SubscriptionAdjustmentItem,
+)
 
 
 @dataclass

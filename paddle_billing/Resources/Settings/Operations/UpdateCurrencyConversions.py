@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Operation import Operation
-from paddle_billing.Entities.Settings import CurrencyConversionUpdate
+from paddle_billing.Operation import Operation as Operation
+from paddle_billing.Entities.Settings import CurrencyConversionUpdate as CurrencyConversionUpdate
 
 
 @dataclass

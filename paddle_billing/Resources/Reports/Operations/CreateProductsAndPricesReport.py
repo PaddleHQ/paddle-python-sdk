@@ -1,19 +1,19 @@
 from dataclasses import dataclass, field
 from typing import Type
 
-from paddle_billing.Entities.Reports import ProductsPricesReportType
+from paddle_billing.Entities.Reports import ProductsPricesReportType as ProductsPricesReportType
 
 from paddle_billing.Resources.Reports.Operations.Filters import (
-    PriceStatusFilter,
-    PriceTypeFilter,
-    PriceUpdatedAtFilter,
-    ProductStatusFilter,
-    ProductTypeFilter,
-    ProductUpdatedAtFilter,
+    PriceStatusFilter as PriceStatusFilter,
+    PriceTypeFilter as PriceTypeFilter,
+    PriceUpdatedAtFilter as PriceUpdatedAtFilter,
+    ProductStatusFilter as ProductStatusFilter,
+    ProductTypeFilter as ProductTypeFilter,
+    ProductUpdatedAtFilter as ProductUpdatedAtFilter,
 )
 
-from paddle_billing.Resources.Reports.Operations.CreateReport import CreateReport
-from paddle_billing.Resources.Reports.Operations.Filters.Filter import Filter
+from paddle_billing.Resources.Reports.Operations.CreateReport import CreateReport as CreateReport
+from paddle_billing.Resources.Reports.Operations.Filters.Filter import Filter as Filter
 
 
 @dataclass

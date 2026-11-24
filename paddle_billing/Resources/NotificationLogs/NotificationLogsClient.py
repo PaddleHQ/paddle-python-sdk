@@ -1,8 +1,11 @@
 from requests import Response
 
-from paddle_billing.ResponseParser import ResponseParser
-from paddle_billing.Entities.Collections import Paginator, NotificationLogCollection
-from paddle_billing.Resources.NotificationLogs.Operations import ListNotificationLogs
+from paddle_billing.ResponseParser import ResponseParser as ResponseParser
+from paddle_billing.Entities.Collections import (
+    Paginator as Paginator,
+    NotificationLogCollection as NotificationLogCollection,
+)
+from paddle_billing.Resources.NotificationLogs.Operations import ListNotificationLogs as ListNotificationLogs
 
 from typing import TYPE_CHECKING
 

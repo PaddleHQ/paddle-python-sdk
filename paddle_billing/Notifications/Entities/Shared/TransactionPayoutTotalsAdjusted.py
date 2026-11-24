@@ -2,8 +2,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Notifications.Entities.Shared.ChargebackFee import ChargebackFee
-from paddle_billing.Notifications.Entities.Shared.CurrencyCodePayouts import CurrencyCodePayouts
+from paddle_billing.Notifications.Entities.Shared.ChargebackFee import ChargebackFee as ChargebackFee
+from paddle_billing.Notifications.Entities.Shared.CurrencyCodePayouts import CurrencyCodePayouts as CurrencyCodePayouts
 
 
 @dataclass

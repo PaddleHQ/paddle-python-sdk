@@ -3,9 +3,11 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from paddle_billing.Entities.Shared import Duration, TimePeriod
+from paddle_billing.Entities.Shared import Duration as Duration, TimePeriod as TimePeriod
 
-from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryAction import SubscriptionHistoryAction
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryAction import (
+    SubscriptionHistoryAction as SubscriptionHistoryAction,
+)
 
 
 @dataclass

@@ -1,12 +1,16 @@
 from requests import Response
 
-from paddle_billing.ResponseParser import ResponseParser
+from paddle_billing.ResponseParser import ResponseParser as ResponseParser
 
-from paddle_billing.Entities.Address import Address
-from paddle_billing.Entities.Collections import Paginator, AddressCollection
-from paddle_billing.Entities.Shared import Status
+from paddle_billing.Entities.Address import Address as Address
+from paddle_billing.Entities.Collections import Paginator as Paginator, AddressCollection as AddressCollection
+from paddle_billing.Entities.Shared import Status as Status
 
-from paddle_billing.Resources.Addresses.Operations import CreateAddress, ListAddresses, UpdateAddress
+from paddle_billing.Resources.Addresses.Operations import (
+    CreateAddress as CreateAddress,
+    ListAddresses as ListAddresses,
+    UpdateAddress as UpdateAddress,
+)
 
 from typing import TYPE_CHECKING
 

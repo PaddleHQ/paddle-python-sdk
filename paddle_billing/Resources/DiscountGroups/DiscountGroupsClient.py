@@ -1,14 +1,20 @@
 from requests import Response
 
 from paddle_billing.Resources.DiscountGroups.Operations import (
-    CreateDiscountGroup,
-    ListDiscountGroups,
-    UpdateDiscountGroup,
+    CreateDiscountGroup as CreateDiscountGroup,
+    ListDiscountGroups as ListDiscountGroups,
+    UpdateDiscountGroup as UpdateDiscountGroup,
 )
-from paddle_billing.ResponseParser import ResponseParser
+from paddle_billing.ResponseParser import ResponseParser as ResponseParser
 
-from paddle_billing.Entities.Collections import Paginator, DiscountGroupCollection
-from paddle_billing.Entities.DiscountGroup import DiscountGroup, DiscountGroupStatus
+from paddle_billing.Entities.Collections import (
+    Paginator as Paginator,
+    DiscountGroupCollection as DiscountGroupCollection,
+)
+from paddle_billing.Entities.DiscountGroup import (
+    DiscountGroup as DiscountGroup,
+    DiscountGroupStatus as DiscountGroupStatus,
+)
 
 from typing import TYPE_CHECKING
 

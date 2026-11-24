@@ -2,9 +2,11 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from paddle_billing.Entities.Shared import CollectionMode
+from paddle_billing.Entities.Shared import CollectionMode as CollectionMode
 
-from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryAction import SubscriptionHistoryAction
+from paddle_billing.Entities.Subscriptions.History.SubscriptionHistoryAction import (
+    SubscriptionHistoryAction as SubscriptionHistoryAction,
+)
 
 
 @dataclass

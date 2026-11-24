@@ -3,10 +3,10 @@ from dataclasses import dataclass
 from typing import Any
 
 from paddle_billing.Entities.CustomerPortalSessions.CustomerPortalSessionGeneralUrl import (
-    CustomerPortalSessionGeneralUrl,
+    CustomerPortalSessionGeneralUrl as CustomerPortalSessionGeneralUrl,
 )
 from paddle_billing.Entities.CustomerPortalSessions.CustomerPortalSessionSubscriptionUrl import (
-    CustomerPortalSessionSubscriptionUrl,
+    CustomerPortalSessionSubscriptionUrl as CustomerPortalSessionSubscriptionUrl,
 )
 
 

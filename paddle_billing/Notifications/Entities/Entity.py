@@ -3,8 +3,8 @@ from abc import ABC, abstractmethod
 from typing import Any
 from dataclasses import asdict, dataclass
 from importlib import import_module
-from paddle_billing.Notifications.Entities.EntityDict import EntityDict
-from paddle_billing.Notifications.Entities.UndefinedEntity import UndefinedEntity
+from paddle_billing.Notifications.Entities.EntityDict import EntityDict as EntityDict
+from paddle_billing.Notifications.Entities.UndefinedEntity import UndefinedEntity as UndefinedEntity
 
 
 @dataclass

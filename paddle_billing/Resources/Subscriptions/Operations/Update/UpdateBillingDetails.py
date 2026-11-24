@@ -1,8 +1,8 @@
 from __future__ import annotations
 from dataclasses import dataclass
 
-from paddle_billing.Entities.Shared.Duration import Duration
-from paddle_billing.Undefined import Undefined
+from paddle_billing.Entities.Shared.Duration import Duration as Duration
+from paddle_billing.Undefined import Undefined as Undefined
 
 
 @dataclass

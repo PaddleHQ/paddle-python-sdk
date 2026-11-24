@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from paddle_billing.Entities.CheckoutDomains.CheckoutDomainPaymentMethodVerificationStatus import (
-    CheckoutDomainPaymentMethodVerificationStatus,
+    CheckoutDomainPaymentMethodVerificationStatus as CheckoutDomainPaymentMethodVerificationStatus,
 )
 
 
