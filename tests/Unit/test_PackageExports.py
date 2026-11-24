@@ -24,12 +24,25 @@ def private_imports(init_file: Path) -> list[str]:
     ]
 
 
+def module_level_statements(body: list[ast.stmt]) -> list[ast.stmt]:
+    # Imports under `if TYPE_CHECKING:` aren't importable at runtime, so they're skipped.
+    statements = []
+    for node in body:
+        statements.append(node)
+        if isinstance(node, ast.If) and "TYPE_CHECKING" not in ast.unparse(node.test):
+            statements += module_level_statements(node.body + node.orelse)
+        elif isinstance(node, ast.Try):
+            handler_bodies = [statement for handler in node.handlers for statement in handler.body]
+            statements += module_level_statements(node.body + handler_bodies + node.orelse + node.finalbody)
+    return statements
+
+
 def plain_sdk_imports(module_file: Path) -> list[str]:
     tree = ast.parse(module_file.read_text())
 
     return [
         alias.name
-        for node in tree.body
+        for node in module_level_statements(tree.body)
         if isinstance(node, ast.ImportFrom) and (node.level > 0 or (node.module or "").startswith("paddle_billing"))
         for alias in node.names
         if alias.asname is None or (alias.asname != alias.name and not alias.asname.startswith("_"))
