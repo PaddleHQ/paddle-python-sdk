@@ -1,1 +1,1 @@
-from paddle_billing.Entities.ClientTokens.ClientTokenStatus import ClientTokenStatus
+from paddle_billing.Entities.ClientTokens.ClientTokenStatus import ClientTokenStatus as ClientTokenStatus

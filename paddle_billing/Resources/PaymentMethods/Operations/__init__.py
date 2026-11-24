@@ -1,1 +1,3 @@
-from paddle_billing.Resources.PaymentMethods.Operations.ListPaymentMethods import ListPaymentMethods
+from paddle_billing.Resources.PaymentMethods.Operations.ListPaymentMethods import (
+    ListPaymentMethods as ListPaymentMethods,
+)

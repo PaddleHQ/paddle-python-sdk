@@ -79,6 +79,14 @@ class TestVerifier:
 
         assert Verifier().verify(request, Secret(secret)) is expected
 
+    @mark.parametrize("maximum_variance", [None, 0], ids=["None", "Zero"])
+    def test_verify_skips_time_drift_check_without_maximum_variance(self, monkeypatch, maximum_variance):
+        monkeypatch.delenv("TEST_MODE", raising=False)
+        secret = "pdl_ntfset_01hs0t3tw21j988db1pam5xg8m_GrOWLNef+vmtjJYq4mSnHNzvc8uWoJ1I"
+        request = self._signed_request(secret, '{"event_type":"transaction.completed"}', int(time()) - 3600)
+
+        assert Verifier(maximum_variance).verify(request, Secret(secret)) is True
+
     def test_verify_does_not_log_signatures(self, monkeypatch, caplog):
         monkeypatch.setenv("TEST_MODE", "1")
         caplog.set_level(logging.DEBUG, logger="paddle_billing")
@@ -117,3 +125,13 @@ class TestVerifier:
         assert len(rejections) == 1
         assert rejections[0].levelno == logging.WARNING
         assert not [record for record in caplog.records if record.levelno >= logging.ERROR]
+
+    def test_verify_skips_none_body_attributes(self):
+        headers = {
+            PaddleSignature().HEADER: "ts=1696195954;h1=d96299976a6eb066f484d7fde011ac56fc32b38fc9940bc419d6e537fdc6ef02",
+        }
+        request = FakeRequest(headers, "hello-world")
+        request.body = None
+        secret = Secret("pdl_ntf_01hbpjmytsa32fhr36nqgc3kgb_WvRO0eL4Bj9rgYYIBZY6wZhG4EHy9jzh")
+
+        assert Verifier(0).verify(request, secret)

@@ -1,6 +1,6 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class SubscriptionHistoryPausedEffectiveFrom(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    Immediately: "SubscriptionHistoryPausedEffectiveFrom" = "immediately"
-    NextBillingPeriod: "SubscriptionHistoryPausedEffectiveFrom" = "next_billing_period"
+    Immediately: "SubscriptionHistoryPausedEffectiveFrom" = member("immediately")
+    NextBillingPeriod: "SubscriptionHistoryPausedEffectiveFrom" = member("next_billing_period")

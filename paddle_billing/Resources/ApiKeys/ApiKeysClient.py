@@ -1,3 +1,5 @@
+from requests import Response
+
 from paddle_billing.ResponseParser import ResponseParser
 
 from paddle_billing.Entities.Collections import Paginator, ApiKeyCollection, ApiKeyRotationCollection
@@ -17,7 +19,7 @@ class ApiKeysClient:
     def __init__(self, client: "Client", current_api_key_id: str | None = None):
         self.client = client
         self._current_api_key_id = current_api_key_id
-        self.response = None
+        self.response: Response | None = None
 
     def list(self, operation: ListApiKeys | None = None) -> ApiKeyCollection:
         if operation is None:

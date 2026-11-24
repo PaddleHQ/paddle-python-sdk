@@ -1,6 +1,6 @@
 from paddle_billing.Resources.Transactions.Operations.Preview.TransactionItemPreviewWithNonCatalogPrice import (
-    TransactionItemPreviewWithNonCatalogPrice,
+    TransactionItemPreviewWithNonCatalogPrice as TransactionItemPreviewWithNonCatalogPrice,
 )
 from paddle_billing.Resources.Transactions.Operations.Preview.TransactionItemPreviewWithPriceId import (
-    TransactionItemPreviewWithPriceId,
+    TransactionItemPreviewWithPriceId as TransactionItemPreviewWithPriceId,
 )

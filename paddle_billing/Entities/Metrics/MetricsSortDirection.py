@@ -1,6 +1,6 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class MetricsSortDirection(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    Asc: "MetricsSortDirection" = "asc"
-    Desc: "MetricsSortDirection" = "desc"
+    Asc: "MetricsSortDirection" = member("asc")
+    Desc: "MetricsSortDirection" = member("desc")

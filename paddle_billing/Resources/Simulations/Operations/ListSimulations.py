@@ -1,3 +1,5 @@
+from typing import Any
+
 from paddle_billing.EnumStringify import enum_stringify
 from paddle_billing.HasParameters import HasParameters
 
@@ -22,11 +24,12 @@ class ListSimulations(HasParameters):
         self.statuses = statuses if statuses is not None else []
 
         # Validation
-        for field_name, field_value, field_type in [
+        validations: list[tuple[str, list[Any], type]] = [
             ("notification_setting_ids", self.notification_setting_ids, str),
             ("ids", self.ids, str),
             ("statuses", self.statuses, SimulationStatus),
-        ]:
+        ]
+        for field_name, field_value, field_type in validations:
             invalid_items = [item for item in field_value if not isinstance(item, field_type)]
             if invalid_items:
                 raise InvalidArgumentException.array_contains_invalid_types(

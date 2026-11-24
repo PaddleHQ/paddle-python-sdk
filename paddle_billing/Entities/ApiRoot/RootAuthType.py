@@ -1,8 +1,8 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class RootAuthType(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    ApiKey: "RootAuthType" = "api_key"
-    Oauth: "RootAuthType" = "oauth"
-    ClientToken: "RootAuthType" = "client_token"
-    Session: "RootAuthType" = "session"
+    ApiKey: "RootAuthType" = member("api_key")
+    Oauth: "RootAuthType" = member("oauth")
+    ClientToken: "RootAuthType" = member("client_token")
+    Session: "RootAuthType" = member("session")

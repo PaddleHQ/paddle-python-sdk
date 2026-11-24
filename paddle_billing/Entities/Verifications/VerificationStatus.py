@@ -1,11 +1,11 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class VerificationStatus(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    Pending: "VerificationStatus" = "pending"
-    InProgress: "VerificationStatus" = "in_progress"
-    InReview: "VerificationStatus" = "in_review"
-    ActionRequired: "VerificationStatus" = "action_required"
-    Completed: "VerificationStatus" = "completed"
-    Failed: "VerificationStatus" = "failed"
-    Canceled: "VerificationStatus" = "canceled"
+    Pending: "VerificationStatus" = member("pending")
+    InProgress: "VerificationStatus" = member("in_progress")
+    InReview: "VerificationStatus" = member("in_review")
+    ActionRequired: "VerificationStatus" = member("action_required")
+    Completed: "VerificationStatus" = member("completed")
+    Failed: "VerificationStatus" = member("failed")
+    Canceled: "VerificationStatus" = member("canceled")

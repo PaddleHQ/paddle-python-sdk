@@ -1,3 +1,5 @@
+from requests import Response
+
 from paddle_billing.Resources.DiscountGroups.Operations import (
     CreateDiscountGroup,
     ListDiscountGroups,
@@ -17,7 +19,7 @@ if TYPE_CHECKING:
 class DiscountGroupsClient:
     def __init__(self, client: "Client"):
         self.client = client
-        self.response = None
+        self.response: Response | None = None
 
     def list(self, operation: ListDiscountGroups | None = None) -> DiscountGroupCollection:
         if operation is None:

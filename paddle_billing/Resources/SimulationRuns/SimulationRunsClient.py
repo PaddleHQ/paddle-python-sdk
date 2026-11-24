@@ -1,3 +1,5 @@
+from requests import Response
+
 from paddle_billing.ResponseParser import ResponseParser
 
 from paddle_billing.Entities.SimulationRun import SimulationRun
@@ -13,7 +15,7 @@ if TYPE_CHECKING:
 class SimulationRunsClient:
     def __init__(self, client: "Client"):
         self.client = client
-        self.response = None
+        self.response: Response | None = None
 
     def list(self, simulation_id: str, operation: ListSimulationRuns | None = None) -> SimulationRunCollection:
         if operation is None:

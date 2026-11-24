@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from typing import Type
 
 from paddle_billing.Entities.Reports import ProductsPricesReportType
 
@@ -11,13 +12,22 @@ from paddle_billing.Resources.Reports.Operations.Filters import (
     ProductUpdatedAtFilter,
 )
 
-from paddle_billing.Resources.Reports.Operations.CreateReport import (
-    CreateReport,
-)
+from paddle_billing.Resources.Reports.Operations.CreateReport import CreateReport
+from paddle_billing.Resources.Reports.Operations.Filters.Filter import Filter
 
 
 @dataclass
-class CreateProductsAndPricesReport(CreateReport):
+class CreateProductsAndPricesReport(
+    CreateReport[
+        ProductsPricesReportType,
+        PriceStatusFilter
+        | PriceTypeFilter
+        | PriceUpdatedAtFilter
+        | ProductStatusFilter
+        | ProductTypeFilter
+        | ProductUpdatedAtFilter,
+    ]
+):
     type: ProductsPricesReportType
     filters: list[
         PriceStatusFilter
@@ -29,9 +39,7 @@ class CreateProductsAndPricesReport(CreateReport):
     ] = field(default_factory=list)
 
     @staticmethod
-    def get_allowed_filters() -> (
-        tuple[PriceStatusFilter, PriceTypeFilter, PriceUpdatedAtFilter, ProductStatusFilter, ProductUpdatedAtFilter]
-    ):
+    def get_allowed_filters() -> tuple[Type[Filter], ...]:
         return (
             PriceStatusFilter,
             PriceTypeFilter,

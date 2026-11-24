@@ -22,7 +22,7 @@ class SimulationRun(Entity, ABC):
 
     @staticmethod
     def from_dict(data: dict[str, Any]) -> SimulationRun:
-        type = EventTypeName(data["type"])
+        type: EventTypeName | SimulationScenarioType = EventTypeName(data["type"])
         if not type.is_known():
             type = SimulationScenarioType(data["type"])
 

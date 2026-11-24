@@ -1,6 +1,6 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class SavedPaymentMethodOrigin(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    SavedDuringPurchase: "SavedPaymentMethodOrigin" = "saved_during_purchase"
-    Subscription: "SavedPaymentMethodOrigin" = "subscription"
+    SavedDuringPurchase: "SavedPaymentMethodOrigin" = member("saved_during_purchase")
+    Subscription: "SavedPaymentMethodOrigin" = member("subscription")

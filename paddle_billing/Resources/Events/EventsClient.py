@@ -1,3 +1,5 @@
+from requests import Response
+
 from paddle_billing.ResponseParser import ResponseParser
 from paddle_billing.Entities.Collections import EventCollection, Paginator
 from paddle_billing.Resources.Events.Operations import ListEvents
@@ -11,7 +13,7 @@ if TYPE_CHECKING:
 class EventsClient:
     def __init__(self, client: "Client"):
         self.client = client
-        self.response = None
+        self.response: Response | None = None
 
     def list(self, operation: ListEvents | None = None) -> EventCollection:
         if operation is None:

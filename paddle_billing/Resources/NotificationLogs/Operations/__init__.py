@@ -1,1 +1,3 @@
-from paddle_billing.Resources.NotificationLogs.Operations.ListNotificationLogs import ListNotificationLogs
+from paddle_billing.Resources.NotificationLogs.Operations.ListNotificationLogs import (
+    ListNotificationLogs as ListNotificationLogs,
+)

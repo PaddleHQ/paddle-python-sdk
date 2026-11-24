@@ -10,7 +10,7 @@ from paddle_billing.Entities.Shared.Duration import Duration
 from paddle_billing.Entities.Shared.PriceTrialPeriod import PriceTrialPeriod
 from paddle_billing.Entities.Shared.UnitPriceOverride import UnitPriceOverride
 
-from paddle_billing.Resources.Subscriptions.Operations.Price import (
+from paddle_billing.Resources.Subscriptions.Operations.Price.SubscriptionNonCatalogProduct import (
     SubscriptionNonCatalogProduct,
 )
 

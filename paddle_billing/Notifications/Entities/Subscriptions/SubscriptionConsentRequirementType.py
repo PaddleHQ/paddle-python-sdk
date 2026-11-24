@@ -1,6 +1,6 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class SubscriptionConsentRequirementType(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    TrialEnding: "SubscriptionConsentRequirementType" = "trial_ending"
-    IntroductoryDiscountEnding: "SubscriptionConsentRequirementType" = "introductory_discount_ending"
+    TrialEnding: "SubscriptionConsentRequirementType" = member("trial_ending")
+    IntroductoryDiscountEnding: "SubscriptionConsentRequirementType" = member("introductory_discount_ending")

@@ -1,1 +1,1 @@
-from paddle_billing.Resources.Account.Operations.UpdateAccount import UpdateAccount
+from paddle_billing.Resources.Account.Operations.UpdateAccount import UpdateAccount as UpdateAccount

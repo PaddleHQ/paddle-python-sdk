@@ -1,8 +1,8 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class TaxMode(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    AccountSetting: "TaxMode" = "account_setting"
-    External: "TaxMode" = "external"
-    Internal: "TaxMode" = "internal"
-    Location: "TaxMode" = "location"
+    AccountSetting: "TaxMode" = member("account_setting")
+    External: "TaxMode" = member("external")
+    Internal: "TaxMode" = member("internal")
+    Location: "TaxMode" = member("location")

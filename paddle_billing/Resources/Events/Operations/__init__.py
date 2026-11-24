@@ -1,1 +1,1 @@
-from paddle_billing.Resources.Events.Operations.ListEvents import ListEvents
+from paddle_billing.Resources.Events.Operations.ListEvents import ListEvents as ListEvents

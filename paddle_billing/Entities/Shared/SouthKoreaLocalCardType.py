@@ -1,27 +1,27 @@
-from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta
+from paddle_billing.PaddleStrEnum import PaddleStrEnum, PaddleStrEnumMeta, member
 
 
 class SouthKoreaLocalCardType(PaddleStrEnum, metaclass=PaddleStrEnumMeta):
-    BC: "SouthKoreaLocalCardType" = "bc"
-    Citi: "SouthKoreaLocalCardType" = "citi"
-    Hana: "SouthKoreaLocalCardType" = "hana"
-    Hyundai: "SouthKoreaLocalCardType" = "hyundai"
-    Jeju: "SouthKoreaLocalCardType" = "jeju"
-    Jeonbuk: "SouthKoreaLocalCardType" = "jeonbuk"
-    KakaoBank: "SouthKoreaLocalCardType" = "kakaobank"
-    KBank: "SouthKoreaLocalCardType" = "kbank"
-    KDBBank: "SouthKoreaLocalCardType" = "kdbbank"
-    Kookmin: "SouthKoreaLocalCardType" = "kookmin"
-    Kwangju: "SouthKoreaLocalCardType" = "kwangju"
-    Lotte: "SouthKoreaLocalCardType" = "lotte"
-    MG: "SouthKoreaLocalCardType" = "mg"
-    NH: "SouthKoreaLocalCardType" = "nh"
-    Post: "SouthKoreaLocalCardType" = "post"
-    Samsung: "SouthKoreaLocalCardType" = "samsung"
-    SavingsBank: "SouthKoreaLocalCardType" = "savingsbank"
-    Shinhan: "SouthKoreaLocalCardType" = "shinhan"
-    Shinhyup: "SouthKoreaLocalCardType" = "shinhyup"
-    Suhyup: "SouthKoreaLocalCardType" = "suhyup"
-    TossBank: "SouthKoreaLocalCardType" = "tossbank"
-    Unknown: "SouthKoreaLocalCardType" = "unknown"
-    Woori: "SouthKoreaLocalCardType" = "woori"
+    BC: "SouthKoreaLocalCardType" = member("bc")
+    Citi: "SouthKoreaLocalCardType" = member("citi")
+    Hana: "SouthKoreaLocalCardType" = member("hana")
+    Hyundai: "SouthKoreaLocalCardType" = member("hyundai")
+    Jeju: "SouthKoreaLocalCardType" = member("jeju")
+    Jeonbuk: "SouthKoreaLocalCardType" = member("jeonbuk")
+    KakaoBank: "SouthKoreaLocalCardType" = member("kakaobank")
+    KBank: "SouthKoreaLocalCardType" = member("kbank")
+    KDBBank: "SouthKoreaLocalCardType" = member("kdbbank")
+    Kookmin: "SouthKoreaLocalCardType" = member("kookmin")
+    Kwangju: "SouthKoreaLocalCardType" = member("kwangju")
+    Lotte: "SouthKoreaLocalCardType" = member("lotte")
+    MG: "SouthKoreaLocalCardType" = member("mg")
+    NH: "SouthKoreaLocalCardType" = member("nh")
+    Post: "SouthKoreaLocalCardType" = member("post")
+    Samsung: "SouthKoreaLocalCardType" = member("samsung")
+    SavingsBank: "SouthKoreaLocalCardType" = member("savingsbank")
+    Shinhan: "SouthKoreaLocalCardType" = member("shinhan")
+    Shinhyup: "SouthKoreaLocalCardType" = member("shinhyup")
+    Suhyup: "SouthKoreaLocalCardType" = member("suhyup")
+    TossBank: "SouthKoreaLocalCardType" = member("tossbank")
+    Unknown: "SouthKoreaLocalCardType" = member("unknown")
+    Woori: "SouthKoreaLocalCardType" = member("woori")

@@ -1,3 +1,3 @@
-from paddle_billing.Resources.Simulations.Operations.CreateSimulation import CreateSimulation
-from paddle_billing.Resources.Simulations.Operations.ListSimulations import ListSimulations
-from paddle_billing.Resources.Simulations.Operations.UpdateSimulation import UpdateSimulation
+from paddle_billing.Resources.Simulations.Operations.CreateSimulation import CreateSimulation as CreateSimulation
+from paddle_billing.Resources.Simulations.Operations.ListSimulations import ListSimulations as ListSimulations
+from paddle_billing.Resources.Simulations.Operations.UpdateSimulation import UpdateSimulation as UpdateSimulation

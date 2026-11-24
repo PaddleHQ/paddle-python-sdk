@@ -1,1 +1,1 @@
-from paddle_billing.Entities.DiscountGroups.DiscountGroupStatus import DiscountGroupStatus
+from paddle_billing.Entities.DiscountGroups.DiscountGroupStatus import DiscountGroupStatus as DiscountGroupStatus

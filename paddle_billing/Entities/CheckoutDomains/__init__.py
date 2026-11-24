@@ -1,11 +1,13 @@
-from paddle_billing.Entities.CheckoutDomains.CheckoutDomainStatus import CheckoutDomainStatus
-from paddle_billing.Entities.CheckoutDomains.CheckoutDomainPaymentMethod import CheckoutDomainPaymentMethod
+from paddle_billing.Entities.CheckoutDomains.CheckoutDomainStatus import CheckoutDomainStatus as CheckoutDomainStatus
+from paddle_billing.Entities.CheckoutDomains.CheckoutDomainPaymentMethod import (
+    CheckoutDomainPaymentMethod as CheckoutDomainPaymentMethod,
+)
 from paddle_billing.Entities.CheckoutDomains.CheckoutDomainPaymentMethodVerificationStatus import (
-    CheckoutDomainPaymentMethodVerificationStatus,
+    CheckoutDomainPaymentMethodVerificationStatus as CheckoutDomainPaymentMethodVerificationStatus,
 )
 from paddle_billing.Entities.CheckoutDomains.CheckoutDomainApplePayVerification import (
-    CheckoutDomainApplePayVerification,
+    CheckoutDomainApplePayVerification as CheckoutDomainApplePayVerification,
 )
 from paddle_billing.Entities.CheckoutDomains.CheckoutDomainPaymentMethodVerification import (
-    CheckoutDomainPaymentMethodVerification,
+    CheckoutDomainPaymentMethodVerification as CheckoutDomainPaymentMethodVerification,
 )

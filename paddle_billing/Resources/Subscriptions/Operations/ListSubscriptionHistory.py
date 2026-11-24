@@ -1,3 +1,5 @@
+from typing import Any
+
 from paddle_billing.EnumStringify import enum_stringify
 from paddle_billing.HasParameters import HasParameters
 
@@ -29,13 +31,14 @@ class ListSubscriptionHistory(HasParameters):
         self.reasons = reasons if reasons is not None else []
 
         # Validation
-        for field_name, field_value, field_type in [
+        validations: list[tuple[str, list[Any], type]] = [
             ("actions", self.actions, SubscriptionHistoryAction),
             ("sources", self.sources, ActionSource),
             ("actor_types", self.actor_types, ActorType),
             ("actor_ids", self.actor_ids, str),
             ("reasons", self.reasons, SubscriptionHistoryReason),
-        ]:
+        ]
+        for field_name, field_value, field_type in validations:
             invalid_items = [item for item in field_value if not isinstance(item, field_type)]
             if invalid_items:
                 raise InvalidArgumentException.array_contains_invalid_types(
@@ -43,7 +46,9 @@ class ListSubscriptionHistory(HasParameters):
                 )
 
     def get_parameters(self) -> dict[str, str]:
-        parameters: dict[str, str | None] = self.pager.get_parameters() if self.pager else {}
+        parameters: dict[str, str | None] = {}
+        if self.pager:
+            parameters.update(self.pager.get_parameters())
 
         if self.occurred_at is not None:
             parameters[f"occurred_at{self.occurred_at.comparator}"] = self.occurred_at.formatted()

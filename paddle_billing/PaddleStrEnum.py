@@ -8,6 +8,14 @@ def _is_dunder(name):
     return len(name) > 4 and name[:2] == name[-2:] == "__" and name[2] != "_" and name[-3] != "_"
 
 
+def member(value: str) -> Any:
+    """
+    Declares an enum member, as in `Active: "Status" = member("active")`. The metaclass turns the value into an instance
+    of the enum; returning Any lets type checkers accept the annotation, so members are typed as the enum.
+    """
+    return value
+
+
 class PaddleStrEnumMeta(type):
     def __new__(cls, name, bases, attrs):
         # Store the original attrs to ensure we have all the class attributes
