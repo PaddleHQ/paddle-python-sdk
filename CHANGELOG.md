@@ -26,7 +26,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 
 - `UpdateCheckoutUrl` now requires `default_url` as a non-null `str`. The API no longer accepts `None` or a missing `default_url` when updating the checkout URL, so a default checkout URL can be changed but not cleared
 - `Verifier.verify()` logs expected rejections at `WARNING` instead of `CRITICAL`: a missing `Paddle-Signature` header, or a timestamp outside the allowed variance or in the future. If you alert on `CRITICAL` records from the `paddle_billing` logger, update the alert
-- mypy now checks code that uses the SDK against its annotations, where before it treated the SDK as untyped, so upgrading may report new errors. For example, `client.customers.response` is `Response | None`, and fields the API can return as `null` are optional. Under `mypy --strict`, a bare `CreateReport` annotation needs type arguments, such as `CreateReport[Any, Any]`. Pyright already read the SDK's annotations
+- mypy now checks code that uses the SDK against its annotations, where before it treated the SDK as untyped, so upgrading may report new errors. For example, `client.customers.response` is `Response | None`, and fields the API can return as `null` include `None` in their type, such as `PaymentMethod.card: Card | None`. Under `mypy --strict`, a bare `CreateReport` annotation needs type arguments, such as `CreateReport[Any, Any]`. Pyright already read the SDK's annotations
 - `Verifier.verify()` and `NotificationEvent.from_request()` take `Request | BodyRequest | ContentRequest | DataRequest`, so Django, Flask, httpx and requests request objects pass type checkers
 
 ### Fixed
