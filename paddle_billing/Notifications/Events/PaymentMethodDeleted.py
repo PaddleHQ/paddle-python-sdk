@@ -4,8 +4,11 @@ from paddle_billing.Entities.Event import Event as Event
 from paddle_billing.Entities.Events import EventTypeName as EventTypeName
 
 from paddle_billing.Notifications.Entities.PaymentMethodDeleted import (
-    PaymentMethodDeleted as PaymentMethodDeletedEntity,
+    PaymentMethodDeleted as _PaymentMethodDeletedEntity,
 )
+
+# Assigned rather than imported under this name, because type checkers don't treat renamed imports as public.
+PaymentMethodDeletedEntity = _PaymentMethodDeletedEntity
 
 
 class PaymentMethodDeleted(Event):

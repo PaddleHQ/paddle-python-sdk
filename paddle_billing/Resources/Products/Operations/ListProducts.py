@@ -9,8 +9,11 @@ from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import (
     InvalidArgumentException as InvalidArgumentException,
 )
 
-from paddle_billing.Resources.Products.Operations.List.Includes import Includes as ProductIncludes
+from paddle_billing.Resources.Products.Operations.List.Includes import Includes as _ProductIncludes
 from paddle_billing.Resources.Shared.Operations import Pager as Pager
+
+# Assigned rather than imported under this name, because type checkers don't treat renamed imports as public.
+ProductIncludes = _ProductIncludes
 
 
 class ListProducts(HasParameters):

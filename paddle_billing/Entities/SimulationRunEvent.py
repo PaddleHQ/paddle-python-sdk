@@ -12,8 +12,11 @@ from paddle_billing.Entities.SimulationRunEvents import (
     SimulationRunEventResponse as SimulationRunEventResponse,
 )
 
-from paddle_billing.Notifications.Entities.Entity import Entity as NotificationEntity
+from paddle_billing.Notifications.Entities.Entity import Entity as _NotificationEntity
 from paddle_billing.Notifications.Entities.UndefinedEntity import UndefinedEntity as UndefinedEntity
+
+# Assigned rather than imported under this name, because type checkers don't treat renamed imports as public.
+NotificationEntity = _NotificationEntity
 
 
 @dataclass

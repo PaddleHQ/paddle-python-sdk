@@ -10,7 +10,10 @@ from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import (
 )
 
 from paddle_billing.Resources.Shared.Operations import Pager as Pager
-from paddle_billing.Resources.Prices.Operations.List.Includes import Includes as PriceIncludes
+from paddle_billing.Resources.Prices.Operations.List.Includes import Includes as _PriceIncludes
+
+# Assigned rather than imported under this name, because type checkers don't treat renamed imports as public.
+PriceIncludes = _PriceIncludes
 
 
 class ListPrices(HasParameters):

@@ -32,7 +32,7 @@ def plain_sdk_imports(module_file: Path) -> list[str]:
         for node in tree.body
         if isinstance(node, ast.ImportFrom) and (node.level > 0 or (node.module or "").startswith("paddle_billing"))
         for alias in node.names
-        if alias.asname is None
+        if alias.asname is None or (alias.asname != alias.name and not alias.asname.startswith("_"))
     ]
 
 
@@ -53,6 +53,7 @@ def test_package_imports_are_explicit_re_exports(init_file):
 
 
 # Any name a module imports could be imported from it before py.typed, so every module re-exports its SDK imports.
+# A renamed import is never public, so its name must start with `_` (assign it to a public name if users need it).
 @mark.parametrize("module_file", MODULE_FILES, ids=lambda f: str(f.relative_to(PACKAGE.parent)))
 def test_module_imports_are_explicit_re_exports(module_file):
     assert plain_sdk_imports(module_file) == []
