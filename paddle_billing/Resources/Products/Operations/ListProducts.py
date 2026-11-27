@@ -17,6 +17,10 @@ ProductIncludes = _ProductIncludes
 
 
 class ListProducts(HasParameters):
+    """
+    Deprecated: `product_ids` is deprecated, use `ids` instead. It is merged into the `id` filter.
+    """
+
     def __init__(
         self,
         pager: Pager | None = None,
@@ -38,6 +42,7 @@ class ListProducts(HasParameters):
         # Validation
         validations: list[tuple[str, list[Any], type]] = [
             ("ids", self.ids, str),
+            ("product_ids", self.product_ids, str),
             ("includes", self.includes, ProductIncludes),
             ("statuses", self.statuses, Status),
             ("tax_categories", self.tax_categories, TaxCategory),
@@ -54,8 +59,9 @@ class ListProducts(HasParameters):
         parameters = {}
         if self.pager:
             parameters.update(self.pager.get_parameters())
-        if self.ids:
-            parameters["id"] = ",".join(self.ids)
+        ids = list(dict.fromkeys([*self.ids, *self.product_ids]))
+        if ids:
+            parameters["id"] = ",".join(ids)
         if self.includes:
             parameters["include"] = ",".join(map(enum_stringify, self.includes))
         if self.statuses:

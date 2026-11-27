@@ -1,11 +1,12 @@
 from json import loads
-from pytest import mark
+from pytest import mark, raises
 from urllib.parse import unquote
 
 from paddle_billing.Entities.Collections import ProductCollection
 from paddle_billing.Entities.Product import Product
 from paddle_billing.Entities.Shared import CustomData, Status, TaxCategory
 
+from paddle_billing.Exceptions.SdkExceptions.InvalidArgumentException import InvalidArgumentException
 from paddle_billing.Resources.Products.Operations import CreateProduct, ListProducts, UpdateProduct, ProductIncludes
 from paddle_billing.Resources.Shared.Operations import Pager
 
@@ -180,6 +181,24 @@ class TestProductsClient:
                 "/products?id=pro_01gsz4s0w61y0pp88528f1wvvb,pro_01h1vjes1y163xfj1rh1tkfb65",
             ),
             (
+                ListProducts(product_ids=["pro_01gsz4s0w61y0pp88528f1wvvb"]),
+                200,
+                "/products?id=pro_01gsz4s0w61y0pp88528f1wvvb",
+            ),
+            (
+                ListProducts(ids=["pro_01gsz4s0w61y0pp88528f1wvvb"], product_ids=["pro_01h1vjes1y163xfj1rh1tkfb65"]),
+                200,
+                "/products?id=pro_01gsz4s0w61y0pp88528f1wvvb,pro_01h1vjes1y163xfj1rh1tkfb65",
+            ),
+            (
+                ListProducts(
+                    ids=["pro_01gsz4s0w61y0pp88528f1wvvb", "pro_01h1vjes1y163xfj1rh1tkfb65"],
+                    product_ids=["pro_01h1vjes1y163xfj1rh1tkfb65", "pro_01gsz4s0w61y0pp88528f1wvvb", "pro_02new"],
+                ),
+                200,
+                "/products?id=pro_01gsz4s0w61y0pp88528f1wvvb,pro_01h1vjes1y163xfj1rh1tkfb65,pro_02new",
+            ),
+            (
                 ListProducts(tax_categories=[TaxCategory.DigitalGoods, TaxCategory.Standard]),
                 200,
                 "/products?tax_category=digital-goods,standard",
@@ -193,6 +212,9 @@ class TestProductsClient:
             "List products filtered by status",
             "List products filtered by id",
             "List products filtered by multiple ids",
+            "List products filtered by product_ids",
+            "List products filtered by ids and product_ids",
+            "List products merges duplicate ids and product_ids preserving order",
             "List products filtered by tax categories",
             "List products with includes",
         ],
@@ -218,6 +240,10 @@ class TestProductsClient:
         assert (
             unquote(last_request.url) == expected_url
         ), "The URL does not match the expected URL, verify the query string is correct"
+
+    def test_list_products_rejects_non_string_product_ids(self):
+        with raises(InvalidArgumentException):
+            ListProducts(product_ids=[123])  # type: ignore[list-item]
 
     @mark.parametrize(
         "product_id, includes, expected_response_status, expected_response_body, expected_url",
